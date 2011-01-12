@@ -1,0 +1,12 @@
+<config-property-validators>
+    <validator id="required" class="com.alibaba.antx.config.descriptor.validator.RequiredValidator"/>
+    <validator id="fileExist" class="com.alibaba.antx.config.descriptor.validator.FileExistValidator"/>
+    <validator id="hostExist" class="com.alibaba.antx.config.descriptor.validator.HostExistValidator"/>
+    <validator id="url" class="com.alibaba.antx.config.descriptor.validator.UrlValidator"/>
+    <validator id="regexp" class="com.alibaba.antx.config.descriptor.validator.RegexpValidator"/>
+    <validator id="number" class="com.alibaba.antx.config.descriptor.validator.NumberValidator"/>
+    <validator id="keyword" class="com.alibaba.antx.config.descriptor.validator.KeywordValidator"/>
+    <validator id="email" class="com.alibaba.antx.config.descriptor.validator.EmailValidator"/>
+    <validator id="choice" class="com.alibaba.antx.config.descriptor.validator.ChoiceValidator"/>
+    <validator id="boolean" class="com.alibaba.antx.config.descriptor.validator.BooleanValidator"/>
+</config-property-validators>

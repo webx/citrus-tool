@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="GB2312"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <xs:element name="resource-bundle">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="description" minOccurs="0"/>
+                <xs:element name="group" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element ref="description" minOccurs="0"/>
+                            <xs:element ref="resource" minOccurs="0" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                        <xs:attribute name="id" type="xs:NMTOKEN" use="required"/>
+                        <xs:attribute name="enum" type="xs:NMTOKEN"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element ref="resource" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:token" use="required"/>
+            <xs:attribute name="language" type="xs:token"/>
+            <xs:attribute name="country" type="xs:token"/>
+            <xs:attribute name="variant" type="xs:token"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="description" type="xs:string"/>
+    <xs:element name="resource" type="Resource"/>
+    <xs:element name="message" substitutionGroup="resource">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="Message">
+                    <xs:attribute name="id" type="xs:NMTOKEN" use="required"/>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="map" substitutionGroup="resource">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="Map">
+                    <xs:attribute name="id" type="xs:NMTOKEN" use="required"/>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="list" substitutionGroup="resource">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="List">
+                    <xs:attribute name="id" type="xs:NMTOKEN" use="required"/>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="Resource" abstract="true">
+        <xs:sequence>
+            <xs:element ref="description" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Message">
+        <xs:complexContent>
+            <xs:extension base="Resource">
+                <xs:sequence>
+                    <xs:element name="param" minOccurs="0" maxOccurs="unbounded">
+                        <xs:complexType>
+                            <xs:simpleContent>
+                                <xs:extension base="xs:string">
+                                    <xs:attribute name="index" type="xs:nonNegativeInteger" use="required"/>
+                                </xs:extension>
+                            </xs:simpleContent>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="data" type="xs:string"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="Map">
+        <xs:complexContent>
+            <xs:extension base="Resource">
+                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="message">
+                        <xs:complexType>
+                            <xs:complexContent>
+                                <xs:extension base="Message">
+                                    <xs:attribute name="id" type="xs:NMTOKEN" use="required"/>
+                                </xs:extension>
+                            </xs:complexContent>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="map">
+                        <xs:complexType>
+                            <xs:complexContent>
+                                <xs:extension base="Map">
+                                    <xs:attribute name="id" type="xs:NMTOKEN" use="required"/>
+                                </xs:extension>
+                            </xs:complexContent>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="list">
+                        <xs:complexType>
+                            <xs:complexContent>
+                                <xs:extension base="List">
+                                    <xs:attribute name="id" type="xs:NMTOKEN" use="required"/>
+                                </xs:extension>
+                            </xs:complexContent>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:choice>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="List">
+        <xs:complexContent>
+            <xs:extension base="Resource">
+                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="message" type="Message"/>
+                    <xs:element name="map" type="Map"/>
+                    <xs:element name="list" type="List"/>
+                </xs:choice>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

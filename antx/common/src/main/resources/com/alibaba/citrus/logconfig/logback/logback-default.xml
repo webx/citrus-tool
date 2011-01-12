@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="GB18030"?>
+<configuration debug="false">
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <target>System.out</target>
+        <encoding>${loggingCharset}</encoding>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%5p - %m%n</pattern>
+        </layout>
+        <filter class="com.alibaba.citrus.logconfig.logback.LevelRangeFilter">
+            <levelMax>INFO</levelMax>
+        </filter>
+    </appender>
+
+    <appender name="STDERR" class="ch.qos.logback.core.ConsoleAppender">
+        <target>System.err</target>
+        <encoding>${loggingCharset}</encoding>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%5p - %m%n</pattern>
+        </layout>
+        <filter class="com.alibaba.citrus.logconfig.logback.LevelRangeFilter">
+            <levelMin>WARN</levelMin>
+        </filter>
+    </appender>
+
+    <logger name="org.apache.commons">
+        <level value="ERROR" />
+    </logger>
+
+    <logger name="com.alibaba.antx.config.generator.VelocityTemplateEngine">
+        <level value="WARN" />
+    </logger>
+
+    <root>
+        <level value="${loggingLevel}" />
+        <appender-ref ref="STDERR" />
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="GB18030"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <groupId>com.alibaba.citrus.tool</groupId>
+        <artifactId>antx-parent</artifactId>
+        <version>1.0.8</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>antx-autoexpand</artifactId>
+    <name>Antx Auto-expand Tool</name>
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>antx-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <!-- 确保在shade之前完成 -->
+                        <phase>prepare-package</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-shade-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <createSourcesJar>true</createSourcesJar>
+                            <promoteTransitiveDependencies>true</promoteTransitiveDependencies>
+                            <artifactSet>
+                                <includes>
+                                    <include>*:*</include>
+                                </includes>
+                            </artifactSet>
+                            <transformers>
+                                <transformer
+                                    implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.alibaba.antx.expand.cli.Main</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.bluestemsoftware.open.maven.plugin</groupId>
+                <artifactId>launch4j-plugin</artifactId>
+                <version>1.5.0.0</version>
+                <executions>
+                    <execution>
+                        <id>launch4j</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>launch4j</goal>
+                        </goals>
+                        <configuration>
+                            <dontWrapJar>false</dontWrapJar>
+                            <headerType>console</headerType>
+                            <outfile>${project.build.directory}/autoexpand.exe</outfile>
+                            <jar>${project.build.directory}/antx-autoexpand-${project.version}.jar</jar>
+                            <errTitle>autoexpand</errTitle>
+                            <jre>
+                                <minVersion>1.5.0</minVersion>
+                            </jre>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unix-native</id>
+                        <phase>verify</phase>
+                        <configuration>
+                            <tasks>
+                                <concat destfile="${project.build.directory}/autoexpand"
+                                    binary="true">
+
+                                    <filelist dir="${project.build.scriptSourceDirectory}"
+                                        files="scriptHeader.sh" />
+
+                                    <filelist dir="${project.build.directory}" files="antx-autoexpand-${project.version}.jar" />
+
+                                </concat>
+
+                                <chmod dir="${project.build.directory}" perm="ugo+rx"
+                                    includes="autoexpand" />
+
+                                <tar longfile="gnu" destfile="${project.build.directory}/autoexpand.tgz"
+                                    compression="gzip">
+                                    <tarfileset dir="${project.build.directory}" mode="755">
+                                        <include name="autoexpand" />
+                                        <include name="autoexpand.exe" />
+                                    </tarfileset>
+                                </tar>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <id>attach-native-binary</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>attach-artifact</goal>
+                        </goals>
+                        <configuration>
+                            <artifacts>
+                                <artifact>
+                                    <file>${project.build.directory}/autoexpand.tgz</file>
+                                    <type>tgz</type>
+                                </artifact>
+                            </artifacts>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
