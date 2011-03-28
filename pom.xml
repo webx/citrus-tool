@@ -12,6 +12,7 @@
         <module>antx</module>
         <module>maven/util</module>
         <module>maven/springext-plugin</module>
+        <module>maven/docbook-plugin</module>
     </modules>
     <build>
         <pluginManagement>
