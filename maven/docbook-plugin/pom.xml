@@ -6,7 +6,6 @@
         <artifactId>citrus-tool-parent</artifactId>
         <version>1.0</version>
     </parent>
-    <groupId>com.alibaba.citrus.tool</groupId>
     <artifactId>maven-docbook-plugin</artifactId>
     <version>1.0</version>
     <packaging>maven-plugin</packaging>
