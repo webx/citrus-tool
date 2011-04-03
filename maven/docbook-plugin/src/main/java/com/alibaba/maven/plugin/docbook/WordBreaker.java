@@ -5,7 +5,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.BreakIterator;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -55,13 +58,47 @@ public class WordBreaker {
                 breaker.setText(content);
 
                 StringBuilder buf = new StringBuilder(content.length() * 2);
+                boolean preserveSpaces = "preserve".equalsIgnoreCase(getAttribute("", "white-space-treatment"));
 
                 int j;
                 for (int i = 0; (j = breaker.next()) >= 0; i = j) {
                     buf.append(content.substring(i, j));
 
-                    if (j < content.length()) {
-                        buf.append('\u200B');
+                    // 如果preserveSpaces时，不插入空白，fop处理不好。
+                    if (!preserveSpaces && j > i) {
+                        int c1 = content.charAt(j - 1);
+                        int type1 = Character.getType(c1);
+
+                        // 在左括弧的后面，不要插入空白。
+                        if (type1 == Character.START_PUNCTUATION) {
+                            continue;
+                        }
+
+                        if (j < content.length()) {
+                            int c2 = content.charAt(j);
+                            int type2 = Character.getType(c2);
+
+                            // 如果被空白包围，则不插入空白。
+                            if (!Character.isWhitespace(c1) && Character.isWhitespace(c2)) {
+                                continue;
+                            }
+
+                            // 在标点符号、右括弧的前面，不要插入空白。
+                            if (type2 == Character.OTHER_PUNCTUATION || type2 == Character.END_PUNCTUATION) {
+                                continue;
+                            }
+
+                            // 如果前后两字符属于不同的unicode block，则插入空白。
+                            if (Character.UnicodeBlock.of(c1) != Character.UnicodeBlock.of(c2)) {
+                                buf.append('\u200B');
+                                continue;
+                            }
+                        }
+
+                        // 在标点符号的后面，插入空白。
+                        if (Character.OTHER_PUNCTUATION == Character.getType(c1) && c1 != '/' && c1 != '|') {
+                            buf.append('\u200B');
+                        }
                     }
                 }
 
@@ -73,6 +110,7 @@ public class WordBreaker {
     private abstract class Filter extends DefaultHandler {
         private OutputStream out = new FileOutputStream(destfile);
         private TransformerHandler handler;
+        private AttributesStack attributesStack = new AttributesStack();
 
         public Filter() throws Exception {
             SAXTransformerFactory tf = (SAXTransformerFactory) TransformerFactory.newInstance();
@@ -102,6 +140,10 @@ public class WordBreaker {
         }
 
         protected abstract String filter(String content);
+
+        protected final String getAttribute(String uri, String localName) {
+            return attributesStack.getAttributeValue(uri, localName);
+        }
 
         @Override
         public void setDocumentLocator(Locator locator) {
@@ -137,11 +179,13 @@ public class WordBreaker {
 
         @Override
         public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
+            attributesStack.pushAttributes(atts);
             handler.startElement(uri, localName, qName, atts);
         }
 
         @Override
         public void endElement(String uri, String localName, String qName) throws SAXException {
+            attributesStack.popAttributes();
             handler.endElement(uri, localName, qName);
         }
 
@@ -158,6 +202,47 @@ public class WordBreaker {
         @Override
         public void skippedEntity(String name) throws SAXException {
             handler.skippedEntity(name);
+        }
+
+        private class AttributesStack {
+            private final LinkedList<Map<String, String>> stack = new LinkedList<Map<String, String>>();
+
+            public void pushAttributes(Attributes attrs) {
+                Map<String, String> keyValues = new HashMap<String, String>();
+
+                for (int i = 0; i < attrs.getLength(); i++) {
+                    keyValues.put(getQname(attrs.getURI(i), attrs.getLocalName(i)), attrs.getValue(i));
+                }
+
+                stack.addFirst(keyValues);
+            }
+
+            private String getQname(String uri, String localName) {
+                String qname;
+
+                if (uri == null || uri.length() == 0) {
+                    qname = localName;
+                } else {
+                    qname = uri + "#" + localName;
+                }
+                return qname;
+            }
+
+            public void popAttributes() {
+                stack.removeFirst();
+            }
+
+            public String getAttributeValue(String uri, String localName) {
+                String qname = getQname(uri, localName);
+
+                for (Map<String, String> attrs : stack) {
+                    if (attrs.containsKey(qname)) {
+                        return attrs.get(qname);
+                    }
+                }
+
+                return null;
+            }
         }
     }
 }
