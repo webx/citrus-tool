@@ -45,6 +45,31 @@
             <classifier>ns-resources</classifier>
             <type>zip</type>
         </dependency>
+        <dependency>
+            <groupId>net.sf.docbook</groupId>
+            <artifactId>docbook-xsl-saxon</artifactId>
+            <version>1.99.0</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.docbook</groupId>
+            <artifactId>docbook-xsl-xalan</artifactId>
+            <version>1.99.0</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.docbook</groupId>
+            <artifactId>docbook-xsl-webhelpindexer</artifactId>
+            <version>1.99.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-core</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-analyzers</artifactId>
+            <version>3.0.0</version>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>
@@ -185,6 +210,27 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <artifactId>maven-shade-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <createSourcesJar>true</createSourcesJar>
+                            <promoteTransitiveDependencies>true</promoteTransitiveDependencies>
+                            <artifactSet>
+                                <includes>
+                                    <include>net.sf.docbook:*</include>
+                                    <include>com.agilejava.docbkx:*</include>
+                                </includes>
+                            </artifactSet>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
         <pluginManagement>
             <plugins>
@@ -196,4 +242,10 @@
             </plugins>
         </pluginManagement>
     </build>
+    <repositories>
+        <repository>
+            <id>local.ext.repo</id>
+            <url>file://${project.basedir}/lib/repos</url>
+        </repository>
+    </repositories>
 </project>
