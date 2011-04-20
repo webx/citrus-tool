@@ -17,10 +17,14 @@ package com.agilejava.docbkx.maven;
  */
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.StringReader;
+import java.io.Writer;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Iterator;
@@ -107,7 +111,9 @@ public class InjectingEntityResolver implements EntityResolver {
 
         if (systemId.endsWith("pom.ent")) {
             injected = true;
-            return new ReplacementInputSource(null);
+            ReplacementInputSource ris = new ReplacementInputSource(null);
+            ris.createEntitiesFile(systemId);
+            return ris;
         }
 
         InputSource source = resolver.resolveEntity(publicId, systemId);
@@ -144,6 +150,27 @@ public class InjectingEntityResolver implements EntityResolver {
             this.followUpSystemId = followUpSystemId;
         }
 
+        public void createEntitiesFile(String systemId) {
+            try {
+                File file = new File(new URI(systemId));
+                Writer out = null;
+
+                try {
+                    out = new PrintWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"), true);
+                    out.write(createPlaceholderEntities());
+                    log.info("Created " + file.getAbsolutePath());
+                } finally {
+                    if (out != null) {
+                        try {
+                            out.close();
+                        } catch (IOException e) {
+                        }
+                    }
+                }
+            } catch (Exception e) {
+            }
+        }
+
         @Override
         public InputStream getByteStream() {
             return null;
@@ -160,7 +187,23 @@ public class InjectingEntityResolver implements EntityResolver {
                 buffer.append("%____next;\n");
             }
 
+            buffer.append(createPlaceholderEntities());
+
+            buffer.append("<!ENTITY % ").append(TYPE_ENTITY).append(" SYSTEM \"docbkx.");
+            buffer.append(type);
+            buffer.append(".ent\">\n");
+            buffer.append("%").append(TYPE_ENTITY).append(";\n");
+
+            log.debug(buffer.toString());
+
+            return new StringReader(buffer.toString());
+        }
+
+        private String createPlaceholderEntities() {
+            StringBuffer buffer = new StringBuffer();
+
             Iterator iterator = entities.iterator();
+
             while (iterator.hasNext()) {
                 Entity entity = (Entity) iterator.next();
                 buffer.append("<!ENTITY ");
@@ -169,12 +212,8 @@ public class InjectingEntityResolver implements EntityResolver {
                 buffer.append(entity.getValue());
                 buffer.append("\">\n");
             }
-            buffer.append("<!ENTITY % ").append(TYPE_ENTITY).append(" SYSTEM \"docbkx.");
-            buffer.append(type);
-            buffer.append(".ent\">\n");
-            buffer.append("%").append(TYPE_ENTITY).append(";\n");
-            log.debug(buffer.toString());
-            return new StringReader(buffer.toString());
+
+            return buffer.toString();
         }
 
         @Override
