@@ -106,12 +106,8 @@ public class InjectingEntityResolver implements EntityResolver {
         }
 
         if (systemId.endsWith("pom.ent")) {
-            if (!injected) {
-                injected = true;
-                return new ReplacementInputSource(null);
-            } else {
-                return new InputSource(new StringReader(""));
-            }
+            injected = true;
+            return new ReplacementInputSource(null);
         }
 
         InputSource source = resolver.resolveEntity(publicId, systemId);
@@ -148,10 +144,12 @@ public class InjectingEntityResolver implements EntityResolver {
             this.followUpSystemId = followUpSystemId;
         }
 
+        @Override
         public InputStream getByteStream() {
             return null;
         }
 
+        @Override
         public Reader getCharacterStream() {
             StringBuffer buffer = new StringBuffer();
 
@@ -179,30 +177,38 @@ public class InjectingEntityResolver implements EntityResolver {
             return new StringReader(buffer.toString());
         }
 
+        @Override
         public String getEncoding() {
             return null;
         }
 
+        @Override
         public String getPublicId() {
             return null;
         }
 
+        @Override
         public String getSystemId() {
             return null;
         }
 
+        @Override
         public void setByteStream(InputStream byteStream) {
         }
 
+        @Override
         public void setCharacterStream(Reader characterStream) {
         }
 
+        @Override
         public void setEncoding(String encoding) {
         }
 
+        @Override
         public void setPublicId(String publicId) {
         }
 
+        @Override
         public void setSystemId(String systemId) {
         }
 
