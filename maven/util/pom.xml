@@ -5,6 +5,7 @@
         <groupId>com.alibaba.citrus.tool</groupId>
         <artifactId>citrus-tool-parent</artifactId>
         <version>1.0</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
     <artifactId>maven-util</artifactId>
     <version>1.0</version>

@@ -4,6 +4,7 @@
 		<groupId>com.alibaba.citrus.tool</groupId>
 		<artifactId>antx-parent</artifactId>
 		<version>1.0.9</version>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>maven-autoconfig-plugin</artifactId>
 	<packaging>maven-plugin</packaging>
