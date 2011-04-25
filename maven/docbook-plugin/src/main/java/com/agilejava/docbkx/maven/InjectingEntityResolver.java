@@ -156,9 +156,15 @@ public class InjectingEntityResolver implements EntityResolver {
                 Writer out = null;
 
                 try {
-                    out = new PrintWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"), true);
-                    out.write(createPlaceholderEntities());
-                    log.info("Created " + file.getAbsolutePath());
+                    File dir = file.getParentFile();
+
+                    if ("target".equals(dir.getName())) {
+                        dir.mkdirs();
+
+                        out = new PrintWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"), true);
+                        out.write(createPlaceholderEntities());
+                        log.info("Created " + file.getAbsolutePath());
+                    }
                 } finally {
                     if (out != null) {
                         try {
