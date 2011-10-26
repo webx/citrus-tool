@@ -34,8 +34,8 @@ import com.alibaba.antx.util.StringUtil;
 
 public class ResourceURI {
     private final static Perl5Util util = new Perl5Util();
-    private final URI              uri;
-    private final Map              options;
+    private final URI uri;
+    private final Map options;
 
     public static void main(String[] args) throws Exception {
         System.out.println(guessURI("file://c:/aaa/bbb"));
@@ -60,7 +60,7 @@ public class ResourceURI {
             uri = new File(FileUtil.getPathBasedOn(new File("").getAbsolutePath(), file)).toURI();
         }
 
-        return fixFileURI(uri);
+        return uri;
     }
 
     public ResourceURI(URI uri) {
@@ -68,9 +68,6 @@ public class ResourceURI {
     }
 
     public ResourceURI(URI uri, Session session) {
-        // ÎªfileÐÞÕýURI
-        uri = fixFileURI(uri);
-
         String query = uri.getQuery();
         Map options = new HashMap();
         StringBuffer newQuery = new StringBuffer();
@@ -114,11 +111,10 @@ public class ResourceURI {
             }
         }
 
-        String newQueryStr = newQuery.length() > 0 ? newQuery.toString() : null;
+        String newQueryStr = newQuery.length() > 0 ? newQuery.toString() : "";
 
         try {
-            this.uri = new URI(uri.getScheme(), uri.getUserInfo(), uri.getHost(), uri.getPort(), uri.getPath(),
-                    newQueryStr, uri.getFragment());
+            this.uri = new URI(replace(uri.toString(), query, newQueryStr));
         } catch (URISyntaxException e) {
             throw new ConfigException(e);
         }
@@ -126,16 +122,23 @@ public class ResourceURI {
         this.options = options;
     }
 
-    private static URI fixFileURI(URI uri) {
-        if ("file".equals(uri.getScheme())) {
-            try {
-                uri = URI.create(util.substitute("s/file:\\/*/file:\\//", uri.toString()));
-            } catch (Exception e) {
-                throw new ConfigException(e);
-            }
+    private String replace(String text, String repl, String with) {
+        if (text == null || repl == null || with == null || repl.length() == 0) {
+            return text;
         }
 
-        return uri;
+        StringBuilder buf = new StringBuilder(text.length());
+        int start = 0;
+        int end = 0;
+
+        if ((end = text.indexOf(repl, start)) != -1) {
+            buf.append(text.substring(start, end)).append(with);
+            start = end + repl.length();
+        }
+
+        buf.append(text.substring(start));
+
+        return buf.toString();
     }
 
     public ResourceURI(URI uri, Map options) {
@@ -205,8 +208,8 @@ public class ResourceURI {
         URI superuri;
 
         try {
-            superuri = new URI(uri.getScheme(), uri.getUserInfo(), uri.getHost(), uri.getPort(), superpath, uri
-                    .getQuery(), uri.getFragment()).normalize();
+            superuri = new URI(uri.getScheme(), uri.getUserInfo(), uri.getHost(), uri.getPort(), superpath,
+                    uri.getQuery(), uri.getFragment()).normalize();
         } catch (URISyntaxException e) {
             throw new ConfigException(e);
         }
