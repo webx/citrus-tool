@@ -105,7 +105,7 @@
                         <id>unix-native</id>
                         <phase>verify</phase>
                         <configuration>
-                            <tasks>
+                            <target>
                                 <concat destfile="${project.build.directory}/autoconfig"
                                     binary="true">
 
@@ -126,7 +126,7 @@
                                         <include name="autoconfig.exe" />
                                     </tarfileset>
                                 </tar>
-                            </tasks>
+                            </target>
                         </configuration>
                         <goals>
                             <goal>run</goal>

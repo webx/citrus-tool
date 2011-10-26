@@ -89,7 +89,7 @@
                         <id>unix-native</id>
                         <phase>verify</phase>
                         <configuration>
-                            <tasks>
+                            <target>
                                 <concat destfile="${project.build.directory}/autoexpand"
                                     binary="true">
 
@@ -110,7 +110,7 @@
                                         <include name="autoexpand.exe" />
                                     </tarfileset>
                                 </tar>
-                            </tasks>
+                            </target>
                         </configuration>
                         <goals>
                             <goal>run</goal>
