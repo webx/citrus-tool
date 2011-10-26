@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="GB18030"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <parent>
         <groupId>com.alibaba.citrus.tool</groupId>
@@ -33,6 +34,23 @@
                 </executions>
             </plugin>
             <plugin>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <includeDependencySources>true</includeDependencySources>
+                            <dependencySourceIncludes>
+                                <dependencySourceInclude>${project.groupId}:*</dependencySourceInclude>
+                            </dependencySourceIncludes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <artifactId>maven-shade-plugin</artifactId>
                 <executions>
                     <execution>
@@ -61,7 +79,6 @@
             <plugin>
                 <groupId>org.bluestemsoftware.open.maven.plugin</groupId>
                 <artifactId>launch4j-plugin</artifactId>
-                <version>1.5.0.0</version>
                 <executions>
                     <execution>
                         <id>launch4j</id>
@@ -96,14 +113,16 @@
                                     <filelist dir="${project.build.scriptSourceDirectory}"
                                         files="scriptHeader.sh" />
 
-                                    <filelist dir="${project.build.directory}" files="antx-autoexpand-${project.version}.jar" />
+                                    <filelist dir="${project.build.directory}"
+                                        files="antx-autoexpand-${project.version}.jar" />
 
                                 </concat>
 
                                 <chmod dir="${project.build.directory}" perm="ugo+rx"
                                     includes="autoexpand" />
 
-                                <tar longfile="gnu" destfile="${project.build.directory}/autoexpand.tgz"
+                                <tar longfile="gnu"
+                                    destfile="${project.build.directory}/autoexpand.tgz"
                                     compression="gzip">
                                     <tarfileset dir="${project.build.directory}" mode="755">
                                         <include name="autoexpand" />
@@ -121,7 +140,6 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-                <version>1.5</version>
                 <executions>
                     <execution>
                         <id>attach-native-binary</id>

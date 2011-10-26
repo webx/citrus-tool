@@ -14,8 +14,6 @@
     <name>Antx Parent Project</name>
     <version>1.0.10</version>
     <properties>
-        <java.version>1.5</java.version>
-        <java.encoding>GBK</java.encoding>
         <antx.version>1.0.10</antx.version>
     </properties>
     <modules>
@@ -158,63 +156,6 @@
     <build>
         <plugins>
             <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                    <encoding>${java.encoding}</encoding>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>compile</phase>
-                        <configuration>
-                            <target>
-                                <echo message="project home:        ${basedir}" />
-                                <echo message="java home:           ${java.home}" />
-                                <echo message="java source version: ${java.version}" />
-                                <echo message="java target version: ${java.version}" />
-                                <echo message="java source charset: ${java.encoding}" />
-                            </target>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <includes>
-                        <include>**/*Tests.java</include>
-                    </includes>
-                    <argLine>-Xmx256m</argLine>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-eclipse-plugin</artifactId>
-                <configuration>
-                    <downloadSources>true</downloadSources>
-                    <classpathContainers>
-                        <classpathContainer>org.eclipse.jdt.launching.JRE_CONTAINER</classpathContainer>
-                    </classpathContainers>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-source-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <configuration>
                     <artifactItems>
@@ -241,16 +182,14 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>2.3.2</version>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>1.5</version>
                 </plugin>
                 <plugin>
-                    <artifactId>maven-shade-plugin</artifactId>
-                    <version>1.4</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-source-plugin</artifactId>
-                    <version>2.1.1</version>
+                    <groupId>org.bluestemsoftware.open.maven.plugin</groupId>
+                    <artifactId>launch4j-plugin</artifactId>
+                    <version>1.5.0.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>

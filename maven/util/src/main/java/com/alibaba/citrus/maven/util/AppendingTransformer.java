@@ -49,6 +49,7 @@ import org.codehaus.plexus.util.SelectorUtils;
  *                     &lt;pattern&gt;META-INF/spring.configuration-points&lt;/pattern&gt;
  *                     &lt;pattern&gt;META-INF/spring.handlers&lt;/pattern&gt;
  *                     &lt;pattern&gt;META-INF/spring.schemas&lt;/pattern&gt;
+ *                     &lt;pattern&gt;META-INF/webx.internal-request-handlers&lt;/pattern&gt;
  *                 &lt;/patterns&gt;
  *             &lt;/transformer&gt;
  *         &lt;/transformers&gt;
