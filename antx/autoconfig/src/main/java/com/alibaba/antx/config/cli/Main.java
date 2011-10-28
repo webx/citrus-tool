@@ -68,7 +68,7 @@ public class Main {
 
     private static String getDuration(String message, long duration) {
         long ms = duration % 1000;
-        long secs = (duration / 1000) % 60;
+        long secs = duration / 1000 % 60;
         long min = duration / 1000 / 60;
 
         return MessageFormat.format(message, new Object[] { new Long(min), new Long(secs), new Long(ms) });
@@ -119,10 +119,10 @@ public class Main {
             }
         }
 
-        runtimeImpl.setDescriptorPatterns(cli.getOptionValue(CLIManager.OPT_INCLUDE_DESCRIPTORS), cli
-                .getOptionValue(CLIManager.OPT_EXCLUDE_DESCRIPTORS));
-        runtimeImpl.setPackagePatterns(cli.getOptionValue(CLIManager.OPT_INCLUDE_PACKAGES), cli
-                .getOptionValue(CLIManager.OPT_EXCLUDE_PACKAGES));
+        runtimeImpl.setDescriptorPatterns(cli.getOptionValue(CLIManager.OPT_INCLUDE_DESCRIPTORS),
+                cli.getOptionValue(CLIManager.OPT_EXCLUDE_DESCRIPTORS));
+        runtimeImpl.setPackagePatterns(cli.getOptionValue(CLIManager.OPT_INCLUDE_PACKAGES),
+                cli.getOptionValue(CLIManager.OPT_EXCLUDE_PACKAGES));
 
         runtimeImpl.setType(cli.getOptionValue(CLIManager.OPT_TYPE));
         runtimeImpl.setDests(cli.getArgs());

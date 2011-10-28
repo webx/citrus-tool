@@ -21,9 +21,8 @@ package com.alibaba.antx.util.cli;
  * <p>
  * Thrown when an option requiring an argument is not provided with an argument.
  * </p>
- *
+ * 
  * @author John Keyes (john at integralsource.com)
- *
  * @see ParseException
  */
 public class MissingArgumentException extends ParseException {
@@ -31,9 +30,10 @@ public class MissingArgumentException extends ParseException {
 
     /**
      * <p>
-     * Construct a new <code>MissingArgumentException</code>  with the specified detail message.
+     * Construct a new <code>MissingArgumentException</code> with the specified
+     * detail message.
      * </p>
-     *
+     * 
      * @param message the detail message
      */
     public MissingArgumentException(String message) {

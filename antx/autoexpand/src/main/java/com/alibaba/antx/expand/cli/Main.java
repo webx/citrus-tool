@@ -67,7 +67,7 @@ public class Main {
 
     private static String getDuration(String message, long duration) {
         long ms = duration % 1000;
-        long secs = (duration / 1000) % 60;
+        long secs = duration / 1000 % 60;
         long min = duration / 1000 / 60;
 
         return MessageFormat.format(message, new Object[] { new Long(min), new Long(secs), new Long(ms) });

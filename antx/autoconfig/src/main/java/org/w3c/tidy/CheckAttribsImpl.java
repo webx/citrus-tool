@@ -58,8 +58,9 @@ public class CheckAttribsImpl {
             for (attval = node.attributes; attval != null; attval = attval.next) {
                 attribute = attval.checkAttribute(lexer, node);
 
-                if (attribute == AttributeTable.attrXmlns)
+                if (attribute == AttributeTable.attrXmlns) {
                     lexer.isvoyager = true;
+                }
             }
         }
 
@@ -83,13 +84,15 @@ public class CheckAttribsImpl {
 
                 if (lang != null) {
                     String str = lang.value;
-                    if (str.length() > 10)
+                    if (str.length() > 10) {
                         str = str.substring(0, 10);
-                    if ((Lexer.wstrcasecmp(str, "javascript") == 0) || (Lexer.wstrcasecmp(str, "jscript") == 0)) {
+                    }
+                    if (Lexer.wstrcasecmp(str, "javascript") == 0 || Lexer.wstrcasecmp(str, "jscript") == 0) {
                         node.addAttribute("type", "text/javascript");
                     }
-                } else
+                } else {
                     node.addAttribute("type", "text/javascript");
+                }
             }
         }
 
@@ -107,8 +110,9 @@ public class CheckAttribsImpl {
             for (attval = node.attributes; attval != null; attval = attval.next) {
                 attribute = attval.checkAttribute(lexer, node);
 
-                if (attribute == AttributeTable.attrSummary)
+                if (attribute == AttributeTable.attrSummary) {
                     hasSummary = true;
+                }
             }
 
             /* suppress warning for missing summary for HTML 2.0 and HTML 3.2 */
@@ -121,8 +125,9 @@ public class CheckAttribsImpl {
             if (lexer.configuration.XmlOut) {
                 attval = node.getAttrByName("border");
                 if (attval != null) {
-                    if (attval.value == null)
+                    if (attval.value == null) {
                         attval.value = "1";
+                    }
                 }
             }
         }
@@ -145,12 +150,13 @@ public class CheckAttribsImpl {
             }
 
             if (value != null) {
-                if (Lexer.wstrcasecmp(value, "left") == 0 || Lexer.wstrcasecmp(value, "right") == 0)
+                if (Lexer.wstrcasecmp(value, "left") == 0 || Lexer.wstrcasecmp(value, "right") == 0) {
                     lexer.versions &= (short) (Dict.VERS_HTML40_LOOSE | Dict.VERS_FRAMES);
-                else if (Lexer.wstrcasecmp(value, "top") == 0 || Lexer.wstrcasecmp(value, "bottom") == 0)
+                } else if (Lexer.wstrcasecmp(value, "top") == 0 || Lexer.wstrcasecmp(value, "bottom") == 0) {
                     lexer.versions &= Dict.VERS_FROM32;
-                else
+                } else {
                     Report.attrError(lexer, node, value, Report.BAD_ATTRIBUTE_VALUE);
+                }
             }
         }
 
@@ -159,8 +165,9 @@ public class CheckAttribsImpl {
     public static class CheckHR implements CheckAttribs {
 
         public void check(Lexer lexer, Node node) {
-            if (node.getAttrByName("src") != null)
+            if (node.getAttrByName("src") != null) {
                 Report.attrError(lexer, node, "src", Report.PROPRIETARY_ATTR_VALUE);
+            }
         }
     };
 
@@ -180,32 +187,36 @@ public class CheckAttribsImpl {
             for (attval = node.attributes; attval != null; attval = attval.next) {
                 attribute = attval.checkAttribute(lexer, node);
 
-                if (attribute == AttributeTable.attrAlt)
+                if (attribute == AttributeTable.attrAlt) {
                     hasAlt = true;
-                else if (attribute == AttributeTable.attrSrc)
+                } else if (attribute == AttributeTable.attrSrc) {
                     hasSrc = true;
-                else if (attribute == AttributeTable.attrUsemap)
+                } else if (attribute == AttributeTable.attrUsemap) {
                     hasUseMap = true;
-                else if (attribute == AttributeTable.attrIsmap)
+                } else if (attribute == AttributeTable.attrIsmap) {
                     hasIsMap = true;
-                else if (attribute == AttributeTable.attrDatafld)
+                } else if (attribute == AttributeTable.attrDatafld) {
                     hasDataFld = true;
-                else if (attribute == AttributeTable.attrWidth || attribute == AttributeTable.attrHeight)
+                } else if (attribute == AttributeTable.attrWidth || attribute == AttributeTable.attrHeight) {
                     lexer.versions &= ~Dict.VERS_HTML20;
+                }
             }
 
             if (!hasAlt) {
                 lexer.badAccess |= Report.MISSING_IMAGE_ALT;
                 Report.attrError(lexer, node, "alt", Report.MISSING_ATTRIBUTE);
-                if (lexer.configuration.altText != null)
+                if (lexer.configuration.altText != null) {
                     node.addAttribute("alt", lexer.configuration.altText);
+                }
             }
 
-            if (!hasSrc && !hasDataFld)
+            if (!hasSrc && !hasDataFld) {
                 Report.attrError(lexer, node, "src", Report.MISSING_ATTRIBUTE);
+            }
 
-            if (hasIsMap && !hasUseMap)
+            if (hasIsMap && !hasUseMap) {
                 Report.attrError(lexer, node, "ismap", Report.MISSING_IMAGEMAP);
+            }
         }
 
     };
@@ -223,18 +234,20 @@ public class CheckAttribsImpl {
             for (attval = node.attributes; attval != null; attval = attval.next) {
                 attribute = attval.checkAttribute(lexer, node);
 
-                if (attribute == AttributeTable.attrAlt)
+                if (attribute == AttributeTable.attrAlt) {
                     hasAlt = true;
-                else if (attribute == AttributeTable.attrHref)
+                } else if (attribute == AttributeTable.attrHref) {
                     hasHref = true;
+                }
             }
 
             if (!hasAlt) {
                 lexer.badAccess |= Report.MISSING_LINK_ALT;
                 Report.attrError(lexer, node, "alt", Report.MISSING_ATTRIBUTE);
             }
-            if (!hasHref)
+            if (!hasHref) {
                 Report.attrError(lexer, node, "href", Report.MISSING_ATTRIBUTE);
+            }
         }
 
     };
@@ -281,8 +294,9 @@ public class CheckAttribsImpl {
              * HTML4 strict doesn't allow mixed content for elements with
              * %block; as their content model
              */
-            if (node.getAttrByName("width") != null || node.getAttrByName("height") != null)
+            if (node.getAttrByName("width") != null || node.getAttrByName("height") != null) {
                 lexer.versions &= ~Dict.VERS_HTML40_STRICT;
+            }
         }
     }
 
@@ -354,17 +368,17 @@ public class CheckAttribsImpl {
         return _checkHR;
     }
 
-    private static CheckAttribs _checkHTML      = new CheckHTML();
-    private static CheckAttribs _checkSCRIPT    = new CheckSCRIPT();
-    private static CheckAttribs _checkTABLE     = new CheckTABLE();
-    private static CheckAttribs _checkCaption   = new CheckCaption();
-    private static CheckAttribs _checkIMG       = new CheckIMG();
-    private static CheckAttribs _checkAREA      = new CheckAREA();
-    private static CheckAttribs _checkAnchor    = new CheckAnchor();
-    private static CheckAttribs _checkMap       = new CheckMap();
-    private static CheckAttribs _checkStyle     = new CheckSTYLE();
+    private static CheckAttribs _checkHTML = new CheckHTML();
+    private static CheckAttribs _checkSCRIPT = new CheckSCRIPT();
+    private static CheckAttribs _checkTABLE = new CheckTABLE();
+    private static CheckAttribs _checkCaption = new CheckCaption();
+    private static CheckAttribs _checkIMG = new CheckIMG();
+    private static CheckAttribs _checkAREA = new CheckAREA();
+    private static CheckAttribs _checkAnchor = new CheckAnchor();
+    private static CheckAttribs _checkMap = new CheckMap();
+    private static CheckAttribs _checkStyle = new CheckSTYLE();
     private static CheckAttribs _checkTableCell = new CheckTableCell();
-    private static CheckAttribs _checkLINK      = new CheckLINK();
-    private static CheckAttribs _checkHR        = new CheckHR();
+    private static CheckAttribs _checkLINK = new CheckLINK();
+    private static CheckAttribs _checkHR = new CheckHR();
 
 }

@@ -43,10 +43,12 @@ public class FileResource extends Resource {
         this.file = uri.getFile();
     }
 
+    @Override
     public Resource getRelatedResource(String suburi) {
         return new FileResource(getSession(), getURI().getSubURI(suburi));
     }
 
+    @Override
     public byte[] getContent() {
         try {
             return StreamUtil.readBytes(getInputStream(), true).toByteArray();
@@ -55,6 +57,7 @@ public class FileResource extends Resource {
         }
     }
 
+    @Override
     public InputStream getInputStream() {
         try {
             return new FileInputStream(file);
@@ -63,6 +66,7 @@ public class FileResource extends Resource {
         }
     }
 
+    @Override
     public OutputStream getOutputStream() {
         try {
             return new FileOutputStream(file);
@@ -71,10 +75,12 @@ public class FileResource extends Resource {
         }
     }
 
+    @Override
     public boolean isDirectory() {
         return file.isDirectory();
     }
 
+    @Override
     public List list() {
         if (!isDirectory()) {
             return null;
@@ -83,8 +89,7 @@ public class FileResource extends Resource {
         File[] subfiles = file.listFiles();
         List files = new ArrayList(subfiles.length);
 
-        for (int i = 0; i < subfiles.length; i++) {
-            File subfile = subfiles[i];
+        for (File subfile : subfiles) {
             FileResource resource = new FileResource(getSession(), new ResourceURI(subfile.toURI(), getSession()));
 
             files.add(resource);

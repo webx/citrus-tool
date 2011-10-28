@@ -37,6 +37,7 @@ public class ConstantExpression implements Expression {
         return value;
     }
 
+    @Override
     public String toString() {
         return getExpressionText();
     }

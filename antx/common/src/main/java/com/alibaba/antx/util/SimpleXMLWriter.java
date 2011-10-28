@@ -17,28 +17,25 @@
 
 package com.alibaba.antx.util;
 
-import org.dom4j.io.OutputFormat;
-import org.dom4j.io.XMLWriter;
-
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.AttributesImpl;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import org.dom4j.io.OutputFormat;
+import org.dom4j.io.XMLWriter;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.AttributesImpl;
+
 /**
  * 代表一个简单的XML writer，不支持名字空间。
- *
+ * 
  * @author Michael Zhou
- *
  */
 public class SimpleXMLWriter extends XMLWriter {
     /**
      * 创建一个XML writer。
-     *
+     * 
      * @param file XML文件
-     *
      * @throws IOException 文件打开失败
      */
     public SimpleXMLWriter(File file) throws IOException {
@@ -47,9 +44,8 @@ public class SimpleXMLWriter extends XMLWriter {
 
     /**
      * 开始一个XML element。
-     *
+     * 
      * @param elementName element名
-     *
      * @throws SAXException SAX异常
      */
     public void startElement(String elementName) throws SAXException {
@@ -58,15 +54,13 @@ public class SimpleXMLWriter extends XMLWriter {
 
     /**
      * 开始一个XML element。
-     *
+     * 
      * @param elementName element名
      * @param attrName 属性名
      * @param attrValue 属性值
-     *
      * @throws SAXException SAX异常
      */
-    public void startElement(String elementName, String attrName, String attrValue)
-            throws SAXException {
+    public void startElement(String elementName, String attrName, String attrValue) throws SAXException {
         if (attrValue == null) {
             attrValue = "";
         }
@@ -80,17 +74,16 @@ public class SimpleXMLWriter extends XMLWriter {
 
     /**
      * 开始一个XML element。
-     *
+     * 
      * @param elementName element名
      * @param attrName1 属性名
      * @param attrValue1 属性值
      * @param attrName2 属性名
      * @param attrValue2 属性值
-     *
      * @throws SAXException SAX异常
      */
-    public void startElement(String elementName, String attrName1, String attrValue1,
-        String attrName2, String attrValue2) throws SAXException {
+    public void startElement(String elementName, String attrName1, String attrValue1, String attrName2,
+                             String attrValue2) throws SAXException {
         if (attrValue1 == null) {
             attrValue1 = "";
         }
@@ -109,14 +102,12 @@ public class SimpleXMLWriter extends XMLWriter {
 
     /**
      * 创建一个XML element。
-     *
+     * 
      * @param elementName element名
      * @param bodyText element值
-     *
      * @throws SAXException SAX异常
      */
-    public void processElement(String elementName, String bodyText)
-            throws SAXException {
+    public void processElement(String elementName, String bodyText) throws SAXException {
         if (StringUtil.isEmpty(bodyText)) {
             return;
         }
@@ -128,9 +119,8 @@ public class SimpleXMLWriter extends XMLWriter {
 
     /**
      * 结束一个XML element。
-     *
+     * 
      * @param elementName element名
-     *
      * @throws SAXException SAX异常
      */
     public void endElement(String elementName) throws SAXException {

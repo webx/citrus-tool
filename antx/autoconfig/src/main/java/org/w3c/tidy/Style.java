@@ -64,6 +64,6 @@ public class Style {
     public String tag;
     public String tagClass;
     public String properties;
-    public Style  next;
+    public Style next;
 
 }

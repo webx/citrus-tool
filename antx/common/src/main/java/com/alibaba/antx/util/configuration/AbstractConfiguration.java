@@ -18,33 +18,30 @@
 package com.alibaba.antx.util.configuration;
 
 /**
- * This is an abstract <code>Configuration</code> implementation that deals with methods that can
- * be abstracted away from underlying implementations.
- *
+ * This is an abstract <code>Configuration</code> implementation that deals with
+ * methods that can be abstracted away from underlying implementations.
+ * 
  * @author <a href="mailto:dev@avalon.apache.org">Avalon Development Team</a>
- *
  */
 public abstract class AbstractConfiguration implements Configuration {
     /**
-     * Returns the prefix of the namespace.  This is only used as a serialization hint, therefore
-     * is not part of the client API.  It should be included in all Configuration implementations
-     * though.
-     *
+     * Returns the prefix of the namespace. This is only used as a serialization
+     * hint, therefore is not part of the client API. It should be included in
+     * all Configuration implementations though.
+     * 
      * @return A non-null String (defaults to "")
-     *
-     * @throws ConfigurationException if no prefix was defined (prefix is <code>null</code>.
-     *
+     * @throws ConfigurationException if no prefix was defined (prefix is
+     *             <code>null</code>.
      * @since 4.1
      */
     protected abstract String getPrefix() throws ConfigurationException;
 
     /**
-     * Returns the value of the configuration element as an <code>int</code>. Hexadecimal numbers
-     * begin with 0x, Octal numbers begin with 0o and binary numbers begin with 0b, all other
-     * values are assumed to be decimal.
-     *
+     * Returns the value of the configuration element as an <code>int</code>.
+     * Hexadecimal numbers begin with 0x, Octal numbers begin with 0o and binary
+     * numbers begin with 0b, all other values are assumed to be decimal.
+     * 
      * @return the value
-     *
      * @throws ConfigurationException if an error occurs
      */
     public int getValueAsInteger() throws ConfigurationException {
@@ -62,20 +59,19 @@ public abstract class AbstractConfiguration implements Configuration {
             }
         } catch (final Exception nfe) {
             final String message = "Cannot parse the value \"" + value
-                + "\" as an integer in the configuration element \"" + getName() + "\" at "
-                + getLocation();
+                    + "\" as an integer in the configuration element \"" + getName() + "\" at " + getLocation();
 
             throw new ConfigurationException(message);
         }
     }
 
     /**
-     * Returns the value of the configuration element as an <code>int</code>. Hexadecimal numbers
-     * begin with 0x, Octal numbers begin with 0o and binary numbers begin with 0b, all other
-     * values are assumed to be decimal.
-     *
-     * @param defaultValue the default value to return if value malformed or empty
-     *
+     * Returns the value of the configuration element as an <code>int</code>.
+     * Hexadecimal numbers begin with 0x, Octal numbers begin with 0o and binary
+     * numbers begin with 0b, all other values are assumed to be decimal.
+     * 
+     * @param defaultValue the default value to return if value malformed or
+     *            empty
      * @return the value
      */
     public int getValueAsInteger(final int defaultValue) {
@@ -87,12 +83,11 @@ public abstract class AbstractConfiguration implements Configuration {
     }
 
     /**
-     * Returns the value of the configuration element as a <code>long</code>. Hexadecimal numbers
-     * begin with 0x, Octal numbers begin with 0o and binary numbers begin with 0b, all other
-     * values are assumed to be decimal.
-     *
+     * Returns the value of the configuration element as a <code>long</code>.
+     * Hexadecimal numbers begin with 0x, Octal numbers begin with 0o and binary
+     * numbers begin with 0b, all other values are assumed to be decimal.
+     * 
      * @return the value
-     *
      * @throws ConfigurationException if an error occurs
      */
     public long getValueAsLong() throws ConfigurationException {
@@ -109,21 +104,20 @@ public abstract class AbstractConfiguration implements Configuration {
                 return Long.parseLong(value);
             }
         } catch (final Exception nfe) {
-            final String message = "Cannot parse the value \"" + value
-                + "\" as a long in the configuration element \"" + getName() + "\" at "
-                + getLocation();
+            final String message = "Cannot parse the value \"" + value + "\" as a long in the configuration element \""
+                    + getName() + "\" at " + getLocation();
 
             throw new ConfigurationException(message);
         }
     }
 
     /**
-     * Returns the value of the configuration element as a <code>long</code>. Hexadecimal numbers
-     * begin with 0x, Octal numbers begin with 0o and binary numbers begin with 0b, all other
-     * values are assumed to be decimal.
-     *
-     * @param defaultValue the default value to return if value malformed or empty
-     *
+     * Returns the value of the configuration element as a <code>long</code>.
+     * Hexadecimal numbers begin with 0x, Octal numbers begin with 0o and binary
+     * numbers begin with 0b, all other values are assumed to be decimal.
+     * 
+     * @param defaultValue the default value to return if value malformed or
+     *            empty
      * @return the value
      */
     public long getValueAsLong(final long defaultValue) {
@@ -136,9 +130,8 @@ public abstract class AbstractConfiguration implements Configuration {
 
     /**
      * Returns the value of the configuration element as a <code>float</code>.
-     *
+     * 
      * @return the value
-     *
      * @throws ConfigurationException if an error occurs
      */
     public float getValueAsFloat() throws ConfigurationException {
@@ -148,8 +141,7 @@ public abstract class AbstractConfiguration implements Configuration {
             return Float.parseFloat(value);
         } catch (final Exception nfe) {
             final String message = "Cannot parse the value \"" + value
-                + "\" as a float in the configuration element \"" + getName() + "\" at "
-                + getLocation();
+                    + "\" as a float in the configuration element \"" + getName() + "\" at " + getLocation();
 
             throw new ConfigurationException(message);
         }
@@ -157,24 +149,23 @@ public abstract class AbstractConfiguration implements Configuration {
 
     /**
      * Returns the value of the configuration element as a <code>float</code>.
-     *
-     * @param defaultValue the default value to return if value malformed or empty
-     *
+     * 
+     * @param defaultValue the default value to return if value malformed or
+     *            empty
      * @return the value
      */
     public float getValueAsFloat(final float defaultValue) {
         try {
             return getValueAsFloat();
         } catch (final ConfigurationException ce) {
-            return (defaultValue);
+            return defaultValue;
         }
     }
 
     /**
      * Returns the value of the configuration element as a <code>boolean</code>.
-     *
+     * 
      * @return the value
-     *
      * @throws ConfigurationException if an error occurs
      */
     public boolean getValueAsBoolean() throws ConfigurationException {
@@ -186,8 +177,7 @@ public abstract class AbstractConfiguration implements Configuration {
             return false;
         } else {
             final String message = "Cannot parse the value \"" + value
-                + "\" as a boolean in the configuration element \"" + getName() + "\" at "
-                + getLocation();
+                    + "\" as a boolean in the configuration element \"" + getName() + "\" at " + getLocation();
 
             throw new ConfigurationException(message);
         }
@@ -195,9 +185,9 @@ public abstract class AbstractConfiguration implements Configuration {
 
     /**
      * Returns the value of the configuration element as a <code>boolean</code>.
-     *
-     * @param defaultValue the default value to return if value malformed or empty
-     *
+     * 
+     * @param defaultValue the default value to return if value malformed or
+     *            empty
      * @return the value
      */
     public boolean getValueAsBoolean(final boolean defaultValue) {
@@ -210,9 +200,9 @@ public abstract class AbstractConfiguration implements Configuration {
 
     /**
      * Returns the value of the configuration element as a <code>String</code>.
-     *
-     * @param defaultValue the default value to return if value malformed or empty
-     *
+     * 
+     * @param defaultValue the default value to return if value malformed or
+     *            empty
      * @return the value
      */
     public String getValue(final String defaultValue) {
@@ -224,14 +214,13 @@ public abstract class AbstractConfiguration implements Configuration {
     }
 
     /**
-     * Returns the value of the attribute specified by its name as an <code>int</code>. Hexadecimal
-     * numbers begin with 0x, Octal numbers begin with 0o and binary numbers begin with 0b, all
-     * other values are assumed to be decimal.
-     *
+     * Returns the value of the attribute specified by its name as an
+     * <code>int</code>. Hexadecimal numbers begin with 0x, Octal numbers begin
+     * with 0o and binary numbers begin with 0b, all other values are assumed to
+     * be decimal.
+     * 
      * @param name the name of the attribute
-     *
      * @return the value
-     *
      * @throws ConfigurationException if an error occurs
      */
     public int getAttributeAsInteger(final String name) throws ConfigurationException {
@@ -248,21 +237,22 @@ public abstract class AbstractConfiguration implements Configuration {
                 return Integer.parseInt(value);
             }
         } catch (final Exception nfe) {
-            final String message = "Cannot parse the value \"" + value
-                + "\" as an integer in the attribute \"" + name + "\" at " + getLocation();
+            final String message = "Cannot parse the value \"" + value + "\" as an integer in the attribute \"" + name
+                    + "\" at " + getLocation();
 
             throw new ConfigurationException(message);
         }
     }
 
     /**
-     * Returns the value of the attribute specified by its name as an <code>int</code>. Hexadecimal
-     * numbers begin with 0x, Octal numbers begin with 0o and binary numbers begin with 0b, all
-     * other values are assumed to be decimal.
-     *
+     * Returns the value of the attribute specified by its name as an
+     * <code>int</code>. Hexadecimal numbers begin with 0x, Octal numbers begin
+     * with 0o and binary numbers begin with 0b, all other values are assumed to
+     * be decimal.
+     * 
      * @param name the name of the attribute
-     * @param defaultValue the default value to return if value malformed or empty
-     *
+     * @param defaultValue the default value to return if value malformed or
+     *            empty
      * @return the value
      */
     public int getAttributeAsInteger(final String name, final int defaultValue) {
@@ -274,14 +264,13 @@ public abstract class AbstractConfiguration implements Configuration {
     }
 
     /**
-     * Returns the value of the attribute specified by its name as a <code>long</code>. Hexadecimal
-     * numbers begin with 0x, Octal numbers begin with 0o and binary numbers begin with 0b, all
-     * other values are assumed to be decimal.
-     *
+     * Returns the value of the attribute specified by its name as a
+     * <code>long</code>. Hexadecimal numbers begin with 0x, Octal numbers begin
+     * with 0o and binary numbers begin with 0b, all other values are assumed to
+     * be decimal.
+     * 
      * @param name the name of the attribute
-     *
      * @return the value
-     *
      * @throws ConfigurationException if an error occurs
      */
     public long getAttributeAsLong(final String name) throws ConfigurationException {
@@ -298,21 +287,22 @@ public abstract class AbstractConfiguration implements Configuration {
                 return Long.parseLong(value);
             }
         } catch (final Exception nfe) {
-            final String message = "Cannot parse the value \"" + value
-                + "\" as a long in the attribute \"" + name + "\" at " + getLocation();
+            final String message = "Cannot parse the value \"" + value + "\" as a long in the attribute \"" + name
+                    + "\" at " + getLocation();
 
             throw new ConfigurationException(message);
         }
     }
 
     /**
-     * Returns the value of the attribute specified by its name as a <code>long</code>. Hexadecimal
-     * numbers begin with 0x, Octal numbers begin with 0o and binary numbers begin with 0b, all
-     * other values are assumed to be decimal.
-     *
+     * Returns the value of the attribute specified by its name as a
+     * <code>long</code>. Hexadecimal numbers begin with 0x, Octal numbers begin
+     * with 0o and binary numbers begin with 0b, all other values are assumed to
+     * be decimal.
+     * 
      * @param name the name of the attribute
-     * @param defaultValue the default value to return if value malformed or empty
-     *
+     * @param defaultValue the default value to return if value malformed or
+     *            empty
      * @return the value
      */
     public long getAttributeAsLong(final String name, final long defaultValue) {
@@ -324,12 +314,11 @@ public abstract class AbstractConfiguration implements Configuration {
     }
 
     /**
-     * Returns the value of the attribute specified by its name as a <code>float</code>.
-     *
+     * Returns the value of the attribute specified by its name as a
+     * <code>float</code>.
+     * 
      * @param name the name of the attribute
-     *
      * @return the value
-     *
      * @throws ConfigurationException if an error occurs
      */
     public float getAttributeAsFloat(final String name) throws ConfigurationException {
@@ -338,19 +327,20 @@ public abstract class AbstractConfiguration implements Configuration {
         try {
             return Float.parseFloat(value);
         } catch (final Exception e) {
-            final String message = "Cannot parse the value \"" + value
-                + "\" as a float in the attribute \"" + name + "\" at " + getLocation();
+            final String message = "Cannot parse the value \"" + value + "\" as a float in the attribute \"" + name
+                    + "\" at " + getLocation();
 
             throw new ConfigurationException(message);
         }
     }
 
     /**
-     * Returns the value of the attribute specified by its name as a <code>float</code>.
-     *
+     * Returns the value of the attribute specified by its name as a
+     * <code>float</code>.
+     * 
      * @param name the name of the attribute
-     * @param defaultValue the default value to return if value malformed or empty
-     *
+     * @param defaultValue the default value to return if value malformed or
+     *            empty
      * @return the value
      */
     public float getAttributeAsFloat(final String name, final float defaultValue) {
@@ -362,16 +352,14 @@ public abstract class AbstractConfiguration implements Configuration {
     }
 
     /**
-     * Returns the value of the attribute specified by its name as a <code>boolean</code>.
-     *
+     * Returns the value of the attribute specified by its name as a
+     * <code>boolean</code>.
+     * 
      * @param name the name of the attribute
-     *
      * @return the value
-     *
      * @throws ConfigurationException if an error occurs
      */
-    public boolean getAttributeAsBoolean(final String name)
-            throws ConfigurationException {
+    public boolean getAttributeAsBoolean(final String name) throws ConfigurationException {
         final String value = getAttribute(name);
 
         if (isTrue(value)) {
@@ -379,29 +367,30 @@ public abstract class AbstractConfiguration implements Configuration {
         } else if (isFalse(value)) {
             return false;
         } else {
-            final String message = "Cannot parse the value \"" + value
-                + "\" as a boolean in the attribute \"" + name + "\" at " + getLocation();
+            final String message = "Cannot parse the value \"" + value + "\" as a boolean in the attribute \"" + name
+                    + "\" at " + getLocation();
 
             throw new ConfigurationException(message);
         }
     }
 
     private boolean isTrue(final String value) {
-        return value.equalsIgnoreCase("true") || value.equalsIgnoreCase("yes")
-        || value.equalsIgnoreCase("on") || value.equalsIgnoreCase("1");
+        return value.equalsIgnoreCase("true") || value.equalsIgnoreCase("yes") || value.equalsIgnoreCase("on")
+                || value.equalsIgnoreCase("1");
     }
 
     private boolean isFalse(final String value) {
-        return value.equalsIgnoreCase("false") || value.equalsIgnoreCase("no")
-        || value.equalsIgnoreCase("off") || value.equalsIgnoreCase("0");
+        return value.equalsIgnoreCase("false") || value.equalsIgnoreCase("no") || value.equalsIgnoreCase("off")
+                || value.equalsIgnoreCase("0");
     }
 
     /**
-     * Returns the value of the attribute specified by its name as a <code>boolean</code>.
-     *
+     * Returns the value of the attribute specified by its name as a
+     * <code>boolean</code>.
+     * 
      * @param name the name of the attribute
-     * @param defaultValue the default value to return if value malformed or empty
-     *
+     * @param defaultValue the default value to return if value malformed or
+     *            empty
      * @return the value
      */
     public boolean getAttributeAsBoolean(final String name, final boolean defaultValue) {
@@ -413,11 +402,12 @@ public abstract class AbstractConfiguration implements Configuration {
     }
 
     /**
-     * Returns the value of the attribute specified by its name as a <code>String</code>.
-     *
+     * Returns the value of the attribute specified by its name as a
+     * <code>String</code>.
+     * 
      * @param name the name of the attribute
-     * @param defaultValue the default value to return if value malformed or empty
-     *
+     * @param defaultValue the default value to return if value malformed or
+     *            empty
      * @return the value
      */
     public String getAttribute(final String name, final String defaultValue) {
@@ -429,11 +419,11 @@ public abstract class AbstractConfiguration implements Configuration {
     }
 
     /**
-     * Return the first <code>Configuration</code> object child of this associated with the given
-     * name. If no such child exists, a new one will be created.
-     *
+     * Return the first <code>Configuration</code> object child of this
+     * associated with the given name. If no such child exists, a new one will
+     * be created.
+     * 
      * @param name the name of the child
-     *
      * @return the child Configuration
      */
     public Configuration getChild(final String name) {
@@ -441,12 +431,12 @@ public abstract class AbstractConfiguration implements Configuration {
     }
 
     /**
-     * Return the first <code>Configuration</code> object child of this associated with the given
-     * name.
-     *
+     * Return the first <code>Configuration</code> object child of this
+     * associated with the given name.
+     * 
      * @param name the name of the child
-     * @param createNew true if you want to create a new Configuration object if none exists
-     *
+     * @param createNew true if you want to create a new Configuration object if
+     *            none exists
      * @return the child Configuration
      */
     public Configuration getChild(final String name, final boolean createNew) {

@@ -17,16 +17,14 @@
 
 package com.alibaba.antx.config.descriptor;
 
-import com.alibaba.antx.config.ConfigResource;
-
 import java.io.File;
-
 import java.net.URL;
-
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+import com.alibaba.antx.config.ConfigResource;
 
 /**
  * 代表一个auto-config描述文件的内容。
@@ -35,10 +33,10 @@ import java.util.Map;
  */
 public class ConfigDescriptor {
     private ConfigResource resource;
-    private String         description;
-    private List           groups    = new LinkedList();
-    private List           generates = new LinkedList();
-    private Map            context   = new HashMap();
+    private String description;
+    private List groups = new LinkedList();
+    private List generates = new LinkedList();
+    private Map context = new HashMap();
 
     public ConfigDescriptor(ConfigResource descriptorResource) {
         this.resource = descriptorResource;
@@ -114,7 +112,8 @@ public class ConfigDescriptor {
         return context;
     }
 
+    @Override
     public String toString() {
-        return "Descriptor[" + ((getURL() == null) ? "" : getURL().toExternalForm()) + "]";
+        return "Descriptor[" + (getURL() == null ? "" : getURL().toExternalForm()) + "]";
     }
 }

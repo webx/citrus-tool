@@ -68,7 +68,7 @@ package org.w3c.tidy;
 
 public class Clean {
 
-    private int      classNum = 1;
+    private int classNum = 1;
 
     private TagTable tt;
 
@@ -97,10 +97,11 @@ public class Clean {
 
                 prop = new StyleProp(name, value, props);
 
-                if (prev != null)
+                if (prev != null) {
                     prev.next = prop;
-                else
+                } else {
                     first = prop;
+                }
 
                 return first;
             }
@@ -111,10 +112,11 @@ public class Clean {
 
         prop = new StyleProp(name, value);
 
-        if (prev != null)
+        if (prev != null) {
             prev.next = prop;
-        else
+        } else {
             first = prop;
+        }
 
         return first;
     }
@@ -134,8 +136,9 @@ public class Clean {
 
         name_start = 0;
         while (name_start < style.length()) {
-            while (name_start < style.length() && style.charAt(name_start) == ' ')
+            while (name_start < style.length() && style.charAt(name_start) == ' ') {
                 ++name_start;
+            }
 
             name_end = name_start;
 
@@ -148,11 +151,13 @@ public class Clean {
                 ++name_end;
             }
 
-            if (name_end >= style.length() || style.charAt(name_end) != ':')
+            if (name_end >= style.length() || style.charAt(name_end) != ':') {
                 break;
+            }
 
-            while (value_start < style.length() && style.charAt(value_start) == ' ')
+            while (value_start < style.length() && style.charAt(value_start) == ' ') {
                 ++value_start;
+            }
 
             value_end = value_start;
             more = false;
@@ -197,8 +202,9 @@ public class Clean {
 
             style = style.concat(prop.value);
 
-            if (prop.next == null)
+            if (prop.next == null) {
                 break;
+            }
 
             style = style.concat("; ");
         }
@@ -230,8 +236,9 @@ public class Clean {
         Style style;
 
         for (style = lexer.styles; style != null; style = style.next) {
-            if (style.tag.equals(tag) && style.properties.equals(properties))
+            if (style.tag.equals(tag) && style.properties.equals(properties)) {
                 return style.tagClass;
+            }
         }
 
         style = new Style(tag, gensymClass(tag), properties, lexer.styles);
@@ -383,8 +390,9 @@ public class Clean {
         Style style;
         AttVal av;
 
-        if (lexer.styles == null && niceBody(lexer, doc))
+        if (lexer.styles == null && niceBody(lexer, doc)) {
             return;
+        }
 
         node = lexer.newNode(Node.StartTag, null, 0, 0, "style");
         node.implicit = true;
@@ -398,8 +406,9 @@ public class Clean {
 
         lexer.txtstart = lexer.lexsize;
 
-        if (body != null)
+        if (body != null) {
             cleanBodyAttrs(lexer, body);
+        }
 
         for (style = lexer.styles; style != null; style = style.next) {
             lexer.addCharToLexer(' ');
@@ -425,26 +434,30 @@ public class Clean {
 
         head = doc.findHEAD(lexer.configuration.tt);
 
-        if (head != null)
+        if (head != null) {
             Node.insertNodeAtEnd(head, node);
+        }
     }
 
     /* ensure bidirectional links are consistent */
     private void fixNodeLinks(Node node) {
         Node child;
 
-        if (node.prev != null)
+        if (node.prev != null) {
             node.prev.next = node;
-        else
+        } else {
             node.parent.content = node;
+        }
 
-        if (node.next != null)
+        if (node.next != null) {
             node.next.prev = node;
-        else
+        } else {
             node.parent.last = node;
+        }
 
-        for (child = node.content; child != null; child = child.next)
+        for (child = node.content; child != null; child = child.next) {
             child.parent = node;
+        }
     }
 
     /*
@@ -458,8 +471,9 @@ public class Clean {
         node.last = child.last;
         child.content = null;
 
-        for (child = node.content; child != null; child = child.next)
+        for (child = node.content; child != null; child = child.next) {
             child.parent = node;
+        }
     }
 
     /* used to strip font start and end tags */
@@ -473,29 +487,34 @@ public class Clean {
             if (element.next != null) {
                 element.next.prev = element.last;
                 element.last.next = element.next;
-            } else
+            } else {
                 parent.last = element.last;
+            }
 
             if (element.prev != null) {
                 element.content.prev = element.prev;
                 element.prev.next = element.content;
-            } else
+            } else {
                 parent.content = element.content;
+            }
 
-            for (node = element.content; node != null; node = node.next)
+            for (node = element.content; node != null; node = node.next) {
                 node.parent = parent;
+            }
 
             pnode.setObject(element.content);
         } else {
-            if (element.next != null)
+            if (element.next != null) {
                 element.next.prev = element.prev;
-            else
+            } else {
                 parent.last = element.prev;
+            }
 
-            if (element.prev != null)
+            if (element.prev != null) {
                 element.prev.next = element.next;
-            else
+            } else {
                 parent.content = element.next;
+            }
 
             pnode.setObject(element.next);
         }
@@ -512,8 +531,9 @@ public class Clean {
         AttVal av;
 
         for (av = node.attributes; av != null; av = av.next) {
-            if (av.attribute.equals("style"))
+            if (av.attribute.equals("style")) {
                 break;
+            }
         }
 
         /* if style attribute already exists then insert property */
@@ -598,8 +618,9 @@ public class Clean {
                 int n = size.charAt(1) - '0';
                 double x;
 
-                for (x = 1.0; n > 0; --n)
+                for (x = 1.0; n > 0; --n) {
                     x *= 0.8;
+                }
 
                 x *= 100.0;
                 buf = "" + (int) x + "%";
@@ -614,8 +635,9 @@ public class Clean {
             int n = size.charAt(1) - '0';
             double x;
 
-            for (x = 1.0; n > 0; --n)
+            for (x = 1.0; n > 0; --n) {
                 x *= 1.2;
+            }
 
             x *= 100.0;
             buf = "" + (int) x + "%";
@@ -673,12 +695,13 @@ public class Clean {
      */
     private void addFontStyles(Node node, AttVal av) {
         while (av != null) {
-            if (av.attribute.equals("face"))
+            if (av.attribute.equals("face")) {
                 addFontFace(node, av.value);
-            else if (av.attribute.equals("size"))
+            } else if (av.attribute.equals("size")) {
                 addFontSize(node, av.value);
-            else if (av.attribute.equals("color"))
+            } else if (av.attribute.equals("color")) {
                 addFontColor(node, av.value);
+            }
 
             av = av.next;
         }
@@ -694,10 +717,11 @@ public class Clean {
 
         for (av = node.attributes; av != null; av = av.next) {
             if (av.attribute.equals("align")) {
-                if (prev != null)
+                if (prev != null) {
                     prev.next = av.next;
-                else
+                } else {
                     node.attributes = av.next;
+                }
 
                 if (av.value != null) {
                     addAlign(node, av.value);
@@ -726,19 +750,23 @@ public class Clean {
         if (node.tag == tt.tagDir || node.tag == tt.tagUl || node.tag == tt.tagOl) {
             child = node.content;
 
-            if (child == null)
+            if (child == null) {
                 return false;
+            }
 
             /* check child has no peers */
 
-            if (child.next != null)
+            if (child.next != null) {
                 return false;
+            }
 
-            if (child.tag != tt.tagLi)
+            if (child.tag != tt.tagLi) {
                 return false;
+            }
 
-            if (!child.implicit)
+            if (!child.implicit) {
                 return false;
+            }
 
             /* coerce dir to div */
 
@@ -797,15 +825,17 @@ public class Clean {
 
                     node = lexer.inferredTag("br");
 
-                    if (last.next != null)
+                    if (last.next != null) {
                         last.next.prev = node;
+                    }
 
                     node.next = last.next;
                     last.next = node;
                     node.prev = last;
 
-                    if (parent.last == last)
+                    if (parent.last == last) {
                         parent.last = node;
+                    }
 
                     node.parent = parent;
                 } else {
@@ -819,15 +849,17 @@ public class Clean {
                     node.prev = prev;
                     node.parent = parent;
 
-                    if (next != null)
+                    if (next != null) {
                         next.prev = node;
-                    else
+                    } else {
                         parent.last = node;
+                    }
 
-                    if (prev != null)
+                    if (prev != null) {
                         prev.next = node;
-                    else
+                    } else {
                         parent.content = node;
+                    }
                 }
 
                 return true;
@@ -849,19 +881,23 @@ public class Clean {
     private boolean mergeDivs(Lexer lexer, Node node, MutableObject pnode) {
         Node child;
 
-        if (node.tag != tt.tagDiv)
+        if (node.tag != tt.tagDiv) {
             return false;
+        }
 
         child = node.content;
 
-        if (child == null)
+        if (child == null) {
             return false;
+        }
 
-        if (child.tag != tt.tagDiv)
+        if (child.tag != tt.tagDiv) {
             return false;
+        }
 
-        if (child.next != null)
+        if (child.next != null) {
             return false;
+        }
 
         mergeStyles(node, child);
         stripOnlyChild(node);
@@ -878,21 +914,25 @@ public class Clean {
         if (node.tag == tt.tagUl || node.tag == tt.tagOl) {
             child = node.content;
 
-            if (child == null)
+            if (child == null) {
                 return false;
+            }
 
             /* check child has no peers */
 
-            if (child.next != null)
+            if (child.next != null) {
                 return false;
+            }
 
             list = child.content;
 
-            if (list == null)
+            if (list == null) {
                 return false;
+            }
 
-            if (list.tag != node.tag)
+            if (list.tag != node.tag) {
                 return false;
+            }
 
             pnode.setObject(node.next);
 
@@ -920,8 +960,9 @@ public class Clean {
                 if (list.tag == tt.tagUl || list.tag == tt.tagOl) {
                     list.next = node.next;
 
-                    if (list.next != null)
+                    if (list.next != null) {
                         list.next.prev = list;
+                    }
 
                     child = list.last; /* <li> */
 
@@ -955,18 +996,21 @@ public class Clean {
         if ((node.tag.model & (Dict.CM_BLOCK | Dict.CM_LIST | Dict.CM_DEFLIST | Dict.CM_TABLE)) != 0) {
             if (node.tag != tt.tagTable && node.tag != tt.tagTr && node.tag != tt.tagLi) {
                 /* check for align attribute */
-                if (node.tag != tt.tagCaption)
+                if (node.tag != tt.tagCaption) {
                     textAlign(lexer, node);
+                }
 
                 child = node.content;
 
-                if (child == null)
+                if (child == null) {
                     return false;
+                }
 
                 /* check child has no peers */
 
-                if (child.next != null)
+                if (child.next != null) {
                     return false;
+                }
 
                 if (child.tag == tt.tagB) {
                     mergeStyles(node, child);
@@ -1001,13 +1045,15 @@ public class Clean {
         if (node.tag != tt.tagFont && (node.tag.model & (Dict.CM_INLINE | Dict.CM_ROW)) != 0) {
             child = node.content;
 
-            if (child == null)
+            if (child == null) {
                 return false;
+            }
 
             /* check child has no peers */
 
-            if (child.next != null)
+            if (child.next != null) {
                 return false;
+            }
 
             if (child.tag == tt.tagB && lexer.configuration.LogicalEmphasis) {
                 mergeStyles(node, child);
@@ -1048,8 +1094,9 @@ public class Clean {
             }
 
             /* if FONT is only child of parent element then leave alone */
-            if (node.parent.content == node && node.next == null)
+            if (node.parent.content == node && node.next == null) {
                 return false;
+            }
 
             addFontStyles(node, node.attributes);
 
@@ -1092,38 +1139,45 @@ public class Clean {
 
             b = dir2Div(lexer, node, o);
             next = (Node) o.getObject();
-            if (b)
+            if (b) {
                 continue;
+            }
 
             b = nestedList(lexer, node, o);
             next = (Node) o.getObject();
-            if (b)
+            if (b) {
                 continue;
+            }
 
             b = center2Div(lexer, node, o);
             next = (Node) o.getObject();
-            if (b)
+            if (b) {
                 continue;
+            }
 
             b = mergeDivs(lexer, node, o);
             next = (Node) o.getObject();
-            if (b)
+            if (b) {
                 continue;
+            }
 
             b = blockStyle(lexer, node, o);
             next = (Node) o.getObject();
-            if (b)
+            if (b) {
                 continue;
+            }
 
             b = inlineStyle(lexer, node, o);
             next = (Node) o.getObject();
-            if (b)
+            if (b) {
                 continue;
+            }
 
             b = font2Span(lexer, node, o);
             next = (Node) o.getObject();
-            if (b)
+            if (b) {
                 continue;
+            }
 
             break;
         }
@@ -1181,8 +1235,9 @@ public class Clean {
                 continue;
             }
 
-            if (node.content != null)
+            if (node.content != null) {
                 nestedEmphasis(node.content);
+            }
 
             node = next;
         }
@@ -1199,8 +1254,9 @@ public class Clean {
                 node.tag = tt.tagStrong;
             }
 
-            if (node.content != null)
+            if (node.content != null) {
                 emFromI(node.content);
+            }
 
             node = node.next;
         }
@@ -1213,8 +1269,9 @@ public class Clean {
      */
     public void list2BQ(Node node) {
         while (node != null) {
-            if (node.content != null)
+            if (node.content != null) {
                 list2BQ(node.content);
+            }
 
             if (node.tag != null && node.tag.parser == ParserImpl.getParseList() && node.hasOneChild()
                     && node.content.implicit) {
@@ -1246,16 +1303,18 @@ public class Clean {
                     stripOnlyChild(node);
                 }
 
-                if (node.content != null)
+                if (node.content != null) {
                     bQ2Div(node.content);
+                }
 
-                indent_buf = "margin-left: " + (new Integer(2 * indent)).toString() + "em";
+                indent_buf = "margin-left: " + new Integer(2 * indent).toString() + "em";
 
                 node.element = tt.tagDiv.name;
                 node.tag = tt.tagDiv;
                 node.addAttribute("style", indent_buf);
-            } else if (node.content != null)
+            } else if (node.content != null) {
                 bQ2Div(node.content);
+            }
 
             node = node.next;
         }
@@ -1267,16 +1326,17 @@ public class Clean {
             /* discard node and returns next */
             node = Node.discardElement(node);
 
-            if (node == null)
+            if (node == null) {
                 return null;
+            }
 
             if (node.type == Node.SectionTag) {
-                if ((Lexer.getString(node.textarray, node.start, 2)).equals("if")) {
+                if (Lexer.getString(node.textarray, node.start, 2).equals("if")) {
                     node = pruneSection(lexer, node);
                     continue;
                 }
 
-                if ((Lexer.getString(node.textarray, node.start, 5)).equals("endif")) {
+                if (Lexer.getString(node.textarray, node.start, 5).equals("endif")) {
                     node = Node.discardElement(node);
                     break;
                 }
@@ -1290,7 +1350,7 @@ public class Clean {
         while (node != null) {
             if (node.type == Node.SectionTag) {
                 /* prune up to matching endif */
-                if ((Lexer.getString(node.textarray, node.start, 2)).equals("if")) {
+                if (Lexer.getString(node.textarray, node.start, 2).equals("if")) {
                     node = pruneSection(lexer, node);
                     continue;
                 }
@@ -1300,8 +1360,9 @@ public class Clean {
                 continue;
             }
 
-            if (node.content != null)
+            if (node.content != null) {
                 dropSections(lexer, node.content);
+            }
 
             node = node.next;
         }
@@ -1321,16 +1382,18 @@ public class Clean {
                 prev = attr;
             } else if (attr.attribute != null
                     && (attr.attribute.equals("class") || attr.attribute.equals("style")
-                            || attr.attribute.equals("lang") || attr.attribute.startsWith("x:") || ((attr.attribute
-                            .equals("height") || attr.attribute.equals("width")) && (node.tag == tt.tagTd
-                            || node.tag == tt.tagTr || node.tag == tt.tagTh)))) {
-                if (prev != null)
+                            || attr.attribute.equals("lang") || attr.attribute.startsWith("x:") || (attr.attribute
+                            .equals("height") || attr.attribute.equals("width"))
+                            && (node.tag == tt.tagTd || node.tag == tt.tagTr || node.tag == tt.tagTh))) {
+                if (prev != null) {
                     prev.next = next;
-                else
+                } else {
                     node.attributes = next;
+                }
 
-            } else
+            } else {
                 prev = attr;
+            }
 
             attr = next;
         }
@@ -1350,9 +1413,9 @@ public class Clean {
         cleanWord2000(lexer, span.content);
         content = span.content;
 
-        if (span.prev != null)
+        if (span.prev != null) {
             prev = span.prev;
-        else if (content != null) {
+        } else if (content != null) {
             node = content;
             content = content.next;
             Node.removeNode(node);
@@ -1368,8 +1431,9 @@ public class Clean {
             prev = node;
         }
 
-        if (span.next == null)
+        if (span.next == null) {
             span.parent.last = prev;
+        }
 
         node = span.next;
         span.content = null;
@@ -1380,8 +1444,9 @@ public class Clean {
     /* map non-breaking spaces to regular spaces */
     private void normalizeSpaces(Lexer lexer, Node node) {
         while (node != null) {
-            if (node.content != null)
+            if (node.content != null) {
                 normalizeSpaces(lexer, node.content);
+            }
 
             if (node.type == Node.TextNode) {
                 int i;
@@ -1389,14 +1454,16 @@ public class Clean {
                 int p = node.start;
 
                 for (i = node.start; i < node.end; ++i) {
-                    c.value = (int) node.textarray[i];
+                    c.value = node.textarray[i];
 
                     /* look for UTF-8 multibyte character */
-                    if (c.value > 0x7F)
+                    if (c.value > 0x7F) {
                         i += PPrint.getUTF8(node.textarray, i, c);
+                    }
 
-                    if (c.value == 160)
+                    if (c.value == 160) {
                         c.value = ' ';
+                    }
 
                     p = PPrint.putUTF8(node.textarray, p, c.value);
                 }
@@ -1432,8 +1499,9 @@ public class Clean {
             /* get rid of Word's xmlns attributes */
             if (node.tag == tt.tagHtml) {
                 /* check that it's a Word 2000 document */
-                if (node.getAttrByName("xmlns:o") == null)
+                if (node.getAttrByName("xmlns:o") == null) {
                     return;
+                }
             }
 
             if (node.tag == tt.tagLink) {
@@ -1465,8 +1533,9 @@ public class Clean {
 
                     purgeAttributes(node);
 
-                    if (node.content != null)
+                    if (node.content != null) {
                         cleanWord2000(lexer, node.content);
+                    }
 
                     /* remove node and append to contents of list */
                     Node.removeNode(node);
@@ -1489,17 +1558,21 @@ public class Clean {
                     stripSpan(lexer, node);
                     Node.insertNodeAtEnd(list, br);
                     node = list.next;
-                } else
+                } else {
                     list = null;
-            } else
+                }
+            } else {
                 list = null;
+            }
 
             /* strip out style and class attributes */
-            if (node.type == Node.StartTag || node.type == Node.StartEndTag)
+            if (node.type == Node.StartTag || node.type == Node.StartEndTag) {
                 purgeAttributes(node);
+            }
 
-            if (node.content != null)
+            if (node.content != null) {
                 cleanWord2000(lexer, node.content);
+            }
 
             node = node.next;
         }
@@ -1508,6 +1581,6 @@ public class Clean {
     public boolean isWord2000(Node root, TagTable tt) {
         Node html = root.findHTML(tt);
 
-        return (html != null && html.getAttrByName("xmlns:o") != null);
+        return html != null && html.getAttrByName("xmlns:o") != null;
     }
 }

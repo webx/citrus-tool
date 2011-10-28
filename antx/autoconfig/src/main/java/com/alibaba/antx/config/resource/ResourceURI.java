@@ -225,6 +225,7 @@ public class ResourceURI {
         return (String) options.get(name);
     }
 
+    @Override
     public String toString() {
         return uri.toString();
     }

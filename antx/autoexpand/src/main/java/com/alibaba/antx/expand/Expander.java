@@ -17,14 +17,6 @@
 
 package com.alibaba.antx.expand;
 
-import com.alibaba.antx.util.FileObject;
-import com.alibaba.antx.util.FileUtil;
-import com.alibaba.antx.util.ZipUtil;
-
-import org.apache.commons.digester.Digester;
-
-import org.xml.sax.SAXException;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -33,34 +25,39 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import org.apache.commons.digester.Digester;
+import org.xml.sax.SAXException;
+
+import com.alibaba.antx.util.FileObject;
+import com.alibaba.antx.util.FileUtil;
+import com.alibaba.antx.util.ZipUtil;
+
 /**
  * 将ear文件展开的tag。
- *
+ * 
  * @author Michael Zhou
  */
 public class Expander {
     private final ExpanderLogger log;
-    private boolean              expandWar          = true;
-    private boolean              expandRar          = true;
-    private boolean              expandEjbjar       = false;
-    private boolean              overwrite          = false;
-    private boolean              keepRedundantFiles = false;
-    private File                 srcfile;
-    private File                 destdir;
-    private Set                  expandedFiles;
+    private boolean expandWar = true;
+    private boolean expandRar = true;
+    private boolean expandEjbjar = false;
+    private boolean overwrite = false;
+    private boolean keepRedundantFiles = false;
+    private File srcfile;
+    private File destdir;
+    private Set expandedFiles;
 
     public Expander(ExpanderLogger log) {
-        this.log                                    = log;
+        this.log = log;
     }
 
     public boolean isExpandWar() {
@@ -117,7 +114,7 @@ public class Expander {
 
     /**
      * 设置覆盖选项。
-     *
+     * 
      * @param overwrite 如果目标目录中的文件比zip文件中的项要新，是否覆盖之
      */
     public void setOverwrite(boolean overwrite) {
@@ -126,7 +123,7 @@ public class Expander {
 
     /**
      * 设置是否保持多余的文件。
-     *
+     * 
      * @param keepRedundantFiles 如果目标目录中有多余的文件，是否保持而不删除
      */
     public void setKeepRedundantFiles(boolean keepRedundantFiles) {
@@ -148,7 +145,7 @@ public class Expander {
         // destdir
         if (destdir == null) {
             String dirname = srcfile.getName();
-            int    index   = dirname.lastIndexOf(".");
+            int index = dirname.lastIndexOf(".");
 
             if (index < 0) {
                 dirname += ".expanded";
@@ -208,13 +205,12 @@ public class Expander {
 
     /**
      * 删除多余的文件。
-     *
+     * 
      * @param todir 展开到此目录
      * @param zipStream 压缩流
      * @param zipEntry zip结点
      * @param url 递归展开的url前缀
      * @param output XML输出
-     *
      * @throws IOException 读写文件失败，或Zip格式错误
      */
     protected void removeRedundantFiles(File fileOrDir) throws IOException {
@@ -230,8 +226,7 @@ public class Expander {
         if (!fileOrDir.isDirectory()) {
             if (!expandedFiles.contains(fileOrDir.getCanonicalPath())) {
                 log.info("- " + getPathRelativeToDestdir(fileOrDir) + " - "
-                         + (fileOrDir.delete() ? "deleted"
-                                               : "can't delete"));
+                        + (fileOrDir.delete() ? "deleted" : "can't delete"));
             }
 
             return;
@@ -240,8 +235,8 @@ public class Expander {
         // 深度优先地删除目录中的文件和子目录
         File[] files = fileOrDir.listFiles();
 
-        for (int i = 0; i < files.length; i++) {
-            removeRedundantFiles(files[i]);
+        for (File file : files) {
+            removeRedundantFiles(file);
         }
 
         // 如果目录为空，并且在expandedFiles中不存在该目录，则删除目录本身
@@ -272,14 +267,12 @@ public class Expander {
     private abstract class ExpanderHandler {
         /**
          * 展开ear文件到指定目录
-         *
+         * 
          * @param istream 输入流
          * @param todir 展开目录
-         *
          * @throws IOException 读写文件失败，或Zip格式错误
          */
-        protected void expand(InputStream istream, File todir)
-                throws IOException {
+        protected void expand(InputStream istream, File todir) throws IOException {
             ZipInputStream zipStream = null;
 
             try {
@@ -302,29 +295,26 @@ public class Expander {
 
         /**
          * 展开一个文件。
-         *
+         * 
          * @param todir 展开到此目录
          * @param zipStream 压缩流
          * @param zipEntry zip结点
          * @param url 递归展开的url前缀
-         *
          * @throws IOException 读写文件失败，或Zip格式错误
          */
-        protected void extractFile(File todir, InputStream zipStream, ZipEntry zipEntry, String url)
-                throws IOException {
-            String  entryName   = zipEntry.getName();
-            Date    entryDate   = new Date(zipEntry.getTime());
+        protected void extractFile(File todir, InputStream zipStream, ZipEntry zipEntry, String url) throws IOException {
+            String entryName = zipEntry.getName();
+            Date entryDate = new Date(zipEntry.getTime());
             boolean isDirectory = zipEntry.isDirectory();
-            File    targetFile  = FileUtil.getFile(todir, entryName);
-            boolean expandFile  = false;
+            File targetFile = FileUtil.getFile(todir, entryName);
+            boolean expandFile = false;
 
             // 判断是否需要进一步展开
-            if (!isDirectory && (url == null)) {
+            if (!isDirectory && url == null) {
                 expandFile = needToExpand(zipEntry.getName());
             }
 
-            if (!expandFile && !overwrite && targetFile.exists()
-                        && (targetFile.lastModified() >= entryDate.getTime())) {
+            if (!expandFile && !overwrite && targetFile.exists() && targetFile.lastModified() >= entryDate.getTime()) {
                 log.debug(". " + getPathRelativeToDestdir(targetFile) + " - up-to-date");
                 expandedFiles.add(targetFile.getCanonicalPath());
                 return;
@@ -352,8 +342,8 @@ public class Expander {
                         throw new ExpanderException("could not create directory: " + targetFile);
                     }
 
-                    ZipInputStream zis      = new ZipInputStream(zipStream);
-                    ZipEntry       subEntry = null;
+                    ZipInputStream zis = new ZipInputStream(zipStream);
+                    ZipEntry subEntry = null;
 
                     while ((subEntry = zis.getNextEntry()) != null) {
                         extractFile(targetFile, zis, subEntry, entryName);
@@ -366,12 +356,11 @@ public class Expander {
                     }
 
                     if (targetFile.exists() && !targetFile.isFile()) {
-                        throw new ExpanderException("could not create file: " + targetFile
-                                                    + ", it's a directory");
+                        throw new ExpanderException("could not create file: " + targetFile + ", it's a directory");
                     }
 
-                    byte[]       buffer  = new byte[8192];
-                    int          length  = 0;
+                    byte[] buffer = new byte[8192];
+                    int length = 0;
                     OutputStream ostream = null;
 
                     try {
@@ -454,8 +443,7 @@ public class Expander {
             }
         }
 
-        private void readApplicationXml(InputStream istream)
-                throws IOException, SAXException {
+        private void readApplicationXml(InputStream istream) throws IOException, SAXException {
             Digester digester = new Digester();
 
             digester.addCallMethod("application/module/ejb", "add", 1);
@@ -465,6 +453,7 @@ public class Expander {
             digester.parse(istream);
         }
 
+        @Override
         protected boolean needToExpand(String name) {
             return super.needToExpand(name) || ejbJars.contains(name);
         }

@@ -185,7 +185,7 @@ public class ConfigRuntimeImpl implements ConfigRuntime {
     }
 
     public void setDestFiles(File[] destFiles) {
-        this.destFiles = (File[]) destFiles.clone();
+        this.destFiles = destFiles.clone();
     }
 
     public void setOutputs(String[] outputs) {
@@ -193,7 +193,7 @@ public class ConfigRuntimeImpl implements ConfigRuntime {
     }
 
     public void setOutputFiles(File[] outputFiles) {
-        this.outputFiles = (File[]) outputFiles.clone();
+        this.outputFiles = outputFiles.clone();
     }
 
     public void setUserPropertiesFile(String userPropertiesFile, String charset) {
@@ -209,11 +209,11 @@ public class ConfigRuntimeImpl implements ConfigRuntime {
 
         PropertiesResource[] resources = getPropertiesSet().getSharedPropertiesFiles();
 
-        for (int i = 0; i < resources.length; i++) {
-            resources[i].setCharset(charset);
+        for (PropertiesResource resource : resources) {
+            resource.setCharset(charset);
         }
 
-        if (!StringUtil.isEmpty(name) || (sharedPropertiesFiles != null && sharedPropertiesFiles.length > 0)) {
+        if (!StringUtil.isEmpty(name) || sharedPropertiesFiles != null && sharedPropertiesFiles.length > 0) {
             this.interactiveMode = ConfigConstant.INTERACTIVE_ON;
         }
     }
@@ -287,7 +287,7 @@ public class ConfigRuntimeImpl implements ConfigRuntime {
     }
 
     public void error(String message, Throwable cause) {
-        if (StringUtil.isBlank(message) && (cause != null)) {
+        if (StringUtil.isBlank(message) && cause != null) {
             message = "ERROR: " + cause.getMessage();
         }
 

@@ -92,11 +92,11 @@ public class ConfigWizard {
         // 取得descriptors中的所有groups
         List groups = new ArrayList();
 
-        for (int i = 0; i < descriptors.length; i++) {
-            ConfigGroup[] descriptorGroups = descriptors[i].getGroups();
+        for (ConfigDescriptor descriptor : descriptors) {
+            ConfigGroup[] descriptorGroups = descriptor.getGroups();
 
-            for (int j = 0; j < descriptorGroups.length; j++) {
-                groups.add(descriptorGroups[j]);
+            for (ConfigGroup descriptorGroup : descriptorGroups) {
+                groups.add(descriptorGroup);
             }
         }
 
@@ -129,8 +129,8 @@ public class ConfigWizard {
 
                 String value = evaluatePropertyValue(prop, false);
 
-                for (Iterator k = prop.getValidators().iterator(); k.hasNext();) {
-                    ConfigValidator validator = (ConfigValidator) k.next();
+                for (Object element : prop.getValidators()) {
+                    ConfigValidator validator = (ConfigValidator) element;
 
                     if (!validator.validate(value)) {
                         validatorIndex = j;
@@ -166,14 +166,14 @@ public class ConfigWizard {
         for (int i = 0; i < groups.length; i++) {
             setStep(i);
 
-            for (int j = 0; j < props.length; j++) {
-                ConfigProperty prop = props[j];
+            for (ConfigProperty prop2 : props) {
+                ConfigProperty prop = prop2;
 
                 // 除非key存在且value不为空，否则设置默认值
-                if ((getValues().get(prop.getName()) == null) || !getKeys().contains(prop.getName())) {
+                if (getValues().get(prop.getName()) == null || !getKeys().contains(prop.getName())) {
                     String value = getPropertyValue(prop, true);
 
-                    setProperty(prop.getName(), (value == null) ? "" : value);
+                    setProperty(prop.getName(), value == null ? "" : value);
                 }
             }
         }
@@ -200,7 +200,7 @@ public class ConfigWizard {
             try {
                 String input = in.readLine();
 
-                input = (input == null) ? "" : input.trim().toLowerCase();
+                input = input == null ? "" : input.trim().toLowerCase();
 
                 if (input.equals("n") || input.equals("no")) {
                     continueWizard = false;
@@ -265,7 +265,7 @@ public class ConfigWizard {
     }
 
     private void print(Object message) {
-        String messageString = (message == null) ? "" : message.toString();
+        String messageString = message == null ? "" : message.toString();
 
         out.print(messageString);
         out.flush();
@@ -277,9 +277,9 @@ public class ConfigWizard {
     }
 
     private void println(Object message) {
-        String messageString = (message == null) ? "" : message.toString();
+        String messageString = message == null ? "" : message.toString();
 
-        out.println(((fileWriter == null) ? "" : "│") + messageString);
+        out.println((fileWriter == null ? "" : "│") + messageString);
 
         if (fileWriter != null) {
             fileWriter.println(messageString);
@@ -336,20 +336,20 @@ public class ConfigWizard {
         int maxLength = -1;
         int maxLengthValue = -1;
 
-        for (int i = 0; i < props.length; i++) {
-            int length = props[i].getName().length();
+        for (ConfigProperty prop : props) {
+            int length = prop.getName().length();
 
-            if ((length > maxLength) && (length < MAX_ALIGN)) {
+            if (length > maxLength && length < MAX_ALIGN) {
                 maxLength = length;
             }
         }
 
-        for (int i = 0; i < props.length; i++) {
-            String value = getPropertyValue(props[i], true);
-            int length = Math.max(props[i].getName().length(), maxLength)
-                    + ((value == null) ? 0 : ("  = ".length() + value.length()));
+        for (ConfigProperty prop : props) {
+            String value = getPropertyValue(prop, true);
+            int length = Math.max(prop.getName().length(), maxLength)
+                    + (value == null ? 0 : "  = ".length() + value.length());
 
-            if ((length > maxLengthValue) && (length < (MAX_ALIGN * 2))) {
+            if (length > maxLengthValue && length < MAX_ALIGN * 2) {
                 maxLengthValue = length;
             }
         }
@@ -398,7 +398,7 @@ public class ConfigWizard {
             String value = getPropertyValue(prop, true);
 
             if (value != null) {
-                for (int j = 0; j < (maxLength - prop.getName().length()); j++) {
+                for (int j = 0; j < maxLength - prop.getName().length(); j++) {
                     buffer.append(' ');
                 }
 
@@ -407,10 +407,10 @@ public class ConfigWizard {
 
             // 显示property描述
             if (prop.getDescription() != null) {
-                int length = (value == null) ? prop.getName().length() : (Math.max(prop.getName().length(), maxLength)
-                        + "  = ".length() + value.length());
+                int length = value == null ? prop.getName().length() : Math.max(prop.getName().length(), maxLength)
+                        + "  = ".length() + value.length();
 
-                for (int j = 0; j < (maxLengthValue - length); j++) {
+                for (int j = 0; j < maxLengthValue - length; j++) {
                     buffer.append(' ');
                 }
 
@@ -420,7 +420,7 @@ public class ConfigWizard {
             // 如果值是表达式，则同时显示表达式的计算值
             String evaluatedValue = evaluatePropertyValue(prop, true);
 
-            if ((evaluatedValue != null) && !ObjectUtil.equals(value, evaluatedValue)) {
+            if (evaluatedValue != null && !ObjectUtil.equals(value, evaluatedValue)) {
                 buffer.append("\n");
 
                 for (int j = 0; j < maxLength; j++) {
@@ -429,7 +429,7 @@ public class ConfigWizard {
 
                 buffer.append("          (").append(evaluatedValue).append(")");
 
-                if (i < (props.length - 1)) {
+                if (i < props.length - 1) {
                     buffer.append("\n");
                 }
             }
@@ -455,7 +455,7 @@ public class ConfigWizard {
                 buffer.append("[Previous]");
             }
 
-            if (step < (groups.length - 1)) {
+            if (step < groups.length - 1) {
                 buffer.append("[Next]");
             }
 
@@ -472,13 +472,13 @@ public class ConfigWizard {
                 throw new ConfigWizardException(e);
             }
 
-            input = (input == null) ? "" : input.trim().toLowerCase();
+            input = input == null ? "" : input.trim().toLowerCase();
 
-            if ((input.equals("n") || input.equals("next")) && (step < (groups.length - 1))) {
+            if ((input.equals("n") || input.equals("next")) && step < groups.length - 1) {
                 return NEXT;
             }
 
-            if ((input.equals("p") || input.equals("previous")) && (step > 0)) {
+            if ((input.equals("p") || input.equals("previous")) && step > 0) {
                 return PREVIOUS;
             }
 
@@ -489,7 +489,7 @@ public class ConfigWizard {
             try {
                 int inputValue = Integer.parseInt(input) - 1;
 
-                if ((inputValue >= 0) && (inputValue < props.length)) {
+                if (inputValue >= 0 && inputValue < props.length) {
                     return inputValue;
                 }
             } catch (NumberFormatException e) {
@@ -527,9 +527,9 @@ public class ConfigWizard {
             throw new ConfigWizardException(e);
         }
 
-        input = (input == null) ? "" : input.trim();
+        input = input == null ? "" : input.trim();
 
-        if ((input == null) || (input.length() == 0)) {
+        if (input == null || input.length() == 0) {
             input = value;
         }
 
@@ -548,7 +548,7 @@ public class ConfigWizard {
             throw new ConfigWizardException(e);
         }
 
-        input = (input == null) ? "" : input.trim().toLowerCase();
+        input = input == null ? "" : input.trim().toLowerCase();
 
         if (input.equals("n") || input.equals("no")) {
             return false;
@@ -572,7 +572,7 @@ public class ConfigWizard {
                 throw new ConfigWizardException(e);
             }
 
-            input = (input == null) ? "" : input.trim().toLowerCase();
+            input = input == null ? "" : input.trim().toLowerCase();
 
             if (input.equals("y") || input.equals("yes")) {
                 return true;
@@ -618,7 +618,7 @@ public class ConfigWizard {
                     String key = (String) j.next();
                     int length = key.length();
 
-                    if ((length > maxLength) && (length < MAX_ALIGN)) {
+                    if (length > maxLength && length < MAX_ALIGN) {
                         maxLength = length;
                     }
                 }
@@ -632,13 +632,13 @@ public class ConfigWizard {
                         value = "";
                     }
 
-                    value = ((String) value).replaceAll("\\\\", "\\\\\\\\");
+                    value = value.replaceAll("\\\\", "\\\\\\\\");
 
                     StringBuffer buffer = new StringBuffer();
 
                     buffer.append(key);
 
-                    for (int k = 0; k < (maxLength - key.length()); k++) {
+                    for (int k = 0; k < maxLength - key.length(); k++) {
                         buffer.append(' ');
                     }
 
@@ -647,7 +647,7 @@ public class ConfigWizard {
                     println(buffer);
                 }
 
-                if (i < (keyGroups.length - 1)) {
+                if (i < keyGroups.length - 1) {
                     println();
                 }
             }
@@ -682,7 +682,7 @@ public class ConfigWizard {
             String[] parts = StringUtil.split(key, ".");
             StringBuffer buffer = new StringBuffer();
 
-            for (int j = 0; (j < (parts.length - 1)) && (j < level); j++) {
+            for (int j = 0; j < parts.length - 1 && j < level; j++) {
                 if (buffer.length() > 0) {
                     buffer.append('.');
                 }
@@ -704,7 +704,7 @@ public class ConfigWizard {
             group.add(key);
         }
 
-        if ((group != null) && (group.size() > 0)) {
+        if (group != null && group.size() > 0) {
             groups.add(group);
         }
 
@@ -737,7 +737,7 @@ public class ConfigWizard {
     private String getPropertyValue(ConfigProperty prop, boolean defaultValue) {
         Object value = getValues().get(prop.getName());
 
-        if (defaultValue && (value == null)) {
+        if (defaultValue && value == null) {
             value = prop.getDefaultValue();
         }
 
@@ -752,14 +752,14 @@ public class ConfigWizard {
                 stringValue = stringValue.trim();
             }
 
-            if ((stringValue == null) || (stringValue.length() == 0)) {
+            if (stringValue == null || stringValue.length() == 0) {
                 stringValue = null;
             }
 
             return stringValue;
         }
 
-        return (value == null) ? null : value.toString();
+        return value == null ? null : value.toString();
     }
 
     /**
@@ -772,7 +772,7 @@ public class ConfigWizard {
         final String ref = prop.getName();
         Object value = getValues().get(ref);
 
-        if (defaultValue && (value == null)) {
+        if (defaultValue && value == null) {
             value = prop.getDefaultValue();
 
             if (value instanceof String) {
@@ -809,14 +809,14 @@ public class ConfigWizard {
                 stringValue = stringValue.trim();
             }
 
-            if ((stringValue == null) || (stringValue.length() == 0)) {
+            if (stringValue == null || stringValue.length() == 0) {
                 stringValue = null;
             }
 
             return stringValue;
         }
 
-        return (value == null) ? null : value.toString();
+        return value == null ? null : value.toString();
     }
 
     /**

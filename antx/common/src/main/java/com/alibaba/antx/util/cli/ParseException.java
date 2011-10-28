@@ -36,9 +36,10 @@ public class ParseException extends ChainedException {
 
     /**
      * <p>
-     * Construct a new <code>ParseException</code>  with the specified detail message.
+     * Construct a new <code>ParseException</code> with the specified detail
+     * message.
      * </p>
-     *
+     * 
      * @param message the detail message
      */
     public ParseException(String message) {

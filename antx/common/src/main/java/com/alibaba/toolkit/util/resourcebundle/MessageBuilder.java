@@ -17,46 +17,43 @@
 
 package com.alibaba.toolkit.util.resourcebundle;
 
-import com.alibaba.toolkit.util.StringUtil;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+
+import com.alibaba.toolkit.util.StringUtil;
 
 /**
  * 通过资源束创建消息的工具类, 支持所有原子类型, 方便使用.
- *
  * <p>
  * 使用方法:
+ * 
  * <pre>
- *   String message = new MessageBuilder(bundle, key)
- *                   .append(param1)
- *                   .append(param2)
- *                   .toString();
+ * String message = new MessageBuilder(bundle, key).append(param1).append(param2).toString();
  * </pre>
+ * 
  * </p>
- *
  * <p>
- * 在构造此类时, 可以提供一个<code>quiet</code>参数.  如果此参数为<code>true</code>, 并且resource bundle找不到,
- * 则不会抛出<code>MissingResourceException</code>, 而是返回一个默认的字符串.
+ * 在构造此类时, 可以提供一个<code>quiet</code>参数. 如果此参数为<code>true</code>, 并且resource
+ * bundle找不到, 则不会抛出<code>MissingResourceException</code>, 而是返回一个默认的字符串.
  * </p>
- *
+ * 
  * @version $Id: MessageBuilder.java,v 1.1 2003/07/03 07:26:35 baobao Exp $
  * @author Michael Zhou
  */
 public class MessageBuilder {
-    protected final List           params = new ArrayList(5);
+    protected final List params = new ArrayList(5);
     protected final ResourceBundle bundle;
-    protected final Object         key;
+    protected final Object key;
 
     /**
      * 创建一个<code>MessageBuilder</code>.
-     *
-     * @param bundleName  资源束
-     * @param key         键值
-     *
-     * @throws MissingResourceException  指定bundle未找到, 或创建bundle错误
+     * 
+     * @param bundleName 资源束
+     * @param key 键值
+     * @throws MissingResourceException 指定bundle未找到, 或创建bundle错误
      */
     public MessageBuilder(String bundleName, Object key) {
         this(ResourceBundleFactory.getBundle(bundleName), key);
@@ -64,20 +61,19 @@ public class MessageBuilder {
 
     /**
      * 创建一个<code>MessageBuilder</code>.
-     *
-     * @param bundle  资源束
-     * @param key     键值
+     * 
+     * @param bundle 资源束
+     * @param key 键值
      */
     public MessageBuilder(ResourceBundle bundle, Object key) {
         this.bundle = bundle;
-        this.key    = key;
+        this.key = key;
     }
 
     /**
      * 增加一个参数.
-     *
+     * 
      * @param param 参数
-     *
      * @return <code>MessageBuilder</code>自身
      */
     public MessageBuilder append(Object param) {
@@ -87,9 +83,8 @@ public class MessageBuilder {
 
     /**
      * 增加一个参数.
-     *
+     * 
      * @param param 参数
-     *
      * @return <code>MessageBuilder</code>自身
      */
     public MessageBuilder append(boolean param) {
@@ -99,9 +94,8 @@ public class MessageBuilder {
 
     /**
      * 增加一个参数.
-     *
+     * 
      * @param param 参数
-     *
      * @return <code>MessageBuilder</code>自身
      */
     public MessageBuilder append(char param) {
@@ -111,9 +105,8 @@ public class MessageBuilder {
 
     /**
      * 增加一个参数.
-     *
+     * 
      * @param param 参数
-     *
      * @return <code>MessageBuilder</code>自身
      */
     public MessageBuilder append(double param) {
@@ -123,9 +116,8 @@ public class MessageBuilder {
 
     /**
      * 增加一个参数.
-     *
+     * 
      * @param param 参数
-     *
      * @return <code>MessageBuilder</code>自身
      */
     public MessageBuilder append(float param) {
@@ -135,9 +127,8 @@ public class MessageBuilder {
 
     /**
      * 增加一个参数.
-     *
+     * 
      * @param param 参数
-     *
      * @return <code>MessageBuilder</code>自身
      */
     public MessageBuilder append(int param) {
@@ -147,9 +138,8 @@ public class MessageBuilder {
 
     /**
      * 增加一个参数.
-     *
+     * 
      * @param param 参数
-     *
      * @return <code>MessageBuilder</code>自身
      */
     public MessageBuilder append(long param) {
@@ -159,9 +149,8 @@ public class MessageBuilder {
 
     /**
      * 增加多个参数.
-     *
+     * 
      * @param params 参数表
-     *
      * @return <code>MessageBuilder</code>自身
      */
     public MessageBuilder append(Object[] params) {
@@ -174,19 +163,19 @@ public class MessageBuilder {
 
     /**
      * 取得消息字符串.
-     *
+     * 
      * @return 消息字符串
      */
+    @Override
     public String toString() {
         return getMessage();
     }
 
     /**
      * 从资源束中取得消息字符串.
-     *
+     * 
      * @return 消息字符串
-     *
-     * @throws MissingResourceException  指定resource key未找到
+     * @throws MissingResourceException 指定resource key未找到
      */
     protected String getMessage() {
         return StringUtil.getMessage(bundle, key, params.toArray());

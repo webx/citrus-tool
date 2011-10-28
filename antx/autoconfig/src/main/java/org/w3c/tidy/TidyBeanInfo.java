@@ -48,6 +48,7 @@ import java.beans.SimpleBeanInfo;
 
 public class TidyBeanInfo extends SimpleBeanInfo {
 
+    @Override
     public Image getIcon(int kind) {
         return loadImage("tidy.gif");
     }

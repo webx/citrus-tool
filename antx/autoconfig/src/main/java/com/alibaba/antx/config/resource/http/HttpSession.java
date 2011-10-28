@@ -27,11 +27,11 @@ import org.apache.commons.httpclient.auth.AuthScheme;
 import org.apache.commons.httpclient.auth.CredentialsNotAvailableException;
 import org.apache.commons.httpclient.auth.CredentialsProvider;
 
+import com.alibaba.antx.config.resource.AuthenticationHandler.UsernamePassword;
 import com.alibaba.antx.config.resource.Resource;
 import com.alibaba.antx.config.resource.ResourceDriver;
 import com.alibaba.antx.config.resource.ResourceURI;
 import com.alibaba.antx.config.resource.Session;
-import com.alibaba.antx.config.resource.AuthenticationHandler.UsernamePassword;
 import com.alibaba.antx.config.resource.util.ResourceContext;
 import com.alibaba.antx.config.resource.util.ResourceKey;
 
@@ -72,6 +72,7 @@ public class HttpSession extends Session {
         return client;
     }
 
+    @Override
     public boolean acceptOption(String optionName) {
         if ("charset".equals(optionName)) {
             return true;
@@ -80,6 +81,7 @@ public class HttpSession extends Session {
         return false;
     }
 
+    @Override
     public Resource getResource(final ResourceURI uri) {
         return new HttpResource(this, uri);
     }

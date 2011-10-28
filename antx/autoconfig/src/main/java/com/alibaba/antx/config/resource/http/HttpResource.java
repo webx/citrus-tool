@@ -47,20 +47,24 @@ public class HttpResource extends Resource {
         super(session, uri);
     }
 
+    @Override
     public Resource getRelatedResource(String suburi) {
         return new HttpResource((HttpSession) getSession(), getURI().getSubURI(suburi));
     }
 
+    @Override
     public String getContentType() {
         load();
         return contentType;
     }
 
+    @Override
     public String getCharset() {
         load();
         return charset;
     }
 
+    @Override
     public byte[] getContent() {
         load();
         return content;
@@ -110,18 +114,22 @@ public class HttpResource extends Resource {
         }
     }
 
+    @Override
     public InputStream getInputStream() {
         return new ByteArrayInputStream(getContent());
     }
 
+    @Override
     public OutputStream getOutputStream() {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public boolean isDirectory() {
         return getURI().guessDirectory();
     }
 
+    @Override
     public List list() {
         if (isDirectory()) {
             String overridingCharset = getURI().getOption("charset");
@@ -129,9 +137,7 @@ public class HttpResource extends Resource {
                     new ApacheIndexPageParser(overridingCharset) };
             List items = null;
 
-            for (int i = 0; i < parsers.length; i++) {
-                IndexPageParser parser = parsers[i];
-
+            for (IndexPageParser parser : parsers) {
                 items = parser.parse(this);
 
                 if (items != null) {

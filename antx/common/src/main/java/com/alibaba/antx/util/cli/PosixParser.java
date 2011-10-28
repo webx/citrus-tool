@@ -22,12 +22,10 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 /**
- * The class PosixParser provides an implementation of the  {@link
- * Parser#flatten(Options,String[],boolean) flatten} method.
- *
+ * The class PosixParser provides an implementation of the
+ * {@link Parser#flatten(Options,String[],boolean) flatten} method.
+ * 
  * @author John Keyes (john at integralsource.com)
- *
- *
  * @see Parser
  */
 public class PosixParser extends Parser {
@@ -45,8 +43,9 @@ public class PosixParser extends Parser {
 
     /**
      * <p>
-     * Resets the members to their original state i.e. remove all of <code>tokens</code> entries,
-     * set <code>eatTheRest</code> to false and set <code>currentOption</code> to null.
+     * Resets the members to their original state i.e. remove all of
+     * <code>tokens</code> entries, set <code>eatTheRest</code> to false and set
+     * <code>currentOption</code> to null.
      * </p>
      */
     private void init() {
@@ -57,61 +56,52 @@ public class PosixParser extends Parser {
 
     /**
      * <p>
-     * An implementation of {@link Parser}'s abstract {@link
-     * Parser#flatten(Options,String[],boolean) flatten} method.
+     * An implementation of {@link Parser}'s abstract
+     * {@link Parser#flatten(Options,String[],boolean) flatten} method.
      * </p>
-     * 
      * <p>
      * The following are the rules used by this flatten method.
-     * 
      * <ol>
-     * <li>
-     * if <code>stopAtNonOption</code> is <b>true</b> then do not burst anymore of
-     * <code>arguments</code> entries, just add each successive entry without further processing.
-     * Otherwise, ignore <code>stopAtNonOption</code>.
-     * </li>
-     * <li>
-     * if the current <code>arguments</code> entry is "<b>--</b>" just add the entry to the list of
-     * processed tokens
-     * </li>
-     * <li>
-     * if the current <code>arguments</code> entry is "<b>-</b>" just add the entry to the list of
-     * processed tokens
-     * </li>
-     * <li>
-     * if the current <code>arguments</code> entry is two characters in length and the first
-     * character is "<b>-</b>" then check if this is a valid {@link Option} id.  If it is a valid
-     * id, then add the entry to the list of processed tokens and set the current {@link Option}
-     * member.  If it is not a valid id and <code>stopAtNonOption</code> is true, then the
-     * remaining entries are copied to the list of  processed tokens.  Otherwise, the current
-     * entry is ignored.
-     * </li>
-     * <li>
-     * if the current <code>arguments</code> entry is more than two characters in length and the
-     * first character is "<b>-</b>" then we need to burst the entry to determine its
-     * constituents.  For more information on the bursting algorithm see  {@link
-     * PosixParser#burstToken( String, boolean) burstToken}.
-     * </li>
-     * <li>
-     * if the current <code>arguments</code> entry is not handled  by any of the previous rules,
-     * then the entry is added to the list of processed tokens.
-     * </li>
+     * <li>if <code>stopAtNonOption</code> is <b>true</b> then do not burst
+     * anymore of <code>arguments</code> entries, just add each successive entry
+     * without further processing. Otherwise, ignore
+     * <code>stopAtNonOption</code>.</li>
+     * <li>if the current <code>arguments</code> entry is "<b>--</b>" just add
+     * the entry to the list of processed tokens</li>
+     * <li>if the current <code>arguments</code> entry is "<b>-</b>" just add
+     * the entry to the list of processed tokens</li>
+     * <li>if the current <code>arguments</code> entry is two characters in
+     * length and the first character is "<b>-</b>" then check if this is a
+     * valid {@link Option} id. If it is a valid id, then add the entry to the
+     * list of processed tokens and set the current {@link Option} member. If it
+     * is not a valid id and <code>stopAtNonOption</code> is true, then the
+     * remaining entries are copied to the list of processed tokens. Otherwise,
+     * the current entry is ignored.</li>
+     * <li>if the current <code>arguments</code> entry is more than two
+     * characters in length and the first character is "<b>-</b>" then we need
+     * to burst the entry to determine its constituents. For more information on
+     * the bursting algorithm see
+     * {@link PosixParser#burstToken(String, boolean) burstToken}.</li>
+     * <li>if the current <code>arguments</code> entry is not handled by any of
+     * the previous rules, then the entry is added to the list of processed
+     * tokens.</li>
      * </ol>
      * </p>
-     *
+     * 
      * @param options The command line {@link Options}
      * @param arguments The command line arguments to be parsed
-     * @param stopAtNonOption Specifies whether to stop flattening when an non option is found.
-     *
+     * @param stopAtNonOption Specifies whether to stop flattening when an non
+     *            option is found.
      * @return The flattened <code>arguments</code> String array.
      */
+    @Override
     protected String[] flatten(Options options, String[] arguments, boolean stopAtNonOption) {
         init();
         this.options = options;
 
         // an iterator for the command line tokens
-        Iterator iter  = Arrays.asList(arguments).iterator();
-        String   token = null;
+        Iterator iter = Arrays.asList(arguments).iterator();
+        String token = null;
 
         // process each command line token
         while (iter.hasNext()) {
@@ -152,14 +142,14 @@ public class PosixParser extends Parser {
             gobble(iter);
         }
 
-        return (String[]) tokens.toArray(new String[] {  });
+        return (String[]) tokens.toArray(new String[] {});
     }
 
     /**
      * <p>
      * Adds the remaining tokens to the processed tokens list.
      * </p>
-     *
+     * 
      * @param iter An iterator over the remaining tokens
      */
     private void gobble(Iterator iter) {
@@ -172,25 +162,24 @@ public class PosixParser extends Parser {
 
     /**
      * <p>
-     * If there is a current option and it can have an argument value then add the token to the
-     * processed tokens list and  set the current option to null.
+     * If there is a current option and it can have an argument value then add
+     * the token to the processed tokens list and set the current option to
+     * null.
+     * </p>
+     * <p>
+     * If there is a current option and it can have argument values then add the
+     * token to the processed tokens list.
+     * </p>
+     * <p>
+     * If there is not a current option add the special token "<b>--</b>" and
+     * the current <code>value</code> to the processed tokens list. The add all
+     * the remaining <code>argument</code> values to the processed tokens list.
      * </p>
      * 
-     * <p>
-     * If there is a current option and it can have argument values then add the token to the
-     * processed tokens list.
-     * </p>
-     * 
-     * <p>
-     * If there is not a current option add the special token "<b>--</b>" and the current
-     * <code>value</code> to the processed tokens list.  The add all the remaining
-     * <code>argument</code> values to the processed tokens list.
-     * </p>
-     *
      * @param value The current token
      */
     private void process(String value) {
-        if ((currentOption != null) && currentOption.hasArg()) {
+        if (currentOption != null && currentOption.hasArg()) {
             if (currentOption.hasArg()) {
                 tokens.add(value);
                 currentOption = null;
@@ -206,9 +195,10 @@ public class PosixParser extends Parser {
 
     /**
      * <p>
-     * If it is a hyphen then add the hyphen directly to the processed tokens list.
+     * If it is a hyphen then add the hyphen directly to the processed tokens
+     * list.
      * </p>
-     *
+     * 
      * @param hyphen The hyphen token
      */
     private void processSingleHyphen(String hyphen) {
@@ -217,17 +207,18 @@ public class PosixParser extends Parser {
 
     /**
      * <p>
-     * If an {@link Option} exists for <code>token</code> then set the current option and add the
-     * token to the processed  list.
+     * If an {@link Option} exists for <code>token</code> then set the current
+     * option and add the token to the processed list.
+     * </p>
+     * <p>
+     * If an {@link Option} does not exist and <code>stopAtNonOption</code> is
+     * set then ignore the current token and add the remaining tokens to the
+     * processed tokens list directly.
      * </p>
      * 
-     * <p>
-     * If an {@link Option} does not exist and <code>stopAtNonOption</code> is set then ignore the
-     * current token and add the remaining tokens to the processed tokens list directly.
-     * </p>
-     *
      * @param token The current option token
-     * @param stopAtNonOption Specifies whether flattening should halt at the first non option.
+     * @param stopAtNonOption Specifies whether flattening should halt at the
+     *            first non option.
      */
     private void processOptionToken(String token, boolean stopAtNonOption) {
         if (this.options.hasOption(token)) {
@@ -241,32 +232,24 @@ public class PosixParser extends Parser {
 
     /**
      * <p>
-     * Breaks <code>token</code> into its constituent parts using the following algorithm.
-     * 
+     * Breaks <code>token</code> into its constituent parts using the following
+     * algorithm.
      * <ul>
-     * <li>
-     * ignore the first character ("<b>-</b>" )
-     * </li>
-     * <li>
-     * foreach remaining character check if an {@link Option} exists with that id.
-     * </li>
-     * <li>
-     * if an {@link Option} does exist then add that character prepended with "<b>-</b>" to the
-     * list of processed tokens.
-     * </li>
-     * <li>
-     * if the {@link Option} can have an argument value and there  are remaining characters in the
-     * token then add the remaining  characters as a token to the list of processed tokens.
-     * </li>
-     * <li>
-     * if an {@link Option} does <b>NOT</b> exist <b>AND</b><code>stopAtNonOption</code><b>IS</b>
-     * set then add the special token "<b>--</b>" followed by the remaining characters and also
-     * the remaining tokens directly to the processed tokens list.
-     * </li>
-     * <li>
-     * if an {@link Option} does <b>NOT</b> exist <b>AND</b><code>stopAtNonOption</code><b>IS
-     * NOT</b> set then add that character prepended with "<b>-</b>".
-     * </li>
+     * <li>ignore the first character ("<b>-</b>" )</li>
+     * <li>foreach remaining character check if an {@link Option} exists with
+     * that id.</li>
+     * <li>if an {@link Option} does exist then add that character prepended
+     * with "<b>-</b>" to the list of processed tokens.</li>
+     * <li>if the {@link Option} can have an argument value and there are
+     * remaining characters in the token then add the remaining characters as a
+     * token to the list of processed tokens.</li>
+     * <li>if an {@link Option} does <b>NOT</b> exist <b>AND</b>
+     * <code>stopAtNonOption</code><b>IS</b> set then add the special token
+     * "<b>--</b>" followed by the remaining characters and also the remaining
+     * tokens directly to the processed tokens list.</li>
+     * <li>if an {@link Option} does <b>NOT</b> exist <b>AND</b>
+     * <code>stopAtNonOption</code><b>IS NOT</b> set then add that character
+     * prepended with "<b>-</b>".</li>
      * </ul>
      * </p>
      */
@@ -274,14 +257,14 @@ public class PosixParser extends Parser {
         int tokenLength = token.length();
 
         for (int i = 1; i < tokenLength; i++) {
-            String  ch        = String.valueOf(token.charAt(i));
+            String ch = String.valueOf(token.charAt(i));
             boolean hasOption = options.hasOption(ch);
 
             if (hasOption) {
                 tokens.add("-" + ch);
                 currentOption = options.getOption(ch);
 
-                if (currentOption.hasArg() && (token.length() != (i + 1))) {
+                if (currentOption.hasArg() && token.length() != i + 1) {
                     tokens.add(token.substring(i + 1));
                     break;
                 }

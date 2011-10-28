@@ -26,8 +26,9 @@ import org.apache.oro.text.regex.Perl5Compiler;
 
 /**
  * 将一种格式的pattern转换成Perl5标准的正则表达式的编译器.
- *
- * @version $Id: Perl5CompilerWrapper.java,v 1.1 2003/07/03 07:26:34 baobao Exp $
+ * 
+ * @version $Id: Perl5CompilerWrapper.java,v 1.1 2003/07/03 07:26:34 baobao Exp
+ *          $
  * @author Michael Zhou
  */
 public abstract class Perl5CompilerWrapper implements PatternCompiler {
@@ -54,12 +55,10 @@ public abstract class Perl5CompilerWrapper implements PatternCompiler {
 
     /**
      * 将pattern编译成perl5正则表达式.
-     *
-     * @param pattern  要编译的pattern
-     *
+     * 
+     * @param pattern 要编译的pattern
      * @return Perl5正则表达式
-     *
-     * @throws MalformedPatternException  如果pattern格式不正确
+     * @throws MalformedPatternException 如果pattern格式不正确
      */
     public Pattern compile(String pattern) throws MalformedPatternException {
         return compile(pattern.toCharArray(), DEFAULT_MASK);
@@ -67,13 +66,11 @@ public abstract class Perl5CompilerWrapper implements PatternCompiler {
 
     /**
      * 将pattern编译成perl5正则表达式.
-     *
-     * @param pattern  要编译的pattern
-     * @param options  位标志
-     *
+     * 
+     * @param pattern 要编译的pattern
+     * @param options 位标志
      * @return Perl5正则表达式
-     *
-     * @throws MalformedPatternException  如果pattern格式不正确
+     * @throws MalformedPatternException 如果pattern格式不正确
      */
     public Pattern compile(String pattern, int options) throws MalformedPatternException {
         return compile(pattern.toCharArray(), options);
@@ -81,12 +78,10 @@ public abstract class Perl5CompilerWrapper implements PatternCompiler {
 
     /**
      * 将pattern编译成perl5正则表达式.
-     *
-     * @param pattern  要编译的pattern
-     *
+     * 
+     * @param pattern 要编译的pattern
      * @return Perl5正则表达式
-     *
-     * @throws MalformedPatternException  如果pattern格式不正确
+     * @throws MalformedPatternException 如果pattern格式不正确
      */
     public Pattern compile(char[] pattern) throws MalformedPatternException {
         return compile(pattern, DEFAULT_MASK);
@@ -94,13 +89,11 @@ public abstract class Perl5CompilerWrapper implements PatternCompiler {
 
     /**
      * 将pattern编译成perl5正则表达式.
-     *
-     * @param pattern  要编译的pattern
-     * @param options  位标志
-     *
+     * 
+     * @param pattern 要编译的pattern
+     * @param options 位标志
      * @return Perl5正则表达式
-     *
-     * @throws MalformedPatternException  如果pattern格式不正确
+     * @throws MalformedPatternException 如果pattern格式不正确
      */
     public Pattern compile(char[] pattern, int options) throws MalformedPatternException {
         int perlOptions = 0;
@@ -118,22 +111,18 @@ public abstract class Perl5CompilerWrapper implements PatternCompiler {
 
     /**
      * 将pattern编译成perl5正则表达式字符串.
-     *
-     * @param pattern  要编译的pattern
-     * @param options  位标志
-     *
+     * 
+     * @param pattern 要编译的pattern
+     * @param options 位标志
      * @return Perl5正则表达式
-     *
-     * @throws MalformedPatternException  如果pattern格式不正确
+     * @throws MalformedPatternException 如果pattern格式不正确
      */
-    protected abstract String toPerl5Regex(char[] pattern, int options)
-            throws MalformedPatternException;
+    protected abstract String toPerl5Regex(char[] pattern, int options) throws MalformedPatternException;
 
     /**
      * 判断指定字符是否是perl5正则表达式保留的字符
-     *
+     * 
      * @param ch 字符
-     *
      * @return 如果是保留字符, 则返回<code>true</code>
      */
     protected boolean isPerl5MetaChar(char ch) {
@@ -142,17 +131,13 @@ public abstract class Perl5CompilerWrapper implements PatternCompiler {
 
     /**
      * 取得错误信息.
-     *
-     * @param pattern  当前处理的pattern
-     * @param index    当前处理的pattern的index
-     *
+     * 
+     * @param pattern 当前处理的pattern
+     * @param index 当前处理的pattern的index
      * @return 错误信息
      */
     protected String getDefaultErrorMessage(char[] pattern, int index) {
-        return MessageFormat.format(ERROR_UNEXPECTED_CHAR,
-                                    new Object[] {
-            new Character(pattern[index]),
-            new String(pattern, 0, index)
-        });
+        return MessageFormat.format(ERROR_UNEXPECTED_CHAR, new Object[] { new Character(pattern[index]),
+                new String(pattern, 0, index) });
     }
 }

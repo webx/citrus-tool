@@ -56,6 +56,7 @@ public class DOMElementImpl extends DOMNodeImpl implements org.w3c.dom.Element {
     /**
      * @see org.w3c.dom.Node#getNodeType
      */
+    @Override
     public short getNodeType() {
         return org.w3c.dom.Node.ELEMENT_NODE;
     }
@@ -71,38 +72,43 @@ public class DOMElementImpl extends DOMNodeImpl implements org.w3c.dom.Element {
      * @see org.w3c.dom.Element#getAttribute
      */
     public String getAttribute(String name) {
-        if (this.adaptee == null)
+        if (this.adaptee == null) {
             return null;
+        }
 
         AttVal att = this.adaptee.attributes;
         while (att != null) {
-            if (att.attribute.equals(name))
+            if (att.attribute.equals(name)) {
                 break;
+            }
             att = att.next;
         }
-        if (att != null)
+        if (att != null) {
             return att.value;
-        else
+        } else {
             return "";
+        }
     }
 
     /**
      * @see org.w3c.dom.Element#setAttribute
      */
     public void setAttribute(String name, String value) throws DOMException {
-        if (this.adaptee == null)
+        if (this.adaptee == null) {
             return;
+        }
 
         AttVal att = this.adaptee.attributes;
         while (att != null) {
-            if (att.attribute.equals(name))
+            if (att.attribute.equals(name)) {
                 break;
+            }
             att = att.next;
         }
         if (att != null) {
             att.value = value;
         } else {
-            att = new AttVal(null, null, (int) '"', name, value);
+            att = new AttVal(null, null, '"', name, value);
             att.dict = AttributeTable.getDefaultAttributeTable().findAttribute(att);
             if (this.adaptee.attributes == null) {
                 this.adaptee.attributes = att;
@@ -117,14 +123,16 @@ public class DOMElementImpl extends DOMNodeImpl implements org.w3c.dom.Element {
      * @see org.w3c.dom.Element#removeAttribute
      */
     public void removeAttribute(String name) throws DOMException {
-        if (this.adaptee == null)
+        if (this.adaptee == null) {
             return;
+        }
 
         AttVal att = this.adaptee.attributes;
         AttVal pre = null;
         while (att != null) {
-            if (att.attribute.equals(name))
+            if (att.attribute.equals(name)) {
                 break;
+            }
             pre = att;
             att = att.next;
         }
@@ -141,27 +149,31 @@ public class DOMElementImpl extends DOMNodeImpl implements org.w3c.dom.Element {
      * @see org.w3c.dom.Element#getAttributeNode
      */
     public org.w3c.dom.Attr getAttributeNode(String name) {
-        if (this.adaptee == null)
+        if (this.adaptee == null) {
             return null;
+        }
 
         AttVal att = this.adaptee.attributes;
         while (att != null) {
-            if (att.attribute.equals(name))
+            if (att.attribute.equals(name)) {
                 break;
+            }
             att = att.next;
         }
-        if (att != null)
+        if (att != null) {
             return att.getAdapter();
-        else
+        } else {
             return null;
+        }
     }
 
     /**
      * @see org.w3c.dom.Element#setAttributeNode
      */
     public org.w3c.dom.Attr setAttributeNode(org.w3c.dom.Attr newAttr) throws DOMException {
-        if (newAttr == null)
+        if (newAttr == null) {
             return null;
+        }
         if (!(newAttr instanceof DOMAttrImpl)) {
             throw new DOMExceptionImpl(DOMException.WRONG_DOCUMENT_ERR, "newAttr not instanceof DOMAttrImpl");
         }
@@ -172,8 +184,9 @@ public class DOMElementImpl extends DOMNodeImpl implements org.w3c.dom.Element {
 
         AttVal att = this.adaptee.attributes;
         while (att != null) {
-            if (att.attribute.equals(name))
+            if (att.attribute.equals(name)) {
                 break;
+            }
             att = att.next;
         }
         if (att != null) {
@@ -194,15 +207,17 @@ public class DOMElementImpl extends DOMNodeImpl implements org.w3c.dom.Element {
      * @see org.w3c.dom.Element#removeAttributeNode
      */
     public org.w3c.dom.Attr removeAttributeNode(org.w3c.dom.Attr oldAttr) throws DOMException {
-        if (oldAttr == null)
+        if (oldAttr == null) {
             return null;
+        }
 
         org.w3c.dom.Attr result = null;
         AttVal att = this.adaptee.attributes;
         AttVal pre = null;
         while (att != null) {
-            if (att.getAdapter() == oldAttr)
+            if (att.getAdapter() == oldAttr) {
                 break;
+            }
             pre = att;
             att = att.next;
         }
@@ -229,6 +244,7 @@ public class DOMElementImpl extends DOMNodeImpl implements org.w3c.dom.Element {
     /**
      * @see org.w3c.dom.Element#normalize
      */
+    @Override
     public void normalize() {
         // NOT SUPPORTED
     }
@@ -306,49 +322,61 @@ public class DOMElementImpl extends DOMNodeImpl implements org.w3c.dom.Element {
     public void setIdAttributeNode(Attr idAttr, boolean isId) throws DOMException {
     }
 
+    @Override
     public short compareDocumentPosition(org.w3c.dom.Node other) throws DOMException {
         return 0;
     }
 
+    @Override
     public String getBaseURI() {
         return null;
     }
 
+    @Override
     public Object getFeature(String feature, String version) {
         return null;
     }
 
+    @Override
     public String getTextContent() throws DOMException {
         return null;
     }
 
+    @Override
     public Object getUserData(String key) {
         return null;
     }
 
+    @Override
     public boolean isDefaultNamespace(String namespaceURI) {
         return false;
     }
 
+    @Override
     public boolean isEqualNode(org.w3c.dom.Node arg) {
         return false;
     }
 
+    @Override
     public boolean isSameNode(org.w3c.dom.Node other) {
         return false;
     }
 
+    @Override
     public String lookupNamespaceURI(String prefix) {
         return null;
     }
 
+    @Override
     public String lookupPrefix(String namespaceURI) {
         return null;
     }
 
+    @Override
     public void setTextContent(String textContent) throws DOMException {
     }
 
+    @Override
     public Object setUserData(String key, Object data, UserDataHandler handler) {
         return null;
     }

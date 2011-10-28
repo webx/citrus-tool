@@ -40,7 +40,7 @@ import com.alibaba.antx.util.StringUtil;
  */
 public class DefaultAuthenticationHandler implements AuthenticationHandler {
     private final ResourceManager resourceManager;
-    private final File            passwordFile;
+    private final File passwordFile;
 
     public DefaultAuthenticationHandler(ResourceManager resourceManager) {
         this.resourceManager = resourceManager;

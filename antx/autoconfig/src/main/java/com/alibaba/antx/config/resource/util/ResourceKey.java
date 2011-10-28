@@ -25,10 +25,10 @@ import com.alibaba.antx.util.StringUtil;
 
 public class ResourceKey implements Serializable {
     private static final long serialVersionUID = -2027481344124093795L;
-    private final String      scheme;
-    private final String      user;
-    private final String      host;
-    private final int         port;
+    private final String scheme;
+    private final String user;
+    private final String host;
+    private final int port;
 
     public ResourceKey(String uri) {
         this(new ResourceURI(URI.create(uri)));
@@ -58,16 +58,18 @@ public class ResourceKey implements Serializable {
         return port;
     }
 
+    @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((host == null) ? 0 : host.hashCode());
+        result = prime * result + (host == null ? 0 : host.hashCode());
         result = prime * result + port;
-        result = prime * result + ((scheme == null) ? 0 : scheme.hashCode());
-        result = prime * result + ((user == null) ? 0 : user.hashCode());
+        result = prime * result + (scheme == null ? 0 : scheme.hashCode());
+        result = prime * result + (user == null ? 0 : user.hashCode());
         return result;
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -106,6 +108,7 @@ public class ResourceKey implements Serializable {
         return true;
     }
 
+    @Override
     public String toString() {
         StringBuffer buf = new StringBuffer();
 

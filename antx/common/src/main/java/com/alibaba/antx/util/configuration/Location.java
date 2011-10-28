@@ -21,32 +21,30 @@ import org.xml.sax.Locator;
 
 /**
  * 配置项在配置文件中的位置.
- *
+ * 
  * @author Michael Zhou
- *
  */
 public class Location implements Locator {
     private final String publicId;
     private final String systemId;
-    private final int    lineNumber;
-    private final int    columnNumber;
+    private final int lineNumber;
+    private final int columnNumber;
 
     /** 代表空的location. */
     public static final Location EMPTY_LOCATION = new Location(null, null, -1, -1);
 
     /**
      * 创建位置信息.
-     *
+     * 
      * @param locator XML文件中的位置信息
      */
     public Location(Locator locator) {
-        this(locator.getPublicId(), locator.getSystemId(), locator.getLineNumber(),
-            locator.getColumnNumber());
+        this(locator.getPublicId(), locator.getSystemId(), locator.getLineNumber(), locator.getColumnNumber());
     }
 
     /**
      * 创建位置信息.
-     *
+     * 
      * @param publicId public ID
      * @param systemId system ID, 也就是文件路径或URL
      * @param lineNumber 行号
@@ -56,7 +54,7 @@ public class Location implements Locator {
         if (publicId != null) {
             publicId = publicId.trim();
 
-            if ((publicId != null) && (publicId.length() == 0)) {
+            if (publicId != null && publicId.length() == 0) {
                 publicId = null;
             }
         }
@@ -64,7 +62,7 @@ public class Location implements Locator {
         if (systemId != null) {
             systemId = systemId.trim();
 
-            if ((systemId != null) && (systemId.length() == 0)) {
+            if (systemId != null && systemId.length() == 0) {
                 systemId = null;
             }
         }
@@ -77,15 +75,15 @@ public class Location implements Locator {
             columnNumber = -1;
         }
 
-        this.publicId         = publicId;
-        this.systemId         = systemId;
-        this.lineNumber       = lineNumber;
-        this.columnNumber     = columnNumber;
+        this.publicId = publicId;
+        this.systemId = systemId;
+        this.lineNumber = lineNumber;
+        this.columnNumber = columnNumber;
     }
 
     /**
      * 取得public ID.
-     *
+     * 
      * @return public ID, 如果不存在, 则返回<code>null</code>
      */
     public String getPublicId() {
@@ -94,7 +92,7 @@ public class Location implements Locator {
 
     /**
      * 取得system ID.
-     *
+     * 
      * @return system ID, 如果不存在, 则返回<code>null</code>
      */
     public String getSystemId() {
@@ -103,7 +101,7 @@ public class Location implements Locator {
 
     /**
      * 取得行号.
-     *
+     * 
      * @return 行号, 如果不存在, 则返回<code>-1</code>
      */
     public int getLineNumber() {
@@ -112,7 +110,7 @@ public class Location implements Locator {
 
     /**
      * 取得列号.
-     *
+     * 
      * @return 列号, 如果不存在, 则返回<code>-1</code>
      */
     public int getColumnNumber() {
@@ -121,9 +119,10 @@ public class Location implements Locator {
 
     /**
      * 转换成字符串表示.
-     *
+     * 
      * @return 字符串表示
      */
+    @Override
     public String toString() {
         if (systemId == null) {
             return "Unknown location";

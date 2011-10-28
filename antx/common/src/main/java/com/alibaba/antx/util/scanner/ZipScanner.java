@@ -17,32 +17,30 @@
 
 package com.alibaba.antx.util.scanner;
 
-import com.alibaba.antx.util.ZipUtil;
-
 import java.io.File;
 import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import com.alibaba.antx.util.ZipUtil;
+
 /**
  * Zip文件扫描器。
- *
+ * 
  * @author Michael Zhou
  */
 public class ZipScanner extends AbstractScanner {
-    private URL            zipURL;
+    private URL zipURL;
     private ZipInputStream zis;
-    private ZipEntry       zipEntry;
+    private ZipEntry zipEntry;
 
-/**
+    /**
      * 创建一个zip文件扫描器。
-     *
+     * 
      * @param zipfile zip文件
      * @param handler 回调函数
      */
@@ -60,9 +58,9 @@ public class ZipScanner extends AbstractScanner {
         }
     }
 
-/**
+    /**
      * 创建一个zip文件扫描器。
-     *
+     * 
      * @param zipURL zip文件的URL
      * @param handler 回调函数
      */
@@ -74,7 +72,7 @@ public class ZipScanner extends AbstractScanner {
 
     /**
      * 取得扫描的zip文件的URL。
-     *
+     * 
      * @return 正在扫描的zip文件的URL
      */
     public URL getBaseURL() {
@@ -83,7 +81,7 @@ public class ZipScanner extends AbstractScanner {
 
     /**
      * 取得当前正在扫描的文件的URL。
-     *
+     * 
      * @return URL
      */
     public URL getURL() {
@@ -96,20 +94,21 @@ public class ZipScanner extends AbstractScanner {
 
     /**
      * 取得当前正在扫描的文件的输入流。
-     *
+     * 
      * @return 输入流
      */
     public InputStream getInputStream() {
         return new FilterInputStream(zis) {
-                public void close() throws IOException {
-                    // 避免关闭
-                }
-            };
+            @Override
+            public void close() throws IOException {
+                // 避免关闭
+            }
+        };
     }
 
     /**
      * 设置zip文件的输入流。
-     *
+     * 
      * @param istream zip文件的输入流
      */
     public void setInputStream(InputStream istream) {
@@ -120,7 +119,7 @@ public class ZipScanner extends AbstractScanner {
 
     /**
      * 取得当前正在处理的zip entry。
-     *
+     * 
      * @return zip entry
      */
     public ZipEntry getZipEntry() {
@@ -138,7 +137,7 @@ public class ZipScanner extends AbstractScanner {
 
         if (zis == null) {
             try {
-                zis       = new ZipInputStream(getBaseURL().openStream());
+                zis = new ZipInputStream(getBaseURL().openStream());
                 needClose = true;
             } catch (IOException e) {
                 throw new ScannerException(e);

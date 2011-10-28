@@ -17,15 +17,15 @@
 
 package com.alibaba.antx.util;
 
-import com.alibaba.toolkit.util.collection.ArrayHashSet;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import com.alibaba.toolkit.util.collection.ArrayHashSet;
+
 /**
  * 代表includes、excludes的pattern集合。
- *
+ * 
  * @author Michael Zhou
  */
 public class PatternSet {
@@ -50,7 +50,7 @@ public class PatternSet {
     }
 
     public PatternSet(PatternSet patterns, PatternSet defaultPatterns) {
-        if ((patterns == null) || patterns.isEmpty()) {
+        if (patterns == null || patterns.isEmpty()) {
             patterns = defaultPatterns;
 
             if (patterns == null) {
@@ -72,8 +72,8 @@ public class PatternSet {
 
         List patternList = new ArrayList(patterns.length);
 
-        for (int i = 0; i < patterns.length; i++) {
-            String pattern = patterns[i];
+        for (String pattern2 : patterns) {
+            String pattern = pattern2;
 
             if (pattern == null) {
                 continue;
@@ -82,17 +82,17 @@ public class PatternSet {
             }
 
             int startIndex = 0;
-            int endIndex   = pattern.length();
+            int endIndex = pattern.length();
 
-            while ((startIndex < pattern.length()) && (pattern.charAt(startIndex) == '/')) {
+            while (startIndex < pattern.length() && pattern.charAt(startIndex) == '/') {
                 startIndex++;
             }
 
-            while ((endIndex > 0) && (pattern.charAt(endIndex - 1) == '/')) {
+            while (endIndex > 0 && pattern.charAt(endIndex - 1) == '/') {
                 endIndex--;
             }
 
-            if ((startIndex > 0) || (endIndex < pattern.length())) {
+            if (startIndex > 0 || endIndex < pattern.length()) {
                 pattern = pattern.substring(startIndex, endIndex);
             }
 
@@ -110,12 +110,12 @@ public class PatternSet {
     public PatternSet addExcludes(String[] addedExcludes) {
         Set excludeSet = new ArrayHashSet();
 
-        for (int i = 0; i < excludes.length; i++) {
-            excludeSet.add(excludes[i]);
+        for (String exclude : excludes) {
+            excludeSet.add(exclude);
         }
 
-        for (int i = 0; i < addedExcludes.length; i++) {
-            excludeSet.add(addedExcludes[i]);
+        for (String addedExclude : addedExcludes) {
+            excludeSet.add(addedExclude);
         }
 
         excludes = (String[]) excludeSet.toArray(new String[excludeSet.size()]);
@@ -148,7 +148,7 @@ public class PatternSet {
      * 是否为空。
      */
     public boolean isEmpty() {
-        return (includes.length == 0) && (excludes.length == 0);
+        return includes.length == 0 && excludes.length == 0;
     }
 
     /**
@@ -159,19 +159,20 @@ public class PatternSet {
             return false;
         }
 
-        return (includes.length == 1) && "**".equals(includes[0]) && (excludes.length == 0);
+        return includes.length == 1 && "**".equals(includes[0]) && excludes.length == 0;
     }
 
     /**
      * 是否排除所有。
      */
     public boolean isExcludeAll() {
-        return (excludes.length == 1) && "**".equals(excludes[0]);
+        return excludes.length == 1 && "**".equals(excludes[0]);
     }
 
     /**
      * 转换成字符串形式。
      */
+    @Override
     public String toString() {
         StringBuffer buffer = new StringBuffer();
 

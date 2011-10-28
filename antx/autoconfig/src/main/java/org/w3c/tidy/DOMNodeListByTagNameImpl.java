@@ -50,11 +50,11 @@ package org.w3c.tidy;
  */
 public class DOMNodeListByTagNameImpl implements org.w3c.dom.NodeList {
 
-    private Node   first     = null;
-    private String tagName   = "*";
-    private int    currIndex = 0;
-    private int    maxIndex  = 0;
-    private Node   currNode  = null;
+    private Node first = null;
+    private String tagName = "*";
+    private int currIndex = 0;
+    private int maxIndex = 0;
+    private Node currNode = null;
 
     protected DOMNodeListByTagNameImpl(Node first, String tagName) {
         this.first = first;
@@ -69,10 +69,11 @@ public class DOMNodeListByTagNameImpl implements org.w3c.dom.NodeList {
         maxIndex = index;
         preTraverse(first);
 
-        if (currIndex > maxIndex && currNode != null)
+        if (currIndex > maxIndex && currNode != null) {
             return currNode.getAdapter();
-        else
+        } else {
             return null;
+        }
     }
 
     /**
@@ -86,8 +87,9 @@ public class DOMNodeListByTagNameImpl implements org.w3c.dom.NodeList {
     }
 
     protected void preTraverse(Node node) {
-        if (node == null)
+        if (node == null) {
             return;
+        }
 
         if (node.type == Node.StartTag || node.type == Node.StartEndTag) {
             if (currIndex <= maxIndex && (tagName.equals("*") || tagName.equals(node.element))) {
@@ -95,8 +97,9 @@ public class DOMNodeListByTagNameImpl implements org.w3c.dom.NodeList {
                 currNode = node;
             }
         }
-        if (currIndex > maxIndex)
+        if (currIndex > maxIndex) {
             return;
+        }
 
         node = node.content;
         while (node != null) {

@@ -17,12 +17,12 @@
 
 package com.alibaba.antx.util.i18n;
 
-import com.alibaba.antx.util.StringUtil;
-
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
+
+import com.alibaba.antx.util.StringUtil;
 
 /**
  * 代表一个locale信息的类。

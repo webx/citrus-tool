@@ -124,10 +124,11 @@ public class DOMNodeImpl implements org.w3c.dom.Node {
      * @see org.w3c.dom.Node#getParentNode
      */
     public org.w3c.dom.Node getParentNode() {
-        if (adaptee.parent != null)
+        if (adaptee.parent != null) {
             return adaptee.parent.getAdapter();
-        else
+        } else {
             return null;
+        }
     }
 
     /**
@@ -141,40 +142,44 @@ public class DOMNodeImpl implements org.w3c.dom.Node {
      * @see org.w3c.dom.Node#getFirstChild
      */
     public org.w3c.dom.Node getFirstChild() {
-        if (adaptee.content != null)
+        if (adaptee.content != null) {
             return adaptee.content.getAdapter();
-        else
+        } else {
             return null;
+        }
     }
 
     /**
      * @see org.w3c.dom.Node#getLastChild
      */
     public org.w3c.dom.Node getLastChild() {
-        if (adaptee.last != null)
+        if (adaptee.last != null) {
             return adaptee.last.getAdapter();
-        else
+        } else {
             return null;
+        }
     }
 
     /**
      * @see org.w3c.dom.Node#getPreviousSibling
      */
     public org.w3c.dom.Node getPreviousSibling() {
-        if (adaptee.prev != null)
+        if (adaptee.prev != null) {
             return adaptee.prev.getAdapter();
-        else
+        } else {
             return null;
+        }
     }
 
     /**
      * @see org.w3c.dom.Node#getNextSibling
      */
     public org.w3c.dom.Node getNextSibling() {
-        if (adaptee.next != null)
+        if (adaptee.next != null) {
             return adaptee.next.getAdapter();
-        else
+        } else {
             return null;
+        }
     }
 
     /**
@@ -191,16 +196,19 @@ public class DOMNodeImpl implements org.w3c.dom.Node {
         Node node;
 
         node = this.adaptee;
-        if (node != null && node.type == Node.RootNode)
+        if (node != null && node.type == Node.RootNode) {
             return null;
+        }
 
-        for (node = this.adaptee; node != null && node.type != Node.RootNode; node = node.parent)
+        for (node = this.adaptee; node != null && node.type != Node.RootNode; node = node.parent) {
             ;
+        }
 
-        if (node != null)
+        if (node != null) {
             return (org.w3c.dom.Document) node.getAdapter();
-        else
+        } else {
             return null;
+        }
     }
 
     /**
@@ -209,8 +217,9 @@ public class DOMNodeImpl implements org.w3c.dom.Node {
     public org.w3c.dom.Node insertBefore(org.w3c.dom.Node newChild, org.w3c.dom.Node refChild) throws DOMException {
         // TODO - handle newChild already in tree
 
-        if (newChild == null)
+        if (newChild == null) {
             return null;
+        }
         if (!(newChild instanceof DOMNodeImpl)) {
             throw new DOMExceptionImpl(DOMException.WRONG_DOCUMENT_ERR, "newChild not instanceof DOMNodeImpl");
         }
@@ -237,8 +246,9 @@ public class DOMNodeImpl implements org.w3c.dom.Node {
         } else {
             Node ref = this.adaptee.content;
             while (ref != null) {
-                if (ref.getAdapter() == refChild)
+                if (ref.getAdapter() == refChild) {
                     break;
+                }
                 ref = ref.next;
             }
             if (ref == null) {
@@ -255,8 +265,9 @@ public class DOMNodeImpl implements org.w3c.dom.Node {
     public org.w3c.dom.Node replaceChild(org.w3c.dom.Node newChild, org.w3c.dom.Node oldChild) throws DOMException {
         // TODO - handle newChild already in tree
 
-        if (newChild == null)
+        if (newChild == null) {
             return null;
+        }
         if (!(newChild instanceof DOMNodeImpl)) {
             throw new DOMExceptionImpl(DOMException.WRONG_DOCUMENT_ERR, "newChild not instanceof DOMNodeImpl");
         }
@@ -281,8 +292,9 @@ public class DOMNodeImpl implements org.w3c.dom.Node {
             Node n;
             Node ref = this.adaptee.content;
             while (ref != null) {
-                if (ref.getAdapter() == oldChild)
+                if (ref.getAdapter() == oldChild) {
                     break;
+                }
                 ref = ref.next;
             }
             if (ref == null) {
@@ -294,10 +306,12 @@ public class DOMNodeImpl implements org.w3c.dom.Node {
             newCh.adaptee.parent = ref.parent;
             newCh.adaptee.content = ref.content;
             if (ref.parent != null) {
-                if (ref.parent.content == ref)
+                if (ref.parent.content == ref) {
                     ref.parent.content = newCh.adaptee;
-                if (ref.parent.last == ref)
+                }
+                if (ref.parent.last == ref) {
                     ref.parent.last = newCh.adaptee;
+                }
             }
             if (ref.prev != null) {
                 ref.prev.next = newCh.adaptee;
@@ -306,8 +320,9 @@ public class DOMNodeImpl implements org.w3c.dom.Node {
                 ref.next.prev = newCh.adaptee;
             }
             for (n = ref.content; n != null; n = n.next) {
-                if (n.parent == ref)
+                if (n.parent == ref) {
                     n.parent = newCh.adaptee;
+                }
             }
         }
         return oldChild;
@@ -317,13 +332,15 @@ public class DOMNodeImpl implements org.w3c.dom.Node {
      * @see org.w3c.dom.Node#removeChild
      */
     public org.w3c.dom.Node removeChild(org.w3c.dom.Node oldChild) throws DOMException {
-        if (oldChild == null)
+        if (oldChild == null) {
             return null;
+        }
 
         Node ref = this.adaptee.content;
         while (ref != null) {
-            if (ref.getAdapter() == oldChild)
+            if (ref.getAdapter() == oldChild) {
                 break;
+            }
             ref = ref.next;
         }
         if (ref == null) {
@@ -344,8 +361,9 @@ public class DOMNodeImpl implements org.w3c.dom.Node {
     public org.w3c.dom.Node appendChild(org.w3c.dom.Node newChild) throws DOMException {
         // TODO - handle newChild already in tree
 
-        if (newChild == null)
+        if (newChild == null) {
             return null;
+        }
         if (!(newChild instanceof DOMNodeImpl)) {
             throw new DOMExceptionImpl(DOMException.WRONG_DOCUMENT_ERR, "newChild not instanceof DOMNodeImpl");
         }
@@ -377,7 +395,7 @@ public class DOMNodeImpl implements org.w3c.dom.Node {
      * @see org.w3c.dom.Node#hasChildNodes
      */
     public boolean hasChildNodes() {
-        return (adaptee.content != null);
+        return adaptee.content != null;
     }
 
     /**

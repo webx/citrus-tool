@@ -20,11 +20,10 @@ package com.alibaba.antx.util.configuration;
 import com.alibaba.toolkit.util.exception.ChainedException;
 
 /**
- * Thrown when a <code>Configurable</code> component cannot be configured properly, or if a value
- * cannot be retrieved properly.
- *
+ * Thrown when a <code>Configurable</code> component cannot be configured
+ * properly, or if a value cannot be retrieved properly.
+ * 
  * @author <a href="mailto:dev@avalon.apache.org">Avalon Development Team</a>
- *
  */
 public class ConfigurationException extends ChainedException {
     private static final long serialVersionUID = 3257281452726235443L;
@@ -35,7 +34,7 @@ public class ConfigurationException extends ChainedException {
 
     /**
      * Construct a new <code>ConfigurationException</code> instance.
-     *
+     * 
      * @param message The detail message for this exception.
      */
     public ConfigurationException(final String message) {
@@ -44,7 +43,7 @@ public class ConfigurationException extends ChainedException {
 
     /**
      * Construct a new <code>ConfigurationException</code> instance.
-     *
+     * 
      * @param message The detail message for this exception.
      * @param throwable the root cause of the exception
      */

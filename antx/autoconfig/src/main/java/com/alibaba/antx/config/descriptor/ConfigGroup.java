@@ -22,9 +22,9 @@ import java.util.List;
 
 public class ConfigGroup {
     private ConfigDescriptor descriptor;
-    private String           name;
-    private String           description;
-    private List             properties = new ArrayList();
+    private String name;
+    private String description;
+    private List properties = new ArrayList();
 
     public ConfigDescriptor getConfigDescriptor() {
         return descriptor;
@@ -59,6 +59,7 @@ public class ConfigGroup {
         return (ConfigProperty[]) properties.toArray(new ConfigProperty[properties.size()]);
     }
 
+    @Override
     public String toString() {
         return "Group[name=" + getName() + "]";
     }

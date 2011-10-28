@@ -26,6 +26,7 @@ public class SshResourceDriver extends ResourceDriver {
         super(manager);
     }
 
+    @Override
     public Session open() {
         return new SshSession(this);
     }

@@ -61,8 +61,8 @@ public class StyleProp {
         this(null, null, null);
     }
 
-    public String    name;
-    public String    value;
+    public String name;
+    public String value;
     public StyleProp next;
 
 }

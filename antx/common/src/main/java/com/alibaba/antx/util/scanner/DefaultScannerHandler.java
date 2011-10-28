@@ -19,7 +19,7 @@ package com.alibaba.antx.util.scanner;
 
 /**
  * 默认的scanner handler实现。
- *
+ * 
  * @author Michael Zhou
  */
 public class DefaultScannerHandler implements ScannerHandler {
@@ -27,7 +27,7 @@ public class DefaultScannerHandler implements ScannerHandler {
 
     /**
      * 取得scanner。
-     *
+     * 
      * @return 当前正在扫描的scanner
      */
     public Scanner getScanner() {
@@ -36,7 +36,7 @@ public class DefaultScannerHandler implements ScannerHandler {
 
     /**
      * 设置scanner，此方法一定是首先被调用的。
-     *
+     * 
      * @param scanner 当前正在扫描的scanner
      */
     public void setScanner(Scanner scanner) {
@@ -69,7 +69,7 @@ public class DefaultScannerHandler implements ScannerHandler {
 
     /**
      * 是否跟进指定目录或文件。该方法有助于提高扫描速度。
-     *
+     * 
      * @return 如果是，则返回<code>true</code>
      */
     public boolean followUp() {

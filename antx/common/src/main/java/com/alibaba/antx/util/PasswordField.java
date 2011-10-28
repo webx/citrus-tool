@@ -30,6 +30,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
+import javax.swing.WindowConstants;
 
 public class PasswordField {
     public String getPassword(PrintWriter out, String oneLinePrompt) throws IOException {
@@ -77,13 +78,13 @@ public class PasswordField {
 
             dialog.setContentPane(pane);
             dialog.pack();
-            dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+            dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
             pane.addPropertyChangeListener(new PropertyChangeListener() {
                 public void propertyChange(PropertyChangeEvent e) {
                     String prop = e.getPropertyName();
 
-                    if (dialog.isVisible() && (e.getSource() == pane) && (prop.equals(JOptionPane.VALUE_PROPERTY))) {
+                    if (dialog.isVisible() && e.getSource() == pane && prop.equals(JOptionPane.VALUE_PROPERTY)) {
                         dialog.setVisible(false);
                         dialog.dispose();
                     }
@@ -190,9 +191,9 @@ public class PasswordField {
     }
 
     class MaskingThread extends Thread {
-        private boolean           stop = false;
+        private boolean stop = false;
         private final PrintWriter out;
-        private final String      oneLinePrompt;
+        private final String oneLinePrompt;
 
         public MaskingThread(PrintWriter out, String oneLinePrompt) {
             super("password-masking");
@@ -200,6 +201,7 @@ public class PasswordField {
             this.oneLinePrompt = oneLinePrompt;
         }
 
+        @Override
         public void run() {
             while (!stop) {
                 try {

@@ -49,6 +49,7 @@ public class DirectoryConfigEntry extends ConfigEntry {
     /**
      * 扫描结点。
      */
+    @Override
     protected void scan(InputStream istream) {
         Handler handler = new Handler();
         Scanner scanner = new DirectoryScanner(getConfigEntryResource().getFile(), handler);
@@ -67,6 +68,7 @@ public class DirectoryConfigEntry extends ConfigEntry {
     /**
      * 生成配置文件。
      */
+    @Override
     protected boolean generate(InputStream istream, OutputStream ostream) {
         getConfigSettings().debug("Processing files in " + getConfigEntryResource().getURL());
 
@@ -84,9 +86,7 @@ public class DirectoryConfigEntry extends ConfigEntry {
         // 处理子entries
         ConfigEntry[] subEntries = getSubEntries();
 
-        for (int i = 0; i < subEntries.length; i++) {
-            ConfigEntry subEntry = subEntries[i];
-
+        for (ConfigEntry subEntry : subEntries) {
             allSuccess &= subEntry.generate(null, null);
         }
 
@@ -98,6 +98,7 @@ public class DirectoryConfigEntry extends ConfigEntry {
      * 
      * @return 字符串表示
      */
+    @Override
     public String toString() {
         return "DirectoryConfigEntry[" + getConfigEntryResource() + "]";
     }

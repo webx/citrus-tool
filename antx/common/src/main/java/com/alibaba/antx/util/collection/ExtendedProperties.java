@@ -35,10 +35,10 @@ import com.alibaba.antx.util.i18n.LocaleInfo;
  * @author Michael Zhou
  */
 public class ExtendedProperties extends Properties {
-    private static final long   serialVersionUID            = 3258126960071555380L;
-    private static final String KEY_VALUE_SEPARATORS        = "= \t\r\n\f";
+    private static final long serialVersionUID = 3258126960071555380L;
+    private static final String KEY_VALUE_SEPARATORS = "= \t\r\n\f";
     private static final String STRICT_KEY_VALUE_SEPARATORS = "=";
-    private static final String WHITE_SPACE_CHARS           = " \t\r\n\f";
+    private static final String WHITE_SPACE_CHARS = " \t\r\n\f";
 
     /**
      * 从指定的properties文件中，以默认的编码字符集读取属性和值。
@@ -86,6 +86,7 @@ public class ExtendedProperties extends Properties {
      * @param istream 输入字符流
      * @throws IOException 读文件失败或文件格式错误
      */
+    @Override
     public void load(InputStream istream) throws IOException {
         load(istream, null, null);
     }
@@ -123,7 +124,7 @@ public class ExtendedProperties extends Properties {
      * @throws IOException 读文件失败或文件格式错误
      */
     private synchronized void load(Reader reader, String url) throws IOException {
-        BufferedReader in = (reader instanceof BufferedReader) ? (BufferedReader) reader : new BufferedReader(reader);
+        BufferedReader in = reader instanceof BufferedReader ? (BufferedReader) reader : new BufferedReader(reader);
         int lineNumber = 0;
 
         while (true) {
@@ -143,7 +144,7 @@ public class ExtendedProperties extends Properties {
                 // 如果该行以“\”结尾，则看作是上一行的继续
                 char firstChar = line.charAt(0);
 
-                if ((firstChar != '#') && (firstChar != '!')) {
+                if (firstChar != '#' && firstChar != '!') {
                     while (isContinueLine(line)) {
                         String nextLine = in.readLine();
 
@@ -220,7 +221,7 @@ public class ExtendedProperties extends Properties {
                     }
 
                     String key = line.substring(keyStart, separatorIndex);
-                    String value = (separatorIndex < len) ? line.substring(valueIndex, len) : "";
+                    String value = separatorIndex < len ? line.substring(valueIndex, len) : "";
 
                     // 转换key和value
                     key = loadConvert(key, url, lineNumber);
@@ -242,11 +243,11 @@ public class ExtendedProperties extends Properties {
         int slashCount = 0;
         int index = line.length() - 1;
 
-        while ((index >= 0) && (line.charAt(index--) == '\\')) {
+        while (index >= 0 && line.charAt(index--) == '\\') {
             slashCount++;
         }
 
-        return ((slashCount % 2) == 1);
+        return slashCount % 2 == 1;
     }
 
     /**
@@ -288,7 +289,7 @@ public class ExtendedProperties extends Properties {
                             case '7':
                             case '8':
                             case '9':
-                                value = ((value << 4) + ch) - '0';
+                                value = (value << 4) + ch - '0';
                                 break;
 
                             case 'a':
@@ -297,7 +298,7 @@ public class ExtendedProperties extends Properties {
                             case 'd':
                             case 'e':
                             case 'f':
-                                value = ((value << 4) + 10 + ch) - 'a';
+                                value = (value << 4) + 10 + ch - 'a';
                                 break;
 
                             case 'A':
@@ -306,7 +307,7 @@ public class ExtendedProperties extends Properties {
                             case 'D':
                             case 'E':
                             case 'F':
-                                value = ((value << 4) + 10 + ch) - 'A';
+                                value = (value << 4) + 10 + ch - 'A';
                                 break;
 
                             default:

@@ -80,7 +80,7 @@ public class EasyX509TrustManager implements X509TrustManager {
     private X509TrustManager standardTrustManager = null;
 
     /** Log object for this class. */
-    private static final Log LOG                  = LogFactory.getLog(EasyX509TrustManager.class);
+    private static final Log LOG = LogFactory.getLog(EasyX509TrustManager.class);
 
     /**
      * Constructor for EasyX509TrustManager.
@@ -109,13 +109,13 @@ public class EasyX509TrustManager implements X509TrustManager {
      *      String authType)
      */
     public void checkServerTrusted(X509Certificate[] certificates, String authType) throws CertificateException {
-        if ((certificates != null) && LOG.isDebugEnabled()) {
+        if (certificates != null && LOG.isDebugEnabled()) {
             LOG.debug("Server certificate chain:");
             for (int i = 0; i < certificates.length; i++) {
                 LOG.debug("X509Certificate[" + i + "]=" + certificates[i]);
             }
         }
-        if ((certificates != null) && (certificates.length == 1)) {
+        if (certificates != null && certificates.length == 1) {
             certificates[0].checkValidity();
         } else {
             standardTrustManager.checkServerTrusted(certificates, authType);

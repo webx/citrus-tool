@@ -23,11 +23,9 @@ import java.math.BigInteger;
 public class NumberUtil {
     /**
      * Convert a String to a Float
-     *
+     * 
      * @param val a String to convert
-     *
      * @return converted Float
-     *
      * @throws NumberFormatException if the value cannot be converted
      */
     public static Float createFloat(String val) {
@@ -36,11 +34,9 @@ public class NumberUtil {
 
     /**
      * Convert a String to a Double
-     *
+     * 
      * @param val a String to convert
-     *
      * @return converted Double
-     *
      * @throws NumberFormatException if the value cannot be converted
      */
     public static Double createDouble(String val) {
@@ -49,11 +45,9 @@ public class NumberUtil {
 
     /**
      * Convert a String to a Integer, handling hex and octal notations.
-     *
+     * 
      * @param val a String to convert
-     *
      * @return converted Integer
-     *
      * @throws NumberFormatException if the value cannot be converted
      */
     public static Integer createInteger(String val) {
@@ -63,11 +57,9 @@ public class NumberUtil {
 
     /**
      * Convert a String to a Long
-     *
+     * 
      * @param val a String to convert
-     *
      * @return converted Long
-     *
      * @throws NumberFormatException if the value cannot be converted
      */
     public static Long createLong(String val) {
@@ -76,11 +68,9 @@ public class NumberUtil {
 
     /**
      * Convert a String to a BigInteger
-     *
+     * 
      * @param val a String to convert
-     *
      * @return converted BigInteger
-     *
      * @throws NumberFormatException if the value cannot be converted
      */
     public static BigInteger createBigInteger(String val) {
@@ -91,11 +81,9 @@ public class NumberUtil {
 
     /**
      * Convert a String to a BigDecimal
-     *
+     * 
      * @param val a String to convert
-     *
      * @return converted BigDecimal
-     *
      * @throws NumberFormatException if the value cannot be converted
      */
     public static BigDecimal createBigDecimal(String val) {
@@ -106,26 +94,25 @@ public class NumberUtil {
 
     /**
      * <p>
-     * Turns a string value into a java.lang.Number. First, the value is examined for a type
-     * qualifier on the end  (<code>'f','F','d','D','l','L'</code>).  If it is found, it starts
-     * trying to create succissively larger types from the type specified until one is found that
-     * can hold the value.
+     * Turns a string value into a java.lang.Number. First, the value is
+     * examined for a type qualifier on the end (
+     * <code>'f','F','d','D','l','L'</code>). If it is found, it starts trying
+     * to create succissively larger types from the type specified until one is
+     * found that can hold the value.
+     * </p>
+     * <p>
+     * If a type specifier is not found, it will check for a decimal point and
+     * then try successively larger types from Integer to BigInteger and from
+     * Float to BigDecimal.
+     * </p>
+     * <p>
+     * If the string starts with "0x" or "-0x", it will be interpreted as a
+     * hexadecimal integer. Values with leading 0's will not be interpreted as
+     * octal.
      * </p>
      * 
-     * <p>
-     * If a type specifier is not found, it will check for a decimal point and then try
-     * successively larger types from Integer to BigInteger  and from Float to BigDecimal.
-     * </p>
-     * 
-     * <p>
-     * If the string starts with "0x" or "-0x", it will be interpreted as a  hexadecimal integer.
-     * Values with leading 0's will not be interpreted  as octal.
-     * </p>
-     *
      * @param val String containing a number
-     *
      * @return Number created from the string
-     *
      * @throws NumberFormatException if the value cannot be converted
      */
     public static Number createNumber(String val) throws NumberFormatException {
@@ -149,12 +136,12 @@ public class NumberUtil {
             return createInteger(val);
         }
 
-        char   lastChar = val.charAt(val.length() - 1);
+        char lastChar = val.charAt(val.length() - 1);
         String mant;
         String dec;
         String exp;
-        int    decPos = val.indexOf('.');
-        int    expPos = val.indexOf('e') + val.indexOf('E') + 1;
+        int decPos = val.indexOf('.');
+        int expPos = val.indexOf('e') + val.indexOf('E') + 1;
 
         if (decPos > -1) {
             if (expPos > -1) {
@@ -179,23 +166,22 @@ public class NumberUtil {
         }
 
         if (!Character.isDigit(lastChar)) {
-            if ((expPos > -1) && (expPos < (val.length() - 1))) {
+            if (expPos > -1 && expPos < val.length() - 1) {
                 exp = val.substring(expPos + 1, val.length() - 1);
             } else {
                 exp = null;
             }
 
             //Requesting a specific type..
-            String  numeric  = val.substring(0, val.length() - 1);
+            String numeric = val.substring(0, val.length() - 1);
             boolean allZeros = isAllZeros(mant) && isAllZeros(exp);
 
             switch (lastChar) {
                 case 'l':
                 case 'L':
 
-                    if ((dec == null) && (exp == null) && isDigits(numeric.substring(1))
-                                && ((numeric.charAt(0) == '-')
-                                || Character.isDigit(numeric.charAt(0)))) {
+                    if (dec == null && exp == null && isDigits(numeric.substring(1))
+                            && (numeric.charAt(0) == '-' || Character.isDigit(numeric.charAt(0)))) {
                         try {
                             return createLong(numeric);
                         } catch (NumberFormatException nfe) {
@@ -213,7 +199,7 @@ public class NumberUtil {
                     try {
                         Float f = createFloat(numeric);
 
-                        if (!(f.isInfinite() || ((f.floatValue() == 0.0F) && !allZeros))) {
+                        if (!(f.isInfinite() || f.floatValue() == 0.0F && !allZeros)) {
                             //If it's too big for a float or the float value = 0 and the string
                             //has non-zeros in it, then float doens't have the presision we want
                             return f;
@@ -221,14 +207,14 @@ public class NumberUtil {
                     } catch (NumberFormatException nfe) {
                     }
 
-                //Fall through
+                    //Fall through
                 case 'd':
                 case 'D':
 
                     try {
                         Double d = createDouble(numeric);
 
-                        if (!(d.isInfinite() || ((d.floatValue() == 0.0D) && !allZeros))) {
+                        if (!(d.isInfinite() || d.floatValue() == 0.0D && !allZeros)) {
                             return d;
                         }
                     } catch (NumberFormatException nfe) {
@@ -239,20 +225,20 @@ public class NumberUtil {
                     } catch (NumberFormatException e) {
                     }
 
-                //Fall through
+                    //Fall through
                 default:
                     throw new NumberFormatException(val + " is not a valid number.");
             }
         } else {
             //User doesn't have a preference on the return type, so let's start
             //small and go from there...
-            if ((expPos > -1) && (expPos < (val.length() - 1))) {
+            if (expPos > -1 && expPos < val.length() - 1) {
                 exp = val.substring(expPos + 1, val.length());
             } else {
                 exp = null;
             }
 
-            if ((dec == null) && (exp == null)) {
+            if (dec == null && exp == null) {
                 //Must be an int,long,bigint
                 try {
                     return createInteger(val);
@@ -272,7 +258,7 @@ public class NumberUtil {
                 try {
                     Float f = createFloat(val);
 
-                    if (!(f.isInfinite() || ((f.floatValue() == 0.0F) && !allZeros))) {
+                    if (!(f.isInfinite() || f.floatValue() == 0.0F && !allZeros)) {
                         return f;
                     }
                 } catch (NumberFormatException nfe) {
@@ -281,7 +267,7 @@ public class NumberUtil {
                 try {
                     Double d = createDouble(val);
 
-                    if (!(d.isInfinite() || ((d.doubleValue() == 0.0D) && !allZeros))) {
+                    if (!(d.isInfinite() || d.doubleValue() == 0.0D && !allZeros)) {
                         return d;
                     }
                 } catch (NumberFormatException nfe) {
@@ -293,15 +279,14 @@ public class NumberUtil {
     }
 
     /**
-     * Checks whether the String contains only digit characters. Null and blank string will return
-     * false.
-     *
+     * Checks whether the String contains only digit characters. Null and blank
+     * string will return false.
+     * 
      * @param str the string to check
-     *
      * @return boolean contains only unicode numeric
      */
     public static boolean isDigits(String str) {
-        if ((str == null) || (str.length() == 0)) {
+        if (str == null || str.length() == 0) {
             return false;
         }
 
@@ -315,10 +300,9 @@ public class NumberUtil {
     }
 
     /**
-     * Utility method for createNumber.  Returns true if s is null
-     *
+     * Utility method for createNumber. Returns true if s is null
+     * 
      * @param s the String to check
-     *
      * @return if it is all zeros or null
      */
     private static boolean isAllZeros(String s) {

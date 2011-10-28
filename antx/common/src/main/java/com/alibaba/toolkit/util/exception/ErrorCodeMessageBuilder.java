@@ -17,15 +17,17 @@
 
 package com.alibaba.toolkit.util.exception;
 
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
+
 import com.alibaba.toolkit.util.enumeration.Enum;
 import com.alibaba.toolkit.util.resourcebundle.MessageBuilder;
 
-import java.util.ResourceBundle;
-
 /**
  * 产生携带错误代码的异常的错误信息.
- *
- * @version $Id: ErrorCodeMessageBuilder.java,v 1.1 2003/07/03 07:26:22 baobao Exp $
+ * 
+ * @version $Id: ErrorCodeMessageBuilder.java,v 1.1 2003/07/03 07:26:22 baobao
+ *          Exp $
  * @author Michael Zhou
  */
 public class ErrorCodeMessageBuilder extends MessageBuilder {
@@ -34,11 +36,10 @@ public class ErrorCodeMessageBuilder extends MessageBuilder {
 
     /**
      * 创建一个<code>ErrorCodeMessageBuilder</code>.
-     *
-     * @param bundleName  错误信息的资源束名称
-     * @param errorCode   错误代码
-     *
-     * @throws MissingResourceException  指定bundle未找到, 或创建bundle错误
+     * 
+     * @param bundleName 错误信息的资源束名称
+     * @param errorCode 错误代码
+     * @throws MissingResourceException 指定bundle未找到, 或创建bundle错误
      */
     public ErrorCodeMessageBuilder(String bundleName, Enum errorCode) {
         super(bundleName, errorCode);
@@ -46,9 +47,9 @@ public class ErrorCodeMessageBuilder extends MessageBuilder {
 
     /**
      * 创建一个<code>ErrorCodeMessageBuilder</code>.
-     *
-     * @param bundle     错误信息的资源束
-     * @param errorCode  错误代码
+     * 
+     * @param bundle 错误信息的资源束
+     * @param errorCode 错误代码
      */
     public ErrorCodeMessageBuilder(ResourceBundle bundle, Enum errorCode) {
         super(bundle, errorCode);
@@ -56,14 +57,12 @@ public class ErrorCodeMessageBuilder extends MessageBuilder {
 
     /**
      * 取得错误信息.
-     *
+     * 
      * @param message 错误信息
-     *
      * @return 错误信息
      */
     public String toString(String message) {
         return new StringBuffer(STRING_ERROR_CODE_PREFIX).append(((Enum) key).toHexString())
-                                                         .append(STRING_ERROR_CODE_SUFFIX)
-                                                         .append(getMessage()).toString();
+                .append(STRING_ERROR_CODE_SUFFIX).append(getMessage()).toString();
     }
 }

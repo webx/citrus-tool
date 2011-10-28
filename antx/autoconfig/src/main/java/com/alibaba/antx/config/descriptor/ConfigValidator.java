@@ -58,6 +58,7 @@ public abstract class ConfigValidator {
 
     public abstract boolean validate(String value);
 
+    @Override
     public String toString() {
         return StringUtil.getShortClassName(getClass());
     }

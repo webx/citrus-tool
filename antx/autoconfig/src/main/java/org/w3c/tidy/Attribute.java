@@ -63,10 +63,10 @@ public class Attribute {
         this.attrchk = attrchk;
     }
 
-    public String    name;
-    public boolean   nowrap;
-    public boolean   literal;
-    public short     versions;
+    public String name;
+    public boolean nowrap;
+    public boolean literal;
+    public short versions;
     public AttrCheck attrchk;
 
 }

@@ -17,35 +17,33 @@
 
 package com.alibaba.antx.util.configuration;
 
-import com.alibaba.antx.util.StringUtil;
-
 import java.io.Serializable;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.alibaba.antx.util.StringUtil;
+
 /**
  * This is the default <code>Configuration</code> implementation.
- *
+ * 
  * @author <a href="mailto:dev@avalon.apache.org">Avalon Development Team</a>
- *
  */
 public class DefaultConfiguration extends AbstractConfiguration implements Serializable {
     private static final long serialVersionUID = 3545521720271452213L;
     /** An empty (length zero) array of configuration objects. */
-    protected static final Configuration[] EMPTY_ARRAY  = new Configuration[0];
-    private final String                   m_name;
-    private final Location                 m_location;
-    private final String                   m_namespace;
-    private final String                   m_prefix;
-    private HashMap                        m_attributes;
-    private ArrayList                      m_children;
-    private String                         m_value;
-    private boolean                        m_readOnly;
+    protected static final Configuration[] EMPTY_ARRAY = new Configuration[0];
+    private final String m_name;
+    private final Location m_location;
+    private final String m_namespace;
+    private final String m_prefix;
+    private HashMap m_attributes;
+    private ArrayList m_children;
+    private String m_value;
+    private boolean m_readOnly;
 
     /**
      * Create a new <code>DefaultConfiguration</code> instance.
-     *
+     * 
      * @param name a <code>String</code> value
      */
     public DefaultConfiguration(final String name) {
@@ -54,7 +52,7 @@ public class DefaultConfiguration extends AbstractConfiguration implements Seria
 
     /**
      * Create a new <code>DefaultConfiguration</code> instance.
-     *
+     * 
      * @param name a <code>String</code> value
      * @param location a <code>String</code> value
      */
@@ -64,26 +62,26 @@ public class DefaultConfiguration extends AbstractConfiguration implements Seria
 
     /**
      * Create a new <code>DefaultConfiguration</code> instance.
-     *
+     * 
      * @param name config node name
      * @param location Builder-specific locator string
-     * @param ns Namespace string (typically a URI). Should not be null; use "" if no namespace.
-     * @param prefix A short string prefixed to element names, associating elements with a longer
-     *        namespace string. Should not be null; use "" if no namespace.
-     *
+     * @param ns Namespace string (typically a URI). Should not be null; use ""
+     *            if no namespace.
+     * @param prefix A short string prefixed to element names, associating
+     *            elements with a longer namespace string. Should not be null;
+     *            use "" if no namespace.
      * @since 4.1
      */
-    public DefaultConfiguration(final String name, final Location location, final String ns,
-        final String prefix) {
-        m_name          = name;
-        m_location      = location;
-        m_namespace     = ns;
-        m_prefix        = prefix; // only used as a serialization hint. Cannot be null
+    public DefaultConfiguration(final String name, final Location location, final String ns, final String prefix) {
+        m_name = name;
+        m_location = location;
+        m_namespace = ns;
+        m_prefix = prefix; // only used as a serialization hint. Cannot be null
     }
 
     /**
      * Returns the name of this configuration element.
-     *
+     * 
      * @return a <code>String</code> value
      */
     public String getName() {
@@ -92,45 +90,41 @@ public class DefaultConfiguration extends AbstractConfiguration implements Seria
 
     /**
      * Returns the namespace of this configuration element
-     *
+     * 
      * @return a <code>String</code> value
-     *
      * @throws ConfigurationException if an error occurs
-     *
      * @since 4.1
      */
     public String getNamespace() throws ConfigurationException {
         if (null != m_namespace) {
             return m_namespace;
         } else {
-            throw new ConfigurationException(
-                "No namespace (not even default \"\") is associated with the "
-                + "configuration element \"" + getName() + "\" at " + getLocation());
+            throw new ConfigurationException("No namespace (not even default \"\") is associated with the "
+                    + "configuration element \"" + getName() + "\" at " + getLocation());
         }
     }
 
     /**
      * Returns the prefix of the namespace
-     *
+     * 
      * @return a <code>String</code> value
-     *
-     * @throws ConfigurationException if prefix is not present (<code>null</code>).
-     *
+     * @throws ConfigurationException if prefix is not present (<code>null</code>
+     *             ).
      * @since 4.1
      */
+    @Override
     protected String getPrefix() throws ConfigurationException {
         if (null != m_prefix) {
             return m_prefix;
         } else {
-            throw new ConfigurationException(
-                "No prefix (not even default \"\") is associated with the "
-                + "configuration element \"" + getName() + "\" at " + getLocation());
+            throw new ConfigurationException("No prefix (not even default \"\") is associated with the "
+                    + "configuration element \"" + getName() + "\" at " + getLocation());
         }
     }
 
     /**
      * Returns a description of location of element.
-     *
+     * 
      * @return a <code>String</code> value
      */
     public Location getLocation() {
@@ -139,11 +133,12 @@ public class DefaultConfiguration extends AbstractConfiguration implements Seria
 
     /**
      * Returns the value of the configuration element as a <code>String</code>.
-     *
-     * @param defaultValue the default value to return if value malformed or empty
-     *
+     * 
+     * @param defaultValue the default value to return if value malformed or
+     *            empty
      * @return a <code>String</code> value
      */
+    @Override
     public String getValue(final String defaultValue) {
         if (!StringUtil.isEmpty(m_value)) {
             return m_value;
@@ -154,23 +149,22 @@ public class DefaultConfiguration extends AbstractConfiguration implements Seria
 
     /**
      * Returns the value of the configuration element as a <code>String</code>.
-     *
+     * 
      * @return a <code>String</code> value
-     *
      * @throws ConfigurationException If the value is not present.
      */
     public String getValue() throws ConfigurationException {
         if (!StringUtil.isEmpty(m_value)) {
             return m_value;
         } else {
-            throw new ConfigurationException("No value is associated with the "
-                + "configuration element \"" + getName() + "\" at " + getLocation());
+            throw new ConfigurationException("No value is associated with the " + "configuration element \""
+                    + getName() + "\" at " + getLocation());
         }
     }
 
     /**
      * Return an array of all attribute names.
-     *
+     * 
      * @return a <code>String[]</code> value
      */
     public String[] getAttributeNames() {
@@ -182,8 +176,9 @@ public class DefaultConfiguration extends AbstractConfiguration implements Seria
     }
 
     /**
-     * Return an array of <code>Configuration</code> elements containing all node children.
-     *
+     * Return an array of <code>Configuration</code> elements containing all
+     * node children.
+     * 
      * @return The child nodes with name
      */
     public Configuration[] getChildren() {
@@ -195,36 +190,33 @@ public class DefaultConfiguration extends AbstractConfiguration implements Seria
     }
 
     /**
-     * Returns the value of the attribute specified by its name as a <code>String</code>.
-     *
+     * Returns the value of the attribute specified by its name as a
+     * <code>String</code>.
+     * 
      * @param name a <code>String</code> value
-     *
      * @return a <code>String</code> value
-     *
      * @throws ConfigurationException If the attribute is not present.
      */
     public String getAttribute(final String name) throws ConfigurationException {
-        final String value = (null != m_attributes) ? (String) m_attributes.get(name)
-                                                    : null;
+        final String value = null != m_attributes ? (String) m_attributes.get(name) : null;
 
         if (!StringUtil.isEmpty(value)) {
             return value;
         } else {
             throw new ConfigurationException("No attribute named \"" + name + "\" is "
-                + "associated with the configuration element \"" + getName() + "\" at "
-                + getLocation());
+                    + "associated with the configuration element \"" + getName() + "\" at " + getLocation());
         }
     }
 
     /**
-     * Return the first <code>Configuration</code> object child of this associated with the given
-     * name.
-     *
+     * Return the first <code>Configuration</code> object child of this
+     * associated with the given name.
+     * 
      * @param name a <code>String</code> value
      * @param createNew a <code>boolean</code> value
-     *
      * @return a <code>Configuration</code> value
      */
+    @Override
     public Configuration getChild(final String name, final boolean createNew) {
         if (null != m_children) {
             final int size = m_children.size();
@@ -246,12 +238,11 @@ public class DefaultConfiguration extends AbstractConfiguration implements Seria
     }
 
     /**
-     * Return an array of <code>Configuration</code> objects children of this associated with the
-     * given name. <br>
+     * Return an array of <code>Configuration</code> objects children of this
+     * associated with the given name. <br>
      * The returned array may be empty but is never <code>null</code>.
-     *
+     * 
      * @param name The name of the required children <code>Configuration</code>.
-     *
      * @return a <code>Configuration[]</code> value
      */
     public Configuration[] getChildren(final String name) {
@@ -259,7 +250,7 @@ public class DefaultConfiguration extends AbstractConfiguration implements Seria
             return new Configuration[0];
         } else {
             final ArrayList children = new ArrayList();
-            final int       size = m_children.size();
+            final int size = m_children.size();
 
             for (int i = 0; i < size; i++) {
                 final Configuration configuration = (Configuration) m_children.get(i);
@@ -275,11 +266,11 @@ public class DefaultConfiguration extends AbstractConfiguration implements Seria
 
     /**
      * Append data to the value of this configuration element.
-     *
+     * 
      * @param value a <code>String</code> value
-     *
      * @deprecated Use setValue() instead
      */
+    @Deprecated
     public void appendValueData(final String value) {
         checkWriteable();
 
@@ -291,8 +282,9 @@ public class DefaultConfiguration extends AbstractConfiguration implements Seria
     }
 
     /**
-     * Set the value of this <code>Configuration</code> object to the specified string.
-     *
+     * Set the value of this <code>Configuration</code> object to the specified
+     * string.
+     * 
      * @param value a <code>String</code> value
      */
     public void setValue(final String value) {
@@ -303,7 +295,7 @@ public class DefaultConfiguration extends AbstractConfiguration implements Seria
 
     /**
      * Set the value of the specified attribute to the specified string.
-     *
+     * 
      * @param name name of the attribute to set
      * @param value a <code>String</code> value
      */
@@ -318,15 +310,15 @@ public class DefaultConfiguration extends AbstractConfiguration implements Seria
     }
 
     /**
-     * Add an attribute to this configuration element, returning its old value or <b>null</b>.
-     *
+     * Add an attribute to this configuration element, returning its old value
+     * or <b>null</b>.
+     * 
      * @param name a <code>String</code> value
      * @param value a <code>String</code> value
-     *
      * @return a <code>String</code> value
-     *
      * @deprecated Use setAttribute() instead
      */
+    @Deprecated
     public String addAttribute(final String name, String value) {
         checkWriteable();
 
@@ -339,7 +331,7 @@ public class DefaultConfiguration extends AbstractConfiguration implements Seria
 
     /**
      * Add a child <code>Configuration</code> to this configuration element.
-     *
+     * 
      * @param configuration a <code>Configuration</code> value
      */
     public void addChild(final Configuration configuration) {
@@ -353,9 +345,9 @@ public class DefaultConfiguration extends AbstractConfiguration implements Seria
     }
 
     /**
-     * Add all the attributes, children and value from specified configuration element to current
-     * configuration element.
-     *
+     * Add all the attributes, children and value from specified configuration
+     * element to current configuration element.
+     * 
      * @param other the {@link Configuration} element
      */
     public void addAll(final Configuration other) {
@@ -367,8 +359,9 @@ public class DefaultConfiguration extends AbstractConfiguration implements Seria
     }
 
     /**
-     * Add all attributes from specified configuration element to current configuration element.
-     *
+     * Add all attributes from specified configuration element to current
+     * configuration element.
+     * 
      * @param other the {@link Configuration} element
      */
     public void addAllAttributes(final Configuration other) {
@@ -376,8 +369,7 @@ public class DefaultConfiguration extends AbstractConfiguration implements Seria
 
         final String[] attributes = other.getAttributeNames();
 
-        for (int i = 0; i < attributes.length; i++) {
-            final String name  = attributes[i];
+        for (final String name : attributes) {
             final String value = other.getAttribute(name, null);
 
             setAttribute(name, value);
@@ -385,9 +377,9 @@ public class DefaultConfiguration extends AbstractConfiguration implements Seria
     }
 
     /**
-     * Add all child <code>Configuration</code> objects from specified configuration element to
-     * current configuration element.
-     *
+     * Add all child <code>Configuration</code> objects from specified
+     * configuration element to current configuration element.
+     * 
      * @param other the other {@link Configuration} value
      */
     public void addAllChildren(final Configuration other) {
@@ -395,14 +387,14 @@ public class DefaultConfiguration extends AbstractConfiguration implements Seria
 
         final Configuration[] children = other.getChildren();
 
-        for (int i = 0; i < children.length; i++) {
-            addChild(children[i]);
+        for (Configuration element : children) {
+            addChild(element);
         }
     }
 
     /**
      * Remove a child <code>Configuration</code> to this configuration element.
-     *
+     * 
      * @param configuration a <code>Configuration</code> value
      */
     public void removeChild(final Configuration configuration) {
@@ -417,7 +409,7 @@ public class DefaultConfiguration extends AbstractConfiguration implements Seria
 
     /**
      * Return count of children.
-     *
+     * 
      * @return an <code>int</code> value
      */
     public int getChildCount() {
@@ -437,7 +429,7 @@ public class DefaultConfiguration extends AbstractConfiguration implements Seria
 
     /**
      * heck if this configuration is writeable.
-     *
+     * 
      * @throws IllegalStateException if this configuration s read-only
      */
     protected final void checkWriteable() throws IllegalStateException {

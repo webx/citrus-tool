@@ -67,51 +67,51 @@ public class PPrint {
 
     /* page transition effects */
 
-    public static final short  EFFECT_BLEND             = -1;
-    public static final short  EFFECT_BOX_IN            = 0;
-    public static final short  EFFECT_BOX_OUT           = 1;
-    public static final short  EFFECT_CIRCLE_IN         = 2;
-    public static final short  EFFECT_CIRCLE_OUT        = 3;
-    public static final short  EFFECT_WIPE_UP           = 4;
-    public static final short  EFFECT_WIPE_DOWN         = 5;
-    public static final short  EFFECT_WIPE_RIGHT        = 6;
-    public static final short  EFFECT_WIPE_LEFT         = 7;
-    public static final short  EFFECT_VERT_BLINDS       = 8;
-    public static final short  EFFECT_HORZ_BLINDS       = 9;
-    public static final short  EFFECT_CHK_ACROSS        = 10;
-    public static final short  EFFECT_CHK_DOWN          = 11;
-    public static final short  EFFECT_RND_DISSOLVE      = 12;
-    public static final short  EFFECT_SPLIT_VIRT_IN     = 13;
-    public static final short  EFFECT_SPLIT_VIRT_OUT    = 14;
-    public static final short  EFFECT_SPLIT_HORZ_IN     = 15;
-    public static final short  EFFECT_SPLIT_HORZ_OUT    = 16;
-    public static final short  EFFECT_STRIPS_LEFT_DOWN  = 17;
-    public static final short  EFFECT_STRIPS_LEFT_UP    = 18;
-    public static final short  EFFECT_STRIPS_RIGHT_DOWN = 19;
-    public static final short  EFFECT_STRIPS_RIGHT_UP   = 20;
-    public static final short  EFFECT_RND_BARS_HORZ     = 21;
-    public static final short  EFFECT_RND_BARS_VERT     = 22;
-    public static final short  EFFECT_RANDOM            = 23;
+    public static final short EFFECT_BLEND = -1;
+    public static final short EFFECT_BOX_IN = 0;
+    public static final short EFFECT_BOX_OUT = 1;
+    public static final short EFFECT_CIRCLE_IN = 2;
+    public static final short EFFECT_CIRCLE_OUT = 3;
+    public static final short EFFECT_WIPE_UP = 4;
+    public static final short EFFECT_WIPE_DOWN = 5;
+    public static final short EFFECT_WIPE_RIGHT = 6;
+    public static final short EFFECT_WIPE_LEFT = 7;
+    public static final short EFFECT_VERT_BLINDS = 8;
+    public static final short EFFECT_HORZ_BLINDS = 9;
+    public static final short EFFECT_CHK_ACROSS = 10;
+    public static final short EFFECT_CHK_DOWN = 11;
+    public static final short EFFECT_RND_DISSOLVE = 12;
+    public static final short EFFECT_SPLIT_VIRT_IN = 13;
+    public static final short EFFECT_SPLIT_VIRT_OUT = 14;
+    public static final short EFFECT_SPLIT_HORZ_IN = 15;
+    public static final short EFFECT_SPLIT_HORZ_OUT = 16;
+    public static final short EFFECT_STRIPS_LEFT_DOWN = 17;
+    public static final short EFFECT_STRIPS_LEFT_UP = 18;
+    public static final short EFFECT_STRIPS_RIGHT_DOWN = 19;
+    public static final short EFFECT_STRIPS_RIGHT_UP = 20;
+    public static final short EFFECT_RND_BARS_HORZ = 21;
+    public static final short EFFECT_RND_BARS_VERT = 22;
+    public static final short EFFECT_RANDOM = 23;
 
-    private static final short NORMAL                   = 0;
-    private static final short PREFORMATTED             = 1;
-    private static final short COMMENT                  = 2;
-    private static final short ATTRIBVALUE              = 4;
-    private static final short NOWRAP                   = 8;
-    private static final short CDATA                    = 16;
+    private static final short NORMAL = 0;
+    private static final short PREFORMATTED = 1;
+    private static final short COMMENT = 2;
+    private static final short ATTRIBVALUE = 4;
+    private static final short NOWRAP = 8;
+    private static final short CDATA = 16;
 
-    private int[]              linebuf                  = null;
-    private int                lbufsize                 = 0;
-    private int                linelen                  = 0;
-    private int                wraphere                 = 0;
-    private boolean            inAttVal                 = false;
-    private boolean            InString                 = false;
+    private int[] linebuf = null;
+    private int lbufsize = 0;
+    private int linelen = 0;
+    private int wraphere = 0;
+    private boolean inAttVal = false;
+    private boolean InString = false;
 
-    private int                slide                    = 0;
-    private int                count                    = 0;
-    private Node               slidecontent             = null;
+    private int slide = 0;
+    private int count = 0;
+    private Node slidecontent = null;
 
-    private Configuration      configuration;
+    private Configuration configuration;
 
     public PPrint(Configuration configuration) {
         this.configuration = configuration;
@@ -126,7 +126,7 @@ public class PPrint {
     public static int getUTF8(byte[] str, int start, MutableInteger ch) {
         int c, n, i, bytes;
 
-        c = ((int) str[start]) & 0xFF; // Convert to unsigned.
+        c = str[start] & 0xFF; // Convert to unsigned.
 
         if ((c & 0xE0) == 0xC0) /* 110X XXXX two bytes */
         {
@@ -157,8 +157,8 @@ public class PPrint {
 
         /* successor bytes should have the form 10XX XXXX */
         for (i = 1; i < bytes; ++i) {
-            c = ((int) str[start + i]) & 0xFF; // Convert to unsigned.
-            n = (n << 6) | (c & 0x3F);
+            c = str[start + i] & 0xFF; // Convert to unsigned.
+            n = n << 6 | c & 0x3F;
         }
 
         ch.value = n;
@@ -167,26 +167,26 @@ public class PPrint {
 
     /* store char c as UTF-8 encoded byte stream */
     public static int putUTF8(byte[] buf, int start, int c) {
-        if (c < 128)
+        if (c < 128) {
             buf[start++] = (byte) c;
-        else if (c <= 0x7FF) {
-            buf[start++] = (byte) (0xC0 | (c >> 6));
-            buf[start++] = (byte) (0x80 | (c & 0x3F));
+        } else if (c <= 0x7FF) {
+            buf[start++] = (byte) (0xC0 | c >> 6);
+            buf[start++] = (byte) (0x80 | c & 0x3F);
         } else if (c <= 0xFFFF) {
-            buf[start++] = (byte) (0xE0 | (c >> 12));
-            buf[start++] = (byte) (0x80 | ((c >> 6) & 0x3F));
-            buf[start++] = (byte) (0x80 | (c & 0x3F));
+            buf[start++] = (byte) (0xE0 | c >> 12);
+            buf[start++] = (byte) (0x80 | c >> 6 & 0x3F);
+            buf[start++] = (byte) (0x80 | c & 0x3F);
         } else if (c <= 0x1FFFFF) {
-            buf[start++] = (byte) (0xF0 | (c >> 18));
-            buf[start++] = (byte) (0x80 | ((c >> 12) & 0x3F));
-            buf[start++] = (byte) (0x80 | ((c >> 6) & 0x3F));
-            buf[start++] = (byte) (0x80 | (c & 0x3F));
+            buf[start++] = (byte) (0xF0 | c >> 18);
+            buf[start++] = (byte) (0x80 | c >> 12 & 0x3F);
+            buf[start++] = (byte) (0x80 | c >> 6 & 0x3F);
+            buf[start++] = (byte) (0x80 | c & 0x3F);
         } else {
-            buf[start++] = (byte) (0xF8 | (c >> 24));
-            buf[start++] = (byte) (0x80 | ((c >> 18) & 0x3F));
-            buf[start++] = (byte) (0x80 | ((c >> 12) & 0x3F));
-            buf[start++] = (byte) (0x80 | ((c >> 6) & 0x3F));
-            buf[start++] = (byte) (0x80 | (c & 0x3F));
+            buf[start++] = (byte) (0xF8 | c >> 24);
+            buf[start++] = (byte) (0x80 | c >> 18 & 0x3F);
+            buf[start++] = (byte) (0x80 | c >> 12 & 0x3F);
+            buf[start++] = (byte) (0x80 | c >> 6 & 0x3F);
+            buf[start++] = (byte) (0x80 | c & 0x3F);
         }
 
         return start;
@@ -195,15 +195,17 @@ public class PPrint {
     private void addC(int c, int index) {
         if (index + 1 >= lbufsize) {
             while (index + 1 >= lbufsize) {
-                if (lbufsize == 0)
+                if (lbufsize == 0) {
                     lbufsize = 256;
-                else
+                } else {
                     lbufsize = lbufsize * 2;
+                }
             }
 
             int[] temp = new int[lbufsize];
-            if (linebuf != null)
+            if (linebuf != null) {
                 System.arraycopy(linebuf, 0, temp, 0, index);
+            }
             linebuf = temp;
         }
 
@@ -213,18 +215,21 @@ public class PPrint {
     private void wrapLine(Out fout, int indent) {
         int i, p, q;
 
-        if (wraphere == 0)
+        if (wraphere == 0) {
             return;
+        }
 
-        for (i = 0; i < indent; ++i)
-            fout.outc((int) ' ');
+        for (i = 0; i < indent; ++i) {
+            fout.outc(' ');
+        }
 
-        for (i = 0; i < wraphere; ++i)
+        for (i = 0; i < wraphere; ++i) {
             fout.outc(linebuf[i]);
+        }
 
         if (InString) {
-            fout.outc((int) ' ');
-            fout.outc((int) '\\');
+            fout.outc(' ');
+            fout.outc('\\');
         }
 
         fout.newline();
@@ -232,22 +237,25 @@ public class PPrint {
         if (linelen > wraphere) {
             p = 0;
 
-            if (linebuf[wraphere] == ' ')
+            if (linebuf[wraphere] == ' ') {
                 ++wraphere;
+            }
 
             q = wraphere;
             addC('\0', linelen);
 
             while (true) {
                 linebuf[p] = linebuf[q];
-                if (linebuf[q] == 0)
+                if (linebuf[q] == 0) {
                     break;
+                }
                 p++;
                 q++;
             }
             linelen -= wraphere;
-        } else
+        } else {
             linelen = 0;
+        }
 
         wraphere = 0;
     }
@@ -255,38 +263,44 @@ public class PPrint {
     private void wrapAttrVal(Out fout, int indent, boolean inString) {
         int i, p, q;
 
-        for (i = 0; i < indent; ++i)
-            fout.outc((int) ' ');
+        for (i = 0; i < indent; ++i) {
+            fout.outc(' ');
+        }
 
-        for (i = 0; i < wraphere; ++i)
+        for (i = 0; i < wraphere; ++i) {
             fout.outc(linebuf[i]);
+        }
 
-        fout.outc((int) ' ');
+        fout.outc(' ');
 
-        if (inString)
-            fout.outc((int) '\\');
+        if (inString) {
+            fout.outc('\\');
+        }
 
         fout.newline();
 
         if (linelen > wraphere) {
             p = 0;
 
-            if (linebuf[wraphere] == ' ')
+            if (linebuf[wraphere] == ' ') {
                 ++wraphere;
+            }
 
             q = wraphere;
             addC('\0', linelen);
 
             while (true) {
                 linebuf[p] = linebuf[q];
-                if (linebuf[q] == 0)
+                if (linebuf[q] == 0) {
                     break;
+                }
                 p++;
                 q++;
             }
             linelen -= wraphere;
-        } else
+        } else {
             linelen = 0;
+        }
 
         wraphere = 0;
     }
@@ -295,16 +309,19 @@ public class PPrint {
         int i;
 
         if (linelen > 0) {
-            if (indent + linelen >= this.configuration.wraplen)
+            if (indent + linelen >= this.configuration.wraplen) {
                 wrapLine(fout, indent);
-
-            if (!inAttVal || this.configuration.IndentAttributes) {
-                for (i = 0; i < indent; ++i)
-                    fout.outc((int) ' ');
             }
 
-            for (i = 0; i < linelen; ++i)
+            if (!inAttVal || this.configuration.IndentAttributes) {
+                for (i = 0; i < indent; ++i) {
+                    fout.outc(' ');
+                }
+            }
+
+            for (i = 0; i < linelen; ++i) {
                 fout.outc(linebuf[i]);
+            }
         }
 
         fout.newline();
@@ -317,16 +334,19 @@ public class PPrint {
         int i;
 
         if (linelen > 0) {
-            if (indent + linelen >= this.configuration.wraplen)
+            if (indent + linelen >= this.configuration.wraplen) {
                 wrapLine(fout, indent);
-
-            if (!inAttVal || this.configuration.IndentAttributes) {
-                for (i = 0; i < indent; ++i)
-                    fout.outc((int) ' ');
             }
 
-            for (i = 0; i < linelen; ++i)
+            if (!inAttVal || this.configuration.IndentAttributes) {
+                for (i = 0; i < indent; ++i) {
+                    fout.outc(' ');
+                }
+            }
+
+            for (i = 0; i < linelen; ++i) {
                 fout.outc(linebuf[i]);
+            }
 
             fout.newline();
             linelen = 0;
@@ -359,8 +379,9 @@ public class PPrint {
                     addC(';', linelen++);
                 }
                 return;
-            } else
+            } else {
                 wraphere = linelen;
+            }
         }
 
         /* comment characters are passed raw */
@@ -436,8 +457,9 @@ public class PPrint {
                     }
 
                     addC(';', linelen++);
-                } else
+                } else {
                     addC(c, linelen++);
+                }
 
                 return;
             }
@@ -451,7 +473,7 @@ public class PPrint {
         }
 
         /* if preformatted text, map &nbsp; to space */
-        if (c == 160 && ((mode & PREFORMATTED) != 0)) {
+        if (c == 160 && (mode & PREFORMATTED) != 0) {
             addC(' ', linelen++);
             return;
         }
@@ -491,15 +513,18 @@ public class PPrint {
             {
                 if (!this.configuration.NumEntities) {
                     entity = EntityTable.getDefaultEntityTable().entityName((short) c);
-                    if (entity != null)
+                    if (entity != null) {
                         entity = "&" + entity + ";";
-                    else
+                    } else {
                         entity = "&#" + c + ";";
-                } else
+                    }
+                } else {
                     entity = "&#" + c + ";";
+                }
 
-                for (int i = 0; i < entity.length(); i++)
-                    addC((int) entity.charAt(i), linelen++);
+                for (int i = 0; i < entity.length(); i++) {
+                    addC(entity.charAt(i), linelen++);
+                }
 
                 return;
             }
@@ -507,8 +532,9 @@ public class PPrint {
             if (c > 126 && c < 160) {
                 entity = "&#" + c + ";";
 
-                for (int i = 0; i < entity.length(); i++)
-                    addC((int) entity.charAt(i), linelen++);
+                for (int i = 0; i < entity.length(); i++) {
+                    addC(entity.charAt(i), linelen++);
+                }
 
                 return;
             }
@@ -529,8 +555,9 @@ public class PPrint {
             if (c > 127 && this.configuration.CharEncoding == Configuration.ASCII) {
                 entity = "&#" + c + ";";
 
-                for (int i = 0; i < entity.length(); i++)
-                    addC((int) entity.charAt(i), linelen++);
+                for (int i = 0; i < entity.length(); i++) {
+                    addC(entity.charAt(i), linelen++);
+                }
 
                 return;
             }
@@ -541,18 +568,21 @@ public class PPrint {
         }
 
         /* default treatment for ASCII */
-        if (c > 126 || (c < ' ' && c != '\t')) {
+        if (c > 126 || c < ' ' && c != '\t') {
             if (!this.configuration.NumEntities) {
                 entity = EntityTable.getDefaultEntityTable().entityName((short) c);
-                if (entity != null)
+                if (entity != null) {
                     entity = "&" + entity + ";";
-                else
+                } else {
                     entity = "&#" + c + ";";
-            } else
+                }
+            } else {
                 entity = "&#" + c + ";";
+            }
 
-            for (int i = 0; i < entity.length(); i++)
-                addC((int) entity.charAt(i), linelen++);
+            for (int i = 0; i < entity.length(); i++) {
+                addC(entity.charAt(i), linelen++);
+            }
 
             return;
         }
@@ -570,10 +600,11 @@ public class PPrint {
         MutableInteger ci = new MutableInteger();
 
         for (i = start; i < end; ++i) {
-            if (indent + linelen >= this.configuration.wraplen)
+            if (indent + linelen >= this.configuration.wraplen) {
                 wrapLine(fout, indent);
+            }
 
-            c = ((int) textarray[i]) & 0xFF; // Convert to unsigned.
+            c = textarray[i] & 0xFF; // Convert to unsigned.
 
             /* look for UTF-8 multibyte character */
             if (c > 0x7F) {
@@ -591,8 +622,9 @@ public class PPrint {
     }
 
     private void printString(Out fout, int indent, String str) {
-        for (int i = 0; i < str.length(); i++)
-            addC((int) str.charAt(i), linelen++);
+        for (int i = 0; i < str.length(); i++) {
+            addC(str.charAt(i), linelen++);
+        }
     }
 
     private void printAttrValue(Out fout, int indent, String value, int delim, boolean wrappable) {
@@ -601,7 +633,7 @@ public class PPrint {
         boolean wasinstring = false;
         byte[] valueChars = null;
         int i;
-        short mode = (wrappable ? (short) (NORMAL | ATTRIBVALUE) : (short) (PREFORMATTED | ATTRIBVALUE));
+        short mode = wrappable ? (short) (NORMAL | ATTRIBVALUE) : (short) (PREFORMATTED | ATTRIBVALUE);
 
         if (value != null) {
             valueChars = Lexer.getBytes(value);
@@ -609,28 +641,33 @@ public class PPrint {
 
         /* look for ASP, Tango or PHP instructions for computed attribute value */
         if (valueChars != null && valueChars.length >= 5 && valueChars[0] == '<') {
-            if (valueChars[1] == '%' || valueChars[1] == '@' || (new String(valueChars, 0, 5)).equals("<?php"))
+            if (valueChars[1] == '%' || valueChars[1] == '@' || new String(valueChars, 0, 5).equals("<?php")) {
                 mode |= CDATA;
+            }
         }
 
-        if (delim == 0)
+        if (delim == 0) {
             delim = '"';
+        }
 
         addC('=', linelen++);
 
         /* don't wrap after "=" for xml documents */
         if (!this.configuration.XmlOut) {
 
-            if (indent + linelen < this.configuration.wraplen)
+            if (indent + linelen < this.configuration.wraplen) {
                 wraphere = linelen;
+            }
 
-            if (indent + linelen >= this.configuration.wraplen)
+            if (indent + linelen >= this.configuration.wraplen) {
                 wrapLine(fout, indent);
+            }
 
-            if (indent + linelen < this.configuration.wraplen)
+            if (indent + linelen < this.configuration.wraplen) {
                 wraphere = linelen;
-            else
+            } else {
                 condFlushLine(fout, indent);
+            }
         }
 
         addC(delim, linelen++);
@@ -640,23 +677,25 @@ public class PPrint {
 
             i = 0;
             while (i < valueChars.length) {
-                c = ((int) valueChars[i]) & 0xFF; // Convert to unsigned.
+                c = valueChars[i] & 0xFF; // Convert to unsigned.
 
                 if (wrappable && c == ' ' && indent + linelen < this.configuration.wraplen) {
                     wraphere = linelen;
                     wasinstring = InString;
                 }
 
-                if (wrappable && wraphere > 0 && indent + linelen >= this.configuration.wraplen)
+                if (wrappable && wraphere > 0 && indent + linelen >= this.configuration.wraplen) {
                     wrapAttrVal(fout, indent, wasinstring);
+                }
 
                 if (c == delim) {
                     String entity;
 
-                    entity = (c == '"' ? "&quot;" : "&#39;");
+                    entity = c == '"' ? "&quot;" : "&#39;";
 
-                    for (int j = 0; j < entity.length(); j++)
+                    for (int j = 0; j < entity.length(); j++) {
                         addC(entity.charAt(j), linelen++);
+                    }
 
                     ++i;
                     continue;
@@ -668,11 +707,13 @@ public class PPrint {
                         addC('o', linelen++);
                         addC('t', linelen++);
                         addC(';', linelen++);
-                    } else
+                    } else {
                         addC('"', linelen++);
+                    }
 
-                    if (delim == '\'')
+                    if (delim == '\'') {
                         InString = !InString;
+                    }
 
                     ++i;
                     continue;
@@ -683,11 +724,13 @@ public class PPrint {
                         addC('3', linelen++);
                         addC('9', linelen++);
                         addC(';', linelen++);
-                    } else
+                    } else {
                         addC('\'', linelen++);
+                    }
 
-                    if (delim == '"')
+                    if (delim == '"') {
                         InString = !InString;
+                    }
 
                     ++i;
                     continue;
@@ -725,14 +768,16 @@ public class PPrint {
 
         name = attr.attribute;
 
-        if (indent + linelen >= this.configuration.wraplen)
+        if (indent + linelen >= this.configuration.wraplen) {
             wrapLine(fout, indent);
+        }
 
         if (!this.configuration.XmlTags && !this.configuration.XmlOut && attr.dict != null) {
-            if (AttributeTable.getDefaultAttributeTable().isScript(name))
+            if (AttributeTable.getDefaultAttributeTable().isScript(name)) {
                 wrappable = this.configuration.WrapScriptlets;
-            else if (!attr.dict.nowrap && this.configuration.WrapAttVals)
+            } else if (!attr.dict.nowrap && this.configuration.WrapAttVals) {
                 wrappable = true;
+            }
         }
 
         if (indent + linelen < this.configuration.wraplen) {
@@ -743,33 +788,38 @@ public class PPrint {
             addC(' ', linelen++);
         }
 
-        for (int i = 0; i < name.length(); i++)
-            addC((int) Lexer.foldCase(name.charAt(i), this.configuration.UpperCaseAttrs, this.configuration.XmlTags),
+        for (int i = 0; i < name.length(); i++) {
+            addC(Lexer.foldCase(name.charAt(i), this.configuration.UpperCaseAttrs, this.configuration.XmlTags),
                     linelen++);
+        }
 
-        if (indent + linelen >= this.configuration.wraplen)
+        if (indent + linelen >= this.configuration.wraplen) {
             wrapLine(fout, indent);
+        }
 
         if (attr.value == null) {
-            if (this.configuration.XmlTags || this.configuration.XmlOut)
+            if (this.configuration.XmlTags || this.configuration.XmlOut) {
                 printAttrValue(fout, indent, attr.attribute, attr.delim, true);
-            else if (!attr.isBoolAttribute() && !Node.isNewNode(node))
+            } else if (!attr.isBoolAttribute() && !Node.isNewNode(node)) {
                 printAttrValue(fout, indent, "", attr.delim, true);
-            else if (indent + linelen < this.configuration.wraplen)
+            } else if (indent + linelen < this.configuration.wraplen) {
                 wraphere = linelen;
+            }
 
-        } else
+        } else {
             printAttrValue(fout, indent, attr.value, attr.delim, wrappable);
+        }
     }
 
     private void printAttrs(Out fout, int indent, Node node, AttVal attr) {
         if (attr != null) {
-            if (attr.next != null)
+            if (attr.next != null) {
                 printAttrs(fout, indent, node, attr.next);
+            }
 
-            if (attr.attribute != null)
+            if (attr.attribute != null) {
                 printAttribute(fout, indent, node, attr);
-            else if (attr.asp != null) {
+            } else if (attr.asp != null) {
                 addC(' ', linelen++);
                 printAsp(fout, indent, attr.asp);
             } else if (attr.php != null) {
@@ -780,8 +830,9 @@ public class PPrint {
 
         /* add xml:space attribute to pre and other elements */
         if (configuration.XmlOut && configuration.XmlSpace && ParserImpl.XMLPreserveWhiteSpace(node, configuration.tt)
-                && node.getAttrByName("xml:space") == null)
+                && node.getAttrByName("xml:space") == null) {
             printString(fout, indent, " xml:space=\"preserve\"");
+        }
     }
 
     /*
@@ -794,17 +845,19 @@ public class PPrint {
         Node prev;
         int c;
 
-        if (node == null || node.tag == null || !((node.tag.model & Dict.CM_INLINE) != 0))
+        if (node == null || node.tag == null || !((node.tag.model & Dict.CM_INLINE) != 0)) {
             return true;
+        }
 
         prev = node.prev;
 
         if (prev != null) {
             if (prev.type == Node.TextNode && prev.end > prev.start) {
-                c = ((int) prev.textarray[prev.end - 1]) & 0xFF; // Convert to unsigned.
+                c = prev.textarray[prev.end - 1] & 0xFF; // Convert to unsigned.
 
-                if (c == 160 || c == ' ' || c == '\n')
+                if (c == 160 || c == ' ' || c == '\n') {
                     return true;
+                }
             }
 
             return false;
@@ -820,13 +873,14 @@ public class PPrint {
 
         addC('<', linelen++);
 
-        if (node.type == Node.EndTag)
+        if (node.type == Node.EndTag) {
             addC('/', linelen++);
+        }
 
         p = node.element;
-        for (int i = 0; i < p.length(); i++)
-            addC((int) Lexer.foldCase(p.charAt(i), this.configuration.UpperCaseTags, this.configuration.XmlTags),
-                    linelen++);
+        for (int i = 0; i < p.length(); i++) {
+            addC(Lexer.foldCase(p.charAt(i), this.configuration.UpperCaseTags, this.configuration.XmlTags), linelen++);
+        }
 
         printAttrs(fout, indent, node, node.attributes);
 
@@ -840,8 +894,9 @@ public class PPrint {
         ;
 
         if (node.type != Node.StartEndTag && !((mode & PREFORMATTED) != 0)) {
-            if (indent + linelen >= this.configuration.wraplen)
+            if (indent + linelen >= this.configuration.wraplen) {
                 wrapLine(fout, indent);
+            }
 
             if (indent + linelen < this.configuration.wraplen) {
                 /*
@@ -850,13 +905,14 @@ public class PPrint {
                  */
                 if (afterSpace(node)) {
                     if (!((mode & NOWRAP) != 0)
-                            && (!((node.tag.model & Dict.CM_INLINE) != 0) || (node.tag == tt.tagBr) || (((node.tag.model & Dict.CM_EMPTY) != 0)
-                                    && node.next == null && node.parent.tag == tt.tagA))) {
+                            && (!((node.tag.model & Dict.CM_INLINE) != 0) || node.tag == tt.tagBr || (node.tag.model & Dict.CM_EMPTY) != 0
+                                    && node.next == null && node.parent.tag == tt.tagA)) {
                         wraphere = linelen;
                     }
                 }
-            } else
+            } else {
                 condFlushLine(fout, indent);
+            }
         }
     }
 
@@ -870,45 +926,50 @@ public class PPrint {
          * disable line wrapping before inline end tags by the #if 0 ... #endif
          */
         if (false) {
-            if (indent + linelen < this.configuration.wraplen && !((mode & NOWRAP) != 0))
+            if (indent + linelen < this.configuration.wraplen && !((mode & NOWRAP) != 0)) {
                 wraphere = linelen;
+            }
         }
 
         addC('<', linelen++);
         addC('/', linelen++);
 
         p = node.element;
-        for (int i = 0; i < p.length(); i++)
-            addC((int) Lexer.foldCase(p.charAt(i), this.configuration.UpperCaseTags, this.configuration.XmlTags),
-                    linelen++);
+        for (int i = 0; i < p.length(); i++) {
+            addC(Lexer.foldCase(p.charAt(i), this.configuration.UpperCaseTags, this.configuration.XmlTags), linelen++);
+        }
 
         addC('>', linelen++);
     }
 
     private void printComment(Out fout, int indent, Node node) {
-        if (indent + linelen < this.configuration.wraplen)
+        if (indent + linelen < this.configuration.wraplen) {
             wraphere = linelen;
+        }
 
         addC('<', linelen++);
         addC('!', linelen++);
         addC('-', linelen++);
         addC('-', linelen++);
         if (false) {
-            if (linelen < this.configuration.wraplen)
+            if (linelen < this.configuration.wraplen) {
                 wraphere = linelen;
+            }
         }
         printText(fout, COMMENT, indent, node.textarray, node.start, node.end);
         if (false) {
-            if (indent + linelen < this.configuration.wraplen)
+            if (indent + linelen < this.configuration.wraplen) {
                 wraphere = linelen;
+            }
         }
         // See Lexer.java: AQ 8Jul2000
         addC('-', linelen++);
         addC('-', linelen++);
         addC('>', linelen++);
 
-        if (node.linebreak)
+        if (node.linebreak) {
             flushLine(fout, indent);
+        }
     }
 
     private void printDocType(Out fout, int indent, Node node) {
@@ -916,8 +977,9 @@ public class PPrint {
 
         this.configuration.QuoteMarks = false;
 
-        if (indent + linelen < this.configuration.wraplen)
+        if (indent + linelen < this.configuration.wraplen) {
             wraphere = linelen;
+        }
 
         condFlushLine(fout, indent);
 
@@ -932,13 +994,15 @@ public class PPrint {
         addC('E', linelen++);
         addC(' ', linelen++);
 
-        if (indent + linelen < this.configuration.wraplen)
+        if (indent + linelen < this.configuration.wraplen) {
             wraphere = linelen;
+        }
 
         printText(fout, (short) 0, indent, node.textarray, node.start, node.end);
 
-        if (linelen < this.configuration.wraplen)
+        if (linelen < this.configuration.wraplen) {
             wraphere = linelen;
+        }
 
         addC('>', linelen++);
         this.configuration.QuoteMarks = q;
@@ -946,8 +1010,9 @@ public class PPrint {
     }
 
     private void printPI(Out fout, int indent, Node node) {
-        if (indent + linelen < this.configuration.wraplen)
+        if (indent + linelen < this.configuration.wraplen) {
             wraphere = linelen;
+        }
 
         addC('<', linelen++);
         addC('?', linelen++);
@@ -955,8 +1020,9 @@ public class PPrint {
         /* set CDATA to pass < and > unescaped */
         printText(fout, CDATA, indent, node.textarray, node.start, node.end);
 
-        if (node.textarray[node.end - 1] != (byte) '?')
+        if (node.textarray[node.end - 1] != (byte) '?') {
             addC('?', linelen++);
+        }
 
         addC('>', linelen++);
         condFlushLine(fout, indent);
@@ -968,17 +1034,19 @@ public class PPrint {
 
         /* disable wrapping if so requested */
 
-        if (!this.configuration.WrapAsp || !this.configuration.WrapJste)
+        if (!this.configuration.WrapAsp || !this.configuration.WrapJste) {
             this.configuration.wraplen = 0xFFFFFF; /* a very large number */
+        }
         if (false) { //#if 0
-            if (indent + linelen < this.configuration.wraplen)
+            if (indent + linelen < this.configuration.wraplen) {
                 wraphere = linelen;
+            }
         } //#endif
 
         addC('<', linelen++);
         addC('%', linelen++);
 
-        printText(fout, (this.configuration.WrapAsp ? CDATA : COMMENT), indent, node.textarray, node.start, node.end);
+        printText(fout, this.configuration.WrapAsp ? CDATA : COMMENT, indent, node.textarray, node.start, node.end);
 
         addC('%', linelen++);
         addC('>', linelen++);
@@ -992,13 +1060,14 @@ public class PPrint {
 
         /* disable wrapping if so requested */
 
-        if (!this.configuration.WrapJste)
+        if (!this.configuration.WrapJste) {
             this.configuration.wraplen = 0xFFFFFF; /* a very large number */
+        }
 
         addC('<', linelen++);
         addC('#', linelen++);
 
-        printText(fout, (this.configuration.WrapJste ? CDATA : COMMENT), indent, node.textarray, node.start, node.end);
+        printText(fout, this.configuration.WrapJste ? CDATA : COMMENT, indent, node.textarray, node.start, node.end);
 
         addC('#', linelen++);
         addC('>', linelen++);
@@ -1012,17 +1081,19 @@ public class PPrint {
 
         /* disable wrapping if so requested */
 
-        if (!this.configuration.WrapPhp)
+        if (!this.configuration.WrapPhp) {
             this.configuration.wraplen = 0xFFFFFF; /* a very large number */
+        }
 
         if (false) { //#if 0
-            if (indent + linelen < this.configuration.wraplen)
+            if (indent + linelen < this.configuration.wraplen) {
                 wraphere = linelen;
+            }
         } //#endif
         addC('<', linelen++);
         addC('?', linelen++);
 
-        printText(fout, (this.configuration.WrapPhp ? CDATA : COMMENT), indent, node.textarray, node.start, node.end);
+        printText(fout, this.configuration.WrapPhp ? CDATA : COMMENT, indent, node.textarray, node.start, node.end);
 
         addC('?', linelen++);
         addC('>', linelen++);
@@ -1063,19 +1134,20 @@ public class PPrint {
 
         /* disable wrapping if so requested */
 
-        if (!this.configuration.WrapSection)
+        if (!this.configuration.WrapSection) {
             this.configuration.wraplen = 0xFFFFFF; /* a very large number */
+        }
 
         if (false) { //#if 0
-            if (indent + linelen < this.configuration.wraplen)
+            if (indent + linelen < this.configuration.wraplen) {
                 wraphere = linelen;
+            }
         } //#endif
         addC('<', linelen++);
         addC('!', linelen++);
         addC('[', linelen++);
 
-        printText(fout, (this.configuration.WrapSection ? CDATA : COMMENT), indent, node.textarray, node.start,
-                node.end);
+        printText(fout, this.configuration.WrapSection ? CDATA : COMMENT, indent, node.textarray, node.start, node.end);
 
         addC(']', linelen++);
         addC('>', linelen++);
@@ -1086,33 +1158,41 @@ public class PPrint {
     private boolean shouldIndent(Node node) {
         TagTable tt = this.configuration.tt;
 
-        if (!this.configuration.IndentContent)
+        if (!this.configuration.IndentContent) {
             return false;
+        }
 
         if (this.configuration.SmartIndent) {
-            if (node.content != null && ((node.tag.model & Dict.CM_NO_INDENT) != 0)) {
-                for (node = node.content; node != null; node = node.next)
-                    if (node.tag != null && (node.tag.model & Dict.CM_BLOCK) != 0)
+            if (node.content != null && (node.tag.model & Dict.CM_NO_INDENT) != 0) {
+                for (node = node.content; node != null; node = node.next) {
+                    if (node.tag != null && (node.tag.model & Dict.CM_BLOCK) != 0) {
                         return true;
+                    }
+                }
 
                 return false;
             }
 
-            if ((node.tag.model & Dict.CM_HEADING) != 0)
+            if ((node.tag.model & Dict.CM_HEADING) != 0) {
                 return false;
+            }
 
-            if (node.tag == tt.tagP)
+            if (node.tag == tt.tagP) {
                 return false;
+            }
 
-            if (node.tag == tt.tagTitle)
+            if (node.tag == tt.tagTitle) {
                 return false;
+            }
         }
 
-        if ((node.tag.model & (Dict.CM_FIELD | Dict.CM_OBJECT)) != 0)
+        if ((node.tag.model & (Dict.CM_FIELD | Dict.CM_OBJECT)) != 0) {
             return true;
+        }
 
-        if (node.tag == tt.tagMap)
+        if (node.tag == tt.tagMap) {
             return true;
+        }
 
         return !((node.tag.model & Dict.CM_INLINE) != 0);
     }
@@ -1121,47 +1201,53 @@ public class PPrint {
         Node content, last;
         TagTable tt = this.configuration.tt;
 
-        if (node == null)
+        if (node == null) {
             return;
+        }
 
-        if (node.type == Node.TextNode)
+        if (node.type == Node.TextNode) {
             printText(fout, mode, indent, node.textarray, node.start, node.end);
-        else if (node.type == Node.CommentTag) {
+        } else if (node.type == Node.CommentTag) {
             printComment(fout, indent, node);
         } else if (node.type == Node.RootNode) {
-            for (content = node.content; content != null; content = content.next)
+            for (content = node.content; content != null; content = content.next) {
                 printTree(fout, mode, indent, lexer, content);
-        } else if (node.type == Node.DocTypeTag)
+            }
+        } else if (node.type == Node.DocTypeTag) {
             printDocType(fout, indent, node);
-        else if (node.type == Node.ProcInsTag)
+        } else if (node.type == Node.ProcInsTag) {
             printPI(fout, indent, node);
-        else if (node.type == Node.CDATATag)
+        } else if (node.type == Node.CDATATag) {
             printCDATA(fout, indent, node);
-        else if (node.type == Node.SectionTag)
+        } else if (node.type == Node.SectionTag) {
             printSection(fout, indent, node);
-        else if (node.type == Node.AspTag)
+        } else if (node.type == Node.AspTag) {
             printAsp(fout, indent, node);
-        else if (node.type == Node.JsteTag)
+        } else if (node.type == Node.JsteTag) {
             printJste(fout, indent, node);
-        else if (node.type == Node.PhpTag)
+        } else if (node.type == Node.PhpTag) {
             printPhp(fout, indent, node);
-        else if ((node.tag.model & Dict.CM_EMPTY) != 0 || node.type == Node.StartEndTag) {
-            if (!((node.tag.model & Dict.CM_INLINE) != 0))
+        } else if ((node.tag.model & Dict.CM_EMPTY) != 0 || node.type == Node.StartEndTag) {
+            if (!((node.tag.model & Dict.CM_INLINE) != 0)) {
                 condFlushLine(fout, indent);
+            }
 
             if (node.tag == tt.tagBr && node.prev != null && node.prev.tag != tt.tagBr
-                    && this.configuration.BreakBeforeBR)
+                    && this.configuration.BreakBeforeBR) {
                 flushLine(fout, indent);
+            }
 
-            if (this.configuration.MakeClean && node.tag == tt.tagWbr)
+            if (this.configuration.MakeClean && node.tag == tt.tagWbr) {
                 printString(fout, indent, " ");
-            else
+            } else {
                 printTag(lexer, fout, mode, indent, node);
+            }
 
-            if (node.tag == tt.tagParam || node.tag == tt.tagArea)
+            if (node.tag == tt.tagParam || node.tag == tt.tagArea) {
                 condFlushLine(fout, indent);
-            else if (node.tag == tt.tagBr || node.tag == tt.tagHr)
+            } else if (node.tag == tt.tagBr || node.tag == tt.tagHr) {
                 flushLine(fout, indent);
+            }
         } else /* some kind of container element */
         {
             if (node.tag != null && node.tag.parser == ParserImpl.getParsePre()) {
@@ -1172,15 +1258,17 @@ public class PPrint {
                 printTag(lexer, fout, mode, indent, node);
                 flushLine(fout, indent);
 
-                for (content = node.content; content != null; content = content.next)
+                for (content = node.content; content != null; content = content.next) {
                     printTree(fout, (short) (mode | PREFORMATTED | NOWRAP), indent, lexer, content);
+                }
 
                 condFlushLine(fout, indent);
                 printEndTag(fout, mode, indent, node);
                 flushLine(fout, indent);
 
-                if (this.configuration.IndentContent == false && node.next != null)
+                if (this.configuration.IndentContent == false && node.next != null) {
                     flushLine(fout, indent);
+                }
             } else if (node.tag == tt.tagStyle || node.tag == tt.tagScript) {
                 condFlushLine(fout, indent);
 
@@ -1189,28 +1277,32 @@ public class PPrint {
                 printTag(lexer, fout, mode, indent, node);
                 flushLine(fout, indent);
 
-                for (content = node.content; content != null; content = content.next)
+                for (content = node.content; content != null; content = content.next) {
                     printTree(fout, (short) (mode | PREFORMATTED | NOWRAP | CDATA), indent, lexer, content);
+                }
 
                 condFlushLine(fout, indent);
                 printEndTag(fout, mode, indent, node);
                 flushLine(fout, indent);
 
-                if (this.configuration.IndentContent == false && node.next != null)
+                if (this.configuration.IndentContent == false && node.next != null) {
                     flushLine(fout, indent);
+                }
             } else if ((node.tag.model & Dict.CM_INLINE) != 0) {
                 if (this.configuration.MakeClean) {
                     /* discards <font> and </font> tags */
                     if (node.tag == tt.tagFont) {
-                        for (content = node.content; content != null; content = content.next)
+                        for (content = node.content; content != null; content = content.next) {
                             printTree(fout, mode, indent, lexer, content);
+                        }
                         return;
                     }
 
                     /* replace <nobr>...</nobr> by &nbsp; or &#160; etc. */
                     if (node.tag == tt.tagNobr) {
-                        for (content = node.content; content != null; content = content.next)
+                        for (content = node.content; content != null; content = content.next) {
                             printTree(fout, (short) (mode | NOWRAP), indent, lexer, content);
+                        }
                         return;
                     }
                 }
@@ -1225,16 +1317,18 @@ public class PPrint {
                     condFlushLine(fout, indent);
                     indent += this.configuration.spaces;
 
-                    for (content = node.content; content != null; content = content.next)
+                    for (content = node.content; content != null; content = content.next) {
                         printTree(fout, mode, indent, lexer, content);
+                    }
 
                     condFlushLine(fout, indent);
                     indent -= this.configuration.spaces;
                     condFlushLine(fout, indent);
                 } else {
 
-                    for (content = node.content; content != null; content = content.next)
+                    for (content = node.content; content != null; content = content.next) {
                         printTree(fout, mode, indent, lexer, content);
+                    }
                 }
 
                 printEndTag(fout, mode, indent, node);
@@ -1242,24 +1336,26 @@ public class PPrint {
             {
                 condFlushLine(fout, indent);
 
-                if (this.configuration.SmartIndent && node.prev != null)
+                if (this.configuration.SmartIndent && node.prev != null) {
                     flushLine(fout, indent);
-
-                if (this.configuration.HideEndTags == false
-                        || !(node.tag != null && ((node.tag.model & Dict.CM_OMITST) != 0))) {
-                    printTag(lexer, fout, mode, indent, node);
-
-                    if (shouldIndent(node))
-                        condFlushLine(fout, indent);
-                    else if ((node.tag.model & Dict.CM_HTML) != 0 || node.tag == tt.tagNoframes
-                            || ((node.tag.model & Dict.CM_HEAD) != 0 && !(node.tag == tt.tagTitle)))
-                        flushLine(fout, indent);
                 }
 
-                if (node.tag == tt.tagBody && this.configuration.BurstSlides)
-                    printSlide(fout, mode, (this.configuration.IndentContent ? indent + this.configuration.spaces
-                            : indent), lexer);
-                else {
+                if (this.configuration.HideEndTags == false
+                        || !(node.tag != null && (node.tag.model & Dict.CM_OMITST) != 0)) {
+                    printTag(lexer, fout, mode, indent, node);
+
+                    if (shouldIndent(node)) {
+                        condFlushLine(fout, indent);
+                    } else if ((node.tag.model & Dict.CM_HTML) != 0 || node.tag == tt.tagNoframes
+                            || (node.tag.model & Dict.CM_HEAD) != 0 && !(node.tag == tt.tagTitle)) {
+                        flushLine(fout, indent);
+                    }
+                }
+
+                if (node.tag == tt.tagBody && this.configuration.BurstSlides) {
+                    printSlide(fout, mode, this.configuration.IndentContent ? indent + this.configuration.spaces
+                            : indent, lexer);
+                } else {
                     last = null;
 
                     for (content = node.content; content != null; content = content.next) {
@@ -1270,8 +1366,8 @@ public class PPrint {
                             flushLine(fout, indent);
                         }
 
-                        printTree(fout, mode, (shouldIndent(node) ? indent + this.configuration.spaces : indent),
-                                lexer, content);
+                        printTree(fout, mode, shouldIndent(node) ? indent + this.configuration.spaces : indent, lexer,
+                                content);
 
                         last = content;
                     }
@@ -1279,17 +1375,18 @@ public class PPrint {
 
                 /* don't flush line for td and th */
                 if (shouldIndent(node)
-                        || (((node.tag.model & Dict.CM_HTML) != 0 || node.tag == tt.tagNoframes || ((node.tag.model & Dict.CM_HEAD) != 0 && !(node.tag == tt.tagTitle))) && this.configuration.HideEndTags == false)) {
-                    condFlushLine(fout,
-                            (this.configuration.IndentContent ? indent + this.configuration.spaces : indent));
+                        || ((node.tag.model & Dict.CM_HTML) != 0 || node.tag == tt.tagNoframes || (node.tag.model & Dict.CM_HEAD) != 0
+                                && !(node.tag == tt.tagTitle)) && this.configuration.HideEndTags == false) {
+                    condFlushLine(fout, this.configuration.IndentContent ? indent + this.configuration.spaces : indent);
 
                     if (this.configuration.HideEndTags == false || !((node.tag.model & Dict.CM_OPT) != 0)) {
                         printEndTag(fout, mode, indent, node);
                         flushLine(fout, indent);
                     }
                 } else {
-                    if (this.configuration.HideEndTags == false || !((node.tag.model & Dict.CM_OPT) != 0))
+                    if (this.configuration.HideEndTags == false || !((node.tag.model & Dict.CM_OPT) != 0)) {
                         printEndTag(fout, mode, indent, node);
+                    }
 
                     flushLine(fout, indent);
                 }
@@ -1306,8 +1403,9 @@ public class PPrint {
     public void printXMLTree(Out fout, short mode, int indent, Lexer lexer, Node node) {
         TagTable tt = this.configuration.tt;
 
-        if (node == null)
+        if (node == null) {
             return;
+        }
 
         if (node.type == Node.TextNode) {
             printText(fout, mode, indent, node.textarray, node.start, node.end);
@@ -1318,27 +1416,29 @@ public class PPrint {
         } else if (node.type == Node.RootNode) {
             Node content;
 
-            for (content = node.content; content != null; content = content.next)
+            for (content = node.content; content != null; content = content.next) {
                 printXMLTree(fout, mode, indent, lexer, content);
-        } else if (node.type == Node.DocTypeTag)
+            }
+        } else if (node.type == Node.DocTypeTag) {
             printDocType(fout, indent, node);
-        else if (node.type == Node.ProcInsTag)
+        } else if (node.type == Node.ProcInsTag) {
             printPI(fout, indent, node);
-        else if (node.type == Node.SectionTag)
+        } else if (node.type == Node.SectionTag) {
             printSection(fout, indent, node);
-        else if (node.type == Node.AspTag)
+        } else if (node.type == Node.AspTag) {
             printAsp(fout, indent, node);
-        else if (node.type == Node.JsteTag)
+        } else if (node.type == Node.JsteTag) {
             printJste(fout, indent, node);
-        else if (node.type == Node.PhpTag)
+        } else if (node.type == Node.PhpTag) {
             printPhp(fout, indent, node);
-        else if ((node.tag.model & Dict.CM_EMPTY) != 0 || node.type == Node.StartEndTag) {
+        } else if ((node.tag.model & Dict.CM_EMPTY) != 0 || node.type == Node.StartEndTag) {
             condFlushLine(fout, indent);
             printTag(lexer, fout, mode, indent, node);
             flushLine(fout, indent);
 
-            if (node.next != null)
+            if (node.next != null) {
                 flushLine(fout, indent);
+            }
         } else /* some kind of container element */
         {
             Node content;
@@ -1358,26 +1458,31 @@ public class PPrint {
                 indent = 0;
                 cindent = 0;
                 mixed = false;
-            } else if (mixed)
+            } else if (mixed) {
                 cindent = indent;
-            else
+            } else {
                 cindent = indent + this.configuration.spaces;
+            }
 
             printTag(lexer, fout, mode, indent, node);
 
-            if (!mixed)
+            if (!mixed) {
                 flushLine(fout, indent);
+            }
 
-            for (content = node.content; content != null; content = content.next)
+            for (content = node.content; content != null; content = content.next) {
                 printXMLTree(fout, mode, cindent, lexer, content);
+            }
 
-            if (!mixed)
+            if (!mixed) {
                 condFlushLine(fout, cindent);
+            }
             printEndTag(fout, mode, indent, node);
             condFlushLine(fout, indent);
 
-            if (node.next != null)
+            if (node.next != null) {
                 flushLine(fout, indent);
+            }
         }
     }
 
@@ -1388,9 +1493,11 @@ public class PPrint {
         int n = 1;
         TagTable tt = this.configuration.tt;
 
-        for (node = node.content; node != null; node = node.next)
-            if (node.tag == tt.tagH2)
+        for (node = node.content; node != null; node = node.next) {
+            if (node.tag == tt.tagH2) {
                 ++n;
+            }
+        }
 
         return n;
     }
@@ -1413,20 +1520,21 @@ public class PPrint {
         printString(fout, indent, "<center><small>");
 
         if (slide > 1) {
-            buf = "<a href=\"slide" + (new Integer(slide - 1)).toString() + ".html\">previous</a> | ";
+            buf = "<a href=\"slide" + new Integer(slide - 1).toString() + ".html\">previous</a> | ";
             printString(fout, indent, buf);
             condFlushLine(fout, indent);
 
-            if (slide < count)
+            if (slide < count) {
                 printString(fout, indent, "<a href=\"slide1.html\">start</a> | ");
-            else
+            } else {
                 printString(fout, indent, "<a href=\"slide1.html\">start</a>");
+            }
 
             condFlushLine(fout, indent);
         }
 
         if (slide < count) {
-            buf = "<a href=\"slide" + (new Integer(slide + 1)).toString() + ".html\">next</a>";
+            buf = "<a href=\"slide" + new Integer(slide + 1).toString() + ".html\">next</a>";
             printString(fout, indent, buf);
         }
 
@@ -1446,7 +1554,7 @@ public class PPrint {
 
         /* insert div for onclick handler */
         String s;
-        s = "<div onclick=\"document.location='slide" + (new Integer(slide < count ? slide + 1 : 1)).toString()
+        s = "<div onclick=\"document.location='slide" + new Integer(slide < count ? slide + 1 : 1).toString()
                 + ".html'\">";
         printString(fout, indent, s);
         condFlushLine(fout, indent);
@@ -1459,23 +1567,25 @@ public class PPrint {
 
             addC('<', linelen++);
 
-            addC((int) Lexer.foldCase('h', this.configuration.UpperCaseTags, this.configuration.XmlTags), linelen++);
-            addC((int) Lexer.foldCase('r', this.configuration.UpperCaseTags, this.configuration.XmlTags), linelen++);
+            addC(Lexer.foldCase('h', this.configuration.UpperCaseTags, this.configuration.XmlTags), linelen++);
+            addC(Lexer.foldCase('r', this.configuration.UpperCaseTags, this.configuration.XmlTags), linelen++);
 
-            if (this.configuration.XmlOut == true)
+            if (this.configuration.XmlOut == true) {
                 printString(fout, indent, " />");
-            else
+            } else {
                 addC('>', linelen++);
+            }
 
-            if (this.configuration.IndentContent == true)
+            if (this.configuration.IndentContent == true) {
                 condFlushLine(fout, indent);
+            }
 
             /* PrintVertSpacer(fout, indent); */
 
             /* condFlushLine(fout, indent); */
 
             /* print the h2 element */
-            printTree(fout, mode, (this.configuration.IndentContent ? indent + this.configuration.spaces : indent),
+            printTree(fout, mode, this.configuration.IndentContent ? indent + this.configuration.spaces : indent,
                     lexer, slidecontent);
 
             slidecontent = slidecontent.next;
@@ -1487,8 +1597,9 @@ public class PPrint {
         content = slidecontent;
 
         for (; content != null; content = content.next) {
-            if (content.tag == tt.tagH2)
+            if (content.tag == tt.tagH2) {
                 break;
+            }
 
             /* kludge for naked text before block level tag */
             if (last != null && !this.configuration.IndentContent && last.type == Node.TextNode && content.tag != null
@@ -1497,7 +1608,7 @@ public class PPrint {
                 flushLine(fout, indent);
             }
 
-            printTree(fout, mode, (this.configuration.IndentContent ? indent + this.configuration.spaces : indent),
+            printTree(fout, mode, this.configuration.IndentContent ? indent + this.configuration.spaces : indent,
                     lexer, content);
 
             last = content;
@@ -1514,16 +1625,18 @@ public class PPrint {
 
         addC('<', linelen++);
 
-        addC((int) Lexer.foldCase('h', this.configuration.UpperCaseTags, this.configuration.XmlTags), linelen++);
-        addC((int) Lexer.foldCase('r', this.configuration.UpperCaseTags, this.configuration.XmlTags), linelen++);
+        addC(Lexer.foldCase('h', this.configuration.UpperCaseTags, this.configuration.XmlTags), linelen++);
+        addC(Lexer.foldCase('r', this.configuration.UpperCaseTags, this.configuration.XmlTags), linelen++);
 
-        if (this.configuration.XmlOut == true)
+        if (this.configuration.XmlOut == true) {
             printString(fout, indent, " />");
-        else
+        } else {
             addC('>', linelen++);
+        }
 
-        if (this.configuration.IndentContent == true)
+        if (this.configuration.IndentContent == true) {
             condFlushLine(fout, indent);
+        }
 
         printNavBar(fout, indent);
 
@@ -1540,10 +1653,11 @@ public class PPrint {
         Node head = root.findHEAD(lexer.configuration.tt);
         String transition;
 
-        if (0 <= effect && effect <= 23)
-            transition = "revealTrans(Duration=" + (new Double(duration)).toString() + ",Transition=" + effect + ")";
-        else
-            transition = "blendTrans(Duration=" + (new Double(duration)).toString() + ")";
+        if (0 <= effect && effect <= 23) {
+            transition = "revealTrans(Duration=" + new Double(duration).toString() + ",Transition=" + effect + ")";
+        } else {
+            transition = "blendTrans(Duration=" + new Double(duration).toString() + ")";
+        }
 
         if (head != null) {
             Node meta = lexer.inferredTag("meta");
@@ -1586,8 +1700,9 @@ public class PPrint {
         for (;;) {
             buf = "slide" + slide + "html";
 
-            if (!(new File(buf)).delete())
+            if (!new File(buf).delete()) {
                 break;
+            }
 
             ++slide;
         }

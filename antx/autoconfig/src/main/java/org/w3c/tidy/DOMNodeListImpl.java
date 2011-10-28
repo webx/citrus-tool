@@ -63,15 +63,17 @@ public class DOMNodeListImpl implements org.w3c.dom.NodeList {
         int i = 0;
         Node node = parent.content;
         while (node != null) {
-            if (i >= index)
+            if (i >= index) {
                 break;
+            }
             i++;
             node = node.next;
         }
-        if (node != null)
+        if (node != null) {
             return node.getAdapter();
-        else
+        } else {
             return null;
+        }
     }
 
     /**

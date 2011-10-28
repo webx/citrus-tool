@@ -23,9 +23,9 @@ import java.util.Set;
 
 public final class ResourceContext {
     private static ThreadLocal contextHolder = new ThreadLocal();
-    private URI                currentURI;
-    private String             currentUsername;
-    private Set                visitedURIs   = new HashSet();
+    private URI currentURI;
+    private String currentUsername;
+    private Set visitedURIs = new HashSet();
 
     private ResourceContext() {
     }

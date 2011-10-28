@@ -21,31 +21,31 @@ import com.alibaba.antx.expand.ExpanderException;
 
 /**
  * 代表一个expander命令行的异常
- *
+ * 
  * @author Michael Zhou
  */
 public class CLIException extends ExpanderException {
     private static final long serialVersionUID = 1831896848757494464L;
 
-/**
+    /**
      * 创建一个异常。
      */
     public CLIException() {
         super();
     }
 
-/**
+    /**
      * 创建一个异常。
-     *
+     * 
      * @param message 异常信息
      */
     public CLIException(String message) {
         super(message);
     }
 
-/**
+    /**
      * 创建一个异常。
-     *
+     * 
      * @param message 异常信息
      * @param cause 异常原因
      */
@@ -53,9 +53,9 @@ public class CLIException extends ExpanderException {
         super(message, cause);
     }
 
-/**
+    /**
      * 创建一个异常。
-     *
+     * 
      * @param cause 异常原因
      */
     public CLIException(Throwable cause) {

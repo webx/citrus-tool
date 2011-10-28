@@ -73,6 +73,7 @@ public class ConfigGenerate {
         this.template = template;
     }
 
+    @Override
     public String toString() {
         return "Generate[" + getTemplate() + " => " + getDestfile() + "]";
     }

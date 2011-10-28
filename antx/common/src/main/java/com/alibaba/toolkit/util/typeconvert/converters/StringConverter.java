@@ -23,23 +23,13 @@ import com.alibaba.toolkit.util.typeconvert.Converter;
 
 /**
  * 将对象转换成字符串.
- *
  * <ul>
- * <li>
- * 如果对象为<code>null</code>, 则抛出带默认值的<code>ConvertFailedException</code>.
- * </li>
- * <li>
- * 如果对象已经是字符串, 直接返回.
- * </li>
- * <li>
- * 如果对象是字符数组, 则将它组合成字符串.
- * </li>
- * <li>
- * 否则返回<code>toString()</code>.
- * </li>
+ * <li>如果对象为<code>null</code>, 则抛出带默认值的<code>ConvertFailedException</code>.</li>
+ * <li>如果对象已经是字符串, 直接返回.</li>
+ * <li>如果对象是字符数组, 则将它组合成字符串.</li>
+ * <li>否则返回<code>toString()</code>.</li>
  * </ul>
- *
- *
+ * 
  * @version $Id: StringConverter.java,v 1.1 2003/07/03 07:26:41 baobao Exp $
  * @author Michael Zhou
  */

@@ -47,13 +47,13 @@ package org.w3c.tidy;
 
 public class AttVal extends Object implements Cloneable {
 
-    public AttVal    next;
+    public AttVal next;
     public Attribute dict;
-    public Node      asp;
-    public Node      php;
-    public int       delim;
-    public String    attribute;
-    public String    value;
+    public Node asp;
+    public Node php;
+    public int delim;
+    public String attribute;
+    public String value;
 
     public AttVal() {
         this.next = null;
@@ -85,15 +85,18 @@ public class AttVal extends Object implements Cloneable {
         this.value = value;
     }
 
+    @Override
     protected Object clone() {
         AttVal av = new AttVal();
         if (next != null) {
             av.next = (AttVal) next.clone();
         }
-        if (attribute != null)
+        if (attribute != null) {
             av.attribute = attribute;
-        if (value != null)
+        }
+        if (value != null) {
             av.value = value;
+        }
         av.delim = delim;
         if (asp != null) {
             av.asp = (Node) asp.clone();
@@ -120,25 +123,30 @@ public class AttVal extends Object implements Cloneable {
     public Attribute checkAttribute(Lexer lexer, Node node) {
         TagTable tt = lexer.configuration.tt;
 
-        if (this.asp == null && this.php == null)
+        if (this.asp == null && this.php == null) {
             this.checkUniqueAttribute(lexer, node);
+        }
 
         Attribute attribute = this.dict;
         if (attribute != null) {
             /* title is vers 2.0 for A and LINK otherwise vers 4.0 */
-            if (attribute == AttributeTable.attrTitle && (node.tag == tt.tagA || node.tag == tt.tagLink))
+            if (attribute == AttributeTable.attrTitle && (node.tag == tt.tagA || node.tag == tt.tagLink)) {
                 lexer.versions &= Dict.VERS_ALL;
-            else if ((attribute.versions & Dict.VERS_XML) != 0) {
-                if (!(lexer.configuration.XmlTags || lexer.configuration.XmlOut))
+            } else if ((attribute.versions & Dict.VERS_XML) != 0) {
+                if (!(lexer.configuration.XmlTags || lexer.configuration.XmlOut)) {
                     Report.attrError(lexer, node, this.attribute, Report.XML_ATTRIBUTE_VALUE);
-            } else
+                }
+            } else {
                 lexer.versions &= attribute.versions;
+            }
 
-            if (attribute.attrchk != null)
+            if (attribute.attrchk != null) {
                 attribute.attrchk.check(lexer, node, this);
+            }
         } else if (!lexer.configuration.XmlTags && !(node.tag == null) && this.asp == null
-                && !(node.tag != null && ((node.tag.versions & Dict.VERS_PROPRIETARY) != 0)))
+                && !(node.tag != null && (node.tag.versions & Dict.VERS_PROPRIETARY) != 0)) {
             Report.attrError(lexer, node, this.attribute, Report.UNKNOWN_ATTRIBUTE);
+        }
 
         return attribute;
     }
@@ -152,12 +160,14 @@ public class AttVal extends Object implements Cloneable {
 
         for (attr = this.next; attr != null; attr = attr.next) {
             if (this.attribute != null && attr.attribute != null && attr.asp == null && attr.php == null
-                    && Lexer.wstrcasecmp(this.attribute, attr.attribute) == 0)
+                    && Lexer.wstrcasecmp(this.attribute, attr.attribute) == 0) {
                 ++count;
+            }
         }
 
-        if (count > 0)
+        if (count > 0) {
             Report.attrError(lexer, node, this.attribute, Report.REPEATED_ATTRIBUTE);
+        }
     }
 
     /* --------------------- DOM ---------------------------- */

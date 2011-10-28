@@ -22,10 +22,10 @@ public class UnrecognizedOptionException extends ParseException {
 
     /**
      * <p>
-     * Construct a new <code>UnrecognizedArgumentException</code>  with the specified detail
-     * message.
+     * Construct a new <code>UnrecognizedArgumentException</code> with the
+     * specified detail message.
      * </p>
-     *
+     * 
      * @param message the detail message
      */
     public UnrecognizedOptionException(String message) {

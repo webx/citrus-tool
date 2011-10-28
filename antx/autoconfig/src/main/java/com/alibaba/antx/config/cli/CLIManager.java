@@ -57,23 +57,24 @@ public class CLIManager {
 
         options.addOption(builder.withLongOpt("help").withDescription("显示帮助信息").create(OPT_HELP));
 
-        options.addOption(builder.withLongOpt("include-descriptors").hasArg().withDescription(
-                "包含哪些配置描述文件，例如：conf/auto-config.xml，可使用*、**、?通配符，如有多项，用逗号分隔").create(OPT_INCLUDE_DESCRIPTORS));
+        options.addOption(builder.withLongOpt("include-descriptors").hasArg()
+                .withDescription("包含哪些配置描述文件，例如：conf/auto-config.xml，可使用*、**、?通配符，如有多项，用逗号分隔")
+                .create(OPT_INCLUDE_DESCRIPTORS));
 
-        options.addOption(builder.withLongOpt("exclude-descriptors").hasArg().withDescription(
-                "排除哪些配置描述文件，可使用*、**、?通配符，如有多项，用逗号分隔").create(OPT_EXCLUDE_DESCRIPTORS));
+        options.addOption(builder.withLongOpt("exclude-descriptors").hasArg()
+                .withDescription("排除哪些配置描述文件，可使用*、**、?通配符，如有多项，用逗号分隔").create(OPT_EXCLUDE_DESCRIPTORS));
 
-        options.addOption(builder.withLongOpt("include-packages").hasArg().withDescription(
-                "包含哪些打包文件，例如：target/*.war，可使用*、**、?通配符，如有多项，用逗号分隔").create(OPT_INCLUDE_PACKAGES));
+        options.addOption(builder.withLongOpt("include-packages").hasArg()
+                .withDescription("包含哪些打包文件，例如：target/*.war，可使用*、**、?通配符，如有多项，用逗号分隔").create(OPT_INCLUDE_PACKAGES));
 
-        options.addOption(builder.withLongOpt("exclude-packages").hasArg().withDescription(
-                "排除哪些打包文件，可使用*、**、?通配符，如有多项，用逗号分隔").create(OPT_EXCLUDE_PACKAGES));
+        options.addOption(builder.withLongOpt("exclude-packages").hasArg()
+                .withDescription("排除哪些打包文件，可使用*、**、?通配符，如有多项，用逗号分隔").create(OPT_EXCLUDE_PACKAGES));
 
-        options.addOption(builder.withLongOpt("interactive").hasOptionalArg().withDescription(
-                "交互模式：auto|on|off，默认为auto，无参数表示on").create(OPT_INTERACTIVE_MODE));
+        options.addOption(builder.withLongOpt("interactive").hasOptionalArg()
+                .withDescription("交互模式：auto|on|off，默认为auto，无参数表示on").create(OPT_INTERACTIVE_MODE));
 
-        options.addOption(builder.withLongOpt("non-interactive").withDescription("非交互模式，相当于--interactive=off").create(
-                OPT_NON_INTERACTIVE_MODE));
+        options.addOption(builder.withLongOpt("non-interactive").withDescription("非交互模式，相当于--interactive=off")
+                .create(OPT_NON_INTERACTIVE_MODE));
 
         options.addOption(builder.withLongOpt("gui").withDescription("图形用户界面（交互模式）").create(OPT_GUI_MODE));
 
@@ -86,16 +87,16 @@ public class CLIManager {
         options.addOption(builder.withLongOpt("userprop").hasArg().withDescription("用户属性文件")
                 .create(OPT_USER_PROPERTIES));
 
-        options.addOption(builder.withLongOpt("shared-props").hasArg().withDescription("共享的属性文件URL列表，以逗号分隔").create(
-                OPT_SHARED_PROPERTIES));
+        options.addOption(builder.withLongOpt("shared-props").hasArg().withDescription("共享的属性文件URL列表，以逗号分隔")
+                .create(OPT_SHARED_PROPERTIES));
 
-        options.addOption(builder.withLongOpt("shared-props-name").hasArg().withDescription("共享的属性文件的名称").create(
-                OPT_SHARED_PROPERTIES_NAME));
+        options.addOption(builder.withLongOpt("shared-props-name").hasArg().withDescription("共享的属性文件的名称")
+                .create(OPT_SHARED_PROPERTIES_NAME));
 
         options.addOption(builder.withLongOpt("output").hasArg().withDescription("输出文件名或目录名").create(OPT_OUTPUT_FILES));
 
-        options.addOption(builder.withLongOpt("type").hasArg().withDescription("文件类型，例如：war, jar, ear等").create(
-                OPT_TYPE));
+        options.addOption(builder.withLongOpt("type").hasArg().withDescription("文件类型，例如：war, jar, ear等")
+                .create(OPT_TYPE));
     }
 
     public CommandLine parse(String[] args) {

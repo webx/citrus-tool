@@ -58,6 +58,6 @@ public class Entity {
     }
 
     public String name;
-    public short  code;
+    public short code;
 
 }

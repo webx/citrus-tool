@@ -31,13 +31,13 @@ import com.alibaba.antx.config.resource.ResourceURI;
 import com.alibaba.antx.config.resource.Session;
 import com.alibaba.antx.util.StreamUtil;
 import com.jcraft.jsch.ChannelSftp;
+import com.jcraft.jsch.ChannelSftp.LsEntry;
 import com.jcraft.jsch.SftpATTRS;
 import com.jcraft.jsch.SftpException;
-import com.jcraft.jsch.ChannelSftp.LsEntry;
 
 public class SshResource extends Resource {
     private final ChannelSftp channel;
-    private final SftpATTRS   attrs;
+    private final SftpATTRS attrs;
 
     public SshResource(Session session, ChannelSftp channel, ResourceURI uri, SftpATTRS attrs) {
         super(session, uri);
@@ -46,10 +46,12 @@ public class SshResource extends Resource {
         this.attrs = attrs;
     }
 
+    @Override
     public Resource getRelatedResource(String suburi) {
-        return new SshResource((Session) getSession(), channel, getURI().getSubURI(suburi), null);
+        return new SshResource(getSession(), channel, getURI().getSubURI(suburi), null);
     }
 
+    @Override
     public byte[] getContent() {
         assertFile();
 
@@ -60,6 +62,7 @@ public class SshResource extends Resource {
         }
     }
 
+    @Override
     public InputStream getInputStream() {
         assertFile();
 
@@ -70,6 +73,7 @@ public class SshResource extends Resource {
         }
     }
 
+    @Override
     public OutputStream getOutputStream() {
         assertFile();
 
@@ -80,14 +84,17 @@ public class SshResource extends Resource {
         }
     }
 
+    @Override
     public String getCharset() {
         return null;
     }
 
+    @Override
     public String getContentType() {
         return null;
     }
 
+    @Override
     public boolean isDirectory() {
         if (attrs == null) {
             return getURI().guessDirectory();
@@ -96,6 +103,7 @@ public class SshResource extends Resource {
         }
     }
 
+    @Override
     public List list() {
         assertDirectory();
 
@@ -117,8 +125,8 @@ public class SshResource extends Resource {
                 continue;
             }
 
-            result.add(new SshResource((Session) getSession(), channel, getURI().getSubURI(name,
-                    entry.getAttrs().isDir()), entry.getAttrs()));
+            result.add(new SshResource(getSession(), channel, getURI().getSubURI(name, entry.getAttrs().isDir()), entry
+                    .getAttrs()));
         }
 
         Collections.sort(result);

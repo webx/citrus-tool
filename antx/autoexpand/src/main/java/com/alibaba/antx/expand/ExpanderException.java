@@ -21,31 +21,31 @@ import com.alibaba.toolkit.util.exception.ChainedRuntimeException;
 
 /**
  * 代表一个expander的异常
- *
+ * 
  * @author Michael Zhou
  */
 public class ExpanderException extends ChainedRuntimeException {
     private static final long serialVersionUID = -6138090297450520233L;
 
-/**
+    /**
      * 创建一个异常。
      */
     public ExpanderException() {
         super();
     }
 
-/**
+    /**
      * 创建一个异常。
-     *
+     * 
      * @param message 异常信息
      */
     public ExpanderException(String message) {
         super(message);
     }
 
-/**
+    /**
      * 创建一个异常。
-     *
+     * 
      * @param message 异常信息
      * @param cause 异常原因
      */
@@ -53,9 +53,9 @@ public class ExpanderException extends ChainedRuntimeException {
         super(message, cause);
     }
 
-/**
+    /**
      * 创建一个异常。
-     *
+     * 
      * @param cause 异常原因
      */
     public ExpanderException(Throwable cause) {

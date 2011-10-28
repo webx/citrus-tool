@@ -64,8 +64,8 @@ public class StreamInImpl extends StreamIn {
 
     private static int[] Mac2Unicode = {
 
-                                     0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007, 0x0008, 0x0009,
-            0x000A, 0x000B, 0x000C, 0x000D, 0x000E, 0x000F,
+    0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007, 0x0008, 0x0009, 0x000A, 0x000B, 0x000C, 0x000D,
+            0x000E, 0x000F,
 
             0x0010, 0x0011, 0x0012, 0x0013, 0x0014, 0x0015, 0x0016, 0x0017, 0x0018, 0x0019, 0x001A, 0x001B, 0x001C,
             0x001D, 0x001E, 0x001F,
@@ -110,12 +110,12 @@ public class StreamInImpl extends StreamIn {
             0x00CC, 0x00D3, 0x00D4,
             /* xF0 = Apple Logo */
             0xF8FF, 0x00D2, 0x00DA, 0x00DB, 0x00D9, 0x0131, 0x02C6, 0x02DC, 0x00AF, 0x02D8, 0x02D9, 0x02DA, 0x00B8,
-            0x02DD, 0x02DB, 0x02C7  };
+            0x02DD, 0x02DB, 0x02C7 };
 
     public StreamInImpl(InputStream stream, int encoding, int tabsize) {
         this.stream = stream;
         this.pushed = false;
-        this.c = (int) '\0';
+        this.c = '\0';
         this.tabs = 0;
         this.tabsize = tabsize;
         this.curline = 1;
@@ -126,6 +126,7 @@ public class StreamInImpl extends StreamIn {
     }
 
     /* read char from stream */
+    @Override
     public int readCharFromStream() {
         int n, c, i, count;
 
@@ -159,19 +160,21 @@ public class StreamInImpl extends StreamIn {
 
                 switch (this.state) {
                     case FSM_ESC:
-                        if (c == '$')
+                        if (c == '$') {
                             this.state = FSM_ESCD;
-                        else if (c == '(')
+                        } else if (c == '(') {
                             this.state = FSM_ESCP;
-                        else
+                        } else {
                             this.state = FSM_ASCII;
+                        }
                         break;
 
                     case FSM_ESCD:
-                        if (c == '(')
+                        if (c == '(') {
                             this.state = FSM_ESCDP;
-                        else
+                        } else {
                             this.state = FSM_NONASCII;
+                        }
                         break;
 
                     case FSM_ESCDP:
@@ -190,8 +193,9 @@ public class StreamInImpl extends StreamIn {
                 return c;
             }
 
-            if (this.encoding != Configuration.UTF8)
+            if (this.encoding != Configuration.UTF8) {
                 return c;
+            }
 
             /* deal with UTF-8 encoded char */
 
@@ -215,9 +219,10 @@ public class StreamInImpl extends StreamIn {
             {
                 n = c & 1;
                 count = 5;
-            } else
+            } else {
                 /* 0XXX XXXX one byte */
                 return c;
+            }
 
             /* successor bytes should have the form 10XX XXXX */
             for (i = 1; i <= count; ++i) {
@@ -228,7 +233,7 @@ public class StreamInImpl extends StreamIn {
                     return c;
                 }
 
-                n = (n << 6) | (c & 0x3F);
+                n = n << 6 | c & 0x3F;
             }
         } catch (IOException e) {
             System.err.println("StreamInImpl.readCharFromStream: " + e.toString());
@@ -238,6 +243,7 @@ public class StreamInImpl extends StreamIn {
         return n;
     }
 
+    @Override
     public int readChar() {
         int c;
 
@@ -266,8 +272,9 @@ public class StreamInImpl extends StreamIn {
         for (;;) {
             c = readCharFromStream();
 
-            if (c < 0)
+            if (c < 0) {
                 return EndOfStream;
+            }
 
             if (c == '\n') {
                 this.curcol = 1;
@@ -287,7 +294,7 @@ public class StreamInImpl extends StreamIn {
             }
 
             if (c == '\t') {
-                this.tabs = this.tabsize - ((this.curcol - 1) % this.tabsize) - 1;
+                this.tabs = this.tabsize - (this.curcol - 1) % this.tabsize - 1;
                 this.curcol++;
                 c = ' ';
                 break;
@@ -295,11 +302,13 @@ public class StreamInImpl extends StreamIn {
 
             /* strip control characters, except for Esc */
 
-            if (c == '\033')
+            if (c == '\033') {
                 break;
+            }
 
-            if (0 < c && c < 32)
+            if (0 < c && c < 32) {
                 continue;
+            }
 
             /* watch out for IS02022 */
 
@@ -308,8 +317,9 @@ public class StreamInImpl extends StreamIn {
                 break;
             }
 
-            if (this.encoding == Configuration.MACROMAN)
+            if (this.encoding == Configuration.MACROMAN) {
                 c = Mac2Unicode[c];
+            }
 
             /* produced e.g. as a side-effect of smart quotes in Word */
 
@@ -318,8 +328,9 @@ public class StreamInImpl extends StreamIn {
 
                 c = Win2Unicode[c - 128];
 
-                if (c == 0)
+                if (c == 0) {
                     continue;
+                }
             }
 
             this.curcol++;
@@ -329,6 +340,7 @@ public class StreamInImpl extends StreamIn {
         return c;
     }
 
+    @Override
     public void ungetChar(int c) {
         this.pushed = true;
         this.c = c;
@@ -340,6 +352,7 @@ public class StreamInImpl extends StreamIn {
         this.curcol = this.lastcol;
     }
 
+    @Override
     public boolean isEndOfStream() {
         return this.endOfStream;
     }

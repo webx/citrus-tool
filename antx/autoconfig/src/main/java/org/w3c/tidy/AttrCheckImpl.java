@@ -50,9 +50,9 @@ public class AttrCheckImpl {
     public static class CheckUrl implements AttrCheck {
 
         public void check(Lexer lexer, Node node, AttVal attval) {
-            if (attval.value == null)
+            if (attval.value == null) {
                 Report.attrError(lexer, node, attval.attribute, Report.MISSING_ATTR_VALUE);
-            else if (lexer.configuration.FixBackslash) {
+            } else if (lexer.configuration.FixBackslash) {
                 attval.value = attval.value.replace('\\', '/');
             }
         }
@@ -72,18 +72,19 @@ public class AttrCheckImpl {
             String value;
 
             /* IMG, OBJECT, APPLET and EMBED use align for vertical position */
-            if (node.tag != null && ((node.tag.model & Dict.CM_IMG) != 0)) {
+            if (node.tag != null && (node.tag.model & Dict.CM_IMG) != 0) {
                 getCheckValign().check(lexer, node, attval);
                 return;
             }
 
             value = attval.value;
 
-            if (value == null)
+            if (value == null) {
                 Report.attrError(lexer, node, attval.attribute, Report.MISSING_ATTR_VALUE);
-            else if (!(Lexer.wstrcasecmp(value, "left") == 0 || Lexer.wstrcasecmp(value, "center") == 0
-                    || Lexer.wstrcasecmp(value, "right") == 0 || Lexer.wstrcasecmp(value, "justify") == 0))
+            } else if (!(Lexer.wstrcasecmp(value, "left") == 0 || Lexer.wstrcasecmp(value, "center") == 0
+                    || Lexer.wstrcasecmp(value, "right") == 0 || Lexer.wstrcasecmp(value, "justify") == 0)) {
                 Report.attrError(lexer, node, attval.value, Report.BAD_ATTRIBUTE_VALUE);
+            }
         }
 
     };
@@ -95,20 +96,22 @@ public class AttrCheckImpl {
 
             value = attval.value;
 
-            if (value == null)
+            if (value == null) {
                 Report.attrError(lexer, node, attval.attribute, Report.MISSING_ATTR_VALUE);
-            else if (Lexer.wstrcasecmp(value, "top") == 0 || Lexer.wstrcasecmp(value, "middle") == 0
+            } else if (Lexer.wstrcasecmp(value, "top") == 0 || Lexer.wstrcasecmp(value, "middle") == 0
                     || Lexer.wstrcasecmp(value, "bottom") == 0 || Lexer.wstrcasecmp(value, "baseline") == 0) {
                 /* all is fine */
             } else if (Lexer.wstrcasecmp(value, "left") == 0 || Lexer.wstrcasecmp(value, "right") == 0) {
-                if (!(node.tag != null && ((node.tag.model & Dict.CM_IMG) != 0)))
+                if (!(node.tag != null && (node.tag.model & Dict.CM_IMG) != 0)) {
                     Report.attrError(lexer, node, value, Report.BAD_ATTRIBUTE_VALUE);
+                }
             } else if (Lexer.wstrcasecmp(value, "texttop") == 0 || Lexer.wstrcasecmp(value, "absmiddle") == 0
                     || Lexer.wstrcasecmp(value, "absbottom") == 0 || Lexer.wstrcasecmp(value, "textbottom") == 0) {
                 lexer.versions &= Dict.VERS_PROPRIETARY;
                 Report.attrError(lexer, node, value, Report.PROPRIETARY_ATTR_VALUE);
-            } else
+            } else {
                 Report.attrError(lexer, node, value, Report.BAD_ATTRIBUTE_VALUE);
+            }
         }
 
     };
@@ -162,12 +165,12 @@ public class AttrCheckImpl {
         return _checkName;
     }
 
-    private static AttrCheck _checkUrl    = new CheckUrl();
+    private static AttrCheck _checkUrl = new CheckUrl();
     private static AttrCheck _checkScript = new CheckScript();
-    private static AttrCheck _checkAlign  = new CheckAlign();
+    private static AttrCheck _checkAlign = new CheckAlign();
     private static AttrCheck _checkValign = new CheckValign();
-    private static AttrCheck _checkBool   = new CheckBool();
-    private static AttrCheck _checkId     = new CheckId();
-    private static AttrCheck _checkName   = new CheckName();
+    private static AttrCheck _checkBool = new CheckBool();
+    private static AttrCheck _checkId = new CheckId();
+    private static AttrCheck _checkName = new CheckName();
 
 }

@@ -17,49 +17,45 @@
 
 package com.alibaba.toolkit.util.resourcebundle;
 
+import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.text.MessageFormat;
+
 import com.alibaba.toolkit.util.enumeration.Enum;
 import com.alibaba.toolkit.util.exception.ChainedThrowable;
 import com.alibaba.toolkit.util.exception.ChainedThrowableDelegate;
 import com.alibaba.toolkit.util.exception.ErrorCode;
 
-import java.io.PrintStream;
-import java.io.PrintWriter;
-
-import java.text.MessageFormat;
-
 /**
  * 表示<code>ResourceBundle</code>未找到, 或创建失败的异常.
- *
- * @version $Id: ResourceBundleException.java,v 1.1 2003/07/03 07:26:35 baobao Exp $
+ * 
+ * @version $Id: ResourceBundleException.java,v 1.1 2003/07/03 07:26:35 baobao
+ *          Exp $
  * @author Michael Zhou
  */
-public class ResourceBundleException extends java.util.MissingResourceException
-        implements ChainedThrowable, ErrorCode {
+public class ResourceBundleException extends java.util.MissingResourceException implements ChainedThrowable, ErrorCode {
     private static final long serialVersionUID = -2272722732501708511L;
-    private final ChainedThrowable delegate  = new ChainedThrowableDelegate(this);
-    private Throwable              cause;
-    private Enum                   errorCode;
+    private final ChainedThrowable delegate = new ChainedThrowableDelegate(this);
+    private Throwable cause;
+    private Enum errorCode;
 
     /**
      * 构造一个异常, 指明引起这个异常的起因.
-     *
-     * @param messageId   详细信息ID
-     * @param params      详细信息参数
-     * @param cause       异常的起因
-     * @param bundleName  bundle名称
-     * @param key         resource key
+     * 
+     * @param messageId 详细信息ID
+     * @param params 详细信息参数
+     * @param cause 异常的起因
+     * @param bundleName bundle名称
+     * @param key resource key
      */
-    public ResourceBundleException(String messageId, Object[] params, Throwable cause,
-                                   String bundleName, Object key) {
-        super(MessageFormat.format(messageId,
-                                   (params == null) ? new Object[0]
-                                                    : params), bundleName, String.valueOf(key));
+    public ResourceBundleException(String messageId, Object[] params, Throwable cause, String bundleName, Object key) {
+        super(MessageFormat.format(messageId, params == null ? new Object[0] : params), bundleName, String.valueOf(key));
         this.cause = cause;
     }
 
     /**
      * 取得bundle名.
-     *
+     * 
      * @return bundle名
      */
     public String getBundleName() {
@@ -68,16 +64,17 @@ public class ResourceBundleException extends java.util.MissingResourceException
 
     /**
      * 取得引起这个异常的起因.
-     *
+     * 
      * @return 异常的起因.
      */
+    @Override
     public Throwable getCause() {
         return cause;
     }
 
     /**
      * 取得错误码.
-     *
+     * 
      * @return 错误码
      */
     public Enum getErrorCode() {
@@ -87,32 +84,35 @@ public class ResourceBundleException extends java.util.MissingResourceException
     /**
      * 打印调用栈到标准错误.
      */
+    @Override
     public void printStackTrace() {
         delegate.printStackTrace();
     }
 
     /**
      * 打印调用栈到指定输出流.
-     *
-     * @param stream  输出字节流.
+     * 
+     * @param stream 输出字节流.
      */
+    @Override
     public void printStackTrace(PrintStream stream) {
         delegate.printStackTrace(stream);
     }
 
     /**
      * 打印调用栈到指定输出流.
-     *
-     * @param writer  输出字符流.
+     * 
+     * @param writer 输出字符流.
      */
+    @Override
     public void printStackTrace(PrintWriter writer) {
         delegate.printStackTrace(writer);
     }
 
     /**
      * 打印异常的调用栈, 不包括起因异常的信息.
-     *
-     * @param writer  打印到输出流
+     * 
+     * @param writer 打印到输出流
      */
     public void printCurrentStackTrace(PrintWriter writer) {
         super.printStackTrace(writer);

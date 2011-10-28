@@ -51,8 +51,8 @@ package org.w3c.tidy;
 import java.io.OutputStream;
 
 public abstract class Out {
-    public int          encoding;
-    public int          state;   /* for ISO 2022 */
+    public int encoding;
+    public int state; /* for ISO 2022 */
     public OutputStream out;
 
     public abstract void outc(int c);

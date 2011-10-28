@@ -17,9 +17,6 @@
 
 package com.alibaba.antx.util;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -28,17 +25,18 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import java.util.Date;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * 和Zip文件相关的工具类。
- *
+ * 
  * @author Michael Zhou
  */
 public class ZipUtil {
@@ -46,14 +44,12 @@ public class ZipUtil {
 
     /**
      * 取得jar URL。
-     *
+     * 
      * @param jarfileURL 代表jar文件的URL
      * @param path 资源在jar文件中的路径
-     *
      * @return jar URL
      */
-    public static URL getJarURL(URL jarfileURL, String path)
-            throws MalformedURLException {
+    public static URL getJarURL(URL jarfileURL, String path) throws MalformedURLException {
         StringBuffer url = new StringBuffer();
 
         url.append("jar:").append(jarfileURL.toExternalForm()).append("!");
@@ -69,17 +65,15 @@ public class ZipUtil {
 
     /**
      * 扫描zip文件，取得符合要求的所有文件。
-     *
+     * 
      * @param zipfileURL zip文件的URL
      * @param includes 包含文件
      * @param excludes 不包含文件
-     *
      * @return 所有文件的URL
      */
-    public static URL[] getFilesInZipFile(URL zipfileURL, String[] includes, String[] excludes)
-            throws IOException {
+    public static URL[] getFilesInZipFile(URL zipfileURL, String[] includes, String[] excludes) throws IOException {
         String[] filenames = getFileNamesInZipFile(zipfileURL, includes, excludes);
-        URL[]    urls      = new URL[filenames.length];
+        URL[] urls = new URL[filenames.length];
 
         for (int i = 0; i < filenames.length; i++) {
             urls[i] = getJarURL(zipfileURL, filenames[i]);
@@ -90,15 +84,13 @@ public class ZipUtil {
 
     /**
      * 扫描zip文件，取得符合要求的所有文件。
-     *
+     * 
      * @param zipfileURL zip文件的URL
      * @param includes 包含文件
      * @param excludes 不包含文件
-     *
      * @return 所有文件路径
      */
-    public static String[] getFileNamesInZipFile(URL zipfileURL, String[] includes,
-                                                 String[] excludes)
+    public static String[] getFileNamesInZipFile(URL zipfileURL, String[] includes, String[] excludes)
             throws IOException {
         ZipScanner zipScanner = new ZipScanner();
 
@@ -113,15 +105,13 @@ public class ZipUtil {
 
     /**
      * 展开zip文件到指定目录
-     *
+     * 
      * @param zipfile Zip文件
      * @param todir 展开目录
      * @param overwrite 是否覆盖
-     *
      * @throws IOException 读写文件失败，或Zip格式错误
      */
-    public static void expandFile(File zipfile, File todir, boolean overwrite)
-            throws IOException {
+    public static void expandFile(File zipfile, File todir, boolean overwrite) throws IOException {
         InputStream istream = null;
 
         try {
@@ -139,15 +129,13 @@ public class ZipUtil {
 
     /**
      * 展开zip文件到指定目录
-     *
+     * 
      * @param istream 输入流
      * @param todir 展开目录
      * @param overwrite 是否覆盖
-     *
      * @throws IOException 读写文件失败，或Zip格式错误
      */
-    public static void expandFile(InputStream istream, File todir, boolean overwrite)
-            throws IOException {
+    public static void expandFile(InputStream istream, File todir, boolean overwrite) throws IOException {
         ZipInputStream zipStream = null;
 
         if (!(istream instanceof BufferedInputStream)) {
@@ -176,22 +164,21 @@ public class ZipUtil {
 
     /**
      * 展开一个文件。
-     *
+     * 
      * @param todir 展开到此目录
      * @param zipStream 压缩流
      * @param zipEntry zip结点
      * @param overwrite 如果文件或目录已存在，是否覆盖
-     *
      * @throws IOException 读写文件失败，或Zip格式错误
      */
-    protected static void extractFile(File todir, InputStream zipStream, ZipEntry zipEntry,
-                                      boolean overwrite) throws IOException {
-        String  entryName   = zipEntry.getName();
-        Date    entryDate   = new Date(zipEntry.getTime());
+    protected static void extractFile(File todir, InputStream zipStream, ZipEntry zipEntry, boolean overwrite)
+            throws IOException {
+        String entryName = zipEntry.getName();
+        Date entryDate = new Date(zipEntry.getTime());
         boolean isDirectory = zipEntry.isDirectory();
-        File    targetFile  = FileUtil.getFile(todir, entryName);
+        File targetFile = FileUtil.getFile(todir, entryName);
 
-        if (!overwrite && targetFile.exists() && (targetFile.lastModified() >= entryDate.getTime())) {
+        if (!overwrite && targetFile.exists() && targetFile.lastModified() >= entryDate.getTime()) {
             log.debug("Skipping " + targetFile + " as it is up-to-date");
             return;
         }
@@ -205,8 +192,8 @@ public class ZipUtil {
 
             dir.mkdirs();
 
-            byte[]       buffer  = new byte[8192];
-            int          length  = 0;
+            byte[] buffer = new byte[8192];
+            int length = 0;
             OutputStream ostream = null;
 
             try {

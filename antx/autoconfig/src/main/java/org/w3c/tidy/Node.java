@@ -55,45 +55,42 @@ package org.w3c.tidy;
 
 public class Node {
 
-    public static final short RootNode    = 0;
-    public static final short DocTypeTag  = 1;
-    public static final short CommentTag  = 2;
-    public static final short ProcInsTag  = 3;
-    public static final short TextNode    = 4;
-    public static final short StartTag    = 5;
-    public static final short EndTag      = 6;
+    public static final short RootNode = 0;
+    public static final short DocTypeTag = 1;
+    public static final short CommentTag = 2;
+    public static final short ProcInsTag = 3;
+    public static final short TextNode = 4;
+    public static final short StartTag = 5;
+    public static final short EndTag = 6;
     public static final short StartEndTag = 7;
-    public static final short CDATATag    = 8;
-    public static final short SectionTag  = 9;
-    public static final short AspTag      = 10;
-    public static final short JsteTag     = 11;
-    public static final short PhpTag      = 12;
+    public static final short CDATATag = 8;
+    public static final short SectionTag = 9;
+    public static final short AspTag = 10;
+    public static final short JsteTag = 11;
+    public static final short PhpTag = 12;
 
-    protected Node            parent;
-    protected Node            prev;
-    protected Node            next;
-    protected Node            last;
-    protected int             start;           /* start of span onto text array */
-    protected int             end;             /* end of span onto text array */
-    protected byte[]          textarray;       /* the text array */
-    protected short           type;            /*
-                                                 * TextNode, StartTag, EndTag
-                                                 * etc.
-                                                 */
-    protected boolean         closed;          /*
-                                                 * true if closed by explicit
-                                                 * end tag
-                                                 */
-    protected boolean         implicit;        /* true if inferred */
-    protected boolean         linebreak;       /*
-                                                 * true if followed by a line
-                                                 * break
-                                                 */
-    protected Dict            was;             /* old tag when it was changed */
-    protected Dict            tag;             /* tag's dictionary definition */
-    protected String          element;         /* name (null for text nodes) */
-    protected AttVal          attributes;
-    protected Node            content;
+    protected Node parent;
+    protected Node prev;
+    protected Node next;
+    protected Node last;
+    protected int start; /* start of span onto text array */
+    protected int end; /* end of span onto text array */
+    protected byte[] textarray; /* the text array */
+    protected short type; /*
+                           * TextNode, StartTag, EndTag etc.
+                           */
+    protected boolean closed; /*
+                               * true if closed by explicit end tag
+                               */
+    protected boolean implicit; /* true if inferred */
+    protected boolean linebreak; /*
+                                  * true if followed by a line break
+                                  */
+    protected Dict was; /* old tag when it was changed */
+    protected Dict tag; /* tag's dictionary definition */
+    protected String element; /* name (null for text nodes) */
+    protected AttVal attributes;
+    protected Node content;
 
     public Node() {
         this(TextNode, null, 0, 0);
@@ -135,11 +132,13 @@ public class Node {
         this.element = element;
         this.attributes = null;
         this.content = null;
-        if (type == StartTag || type == StartEndTag || type == EndTag)
+        if (type == StartTag || type == StartEndTag || type == EndTag) {
             tt.findTag(this);
+        }
     }
 
     /* used to clone heading nodes when split by an <HR> */
+    @Override
     protected Object clone() {
         Node node = new Node();
 
@@ -148,8 +147,9 @@ public class Node {
             node.textarray = new byte[this.end - this.start];
             node.start = 0;
             node.end = this.end - this.start;
-            if (node.end > 0)
+            if (node.end > 0) {
                 System.arraycopy(this.textarray, this.start, node.textarray, node.start, node.end);
+            }
         }
         node.type = this.type;
         node.closed = this.closed;
@@ -157,10 +157,12 @@ public class Node {
         node.linebreak = this.linebreak;
         node.was = this.was;
         node.tag = this.tag;
-        if (this.element != null)
+        if (this.element != null) {
             node.element = this.element;
-        if (this.attributes != null)
+        }
+        if (this.attributes != null) {
             node.attributes = (AttVal) this.attributes.clone();
+        }
         return node;
     }
 
@@ -168,8 +170,9 @@ public class Node {
         AttVal attr;
 
         for (attr = this.attributes; attr != null; attr = attr.next) {
-            if (name != null && attr.attribute != null && attr.attribute.equals(name))
+            if (name != null && attr.attribute != null && attr.attribute.equals(name)) {
                 break;
+            }
         }
 
         return attr;
@@ -179,16 +182,18 @@ public class Node {
     public void checkAttributes(Lexer lexer) {
         AttVal attval;
 
-        for (attval = this.attributes; attval != null; attval = attval.next)
+        for (attval = this.attributes; attval != null; attval = attval.next) {
             attval.checkAttribute(lexer, this);
+        }
     }
 
     public void checkUniqueAttributes(Lexer lexer) {
         AttVal attval;
 
         for (attval = this.attributes; attval != null; attval = attval.next) {
-            if (attval.asp == null && attval.php == null)
+            if (attval.asp == null && attval.php == null) {
                 attval.checkUniqueAttribute(lexer, this);
+            }
         }
     }
 
@@ -196,14 +201,15 @@ public class Node {
         AttVal av = new AttVal(null, null, null, null, '"', name, value);
         av.dict = AttributeTable.getDefaultAttributeTable().findAttribute(av);
 
-        if (this.attributes == null)
+        if (this.attributes == null) {
             this.attributes = av;
-        else /* append to end of attributes */
+        } else /* append to end of attributes */
         {
             AttVal here = this.attributes;
 
-            while (here.next != null)
+            while (here.next != null) {
                 here = here.next;
+            }
 
             here.next = av;
         }
@@ -219,12 +225,14 @@ public class Node {
             next = av.next;
 
             if (av == attr) {
-                if (prev != null)
+                if (prev != null) {
                     prev.next = next;
-                else
+                } else {
                     this.attributes = next;
-            } else
+                }
+            } else {
                 prev = av;
+            }
         }
     }
 
@@ -232,8 +240,9 @@ public class Node {
     public Node findDocType() {
         Node node;
 
-        for (node = this.content; node != null && node.type != DocTypeTag; node = node.next)
+        for (node = this.content; node != null && node.type != DocTypeTag; node = node.next) {
             ;
+        }
 
         return node;
     }
@@ -243,13 +252,15 @@ public class Node {
 
         node = findDocType();
         if (node != null) {
-            if (node.prev != null)
+            if (node.prev != null) {
                 node.prev.next = node.next;
-            else
+            } else {
                 node.parent.content = node.next;
+            }
 
-            if (node.next != null)
+            if (node.next != null) {
                 node.next.prev = node.prev;
+            }
 
             node.next = null;
         }
@@ -271,10 +282,11 @@ public class Node {
     public static void insertNodeAtStart(Node element, Node node) {
         node.parent = element;
 
-        if (element.content == null)
+        if (element.content == null) {
             element.last = node;
-        else
+        } else {
             element.content.prev = node; // AQ added 13 Apr 2000
+        }
 
         node.next = element.content;
         node.prev = null;
@@ -286,10 +298,11 @@ public class Node {
         node.parent = element;
         node.prev = element.last;
 
-        if (element.last != null)
+        if (element.last != null) {
             element.last.next = node;
-        else
+        } else {
             element.content = node;
+        }
 
         element.last = node;
     }
@@ -304,23 +317,27 @@ public class Node {
         node.parent = element.parent;
         element.parent = node;
 
-        if (node.parent.content == element)
+        if (node.parent.content == element) {
             node.parent.content = node;
+        }
 
-        if (node.parent.last == element)
+        if (node.parent.last == element) {
             node.parent.last = node;
+        }
 
         node.prev = element.prev;
         element.prev = null;
 
-        if (node.prev != null)
+        if (node.prev != null) {
             node.prev.next = node;
+        }
 
         node.next = element.next;
         element.next = null;
 
-        if (node.next != null)
+        if (node.next != null) {
             node.next.prev = node;
+        }
     }
 
     /* insert node into markup tree before element */
@@ -333,11 +350,13 @@ public class Node {
         node.prev = element.prev;
         element.prev = node;
 
-        if (node.prev != null)
+        if (node.prev != null) {
             node.prev.next = node;
+        }
 
-        if (parent.content == element)
+        if (parent.content == element) {
             parent.content = node;
+        }
     }
 
     /* insert node into markup tree after element */
@@ -348,13 +367,14 @@ public class Node {
         node.parent = parent;
 
         // AQ - 13Jan2000 fix for parent == null
-        if (parent != null && parent.last == element)
+        if (parent != null && parent.last == element) {
             parent.last = node;
-        else {
+        } else {
             node.next = element.next;
             // AQ - 13Jan2000 fix for node.next == null
-            if (node.next != null)
+            if (node.next != null) {
                 node.next.prev = node;
+            }
         }
 
         element.next = node;
@@ -365,8 +385,9 @@ public class Node {
         TagTable tt = lexer.configuration.tt;
 
         if (lexer.canPrune(element)) {
-            if (element.type != TextNode)
+            if (element.type != TextNode) {
                 Report.warning(lexer, element, null, Report.TRIM_EMPTY_ELEMENT);
+            }
 
             discardElement(element);
         } else if (element.tag == tt.tagP && element.content == null) {
@@ -392,17 +413,20 @@ public class Node {
             if (c == 160 || c == (byte) ' ') {
                 /* take care with <td>&nbsp;</td> */
                 if (element.tag == tt.tagTd || element.tag == tt.tagTh) {
-                    if (last.end > last.start + 1)
+                    if (last.end > last.start + 1) {
                         last.end -= 1;
+                    }
                 } else {
                     last.end -= 1;
 
-                    if (((element.tag.model & Dict.CM_INLINE) != 0) && !((element.tag.model & Dict.CM_FIELD) != 0))
+                    if ((element.tag.model & Dict.CM_INLINE) != 0 && !((element.tag.model & Dict.CM_FIELD) != 0)) {
                         lexer.insertspace = true;
+                    }
 
                     /* if empty string then delete from parse tree */
-                    if (last.start == last.end)
+                    if (last.start == last.end) {
                         trimEmptyElement(lexer, last);
+                    }
                 }
             }
         }
@@ -418,14 +442,15 @@ public class Node {
 
         // GLP: Local fix to Bug 119789. Remove this comment when parser.c is updated.
         //      31-Oct-00. 
-        if (text.type == TextNode && text.textarray[text.start] == (byte) ' ' && (text.start < text.end)) {
-            if (((element.tag.model & Dict.CM_INLINE) != 0) && !((element.tag.model & Dict.CM_FIELD) != 0)
+        if (text.type == TextNode && text.textarray[text.start] == (byte) ' ' && text.start < text.end) {
+            if ((element.tag.model & Dict.CM_INLINE) != 0 && !((element.tag.model & Dict.CM_FIELD) != 0)
                     && element.parent.content != element) {
                 prev = element.prev;
 
                 if (prev != null && prev.type == TextNode) {
-                    if (prev.textarray[prev.end - 1] != (byte) ' ')
+                    if (prev.textarray[prev.end - 1] != (byte) ' ') {
                         prev.textarray[prev.end++] = (byte) ' ';
+                    }
 
                     ++element.start;
                 } else /* create new node */
@@ -447,8 +472,9 @@ public class Node {
                     }
                     node.textarray[node.start] = (byte) ' ';
                     node.prev = prev;
-                    if (prev != null)
+                    if (prev != null) {
                         prev.next = node;
+                    }
                     node.next = element;
                     element.prev = node;
                     node.parent = element.parent;
@@ -469,21 +495,24 @@ public class Node {
         Node text = element.content;
         TagTable tt = lexer.configuration.tt;
 
-        if (text != null && text.type == Node.TextNode && element.tag != tt.tagPre)
+        if (text != null && text.type == Node.TextNode && element.tag != tt.tagPre) {
             trimInitialSpace(lexer, element, text);
+        }
 
         text = element.last;
 
-        if (text != null && text.type == Node.TextNode)
+        if (text != null && text.type == Node.TextNode) {
             trimTrailingSpace(lexer, element, text);
+        }
     }
 
     public boolean isDescendantOf(Dict tag) {
         Node parent;
 
         for (parent = this.parent; parent != null; parent = parent.parent) {
-            if (parent.tag == tag)
+            if (parent.tag == tag) {
                 return true;
+            }
         }
 
         return false;
@@ -498,8 +527,9 @@ public class Node {
 
         Report.warning(lexer, element, doctype, Report.DOCTYPE_AFTER_TAGS);
 
-        while (element.tag != tt.tagHtml)
+        while (element.tag != tt.tagHtml) {
             element = element.parent;
+        }
 
         insertNodeBeforeElement(element, doctype);
     }
@@ -509,22 +539,25 @@ public class Node {
 
         node = this.content;
 
-        while (node != null && node.tag != tt.tagHtml)
+        while (node != null && node.tag != tt.tagHtml) {
             node = node.next;
+        }
 
-        if (node == null)
+        if (node == null) {
             return null;
+        }
 
         node = node.content;
 
-        while (node != null && node.tag != tt.tagBody)
+        while (node != null && node.tag != tt.tagBody) {
             node = node.next;
+        }
 
         return node;
     }
 
     public boolean isElement() {
-        return (this.type == StartTag || this.type == StartEndTag ? true : false);
+        return this.type == StartTag || this.type == StartEndTag ? true : false;
     }
 
     /*
@@ -538,16 +571,18 @@ public class Node {
         /* first find the table element */
         for (table = row.parent; table != null; table = table.parent) {
             if (table.tag == tt.tagTable) {
-                if (table.parent.content == table)
+                if (table.parent.content == table) {
                     table.parent.content = node;
+                }
 
                 node.prev = table.prev;
                 node.next = table;
                 table.prev = node;
                 node.parent = table.parent;
 
-                if (node.prev != null)
+                if (node.prev != null) {
                     node.prev.next = node;
+                }
 
                 break;
             }
@@ -581,18 +616,22 @@ public class Node {
 
     /* extract a node and its children from a markup tree */
     public static void removeNode(Node node) {
-        if (node.prev != null)
+        if (node.prev != null) {
             node.prev.next = node.next;
+        }
 
-        if (node.next != null)
+        if (node.next != null) {
             node.next.prev = node.prev;
+        }
 
         if (node.parent != null) {
-            if (node.parent.content == node)
+            if (node.parent.content == node) {
                 node.parent.content = node.next;
+            }
 
-            if (node.parent.last == node)
+            if (node.parent.last == node) {
                 node.parent.last = node.prev;
+            }
         }
 
         node.parent = node.prev = node.next = null;
@@ -614,22 +653,23 @@ public class Node {
      */
     public static boolean isNewNode(Node node) {
         if (node != null && node.tag != null) {
-            return ((node.tag.model & Dict.CM_NEW) != 0);
+            return (node.tag.model & Dict.CM_NEW) != 0;
         }
 
         return true;
     }
 
     public boolean hasOneChild() {
-        return (this.content != null && this.content.next == null);
+        return this.content != null && this.content.next == null;
     }
 
     /* find html element */
     public Node findHTML(TagTable tt) {
         Node node;
 
-        for (node = this.content; node != null && node.tag != tt.tagHtml; node = node.next)
+        for (node = this.content; node != null && node.tag != tt.tagHtml; node = node.next) {
             ;
+        }
 
         return node;
     }
@@ -640,8 +680,9 @@ public class Node {
         node = this.findHTML(tt);
 
         if (node != null) {
-            for (node = node.content; node != null && node.tag != tt.tagHead; node = node.next)
+            for (node = node.content; node != null && node.tag != tt.tagHead; node = node.next) {
                 ;
+            }
         }
 
         return node;
@@ -652,35 +693,43 @@ public class Node {
         boolean found = false;
 
         if (this.prev != null) {
-            if (this.prev.next != this)
+            if (this.prev.next != this) {
                 return false;
+            }
         }
 
         if (this.next != null) {
-            if (this.next.prev != this)
+            if (this.next.prev != this) {
                 return false;
+            }
         }
 
         if (this.parent != null) {
-            if (this.prev == null && this.parent.content != this)
+            if (this.prev == null && this.parent.content != this) {
                 return false;
+            }
 
-            if (this.next == null && this.parent.last != this)
+            if (this.next == null && this.parent.last != this) {
                 return false;
+            }
 
-            for (child = this.parent.content; child != null; child = child.next)
+            for (child = this.parent.content; child != null; child = child.next) {
                 if (child == this) {
                     found = true;
                     break;
                 }
+            }
 
-            if (!found)
+            if (!found) {
                 return false;
+            }
         }
 
-        for (child = this.content; child != null; child = child.next)
-            if (!child.checkNodeIntegrity())
+        for (child = this.content; child != null; child = child.next) {
+            if (!child.checkNodeIntegrity()) {
                 return false;
+            }
+        }
 
         return true;
     }
@@ -697,9 +746,10 @@ public class Node {
          */
         if (classattr != null) {
             classattr.value = classattr.value + " " + classname;
-        } else
+        } else {
             /* create new class attribute */
             node.addAttribute("class", classname);
+        }
     }
 
     /* --------------------- DEBUG -------------------------- */
@@ -707,6 +757,7 @@ public class Node {
     private static final String[] nodeTypeString = { "RootNode", "DocTypeTag", "CommentTag", "ProcInsTag", "TextNode",
             "StartTag", "EndTag", "StartEndTag", "SectionTag", "AspTag", "PhpTag" };
 
+    @Override
     public String toString() {
         String s = "";
         Node n = this;
@@ -715,10 +766,11 @@ public class Node {
             s += "[Node type=";
             s += nodeTypeString[n.type];
             s += ",element=";
-            if (n.element != null)
+            if (n.element != null) {
                 s += n.element;
-            else
+            } else {
                 s += "null";
+            }
             if (n.type == TextNode || n.type == CommentTag || n.type == ProcInsTag) {
                 s += ",text=";
                 if (n.textarray != null && n.start <= n.end) {
@@ -730,13 +782,15 @@ public class Node {
                 }
             }
             s += ",content=";
-            if (n.content != null)
+            if (n.content != null) {
                 s += n.content.toString();
-            else
+            } else {
                 s += "null";
+            }
             s += "]";
-            if (n.next != null)
+            if (n.next != null) {
                 s += ",";
+            }
             n = n.next;
         }
         return s;

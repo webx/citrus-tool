@@ -17,35 +17,23 @@
 
 package com.alibaba.toolkit.util.typeconvert.converters;
 
+import java.sql.Date;
+
 import com.alibaba.toolkit.util.typeconvert.ConvertChain;
 import com.alibaba.toolkit.util.typeconvert.ConvertFailedException;
 import com.alibaba.toolkit.util.typeconvert.Converter;
 
-import java.sql.Date;
-
 /**
  * 将对象转换成<code>java.sql.Date</code>.
- *
  * <ul>
- * <li>
- * 如果对象为<code>null</code>, 则抛出带默认值的<code>ConvertFailedException</code>.
- * </li>
- * <li>
- * 如果对象已经是<code>java.sql.Date</code>了, 直接返回.
- * </li>
- * <li>
- * 如果对象是空字符串, 则抛出带默认值的<code>ConvertFailedException</code>.
- * </li>
- * <li>
- * 如果对象是字符串, 则试着把它转换成<code>java.sql.Date</code>, 格式必须为"yyyy-mm-dd".  如果不成功,
- * 则抛出<code>ConvertFailedException</code>.
- * </li>
- * <li>
- * 否则, 把对象传递给下一个<code>Converter</code>处理.
- * </li>
+ * <li>如果对象为<code>null</code>, 则抛出带默认值的<code>ConvertFailedException</code>.</li>
+ * <li>如果对象已经是<code>java.sql.Date</code>了, 直接返回.</li>
+ * <li>如果对象是空字符串, 则抛出带默认值的<code>ConvertFailedException</code>.</li>
+ * <li>如果对象是字符串, 则试着把它转换成<code>java.sql.Date</code>, 格式必须为"yyyy-mm-dd". 如果不成功,
+ * 则抛出<code>ConvertFailedException</code>.</li>
+ * <li>否则, 把对象传递给下一个<code>Converter</code>处理.</li>
  * </ul>
- *
- *
+ * 
  * @version $Id: SqlDateConverter.java,v 1.1 2003/07/03 07:26:41 baobao Exp $
  * @author Michael Zhou
  */

@@ -17,22 +17,22 @@
 
 package com.alibaba.toolkit.util.exception;
 
-import com.alibaba.toolkit.util.enumeration.Enum;
-
 import java.io.PrintStream;
 import java.io.PrintWriter;
 
+import com.alibaba.toolkit.util.enumeration.Enum;
+
 /**
  * 可嵌套的异常.
- *
+ * 
  * @author Michael Zhou
  * @version $Id: ChainedException.java,v 1.2 2003/08/07 08:09:00 zyh Exp $
  */
 public class ChainedException extends Exception implements ChainedThrowable, ErrorCode {
     private static final long serialVersionUID = -5440570868302479741L;
-    private final ChainedThrowable delegate  = new ChainedThrowableDelegate(this);
-    private Throwable              cause;
-    private Enum                   errorCode;
+    private final ChainedThrowable delegate = new ChainedThrowableDelegate(this);
+    private Throwable cause;
+    private Enum errorCode;
 
     /**
      * 构造一个空的异常.
@@ -43,7 +43,7 @@ public class ChainedException extends Exception implements ChainedThrowable, Err
 
     /**
      * 构造一个异常, 指明异常的详细信息.
-     *
+     * 
      * @param message 详细信息
      */
     public ChainedException(String message) {
@@ -52,7 +52,7 @@ public class ChainedException extends Exception implements ChainedThrowable, Err
 
     /**
      * 构造一个异常, 指明异常的详细信息.
-     *
+     * 
      * @param message 详细信息
      * @param errorCode 错误码
      */
@@ -63,18 +63,17 @@ public class ChainedException extends Exception implements ChainedThrowable, Err
 
     /**
      * 构造一个异常, 指明引起这个异常的起因.
-     *
+     * 
      * @param cause 异常的起因
      */
     public ChainedException(Throwable cause) {
-        super((cause == null) ? null
-                              : cause.getMessage());
+        super(cause == null ? null : cause.getMessage());
         this.cause = cause;
     }
 
     /**
      * 构造一个异常, 指明引起这个异常的起因.
-     *
+     * 
      * @param message 详细信息
      * @param cause 异常的起因
      */
@@ -85,29 +84,30 @@ public class ChainedException extends Exception implements ChainedThrowable, Err
 
     /**
      * 构造一个异常, 指明引起这个异常的起因.
-     *
+     * 
      * @param message 详细信息
      * @param cause 异常的起因
      * @param errorCode 错误码
      */
     public ChainedException(String message, Throwable cause, Enum errorCode) {
         super(message);
-        this.cause         = cause;
-        this.errorCode     = errorCode;
+        this.cause = cause;
+        this.errorCode = errorCode;
     }
 
     /**
      * 取得引起这个异常的起因.
-     *
+     * 
      * @return 异常的起因.
      */
+    @Override
     public Throwable getCause() {
         return cause;
     }
 
     /**
      * 取得错误码.
-     *
+     * 
      * @return 错误码
      */
     public Enum getErrorCode() {
@@ -117,31 +117,34 @@ public class ChainedException extends Exception implements ChainedThrowable, Err
     /**
      * 打印调用栈到标准错误.
      */
+    @Override
     public void printStackTrace() {
         delegate.printStackTrace();
     }
 
     /**
      * 打印调用栈到指定输出流.
-     *
+     * 
      * @param stream 输出字节流.
      */
+    @Override
     public void printStackTrace(PrintStream stream) {
         delegate.printStackTrace(stream);
     }
 
     /**
      * 打印调用栈到指定输出流.
-     *
+     * 
      * @param writer 输出字符流.
      */
+    @Override
     public void printStackTrace(PrintWriter writer) {
         delegate.printStackTrace(writer);
     }
 
     /**
      * 打印异常的调用栈, 不包括起因异常的信息.
-     *
+     * 
      * @param writer 打印到输出流
      */
     public void printCurrentStackTrace(PrintWriter writer) {

@@ -20,12 +20,10 @@ package com.alibaba.antx.util.cli;
 import java.util.ArrayList;
 
 /**
- * The class GnuParser provides an implementation of the  {@link
- * Parser#flatten(Options,String[],boolean) flatten} method.
- *
+ * The class GnuParser provides an implementation of the
+ * {@link Parser#flatten(Options,String[],boolean) flatten} method.
+ * 
  * @author John Keyes (john at integralsource.com)
- *
- *
  * @see Parser
  */
 public class GnuParser extends Parser {
@@ -34,7 +32,8 @@ public class GnuParser extends Parser {
 
     /**
      * <p>
-     * Resets the members to their original state i.e. remove all of <code>tokens</code> entries.
+     * Resets the members to their original state i.e. remove all of
+     * <code>tokens</code> entries.
      * </p>
      */
     private void init() {
@@ -44,25 +43,22 @@ public class GnuParser extends Parser {
     /**
      * <p>
      * This flatten method does so using the following rules:
-     * 
      * <ol>
-     * <li>
-     * If an {@link Option} exists for the first character of  the <code>arguments</code> entry
-     * <b>AND</b> an {@link Option}  does not exist for the whole <code>argument</code> then add
-     * the first character as an option to the processed tokens list e.g. "-D" and add the rest of
-     * the entry to the also.
-     * </li>
-     * <li>
-     * Otherwise just add the token to the processed tokens list.
-     * </li>
+     * <li>If an {@link Option} exists for the first character of the
+     * <code>arguments</code> entry <b>AND</b> an {@link Option} does not exist
+     * for the whole <code>argument</code> then add the first character as an
+     * option to the processed tokens list e.g. "-D" and add the rest of the
+     * entry to the also.</li>
+     * <li>Otherwise just add the token to the processed tokens list.</li>
      * </ol>
      * </p>
      */
+    @Override
     protected String[] flatten(Options options, String[] arguments, boolean stopAtNonOption) {
         init();
 
-        boolean eatTheRest    = false;
-        Option  currentOption = null;
+        boolean eatTheRest = false;
+        Option currentOption = null;
 
         for (int i = 0; i < arguments.length; i++) {
             if ("--".equals(arguments[i])) {
@@ -93,10 +89,10 @@ public class GnuParser extends Parser {
                     // special option
                     Option specialOption = options.getOption(arguments[i].substring(0, 2));
 
-                    if ((specialOption != null) && (option == null)) {
+                    if (specialOption != null && option == null) {
                         tokens.add(arguments[i].substring(0, 2));
                         tokens.add(arguments[i].substring(2));
-                    } else if ((currentOption != null) && currentOption.hasArg()) {
+                    } else if (currentOption != null && currentOption.hasArg()) {
                         if (currentOption.hasArg()) {
                             tokens.add(arguments[i]);
                             currentOption = null;
@@ -130,6 +126,6 @@ public class GnuParser extends Parser {
             }
         }
 
-        return (String[]) tokens.toArray(new String[] {  });
+        return (String[]) tokens.toArray(new String[] {});
     }
 }

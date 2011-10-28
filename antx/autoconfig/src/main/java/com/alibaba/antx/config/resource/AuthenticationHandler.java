@@ -39,6 +39,7 @@ public interface AuthenticationHandler {
             return password;
         }
 
+        @Override
         public String toString() {
             return getUsername() + ":" + getPassword();
         }

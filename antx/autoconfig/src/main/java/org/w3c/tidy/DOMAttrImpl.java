@@ -56,77 +56,95 @@ public class DOMAttrImpl extends DOMNodeImpl implements org.w3c.dom.Attr {
 
     /* --------------------- DOM ---------------------------- */
 
+    @Override
     public String getNodeValue() throws DOMException {
         return getValue();
     }
 
+    @Override
     public void setNodeValue(String nodeValue) throws DOMException {
         setValue(nodeValue);
     }
 
+    @Override
     public String getNodeName() {
         return getName();
     }
 
+    @Override
     public short getNodeType() {
         return org.w3c.dom.Node.ATTRIBUTE_NODE;
     }
 
+    @Override
     public org.w3c.dom.Node getParentNode() {
         return null;
     }
 
+    @Override
     public org.w3c.dom.NodeList getChildNodes() {
         // NOT SUPPORTED
         return null;
     }
 
+    @Override
     public org.w3c.dom.Node getFirstChild() {
         // NOT SUPPORTED
         return null;
     }
 
+    @Override
     public org.w3c.dom.Node getLastChild() {
         // NOT SUPPORTED
         return null;
     }
 
+    @Override
     public org.w3c.dom.Node getPreviousSibling() {
         return null;
     }
 
+    @Override
     public org.w3c.dom.Node getNextSibling() {
         return null;
     }
 
+    @Override
     public org.w3c.dom.NamedNodeMap getAttributes() {
         return null;
     }
 
+    @Override
     public org.w3c.dom.Document getOwnerDocument() {
         return null;
     }
 
+    @Override
     public org.w3c.dom.Node insertBefore(org.w3c.dom.Node newChild, org.w3c.dom.Node refChild) throws DOMException {
         throw new DOMExceptionImpl(DOMException.NO_MODIFICATION_ALLOWED_ERR, "Not supported");
     }
 
+    @Override
     public org.w3c.dom.Node replaceChild(org.w3c.dom.Node newChild, org.w3c.dom.Node oldChild) throws DOMException {
         throw new DOMExceptionImpl(DOMException.NO_MODIFICATION_ALLOWED_ERR, "Not supported");
     }
 
+    @Override
     public org.w3c.dom.Node removeChild(org.w3c.dom.Node oldChild) throws DOMException {
         throw new DOMExceptionImpl(DOMException.NO_MODIFICATION_ALLOWED_ERR, "Not supported");
     }
 
+    @Override
     public org.w3c.dom.Node appendChild(org.w3c.dom.Node newChild) throws DOMException {
         throw new DOMExceptionImpl(DOMException.NO_MODIFICATION_ALLOWED_ERR, "Not supported");
     }
 
+    @Override
     public boolean hasChildNodes() {
         return false;
     }
 
+    @Override
     public org.w3c.dom.Node cloneNode(boolean deep) {
         return null;
     }
@@ -153,7 +171,7 @@ public class DOMAttrImpl extends DOMNodeImpl implements org.w3c.dom.Attr {
      * @see org.w3c.dom.Attr#getValue
      */
     public String getValue() {
-        return (avAdaptee.value == null) ? avAdaptee.attribute : avAdaptee.value;
+        return avAdaptee.value == null ? avAdaptee.attribute : avAdaptee.value;
     }
 
     /**
@@ -178,49 +196,61 @@ public class DOMAttrImpl extends DOMNodeImpl implements org.w3c.dom.Attr {
         return false;
     }
 
+    @Override
     public short compareDocumentPosition(Node other) throws DOMException {
         return 0;
     }
 
+    @Override
     public String getBaseURI() {
         return null;
     }
 
+    @Override
     public Object getFeature(String feature, String version) {
         return null;
     }
 
+    @Override
     public String getTextContent() throws DOMException {
         return null;
     }
 
+    @Override
     public Object getUserData(String key) {
         return null;
     }
 
+    @Override
     public boolean isDefaultNamespace(String namespaceURI) {
         return false;
     }
 
+    @Override
     public boolean isEqualNode(Node arg) {
         return false;
     }
 
+    @Override
     public boolean isSameNode(Node other) {
         return false;
     }
 
+    @Override
     public String lookupNamespaceURI(String prefix) {
         return null;
     }
 
+    @Override
     public String lookupPrefix(String namespaceURI) {
         return null;
     }
 
+    @Override
     public void setTextContent(String textContent) throws DOMException {
     }
 
+    @Override
     public Object setUserData(String key, Object data, UserDataHandler handler) {
         return null;
     }

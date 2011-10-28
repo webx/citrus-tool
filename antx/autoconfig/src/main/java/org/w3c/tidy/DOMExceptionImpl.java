@@ -22,7 +22,6 @@
 
 package org.w3c.tidy;
 
-
 /**
  * DOMExceptionImpl (c) 1998-2000 (W3C) MIT, INRIA, Keio University See
  * Tidy.java for the copyright notice. Derived from <a
@@ -42,6 +41,11 @@ package org.w3c.tidy;
  */
 
 public class DOMExceptionImpl extends org.w3c.dom.DOMException {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -8310573204654953518L;
 
     public DOMExceptionImpl(short code, String message) {
         super(code, message);

@@ -56,14 +56,16 @@ public class DOMAttrMapImpl implements org.w3c.dom.NamedNodeMap {
     public org.w3c.dom.Node getNamedItem(String name) {
         AttVal att = this.first;
         while (att != null) {
-            if (att.attribute.equals(name))
+            if (att.attribute.equals(name)) {
                 break;
+            }
             att = att.next;
         }
-        if (att != null)
+        if (att != null) {
             return att.getAdapter();
-        else
+        } else {
             return null;
+        }
     }
 
     /**
@@ -89,15 +91,17 @@ public class DOMAttrMapImpl implements org.w3c.dom.NamedNodeMap {
         int i = 0;
         AttVal att = this.first;
         while (att != null) {
-            if (i >= index)
+            if (i >= index) {
                 break;
+            }
             i++;
             att = att.next;
         }
-        if (att != null)
+        if (att != null) {
             return att.getAdapter();
-        else
+        } else {
             return null;
+        }
     }
 
     /**

@@ -26,7 +26,7 @@ import java.util.List;
  * @author Michael Zhou
  */
 public class CompositeExpression implements Expression {
-    private String       expr;
+    private String expr;
     private Expression[] expressions;
 
     /**
@@ -58,8 +58,7 @@ public class CompositeExpression implements Expression {
     public Object evaluate(ExpressionContext context) {
         StringBuffer buffer = new StringBuffer();
 
-        for (int i = 0; i < expressions.length; i++) {
-            Expression expression = expressions[i];
+        for (Expression expression : expressions) {
             Object value = expression.evaluate(context);
 
             if (value != null) {
@@ -98,7 +97,7 @@ public class CompositeExpression implements Expression {
         }
 
         // 如果表达式以${开头，以}结尾，则直接调用factory来创建表达式。
-        if ((startIndex == 0) && (endIndex == (length - 1))) {
+        if (startIndex == 0 && endIndex == length - 1) {
             return new ReferenceExpression(expr.substring(2, endIndex));
         }
 
@@ -114,24 +113,24 @@ public class CompositeExpression implements Expression {
             ch = expr.charAt(i);
 
             switch (ch) {
-                case ('$'): {
-                    if ((i + 1) < length) {
+                case '$': {
+                    if (i + 1 < length) {
                         ++i;
                         ch = expr.charAt(i);
 
                         switch (ch) {
-                            case ('$'): {
+                            case '$': {
                                 chars.append(ch);
                                 break;
                             }
 
-                            case ('{'): {
+                            case '{': {
                                 if (chars.length() > 0) {
                                     expressions.add(new ConstantExpression(chars.toString()));
                                     chars.delete(0, chars.length());
                                 }
 
-                                if ((i + 1) < length) {
+                                if (i + 1 < length) {
                                     ++i;
 
                                     while (i < length) {
@@ -139,7 +138,7 @@ public class CompositeExpression implements Expression {
 
                                         {
                                             switch (ch) {
-                                                case ('"'): {
+                                                case '"': {
                                                     exprBuff.append(ch);
                                                     ++i;
 
@@ -149,14 +148,14 @@ public class CompositeExpression implements Expression {
                                                         boolean escape = false;
 
                                                         switch (ch) {
-                                                            case ('\\'): {
+                                                            case '\\': {
                                                                 escape = true;
                                                                 ++i;
                                                                 exprBuff.append(ch);
                                                                 break;
                                                             }
 
-                                                            case ('"'): {
+                                                            case '"': {
                                                                 ++i;
                                                                 exprBuff.append(ch);
                                                                 break DOUBLE_QUOTE;
@@ -173,7 +172,7 @@ public class CompositeExpression implements Expression {
                                                     break;
                                                 }
 
-                                                case ('\''): {
+                                                case '\'': {
                                                     exprBuff.append(ch);
                                                     ++i;
 
@@ -183,14 +182,14 @@ public class CompositeExpression implements Expression {
                                                         boolean escape = false;
 
                                                         switch (ch) {
-                                                            case ('\\'): {
+                                                            case '\\': {
                                                                 escape = true;
                                                                 ++i;
                                                                 exprBuff.append(ch);
                                                                 break;
                                                             }
 
-                                                            case ('\''): {
+                                                            case '\'': {
                                                                 ++i;
                                                                 exprBuff.append(ch);
                                                                 break SINGLE_QUOTE;
@@ -207,7 +206,7 @@ public class CompositeExpression implements Expression {
                                                     break;
                                                 }
 
-                                                case ('}'): {
+                                                case '}': {
                                                     expressions.add(new ReferenceExpression(exprBuff.toString()));
 
                                                     exprBuff.delete(0, exprBuff.length());

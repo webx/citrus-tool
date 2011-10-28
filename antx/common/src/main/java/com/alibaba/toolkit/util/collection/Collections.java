@@ -18,7 +18,6 @@
 package com.alibaba.toolkit.util.collection;
 
 import java.io.Serializable;
-
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -31,16 +30,15 @@ import java.util.SortedSet;
 
 /**
  * 这个类是<code>java.util.Collections</code>类的扩展, 包括了对<code>ListMap</code>接口的支持.
- *
+ * 
  * @version $Id: Collections.java,v 1.1 2003/07/03 07:26:15 baobao Exp $
  * @author Michael Zhou
  */
 public class Collections {
     /**
      * 取得一个线程安全的<code>Collection</code>对象.
-     *
+     * 
      * @param collection 被包装的<code>Collection</code>对象
-     *
      * @return 线程安全的<code>Collection</code>对象
      */
     public static Collection synchronizedCollection(Collection collection) {
@@ -49,10 +47,9 @@ public class Collections {
 
     /**
      * 取得一个线程安全的<code>Collection</code>对象.
-     *
+     * 
      * @param collection 被包装的<code>Collection</code>对象
-     * @param syncRoot   同步对象
-     *
+     * @param syncRoot 同步对象
      * @return 线程安全的<code>Collection</code>对象
      */
     public static Collection synchronizedCollection(Collection collection, Object syncRoot) {
@@ -61,9 +58,8 @@ public class Collections {
 
     /**
      * 取得一个线程安全的<code>Set</code>对象.
-     *
+     * 
      * @param set 被包装的<code>Set</code>对象
-     *
      * @return 线程安全的<code>Set</code>对象
      */
     public static Set synchronizedSet(Set set) {
@@ -72,10 +68,9 @@ public class Collections {
 
     /**
      * 取得一个线程安全的<code>Set</code>对象.
-     *
-     * @param set        被包装的<code>Set</code>对象
-     * @param syncRoot   同步对象
-     *
+     * 
+     * @param set 被包装的<code>Set</code>对象
+     * @param syncRoot 同步对象
      * @return 线程安全的<code>Set</code>对象
      */
     public static Set synchronizedSet(Set set, Object syncRoot) {
@@ -84,9 +79,8 @@ public class Collections {
 
     /**
      * 取得一个线程安全的<code>SortedSet</code>对象.
-     *
+     * 
      * @param set 被包装的<code>SortedSet</code>对象
-     *
      * @return 线程安全的<code>SortedSet</code>对象
      */
     public static SortedSet synchronizedSortedSet(SortedSet set) {
@@ -95,10 +89,9 @@ public class Collections {
 
     /**
      * 取得一个线程安全的<code>SortedSet</code>对象.
-     *
-     * @param set        被包装的<code>SortedSet</code>对象
-     * @param syncRoot   同步对象
-     *
+     * 
+     * @param set 被包装的<code>SortedSet</code>对象
+     * @param syncRoot 同步对象
      * @return 线程安全的<code>SortedSet</code>对象
      */
     public static SortedSet synchronizedSortedSet(SortedSet set, Object syncRoot) {
@@ -107,9 +100,8 @@ public class Collections {
 
     /**
      * 取得一个线程安全的<code>List</code>对象.
-     *
-     * @param list       被包装的<code>List</code>对象
-     *
+     * 
+     * @param list 被包装的<code>List</code>对象
      * @return 线程安全的<code>List</code>对象
      */
     public static List synchronizedList(List list) {
@@ -118,10 +110,9 @@ public class Collections {
 
     /**
      * 取得一个线程安全的<code>List</code>对象.
-     *
-     * @param list       被包装的<code>List</code>对象
-     * @param syncRoot   同步对象
-     *
+     * 
+     * @param list 被包装的<code>List</code>对象
+     * @param syncRoot 同步对象
      * @return 线程安全的<code>List</code>对象
      */
     public static List synchronizedList(List list, Object syncRoot) {
@@ -130,9 +121,8 @@ public class Collections {
 
     /**
      * 取得一个线程安全的<code>Map</code>对象.
-     *
-     * @param map        被包装的<code>Map</code>对象
-     *
+     * 
+     * @param map 被包装的<code>Map</code>对象
      * @return 线程安全的<code>Map</code>对象
      */
     public static Map synchronizedMap(Map map) {
@@ -141,10 +131,9 @@ public class Collections {
 
     /**
      * 取得一个线程安全的<code>Map</code>对象.
-     *
-     * @param map        被包装的<code>Map</code>对象
-     * @param syncRoot   同步对象
-     *
+     * 
+     * @param map 被包装的<code>Map</code>对象
+     * @param syncRoot 同步对象
      * @return 线程安全的<code>Map</code>对象
      */
     public static Map synchronizedMap(Map map, Object syncRoot) {
@@ -153,9 +142,8 @@ public class Collections {
 
     /**
      * 取得一个线程安全的<code>SortedMap</code>对象.
-     *
-     * @param map        被包装的<code>SortedMap</code>对象
-     *
+     * 
+     * @param map 被包装的<code>SortedMap</code>对象
      * @return 线程安全的<code>SortedMap</code>对象
      */
     public static SortedMap synchronizedSortedMap(SortedMap map) {
@@ -164,10 +152,9 @@ public class Collections {
 
     /**
      * 取得一个线程安全的<code>SortedMap</code>对象.
-     *
-     * @param map        被包装的<code>SortedMap</code>对象
-     * @param syncRoot   同步对象
-     *
+     * 
+     * @param map 被包装的<code>SortedMap</code>对象
+     * @param syncRoot 同步对象
      * @return 线程安全的<code>SortedMap</code>对象
      */
     public static SortedMap synchronizedSortedMap(SortedMap map, Object syncRoot) {
@@ -176,9 +163,8 @@ public class Collections {
 
     /**
      * 取得一个线程安全的<code>ListMap</code>对象.
-     *
-     * @param map        被包装的<code>ListMap</code>对象
-     *
+     * 
+     * @param map 被包装的<code>ListMap</code>对象
      * @return 线程安全的<code>ListMap</code>对象
      */
     public static ListMap synchronizedListMap(ListMap map) {
@@ -187,10 +173,9 @@ public class Collections {
 
     /**
      * 取得一个线程安全的<code>ListMap</code>对象.
-     *
-     * @param map        被包装的<code>ListMap</code>对象
-     * @param syncRoot   同步对象
-     *
+     * 
+     * @param map 被包装的<code>ListMap</code>对象
+     * @param syncRoot 同步对象
      * @return 线程安全的<code>ListMap</code>对象
      */
     public static ListMap synchronizedListMap(ListMap map, Object syncRoot) {
@@ -203,8 +188,8 @@ public class Collections {
  */
 class SynchronizedCollection implements Collection, Serializable {
     private static final long serialVersionUID = 3053995032091335093L;
-    protected Collection      collection;
-    protected Object          syncRoot;
+    protected Collection collection;
+    protected Object syncRoot;
 
     SynchronizedCollection(Collection collection) {
         this(collection, null);
@@ -217,8 +202,7 @@ class SynchronizedCollection implements Collection, Serializable {
             this.collection = collection;
         }
 
-        this.syncRoot = (syncRoot == null) ? this
-                                           : syncRoot;
+        this.syncRoot = syncRoot == null ? this : syncRoot;
     }
 
     public int size() {
@@ -297,6 +281,7 @@ class SynchronizedCollection implements Collection, Serializable {
         }
     }
 
+    @Override
     public String toString() {
         synchronized (syncRoot) {
             return collection.toString();
@@ -318,12 +303,14 @@ class SynchronizedSet extends SynchronizedCollection implements Set {
         super(set, syncRoot);
     }
 
+    @Override
     public boolean equals(Object o) {
         synchronized (syncRoot) {
             return collection.equals(o);
         }
     }
 
+    @Override
     public int hashCode() {
         synchronized (syncRoot) {
             return collection.hashCode();
@@ -353,23 +340,19 @@ class SynchronizedSortedSet extends SynchronizedSet implements SortedSet {
 
     public SortedSet subSet(Object fromElement, Object toElement) {
         synchronized (syncRoot) {
-            return Collections.synchronizedSortedSet(((SortedSet) collection).subSet(fromElement,
-                                                                                     toElement),
-                                                     syncRoot);
+            return Collections.synchronizedSortedSet(((SortedSet) collection).subSet(fromElement, toElement), syncRoot);
         }
     }
 
     public SortedSet headSet(Object toElement) {
         synchronized (syncRoot) {
-            return Collections.synchronizedSortedSet(((SortedSet) collection).headSet(toElement),
-                                                     syncRoot);
+            return Collections.synchronizedSortedSet(((SortedSet) collection).headSet(toElement), syncRoot);
         }
     }
 
     public SortedSet tailSet(Object fromElement) {
         synchronized (syncRoot) {
-            return Collections.synchronizedSortedSet(((SortedSet) collection).tailSet(fromElement),
-                                                     syncRoot);
+            return Collections.synchronizedSortedSet(((SortedSet) collection).tailSet(fromElement), syncRoot);
         }
     }
 
@@ -400,12 +383,14 @@ class SynchronizedList extends SynchronizedCollection implements List {
         super(list, syncRoot);
     }
 
+    @Override
     public boolean equals(Object o) {
         synchronized (syncRoot) {
             return ((List) collection).equals(o);
         }
     }
 
+    @Override
     public int hashCode() {
         synchronized (syncRoot) {
             return ((List) collection).hashCode();
@@ -464,8 +449,7 @@ class SynchronizedList extends SynchronizedCollection implements List {
 
     public List subList(int fromIndex, int toIndex) {
         synchronized (syncRoot) {
-            return Collections.synchronizedList(((List) collection).subList(fromIndex, toIndex),
-                                                syncRoot);
+            return Collections.synchronizedList(((List) collection).subList(fromIndex, toIndex), syncRoot);
         }
     }
 }
@@ -475,8 +459,8 @@ class SynchronizedList extends SynchronizedCollection implements List {
  */
 class SynchronizedMap implements Map, Serializable {
     private static final long serialVersionUID = 1978198479659022715L;
-    protected Map             map;
-    protected Object          syncRoot;
+    protected Map map;
+    protected Object syncRoot;
 
     SynchronizedMap(Map map) {
         this(map, null);
@@ -489,8 +473,7 @@ class SynchronizedMap implements Map, Serializable {
             this.map = map;
         }
 
-        this.syncRoot = (syncRoot == null) ? this
-                                           : syncRoot;
+        this.syncRoot = syncRoot == null ? this : syncRoot;
     }
 
     public int size() {
@@ -547,9 +530,9 @@ class SynchronizedMap implements Map, Serializable {
         }
     }
 
-    private transient Set        keySet   = null;
-    private transient Set        entrySet = null;
-    private transient Collection values   = null;
+    private transient Set keySet = null;
+    private transient Set entrySet = null;
+    private transient Collection values = null;
 
     public Set keySet() {
         synchronized (syncRoot) {
@@ -581,18 +564,21 @@ class SynchronizedMap implements Map, Serializable {
         }
     }
 
+    @Override
     public boolean equals(Object o) {
         synchronized (syncRoot) {
             return map.equals(o);
         }
     }
 
+    @Override
     public int hashCode() {
         synchronized (syncRoot) {
             return map.hashCode();
         }
     }
 
+    @Override
     public String toString() {
         synchronized (syncRoot) {
             return map.toString();
@@ -622,8 +608,7 @@ class SynchronizedSortedMap extends SynchronizedMap implements SortedMap {
 
     public SortedMap subMap(Object fromKey, Object toKey) {
         synchronized (syncRoot) {
-            return Collections.synchronizedSortedMap(((SortedMap) map).subMap(fromKey, toKey),
-                                                     syncRoot);
+            return Collections.synchronizedSortedMap(((SortedMap) map).subMap(fromKey, toKey), syncRoot);
         }
     }
 

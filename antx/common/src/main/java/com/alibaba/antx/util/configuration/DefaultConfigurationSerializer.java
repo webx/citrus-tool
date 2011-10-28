@@ -17,10 +17,13 @@
 
 package com.alibaba.antx.util.configuration;
 
-import org.xml.sax.ContentHandler;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.AttributesImpl;
-import org.xml.sax.helpers.NamespaceSupport;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.StringWriter;
+import java.net.URL;
+import java.util.Properties;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Result;
@@ -29,30 +32,25 @@ import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stream.StreamResult;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.StringWriter;
-
-import java.net.URL;
-
-import java.util.Properties;
+import org.xml.sax.ContentHandler;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.AttributesImpl;
+import org.xml.sax.helpers.NamespaceSupport;
 
 /**
- * A ConfigurationSerializer serializes configurations via SAX2 compliant parser.
- *
+ * A ConfigurationSerializer serializes configurations via SAX2 compliant
+ * parser.
+ * 
  * @author <a href="mailto:dev@avalon.apache.org">Avalon Development Team</a>
- *
  */
 public class DefaultConfigurationSerializer {
     private SAXTransformerFactory m_tfactory;
-    private Properties            m_format = new Properties();
+    private Properties m_format = new Properties();
 
     /**
-     * Sets the Serializer's use of indentation.  This will cause linefeeds to be added after each
-     * element, but it does not add any indentation via spaces.
-     *
+     * Sets the Serializer's use of indentation. This will cause linefeeds to be
+     * added after each element, but it does not add any indentation via spaces.
+     * 
      * @param indent a <code>boolean</code> value
      */
     public void setIndent(boolean indent) {
@@ -65,9 +63,8 @@ public class DefaultConfigurationSerializer {
 
     /**
      * Create a ContentHandler for an OutputStream
-     *
+     * 
      * @param result the result
-     *
      * @return contenthandler that goes to specified OutputStream
      */
     protected ContentHandler createContentHandler(final Result result) {
@@ -85,8 +82,9 @@ public class DefaultConfigurationSerializer {
     }
 
     /**
-     * Get the SAXTransformerFactory so we can get a serializer without being tied to one vendor.
-     *
+     * Get the SAXTransformerFactory so we can get a serializer without being
+     * tied to one vendor.
+     * 
      * @return a <code>SAXTransformerFactory</code> value
      */
     protected SAXTransformerFactory getTransformerFactory() {
@@ -99,64 +97,61 @@ public class DefaultConfigurationSerializer {
 
     /**
      * Serialize the configuration to a ContentHandler
-     *
+     * 
      * @param handler a <code>ContentHandler</code> to serialize to
      * @param source a <code>Configuration</code> value
-     *
      * @throws SAXException if an error occurs
      * @throws ConfigurationException if an error occurs
      */
-    public void serialize(final ContentHandler handler, final Configuration source)
-            throws SAXException, ConfigurationException {
+    public void serialize(final ContentHandler handler, final Configuration source) throws SAXException,
+            ConfigurationException {
         handler.startDocument();
         serializeElement(handler, new NamespaceSupport(), source);
         handler.endDocument();
     }
 
     /**
-     * Serialize each Configuration element.  This method is called recursively.
-     *
+     * Serialize each Configuration element. This method is called recursively.
+     * 
      * @param handler a <code>ContentHandler</code> to use
      * @param namespaceSupport a <code>NamespaceSupport</code> to use
      * @param element a <code>Configuration</code> value
-     *
      * @throws SAXException if an error occurs
      * @throws ConfigurationException if an error occurs
      */
-    protected void serializeElement(final ContentHandler handler,
-        final NamespaceSupport namespaceSupport, final Configuration element)
-            throws SAXException, ConfigurationException {
+    protected void serializeElement(final ContentHandler handler, final NamespaceSupport namespaceSupport,
+                                    final Configuration element) throws SAXException, ConfigurationException {
         namespaceSupport.pushContext();
 
-        AttributesImpl attr      = new AttributesImpl();
-        String[]       attrNames = element.getAttributeNames();
+        AttributesImpl attr = new AttributesImpl();
+        String[] attrNames = element.getAttributeNames();
 
         if (null != attrNames) {
-            for (int i = 0; i < attrNames.length; i++) {
+            for (String attrName : attrNames) {
                 attr.addAttribute("", // namespace URI
-                    attrNames[i], // local name
-                    attrNames[i], // qName
-                    "CDATA", // type
-                    element.getAttribute(attrNames[i], "") // value
+                        attrName, // local name
+                        attrName, // qName
+                        "CDATA", // type
+                        element.getAttribute(attrName, "") // value
                 );
             }
         }
 
-        final String nsURI    = element.getNamespace();
-        String       nsPrefix = "";
+        final String nsURI = element.getNamespace();
+        String nsPrefix = "";
 
         if (element instanceof AbstractConfiguration) {
             nsPrefix = ((AbstractConfiguration) element).getPrefix();
         }
 
         // nsPrefix is guaranteed to be non-null at this point.
-        boolean      nsWasDeclared = false;
+        boolean nsWasDeclared = false;
 
         final String existingURI = namespaceSupport.getURI(nsPrefix);
 
         // ie, there is no existing URI declared for this prefix or we're
         // remapping the prefix to a different URI
-        if ((existingURI == null) || !existingURI.equals(nsURI)) {
+        if (existingURI == null || !existingURI.equals(nsURI)) {
             nsWasDeclared = true;
 
             if (nsPrefix.equals("") && nsURI.equals("")) {
@@ -176,7 +171,7 @@ public class DefaultConfigurationSerializer {
         String localName = element.getName();
         String qName = element.getName();
 
-        if ((nsPrefix == null) || (nsPrefix.length() == 0)) {
+        if (nsPrefix == null || nsPrefix.length() == 0) {
             qName = localName;
         } else {
             qName = nsPrefix + ":" + localName;
@@ -189,8 +184,8 @@ public class DefaultConfigurationSerializer {
         if (null == value) {
             Configuration[] children = element.getChildren();
 
-            for (int i = 0; i < children.length; i++) {
-                serializeElement(handler, namespaceSupport, children[i]);
+            for (Configuration element2 : children) {
+                serializeElement(handler, namespaceSupport, element2);
             }
         } else {
             handler.characters(value.toCharArray(), 0, value.length());
@@ -207,31 +202,29 @@ public class DefaultConfigurationSerializer {
 
     /**
      * Serialize the configuration object to a file using a filename.
-     *
+     * 
      * @param filename a <code>String</code> value
      * @param source a <code>Configuration</code> value
-     *
      * @throws SAXException if an error occurs
      * @throws IOException if an error occurs
      * @throws ConfigurationException if an error occurs
      */
-    public void serializeToFile(final String filename, final Configuration source)
-            throws SAXException, IOException, ConfigurationException {
+    public void serializeToFile(final String filename, final Configuration source) throws SAXException, IOException,
+            ConfigurationException {
         serializeToFile(new File(filename), source);
     }
 
     /**
      * Serialize the configuration object to a file using a File object.
-     *
+     * 
      * @param file a <code>File</code> value
      * @param source a <code>Configuration</code> value
-     *
      * @throws SAXException if an error occurs
      * @throws IOException if an error occurs
      * @throws ConfigurationException if an error occurs
      */
-    public void serializeToFile(final File file, final Configuration source)
-            throws SAXException, IOException, ConfigurationException {
+    public void serializeToFile(final File file, final Configuration source) throws SAXException, IOException,
+            ConfigurationException {
         OutputStream outputStream = null;
 
         try {
@@ -246,32 +239,30 @@ public class DefaultConfigurationSerializer {
 
     /**
      * Serialize the configuration object to an output stream.
-     *
+     * 
      * @param outputStream an <code>OutputStream</code> value
      * @param source a <code>Configuration</code> value
-     *
      * @throws SAXException if an error occurs
      * @throws IOException if an error occurs
      * @throws ConfigurationException if an error occurs
      */
-    public void serialize(final OutputStream outputStream, final Configuration source)
-            throws SAXException, IOException, ConfigurationException {
+    public void serialize(final OutputStream outputStream, final Configuration source) throws SAXException,
+            IOException, ConfigurationException {
         serialize(createContentHandler(new StreamResult(outputStream)), source);
     }
 
     /**
-     * Serialize the configuration object to an output stream derived from an URI.  The URI must be
-     * resolveable by the <code>java.net.URL</code> object.
-     *
+     * Serialize the configuration object to an output stream derived from an
+     * URI. The URI must be resolveable by the <code>java.net.URL</code> object.
+     * 
      * @param uri a <code>String</code> value
      * @param source a <code>Configuration</code> value
-     *
      * @throws SAXException if an error occurs
      * @throws IOException if an error occurs
      * @throws ConfigurationException if an error occurs
      */
-    public void serialize(final String uri, final Configuration source)
-            throws SAXException, IOException, ConfigurationException {
+    public void serialize(final String uri, final Configuration source) throws SAXException, IOException,
+            ConfigurationException {
         OutputStream outputStream = null;
 
         try {
@@ -286,11 +277,9 @@ public class DefaultConfigurationSerializer {
 
     /**
      * Serialize the configuration object to a string
-     *
+     * 
      * @param source a <code>Configuration</code> value
-     *
      * @return configuration serialized as a string.
-     *
      * @throws SAXException if an error occurs
      * @throws ConfigurationException if an error occurs
      */

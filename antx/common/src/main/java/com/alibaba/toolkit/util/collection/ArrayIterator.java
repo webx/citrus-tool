@@ -18,34 +18,33 @@
 package com.alibaba.toolkit.util.collection;
 
 import java.lang.reflect.Array;
-
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
  * 对数组实现<code>Iterator</code>接口.
- *
+ * 
  * @version $Id: ArrayIterator.java,v 1.1 2003/07/03 07:26:15 baobao Exp $
  * @author Michael Zhou
  */
 public class ArrayIterator implements Iterator {
     private Object array;
-    private int    length = 0;
-    private int    index  = 0;
+    private int length = 0;
+    private int index = 0;
 
     /**
      * 创建一个<code>ArrayIterator</code>.
-     *
-     * @param array  要遍历的数组
+     * 
+     * @param array 要遍历的数组
      */
     public ArrayIterator(Object array) {
-        this.array  = array;
+        this.array = array;
         this.length = Array.getLength(array);
     }
 
     /**
      * 取得被遍历的数组.
-     *
+     * 
      * @return 被遍历的数组
      */
     public Object getArray() {
@@ -54,7 +53,7 @@ public class ArrayIterator implements Iterator {
 
     /**
      * 是否还有下一个数组元素.
-     *
+     * 
      * @return 如果还有下一个数组元素, 则返回<code>true</code>
      */
     public boolean hasNext() {
@@ -63,7 +62,7 @@ public class ArrayIterator implements Iterator {
 
     /**
      * 取得下一个数组元素.
-     *
+     * 
      * @return 下一个数组元素
      */
     public Object next() {

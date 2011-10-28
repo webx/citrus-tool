@@ -55,6 +55,7 @@ public class PropertiesFileSet extends PropertiesResource {
         return files;
     }
 
+    @Override
     protected void onLoad() {
         List subresources = getResource().list();
 

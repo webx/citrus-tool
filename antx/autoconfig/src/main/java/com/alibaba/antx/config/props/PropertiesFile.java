@@ -73,6 +73,7 @@ public class PropertiesFile extends PropertiesResource {
         return props;
     }
 
+    @Override
     protected void onLoad() {
         Map propsFromFile = PropertiesLoader.loadPropertiesFile(getResource().getInputStream(), getCharset(), getURI()
                 .toString());
@@ -83,6 +84,7 @@ public class PropertiesFile extends PropertiesResource {
         PropertiesLoader.mergeProperties(props, propsFromFile);
     }
 
+    @Override
     protected void onError() {
         keys = new TreeSet();
         props = new HashMap();

@@ -19,7 +19,7 @@ package com.alibaba.toolkit.util.regex;
 
 /**
  * 匹配策略.
- *
+ * 
  * @version $Id: MatchStrategy.java,v 1.1 2003/07/03 07:26:34 baobao Exp $
  * @author Michael Zhou
  */
@@ -28,10 +28,10 @@ public interface MatchStrategy {
     MatchStrategy BEST_MATCH_STRATEGY = new BestMatchStrategy();
 
     /**
-     * 试图匹配指定的输入值, 如果成功, 则返回<code>true</code>.  调用者可以通过<code>context.getMatchItem()</code>来取得匹配项.
-     *
-     * @param context  匹配上下文
-     *
+     * 试图匹配指定的输入值, 如果成功, 则返回<code>true</code>. 调用者可以通过
+     * <code>context.getMatchItem()</code>来取得匹配项.
+     * 
+     * @param context 匹配上下文
      * @return 如果匹配成功, 则返回<code>true</code>
      */
     boolean matches(MatchContext context);

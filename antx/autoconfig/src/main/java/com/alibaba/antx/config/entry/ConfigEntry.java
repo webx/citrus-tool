@@ -74,7 +74,7 @@ public abstract class ConfigEntry {
      * 不包含任何descriptor和sub entries的空结点。
      */
     public boolean isEmpty() {
-        return (getSubEntries().length == 0) && (getGenerator().getConfigDescriptors().length == 0);
+        return getSubEntries().length == 0 && getGenerator().getConfigDescriptors().length == 0;
     }
 
     /**
@@ -200,6 +200,7 @@ public abstract class ConfigEntry {
             return (ConfigEntry[]) subEntries.toArray(new ConfigEntry[subEntries.size()]);
         }
 
+        @Override
         public void startScanning() {
             StringBuffer buffer = new StringBuffer();
 
@@ -210,6 +211,7 @@ public abstract class ConfigEntry {
             settings.debug(buffer.toString());
         }
 
+        @Override
         public void file() {
             String name = getScanner().getPath();
 
@@ -242,6 +244,7 @@ public abstract class ConfigEntry {
             }
         }
 
+        @Override
         public void directory() {
             String name = getScanner().getPath();
 
@@ -275,6 +278,7 @@ public abstract class ConfigEntry {
          * 
          * @return 如果是，则返回<code>true</code>
          */
+        @Override
         public boolean followUp() {
             String name = getScanner().getPath();
             boolean followUp = false;

@@ -18,23 +18,22 @@
 package com.alibaba.toolkit.util.configuration.digester;
 
 import org.apache.commons.digester.Rule;
-
 import org.xml.sax.Attributes;
 
 /**
  * 在被匹配元素开始时, 设置上下文, 在元素结束时, 清除最近的上下文.
- *
+ * 
  * @version $Id: SetContextRule.java,v 1.2 2003/08/07 08:08:59 zyh Exp $
  * @author Michael Zhou
  */
 public class SetContextRule extends Rule {
-    protected String         attributeName;
-    protected Class          contextFactoryClass;
+    protected String attributeName;
+    protected Class contextFactoryClass;
     protected ContextFactory contextFactory;
 
     /**
      * 使用指定attribute的值作为当前context的值.
-     *
+     * 
      * @param attributeName XML属性名
      */
     public SetContextRule(String attributeName) {
@@ -43,8 +42,8 @@ public class SetContextRule extends Rule {
 
     /**
      * 使用指定类作为取得context的工厂.
-     *
-     * @param contextFactoryClass  工厂类
+     * 
+     * @param contextFactoryClass 工厂类
      */
     public SetContextRule(Class contextFactoryClass) {
         this.contextFactoryClass = contextFactoryClass;
@@ -52,7 +51,7 @@ public class SetContextRule extends Rule {
 
     /**
      * 使用指定context工厂取得当前context的值.
-     *
+     * 
      * @param contextFactory 工厂对象
      */
     public SetContextRule(ContextFactory contextFactory) {
@@ -61,11 +60,11 @@ public class SetContextRule extends Rule {
 
     /**
      * 开始处理, 压入新的context.
-     *
+     * 
      * @param attributes XML属性值
-     *
      * @throws Exception 如果失败
      */
+    @Override
     public void begin(String namespace, String name, Attributes attributes) throws Exception {
         String context = null;
 
@@ -73,14 +72,13 @@ public class SetContextRule extends Rule {
             context = attributes.getValue(attributeName);
         }
 
-        if ((context == null) && (getFactory() != null)) {
+        if (context == null && getFactory() != null) {
             context = getFactory().getContext(attributes);
         }
 
         if (context != null) {
             if (digester.getLogger().isDebugEnabled()) {
-                digester.getLogger()
-                        .debug("[SetContextRule]{" + digester.getMatch() + "} New " + context);
+                digester.getLogger().debug("[SetContextRule]{" + digester.getMatch() + "} New " + context);
             }
 
             ContextSensitiveRules rules = (ContextSensitiveRules) digester.getRules();
@@ -91,26 +89,27 @@ public class SetContextRule extends Rule {
 
     /**
      * 结束处理, 弹出最近的context
-     *
+     * 
      * @throws Exception 如果失败
      */
+    @Override
     public void end(String namespace, String name) throws Exception {
-        ContextSensitiveRules rules   = (ContextSensitiveRules) digester.getRules();
-        String                context = rules.popContext();
+        ContextSensitiveRules rules = (ContextSensitiveRules) digester.getRules();
+        String context = rules.popContext();
 
         if (context != null) {
             if (digester.getLogger().isDebugEnabled()) {
-                digester.getLogger()
-                        .debug("[SetContextRule]{" + digester.getMatch() + "} Pop " + context);
+                digester.getLogger().debug("[SetContextRule]{" + digester.getMatch() + "} Pop " + context);
             }
         }
     }
 
     /**
      * 取得rule的字符串表示.
-     *
+     * 
      * @return 字符串表示
      */
+    @Override
     public String toString() {
         StringBuffer buffer = new StringBuffer("SetContextRule[");
 
@@ -128,13 +127,12 @@ public class SetContextRule extends Rule {
 
     /**
      * 取得工厂.
-     *
+     * 
      * @return 取得当前context的工厂
-     *
      * @throws Exception 如果失败
      */
     protected ContextFactory getFactory() throws Exception {
-        if ((contextFactory == null) && (contextFactoryClass != null)) {
+        if (contextFactory == null && contextFactoryClass != null) {
             contextFactory = (ContextFactory) contextFactoryClass.newInstance();
         }
 

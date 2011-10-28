@@ -24,7 +24,7 @@ import java.util.List;
 import com.alibaba.antx.config.ConfigException;
 
 public abstract class Resource implements Comparable {
-    private final Session     session;
+    private final Session session;
     private final ResourceURI uri;
 
     public Resource(Session session, ResourceURI uri) {
@@ -91,6 +91,7 @@ public abstract class Resource implements Comparable {
         }
     }
 
+    @Override
     public String toString() {
         return uri.toString();
     }

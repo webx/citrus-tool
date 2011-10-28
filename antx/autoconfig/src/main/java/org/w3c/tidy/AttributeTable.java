@@ -76,21 +76,21 @@ public class AttributeTable {
         Attribute np;
 
         np = lookup(attrname);
-        return (np != null && np.attrchk == AttrCheckImpl.getCheckUrl());
+        return np != null && np.attrchk == AttrCheckImpl.getCheckUrl();
     }
 
     public boolean isScript(String attrname) {
         Attribute np;
 
         np = lookup(attrname);
-        return (np != null && np.attrchk == AttrCheckImpl.getCheckScript());
+        return np != null && np.attrchk == AttrCheckImpl.getCheckScript();
     }
 
     public boolean isLiteralAttribute(String attrname) {
         Attribute np;
 
         np = lookup(attrname);
-        return (np != null && np.literal);
+        return np != null && np.literal;
     }
 
     /*
@@ -101,21 +101,21 @@ public class AttributeTable {
     public void declareLiteralAttrib(String name) {
         Attribute attrib = lookup(name);
 
-        if (attrib == null)
+        if (attrib == null) {
             attrib = install(new Attribute(name, Dict.VERS_PROPRIETARY, null));
+        }
 
         attrib.literal = true;
     }
 
-    private Hashtable             attributeHashtable    = new Hashtable();
+    private Hashtable attributeHashtable = new Hashtable();
 
     private static AttributeTable defaultAttributeTable = null;
 
-    private static Attribute[]    attrs                 = {
+    private static Attribute[] attrs = {
 
-                                                        new Attribute("abbr", Dict.VERS_HTML40, null),
-            new Attribute("accept-charset", Dict.VERS_HTML40, null), new Attribute("accept", Dict.VERS_ALL, null),
-            new Attribute("accesskey", Dict.VERS_HTML40, null),
+    new Attribute("abbr", Dict.VERS_HTML40, null), new Attribute("accept-charset", Dict.VERS_HTML40, null),
+            new Attribute("accept", Dict.VERS_ALL, null), new Attribute("accesskey", Dict.VERS_HTML40, null),
             new Attribute("action", Dict.VERS_ALL, AttrCheckImpl.getCheckUrl()),
             new Attribute("add_date", Dict.VERS_NETSCAPE, null), /* A */
             new Attribute("align", Dict.VERS_ALL, AttrCheckImpl.getCheckAlign()), /*
@@ -159,7 +159,8 @@ public class AttributeTable {
             new Attribute("cellspacing", Dict.VERS_FROM32, null), new Attribute("char", Dict.VERS_HTML40, null),
             new Attribute("charoff", Dict.VERS_HTML40, null), new Attribute("charset", Dict.VERS_HTML40, null),
             new Attribute("checked", Dict.VERS_ALL, AttrCheckImpl.getCheckBool()), /*
-                                                                                    * i.
+                                                                                    * i
+                                                                                    * .
                                                                                     * e
                                                                                     * .
                                                                                     * "checked"
@@ -317,15 +318,18 @@ public class AttributeTable {
                                                                                                    * fields
                                                                                                    */
             new Attribute("ondatasetchanged", Dict.VERS_MICROSOFT, AttrCheckImpl.getCheckScript()), /*
-                                                                                                     * object,
+                                                                                                     * object
+                                                                                                     * ,
                                                                                                      * applet
                                                                                                      */
             new Attribute("ondataavailable", Dict.VERS_MICROSOFT, AttrCheckImpl.getCheckScript()), /*
-                                                                                                    * object,
+                                                                                                    * object
+                                                                                                    * ,
                                                                                                     * applet
                                                                                                     */
             new Attribute("ondatasetcomplete", Dict.VERS_MICROSOFT, AttrCheckImpl.getCheckScript()), /*
-                                                                                                      * object,
+                                                                                                      * object
+                                                                                                      * ,
                                                                                                       * applet
                                                                                                       */
             new Attribute("profile", Dict.VERS_HTML40, AttrCheckImpl.getCheckUrl()), /* HEAD */
@@ -372,7 +376,8 @@ public class AttributeTable {
                                                            */
             new Attribute("span", Dict.VERS_HTML40, null), /* COL, COLGROUP */
             new Attribute("src", (short) (Dict.VERS_ALL | Dict.VERS_FRAMES), AttrCheckImpl.getCheckUrl()), /*
-                                                                                                            * IMG,
+                                                                                                            * IMG
+                                                                                                            * ,
                                                                                                             * FRAME
                                                                                                             * ,
                                                                                                             * IFRAME
@@ -423,32 +428,32 @@ public class AttributeTable {
             new Attribute("xml:lang", Dict.VERS_XML, null), /* XML language */
             new Attribute("xmlns", Dict.VERS_ALL, null), /* name space */
 
-                                                        };
+    };
 
-    public static Attribute       attrHref              = null;
-    public static Attribute       attrSrc               = null;
-    public static Attribute       attrId                = null;
-    public static Attribute       attrName              = null;
-    public static Attribute       attrSummary           = null;
-    public static Attribute       attrAlt               = null;
-    public static Attribute       attrLongdesc          = null;
-    public static Attribute       attrUsemap            = null;
-    public static Attribute       attrIsmap             = null;
-    public static Attribute       attrLanguage          = null;
-    public static Attribute       attrType              = null;
-    public static Attribute       attrTitle             = null;
-    public static Attribute       attrXmlns             = null;
-    public static Attribute       attrValue             = null;
-    public static Attribute       attrContent           = null;
-    public static Attribute       attrDatafld           = null;
-    public static Attribute       attrWidth             = null;
-    public static Attribute       attrHeight            = null;
+    public static Attribute attrHref = null;
+    public static Attribute attrSrc = null;
+    public static Attribute attrId = null;
+    public static Attribute attrName = null;
+    public static Attribute attrSummary = null;
+    public static Attribute attrAlt = null;
+    public static Attribute attrLongdesc = null;
+    public static Attribute attrUsemap = null;
+    public static Attribute attrIsmap = null;
+    public static Attribute attrLanguage = null;
+    public static Attribute attrType = null;
+    public static Attribute attrTitle = null;
+    public static Attribute attrXmlns = null;
+    public static Attribute attrValue = null;
+    public static Attribute attrContent = null;
+    public static Attribute attrDatafld = null;
+    public static Attribute attrWidth = null;
+    public static Attribute attrHeight = null;
 
     public static AttributeTable getDefaultAttributeTable() {
         if (defaultAttributeTable == null) {
             defaultAttributeTable = new AttributeTable();
-            for (int i = 0; i < attrs.length; i++) {
-                defaultAttributeTable.install(attrs[i]);
+            for (Attribute attr : attrs) {
+                defaultAttributeTable.install(attr);
             }
             attrHref = defaultAttributeTable.lookup("href");
             attrSrc = defaultAttributeTable.lookup("src");

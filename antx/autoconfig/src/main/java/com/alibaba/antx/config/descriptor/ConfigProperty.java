@@ -94,6 +94,7 @@ public class ConfigProperty {
         return required;
     }
 
+    @Override
     public String toString() {
         return "Property[name=" + getName() + "]";
     }

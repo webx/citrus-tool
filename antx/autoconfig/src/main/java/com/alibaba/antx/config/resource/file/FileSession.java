@@ -27,10 +27,12 @@ public class FileSession extends Session {
         super(driver);
     }
 
+    @Override
     public boolean acceptOption(String optionName) {
         return false;
     }
 
+    @Override
     public Resource getResource(ResourceURI uri) {
         return new FileResource(this, uri);
     }

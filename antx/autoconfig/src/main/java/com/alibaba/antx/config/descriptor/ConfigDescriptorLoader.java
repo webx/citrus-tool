@@ -17,19 +17,18 @@
 
 package com.alibaba.antx.config.descriptor;
 
-import com.alibaba.antx.config.ConfigException;
-import com.alibaba.antx.config.ConfigResource;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.plugins.PluginCreateRule;
 import org.apache.commons.digester.plugins.PluginDeclarationRule;
 import org.apache.commons.digester.plugins.PluginRules;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.alibaba.antx.config.ConfigException;
+import com.alibaba.antx.config.ConfigResource;
 
 /**
  * 装入一个config descriptor的工具类。

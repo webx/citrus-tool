@@ -132,7 +132,7 @@ public class ConfigGenerator {
 
                 // 防止destfile重复
                 if (generateDestFiles.containsKey(destFile)) {
-                    ConfigGenerate originalGenerate = (ConfigGenerate) generateDestFiles.get(destFile);
+                    ConfigGenerate originalGenerate = generateDestFiles.get(destFile);
 
                     if (originalGenerate.getConfigDescriptor() == descriptor) {
                         logger.info("Duplicated destfile " + destFile + "\n  in " + descriptor.getURL());
@@ -181,7 +181,7 @@ public class ConfigGenerator {
 
     public ConfigDescriptor[] getConfigDescriptors() {
         ensureInitialized();
-        return (ConfigDescriptor[]) configDescriptors.toArray(new ConfigDescriptor[configDescriptors.size()]);
+        return configDescriptors.toArray(new ConfigDescriptor[configDescriptors.size()]);
     }
 
     public boolean isTemplateFile(String template) {

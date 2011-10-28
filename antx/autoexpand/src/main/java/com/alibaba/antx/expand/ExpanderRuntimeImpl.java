@@ -17,9 +17,6 @@
 
 package com.alibaba.antx.expand;
 
-import com.alibaba.antx.util.CharsetUtil;
-import com.alibaba.antx.util.StringUtil;
-
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -27,6 +24,9 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+
+import com.alibaba.antx.util.CharsetUtil;
+import com.alibaba.antx.util.StringUtil;
 
 public class ExpanderRuntimeImpl implements ExpanderRuntime {
     private final BufferedReader in;
@@ -113,7 +113,7 @@ public class ExpanderRuntimeImpl implements ExpanderRuntime {
     }
 
     public void error(String message, Throwable cause) {
-        if (StringUtil.isBlank(message) && (cause != null)) {
+        if (StringUtil.isBlank(message) && cause != null) {
             message = "ERROR: " + cause.getMessage();
         }
 

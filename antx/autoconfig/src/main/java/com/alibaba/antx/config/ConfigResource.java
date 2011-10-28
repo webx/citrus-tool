@@ -19,7 +19,6 @@ package com.alibaba.antx.config;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLDecoder;
@@ -31,9 +30,9 @@ import java.net.URLDecoder;
  */
 public final class ConfigResource {
     private final ConfigResource baseResource;
-    private final File           file;
-    private final URL            url;
-    private final String         name;
+    private final File file;
+    private final URL url;
+    private final String name;
 
     public ConfigResource(File file) {
         this(file, null, null, true);
@@ -54,7 +53,7 @@ public final class ConfigResource {
     private ConfigResource(File file, URL url, String name, boolean setbase) {
         ConfigResource base = null;
 
-        if ((url == null) && (file == null)) {
+        if (url == null && file == null) {
             throw new IllegalArgumentException("missing file or url");
         }
 
@@ -116,10 +115,10 @@ public final class ConfigResource {
             }
         }
 
-        if ((base == null) && setbase) {
+        if (base == null && setbase) {
             String baseurl = url.toExternalForm();
 
-            if (baseurl.endsWith(name) && (baseurl.length() > name.length())) {
+            if (baseurl.endsWith(name) && baseurl.length() > name.length()) {
                 baseurl = baseurl.substring(0, baseurl.length() - name.length());
             }
 
@@ -178,6 +177,7 @@ public final class ConfigResource {
         return name;
     }
 
+    @Override
     public String toString() {
         return getURL().toExternalForm();
     }

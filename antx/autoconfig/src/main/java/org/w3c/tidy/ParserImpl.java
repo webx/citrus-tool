@@ -60,16 +60,18 @@ public class ParserImpl {
          * Dict.CM_INLINE) != 0)) lexer.insertspace = false;
          *******/
 
-        if (!((node.tag.model & Dict.CM_INLINE) != 0))
+        if (!((node.tag.model & Dict.CM_INLINE) != 0)) {
             lexer.insertspace = false;
+        }
 
         if ((node.tag.model & Dict.CM_EMPTY) != 0) {
             lexer.waswhite = false;
             return;
         }
 
-        if (node.tag.parser == null || node.type == Node.StartEndTag)
+        if (node.tag.parser == null || node.type == Node.StartEndTag) {
             return;
+        }
 
         node.tag.parser.parse(lexer, node, mode);
     }
@@ -81,8 +83,9 @@ public class ParserImpl {
         if (node.type == Node.StartTag || node.type == Node.StartEndTag) {
             Report.warning(lexer, element, node, Report.TAG_NOT_ALLOWED_IN);
 
-            while (element.tag != tt.tagHtml)
+            while (element.tag != tt.tagHtml) {
                 element = element.parent;
+            }
 
             for (head = element.content; head != null; head = head.next) {
                 if (head.tag == tt.tagHead) {
@@ -91,8 +94,9 @@ public class ParserImpl {
                 }
             }
 
-            if (node.tag.parser != null)
+            if (node.tag.parser != null) {
                 parseTag(lexer, node, Lexer.IgnoreWhitespace);
+            }
         } else {
             Report.warning(lexer, element, node, Report.DISCARDING_UNEXPECTED);
         }
@@ -117,8 +121,9 @@ public class ParserImpl {
                     break;
                 }
 
-                if (node.tag == tt.tagHead)
+                if (node.tag == tt.tagHead) {
                     break;
+                }
 
                 if (node.tag == html.tag && node.type == Node.EndTag) {
                     Report.warning(lexer, html, node, Report.DISCARDING_UNEXPECTED);
@@ -126,8 +131,9 @@ public class ParserImpl {
                 }
 
                 /* deal with comments etc. */
-                if (Node.insertMisc(html, node))
+                if (Node.insertMisc(html, node)) {
                     continue;
+                }
 
                 lexer.ungetToken();
                 node = lexer.inferredTag("head");
@@ -142,23 +148,26 @@ public class ParserImpl {
                 node = lexer.getToken(Lexer.IgnoreWhitespace);
 
                 if (node == null) {
-                    if (frameset == null) /* create an empty body */
+                    if (frameset == null) {
                         node = lexer.inferredTag("body");
+                    }
 
                     return;
                 }
 
                 /* robustly handle html tags */
                 if (node.tag == html.tag) {
-                    if (node.type != Node.StartTag && frameset == null)
+                    if (node.type != Node.StartTag && frameset == null) {
                         Report.warning(lexer, html, node, Report.DISCARDING_UNEXPECTED);
+                    }
 
                     continue;
                 }
 
                 /* deal with comments etc. */
-                if (Node.insertMisc(html, node))
+                if (Node.insertMisc(html, node)) {
                     continue;
+                }
 
                 /* if frameset document coerce <body> to <noframes> */
                 if (node.tag == tt.tagBody) {
@@ -190,10 +199,11 @@ public class ParserImpl {
                         continue;
                     }
 
-                    if (frameset != null)
+                    if (frameset != null) {
                         Report.error(lexer, html, node, Report.DUPLICATE_FRAMESET);
-                    else
+                    } else {
                         frameset = node;
+                    }
 
                     Node.insertNodeAtEnd(html, node);
                     parseTag(lexer, node, mode);
@@ -204,8 +214,9 @@ public class ParserImpl {
                      */
 
                     for (node = frameset.content; node != null; node = node.next) {
-                        if (node.tag == tt.tagNoframes)
+                        if (node.tag == tt.tagNoframes) {
                             noframes = node;
+                        }
                     }
                     continue;
                 }
@@ -247,8 +258,9 @@ public class ParserImpl {
                     if (noframes == null) {
                         noframes = lexer.inferredTag("noframes");
                         Node.insertNodeAtEnd(frameset, noframes);
-                    } else
+                    } else {
                         Report.warning(lexer, html, node, Report.NOFRAMES_CONTENT);
+                    }
 
                     parseTag(lexer, noframes, mode);
                     continue;
@@ -276,8 +288,9 @@ public class ParserImpl {
 
             while (true) {
                 node = lexer.getToken(Lexer.IgnoreWhitespace);
-                if (node == null)
+                if (node == null) {
                     break;
+                }
                 if (node.tag == head.tag && node.type == Node.EndTag) {
                     head.closed = true;
                     break;
@@ -289,8 +302,9 @@ public class ParserImpl {
                 }
 
                 /* deal with comments etc. */
-                if (Node.insertMisc(head, node))
+                if (Node.insertMisc(head, node)) {
                     continue;
+                }
 
                 if (node.type == Node.DocTypeTag) {
                     Node.insertDocType(lexer, head, node);
@@ -312,15 +326,18 @@ public class ParserImpl {
                     if (node.tag == tt.tagTitle) {
                         ++HasTitle;
 
-                        if (HasTitle > 1)
+                        if (HasTitle > 1) {
                             Report.warning(lexer, head, node, Report.TOO_MANY_ELEMENTS);
+                        }
                     } else if (node.tag == tt.tagBase) {
                         ++HasBase;
 
-                        if (HasBase > 1)
+                        if (HasBase > 1) {
                             Report.warning(lexer, head, node, Report.TOO_MANY_ELEMENTS);
-                    } else if (node.tag == tt.tagNoscript)
+                        }
+                    } else if (node.tag == tt.tagNoscript) {
                         Report.warning(lexer, head, node, Report.TAG_NOT_ALLOWED_IN);
+                    }
 
                     Node.insertNodeAtEnd(head, node);
                     parseTag(lexer, node, Lexer.IgnoreWhitespace);
@@ -346,8 +363,9 @@ public class ParserImpl {
 
             while (true) {
                 node = lexer.getToken(Lexer.MixedContent);
-                if (node == null)
+                if (node == null) {
                     break;
+                }
                 if (node.tag == title.tag && node.type == Node.EndTag) {
                     title.closed = true;
                     Node.trimSpaces(lexer, title);
@@ -356,8 +374,9 @@ public class ParserImpl {
 
                 if (node.type == Node.TextNode) {
                     /* only called for 1st child */
-                    if (title.content == null)
+                    if (title.content == null) {
                         Node.trimInitialSpace(lexer, title, node);
+                    }
 
                     if (node.start >= node.end) {
                         continue;
@@ -368,8 +387,9 @@ public class ParserImpl {
                 }
 
                 /* deal with comments etc. */
-                if (Node.insertMisc(title, node))
+                if (Node.insertMisc(title, node)) {
                     continue;
+                }
 
                 /* discard unknown tags */
                 if (node.tag == null) {
@@ -403,8 +423,9 @@ public class ParserImpl {
 
             node = lexer.getCDATA(script);
 
-            if (node != null)
+            if (node != null) {
                 Node.insertNodeAtEnd(script, node);
+            }
         }
 
     };
@@ -421,16 +442,18 @@ public class ParserImpl {
 
             while (true) {
                 node = lexer.getToken(mode);
-                if (node == null)
+                if (node == null) {
                     break;
+                }
                 if (node.tag == body.tag && node.type == Node.EndTag) {
                     body.closed = true;
                     Node.trimSpaces(lexer, body);
                     lexer.seenBodyEndTag = 1;
                     mode = Lexer.IgnoreWhitespace;
 
-                    if (body.parent.tag == tt.tagNoframes)
+                    if (body.parent.tag == tt.tagNoframes) {
                         break;
+                    }
 
                     continue;
                 }
@@ -456,8 +479,9 @@ public class ParserImpl {
                 }
 
                 if (node.tag == tt.tagHtml) {
-                    if (node.type == Node.StartTag || node.type == Node.StartEndTag)
+                    if (node.type == Node.StartTag || node.type == Node.StartEndTag) {
                         Report.warning(lexer, body, node, Report.DISCARDING_UNEXPECTED);
+                    }
 
                     continue;
                 }
@@ -465,12 +489,14 @@ public class ParserImpl {
                 iswhitenode = false;
 
                 if (node.type == Node.TextNode && node.end <= node.start + 1
-                        && node.textarray[node.start] == (byte) ' ')
+                        && node.textarray[node.start] == (byte) ' ') {
                     iswhitenode = true;
+                }
 
                 /* deal with comments etc. */
-                if (Node.insertMisc(body, node))
+                if (Node.insertMisc(body, node)) {
                     continue;
+                }
 
                 if (lexer.seenBodyEndTag == 1 && !iswhitenode) {
                     ++lexer.seenBodyEndTag;
@@ -492,15 +518,17 @@ public class ParserImpl {
                         parseTag(lexer, para, mode);
                         mode = Lexer.MixedContent;
                         continue;
-                    } else
+                    } else {
                         /* strict doesn't allow text here */
                         lexer.versions &= ~(Dict.VERS_HTML40_STRICT | Dict.VERS_HTML20);
+                    }
 
                     if (checkstack) {
                         checkstack = false;
 
-                        if (lexer.inlineDup(node) > 0)
+                        if (lexer.inlineDup(node) > 0) {
                             continue;
+                        }
                     }
 
                     Node.insertNodeAtEnd(body, node);
@@ -527,8 +555,9 @@ public class ParserImpl {
 
                 if (!((node.tag.model & Dict.CM_BLOCK) != 0) && !((node.tag.model & Dict.CM_INLINE) != 0)) {
                     /* avoid this error message being issued twice */
-                    if (!((node.tag.model & Dict.CM_HEAD) != 0))
+                    if (!((node.tag.model & Dict.CM_HEAD) != 0)) {
                         Report.warning(lexer, body, node, Report.TAG_NOT_ALLOWED_IN);
+                    }
 
                     if ((node.tag.model & Dict.CM_HTML) != 0) {
                         /* copy body attributes if current body was inferred */
@@ -578,30 +607,33 @@ public class ParserImpl {
                 }
 
                 if (node.type == Node.EndTag) {
-                    if (node.tag == tt.tagBr)
+                    if (node.tag == tt.tagBr) {
                         node.type = Node.StartTag;
-                    else if (node.tag == tt.tagP) {
+                    } else if (node.tag == tt.tagP) {
                         Node.coerceNode(lexer, node, tt.tagBr);
                         Node.insertNodeAtEnd(body, node);
                         node = lexer.inferredTag("br");
-                    } else if ((node.tag.model & Dict.CM_INLINE) != 0)
+                    } else if ((node.tag.model & Dict.CM_INLINE) != 0) {
                         lexer.popInline(node);
+                    }
                 }
 
                 if (node.type == Node.StartTag || node.type == Node.StartEndTag) {
-                    if (((node.tag.model & Dict.CM_INLINE) != 0) && !((node.tag.model & Dict.CM_MIXED) != 0)) {
+                    if ((node.tag.model & Dict.CM_INLINE) != 0 && !((node.tag.model & Dict.CM_MIXED) != 0)) {
                         /* HTML4 strict doesn't allow inline content here */
                         /* but HTML2 does allow img elements as children of body */
-                        if (node.tag == tt.tagImg)
+                        if (node.tag == tt.tagImg) {
                             lexer.versions &= ~Dict.VERS_HTML40_STRICT;
-                        else
+                        } else {
                             lexer.versions &= ~(Dict.VERS_HTML40_STRICT | Dict.VERS_HTML20);
+                        }
 
                         if (checkstack && !node.implicit) {
                             checkstack = false;
 
-                            if (lexer.inlineDup(node) > 0)
+                            if (lexer.inlineDup(node) > 0) {
                                 continue;
+                            }
                         }
 
                         mode = Lexer.MixedContent;
@@ -610,8 +642,9 @@ public class ParserImpl {
                         mode = Lexer.IgnoreWhitespace;
                     }
 
-                    if (node.implicit)
+                    if (node.implicit) {
                         Report.warning(lexer, body, node, Report.INSERTING_TAG);
+                    }
 
                     Node.insertNodeAtEnd(body, node);
                     parseTag(lexer, node, mode);
@@ -635,8 +668,9 @@ public class ParserImpl {
 
             while (true) {
                 node = lexer.getToken(Lexer.IgnoreWhitespace);
-                if (node == null)
+                if (node == null) {
                     break;
+                }
                 if (node.tag == frameset.tag && node.type == Node.EndTag) {
                     frameset.closed = true;
                     Node.trimSpaces(lexer, frameset);
@@ -644,8 +678,9 @@ public class ParserImpl {
                 }
 
                 /* deal with comments etc. */
-                if (Node.insertMisc(frameset, node))
+                if (Node.insertMisc(frameset, node)) {
                     continue;
+                }
 
                 if (node.tag == null) {
                     Report.warning(lexer, frameset, node, Report.DISCARDING_UNEXPECTED);
@@ -690,8 +725,9 @@ public class ParserImpl {
             Node node, parent;
             TagTable tt = lexer.configuration.tt;
 
-            if ((element.tag.model & Dict.CM_EMPTY) != 0)
+            if ((element.tag.model & Dict.CM_EMPTY) != 0) {
                 return;
+            }
 
             if (element.tag == tt.tagA) {
                 if (element.attributes == null) {
@@ -710,31 +746,37 @@ public class ParserImpl {
              * PopInline, see istack.c We don't push A or SPAN to replicate
              * current browser behavior
              */
-            if (((element.tag.model & Dict.CM_BLOCK) != 0) || (element.tag == tt.tagDt))
+            if ((element.tag.model & Dict.CM_BLOCK) != 0 || element.tag == tt.tagDt) {
                 lexer.inlineDup(null);
-            else if ((element.tag.model & Dict.CM_INLINE) != 0 && element.tag != tt.tagA && element.tag != tt.tagSpan)
+            } else if ((element.tag.model & Dict.CM_INLINE) != 0 && element.tag != tt.tagA && element.tag != tt.tagSpan) {
                 lexer.pushInline(element);
+            }
 
-            if (element.tag == tt.tagNobr)
+            if (element.tag == tt.tagNobr) {
                 lexer.badLayout |= Report.USING_NOBR;
-            else if (element.tag == tt.tagFont)
+            } else if (element.tag == tt.tagFont) {
                 lexer.badLayout |= Report.USING_FONT;
+            }
 
             /* Inline elements may or may not be within a preformatted element */
-            if (mode != Lexer.Preformatted)
+            if (mode != Lexer.Preformatted) {
                 mode = Lexer.MixedContent;
+            }
 
             while (true) {
                 node = lexer.getToken(mode);
-                if (node == null)
+                if (node == null) {
                     break;
+                }
                 /* end tag for current element */
                 if (node.tag == element.tag && node.type == Node.EndTag) {
-                    if ((element.tag.model & Dict.CM_INLINE) != 0 && element.tag != tt.tagA)
+                    if ((element.tag.model & Dict.CM_INLINE) != 0 && element.tag != tt.tagA) {
                         lexer.popInline(node);
+                    }
 
-                    if (!((mode & Lexer.Preformatted) != 0))
+                    if (!((mode & Lexer.Preformatted) != 0)) {
                         Node.trimSpaces(lexer, element);
+                    }
                     /*
                      * if a font element wraps an anchor and nothing else then
                      * move the font element inside the anchor since otherwise
@@ -748,15 +790,17 @@ public class ParserImpl {
                             child.next = element.next;
                             child.prev = element.prev;
 
-                            if (child.prev != null)
+                            if (child.prev != null) {
                                 child.prev.next = child;
-                            else
+                            } else {
                                 child.parent.content = child;
+                            }
 
-                            if (child.next != null)
+                            if (child.next != null) {
                                 child.next.prev = child;
-                            else
+                            } else {
                                 child.parent.last = child;
+                            }
 
                             element.next = null;
                             element.prev = null;
@@ -765,8 +809,9 @@ public class ParserImpl {
                             element.last = child.last;
                             child.content = element;
                             child.last = element;
-                            for (child = element.content; child != null; child = child.next)
+                            for (child = element.content; child != null; child = child.next) {
                                 child.parent = element;
+                            }
                         }
                     }
                     element.closed = true;
@@ -779,7 +824,7 @@ public class ParserImpl {
                 /* otherwise emphasis nesting is probably unintentional */
                 /* big and small have cumulative effect to leave them alone */
                 if (node.type == Node.StartTag && node.tag == element.tag && lexer.isPushed(node) && !node.implicit
-                        && !element.implicit && node.tag != null && ((node.tag.model & Dict.CM_INLINE) != 0)
+                        && !element.implicit && node.tag != null && (node.tag.model & Dict.CM_INLINE) != 0
                         && node.tag != tt.tagA && node.tag != tt.tagFont && node.tag != tt.tagBig
                         && node.tag != tt.tagSmall) {
                     if (element.content != null && node.attributes == null) {
@@ -794,8 +839,9 @@ public class ParserImpl {
 
                 if (node.type == Node.TextNode) {
                     /* only called for 1st child */
-                    if (element.content == null && !((mode & Lexer.Preformatted) != 0))
+                    if (element.content == null && !((mode & Lexer.Preformatted) != 0)) {
                         Node.trimSpaces(lexer, element);
+                    }
 
                     if (node.start >= node.end) {
                         continue;
@@ -806,8 +852,9 @@ public class ParserImpl {
                 }
 
                 /* mixed content model so allow text */
-                if (Node.insertMisc(element, node))
+                if (Node.insertMisc(element, node)) {
                     continue;
+                }
 
                 /* deal with HTML tags */
                 if (node.tag == tt.tagHtml) {
@@ -818,8 +865,9 @@ public class ParserImpl {
 
                     /* otherwise infer end of inline element */
                     lexer.ungetToken();
-                    if (!((mode & Lexer.Preformatted) != 0))
+                    if (!((mode & Lexer.Preformatted) != 0)) {
                         Node.trimSpaces(lexer, element);
+                    }
                     Node.trimEmptyElement(lexer, element);
                     return;
                 }
@@ -842,14 +890,15 @@ public class ParserImpl {
                     continue;
                 }
 
-                if (node.tag == tt.tagBr && node.type == Node.EndTag)
+                if (node.tag == tt.tagBr && node.type == Node.EndTag) {
                     node.type = Node.StartTag;
+                }
 
                 if (node.type == Node.EndTag) {
                     /* coerce </br> to <br> */
-                    if (node.tag == tt.tagBr)
+                    if (node.tag == tt.tagBr) {
                         node.type = Node.StartTag;
-                    else if (node.tag == tt.tagP) {
+                    } else if (node.tag == tt.tagP) {
                         /* coerce unmatched </p> to <br><br> */
                         if (!element.isDescendantOf(tt.tagP)) {
                             Node.coerceNode(lexer, node, tt.tagBr);
@@ -871,8 +920,9 @@ public class ParserImpl {
                                 Report.warning(lexer, element, node, Report.NON_MATCHING_ENDTAG);
                             }
 
-                            if (!((mode & Lexer.Preformatted) != 0))
+                            if (!((mode & Lexer.Preformatted) != 0)) {
                                 Node.trimSpaces(lexer, element);
+                            }
                             Node.trimEmptyElement(lexer, element);
                             return;
                         }
@@ -903,8 +953,9 @@ public class ParserImpl {
                         Report.warning(lexer, element, node, Report.MISSING_ENDTAG_BEFORE);
                         lexer.ungetToken();
                     }
-                    if (!((mode & Lexer.Preformatted) != 0))
+                    if (!((mode & Lexer.Preformatted) != 0)) {
                         Node.trimSpaces(lexer, element);
+                    }
                     Node.trimEmptyElement(lexer, element);
                     return;
                 }
@@ -926,8 +977,9 @@ public class ParserImpl {
                     lexer.ungetToken();
                     Report.warning(lexer, element, node, Report.MISSING_ENDTAG_BEFORE);
                     lexer.popInline(element);
-                    if (!((mode & Lexer.Preformatted) != 0))
+                    if (!((mode & Lexer.Preformatted) != 0)) {
                         Node.trimSpaces(lexer, element);
+                    }
                     Node.trimEmptyElement(lexer, element);
                     return;
                 }
@@ -950,8 +1002,9 @@ public class ParserImpl {
                         /* split heading and make center parent of 2nd part */
                         Node.insertNodeAfterElement(element, node);
 
-                        if (!((mode & Lexer.Preformatted) != 0))
+                        if (!((mode & Lexer.Preformatted) != 0)) {
                             Node.trimSpaces(lexer, element);
+                        }
 
                         element = lexer.cloneNode(element);
                         element.start = lexer.lexsize;
@@ -977,8 +1030,9 @@ public class ParserImpl {
                         /* split heading and insert hr before 2nd part */
                         Node.insertNodeAfterElement(element, node);
 
-                        if (!((mode & Lexer.Preformatted) != 0))
+                        if (!((mode & Lexer.Preformatted) != 0)) {
                             Node.trimSpaces(lexer, element);
+                        }
 
                         element = lexer.cloneNode(element);
                         element.start = lexer.lexsize;
@@ -1011,8 +1065,9 @@ public class ParserImpl {
                         Node.insertNodeAfterElement(element, dd);
                         Node.insertNodeAtEnd(dd, node);
 
-                        if (!((mode & Lexer.Preformatted) != 0))
+                        if (!((mode & Lexer.Preformatted) != 0)) {
                             Node.trimSpaces(lexer, element);
+                        }
 
                         element = lexer.cloneNode(element);
                         element.start = lexer.lexsize;
@@ -1029,16 +1084,19 @@ public class ParserImpl {
                 if (node.type == Node.EndTag) {
                     for (parent = element.parent; parent != null; parent = parent.parent) {
                         if (node.tag == parent.tag) {
-                            if (!((element.tag.model & Dict.CM_OPT) != 0) && !element.implicit)
+                            if (!((element.tag.model & Dict.CM_OPT) != 0) && !element.implicit) {
                                 Report.warning(lexer, element, node, Report.MISSING_ENDTAG_BEFORE);
+                            }
 
-                            if (element.tag == tt.tagA)
+                            if (element.tag == tt.tagA) {
                                 lexer.popInline(element);
+                            }
 
                             lexer.ungetToken();
 
-                            if (!((mode & Lexer.Preformatted) != 0))
+                            if (!((mode & Lexer.Preformatted) != 0)) {
                                 Node.trimSpaces(lexer, element);
+                            }
 
                             Node.trimEmptyElement(lexer, element);
                             return;
@@ -1053,8 +1111,9 @@ public class ParserImpl {
                         continue;
                     }
 
-                    if (!((element.tag.model & Dict.CM_OPT) != 0))
+                    if (!((element.tag.model & Dict.CM_OPT) != 0)) {
                         Report.warning(lexer, element, node, Report.MISSING_ENDTAG_BEFORE);
+                    }
 
                     if ((node.tag.model & Dict.CM_HEAD) != 0 && !((node.tag.model & Dict.CM_BLOCK) != 0)) {
                         moveToHead(lexer, element, node);
@@ -1066,9 +1125,9 @@ public class ParserImpl {
                      * for headings h1 to h6
                      */
                     if (element.tag == tt.tagA) {
-                        if (node.tag != null && !((node.tag.model & Dict.CM_HEADING) != 0))
+                        if (node.tag != null && !((node.tag.model & Dict.CM_HEADING) != 0)) {
                             lexer.popInline(element);
-                        else if (!(element.content != null)) {
+                        } else if (!(element.content != null)) {
                             Node.discardElement(element);
                             lexer.ungetToken();
                             return;
@@ -1077,8 +1136,9 @@ public class ParserImpl {
 
                     lexer.ungetToken();
 
-                    if (!((mode & Lexer.Preformatted) != 0))
+                    if (!((mode & Lexer.Preformatted) != 0)) {
                         Node.trimSpaces(lexer, element);
+                    }
 
                     Node.trimEmptyElement(lexer, element);
                     return;
@@ -1086,12 +1146,14 @@ public class ParserImpl {
 
                 /* parse inline element */
                 if (node.type == Node.StartTag || node.type == Node.StartEndTag) {
-                    if (node.implicit)
+                    if (node.implicit) {
                         Report.warning(lexer, element, node, Report.INSERTING_TAG);
+                    }
 
                     /* trim white space before <br> */
-                    if (node.tag == tt.tagBr)
+                    if (node.tag == tt.tagBr) {
                         Node.trimSpaces(lexer, element);
+                    }
 
                     Node.insertNodeAtEnd(element, node);
                     parseTag(lexer, node, mode);
@@ -1102,8 +1164,9 @@ public class ParserImpl {
                 Report.warning(lexer, element, node, Report.DISCARDING_UNEXPECTED);
             }
 
-            if (!((element.tag.model & Dict.CM_OPT) != 0))
+            if (!((element.tag.model & Dict.CM_OPT) != 0)) {
                 Report.warning(lexer, element, node, Report.MISSING_ENDTAG_FOR);
+            }
 
             Node.trimEmptyElement(lexer, element);
         }
@@ -1116,19 +1179,22 @@ public class ParserImpl {
             Node parent;
             TagTable tt = lexer.configuration.tt;
 
-            if ((list.tag.model & Dict.CM_EMPTY) != 0)
+            if ((list.tag.model & Dict.CM_EMPTY) != 0) {
                 return;
+            }
 
             lexer.insert = -1; /* defer implicit inline start tags */
 
             while (true) {
                 node = lexer.getToken(Lexer.IgnoreWhitespace);
-                if (node == null)
+                if (node == null) {
                     break;
+                }
 
                 if (node.tag == list.tag && node.type == Node.EndTag) {
-                    if ((list.tag.model & Dict.CM_OBSOLETE) != 0)
+                    if ((list.tag.model & Dict.CM_OBSOLETE) != 0) {
                         Node.coerceNode(lexer, list, tt.tagUl);
+                    }
 
                     list.closed = true;
                     Node.trimEmptyElement(lexer, list);
@@ -1136,8 +1202,9 @@ public class ParserImpl {
                 }
 
                 /* deal with comments etc. */
-                if (Node.insertMisc(list, node))
+                if (Node.insertMisc(list, node)) {
                     continue;
+                }
 
                 if (node.type != Node.TextNode && node.tag == null) {
                     Report.warning(lexer, list, node, Report.DISCARDING_UNEXPECTED);
@@ -1166,8 +1233,9 @@ public class ParserImpl {
                             Report.warning(lexer, list, node, Report.MISSING_ENDTAG_BEFORE);
                             lexer.ungetToken();
 
-                            if ((list.tag.model & Dict.CM_OBSOLETE) != 0)
+                            if ((list.tag.model & Dict.CM_OBSOLETE) != 0) {
                                 Node.coerceNode(lexer, list, tt.tagUl);
+                            }
 
                             Node.trimEmptyElement(lexer, list);
                             return;
@@ -1197,8 +1265,9 @@ public class ParserImpl {
                 parseTag(lexer, node, Lexer.IgnoreWhitespace);
             }
 
-            if ((list.tag.model & Dict.CM_OBSOLETE) != 0)
+            if ((list.tag.model & Dict.CM_OBSOLETE) != 0) {
                 Node.coerceNode(lexer, list, tt.tagUl);
+            }
 
             Report.warning(lexer, list, node, Report.MISSING_ENDTAG_FOR);
             Node.trimEmptyElement(lexer, list);
@@ -1212,15 +1281,17 @@ public class ParserImpl {
             Node node, parent;
             TagTable tt = lexer.configuration.tt;
 
-            if ((list.tag.model & Dict.CM_EMPTY) != 0)
+            if ((list.tag.model & Dict.CM_EMPTY) != 0) {
                 return;
+            }
 
             lexer.insert = -1; /* defer implicit inline start tags */
 
             while (true) {
                 node = lexer.getToken(Lexer.IgnoreWhitespace);
-                if (node == null)
+                if (node == null) {
                     break;
+                }
                 if (node.tag == list.tag && node.type == Node.EndTag) {
                     list.closed = true;
                     Node.trimEmptyElement(lexer, list);
@@ -1228,8 +1299,9 @@ public class ParserImpl {
                 }
 
                 /* deal with comments etc. */
-                if (Node.insertMisc(list, node))
+                if (Node.insertMisc(list, node)) {
                     continue;
+                }
 
                 if (node.type == Node.TextNode) {
                     lexer.ungetToken();
@@ -1266,9 +1338,9 @@ public class ParserImpl {
 
                 /* center in a dt or a dl breaks the dl list in two */
                 if (node.tag == tt.tagCenter) {
-                    if (list.content != null)
+                    if (list.content != null) {
                         Node.insertNodeAfterElement(list, node);
-                    else /* trim empty dl list */
+                    } else /* trim empty dl list */
                     {
                         Node.insertNodeBeforeElement(list, node);
                         Node.discardElement(list);
@@ -1324,18 +1396,21 @@ public class ParserImpl {
             Node node, parent;
             TagTable tt = lexer.configuration.tt;
 
-            if ((pre.tag.model & Dict.CM_EMPTY) != 0)
+            if ((pre.tag.model & Dict.CM_EMPTY) != 0) {
                 return;
+            }
 
-            if ((pre.tag.model & Dict.CM_OBSOLETE) != 0)
+            if ((pre.tag.model & Dict.CM_OBSOLETE) != 0) {
                 Node.coerceNode(lexer, pre, tt.tagPre);
+            }
 
             lexer.inlineDup(null); /* tell lexer to insert inlines if needed */
 
             while (true) {
                 node = lexer.getToken(Lexer.Preformatted);
-                if (node == null)
+                if (node == null) {
                     break;
+                }
                 if (node.tag == pre.tag && node.type == Node.EndTag) {
                     Node.trimSpaces(lexer, pre);
                     pre.closed = true;
@@ -1344,8 +1419,9 @@ public class ParserImpl {
                 }
 
                 if (node.tag == tt.tagHtml) {
-                    if (node.type == Node.StartTag || node.type == Node.StartEndTag)
+                    if (node.type == Node.StartTag || node.type == Node.StartEndTag) {
                         Report.warning(lexer, pre, node, Report.DISCARDING_UNEXPECTED);
+                    }
 
                     continue;
                 }
@@ -1353,8 +1429,9 @@ public class ParserImpl {
                 if (node.type == Node.TextNode) {
                     /* if first check for inital newline */
                     if (pre.content == null) {
-                        if (node.textarray[node.start] == (byte) '\n')
+                        if (node.textarray[node.start] == (byte) '\n') {
                             ++node.start;
+                        }
 
                         if (node.start >= node.end) {
                             continue;
@@ -1366,8 +1443,9 @@ public class ParserImpl {
                 }
 
                 /* deal with comments etc. */
-                if (Node.insertMisc(pre, node))
+                if (Node.insertMisc(pre, node)) {
                     continue;
+                }
 
                 /* discard unknown and PARAM tags */
                 if (node.tag == null || node.tag == tt.tagParam) {
@@ -1456,8 +1534,9 @@ public class ParserImpl {
                  */
                 if (node.type == Node.StartTag || node.type == Node.StartEndTag) {
                     /* trim white space before <br> */
-                    if (node.tag == tt.tagBr)
+                    if (node.tag == tt.tagBr) {
                         Node.trimSpaces(lexer, pre);
+                    }
 
                     Node.insertNodeAtEnd(pre, node);
                     parseTag(lexer, node, Lexer.Preformatted);
@@ -1489,11 +1568,13 @@ public class ParserImpl {
 
             checkstack = true;
 
-            if ((element.tag.model & Dict.CM_EMPTY) != 0)
+            if ((element.tag.model & Dict.CM_EMPTY) != 0) {
                 return;
+            }
 
-            if (element.tag == tt.tagForm && element.isDescendantOf(tt.tagForm))
+            if (element.tag == tt.tagForm && element.isDescendantOf(tt.tagForm)) {
                 Report.warning(lexer, element, null, Report.ILLEGAL_NESTING);
+            }
 
             /*
              * InlineDup() asks the lexer to insert inline emphasis tags
@@ -1508,23 +1589,26 @@ public class ParserImpl {
                 lexer.istackbase = lexer.istack.size();
             }
 
-            if (!((element.tag.model & Dict.CM_MIXED) != 0))
+            if (!((element.tag.model & Dict.CM_MIXED) != 0)) {
                 lexer.inlineDup(null);
+            }
 
             mode = Lexer.IgnoreWhitespace;
 
             while (true) {
                 node = lexer.getToken(mode /* Lexer.MixedContent */);
-                if (node == null)
+                if (node == null) {
                     break;
+                }
                 /* end tag for this element */
                 if (node.type == Node.EndTag && node.tag != null
                         && (node.tag == element.tag || element.was == node.tag)) {
 
                     if ((element.tag.model & Dict.CM_OBJECT) != 0) {
                         /* pop inline stack */
-                        while (lexer.istack.size() > lexer.istackbase)
+                        while (lexer.istack.size() > lexer.istackbase) {
                             lexer.popInline(null);
+                        }
                         lexer.istackbase = istackbase;
                     }
 
@@ -1535,8 +1619,9 @@ public class ParserImpl {
                 }
 
                 if (node.tag == tt.tagHtml || node.tag == tt.tagHead || node.tag == tt.tagBody) {
-                    if (node.type == Node.StartTag || node.type == Node.StartEndTag)
+                    if (node.type == Node.StartTag || node.type == Node.StartEndTag) {
                         Report.warning(lexer, element, node, Report.DISCARDING_UNEXPECTED);
+                    }
 
                     continue;
                 }
@@ -1546,9 +1631,9 @@ public class ParserImpl {
                         Report.warning(lexer, element, node, Report.DISCARDING_UNEXPECTED);
 
                         continue;
-                    } else if (node.tag == tt.tagBr)
+                    } else if (node.tag == tt.tagBr) {
                         node.type = Node.StartTag;
-                    else if (node.tag == tt.tagP) {
+                    } else if (node.tag == tt.tagP) {
                         Node.coerceNode(lexer, node, tt.tagBr);
                         Node.insertNodeAtEnd(element, node);
                         node = lexer.inferredTag("br");
@@ -1559,15 +1644,17 @@ public class ParserImpl {
                          */
                         for (parent = element.parent; parent != null; parent = parent.parent) {
                             if (node.tag == parent.tag) {
-                                if (!((element.tag.model & Dict.CM_OPT) != 0))
+                                if (!((element.tag.model & Dict.CM_OPT) != 0)) {
                                     Report.warning(lexer, element, node, Report.MISSING_ENDTAG_BEFORE);
+                                }
 
                                 lexer.ungetToken();
 
                                 if ((element.tag.model & Dict.CM_OBJECT) != 0) {
                                     /* pop inline stack */
-                                    while (lexer.istack.size() > lexer.istackbase)
+                                    while (lexer.istack.size() > lexer.istackbase) {
                                         lexer.popInline(null);
+                                    }
                                     lexer.istackbase = istackbase;
                                 }
 
@@ -1594,8 +1681,9 @@ public class ParserImpl {
                     boolean iswhitenode = false;
 
                     if (node.type == Node.TextNode && node.end <= node.start + 1
-                            && lexer.lexbuf[node.start] == (byte) ' ')
+                            && lexer.lexbuf[node.start] == (byte) ' ') {
                         iswhitenode = true;
+                    }
 
                     if (lexer.configuration.EncloseBlockText && !iswhitenode) {
                         lexer.ungetToken();
@@ -1609,8 +1697,9 @@ public class ParserImpl {
                         checkstack = false;
 
                         if (!((element.tag.model & Dict.CM_MIXED) != 0)) {
-                            if (lexer.inlineDup(node) > 0)
+                            if (lexer.inlineDup(node) > 0) {
                                 continue;
+                            }
                         }
                     }
 
@@ -1624,12 +1713,13 @@ public class ParserImpl {
                     continue;
                 }
 
-                if (Node.insertMisc(element, node))
+                if (Node.insertMisc(element, node)) {
                     continue;
+                }
 
                 /* allow PARAM elements? */
                 if (node.tag == tt.tagParam) {
-                    if (((element.tag.model & Dict.CM_PARAM) != 0)
+                    if ((element.tag.model & Dict.CM_PARAM) != 0
                             && (node.type == Node.StartTag || node.type == Node.StartEndTag)) {
                         Node.insertNodeAtEnd(element, node);
                         continue;
@@ -1642,7 +1732,7 @@ public class ParserImpl {
 
                 /* allow AREA elements? */
                 if (node.tag == tt.tagArea) {
-                    if ((element.tag == tt.tagMap) && (node.type == Node.StartTag || node.type == Node.StartEndTag)) {
+                    if (element.tag == tt.tagMap && (node.type == Node.StartTag || node.type == Node.StartEndTag)) {
                         Node.insertNodeAtEnd(element, node);
                         continue;
                     }
@@ -1701,13 +1791,15 @@ public class ParserImpl {
                         }
                     } else if ((node.tag.model & Dict.CM_BLOCK) != 0) {
                         if (lexer.excludeBlocks) {
-                            if (!((element.tag.model & Dict.CM_OPT) != 0))
+                            if (!((element.tag.model & Dict.CM_OPT) != 0)) {
                                 Report.warning(lexer, element, node, Report.MISSING_ENDTAG_BEFORE);
+                            }
 
                             lexer.ungetToken();
 
-                            if ((element.tag.model & Dict.CM_OBJECT) != 0)
+                            if ((element.tag.model & Dict.CM_OBJECT) != 0) {
                                 lexer.istackbase = istackbase;
+                            }
 
                             Node.trimSpaces(lexer, element);
                             Node.trimEmptyElement(lexer, element);
@@ -1715,8 +1807,9 @@ public class ParserImpl {
                         }
                     } else /* things like list items */
                     {
-                        if (!((element.tag.model & Dict.CM_OPT) != 0) && !element.implicit)
+                        if (!((element.tag.model & Dict.CM_OPT) != 0) && !element.implicit) {
                             Report.warning(lexer, element, node, Report.MISSING_ENDTAG_BEFORE);
+                        }
 
                         if ((node.tag.model & Dict.CM_HEAD) != 0) {
                             moveToHead(lexer, element, node);
@@ -1747,8 +1840,9 @@ public class ParserImpl {
                             node = lexer.inferredTag("table");
                         } else if ((element.tag.model & Dict.CM_OBJECT) != 0) {
                             /* pop inline stack */
-                            while (lexer.istack.size() > lexer.istackbase)
+                            while (lexer.istack.size() > lexer.istackbase) {
                                 lexer.popInline(null);
+                            }
                             lexer.istackbase = istackbase;
                             Node.trimSpaces(lexer, element);
                             Node.trimEmptyElement(lexer, element);
@@ -1768,8 +1862,9 @@ public class ParserImpl {
                         if (checkstack && !node.implicit) {
                             checkstack = false;
 
-                            if (lexer.inlineDup(node) > 0)
+                            if (lexer.inlineDup(node) > 0) {
                                 continue;
+                            }
                         }
 
                         mode = Lexer.MixedContent;
@@ -1779,34 +1874,40 @@ public class ParserImpl {
                     }
 
                     /* trim white space before <br> */
-                    if (node.tag == tt.tagBr)
+                    if (node.tag == tt.tagBr) {
                         Node.trimSpaces(lexer, element);
+                    }
 
                     Node.insertNodeAtEnd(element, node);
 
-                    if (node.implicit)
+                    if (node.implicit) {
                         Report.warning(lexer, element, node, Report.INSERTING_TAG);
+                    }
 
                     parseTag(lexer, node, Lexer.IgnoreWhitespace /*
-                                                                  * Lexer.MixedContent
+                                                                  * Lexer.
+                                                                  * MixedContent
                                                                   */);
                     continue;
                 }
 
                 /* discard unexpected tags */
-                if (node.type == Node.EndTag)
+                if (node.type == Node.EndTag) {
                     lexer.popInline(node); /* if inline end tag */
+                }
 
                 Report.warning(lexer, element, node, Report.DISCARDING_UNEXPECTED);
             }
 
-            if (!((element.tag.model & Dict.CM_OPT) != 0))
+            if (!((element.tag.model & Dict.CM_OPT) != 0)) {
                 Report.warning(lexer, element, node, Report.MISSING_ENDTAG_FOR);
+            }
 
             if ((element.tag.model & Dict.CM_OBJECT) != 0) {
                 /* pop inline stack */
-                while (lexer.istack.size() > lexer.istackbase)
+                while (lexer.istack.size() > lexer.istackbase) {
                     lexer.popInline(null);
+                }
                 lexer.istackbase = istackbase;
             }
 
@@ -1829,8 +1930,9 @@ public class ParserImpl {
 
             while (true) {
                 node = lexer.getToken(Lexer.IgnoreWhitespace);
-                if (node == null)
+                if (node == null) {
                     break;
+                }
                 if (node.tag == table.tag && node.type == Node.EndTag) {
                     lexer.istackbase = istackbase;
                     table.closed = true;
@@ -1839,8 +1941,9 @@ public class ParserImpl {
                 }
 
                 /* deal with comments etc. */
-                if (Node.insertMisc(table, node))
+                if (Node.insertMisc(table, node)) {
                     continue;
+                }
 
                 /* discard unknown tags */
                 if (node.tag == null && node.type != Node.TextNode) {
@@ -1867,8 +1970,9 @@ public class ParserImpl {
                          * Dave Raggett <dsr@w3.org>
                          */
                         //Should be?: if (!(node.type == Node.TextNode))
-                        if (false)
+                        if (false) {
                             parseTag(lexer, node, Lexer.IgnoreWhitespace);
+                        }
 
                         lexer.exiled = false;
                         continue;
@@ -1937,13 +2041,15 @@ public class ParserImpl {
             Node node, parent;
             TagTable tt = lexer.configuration.tt;
 
-            if ((colgroup.tag.model & Dict.CM_EMPTY) != 0)
+            if ((colgroup.tag.model & Dict.CM_EMPTY) != 0) {
                 return;
+            }
 
             while (true) {
                 node = lexer.getToken(Lexer.IgnoreWhitespace);
-                if (node == null)
+                if (node == null) {
                     break;
+                }
                 if (node.tag == colgroup.tag && node.type == Node.EndTag) {
                     colgroup.closed = true;
                     return;
@@ -1975,8 +2081,9 @@ public class ParserImpl {
                 }
 
                 /* deal with comments etc. */
-                if (Node.insertMisc(colgroup, node))
+                if (Node.insertMisc(colgroup, node)) {
                     continue;
+                }
 
                 /* discard unknown tags */
                 if (node.tag == null) {
@@ -2008,13 +2115,15 @@ public class ParserImpl {
             Node node, parent;
             TagTable tt = lexer.configuration.tt;
 
-            if ((rowgroup.tag.model & Dict.CM_EMPTY) != 0)
+            if ((rowgroup.tag.model & Dict.CM_EMPTY) != 0) {
                 return;
+            }
 
             while (true) {
                 node = lexer.getToken(Lexer.IgnoreWhitespace);
-                if (node == null)
+                if (node == null) {
                     break;
+                }
                 if (node.tag == rowgroup.tag) {
                     if (node.type == Node.EndTag) {
                         rowgroup.closed = true;
@@ -2034,8 +2143,9 @@ public class ParserImpl {
                 }
 
                 /* deal with comments etc. */
-                if (Node.insertMisc(rowgroup, node))
+                if (Node.insertMisc(rowgroup, node)) {
                     continue;
+                }
 
                 /* discard unknown tags */
                 if (node.tag == null && node.type != Node.TextNode) {
@@ -2058,8 +2168,9 @@ public class ParserImpl {
                         Report.warning(lexer, rowgroup, node, Report.TAG_NOT_ALLOWED_IN);
                         lexer.exiled = true;
 
-                        if (node.type != Node.TextNode)
+                        if (node.type != Node.TextNode) {
                             parseTag(lexer, node, Lexer.IgnoreWhitespace);
+                        }
 
                         lexer.exiled = false;
                         continue;
@@ -2099,8 +2210,9 @@ public class ParserImpl {
                  * if THEAD, TFOOT or TBODY then implied end tag
                  */
                 if ((node.tag.model & Dict.CM_ROWGRP) != 0) {
-                    if (node.type != Node.EndTag)
+                    if (node.type != Node.EndTag) {
                         lexer.ungetToken();
+                    }
 
                     Node.trimEmptyElement(lexer, rowgroup);
                     return;
@@ -2134,13 +2246,15 @@ public class ParserImpl {
             boolean exclude_state;
             TagTable tt = lexer.configuration.tt;
 
-            if ((row.tag.model & Dict.CM_EMPTY) != 0)
+            if ((row.tag.model & Dict.CM_EMPTY) != 0) {
                 return;
+            }
 
             while (true) {
                 node = lexer.getToken(Lexer.IgnoreWhitespace);
-                if (node == null)
+                if (node == null) {
                     break;
+                }
                 if (node.tag == row.tag) {
                     if (node.type == Node.EndTag) {
                         row.closed = true;
@@ -2179,8 +2293,9 @@ public class ParserImpl {
                 }
 
                 /* deal with comments etc. */
-                if (Node.insertMisc(row, node))
+                if (Node.insertMisc(row, node)) {
                     continue;
+                }
 
                 /* discard unknown tags */
                 if (node.tag == null && node.type != Node.TextNode) {
@@ -2221,8 +2336,9 @@ public class ParserImpl {
                         Report.warning(lexer, row, node, Report.TAG_NOT_ALLOWED_IN);
                         lexer.exiled = true;
 
-                        if (node.type != Node.TextNode)
+                        if (node.type != Node.TextNode) {
                             parseTag(lexer, node, Lexer.IgnoreWhitespace);
+                        }
 
                         lexer.exiled = false;
                         continue;
@@ -2247,8 +2363,9 @@ public class ParserImpl {
 
                 /* pop inline stack */
 
-                while (lexer.istack.size() > lexer.istackbase)
+                while (lexer.istack.size() > lexer.istackbase) {
                     lexer.popInline(null);
+                }
             }
 
             Node.trimEmptyElement(lexer, row);
@@ -2269,15 +2386,16 @@ public class ParserImpl {
 
             while (true) {
                 node = lexer.getToken(mode);
-                if (node == null)
+                if (node == null) {
                     break;
+                }
                 if (node.tag == noframes.tag && node.type == Node.EndTag) {
                     noframes.closed = true;
                     Node.trimSpaces(lexer, noframes);
                     return;
                 }
 
-                if ((node.tag == tt.tagFrame || node.tag == tt.tagFrameset)) {
+                if (node.tag == tt.tagFrame || node.tag == tt.tagFrameset) {
                     Report.warning(lexer, noframes, node, Report.MISSING_ENDTAG_BEFORE);
                     Node.trimSpaces(lexer, noframes);
                     lexer.ungetToken();
@@ -2285,15 +2403,17 @@ public class ParserImpl {
                 }
 
                 if (node.tag == tt.tagHtml) {
-                    if (node.type == Node.StartTag || node.type == Node.StartEndTag)
+                    if (node.type == Node.StartTag || node.type == Node.StartEndTag) {
                         Report.warning(lexer, noframes, node, Report.DISCARDING_UNEXPECTED);
+                    }
 
                     continue;
                 }
 
                 /* deal with comments etc. */
-                if (Node.insertMisc(noframes, node))
+                if (Node.insertMisc(noframes, node)) {
                     continue;
+                }
 
                 if (node.tag == tt.tagBody && node.type == Node.StartTag) {
                     Node.insertNodeAtEnd(noframes, node);
@@ -2305,8 +2425,9 @@ public class ParserImpl {
                 if (node.type == Node.TextNode || node.tag != null) {
                     lexer.ungetToken();
                     node = lexer.inferredTag("body");
-                    if (lexer.configuration.XmlOut)
+                    if (lexer.configuration.XmlOut) {
                         Report.warning(lexer, noframes, node, Report.INSERTING_TAG);
+                    }
                     Node.insertNodeAtEnd(noframes, node);
                     parseTag(lexer, node, Lexer.IgnoreWhitespace /* MixedContent */);
                     continue;
@@ -2330,8 +2451,9 @@ public class ParserImpl {
 
             while (true) {
                 node = lexer.getToken(Lexer.IgnoreWhitespace);
-                if (node == null)
+                if (node == null) {
                     break;
+                }
                 if (node.tag == field.tag && node.type == Node.EndTag) {
                     field.closed = true;
                     Node.trimSpaces(lexer, field);
@@ -2339,8 +2461,9 @@ public class ParserImpl {
                 }
 
                 /* deal with comments etc. */
-                if (Node.insertMisc(field, node))
+                if (Node.insertMisc(field, node)) {
                     continue;
+                }
 
                 if (node.type == Node.StartTag
                         && (node.tag == tt.tagOption || node.tag == tt.tagOptgroup || node.tag == tt.tagScript)) {
@@ -2366,13 +2489,15 @@ public class ParserImpl {
 
             lexer.insert = -1; /* defer implicit inline start tags */
 
-            if (field.tag == tt.tagTextarea)
+            if (field.tag == tt.tagTextarea) {
                 mode = Lexer.Preformatted;
+            }
 
             while (true) {
                 node = lexer.getToken(mode);
-                if (node == null)
+                if (node == null) {
                     break;
+                }
                 if (node.tag == field.tag && node.type == Node.EndTag) {
                     field.closed = true;
                     Node.trimSpaces(lexer, field);
@@ -2380,13 +2505,15 @@ public class ParserImpl {
                 }
 
                 /* deal with comments etc. */
-                if (Node.insertMisc(field, node))
+                if (Node.insertMisc(field, node)) {
                     continue;
+                }
 
                 if (node.type == Node.TextNode) {
                     /* only called for 1st child */
-                    if (field.content == null && !((mode & Lexer.Preformatted) != 0))
+                    if (field.content == null && !((mode & Lexer.Preformatted) != 0)) {
                         Node.trimSpaces(lexer, field);
+                    }
 
                     if (node.start >= node.end) {
                         continue;
@@ -2402,16 +2529,18 @@ public class ParserImpl {
                 }
 
                 /* terminate element on other tags */
-                if (!((field.tag.model & Dict.CM_OPT) != 0))
+                if (!((field.tag.model & Dict.CM_OPT) != 0)) {
                     Report.warning(lexer, field, node, Report.MISSING_ENDTAG_BEFORE);
+                }
 
                 lexer.ungetToken();
                 Node.trimSpaces(lexer, field);
                 return;
             }
 
-            if (!((field.tag.model & Dict.CM_OPT) != 0))
+            if (!((field.tag.model & Dict.CM_OPT) != 0)) {
                 Report.warning(lexer, field, node, Report.MISSING_ENDTAG_FOR);
+            }
         }
 
     };
@@ -2426,8 +2555,9 @@ public class ParserImpl {
 
             while (true) {
                 node = lexer.getToken(Lexer.IgnoreWhitespace);
-                if (node == null)
+                if (node == null) {
                     break;
+                }
                 if (node.tag == field.tag && node.type == Node.EndTag) {
                     field.closed = true;
                     Node.trimSpaces(lexer, field);
@@ -2435,12 +2565,14 @@ public class ParserImpl {
                 }
 
                 /* deal with comments etc. */
-                if (Node.insertMisc(field, node))
+                if (Node.insertMisc(field, node)) {
                     continue;
+                }
 
                 if (node.type == Node.StartTag && (node.tag == tt.tagOption || node.tag == tt.tagOptgroup)) {
-                    if (node.tag == tt.tagOptgroup)
+                    if (node.tag == tt.tagOptgroup) {
                         Report.warning(lexer, field, node, Report.CANT_BE_NESTED);
+                    }
 
                     Node.insertNodeAtEnd(field, node);
                     parseTag(lexer, node, Lexer.MixedContent);
@@ -2530,24 +2662,24 @@ public class ParserImpl {
         return _parseOptGroup;
     }
 
-    private static Parser _parseHTML     = new ParseHTML();
-    private static Parser _parseHead     = new ParseHead();
-    private static Parser _parseTitle    = new ParseTitle();
-    private static Parser _parseScript   = new ParseScript();
-    private static Parser _parseBody     = new ParseBody();
+    private static Parser _parseHTML = new ParseHTML();
+    private static Parser _parseHead = new ParseHead();
+    private static Parser _parseTitle = new ParseTitle();
+    private static Parser _parseScript = new ParseScript();
+    private static Parser _parseBody = new ParseBody();
     private static Parser _parseFrameSet = new ParseFrameSet();
-    private static Parser _parseInline   = new ParseInline();
-    private static Parser _parseList     = new ParseList();
-    private static Parser _parseDefList  = new ParseDefList();
-    private static Parser _parsePre      = new ParsePre();
-    private static Parser _parseBlock    = new ParseBlock();
+    private static Parser _parseInline = new ParseInline();
+    private static Parser _parseList = new ParseList();
+    private static Parser _parseDefList = new ParseDefList();
+    private static Parser _parsePre = new ParsePre();
+    private static Parser _parseBlock = new ParseBlock();
     private static Parser _parseTableTag = new ParseTableTag();
     private static Parser _parseColGroup = new ParseColGroup();
     private static Parser _parseRowGroup = new ParseRowGroup();
-    private static Parser _parseRow      = new ParseRow();
+    private static Parser _parseRow = new ParseRow();
     private static Parser _parseNoFrames = new ParseNoFrames();
-    private static Parser _parseSelect   = new ParseSelect();
-    private static Parser _parseText     = new ParseText();
+    private static Parser _parseSelect = new ParseSelect();
+    private static Parser _parseText = new ParseText();
     private static Parser _parseOptGroup = new ParseOptGroup();
 
     /*
@@ -2563,19 +2695,22 @@ public class ParserImpl {
 
         while (true) {
             node = lexer.getToken(Lexer.IgnoreWhitespace);
-            if (node == null)
+            if (node == null) {
                 break;
+            }
 
             /* deal with comments etc. */
-            if (Node.insertMisc(document, node))
+            if (Node.insertMisc(document, node)) {
                 continue;
+            }
 
             if (node.type == Node.DocTypeTag) {
                 if (doctype == null) {
                     Node.insertNodeAtEnd(document, node);
                     doctype = node;
-                } else
+                } else {
                     Report.warning(lexer, document, node, Report.DISCARDING_UNEXPECTED);
+                }
                 continue;
             }
 
@@ -2587,8 +2722,9 @@ public class ParserImpl {
             if (node.type != Node.StartTag || node.tag != tt.tagHtml) {
                 lexer.ungetToken();
                 html = lexer.inferredTag("html");
-            } else
+            } else {
                 html = node;
+            }
 
             Node.insertNodeAtEnd(document, html);
             getParseHTML().parse(lexer, html, (short) 0); // TODO?
@@ -2624,8 +2760,9 @@ public class ParserImpl {
         /* search attributes for xml:space */
         for (attribute = element.attributes; attribute != null; attribute = attribute.next) {
             if (attribute.attribute.equals("xml:space")) {
-                if (attribute.value.equals("preserve"))
+                if (attribute.value.equals("preserve")) {
                     return true;
+                }
 
                 return false;
             }
@@ -2633,15 +2770,18 @@ public class ParserImpl {
 
         /* kludge for html docs without explicit xml:space attribute */
         if (Lexer.wstrcasecmp(element.element, "pre") == 0 || Lexer.wstrcasecmp(element.element, "script") == 0
-                || Lexer.wstrcasecmp(element.element, "style") == 0)
+                || Lexer.wstrcasecmp(element.element, "style") == 0) {
             return true;
+        }
 
-        if ((tt != null) && (tt.findParser(element) == getParsePre()))
+        if (tt != null && tt.findParser(element) == getParsePre()) {
             return true;
+        }
 
         /* kludge for XSL docs */
-        if (Lexer.wstrcasecmp(element.element, "xsl:text") == 0)
+        if (Lexer.wstrcasecmp(element.element, "xsl:text") == 0) {
             return true;
+        }
 
         return false;
     }
@@ -2654,18 +2794,21 @@ public class ParserImpl {
 
         /* Jeff Young's kludge for XSL docs */
 
-        if (Lexer.wstrcasecmp(element.element, "xsl:text") == 0)
+        if (Lexer.wstrcasecmp(element.element, "xsl:text") == 0) {
             return;
+        }
 
         /* if node is pre or has xml:space="preserve" then do so */
 
-        if (XMLPreserveWhiteSpace(element, lexer.configuration.tt))
+        if (XMLPreserveWhiteSpace(element, lexer.configuration.tt)) {
             mode = Lexer.Preformatted;
+        }
 
         while (true) {
             node = lexer.getToken(mode);
-            if (node == null)
+            if (node == null) {
                 break;
+            }
             if (node.type == Node.EndTag && node.element.equals(element.element)) {
                 element.closed = true;
                 break;
@@ -2678,8 +2821,9 @@ public class ParserImpl {
             }
 
             /* parse content on seeing start tag */
-            if (node.type == Node.StartTag)
+            if (node.type == Node.StartTag) {
                 parseXMLElement(lexer, node, mode);
+            }
 
             Node.insertNodeAtEnd(element, node);
         }
@@ -2695,8 +2839,9 @@ public class ParserImpl {
             if (node.textarray[node.start] == (byte) ' ') {
                 node.start++;
 
-                if (node.start >= node.end)
+                if (node.start >= node.end) {
                     Node.discardElement(node);
+                }
             }
         }
 
@@ -2711,8 +2856,9 @@ public class ParserImpl {
             if (node.textarray[node.end - 1] == (byte) ' ') {
                 node.end--;
 
-                if (node.start >= node.end)
+                if (node.start >= node.end) {
                     Node.discardElement(node);
+                }
             }
         }
     }
@@ -2727,8 +2873,9 @@ public class ParserImpl {
 
         while (true) {
             node = lexer.getToken(Lexer.IgnoreWhitespace);
-            if (node == null)
+            if (node == null) {
                 break;
+            }
             /* discard unexpected end tags */
             if (node.type == Node.EndTag) {
                 Report.warning(lexer, null, node, Report.UNEXPECTED_ENDTAG);
@@ -2736,15 +2883,17 @@ public class ParserImpl {
             }
 
             /* deal with comments etc. */
-            if (Node.insertMisc(document, node))
+            if (Node.insertMisc(document, node)) {
                 continue;
+            }
 
             if (node.type == Node.DocTypeTag) {
                 if (doctype == null) {
                     Node.insertNodeAtEnd(document, node);
                     doctype = node;
-                } else
+                } else {
                     Report.warning(lexer, document, node, Report.DISCARDING_UNEXPECTED); // TODO
+                }
                 continue;
             }
 
@@ -2760,16 +2909,19 @@ public class ParserImpl {
             /* discard the document type */
             node = document.findDocType();
 
-            if (node != null)
+            if (node != null) {
                 Node.discardElement(node);
+            }
         } // #endif
 
-        if (doctype != null && !lexer.checkDocTypeKeyWords(doctype))
+        if (doctype != null && !lexer.checkDocTypeKeyWords(doctype)) {
             Report.warning(lexer, doctype, null, Report.DTYPE_NOT_UPPER_CASE);
+        }
 
         /* ensure presence of initial <?XML version="1.0"?> */
-        if (lexer.configuration.XmlPi)
+        if (lexer.configuration.XmlPi) {
             lexer.fixXMLPI(document);
+        }
 
         return document;
     }
@@ -2778,13 +2930,15 @@ public class ParserImpl {
         boolean result = false;
         AttVal attr;
 
-        if (node.attributes == null)
+        if (node.attributes == null) {
             return true;
+        }
 
         for (attr = node.attributes; attr != null; attr = attr.next) {
             if ((Lexer.wstrcasecmp(attr.attribute, "language") == 0 || Lexer.wstrcasecmp(attr.attribute, "type") == 0)
-                    && Lexer.wsubstr(attr.value, "javascript"))
+                    && Lexer.wsubstr(attr.value, "javascript")) {
                 result = true;
+            }
         }
 
         return result;

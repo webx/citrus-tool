@@ -62,6 +62,7 @@ public class DOMDocumentImpl extends DOMNodeImpl implements org.w3c.dom.Document
     /**
      * @see org.w3c.dom.Node#getNodeName
      */
+    @Override
     public String getNodeName() {
         return "#document";
     }
@@ -69,6 +70,7 @@ public class DOMDocumentImpl extends DOMNodeImpl implements org.w3c.dom.Document
     /**
      * @see org.w3c.dom.Node#getNodeType
      */
+    @Override
     public short getNodeType() {
         return org.w3c.dom.Node.DOCUMENT_NODE;
     }
@@ -79,14 +81,16 @@ public class DOMDocumentImpl extends DOMNodeImpl implements org.w3c.dom.Document
     public org.w3c.dom.DocumentType getDoctype() {
         Node node = adaptee.content;
         while (node != null) {
-            if (node.type == Node.DocTypeTag)
+            if (node.type == Node.DocTypeTag) {
                 break;
+            }
             node = node.next;
         }
-        if (node != null)
+        if (node != null) {
             return (org.w3c.dom.DocumentType) node.getAdapter();
-        else
+        } else {
             return null;
+        }
     }
 
     /**
@@ -103,14 +107,16 @@ public class DOMDocumentImpl extends DOMNodeImpl implements org.w3c.dom.Document
     public org.w3c.dom.Element getDocumentElement() {
         Node node = adaptee.content;
         while (node != null) {
-            if (node.type == Node.StartTag || node.type == Node.StartEndTag)
+            if (node.type == Node.StartTag || node.type == Node.StartEndTag) {
                 break;
+            }
             node = node.next;
         }
-        if (node != null)
+        if (node != null) {
             return (org.w3c.dom.Element) node.getAdapter();
-        else
+        } else {
             return null;
+        }
     }
 
     /**
@@ -119,11 +125,13 @@ public class DOMDocumentImpl extends DOMNodeImpl implements org.w3c.dom.Document
     public org.w3c.dom.Element createElement(String tagName) throws DOMException {
         Node node = new Node(Node.StartEndTag, null, 0, 0, tagName, tt);
         if (node != null) {
-            if (node.tag == null) // Fix Bug 121206
+            if (node.tag == null) {
                 node.tag = tt.xmlTags;
+            }
             return (org.w3c.dom.Element) node.getAdapter();
-        } else
+        } else {
             return null;
+        }
     }
 
     /**
@@ -140,10 +148,11 @@ public class DOMDocumentImpl extends DOMNodeImpl implements org.w3c.dom.Document
     public org.w3c.dom.Text createTextNode(String data) {
         byte[] textarray = Lexer.getBytes(data);
         Node node = new Node(Node.TextNode, textarray, 0, textarray.length);
-        if (node != null)
+        if (node != null) {
             return (org.w3c.dom.Text) node.getAdapter();
-        else
+        } else {
             return null;
+        }
     }
 
     /**
@@ -152,10 +161,11 @@ public class DOMDocumentImpl extends DOMNodeImpl implements org.w3c.dom.Document
     public org.w3c.dom.Comment createComment(String data) {
         byte[] textarray = Lexer.getBytes(data);
         Node node = new Node(Node.CommentTag, textarray, 0, textarray.length);
-        if (node != null)
+        if (node != null) {
             return (org.w3c.dom.Comment) node.getAdapter();
-        else
+        } else {
             return null;
+        }
     }
 
     /**
@@ -178,10 +188,10 @@ public class DOMDocumentImpl extends DOMNodeImpl implements org.w3c.dom.Document
      * @see org.w3c.dom.Document#createAttribute
      */
     public org.w3c.dom.Attr createAttribute(String name) throws DOMException {
-        AttVal av = new AttVal(null, null, (int) '"', name, null);
+        AttVal av = new AttVal(null, null, '"', name, null);
         if (av != null) {
             av.dict = AttributeTable.getDefaultAttributeTable().findAttribute(av);
-            return (org.w3c.dom.Attr) av.getAdapter();
+            return av.getAdapter();
         } else {
             return null;
         }
@@ -297,49 +307,61 @@ public class DOMDocumentImpl extends DOMNodeImpl implements org.w3c.dom.Document
     public void setXmlVersion(String xmlVersion) throws DOMException {
     }
 
+    @Override
     public short compareDocumentPosition(org.w3c.dom.Node other) throws DOMException {
         return 0;
     }
 
+    @Override
     public String getBaseURI() {
         return null;
     }
 
+    @Override
     public Object getFeature(String feature, String version) {
         return null;
     }
 
+    @Override
     public String getTextContent() throws DOMException {
         return null;
     }
 
+    @Override
     public Object getUserData(String key) {
         return null;
     }
 
+    @Override
     public boolean isDefaultNamespace(String namespaceURI) {
         return false;
     }
 
+    @Override
     public boolean isEqualNode(org.w3c.dom.Node arg) {
         return false;
     }
 
+    @Override
     public boolean isSameNode(org.w3c.dom.Node other) {
         return false;
     }
 
+    @Override
     public String lookupNamespaceURI(String prefix) {
         return null;
     }
 
+    @Override
     public String lookupPrefix(String namespaceURI) {
         return null;
     }
 
+    @Override
     public void setTextContent(String textContent) throws DOMException {
     }
 
+    @Override
     public Object setUserData(String key, Object data, UserDataHandler handler) {
         return null;
     }

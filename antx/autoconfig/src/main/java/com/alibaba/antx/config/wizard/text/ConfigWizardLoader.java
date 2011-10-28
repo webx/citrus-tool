@@ -54,7 +54,7 @@ public class ConfigWizardLoader {
         boolean interactiveAuto = ConfigConstant.INTERACTIVE_AUTO.equals(interactiveMode);
         boolean interactiveOn = ConfigConstant.INTERACTIVE_ON.equals(interactiveMode);
 
-        if (interactiveOn || (interactiveAuto && !valid)) {
+        if (interactiveOn || interactiveAuto && !valid) {
             if (!valid) {
                 StringBuffer confirm = new StringBuffer();
 
@@ -121,14 +121,14 @@ public class ConfigWizardLoader {
 
         ConfigDescriptor[] entryDescriptors = entry.getGenerator().getConfigDescriptors();
 
-        for (int i = 0; i < entryDescriptors.length; i++) {
-            descriptors.add(entryDescriptors[i]);
+        for (ConfigDescriptor entryDescriptor : entryDescriptors) {
+            descriptors.add(entryDescriptor);
         }
 
         ConfigEntry[] subEntries = entry.getSubEntries();
 
-        for (int i = 0; i < subEntries.length; i++) {
-            addConfigEntryRecursive(subEntries[i], descriptors);
+        for (ConfigEntry subEntrie : subEntries) {
+            addConfigEntryRecursive(subEntrie, descriptors);
         }
     }
 }

@@ -56,70 +56,74 @@ public class OutImpl extends Out {
         this.out = null;
     }
 
+    @Override
     public void outc(byte c) {
-        outc(((int) c) & 0xFF); // Convert to unsigned.
+        outc(c & 0xFF); // Convert to unsigned.
     }
 
     /* For mac users, should we map Unicode back to MacRoman? */
+    @Override
     public void outc(int c) {
         int ch;
 
         try {
             if (this.encoding == Configuration.UTF8) {
-                if (c < 128)
+                if (c < 128) {
                     this.out.write(c);
-                else if (c <= 0x7FF) {
-                    ch = (0xC0 | (c >> 6));
+                } else if (c <= 0x7FF) {
+                    ch = 0xC0 | c >> 6;
                     this.out.write(ch);
-                    ch = (0x80 | (c & 0x3F));
+                    ch = 0x80 | c & 0x3F;
                     this.out.write(ch);
                 } else if (c <= 0xFFFF) {
-                    ch = (0xE0 | (c >> 12));
+                    ch = 0xE0 | c >> 12;
                     this.out.write(ch);
-                    ch = (0x80 | ((c >> 6) & 0x3F));
+                    ch = 0x80 | c >> 6 & 0x3F;
                     this.out.write(ch);
-                    ch = (0x80 | (c & 0x3F));
+                    ch = 0x80 | c & 0x3F;
                     this.out.write(ch);
                 } else if (c <= 0x1FFFFF) {
-                    ch = (0xF0 | (c >> 18));
+                    ch = 0xF0 | c >> 18;
                     this.out.write(ch);
-                    ch = (0x80 | ((c >> 12) & 0x3F));
+                    ch = 0x80 | c >> 12 & 0x3F;
                     this.out.write(ch);
-                    ch = (0x80 | ((c >> 6) & 0x3F));
+                    ch = 0x80 | c >> 6 & 0x3F;
                     this.out.write(ch);
-                    ch = (0x80 | (c & 0x3F));
+                    ch = 0x80 | c & 0x3F;
                     this.out.write(ch);
                 } else {
-                    ch = (0xF8 | (c >> 24));
+                    ch = 0xF8 | c >> 24;
                     this.out.write(ch);
-                    ch = (0x80 | ((c >> 18) & 0x3F));
+                    ch = 0x80 | c >> 18 & 0x3F;
                     this.out.write(ch);
-                    ch = (0x80 | ((c >> 12) & 0x3F));
+                    ch = 0x80 | c >> 12 & 0x3F;
                     this.out.write(ch);
-                    ch = (0x80 | ((c >> 6) & 0x3F));
+                    ch = 0x80 | c >> 6 & 0x3F;
                     this.out.write(ch);
-                    ch = (0x80 | (c & 0x3F));
+                    ch = 0x80 | c & 0x3F;
                     this.out.write(ch);
                 }
             } else if (this.encoding == Configuration.ISO2022) {
-                if (c == 0x1b) /* ESC */
+                if (c == 0x1b) {
                     this.state = StreamIn.FSM_ESC;
-                else {
+                } else {
                     switch (this.state) {
                         case StreamIn.FSM_ESC:
-                            if (c == '$')
+                            if (c == '$') {
                                 this.state = StreamIn.FSM_ESCD;
-                            else if (c == '(')
+                            } else if (c == '(') {
                                 this.state = StreamIn.FSM_ESCP;
-                            else
+                            } else {
                                 this.state = StreamIn.FSM_ASCII;
+                            }
                             break;
 
                         case StreamIn.FSM_ESCD:
-                            if (c == '(')
+                            if (c == '(') {
                                 this.state = StreamIn.FSM_ESCDP;
-                            else
+                            } else {
                                 this.state = StreamIn.FSM_NONASCII;
+                            }
                             break;
 
                         case StreamIn.FSM_ESCDP:
@@ -137,13 +141,15 @@ public class OutImpl extends Out {
                 }
 
                 this.out.write(c);
-            } else
+            } else {
                 this.out.write(c);
+            }
         } catch (IOException e) {
             System.err.println("OutImpl.outc: " + e.toString());
         }
     }
 
+    @Override
     public void newline() {
         try {
             this.out.write(nlBytes);
@@ -153,6 +159,6 @@ public class OutImpl extends Out {
         }
     }
 
-    private static final byte[] nlBytes = (System.getProperty("line.separator")).getBytes();
+    private static final byte[] nlBytes = System.getProperty("line.separator").getBytes();
 
 };

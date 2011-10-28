@@ -19,16 +19,15 @@ package com.alibaba.toolkit.util.typeconvert;
 
 /**
  * 如果对象实现了此接口, 则在类型转换过程中优先使用此对象指定的转换器.
- *
+ * 
  * @version $Id: Convertible.java,v 1.1 2003/07/03 07:26:36 baobao Exp $
  * @author Michael Zhou
  */
 public interface Convertible {
     /**
      * 取得指定目标类型的转换器.
-     *
-     * @param targetType  目标类型
-     *
+     * 
+     * @param targetType 目标类型
      * @return 转换器, 如果不存在合适的转换器, 则返回<code>null</code>
      */
     Converter getConverter(Class targetType);

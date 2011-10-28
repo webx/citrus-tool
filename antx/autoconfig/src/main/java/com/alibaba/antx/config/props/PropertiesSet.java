@@ -203,9 +203,7 @@ public class PropertiesSet {
         if (sharedPropertiesFiles != null && sharedPropertiesFiles.length > 0) {
             List fileList = new ArrayList(sharedPropertiesFiles.length);
 
-            for (int i = 0; i < sharedPropertiesFiles.length; i++) {
-                PropertiesResource resource = sharedPropertiesFiles[i];
-
+            for (PropertiesResource resource : sharedPropertiesFiles) {
                 fileList.add(resource.getURI().toString());
             }
 
@@ -403,8 +401,8 @@ public class PropertiesSet {
                     if (overlapByUserProperties) {
                         message.append("用户properties文件中的值“").append(key).append("”覆盖了").append("共享properties文件中的值：\n");
                     } else {
-                        message.append("“").append(key).append("”出现在").append(definedInFiles.size()).append(
-                                "个共享properties文件中（最终值将以第一个为准）：\n");
+                        message.append("“").append(key).append("”出现在").append(definedInFiles.size())
+                                .append("个共享properties文件中（最终值将以第一个为准）：\n");
                     }
 
                     for (Iterator k = definedInFiles.iterator(); k.hasNext();) {

@@ -22,47 +22,49 @@ import java.io.File;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
-
 import java.text.MessageFormat;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 
 /**
  * 和字符串有关的小工具.
- *
+ * 
  * @version $Id: StringUtil.java,v 1.1 2003/07/03 07:26:15 baobao Exp $
  * @author Michael Zhou
  */
 public class StringUtil {
     private static final OutputStream DUMMY_OUTPUT_STREAM = new ByteArrayOutputStream(0);
-    private static final String       SYSTEM_CHARSET =
-            new OutputStreamWriter(DUMMY_OUTPUT_STREAM).getEncoding();
+    private static final String SYSTEM_CHARSET = new OutputStreamWriter(DUMMY_OUTPUT_STREAM).getEncoding();
 
-    /* ============================================================================ */
-    /* 以下是有关resource bundle的方法                                              */
-    /* ============================================================================ */
+    /*
+     * ==========================================================================
+     * ==
+     */
+    /* 以下是有关resource bundle的方法 */
+    /*
+     * ==========================================================================
+     * ==
+     */
 
     /**
      * 使用<code>MessageFormat</code>格式化字符串.
-     *
-     * @param bundle  resource bundle
-     * @param key     要查找的键
-     * @param params  参数表
-     *
+     * 
+     * @param bundle resource bundle
+     * @param key 要查找的键
+     * @param params 参数表
      * @return key对应的字符串
-     *
-     * @throws NullPointerException      resource key为<code>null</code>或resource
-     *         bundle为<code>null</code>
-     * @throws MissingResourceException  指定resource key未找到
+     * @throws NullPointerException resource key为<code>null</code>或resource
+     *             bundle为<code>null</code>
+     * @throws MissingResourceException 指定resource key未找到
      */
     public static String getMessage(ResourceBundle bundle, Object key, Object[] params) {
         String pattern = bundle.getString(key.toString());
 
-        if ((params == null) || (params.length == 0)) {
+        if (params == null || params.length == 0) {
             return pattern;
         }
 
@@ -71,138 +73,104 @@ public class StringUtil {
 
     /**
      * 使用<code>MessageFormat</code>格式化字符串.
-     *
-     * @param bundle  resource bundle
-     * @param key     要查找的键
-     * @param param1  参数1
-     *
+     * 
+     * @param bundle resource bundle
+     * @param key 要查找的键
+     * @param param1 参数1
      * @return key对应的字符串
-     *
-     * @throws NullPointerException      resource key为<code>null</code>或resource
-     *         bundle为<code>null</code>
-     * @throws MissingResourceException  指定resource key未找到
+     * @throws NullPointerException resource key为<code>null</code>或resource
+     *             bundle为<code>null</code>
+     * @throws MissingResourceException 指定resource key未找到
      */
     public static String getMessage(ResourceBundle bundle, Object key, Object param1) {
-        return getMessage(bundle, key, new Object[] {
-            param1
-        });
+        return getMessage(bundle, key, new Object[] { param1 });
     }
 
     /**
      * 使用<code>MessageFormat</code>格式化字符串.
-     *
-     * @param bundle  resource bundle
-     * @param key     要查找的键
-     * @param param1  参数1
-     * @param param2  参数2
-     *
+     * 
+     * @param bundle resource bundle
+     * @param key 要查找的键
+     * @param param1 参数1
+     * @param param2 参数2
      * @return key对应的字符串
-     *
-     * @throws NullPointerException      resource key为<code>null</code>或resource
-     *         bundle为<code>null</code>
-     * @throws MissingResourceException  指定resource key未找到
+     * @throws NullPointerException resource key为<code>null</code>或resource
+     *             bundle为<code>null</code>
+     * @throws MissingResourceException 指定resource key未找到
      */
     public static String getMessage(ResourceBundle bundle, Object key, Object param1, Object param2) {
-        return getMessage(bundle, key, new Object[] {
-            param1,
-            param2
-        });
+        return getMessage(bundle, key, new Object[] { param1, param2 });
     }
 
     /**
      * 使用<code>MessageFormat</code>格式化字符串.
-     *
-     * @param bundle  resource bundle
-     * @param key     要查找的键
-     * @param param1  参数1
-     * @param param2  参数2
-     * @param param3  参数3
-     *
+     * 
+     * @param bundle resource bundle
+     * @param key 要查找的键
+     * @param param1 参数1
+     * @param param2 参数2
+     * @param param3 参数3
      * @return key对应的字符串
-     *
-     * @throws NullPointerException      resource key为<code>null</code>或resource
-     *         bundle为<code>null</code>
-     * @throws MissingResourceException  指定resource key未找到
+     * @throws NullPointerException resource key为<code>null</code>或resource
+     *             bundle为<code>null</code>
+     * @throws MissingResourceException 指定resource key未找到
      */
-    public static String getMessage(ResourceBundle bundle, Object key, Object param1, Object param2,
-                                    Object param3) {
-        return getMessage(bundle, key, new Object[] {
-            param1,
-            param2,
-            param3
-        });
+    public static String getMessage(ResourceBundle bundle, Object key, Object param1, Object param2, Object param3) {
+        return getMessage(bundle, key, new Object[] { param1, param2, param3 });
     }
 
     /**
      * 使用<code>MessageFormat</code>格式化字符串.
-     *
-     * @param bundle  resource bundle
-     * @param key     要查找的键
-     * @param param1  参数1
-     * @param param2  参数2
-     * @param param3  参数3
-     * @param param4  参数4
-     *
+     * 
+     * @param bundle resource bundle
+     * @param key 要查找的键
+     * @param param1 参数1
+     * @param param2 参数2
+     * @param param3 参数3
+     * @param param4 参数4
      * @return key对应的字符串
-     *
-     * @throws NullPointerException      resource key为<code>null</code>或resource
-     *         bundle为<code>null</code>
-     * @throws MissingResourceException  指定resource key未找到
+     * @throws NullPointerException resource key为<code>null</code>或resource
+     *             bundle为<code>null</code>
+     * @throws MissingResourceException 指定resource key未找到
      */
-    public static String getMessage(ResourceBundle bundle, Object key, Object param1, Object param2,
-                                    Object param3, Object param4) {
-        return getMessage(bundle, key,
-                          new Object[] {
-            param1,
-            param2,
-            param3,
-            param4
-        });
+    public static String getMessage(ResourceBundle bundle, Object key, Object param1, Object param2, Object param3,
+                                    Object param4) {
+        return getMessage(bundle, key, new Object[] { param1, param2, param3, param4 });
     }
 
     /**
      * 使用<code>MessageFormat</code>格式化字符串.
-     *
-     * @param bundle  resource bundle
-     * @param key     要查找的键
-     * @param param1  参数1
-     * @param param2  参数2
-     * @param param3  参数3
-     * @param param4  参数4
-     * @param param5  参数5
-     *
+     * 
+     * @param bundle resource bundle
+     * @param key 要查找的键
+     * @param param1 参数1
+     * @param param2 参数2
+     * @param param3 参数3
+     * @param param4 参数4
+     * @param param5 参数5
      * @return key对应的字符串
-     *
-     * @throws NullPointerException      resource key为<code>null</code>或resource
-     *         bundle为<code>null</code>
-     * @throws MissingResourceException  指定resource key未找到
+     * @throws NullPointerException resource key为<code>null</code>或resource
+     *             bundle为<code>null</code>
+     * @throws MissingResourceException 指定resource key未找到
      */
-    public static String getMessage(ResourceBundle bundle, Object key, Object param1, Object param2,
-                                    Object param3, Object param4, Object param5) {
-        return getMessage(bundle, key,
-                          new Object[] {
-            param1,
-            param2,
-            param3,
-            param4,
-            param5
-        });
+    public static String getMessage(ResourceBundle bundle, Object key, Object param1, Object param2, Object param3,
+                                    Object param4, Object param5) {
+        return getMessage(bundle, key, new Object[] { param1, param2, param3, param4, param5 });
     }
 
     /**
      * 检查字符串是否为<code>null</code>或空字符串.
-     *
+     * 
      * @param str 要检查的字符串
-     *
      * @return 如果为空, 则返回<code>true</code>
      */
     public static boolean isEmpty(String str) {
-        return (str == null) || (str.length() == 0);
+        return str == null || str.length() == 0;
     }
 
     /**
      * 取得系统字符集名称.
-     *
+     * 
      * @return 系统字符集名称
      */
     public static String getSystemCharset() {
@@ -211,23 +179,19 @@ public class StringUtil {
 
     /**
      * 取得正规的字符集名称, 如果指定字符集不存在, 则抛出<code>UnsupportedEncodingException</code>.
-     *
+     * 
      * @param charset 字符集名称
-     *
      * @return 正规的字符集名称
-     *
      * @throws UnsupportedEncodingException 如果指定字符集不存在
      */
-    public static String getCanonicalCharset(String charset)
-            throws UnsupportedEncodingException {
+    public static String getCanonicalCharset(String charset) throws UnsupportedEncodingException {
         return new OutputStreamWriter(DUMMY_OUTPUT_STREAM, charset).getEncoding();
     }
 
     /**
      * 取得正规的字符集名称, 如果指定字符集不存在, 则返回<code>null</code>.
-     *
+     * 
      * @param charset 字符集名称
-     *
      * @return 正规的字符集名称, 如果指定字符集不存在, 则返回<code>null</code>
      */
     public static String getCanonicalCharsetQuiet(String charset) {
@@ -240,9 +204,8 @@ public class StringUtil {
 
     /**
      * 展开字符串, 将"$｛"和"｝"中的变量转换成<code>System.getProperties()</code>中的值.
-     *
-     * @param value       要转换的值
-     *
+     * 
+     * @param value 要转换的值
      * @return 展开后的值
      */
     public static String expendProperty(String value) {
@@ -251,10 +214,9 @@ public class StringUtil {
 
     /**
      * 展开字符串, 将"$｛"和"｝"中的变量转换成指定properties中的值.
-     *
-     * @param value       要转换的值
-     * @param properties  可用的变量
-     *
+     * 
+     * @param value 要转换的值
+     * @param properties 可用的变量
      * @return 展开后的值
      */
     public static String expendProperty(String value, Map properties) {
@@ -269,8 +231,8 @@ public class StringUtil {
         }
 
         StringBuffer buffer = new StringBuffer(value.length());
-        int          length = value.length();
-        int          j      = 0;
+        int length = value.length();
+        int j = 0;
 
         while (i < length) {
             if (i > j) {
@@ -280,7 +242,7 @@ public class StringUtil {
 
             int k;
 
-            for (k = i + 2; (k < length) && (value.charAt(k) != '}'); k++) {
+            for (k = i + 2; k < length && value.charAt(k) != '}'; k++) {
             }
 
             if (k == length) {
@@ -320,22 +282,21 @@ public class StringUtil {
     // add by roy
 
     /**
-     * 根据分割符分割字符串。 Return List,after split Split a String by a splitter(such as ",","hai",...)
-     *
-     * @param sStr       将要被分割的字符串。
-     * @param sSplitter  分割符。
-     *
+     * 根据分割符分割字符串。 Return List,after split Split a String by a splitter(such as
+     * ",","hai",...)
+     * 
+     * @param sStr 将要被分割的字符串。
+     * @param sSplitter 分割符。
      * @return 一个含有分割好的字符串的List。如果分割失败将返回null,如果字符串中没有包含指定的分割符，
      *         将返回只有一个元素的字符串数组，这个元素就是该字符串本身。如果这个字符串只含有分割符，将返回null。
      */
     public static List splitStr(String sStr, String sSplitter) {
-        if ((sStr == null) || (sStr.length() <= 0) || (sSplitter == null)
-                || (sSplitter.length() <= 0)) {
+        if (sStr == null || sStr.length() <= 0 || sSplitter == null || sSplitter.length() <= 0) {
             return null;
         }
 
-        StringTokenizer st     = new StringTokenizer(sStr, sSplitter);
-        List            result = new ArrayList();
+        StringTokenizer st = new StringTokenizer(sStr, sSplitter);
+        List result = new ArrayList();
 
         while (st.hasMoreTokens()) {
             result.add(st.nextToken().trim());
@@ -348,13 +309,12 @@ public class StringUtil {
     /**
      * 检验一个String是否是一个数字（例如：7897897->true,789t67 -> false）。
      * 注意：如果是一个负数，将会返回false. Return true if the string represents a number
-     *
-     * @param str  你想校验的字符串。
-     *
+     * 
+     * @param str 你想校验的字符串。
      * @return 如果是一个标准的数字，将返回true，否则返回false。
      */
     public static boolean isNum(String str) {
-        if ((str == null) || (str.length() <= 0)) {
+        if (str == null || str.length() <= 0) {
             return false;
         }
 

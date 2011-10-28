@@ -17,32 +17,30 @@
 
 package com.alibaba.antx.util.cli;
 
-import com.alibaba.antx.util.NumberUtil;
-
 import java.io.File;
-
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import java.util.Date;
 
+import com.alibaba.antx.util.NumberUtil;
+
 /**
- * This is a temporary implementation. TypeHandler will handle the  pluggableness of OptionTypes
- * and it will direct all of these types  of conversion functionalities to ConvertUtils component
- * in Commons  alreayd. BeanUtils I think.
- *
- *
+ * This is a temporary implementation. TypeHandler will handle the pluggableness
+ * of OptionTypes and it will direct all of these types of conversion
+ * functionalities to ConvertUtils component in Commons alreayd. BeanUtils I
+ * think.
  */
 public class TypeHandler {
     /**
      * <p>
-     * Returns the <code>Object</code> of type <code>obj</code> with the value of <code>str</code>.
+     * Returns the <code>Object</code> of type <code>obj</code> with the value
+     * of <code>str</code>.
      * </p>
-     *
+     * 
      * @param str the command line value
      * @param obj the type of argument
-     *
-     * @return The instance of <code>obj</code> initialised with the value of <code>str</code>.
+     * @return The instance of <code>obj</code> initialised with the value of
+     *         <code>str</code>.
      */
     public static Object createValue(String str, Object obj) {
         return createValue(str, (Class) obj);
@@ -50,14 +48,14 @@ public class TypeHandler {
 
     /**
      * <p>
-     * Returns the <code>Object</code> of type <code>clazz</code> with the value of
-     * <code>str</code>.
+     * Returns the <code>Object</code> of type <code>clazz</code> with the value
+     * of <code>str</code>.
      * </p>
-     *
+     * 
      * @param str the command line value
      * @param clazz the type of argument
-     *
-     * @return The instance of <code>clazz</code> initialised with the value of <code>str</code>.
+     * @return The instance of <code>clazz</code> initialised with the value of
+     *         <code>str</code>.
      */
     public static Object createValue(String str, Class clazz) {
         if (PatternOptionBuilder.STRING_VALUE == clazz) {
@@ -87,9 +85,8 @@ public class TypeHandler {
      * <p>
      * Create an Object from the classname and empty constructor.
      * </p>
-     *
+     * 
      * @param str the argument value
-     *
      * @return the initialised object, or null if it couldn't create the Object.
      */
     public static Object createObject(String str) {
@@ -121,11 +118,10 @@ public class TypeHandler {
      * <p>
      * Create a number from a String.
      * </p>
-     *
+     * 
      * @param str the value
-     *
-     * @return the number represented by <code>str</code>, if <code>str</code> is not a number,
-     *         null is returned.
+     * @return the number represented by <code>str</code>, if <code>str</code> is
+     *         not a number, null is returned.
      */
     public static Number createNumber(String str) {
         // Needs to be able to create
@@ -142,9 +138,8 @@ public class TypeHandler {
      * <p>
      * Returns the class whose name is <code>str</code>.
      * </p>
-     *
+     * 
      * @param str the class name
-     *
      * @return The class if it is found, otherwise return null
      */
     public static Class createClass(String str) {
@@ -160,10 +155,10 @@ public class TypeHandler {
      * <p>
      * Returns the date represented by <code>str</code>.
      * </p>
-     *
+     * 
      * @param str the date string
-     *
-     * @return The date if <code>str</code> is a valid date string, otherwise return null.
+     * @return The date if <code>str</code> is a valid date string, otherwise
+     *         return null.
      */
     public static Date createDate(String str) {
         Date date = null;
@@ -179,9 +174,8 @@ public class TypeHandler {
      * <p>
      * Returns the URL represented by <code>str</code>.
      * </p>
-     *
+     * 
      * @param str the URL string
-     *
      * @return The URL is <code>str</code> is well-formed, otherwise return null.
      */
     public static URL createURL(String str) {
@@ -197,9 +191,8 @@ public class TypeHandler {
      * <p>
      * Returns the File represented by <code>str</code>.
      * </p>
-     *
+     * 
      * @param str the File location
-     *
      * @return The file represented by <code>str</code>.
      */
     public static File createFile(String str) {
@@ -210,9 +203,8 @@ public class TypeHandler {
      * <p>
      * Returns the File[] represented by <code>str</code>.
      * </p>
-     *
+     * 
      * @param str the paths to the files
-     *
      * @return The File[] represented by <code>str</code>.
      */
     public static File[] createFiles(String str) {

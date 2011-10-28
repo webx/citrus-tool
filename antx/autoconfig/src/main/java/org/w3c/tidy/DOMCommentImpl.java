@@ -22,7 +22,6 @@
 
 package org.w3c.tidy;
 
-
 /**
  * DOMCommentImpl (c) 1998-2000 (W3C) MIT, INRIA, Keio University See Tidy.java
  * for the copyright notice. Derived from <a
@@ -49,6 +48,7 @@ public class DOMCommentImpl extends DOMCharacterDataImpl implements org.w3c.dom.
     /**
      * @see org.w3c.dom.Node#getNodeName
      */
+    @Override
     public String getNodeName() {
         return "#comment";
     }
@@ -56,6 +56,7 @@ public class DOMCommentImpl extends DOMCharacterDataImpl implements org.w3c.dom.
     /**
      * @see org.w3c.dom.Node#getNodeType
      */
+    @Override
     public short getNodeType() {
         return org.w3c.dom.Node.COMMENT_NODE;
     }

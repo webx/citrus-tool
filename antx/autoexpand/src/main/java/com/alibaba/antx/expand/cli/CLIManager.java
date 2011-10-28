@@ -17,14 +17,14 @@
 
 package com.alibaba.antx.expand.cli;
 
+import java.io.PrintWriter;
+
 import com.alibaba.antx.util.cli.CommandLine;
 import com.alibaba.antx.util.cli.HelpFormatter;
 import com.alibaba.antx.util.cli.OptionBuilder;
 import com.alibaba.antx.util.cli.Options;
 import com.alibaba.antx.util.cli.ParseException;
 import com.alibaba.antx.util.cli.PosixParser;
-
-import java.io.PrintWriter;
 
 /**
  * Antxexpand命令行解析器。
@@ -59,14 +59,14 @@ public class CLIManager {
         options.addOption(builder.withLongOpt("expand-rar").hasOptionalArg().withDescription("是否展开rar（yes|no），默认为yes")
                 .create(OPT_EXPAND_RAR));
 
-        options.addOption(builder.withLongOpt("expand-ejb-jar").hasOptionalArg().withDescription(
-                "是否展开ejb-jar（yes|no），默认为no").create(OPT_EXPAND_EJB_JAR));
+        options.addOption(builder.withLongOpt("expand-ejb-jar").hasOptionalArg()
+                .withDescription("是否展开ejb-jar（yes|no），默认为no").create(OPT_EXPAND_EJB_JAR));
 
-        options.addOption(builder.withLongOpt("overwrite").hasOptionalArg().withDescription(
-                "如果目标目录中的文件比zip文件中的项要新，是否覆盖之，默认为no").create(OPT_OVERWRITE));
+        options.addOption(builder.withLongOpt("overwrite").hasOptionalArg()
+                .withDescription("如果目标目录中的文件比zip文件中的项要新，是否覆盖之，默认为no").create(OPT_OVERWRITE));
 
-        options.addOption(builder.withLongOpt("keep-redundant-files").hasOptionalArg().withDescription(
-                "如果目标目录中有多余的文件，是否保持而不删除，默认为no").create(OPT_KEEP_REDUNDANT_FILES));
+        options.addOption(builder.withLongOpt("keep-redundant-files").hasOptionalArg()
+                .withDescription("如果目标目录中有多余的文件，是否保持而不删除，默认为no").create(OPT_KEEP_REDUNDANT_FILES));
     }
 
     public CommandLine parse(String[] args) {

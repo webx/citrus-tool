@@ -50,9 +50,8 @@ public class Options {
      * <p>
      * Add the specified option group.
      * </p>
-     *
+     * 
      * @param group the OptionGroup that is to be added
-     *
      * @return the resulting Options instance
      */
     public Options addOptionGroup(OptionGroup group) {
@@ -81,15 +80,13 @@ public class Options {
      * <p>
      * Add an option that only contains a short-name
      * </p>
-     * 
      * <p>
      * It may be specified as requiring an argument.
      * </p>
-     *
+     * 
      * @param opt Short single-character name of the option.
      * @param hasArg flag signally if an argument is required after this option
      * @param description Self-documenting description
-     *
      * @return the resulting Options instance
      */
     public Options addOption(String opt, boolean hasArg, String description) {
@@ -101,16 +98,14 @@ public class Options {
      * <p>
      * Add an option that contains a short-name and a long-name
      * </p>
-     * 
      * <p>
      * It may be specified as requiring an argument.
      * </p>
-     *
+     * 
      * @param opt Short single-character name of the option.
      * @param longOpt Long multi-character name of the option.
      * @param hasArg flag signally if an argument is required after this option
      * @param description Self-documenting description
-     *
      * @return the resulting Options instance
      */
     public Options addOption(String opt, String longOpt, boolean hasArg, String description) {
@@ -122,9 +117,8 @@ public class Options {
      * <p>
      * Adds an option instance
      * </p>
-     *
+     * 
      * @param opt the option that is to be added
-     *
      * @return the resulting Options instance
      */
     public Options addOption(Option opt) {
@@ -149,7 +143,7 @@ public class Options {
      * <p>
      * Retrieve a read-only list of options in this set
      * </p>
-     *
+     * 
      * @return read-only Collection of {@link Option} objects in this descriptor
      */
     public Collection getOptions() {
@@ -174,7 +168,7 @@ public class Options {
      * <p>
      * Returns the Options for use by the HelpFormatter.
      * </p>
-     *
+     * 
      * @return the List of Options
      */
     List helpOptions() {
@@ -183,9 +177,9 @@ public class Options {
 
     /**
      * <p>
-     * Returns the required options as a  <code>java.util.Collection</code>.
+     * Returns the required options as a <code>java.util.Collection</code>.
      * </p>
-     *
+     * 
      * @return Collection of required options
      */
     public List getRequiredOptions() {
@@ -196,9 +190,8 @@ public class Options {
      * <p>
      * Retrieve the named {@link Option}
      * </p>
-     *
+     * 
      * @param opt short or long name of the {@link Option}
-     *
      * @return the option represented by opt
      */
     public Option getOption(String opt) {
@@ -217,18 +210,18 @@ public class Options {
             option = (Option) shortOpts.get(opt);
         }
 
-        return (option == null) ? null
-                                : (Option) option.clone();
+        return option == null ? null : (Option) option.clone();
     }
 
     /**
      * <p>
-     * Returns whether the named {@link Option} is a member of this {@link Options}
+     * Returns whether the named {@link Option} is a member of this
+     * {@link Options}
      * </p>
-     *
+     * 
      * @param opt short or long name of the {@link Option}
-     *
-     * @return true if the named {@link Option} is a member of this {@link Options}
+     * @return true if the named {@link Option} is a member of this
+     *         {@link Options}
      */
     public boolean hasOption(String opt) {
         // short option
@@ -249,10 +242,10 @@ public class Options {
      * <p>
      * Returns the OptionGroup the <code>opt</code> belongs to.
      * </p>
-     *
+     * 
      * @param opt the option whose OptionGroup is being queried.
-     *
-     * @return the OptionGroup if <code>opt</code> is part of an OptionGroup, otherwise return null
+     * @return the OptionGroup if <code>opt</code> is part of an OptionGroup,
+     *         otherwise return null
      */
     public OptionGroup getOptionGroup(Option opt) {
         return (OptionGroup) optionGroups.get(opt.getOpt());
@@ -262,9 +255,10 @@ public class Options {
      * <p>
      * Dump state, suitable for debugging.
      * </p>
-     *
+     * 
      * @return Stringified form of this object
      */
+    @Override
     public String toString() {
         StringBuffer buf = new StringBuffer();
 

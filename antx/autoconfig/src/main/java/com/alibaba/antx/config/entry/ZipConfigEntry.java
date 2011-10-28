@@ -62,6 +62,7 @@ public class ZipConfigEntry extends ConfigEntry {
      * 
      * @param istream zip文件的输入流
      */
+    @Override
     protected void scan(InputStream istream) {
         Handler handler = new Handler();
         ZipScanner scanner = new ZipScanner(getConfigEntryResource().getURL(), handler);
@@ -82,6 +83,7 @@ public class ZipConfigEntry extends ConfigEntry {
     /**
      * 生成配置文件。
      */
+    @Override
     protected boolean generate(InputStream istream, OutputStream ostream) {
         boolean needCloseOutputStream = false;
         boolean needCloseInputStream = false;
@@ -103,7 +105,7 @@ public class ZipConfigEntry extends ConfigEntry {
                 if (outputFile == null) {
                     destfile = getConfigEntryResource().getFile();
 
-                    if ((destfile == null) || !destfile.exists()) {
+                    if (destfile == null || !destfile.exists()) {
                         throw new ConfigException("Could not find " + getConfigEntryResource().getURL());
                     }
 
@@ -158,7 +160,7 @@ public class ZipConfigEntry extends ConfigEntry {
             }
 
             // 仅当输入流是由当前entry亲自打开的，才关闭流
-            if (needCloseInputStream && (istream != null)) {
+            if (needCloseInputStream && istream != null) {
                 try {
                     istream.close();
                 } catch (IOException e) {
@@ -166,7 +168,7 @@ public class ZipConfigEntry extends ConfigEntry {
             }
 
             // 仅当输出流是由当前entry亲自打开的，才关闭流
-            if (needCloseOutputStream && (ostream != null)) {
+            if (needCloseOutputStream && ostream != null) {
                 try {
                     ostream.flush();
                     ostream.close();
@@ -299,9 +301,7 @@ public class ZipConfigEntry extends ConfigEntry {
     private ConfigEntry getSubEntry(String name) {
         ConfigEntry[] entries = getSubEntries();
 
-        for (int i = 0; i < entries.length; i++) {
-            ConfigEntry subEntry = entries[i];
-
+        for (ConfigEntry subEntry : entries) {
             if (subEntry.getName().equals(name.replace('\\', '/'))) {
                 return subEntry;
             }
@@ -315,6 +315,7 @@ public class ZipConfigEntry extends ConfigEntry {
      * 
      * @return 字符串表示
      */
+    @Override
     public String toString() {
         return "ZipConfigEntry[" + getConfigEntryResource() + "]";
     }

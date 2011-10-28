@@ -65,11 +65,11 @@ public class ConfigEntryFactoryImpl implements ConfigEntryFactory {
             name = name.substring(0, name.length() - 1);
         }
 
-        if ((file != null) && !file.exists()) {
+        if (file != null && !file.exists()) {
             throw new IllegalArgumentException("File does not exist: " + file);
         }
 
-        if ("war".equals(type) || (file != null && file.isDirectory() && new File(file, "WEB-INF").isDirectory())) {
+        if ("war".equals(type) || file != null && file.isDirectory() && new File(file, "WEB-INF").isDirectory()) {
             return createWarEntry(resource, outputFile);
         }
 
@@ -77,7 +77,7 @@ public class ConfigEntryFactoryImpl implements ConfigEntryFactory {
             return createGenericJarEntry(resource, outputFile);
         }
 
-        if ((file != null) && file.isDirectory()) {
+        if (file != null && file.isDirectory()) {
             return createGenericDirectoryEntry(resource, outputFile);
         }
 
@@ -124,8 +124,9 @@ public class ConfigEntryFactoryImpl implements ConfigEntryFactory {
         File file = resource.getFile();
         ConfigEntry entry;
 
-        if ((file != null) && file.isDirectory()) {
+        if (file != null && file.isDirectory()) {
             entry = new DirectoryConfigEntry(resource, outputFile, settings) {
+                @Override
                 protected void populateDescriptorContext(Map context, String name) {
                     populateCommonContext(context);
                     populateWarContext(context, name);
@@ -133,6 +134,7 @@ public class ConfigEntryFactoryImpl implements ConfigEntryFactory {
             };
         } else {
             entry = new ZipConfigEntry(resource, outputFile, settings) {
+                @Override
                 protected void populateDescriptorContext(Map context, String name) {
                     populateCommonContext(context);
                     populateWarContext(context, name);
@@ -154,14 +156,16 @@ public class ConfigEntryFactoryImpl implements ConfigEntryFactory {
         File file = resource.getFile();
         ConfigEntry entry;
 
-        if ((file != null) && file.isDirectory()) {
+        if (file != null && file.isDirectory()) {
             entry = new DirectoryConfigEntry(resource, outputFile, settings) {
+                @Override
                 protected void populateDescriptorContext(Map context, String name) {
                     populateCommonContext(context);
                 }
             };
         } else {
             entry = new ZipConfigEntry(resource, outputFile, settings) {
+                @Override
                 protected void populateDescriptorContext(Map context, String name) {
                     populateCommonContext(context);
                 }
@@ -180,6 +184,7 @@ public class ConfigEntryFactoryImpl implements ConfigEntryFactory {
      */
     private ConfigEntry createGenericDirectoryEntry(ConfigResource resource, File outputFile) {
         ConfigEntry entry = new DirectoryConfigEntry(resource, outputFile, settings) {
+            @Override
             protected void populateDescriptorContext(Map context, String name) {
                 populateCommonContext(context);
             }

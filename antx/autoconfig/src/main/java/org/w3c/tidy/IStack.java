@@ -57,8 +57,8 @@ public class IStack {
      */
 
     public IStack next;
-    public Dict   tag;       /* tag's dictionary definition */
-    public String element;   /* name (null for text nodes) */
+    public Dict tag; /* tag's dictionary definition */
+    public String element; /* name (null for text nodes) */
     public AttVal attributes;
 
     public IStack() {

@@ -19,7 +19,7 @@ package com.alibaba.toolkit.util.typeconvert;
 
 /**
  * 转换对象类型的工具类, 支持所有primitive类型和数组的转换.
- *
+ * 
  * @version $Id: Convert.java,v 1.1 2003/07/03 07:26:36 baobao Exp $
  * @author Michael Zhou
  */
@@ -28,9 +28,8 @@ public class Convert {
 
     /**
      * 将指定值转换成<code>boolean</code>类型.
-     *
-     * @param value   要转换的值
-     *
+     * 
+     * @param value 要转换的值
      * @return 转换后的值
      */
     public static boolean asBoolean(Object value) {
@@ -39,10 +38,9 @@ public class Convert {
 
     /**
      * 将指定值转换成<code>boolean</code>类型.
-     *
-     * @param value         要转换的值
-     * @param defaultValue  默认值
-     *
+     * 
+     * @param value 要转换的值
+     * @param defaultValue 默认值
      * @return 转换后的值
      */
     public static boolean asBoolean(Object value, boolean defaultValue) {
@@ -51,9 +49,8 @@ public class Convert {
 
     /**
      * 将指定值转换成<code>byte</code>类型.
-     *
-     * @param value   要转换的值
-     *
+     * 
+     * @param value 要转换的值
      * @return 转换后的值
      */
     public static byte asByte(Object value) {
@@ -62,10 +59,9 @@ public class Convert {
 
     /**
      * 将指定值转换成<code>byte</code>类型.
-     *
-     * @param value         要转换的值
-     * @param defaultValue  默认值
-     *
+     * 
+     * @param value 要转换的值
+     * @param defaultValue 默认值
      * @return 转换后的值
      */
     public static byte asByte(Object value, byte defaultValue) {
@@ -74,9 +70,8 @@ public class Convert {
 
     /**
      * 将指定值转换成<code>char</code>类型.
-     *
-     * @param value   要转换的值
-     *
+     * 
+     * @param value 要转换的值
      * @return 转换后的值
      */
     public static char asChar(Object value) {
@@ -85,10 +80,9 @@ public class Convert {
 
     /**
      * 将指定值转换成<code>char</code>类型.
-     *
-     * @param value         要转换的值
-     * @param defaultValue  默认值
-     *
+     * 
+     * @param value 要转换的值
+     * @param defaultValue 默认值
      * @return 转换后的值
      */
     public static char asChar(Object value, char defaultValue) {
@@ -97,9 +91,8 @@ public class Convert {
 
     /**
      * 将指定值转换成<code>double</code>类型.
-     *
-     * @param value   要转换的值
-     *
+     * 
+     * @param value 要转换的值
      * @return 转换后的值
      */
     public static double asDouble(Object value) {
@@ -108,10 +101,9 @@ public class Convert {
 
     /**
      * 将指定值转换成<code>double</code>类型.
-     *
-     * @param value         要转换的值
-     * @param defaultValue  默认值
-     *
+     * 
+     * @param value 要转换的值
+     * @param defaultValue 默认值
      * @return 转换后的值
      */
     public static double asDouble(Object value, double defaultValue) {
@@ -120,9 +112,8 @@ public class Convert {
 
     /**
      * 将指定值转换成<code>float</code>类型.
-     *
-     * @param value   要转换的值
-     *
+     * 
+     * @param value 要转换的值
      * @return 转换后的值
      */
     public static float asFloat(Object value) {
@@ -131,10 +122,9 @@ public class Convert {
 
     /**
      * 将指定值转换成<code>float</code>类型.
-     *
-     * @param value         要转换的值
-     * @param defaultValue  默认值
-     *
+     * 
+     * @param value 要转换的值
+     * @param defaultValue 默认值
      * @return 转换后的值
      */
     public static float asFloat(Object value, float defaultValue) {
@@ -143,9 +133,8 @@ public class Convert {
 
     /**
      * 将指定值转换成<code>int</code>类型.
-     *
-     * @param value   要转换的值
-     *
+     * 
+     * @param value 要转换的值
      * @return 转换后的值
      */
     public static int asInt(Object value) {
@@ -154,10 +143,9 @@ public class Convert {
 
     /**
      * 将指定值转换成<code>int</code>类型.
-     *
-     * @param value         要转换的值
-     * @param defaultValue  默认值
-     *
+     * 
+     * @param value 要转换的值
+     * @param defaultValue 默认值
      * @return 转换后的值
      */
     public static int asInt(Object value, int defaultValue) {
@@ -166,9 +154,8 @@ public class Convert {
 
     /**
      * 将指定值转换成<code>long</code>类型.
-     *
-     * @param value   要转换的值
-     *
+     * 
+     * @param value 要转换的值
      * @return 转换后的值
      */
     public static long asLong(Object value) {
@@ -177,10 +164,9 @@ public class Convert {
 
     /**
      * 将指定值转换成<code>long</code>类型.
-     *
-     * @param value         要转换的值
-     * @param defaultValue  默认值
-     *
+     * 
+     * @param value 要转换的值
+     * @param defaultValue 默认值
      * @return 转换后的值
      */
     public static long asLong(Object value, long defaultValue) {
@@ -189,9 +175,8 @@ public class Convert {
 
     /**
      * 将指定值转换成<code>short</code>类型.
-     *
-     * @param value   要转换的值
-     *
+     * 
+     * @param value 要转换的值
      * @return 转换后的值
      */
     public static short asShort(Object value) {
@@ -200,10 +185,9 @@ public class Convert {
 
     /**
      * 将指定值转换成<code>short</code>类型.
-     *
-     * @param value         要转换的值
-     * @param defaultValue  默认值
-     *
+     * 
+     * @param value 要转换的值
+     * @param defaultValue 默认值
      * @return 转换后的值
      */
     public static short asShort(Object value, short defaultValue) {
@@ -212,9 +196,8 @@ public class Convert {
 
     /**
      * 将指定值转换成<code>String</code>类型.
-     *
-     * @param value   要转换的值
-     *
+     * 
+     * @param value 要转换的值
      * @return 转换后的值
      */
     public static String asString(Object value) {
@@ -223,10 +206,9 @@ public class Convert {
 
     /**
      * 将指定值转换成<code>String</code>类型.
-     *
-     * @param value         要转换的值
-     * @param defaultValue  默认值
-     *
+     * 
+     * @param value 要转换的值
+     * @param defaultValue 默认值
      * @return 转换后的值
      */
     public static String asString(Object value, String defaultValue) {
@@ -235,10 +217,9 @@ public class Convert {
 
     /**
      * 将指定值转换成指定类型.
-     *
+     * 
      * @param targetType 要转换的目标类型
-     * @param value      要转换的值
-     *
+     * @param value 要转换的值
      * @return 转换后的值
      */
     public static Object asType(Object targetType, Object value) {
@@ -247,11 +228,10 @@ public class Convert {
 
     /**
      * 将指定值转换成指定类型.
-     *
-     * @param targetType   要转换的目标类型
-     * @param value        要转换的值
+     * 
+     * @param targetType 要转换的目标类型
+     * @param value 要转换的值
      * @param defaultValue 默认值
-     *
      * @return 转换后的值
      */
     public static Object asType(Object targetType, Object value, Object defaultValue) {

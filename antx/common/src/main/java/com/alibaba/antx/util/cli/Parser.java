@@ -26,10 +26,8 @@ import java.util.ListIterator;
  * <p>
  * <code>Parser</code> creates {@link CommandLine}s.
  * </p>
- *
+ * 
  * @author John Keyes (john at integralsource.com)
- *
- *
  * @see Parser
  */
 public abstract class Parser implements CommandLineParser {
@@ -44,61 +42,57 @@ public abstract class Parser implements CommandLineParser {
 
     /**
      * <p>
-     * Subclasses must implement this method to reduce the <code>arguments</code> that have been
-     * passed to the parse  method.
+     * Subclasses must implement this method to reduce the
+     * <code>arguments</code> that have been passed to the parse method.
      * </p>
-     *
+     * 
      * @param opts The Options to parse the arguments by.
      * @param args The arguments that have to be flattened.
-     * @param stopAtNonOption specifies whether to stop  flattening when a non option has been
-     *        encountered
-     *
+     * @param stopAtNonOption specifies whether to stop flattening when a non
+     *            option has been encountered
      * @return a String array of the flattened arguments
      */
     protected abstract String[] flatten(Options opts, String[] arguments, boolean stopAtNonOption);
 
     /**
      * <p>
-     * Parses the specified <code>arguments</code>  based on the specifed {@link Options}.
+     * Parses the specified <code>arguments</code> based on the specifed
+     * {@link Options}.
      * </p>
-     *
+     * 
      * @param options the <code>Options</code>
      * @param arguments the <code>arguments</code>
-     *
      * @return the <code>CommandLine</code>
-     *
      * @throws ParseException if an error occurs when parsing the arguments.
      */
-    public CommandLine parse(Options options, String[] arguments)
-            throws ParseException {
+    public CommandLine parse(Options options, String[] arguments) throws ParseException {
         return parse(options, arguments, false);
     }
 
     /**
      * <p>
-     * Parses the specified <code>arguments</code>  based on the specifed {@link Options}.
+     * Parses the specified <code>arguments</code> based on the specifed
+     * {@link Options}.
      * </p>
-     *
+     * 
      * @param options the <code>Options</code>
      * @param arguments the <code>arguments</code>
-     * @param stopAtNonOption specifies whether to stop  interpreting the arguments when a non
-     *        option has  been encountered and to add them to the CommandLines args list.
-     *
+     * @param stopAtNonOption specifies whether to stop interpreting the
+     *            arguments when a non option has been encountered and to add
+     *            them to the CommandLines args list.
      * @return the <code>CommandLine</code>
-     *
      * @throws ParseException if an error occurs when parsing the arguments.
      */
-    public CommandLine parse(Options opts, String[] arguments, boolean stopAtNonOption)
-            throws ParseException {
+    public CommandLine parse(Options opts, String[] arguments, boolean stopAtNonOption) throws ParseException {
         // initialise members
-        options             = opts;
-        requiredOptions     = options.getRequiredOptions();
-        cmd                 = new CommandLine();
+        options = opts;
+        requiredOptions = options.getRequiredOptions();
+        cmd = new CommandLine();
 
-        boolean      eatTheRest = false;
+        boolean eatTheRest = false;
 
-        List         tokenList = Arrays.asList(flatten(opts, arguments, stopAtNonOption));
-        ListIterator iterator  = tokenList.listIterator();
+        List tokenList = Arrays.asList(flatten(opts, arguments, stopAtNonOption));
+        ListIterator iterator = tokenList.listIterator();
 
         // process each flattened token
         while (iterator.hasNext()) {
@@ -153,14 +147,15 @@ public abstract class Parser implements CommandLineParser {
 
     /**
      * <p>
-     * Throws a {@link MissingOptionException} if all of the required options are no present.
+     * Throws a {@link MissingOptionException} if all of the required options
+     * are no present.
      * </p>
      */
     private void checkRequiredOptions() throws MissingOptionException {
         // if there are required options that have not been
         // processsed
         if (requiredOptions.size() > 0) {
-            Iterator     iter = requiredOptions.iterator();
+            Iterator iter = requiredOptions.iterator();
             StringBuffer buff = new StringBuffer();
 
             // loop through the required options
@@ -189,15 +184,14 @@ public abstract class Parser implements CommandLineParser {
             }
         }
 
-        if ((opt.getValues() == null) && !opt.hasOptionalArg()) {
+        if (opt.getValues() == null && !opt.hasOptionalArg()) {
             throw new MissingArgumentException("no argument for:" + opt.getOpt());
         }
     }
 
-    private void processOption(String arg, ListIterator iter)
-            throws ParseException {
+    private void processOption(String arg, ListIterator iter) throws ParseException {
         // get the option represented by arg
-        Option  opt = null;
+        Option opt = null;
 
         boolean hasOption = options.hasOption(arg);
 
@@ -205,7 +199,7 @@ public abstract class Parser implements CommandLineParser {
         if (!hasOption) {
             throw new UnrecognizedOptionException("Unrecognized option: " + arg);
         } else {
-            opt = (Option) options.getOption(arg);
+            opt = options.getOption(arg);
         }
 
         // if the option is a required option remove the option from
@@ -217,7 +211,7 @@ public abstract class Parser implements CommandLineParser {
         // if the option is in an OptionGroup make that option the selected
         // option of the group
         if (options.getOptionGroup(opt) != null) {
-            OptionGroup group = (OptionGroup) options.getOptionGroup(opt);
+            OptionGroup group = options.getOptionGroup(opt);
 
             if (group.isRequired()) {
                 requiredOptions.remove(group);

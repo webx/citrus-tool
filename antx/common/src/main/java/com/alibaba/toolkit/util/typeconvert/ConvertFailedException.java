@@ -20,14 +20,15 @@ package com.alibaba.toolkit.util.typeconvert;
 import com.alibaba.toolkit.util.exception.ChainedRuntimeException;
 
 /**
- * 表示转换失败的异常.  转换失败时, 可以指定一个建议的默认值.
- *
- * @version $Id: ConvertFailedException.java,v 1.1 2003/07/03 07:26:36 baobao Exp $
+ * 表示转换失败的异常. 转换失败时, 可以指定一个建议的默认值.
+ * 
+ * @version $Id: ConvertFailedException.java,v 1.1 2003/07/03 07:26:36 baobao
+ *          Exp $
  * @author Michael Zhou
  */
 public class ConvertFailedException extends ChainedRuntimeException {
     private static final long serialVersionUID = -3145089557163861714L;
-    private Object  defaultValue;
+    private Object defaultValue;
     private boolean defaultValueSet = false;
 
     /**
@@ -39,8 +40,8 @@ public class ConvertFailedException extends ChainedRuntimeException {
 
     /**
      * 构造一个异常, 指明异常的详细信息.
-     *
-     * @param message  详细信息
+     * 
+     * @param message 详细信息
      */
     public ConvertFailedException(String message) {
         super(message);
@@ -48,8 +49,8 @@ public class ConvertFailedException extends ChainedRuntimeException {
 
     /**
      * 构造一个异常, 指明引起这个异常的起因.
-     *
-     * @param cause  异常的起因
+     * 
+     * @param cause 异常的起因
      */
     public ConvertFailedException(Throwable cause) {
         super(cause);
@@ -57,9 +58,9 @@ public class ConvertFailedException extends ChainedRuntimeException {
 
     /**
      * 构造一个异常, 指明引起这个异常的起因.
-     *
-     * @param message  详细信息
-     * @param cause    异常的起因
+     * 
+     * @param message 详细信息
+     * @param cause 异常的起因
      */
     public ConvertFailedException(String message, Throwable cause) {
         super(message, cause);
@@ -67,20 +68,19 @@ public class ConvertFailedException extends ChainedRuntimeException {
 
     /**
      * 设置建议的默认值.
-     *
+     * 
      * @param defaultValue 默认值
-     *
      * @return 异常本身
      */
     public ConvertFailedException setDefaultValue(Object defaultValue) {
-        this.defaultValue    = defaultValue;
+        this.defaultValue = defaultValue;
         this.defaultValueSet = true;
         return this;
     }
 
     /**
      * 取得默认值.
-     *
+     * 
      * @return 默认值对象
      */
     public Object getDefaultValue() {
@@ -89,7 +89,7 @@ public class ConvertFailedException extends ChainedRuntimeException {
 
     /**
      * 是否设置了默认值.
-     *
+     * 
      * @return 如果设置了默认值, 则返回<code>true</code>
      */
     public boolean isDefaultValueSet() {

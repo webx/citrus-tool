@@ -34,6 +34,7 @@ public class HttpResourceDriver extends ResourceDriver {
         super(manager);
     }
 
+    @Override
     public Session open() {
         return new HttpSession(this);
     }
