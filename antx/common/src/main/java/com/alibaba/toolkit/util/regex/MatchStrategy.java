@@ -18,21 +18,21 @@
 package com.alibaba.toolkit.util.regex;
 
 /**
- * Æ¥Åä²ßÂÔ.
+ * åŒ¹é…ç­–ç•¥.
  *
  * @version $Id: MatchStrategy.java,v 1.1 2003/07/03 07:26:34 baobao Exp $
  * @author Michael Zhou
  */
 public interface MatchStrategy {
-    /** ×î¼ÑÆ¥Åä²ßÂÔ, ×ÜÊÇÊÔÍ¼Æ¥Åä×î³¤µÄÒ»Ïî. Èç¹ûÓĞ¶àÏî¾ßÓĞÏàÍ¬µÄÆ¥Åä³¤¶È, Ôò·µ»ØµÚÒ»¸öÆ¥ÅäÏî. */
+    /** æœ€ä½³åŒ¹é…ç­–ç•¥, æ€»æ˜¯è¯•å›¾åŒ¹é…æœ€é•¿çš„ä¸€é¡¹. å¦‚æœæœ‰å¤šé¡¹å…·æœ‰ç›¸åŒçš„åŒ¹é…é•¿åº¦, åˆ™è¿”å›ç¬¬ä¸€ä¸ªåŒ¹é…é¡¹. */
     MatchStrategy BEST_MATCH_STRATEGY = new BestMatchStrategy();
 
     /**
-     * ÊÔÍ¼Æ¥ÅäÖ¸¶¨µÄÊäÈëÖµ, Èç¹û³É¹¦, Ôò·µ»Ø<code>true</code>.  µ÷ÓÃÕß¿ÉÒÔÍ¨¹ı<code>context.getMatchItem()</code>À´È¡µÃÆ¥ÅäÏî.
+     * è¯•å›¾åŒ¹é…æŒ‡å®šçš„è¾“å…¥å€¼, å¦‚æœæˆåŠŸ, åˆ™è¿”å›<code>true</code>.  è°ƒç”¨è€…å¯ä»¥é€šè¿‡<code>context.getMatchItem()</code>æ¥å–å¾—åŒ¹é…é¡¹.
      *
-     * @param context  Æ¥ÅäÉÏÏÂÎÄ
+     * @param context  åŒ¹é…ä¸Šä¸‹æ–‡
      *
-     * @return Èç¹ûÆ¥Åä³É¹¦, Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœåŒ¹é…æˆåŠŸ, åˆ™è¿”å›<code>true</code>
      */
     boolean matches(MatchContext context);
 }

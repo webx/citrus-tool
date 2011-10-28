@@ -23,7 +23,7 @@ import org.apache.commons.digester.RuleSet;
 import org.xml.sax.Attributes;
 
 /**
- * ÉèÖÃÉÏÏÂÎÄÏà¹ØµÄ<code>RuleSet</code>µÄ¹æÔò.
+ * è®¾ç½®ä¸Šä¸‹æ–‡ç›¸å…³çš„<code>RuleSet</code>çš„è§„åˆ™.
  *
  * @version $Id: SetRuleSetRule.java,v 1.2 2003/08/07 08:08:59 zyh Exp $
  * @author Michael Zhou
@@ -33,29 +33,29 @@ public class SetRuleSetRule extends Rule {
     private RuleSetFactory ruleSetFactory;
 
     /**
-     * Ê¹ÓÃÖ¸¶¨Àà×÷ÎªÈ¡µÃ<code>RuleSet</code>µÄ¹¤³§.
+     * ä½¿ç”¨æŒ‡å®šç±»ä½œä¸ºå–å¾—<code>RuleSet</code>çš„å·¥å‚.
      *
-     * @param ruleSetFactoryClass  ¹¤³§Àà
+     * @param ruleSetFactoryClass  å·¥å‚ç±»
      */
     public SetRuleSetRule(Class ruleSetFactoryClass) {
         this.ruleSetFactoryClass = ruleSetFactoryClass;
     }
 
     /**
-     * Ê¹ÓÃÖ¸¶¨<code>RuleSet</code>¹¤³§.
+     * ä½¿ç”¨æŒ‡å®š<code>RuleSet</code>å·¥å‚.
      *
-     * @param ruleSetFactory ¹¤³§¶ÔÏó
+     * @param ruleSetFactory å·¥å‚å¯¹è±¡
      */
     public SetRuleSetRule(RuleSetFactory ruleSetFactory) {
         this.ruleSetFactory = ruleSetFactory;
     }
 
     /**
-     * ¿ªÊ¼´¦Àí, ´´½¨ÉÏÏÂÎÄÏà¹ØµÄ<code>RuleSet</code>.
+     * å¼€å§‹å¤„ç†, åˆ›å»ºä¸Šä¸‹æ–‡ç›¸å…³çš„<code>RuleSet</code>.
      *
-     * @param attributes XMLÊôĞÔÖµ
+     * @param attributes XMLå±æ€§å€¼
      *
-     * @throws Exception Èç¹ûÊ§°Ü
+     * @throws Exception å¦‚æœå¤±è´¥
      */
     public void begin(String namespace, String name, Attributes attributes) throws Exception {
         ContextSensitiveRules rules   = (ContextSensitiveRules) digester.getRules();
@@ -77,9 +77,9 @@ public class SetRuleSetRule extends Rule {
     }
 
     /**
-     * È¡µÃruleµÄ×Ö·û´®±íÊ¾.
+     * å–å¾—ruleçš„å­—ç¬¦ä¸²è¡¨ç¤º.
      *
-     * @return ×Ö·û´®±íÊ¾
+     * @return å­—ç¬¦ä¸²è¡¨ç¤º
      */
     public String toString() {
         StringBuffer buffer = new StringBuffer("SetRuleSetRule[");
@@ -95,11 +95,11 @@ public class SetRuleSetRule extends Rule {
     }
 
     /**
-     * È¡µÃ¹¤³§.
+     * å–å¾—å·¥å‚.
      *
-     * @return È¡µÃ<code>RuleSet</code>µÄ¹¤³§
+     * @return å–å¾—<code>RuleSet</code>çš„å·¥å‚
      *
-     * @throws Exception Èç¹ûÊ§°Ü
+     * @throws Exception å¦‚æœå¤±è´¥
      */
     protected RuleSetFactory getFactory() throws Exception {
         if ((ruleSetFactory == null) && (ruleSetFactoryClass != null)) {

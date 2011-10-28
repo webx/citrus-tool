@@ -19,11 +19,11 @@ package com.alibaba.toolkit.util.typeconvert;
 
 /**
  * <p>
- * ´ú±íÒ»¸ö×ª»»Á´.
+ * ä»£è¡¨ä¸€ä¸ªè½¬æ¢é“¾.
  * </p>
  *
  * <p>
- * ½«Ò»¸ö¶ÔÏó×ª»»³ÉÖ¸¶¨ÀàĞÍÊ±, ×ª»»Á´ÖĞ°üÀ¨¶à¸ö¿ÉÄÜ¿ÉÒÔÊµÏÖÕâ¸ö×ª»»µÄËùÓĞ×ª»»Æ÷. ÊµĞĞ×ª»»Ê±, Èç¹ûÇ°Ò»¸ö×ª»»Æ÷²»ÄÜ×ª»»Õâ¸övalue, Ôò½«¿ØÖÆ½»¸øÏÂÒ»¸ö×ª»»Æ÷.
+ * å°†ä¸€ä¸ªå¯¹è±¡è½¬æ¢æˆæŒ‡å®šç±»å‹æ—¶, è½¬æ¢é“¾ä¸­åŒ…æ‹¬å¤šä¸ªå¯èƒ½å¯ä»¥å®ç°è¿™ä¸ªè½¬æ¢çš„æ‰€æœ‰è½¬æ¢å™¨. å®è¡Œè½¬æ¢æ—¶, å¦‚æœå‰ä¸€ä¸ªè½¬æ¢å™¨ä¸èƒ½è½¬æ¢è¿™ä¸ªvalue, åˆ™å°†æ§åˆ¶äº¤ç»™ä¸‹ä¸€ä¸ªè½¬æ¢å™¨.
  * </p>
  *
  * @version $Id: ConvertChain.java,v 1.1 2003/07/03 07:26:36 baobao Exp $
@@ -31,25 +31,25 @@ package com.alibaba.toolkit.util.typeconvert;
  */
 public interface ConvertChain {
     /**
-     * È¡µÃ´´½¨´ËÁ´µÄ<code>ConvertManager</code>.
+     * å–å¾—åˆ›å»ºæ­¤é“¾çš„<code>ConvertManager</code>.
      *
-     * @return ´´½¨´ËÁ´µÄ<code>ConvertManager</code>
+     * @return åˆ›å»ºæ­¤é“¾çš„<code>ConvertManager</code>
      */
     ConvertManager getConvertManager();
 
     /**
-     * È¡µÃ×ª»»µÄÄ¿±êÀàĞÍ.
+     * å–å¾—è½¬æ¢çš„ç›®æ ‡ç±»å‹.
      *
-     * @return Ä¿±êÀàĞÍ
+     * @return ç›®æ ‡ç±»å‹
      */
     Class getTargetType();
 
     /**
-     * ½«¿ØÖÆ½»¸øÁ´ÖĞµÄÏÂÒ»¸ö×ª»»Æ÷, ×ª»»Ö¸¶¨µÄÖµµ½Ö¸¶¨µÄÀàĞÍ.
+     * å°†æ§åˆ¶äº¤ç»™é“¾ä¸­çš„ä¸‹ä¸€ä¸ªè½¬æ¢å™¨, è½¬æ¢æŒ‡å®šçš„å€¼åˆ°æŒ‡å®šçš„ç±»å‹.
      *
-     * @param value       Òª×ª»»µÄÖµ
+     * @param value       è¦è½¬æ¢çš„å€¼
      *
-     * @return ×ª»»µÄ½á¹û
+     * @return è½¬æ¢çš„ç»“æœ
      */
     Object convert(Object value);
 }

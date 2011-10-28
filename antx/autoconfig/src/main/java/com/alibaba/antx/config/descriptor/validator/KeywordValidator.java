@@ -40,6 +40,6 @@ public class KeywordValidator extends RegexpValidator {
 
     @Override
     protected String getDefaultMessage() {
-        return "²ÎÊıÖµ±ØĞëÊÇ×ÖÄ¸¡¢Êı×Ö»òÏÂ»®Ïß";
+        return "å‚æ•°å€¼å¿…é¡»æ˜¯å­—æ¯ã€æ•°å­—æˆ–ä¸‹åˆ’çº¿";
     }
 }

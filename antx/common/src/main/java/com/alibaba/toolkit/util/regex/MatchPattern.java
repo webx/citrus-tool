@@ -23,7 +23,7 @@ import org.apache.oro.text.regex.PatternCompiler;
 import org.apache.oro.text.regex.PatternMatcher;
 
 /**
- * ±íÊ¾Ò»¸öÓÃÓÚÆ¥ÅäµÄpattern.
+ * è¡¨ç¤ºä¸€ä¸ªç”¨äºåŒ¹é…çš„pattern.
  *
  * @version $Id: MatchPattern.java,v 1.1 2003/07/03 07:26:34 baobao Exp $
  * @author Michael Zhou
@@ -32,27 +32,27 @@ public class MatchPattern {
     private Pattern pattern;
 
     /**
-     * ´´½¨ĞÂµÄpattern.
+     * åˆ›å»ºæ–°çš„pattern.
      */
     public MatchPattern() {
     }
 
     /**
-     * ´´½¨ĞÂµÄpattern.
+     * åˆ›å»ºæ–°çš„pattern.
      *
-     * @param pattern ÓÃÓÚÆ¥ÅäÕıÔò±í´ïÊ½µÄpattern
+     * @param pattern ç”¨äºåŒ¹é…æ­£åˆ™è¡¨è¾¾å¼çš„pattern
      */
     public MatchPattern(Pattern pattern) {
         this.pattern = pattern;
     }
 
     /**
-     * ´´½¨ĞÂµÄpattern.
+     * åˆ›å»ºæ–°çš„pattern.
      *
-     * @param compiler pattern±àÒëÆ÷
-     * @param pattern  ÓÃÓÚÆ¥ÅäÕıÔò±í´ïÊ½µÄpattern
+     * @param compiler patternç¼–è¯‘å™¨
+     * @param pattern  ç”¨äºåŒ¹é…æ­£åˆ™è¡¨è¾¾å¼çš„pattern
      *
-     * @throws MalformedPatternException Èç¹ûpattern²»ºÏ·¨
+     * @throws MalformedPatternException å¦‚æœpatternä¸åˆæ³•
      */
     public MatchPattern(PatternCompiler compiler, String pattern)
             throws MalformedPatternException {
@@ -60,13 +60,13 @@ public class MatchPattern {
     }
 
     /**
-     * ´´½¨ĞÂµÄpattern.
+     * åˆ›å»ºæ–°çš„pattern.
      *
-     * @param compiler pattern±àÒëÆ÷
-     * @param pattern  ÓÃÓÚÆ¥ÅäÕıÔò±í´ïÊ½µÄpattern
-     * @param options  ±àÒëÆ÷Ñ¡Ïî
+     * @param compiler patternç¼–è¯‘å™¨
+     * @param pattern  ç”¨äºåŒ¹é…æ­£åˆ™è¡¨è¾¾å¼çš„pattern
+     * @param options  ç¼–è¯‘å™¨é€‰é¡¹
      *
-     * @throws MalformedPatternException Èç¹ûpattern²»ºÏ·¨
+     * @throws MalformedPatternException å¦‚æœpatternä¸åˆæ³•
      */
     public MatchPattern(PatternCompiler compiler, String pattern, int options)
             throws MalformedPatternException {
@@ -74,29 +74,29 @@ public class MatchPattern {
     }
 
     /**
-     * ÉèÖÃpattern.
+     * è®¾ç½®pattern.
      *
-     * @param pattern ÓÃÓÚÆ¥ÅäÕıÔò±í´ïÊ½µÄpattern
+     * @param pattern ç”¨äºåŒ¹é…æ­£åˆ™è¡¨è¾¾å¼çš„pattern
      */
     public void setPattern(Pattern pattern) {
         this.pattern = pattern;
     }
 
     /**
-     * È¡µÃÓÃÓÚÆ¥ÅäÕıÔò±í´ïÊ½µÄpattern.
+     * å–å¾—ç”¨äºåŒ¹é…æ­£åˆ™è¡¨è¾¾å¼çš„pattern.
      *
-     * @return Æ¥ÅäÕıÔò±í´ïÊ½µÄpattern
+     * @return åŒ¹é…æ­£åˆ™è¡¨è¾¾å¼çš„pattern
      */
     public Pattern getPattern() {
         return pattern;
     }
 
     /**
-     * Æ¥Åäpattern, Èç¹û³É¹¦, Ôò·µ»Ø<code>true</code>.  µ÷ÓÃÕß¿ÉÒÔÍ¨¹ı<code>context.getMatchItem()</code>À´È¡µÃÆ¥ÅäÏî.
+     * åŒ¹é…pattern, å¦‚æœæˆåŠŸ, åˆ™è¿”å›<code>true</code>.  è°ƒç”¨è€…å¯ä»¥é€šè¿‡<code>context.getMatchItem()</code>æ¥å–å¾—åŒ¹é…é¡¹.
      *
-     * @param context  Æ¥ÅäÉÏÏÂÎÄ
+     * @param context  åŒ¹é…ä¸Šä¸‹æ–‡
      *
-     * @return Èç¹ûÆ¥Åä³É¹¦, Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœåŒ¹é…æˆåŠŸ, åˆ™è¿”å›<code>true</code>
      */
     public boolean matches(MatchContext context) {
         PatternMatcher matcher = context.getMatcher();

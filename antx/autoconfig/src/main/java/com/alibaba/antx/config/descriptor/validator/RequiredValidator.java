@@ -48,6 +48,6 @@ public class RequiredValidator extends ConfigValidator {
 
     @Override
     protected String getDefaultMessage() {
-        return "Äú»¹Ã»ÓÐÌîÐ´" + getConfigProperty().getName();
+        return "æ‚¨è¿˜æ²¡æœ‰å¡«å†™" + getConfigProperty().getName();
     }
 }

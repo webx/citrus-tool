@@ -18,19 +18,19 @@
 package com.alibaba.toolkit.util.typeconvert;
 
 /**
- * ½«¶ÔÏó×ª»»³ÉÁíÒ»ÖÖĞÎÊ½µÄ×ª»»Æ÷.
+ * å°†å¯¹è±¡è½¬æ¢æˆå¦ä¸€ç§å½¢å¼çš„è½¬æ¢å™¨.
  *
  * @version $Id: Converter.java,v 1.1 2003/07/03 07:26:36 baobao Exp $
  * @author Michael Zhou
  */
 public interface Converter {
     /**
-     * ×ª»»Ö¸¶¨µÄÖµµ½Ö¸¶¨µÄÀàĞÍ.
+     * è½¬æ¢æŒ‡å®šçš„å€¼åˆ°æŒ‡å®šçš„ç±»å‹.
      *
-     * @param value       Òª×ª»»µÄÖµ
-     * @param chain       ×ª»»Á´, Èç¹ûÒ»¸ö×ª»»Æ÷²»ÄÜ×ª»»Ä³ÖÖÀàĞÍ, Ôò°ÑËü½»¸øÁ´ÖĞµÄÏÂÒ»¸ö×ª»»Æ÷
+     * @param value       è¦è½¬æ¢çš„å€¼
+     * @param chain       è½¬æ¢é“¾, å¦‚æœä¸€ä¸ªè½¬æ¢å™¨ä¸èƒ½è½¬æ¢æŸç§ç±»å‹, åˆ™æŠŠå®ƒäº¤ç»™é“¾ä¸­çš„ä¸‹ä¸€ä¸ªè½¬æ¢å™¨
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     Object convert(Object value, ConvertChain chain);
 }

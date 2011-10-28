@@ -18,19 +18,19 @@
 package com.alibaba.toolkit.util;
 
 /**
- * ºÍÒ»°ã¶ÔÏóÓĞ¹ØµÄĞ¡¹¤¾ß.
+ * å’Œä¸€èˆ¬å¯¹è±¡æœ‰å…³çš„å°å·¥å…·.
  *
  * @version $Id: ObjectUtil.java,v 1.1 2003/07/03 07:26:15 baobao Exp $
  * @author Michael Zhou
  */
 public class ObjectUtil {
     /**
-     * ±È½ÏÁ½¸ö¶ÔÏóÊÇ·ñÏàµÈ.
+     * æ¯”è¾ƒä¸¤ä¸ªå¯¹è±¡æ˜¯å¦ç›¸ç­‰.
      *
-     * @param o1  ¶ÔÏó1
-     * @param o2  ¶ÔÏó2
+     * @param o1  å¯¹è±¡1
+     * @param o2  å¯¹è±¡2
      *
-     * @return Èç¹ûÏàµÈ, Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœç›¸ç­‰, åˆ™è¿”å›<code>true</code>
      */
     public static boolean equals(Object o1, Object o2) {
         return (o1 == null) ? (o2 == null)
@@ -38,11 +38,11 @@ public class ObjectUtil {
     }
 
     /**
-     * È¡µÃ¶ÔÏóµÄhashÖµ, Èç¹û¶ÔÏóÎª<code>null</code>, Ôò·µ»Ø<code>0</code>
+     * å–å¾—å¯¹è±¡çš„hashå€¼, å¦‚æœå¯¹è±¡ä¸º<code>null</code>, åˆ™è¿”å›<code>0</code>
      *
-     * @param o ¶ÔÏó
+     * @param o å¯¹è±¡
      *
-     * @return hashÖµ
+     * @return hashå€¼
      */
     public static int hashCode(Object o) {
         return (o == null) ? 0

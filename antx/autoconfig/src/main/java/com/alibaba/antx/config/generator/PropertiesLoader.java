@@ -33,22 +33,22 @@ import com.alibaba.antx.util.collection.ExtendedProperties;
 
 public abstract class PropertiesLoader {
     /**
-     * ×°ÈëÊôĞÔÎÄ¼ş¡£
+     * è£…å…¥å±æ€§æ–‡ä»¶ã€‚
      * 
-     * @param propsFile ÊôĞÔÎÄ¼ş
-     * @param propsCharset ×°ÈëÊôĞÔÎÄ¼şÊ±Ê¹ÓÃµÄ±àÂë×Ö·û¼¯
-     * @return ÊôĞÔÎÄ¼şµÄÄÚÈİ
+     * @param propsFile å±æ€§æ–‡ä»¶
+     * @param propsCharset è£…å…¥å±æ€§æ–‡ä»¶æ—¶ä½¿ç”¨çš„ç¼–ç å­—ç¬¦é›†
+     * @return å±æ€§æ–‡ä»¶çš„å†…å®¹
      */
     public static Map loadPropertiesFile(InputStream istream, String propsCharset, String url) {
         return loadPropertiesFile(istream, propsCharset, url, true);
     }
 
     /**
-     * ×°ÈëÊôĞÔÎÄ¼ş¡£
+     * è£…å…¥å±æ€§æ–‡ä»¶ã€‚
      * 
-     * @param propsFile ÊôĞÔÎÄ¼ş
-     * @param propsCharset ×°ÈëÊôĞÔÎÄ¼şÊ±Ê¹ÓÃµÄ±àÂë×Ö·û¼¯
-     * @return ÊôĞÔÎÄ¼şµÄÄÚÈİ
+     * @param propsFile å±æ€§æ–‡ä»¶
+     * @param propsCharset è£…å…¥å±æ€§æ–‡ä»¶æ—¶ä½¿ç”¨çš„ç¼–ç å­—ç¬¦é›†
+     * @return å±æ€§æ–‡ä»¶çš„å†…å®¹
      */
     public static Map loadPropertiesFile(InputStream istream, String propsCharset, String url, boolean closeOnExit) {
         ExtendedProperties props = new ExtendedProperties();
@@ -70,11 +70,11 @@ public abstract class PropertiesLoader {
     }
 
     /**
-     * ×°ÈëÊôĞÔÎÄ¼ş¡£
+     * è£…å…¥å±æ€§æ–‡ä»¶ã€‚
      * 
-     * @param propsFile ÊôĞÔÎÄ¼ş
-     * @param propsCharset ×°ÈëÊôĞÔÎÄ¼şÊ±Ê¹ÓÃµÄ±àÂë×Ö·û¼¯
-     * @return ÊôĞÔÎÄ¼şµÄÄÚÈİ
+     * @param propsFile å±æ€§æ–‡ä»¶
+     * @param propsCharset è£…å…¥å±æ€§æ–‡ä»¶æ—¶ä½¿ç”¨çš„ç¼–ç å­—ç¬¦é›†
+     * @return å±æ€§æ–‡ä»¶çš„å†…å®¹
      */
     public static Map loadPropertiesFile(File propsFile, String propsCharset) {
         ExtendedProperties props = new ExtendedProperties();
@@ -91,10 +91,10 @@ public abstract class PropertiesLoader {
     }
 
     /**
-     * ½«ÊôĞÔ´ÓÔ´ÊôĞÔ±íÖĞºÏ²¢µ½Ä¿±êÊôĞÔ±í£¬Èç¹ûÓĞÖØÃûµÄ£¬Ôò¸²¸ÇÖ®¡£
+     * å°†å±æ€§ä»æºå±æ€§è¡¨ä¸­åˆå¹¶åˆ°ç›®æ ‡å±æ€§è¡¨ï¼Œå¦‚æœæœ‰é‡åçš„ï¼Œåˆ™è¦†ç›–ä¹‹ã€‚
      * 
-     * @param dest Ä¿±êÊôĞÔ±í
-     * @param src Ô´ÊôĞÔ±í
+     * @param dest ç›®æ ‡å±æ€§è¡¨
+     * @param src æºå±æ€§è¡¨
      */
     public static void mergeProperties(Map dest, Map src) {
         for (Iterator i = src.entrySet().iterator(); i.hasNext();) {
@@ -116,7 +116,7 @@ public abstract class PropertiesLoader {
     }
 
     /**
-     * È¡Öµ²¢¼ÆËã¡£
+     * å–å€¼å¹¶è®¡ç®—ã€‚
      */
     public static Object evaluate(String name, final Map props) {
         return new ReferenceExpression(name).evaluate(new ExpressionContext() {

@@ -20,7 +20,7 @@ package com.alibaba.antx.util.configuration;
 import org.xml.sax.Locator;
 
 /**
- * ÅäÖÃÏîÔÚÅäÖÃÎÄ¼şÖĞµÄÎ»ÖÃ.
+ * é…ç½®é¡¹åœ¨é…ç½®æ–‡ä»¶ä¸­çš„ä½ç½®.
  *
  * @author Michael Zhou
  *
@@ -31,13 +31,13 @@ public class Location implements Locator {
     private final int    lineNumber;
     private final int    columnNumber;
 
-    /** ´ú±í¿ÕµÄlocation. */
+    /** ä»£è¡¨ç©ºçš„location. */
     public static final Location EMPTY_LOCATION = new Location(null, null, -1, -1);
 
     /**
-     * ´´½¨Î»ÖÃĞÅÏ¢.
+     * åˆ›å»ºä½ç½®ä¿¡æ¯.
      *
-     * @param locator XMLÎÄ¼şÖĞµÄÎ»ÖÃĞÅÏ¢
+     * @param locator XMLæ–‡ä»¶ä¸­çš„ä½ç½®ä¿¡æ¯
      */
     public Location(Locator locator) {
         this(locator.getPublicId(), locator.getSystemId(), locator.getLineNumber(),
@@ -45,12 +45,12 @@ public class Location implements Locator {
     }
 
     /**
-     * ´´½¨Î»ÖÃĞÅÏ¢.
+     * åˆ›å»ºä½ç½®ä¿¡æ¯.
      *
      * @param publicId public ID
-     * @param systemId system ID, Ò²¾ÍÊÇÎÄ¼şÂ·¾¶»òURL
-     * @param lineNumber ĞĞºÅ
-     * @param columnNumber ÁĞºÅ
+     * @param systemId system ID, ä¹Ÿå°±æ˜¯æ–‡ä»¶è·¯å¾„æˆ–URL
+     * @param lineNumber è¡Œå·
+     * @param columnNumber åˆ—å·
      */
     public Location(String publicId, String systemId, int lineNumber, int columnNumber) {
         if (publicId != null) {
@@ -84,45 +84,45 @@ public class Location implements Locator {
     }
 
     /**
-     * È¡µÃpublic ID.
+     * å–å¾—public ID.
      *
-     * @return public ID, Èç¹û²»´æÔÚ, Ôò·µ»Ø<code>null</code>
+     * @return public ID, å¦‚æœä¸å­˜åœ¨, åˆ™è¿”å›<code>null</code>
      */
     public String getPublicId() {
         return publicId;
     }
 
     /**
-     * È¡µÃsystem ID.
+     * å–å¾—system ID.
      *
-     * @return system ID, Èç¹û²»´æÔÚ, Ôò·µ»Ø<code>null</code>
+     * @return system ID, å¦‚æœä¸å­˜åœ¨, åˆ™è¿”å›<code>null</code>
      */
     public String getSystemId() {
         return systemId;
     }
 
     /**
-     * È¡µÃĞĞºÅ.
+     * å–å¾—è¡Œå·.
      *
-     * @return ĞĞºÅ, Èç¹û²»´æÔÚ, Ôò·µ»Ø<code>-1</code>
+     * @return è¡Œå·, å¦‚æœä¸å­˜åœ¨, åˆ™è¿”å›<code>-1</code>
      */
     public int getLineNumber() {
         return lineNumber;
     }
 
     /**
-     * È¡µÃÁĞºÅ.
+     * å–å¾—åˆ—å·.
      *
-     * @return ÁĞºÅ, Èç¹û²»´æÔÚ, Ôò·µ»Ø<code>-1</code>
+     * @return åˆ—å·, å¦‚æœä¸å­˜åœ¨, åˆ™è¿”å›<code>-1</code>
      */
     public int getColumnNumber() {
         return columnNumber;
     }
 
     /**
-     * ×ª»»³É×Ö·û´®±íÊ¾.
+     * è½¬æ¢æˆå­—ç¬¦ä¸²è¡¨ç¤º.
      *
-     * @return ×Ö·û´®±íÊ¾
+     * @return å­—ç¬¦ä¸²è¡¨ç¤º
      */
     public String toString() {
         if (systemId == null) {

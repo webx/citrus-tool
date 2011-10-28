@@ -20,45 +20,45 @@ package com.alibaba.toolkit.util.regex;
 import org.apache.oro.text.regex.MalformedPatternException;
 
 /**
- * Õâ¸öÀà½«Ò»¸ö°üº¬Í¨Åä·ûµÄÀàÃû, ±àÒë³ÉPerl5µÄÕıÔò±í´ïÊ½.  ¸ñÊ½ÃèÊöÈçÏÂ:
+ * è¿™ä¸ªç±»å°†ä¸€ä¸ªåŒ…å«é€šé…ç¬¦çš„ç±»å, ç¼–è¯‘æˆPerl5çš„æ­£åˆ™è¡¨è¾¾å¼.  æ ¼å¼æè¿°å¦‚ä¸‹:
  *
  * <ul>
  * <li>
- * ºÏ·¨µÄ<em>ÀàÃû×Ö·û</em>°üÀ¨: ×ÖÄ¸/Êı×Ö/ÏÂ»®Ïß/'$';
+ * åˆæ³•çš„<em>ç±»åå­—ç¬¦</em>åŒ…æ‹¬: å­—æ¯/æ•°å­—/ä¸‹åˆ’çº¿/'$';
  * </li>
  * <li>
- * ºÏ·¨µÄ<em>ÀàÃû·Ö¸ô·û</em>ÎªĞ¡Êıµã".";
+ * åˆæ³•çš„<em>ç±»ååˆ†éš”ç¬¦</em>ä¸ºå°æ•°ç‚¹".";
  * </li>
  * <li>
- * "£ª"´ú±í0¸ö»ò¶à¸ö<em>ÀàÃû×Ö·û</em>;
+ * "ï¼Š"ä»£è¡¨0ä¸ªæˆ–å¤šä¸ª<em>ç±»åå­—ç¬¦</em>;
  * </li>
  * <li>
- * "£¿"´ú±í1¸ö<em>ÀàÃû×Ö·û</em>;
+ * "ï¼Ÿ"ä»£è¡¨1ä¸ª<em>ç±»åå­—ç¬¦</em>;
  * </li>
  * <li>
- * "£ª£ª"´ú±í0¸ö»ò¶à¸ö<em>ÀàÃû×Ö·û</em>»ò<em>ÀàÃû·Ö¸ô·û</em>;
+ * "ï¼Šï¼Š"ä»£è¡¨0ä¸ªæˆ–å¤šä¸ª<em>ç±»åå­—ç¬¦</em>æˆ–<em>ç±»ååˆ†éš”ç¬¦</em>;
  * </li>
  * <li>
- * ²»ÄÜÁ¬Ğø³öÏÖ3¸ö"£ª";
+ * ä¸èƒ½è¿ç»­å‡ºç°3ä¸ª"ï¼Š";
  * </li>
  * <li>
- * ²»ÄÜÁ¬Ğø³öÏÖ2¸ö<em>ÀàÃû·Ö¸ô·û</em>;
+ * ä¸èƒ½è¿ç»­å‡ºç°2ä¸ª<em>ç±»ååˆ†éš”ç¬¦</em>;
  * </li>
  * <li>
- * "£ª£ª"µÄÇ°ºóÖ»ÄÜÊÇ<em>ÀàÃû·Ö¸ô·û</em>.
+ * "ï¼Šï¼Š"çš„å‰ååªèƒ½æ˜¯<em>ç±»ååˆ†éš”ç¬¦</em>.
  * </li>
  * </ul>
  *
- * ×ª»»ºóµÄÕıÔò±í´ïÊ½, ¶ÔÃ¿Ò»¸öÍ¨Åä·û½¨Á¢<em>ÒıÓÃ±äÁ¿</em>, ÒÀ´ÎÎª<code>$1</code>, <code>$2</code>, ...
+ * è½¬æ¢åçš„æ­£åˆ™è¡¨è¾¾å¼, å¯¹æ¯ä¸€ä¸ªé€šé…ç¬¦å»ºç«‹<em>å¼•ç”¨å˜é‡</em>, ä¾æ¬¡ä¸º<code>$1</code>, <code>$2</code>, ...
  *
  * @version $Id: ClassNameCompiler.java,v 1.1 2003/07/03 07:26:34 baobao Exp $
  * @author Michael Zhou
  */
 public class ClassNameCompiler extends Perl5CompilerWrapper {
-    /** Ç¿ÖÆ´ÓÍ·Æ¥Åä */
+    /** å¼ºåˆ¶ä»å¤´åŒ¹é… */
     public static final int MATCH_PREFIX = 0x1;
 
-    // Ë½ÓĞ³£Á¿
+    // ç§æœ‰å¸¸é‡
     private static final char   DOT                          = '.';
     private static final char   UNDERSCORE                   = '_';
     private static final char   DOLLAR                       = '$';
@@ -75,7 +75,7 @@ public class ClassNameCompiler extends Perl5CompilerWrapper {
             "(" + REGEX_CLASS_NAME_CHAR + "+(?:" + REGEX_DOT_NO_DUP + REGEX_CLASS_NAME_CHAR
             + "*)*(?=" + REGEX_DOT + "|$)|)" + REGEX_DOT + "?";
 
-    // ÉÏÒ»¸ötokenµÄ×´Ì¬
+    // ä¸Šä¸€ä¸ªtokençš„çŠ¶æ€
     private static final int LAST_TOKEN_START       = 0;
     private static final int LAST_TOKEN_DOT         = 1;
     private static final int LAST_TOKEN_CLASS_NAME  = 2;
@@ -84,14 +84,14 @@ public class ClassNameCompiler extends Perl5CompilerWrapper {
     private static final int LAST_TOKEN_QUESTION    = 5;
 
     /**
-     * ½«°üº¬Í¨Åä·ûµÄÀàÃû, ±àÒë³Éperl5ÕıÔò±í´ïÊ½.
+     * å°†åŒ…å«é€šé…ç¬¦çš„ç±»å, ç¼–è¯‘æˆperl5æ­£åˆ™è¡¨è¾¾å¼.
      *
-     * @param pattern  Òª±àÒëµÄÀàÃû
-     * @param options  Î»±êÖ¾
+     * @param pattern  è¦ç¼–è¯‘çš„ç±»å
+     * @param options  ä½æ ‡å¿—
      *
-     * @return Perl5ÕıÔò±í´ïÊ½×Ö·û´®
+     * @return Perl5æ­£åˆ™è¡¨è¾¾å¼å­—ç¬¦ä¸²
      *
-     * @throws MalformedPatternException  Èç¹ûÀàÃû×Ö·û´®¸ñÊ½²»ÕıÈ·
+     * @throws MalformedPatternException  å¦‚æœç±»åå­—ç¬¦ä¸²æ ¼å¼ä¸æ­£ç¡®
      */
     public String toPerl5Regex(char[] pattern, int options)
             throws MalformedPatternException {
@@ -110,12 +110,12 @@ public class ClassNameCompiler extends Perl5CompilerWrapper {
             switch (ch) {
                 case DOT:
 
-                    // dotºóÃæ²»ÄÜÊÇdot, dot²»ÄÜ×÷Îª×Ö·û´®µÄ¿ªÊ¼
+                    // dotåé¢ä¸èƒ½æ˜¯dot, dotä¸èƒ½ä½œä¸ºå­—ç¬¦ä¸²çš„å¼€å§‹
                     if ((lastToken == LAST_TOKEN_DOT) || (lastToken == LAST_TOKEN_START)) {
                         throw new MalformedPatternException(getDefaultErrorMessage(pattern, i));
                     }
 
-                    // ÒòÎª**ÒÑ¾­°üÀ¨ÁËdot, ËùÒÔ²»ĞèÒª¶îÍâµØÆ¥Åädot
+                    // å› ä¸º**å·²ç»åŒ…æ‹¬äº†dot, æ‰€ä»¥ä¸éœ€è¦é¢å¤–åœ°åŒ¹é…dot
                     if (lastToken != LAST_TOKEN_DOUBLE_STAR) {
                         buffer.append(REGEX_DOT_NO_DUP);
                     }
@@ -130,7 +130,7 @@ public class ClassNameCompiler extends Perl5CompilerWrapper {
                     if ((j < pattern.length) && (pattern[j] == STAR)) {
                         i = j;
 
-                        // **Ç°ÃæÖ»ÄÜÊÇdot
+                        // **å‰é¢åªèƒ½æ˜¯dot
                         if ((lastToken != LAST_TOKEN_START) && (lastToken != LAST_TOKEN_DOT)) {
                             throw new MalformedPatternException(getDefaultErrorMessage(pattern, i));
                         }
@@ -138,7 +138,7 @@ public class ClassNameCompiler extends Perl5CompilerWrapper {
                         lastToken = LAST_TOKEN_DOUBLE_STAR;
                         buffer.append(REGEX_CLASS_NAME_FULL);
                     } else {
-                        // *Ç°Ãæ²»ÄÜÊÇ*»ò**
+                        // *å‰é¢ä¸èƒ½æ˜¯*æˆ–**
                         if ((lastToken == LAST_TOKEN_STAR) || (lastToken == LAST_TOKEN_DOUBLE_STAR)) {
                             throw new MalformedPatternException(getDefaultErrorMessage(pattern, i));
                         }
@@ -156,17 +156,17 @@ public class ClassNameCompiler extends Perl5CompilerWrapper {
 
                 default:
 
-                    // **ºóÖ»ÄÜÊÇdot
+                    // **ååªèƒ½æ˜¯dot
                     if (lastToken == LAST_TOKEN_DOUBLE_STAR) {
                         throw new MalformedPatternException(getDefaultErrorMessage(pattern, i));
                     }
 
                     if (Character.isLetterOrDigit(ch) || (ch == UNDERSCORE)) {
-                        // ¼ÓÉÏword±ß½ç, ½øĞĞÕû×ÖÆ¥Åä
+                        // åŠ ä¸Šwordè¾¹ç•Œ, è¿›è¡Œæ•´å­—åŒ¹é…
                         if (lastToken == LAST_TOKEN_START) {
-                            buffer.append(REGEX_WORD_BOUNDARY).append(ch); // Ç°±ß½ç
+                            buffer.append(REGEX_WORD_BOUNDARY).append(ch); // å‰è¾¹ç•Œ
                         } else if ((i + 1) == pattern.length) {
-                            buffer.append(ch).append(REGEX_WORD_BOUNDARY); // ºó±ß½ç
+                            buffer.append(ch).append(REGEX_WORD_BOUNDARY); // åè¾¹ç•Œ
                         } else {
                             buffer.append(ch);
                         }

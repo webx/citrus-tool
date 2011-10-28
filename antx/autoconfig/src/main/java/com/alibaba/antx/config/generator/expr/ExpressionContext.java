@@ -18,25 +18,25 @@
 package com.alibaba.antx.config.generator.expr;
 
 /**
- * ´ú±í±í´ïÊ½µÄÉÏÏÂÎÄ¡£
+ * ä»£è¡¨è¡¨è¾¾å¼çš„ä¸Šä¸‹æ–‡ã€‚
  * 
  * @author Michael Zhou
  * @version $Id: ExpressionContext.java 689 2004-03-14 15:05:06Z baobao $
  */
 public interface ExpressionContext {
     /**
-     * È¡µÃÖ¸¶¨Öµ¡£
+     * å–å¾—æŒ‡å®šå€¼ã€‚
      * 
-     * @param key ¼ü
-     * @return ¼ü¶ÔÓ¦µÄÖµ
+     * @param key é”®
+     * @return é”®å¯¹åº”çš„å€¼
      */
     Object get(String key);
 
     /**
-     * Ìí¼ÓÒ»¸öÖµ¡£
+     * æ·»åŠ ä¸€ä¸ªå€¼ã€‚
      * 
-     * @param key ¼ü
-     * @param value ¶ÔÓ¦µÄÖµ
+     * @param key é”®
+     * @param value å¯¹åº”çš„å€¼
      */
     void put(String key, Object value);
 }

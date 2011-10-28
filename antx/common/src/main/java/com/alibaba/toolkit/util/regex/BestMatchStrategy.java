@@ -27,13 +27,13 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * ×î¼ÑÆ¥Åä²ßÂÔ, ×ÜÊÇÊÔÍ¼Æ¥Åä×î³¤µÄÒ»Ïî. Èç¹ûÓĞ¶àÏî¾ßÓĞÏàÍ¬µÄÆ¥Åä³¤¶È, Ôò·µ»ØµÚÒ»¸öÆ¥ÅäÏî.
+ * æœ€ä½³åŒ¹é…ç­–ç•¥, æ€»æ˜¯è¯•å›¾åŒ¹é…æœ€é•¿çš„ä¸€é¡¹. å¦‚æœæœ‰å¤šé¡¹å…·æœ‰ç›¸åŒçš„åŒ¹é…é•¿åº¦, åˆ™è¿”å›ç¬¬ä¸€ä¸ªåŒ¹é…é¡¹.
  *
  * @version $Id: BestMatchStrategy.java,v 1.1 2003/07/03 07:26:34 baobao Exp $
  * @author Michael Zhou
  */
 public class BestMatchStrategy implements MatchStrategy {
-    /** °´Æ¥Åä³¤¶È´Ó´óµ½Ğ¡ÅÅĞòµÄ±È½ÏÆ÷. */
+    /** æŒ‰åŒ¹é…é•¿åº¦ä»å¤§åˆ°å°æ’åºçš„æ¯”è¾ƒå™¨. */
     private static final Comparator MATCH_LENGTH_COMPARATOR =
             new Comparator() {
         public int compare(Object item1, Object item2) {
@@ -42,16 +42,16 @@ public class BestMatchStrategy implements MatchStrategy {
     };
 
     /**
-     * ÊÔÍ¼Æ¥ÅäÖ¸¶¨µÄÊäÈëÖµ. Èç¹û³É¹¦, Ôò·µ»Ø<code>true</code>.  µ÷ÓÃÕß¿ÉÒÔÍ¨¹ı<code>context.getMatchItem()</code>À´È¡µÃÆ¥ÅäÏî.
+     * è¯•å›¾åŒ¹é…æŒ‡å®šçš„è¾“å…¥å€¼. å¦‚æœæˆåŠŸ, åˆ™è¿”å›<code>true</code>.  è°ƒç”¨è€…å¯ä»¥é€šè¿‡<code>context.getMatchItem()</code>æ¥å–å¾—åŒ¹é…é¡¹.
      *
-     * @param context  Æ¥ÅäÉÏÏÂÎÄ
+     * @param context  åŒ¹é…ä¸Šä¸‹æ–‡
      *
-     * @return Èç¹ûÆ¥Åä³É¹¦, Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœåŒ¹é…æˆåŠŸ, åˆ™è¿”å›<code>true</code>
      */
     public boolean matches(MatchContext context) {
         Predicate predicate = context.getPredicate();
 
-        // Èç¹ûÃ»ÓĞpredicate, ÔòÑ¡ÔñÊ¹ÓÃ¸ü¸ßĞ§µÄ²ßÂÔ
+        // å¦‚æœæ²¡æœ‰predicate, åˆ™é€‰æ‹©ä½¿ç”¨æ›´é«˜æ•ˆçš„ç­–ç•¥
         if (predicate == null) {
             return matchWithoutPredicate(context);
         }
@@ -67,16 +67,16 @@ public class BestMatchStrategy implements MatchStrategy {
             }
         }
 
-        // ²»Æ¥Åä, ÔòÖ±½Ó·µ»Ønull
+        // ä¸åŒ¹é…, åˆ™ç›´æ¥è¿”å›null
         if (matchItemList.size() == 0) {
             return false;
         }
 
 
-        // °´Æ¥Åä³¤¶ÈÓÉ´óµ½Ğ¡ÅÅĞò(ÎÈ¶¨)
+        // æŒ‰åŒ¹é…é•¿åº¦ç”±å¤§åˆ°å°æ’åº(ç¨³å®š)
         Collections.sort(matchItemList, MATCH_LENGTH_COMPARATOR);
 
-        // Í¨¹ıÖ¸¶¨µÄpredicate¹ıÂËËùÓĞÆ¥ÅäÏî
+        // é€šè¿‡æŒ‡å®šçš„predicateè¿‡æ»¤æ‰€æœ‰åŒ¹é…é¡¹
         for (Iterator i = matchItemList.iterator(); i.hasNext();) {
             MatchItem item = (MatchItem) i.next();
 
@@ -90,11 +90,11 @@ public class BestMatchStrategy implements MatchStrategy {
     }
 
     /**
-     * ÊÔÍ¼Æ¥ÅäÖ¸¶¨µÄÊäÈëÖµ, ²»ÅĞ¶Ïpredicate, ¾ßÓĞ½Ï¸ßµÄĞ§ÂÊ.
+     * è¯•å›¾åŒ¹é…æŒ‡å®šçš„è¾“å…¥å€¼, ä¸åˆ¤æ–­predicate, å…·æœ‰è¾ƒé«˜çš„æ•ˆç‡.
      *
-     * @param context  Æ¥ÅäÉÏÏÂÎÄ
+     * @param context  åŒ¹é…ä¸Šä¸‹æ–‡
      *
-     * @return Èç¹ûÆ¥Åä³É¹¦, Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœåŒ¹é…æˆåŠŸ, åˆ™è¿”å›<code>true</code>
      */
     private boolean matchWithoutPredicate(MatchContext context) {
         MatchItem bestMatchItem   = null;

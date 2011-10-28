@@ -25,14 +25,14 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 /**
- * ´ú±íÒ»¸ölocaleĞÅÏ¢µÄÀà¡£
- *
+ * ä»£è¡¨ä¸€ä¸ªlocaleä¿¡æ¯çš„ç±»ã€‚
+ * 
  * @author Michael Zhou
  */
 public class LocaleInfo {
-    private static final String DEFAULT_LOCALE    = "china";
-    private static final Map    LOCALE_MAP        = new HashMap();
-    private static LocaleInfo   defaultLocaleInfo;
+    private static final String DEFAULT_LOCALE = "china";
+    private static final Map LOCALE_MAP = new HashMap();
+    private static LocaleInfo defaultLocaleInfo;
 
     static {
         LOCALE_MAP.put("us", new LocaleInfo("US", Locale.US, "ISO-8859-1"));
@@ -41,7 +41,7 @@ public class LocaleInfo {
         try {
             setDefault(DEFAULT_LOCALE);
         } catch (UnsupportedLocaleException e) {
-            throw new InternalError(); // ²»»á·¢Éú£¡
+            throw new InternalError(); // ä¸ä¼šå‘ç”Ÿï¼
         }
     }
 
@@ -49,52 +49,51 @@ public class LocaleInfo {
     private Locale locale;
     private String charset;
 
-/**
-     * ´´½¨Ò»¸ölocaleĞÅÏ¢Ïî¡£
-     *
-     * @param name µØÇøÃû
-     * @param locale ÇøÓò
-     * @param charset ×Ö·û¼¯
+    /**
+     * åˆ›å»ºä¸€ä¸ªlocaleä¿¡æ¯é¡¹ã€‚
+     * 
+     * @param name åœ°åŒºå
+     * @param locale åŒºåŸŸ
+     * @param charset å­—ç¬¦é›†
      */
     public LocaleInfo(String name, Locale locale, String charset) {
-        this.name                                 = name;
-        this.locale                               = locale;
-        this.charset                              = charset;
+        this.name = name;
+        this.locale = locale;
+        this.charset = charset;
     }
 
     /**
-     * È¡µÃ×Ö·û¼¯Ãû³Æ¡£
-     *
-     * @return ±àÂë×Ö·û¼¯Ãû³Æ
+     * å–å¾—å­—ç¬¦é›†åç§°ã€‚
+     * 
+     * @return ç¼–ç å­—ç¬¦é›†åç§°
      */
     public String getCharset() {
         return charset;
     }
 
     /**
-     * È¡µÃÇøÓò¡£
-     *
-     * @return ÇøÓò
+     * å–å¾—åŒºåŸŸã€‚
+     * 
+     * @return åŒºåŸŸ
      */
     public Locale getLocale() {
         return locale;
     }
 
     /**
-     * È¡µÃµØÇøÃû¡£
-     *
-     * @return µØÇøÃû
+     * å–å¾—åœ°åŒºåã€‚
+     * 
+     * @return åœ°åŒºå
      */
     public String getName() {
         return name;
     }
 
     /**
-     * È¡µÃÖ¸¶¨Ãû³ÆµÄ<code>ResourceBundle</code>¡£
-     *
-     * @param bundleName bundleÃû³Æ
-     *
-     * @return Ö¸¶¨Ãû³ÆµÄ<code>ResourceBundle</code>¡£
+     * å–å¾—æŒ‡å®šåç§°çš„<code>ResourceBundle</code>ã€‚
+     * 
+     * @param bundleName bundleåç§°
+     * @return æŒ‡å®šåç§°çš„<code>ResourceBundle</code>ã€‚
      */
     public ResourceBundle getBundle(String bundleName) {
         ResourceBundle bundle = ResourceBundle.getBundle(bundleName, getLocale());
@@ -107,11 +106,10 @@ public class LocaleInfo {
     }
 
     /**
-     * ÉèÖÃÄ¬ÈÏµÄlocale¡£
-     *
-     * @param name localeÃû¡£
-     *
-     * @throws UnsupportedLocaleException Èç¹ûÖ¸¶¨Ãû³ÆµÄlocale²»´æÔÚ
+     * è®¾ç½®é»˜è®¤çš„localeã€‚
+     * 
+     * @param name localeåã€‚
+     * @throws UnsupportedLocaleException å¦‚æœæŒ‡å®šåç§°çš„localeä¸å­˜åœ¨
      */
     public static void setDefault(String name) throws UnsupportedLocaleException {
         LocaleInfo locale = get(name);
@@ -124,20 +122,19 @@ public class LocaleInfo {
     }
 
     /**
-     * È¡µÃÄ¬ÈÏµÄlocale¡£
-     *
-     * @return Ä¬ÈÏµÄlocale
+     * å–å¾—é»˜è®¤çš„localeã€‚
+     * 
+     * @return é»˜è®¤çš„locale
      */
     public static LocaleInfo getDefault() {
         return defaultLocaleInfo;
     }
 
     /**
-     * È¡µÃÖ¸¶¨Ãû³ÆµÄlocale¡£
-     *
-     * @param name localeÃû³Æ
-     *
-     * @return Ö¸¶¨Ãû³ÆµÄlocale£¬Èç¹û²»´æÔÚ£¬Ôò·µ»Ø<code>null</code>¡£
+     * å–å¾—æŒ‡å®šåç§°çš„localeã€‚
+     * 
+     * @param name localeåç§°
+     * @return æŒ‡å®šåç§°çš„localeï¼Œå¦‚æœä¸å­˜åœ¨ï¼Œåˆ™è¿”å›<code>null</code>ã€‚
      */
     public static LocaleInfo get(String name) {
         if (name == null) {
@@ -147,12 +144,12 @@ public class LocaleInfo {
         LocaleInfo localeInfo = (LocaleInfo) LOCALE_MAP.get(name.toLowerCase());
 
         if (localeInfo == null) {
-            int    index       = name.indexOf(":");
-            String localeName  = null;
+            int index = name.indexOf(":");
+            String localeName = null;
             String charsetName = null;
 
             if (index >= 0) {
-                localeName  = name.substring(0, index).trim();
+                localeName = name.substring(0, index).trim();
                 charsetName = name.substring(index + 1).trim();
             } else {
                 localeName = name.trim();

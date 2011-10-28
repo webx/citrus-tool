@@ -66,9 +66,9 @@ public class UrlValidator extends ConfigValidator {
 
         URL url;
 
-        // ¼ì²éURLºÏ·¨ĞÔ
+        // æ£€æŸ¥URLåˆæ³•æ€§
         getLogger().info("Checking URL validility: " + value);
-        message = "·Ç·¨µÄURL£º" + value;
+        message = "éæ³•çš„URLï¼š" + value;
 
         try {
             url = new URL(value);
@@ -80,28 +80,28 @@ public class UrlValidator extends ConfigValidator {
             return false;
         }
 
-        // ¼ì²éĞ­Òé
+        // æ£€æŸ¥åè®®
         if (!validateProtocols(url.getProtocol())) {
             message = getProtocolMessage();
             return false;
         }
 
-        // ¼ì²éÓòÃû´æÔÚÓë·ñ
+        // æ£€æŸ¥åŸŸåå­˜åœ¨ä¸å¦
         if (checkHostExist) {
             getLogger().info("Validating host name or IP address: " + url.getHost());
 
             try {
                 InetAddress.getByName(url.getHost());
             } catch (UnknownHostException e) {
-                message = "·Ç·¨µÄÓòÃû»òIP£º" + url.getHost();
+                message = "éæ³•çš„åŸŸåæˆ–IPï¼š" + url.getHost();
                 return false;
             }
         }
 
-        // ¼ì²éÊÇ·ñÒÔ/½áÎ²
+        // æ£€æŸ¥æ˜¯å¦ä»¥/ç»“å°¾
         if (endsWithSlash) {
             if (!value.endsWith("/")) {
-                message = "URLÇëÒÔ/½áÎ²";
+                message = "URLè¯·ä»¥/ç»“å°¾";
                 return false;
             }
         }
@@ -157,7 +157,7 @@ public class UrlValidator extends ConfigValidator {
     }
 
     protected String getProtocolMessage() {
-        StringBuffer buffer = new StringBuffer("Äú±ØĞëÔÚÏÂÁĞÖµÖĞÑ¡ÔñĞ­Òé£º");
+        StringBuffer buffer = new StringBuffer("æ‚¨å¿…é¡»åœ¨ä¸‹åˆ—å€¼ä¸­é€‰æ‹©åè®®ï¼š");
 
         for (int i = 0; i < protocols.length; i++) {
             if (i > 0) {

@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ´ú±íÒ»¸ö×éºÏµÄ±í´ïÊ½¡£
+ * ä»£è¡¨ä¸€ä¸ªç»„åˆçš„è¡¨è¾¾å¼ã€‚
  * 
  * @author Michael Zhou
  */
@@ -30,10 +30,10 @@ public class CompositeExpression implements Expression {
     private Expression[] expressions;
 
     /**
-     * ´´½¨Ò»¸ö×éºÏµÄ±í´ïÊ½¡£
+     * åˆ›å»ºä¸€ä¸ªç»„åˆçš„è¡¨è¾¾å¼ã€‚
      * 
-     * @param expr ±í´ïÊ½×Ö·û´®
-     * @param expressions ±í´ïÊ½ÁĞ±í
+     * @param expr è¡¨è¾¾å¼å­—ç¬¦ä¸²
+     * @param expressions è¡¨è¾¾å¼åˆ—è¡¨
      */
     public CompositeExpression(String expr, List expressions) {
         this.expr = expr;
@@ -41,19 +41,19 @@ public class CompositeExpression implements Expression {
     }
 
     /**
-     * È¡µÃ±í´ïÊ½×Ö·û´®±íÊ¾¡£
+     * å–å¾—è¡¨è¾¾å¼å­—ç¬¦ä¸²è¡¨ç¤ºã€‚
      * 
-     * @return ±í´ïÊ½×Ö·û´®±íÊ¾
+     * @return è¡¨è¾¾å¼å­—ç¬¦ä¸²è¡¨ç¤º
      */
     public String getExpressionText() {
         return expr;
     }
 
     /**
-     * ÔÚÖ¸¶¨µÄÉÏÏÂÎÄÖĞ¼ÆËã±í´ïÊ½¡£
+     * åœ¨æŒ‡å®šçš„ä¸Šä¸‹æ–‡ä¸­è®¡ç®—è¡¨è¾¾å¼ã€‚
      * 
-     * @param context ÉÏÏÂÎÄ
-     * @return ±í´ïÊ½µÄ¼ÆËã½á¹û
+     * @param context ä¸Šä¸‹æ–‡
+     * @return è¡¨è¾¾å¼çš„è®¡ç®—ç»“æœ
      */
     public Object evaluate(ExpressionContext context) {
         StringBuffer buffer = new StringBuffer();
@@ -71,22 +71,22 @@ public class CompositeExpression implements Expression {
     }
 
     /**
-     * ´´½¨±í´ïÊ½¡£
+     * åˆ›å»ºè¡¨è¾¾å¼ã€‚
      * <ul>
-     * <li>Èç¹û±í´ïÊ½ÖĞ²»°üº¬¡°<code>${...}</code>¡±£¬Ôò´´½¨<code>ConstantExpression</code>¡£</li>
-     * <li>Èç¹û±í´ïÊ½ÒÔ¡°<code>${</code>¡±¿ªÊ¼£¬²¢ÒÔ¡°<code>}</code>¡±½áÎ²£¬Ôò´´½¨ÒıÓÃ±í´ïÊ½¡£</li>
-     * <li>Èç¹û±í´ïÊ½°üº¬¡°<code>${...}</code>¡±£¬µ«ÔÚ´ËÖ®Íâ»¹ÓĞ±ğµÄ×Ö·û£¬Ôò´´½¨
-     * <code>CompositeExpression</code>¡£</li>
+     * <li>å¦‚æœè¡¨è¾¾å¼ä¸­ä¸åŒ…å«â€œ<code>${...}</code>â€ï¼Œåˆ™åˆ›å»º<code>ConstantExpression</code>ã€‚</li>
+     * <li>å¦‚æœè¡¨è¾¾å¼ä»¥â€œ<code>${</code>â€å¼€å§‹ï¼Œå¹¶ä»¥â€œ<code>}</code>â€ç»“å°¾ï¼Œåˆ™åˆ›å»ºå¼•ç”¨è¡¨è¾¾å¼ã€‚</li>
+     * <li>å¦‚æœè¡¨è¾¾å¼åŒ…å«â€œ<code>${...}</code>â€ï¼Œä½†åœ¨æ­¤ä¹‹å¤–è¿˜æœ‰åˆ«çš„å­—ç¬¦ï¼Œåˆ™åˆ›å»º
+     * <code>CompositeExpression</code>ã€‚</li>
      * </ul>
      * 
-     * @param expr ±í´ïÊ½×Ö·û´®
-     * @return ±í´ïÊ½
+     * @param expr è¡¨è¾¾å¼å­—ç¬¦ä¸²
+     * @return è¡¨è¾¾å¼
      */
     public static Expression parse(String expr) {
         int length = expr.length();
         int startIndex = expr.indexOf("${");
 
-        // Èç¹û±í´ïÊ½²»°üº¬${}£¬Ôò´´½¨constant expression¡£
+        // å¦‚æœè¡¨è¾¾å¼ä¸åŒ…å«${}ï¼Œåˆ™åˆ›å»ºconstant expressionã€‚
         if (startIndex < 0) {
             return new ConstantExpression(expr);
         }
@@ -97,12 +97,12 @@ public class CompositeExpression implements Expression {
             throw new ExpressionException("Missing '}' character at the end of expression: " + expr);
         }
 
-        // Èç¹û±í´ïÊ½ÒÔ${¿ªÍ·£¬ÒÔ}½áÎ²£¬ÔòÖ±½Óµ÷ÓÃfactoryÀ´´´½¨±í´ïÊ½¡£
+        // å¦‚æœè¡¨è¾¾å¼ä»¥${å¼€å¤´ï¼Œä»¥}ç»“å°¾ï¼Œåˆ™ç›´æ¥è°ƒç”¨factoryæ¥åˆ›å»ºè¡¨è¾¾å¼ã€‚
         if ((startIndex == 0) && (endIndex == (length - 1))) {
             return new ReferenceExpression(expr.substring(2, endIndex));
         }
 
-        // ´´½¨¸´ºÏµÄ±í´ïÊ½¡£
+        // åˆ›å»ºå¤åˆçš„è¡¨è¾¾å¼ã€‚
         List expressions = new ArrayList();
         char ch = 0;
         int i = 0;

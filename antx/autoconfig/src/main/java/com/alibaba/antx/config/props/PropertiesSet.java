@@ -48,7 +48,7 @@ import com.alibaba.antx.config.resource.ResourceURI;
 import com.alibaba.antx.util.StringUtil;
 
 /**
- * ´ú±íÒ»×épropsÎÄ¼şµÄ×éºÏ¡£
+ * ä»£è¡¨ä¸€ç»„propsæ–‡ä»¶çš„ç»„åˆã€‚
  * 
  * @author Michael Zhou
  */
@@ -104,7 +104,7 @@ public class PropertiesSet {
         for (int i = 0; i < sharedPropertiesFiles.length; i++) {
             String sharedPropertiesFile = sharedPropertiesFiles[i];
 
-            // ÊÔ×Å×é×°file£¬Èç¹ûÊ§°Ü£¬ÔòÊÔ×ÅURI
+            // è¯•ç€ç»„è£…fileï¼Œå¦‚æœå¤±è´¥ï¼Œåˆ™è¯•ç€URI
             URI uri = ResourceURI.guessURI(sharedPropertiesFile);
 
             if (new ResourceURI(uri).guessDirectory()) {
@@ -148,10 +148,10 @@ public class PropertiesSet {
 
         // user props
         if (userPropertiesFile == null) {
-            // ²éÕÒantx.properties
+            // æŸ¥æ‰¾antx.properties
             File defaultPropertiesFile;
 
-            // ²éÕÒµ±Ç°Ä¿Â¼
+            // æŸ¥æ‰¾å½“å‰ç›®å½•
             defaultPropertiesFile = new File("antx.properties").getAbsoluteFile();
 
             if (!defaultPropertiesFile.exists() || !defaultPropertiesFile.isFile()) {
@@ -163,7 +163,7 @@ public class PropertiesSet {
 
         userPropertiesFile.setAllowNonExistence(true);
 
-        // ´Ósystem propsºÍuser propsÖĞÈ¡µÃ£º
+        // ä»system propså’Œuser propsä¸­å–å¾—ï¼š
         // antx.properties.name1.1
         // antx.properties.name1.2
         // antx.properties.name1.3
@@ -179,7 +179,7 @@ public class PropertiesSet {
 
         namedPropertiesFiles = getNamedSharedPropertiesFiles(props);
 
-        // È¡µÃantx.properties²ÎÊı£¬Èç¹ûÃ»ÓĞ£¬Ä¬ÈÏÖµÎª"default",
+        // å–å¾—antx.propertieså‚æ•°ï¼Œå¦‚æœæ²¡æœ‰ï¼Œé»˜è®¤å€¼ä¸º"default",
         if (sharedName == null) {
             if (sharedPropertiesFiles != null && sharedPropertiesFiles.length > 0) {
                 sharedName = "default";
@@ -198,8 +198,8 @@ public class PropertiesSet {
             }
         }
 
-        // Èç¹ûÔÚÃüÁîĞĞÉÏÖ¸¶¨ÁËsharedPropertiesFiles£¬Ôò¸üĞÂnamedSharedPropertiesFiles
-        // ·ñÔòÉèÖÃsharedPropertiesFiles
+        // å¦‚æœåœ¨å‘½ä»¤è¡Œä¸ŠæŒ‡å®šäº†sharedPropertiesFilesï¼Œåˆ™æ›´æ–°namedSharedPropertiesFiles
+        // å¦åˆ™è®¾ç½®sharedPropertiesFiles
         if (sharedPropertiesFiles != null && sharedPropertiesFiles.length > 0) {
             List fileList = new ArrayList(sharedPropertiesFiles.length);
 
@@ -221,7 +221,7 @@ public class PropertiesSet {
             setSharedPropertiesFiles(files);
         }
 
-        // ×°ÔØ²¢ºÏ²¢ËùÓĞshared properties
+        // è£…è½½å¹¶åˆå¹¶æ‰€æœ‰shared properties
         loadUserProperties(false);
     }
 
@@ -237,7 +237,7 @@ public class PropertiesSet {
     }
 
     /**
-     * ÅĞ¶Ïproperty nameÊÇ·ñ¸²¸Çshared propertiesÖĞµÄÖµ¡£
+     * åˆ¤æ–­property nameæ˜¯å¦è¦†ç›–shared propertiesä¸­çš„å€¼ã€‚
      */
     public boolean isShared(String name) {
         for (int i = sharedPropertiesFilesExpanded.length - 1; i >= 0; i--) {
@@ -252,7 +252,7 @@ public class PropertiesSet {
     }
 
     /**
-     * ½«mergedPropertiesÖĞµÄÖµ£¬³ıÈ¥ÔÚsharedProperpertiesÖĞºÍsystemPropertiesÖĞµÄÖµ¡£
+     * å°†mergedPropertiesä¸­çš„å€¼ï¼Œé™¤å»åœ¨sharedProperpertiesä¸­å’ŒsystemPropertiesä¸­çš„å€¼ã€‚
      */
     public Map getModifiedProperties() {
         Map modifiedProperties = new HashMap();
@@ -266,14 +266,14 @@ public class PropertiesSet {
                 continue;
             }
 
-            // Ìø¹ıantx.properties.*£¬ÒòÎªÓĞÌØÊâÒâÒå
+            // è·³è¿‡antx.properties.*ï¼Œå› ä¸ºæœ‰ç‰¹æ®Šæ„ä¹‰
             if (matcher.matches(key, ANTX_PROPERTIES_PATTERN) || "antx.properties".equals(key)) {
                 continue;
             }
 
             String defaultValue = null;
 
-            // ÔÚshared propertiesÖĞÕÒkey
+            // åœ¨shared propertiesä¸­æ‰¾key
             PropertiesFile[] files = getSharedPropertiesFilesExpanded();
 
             for (int j = files.length - 1; j >= 0; j--) {
@@ -283,18 +283,18 @@ public class PropertiesSet {
                 }
             }
 
-            // ÔÚsystem propertiesÖĞÕÒkey
+            // åœ¨system propertiesä¸­æ‰¾key
             if (defaultValue == null && getSystemProperties().getProperties().containsKey(key)) {
                 defaultValue = toString(getSystemProperties().getProperties().get(key));
             }
 
-            // Èç¹ûÃ»ÕÒµ½£¬»òÕßÖµ²»Í¬£¬Ôò¼ÓÈëmodified properties
+            // å¦‚æœæ²¡æ‰¾åˆ°ï¼Œæˆ–è€…å€¼ä¸åŒï¼Œåˆ™åŠ å…¥modified properties
             if (defaultValue == null || !defaultValue.equals(value)) {
                 modifiedProperties.put(key, value);
             }
         }
 
-        // ²åÈëantx.properties.*
+        // æ’å…¥antx.properties.*
         for (Iterator i = namedPropertiesFiles.entrySet().iterator(); i.hasNext();) {
             Map.Entry entry = (Map.Entry) i.next();
             String name = (String) entry.getKey();
@@ -366,19 +366,19 @@ public class PropertiesSet {
     }
 
     /**
-     * ¼ì²éshared propertiesÖĞµÄ±»¸²¸ÇµÄÖµ¡£
+     * æ£€æŸ¥shared propertiesä¸­çš„è¢«è¦†ç›–çš„å€¼ã€‚
      */
     private void checkOverlap(boolean reload) {
         for (Iterator i = getMergedKeys().iterator(); i.hasNext();) {
             String key = (String) i.next();
             PatternMatcher matcher = new Perl5Matcher();
 
-            // Ìø¹ıantx.properties.*£¬ÒòÎªÓĞÌØÊâÒâÒå
+            // è·³è¿‡antx.properties.*ï¼Œå› ä¸ºæœ‰ç‰¹æ®Šæ„ä¹‰
             if (matcher.matches(key, ANTX_PROPERTIES_PATTERN) || "antx.properties".equals(key)) {
                 continue;
             }
 
-            // ÔÚshared propertiesÖĞÕÒkey
+            // åœ¨shared propertiesä¸­æ‰¾key
             PropertiesFile[] files = getSharedPropertiesFilesExpanded();
             List definedInFiles = new ArrayList(files.length + 1);
 
@@ -392,19 +392,19 @@ public class PropertiesSet {
                 }
             }
 
-            // ÅĞ¶ÏÖØ¸´
+            // åˆ¤æ–­é‡å¤
             if (definedInFiles.size() > 1) {
                 StringBuffer message = new StringBuffer();
                 boolean overlapByUserProperties = definedInFiles.get(0) == userPropertiesFile;
 
                 if (!reload || overlapByUserProperties) {
-                    message.append("¸²¸Ç¾¯¸æ£º ");
+                    message.append("è¦†ç›–è­¦å‘Šï¼š ");
 
                     if (overlapByUserProperties) {
-                        message.append("ÓÃ»§propertiesÎÄ¼şÖĞµÄÖµ¡°").append(key).append("¡±¸²¸ÇÁË").append("¹²ÏípropertiesÎÄ¼şÖĞµÄÖµ£º\n");
+                        message.append("ç”¨æˆ·propertiesæ–‡ä»¶ä¸­çš„å€¼â€œ").append(key).append("â€è¦†ç›–äº†").append("å…±äº«propertiesæ–‡ä»¶ä¸­çš„å€¼ï¼š\n");
                     } else {
-                        message.append("¡°").append(key).append("¡±³öÏÖÔÚ").append(definedInFiles.size()).append(
-                                "¸ö¹²ÏípropertiesÎÄ¼şÖĞ£¨×îÖÕÖµ½«ÒÔµÚÒ»¸öÎª×¼£©£º\n");
+                        message.append("â€œ").append(key).append("â€å‡ºç°åœ¨").append(definedInFiles.size()).append(
+                                "ä¸ªå…±äº«propertiesæ–‡ä»¶ä¸­ï¼ˆæœ€ç»ˆå€¼å°†ä»¥ç¬¬ä¸€ä¸ªä¸ºå‡†ï¼‰ï¼š\n");
                     }
 
                     for (Iterator k = definedInFiles.iterator(); k.hasNext();) {

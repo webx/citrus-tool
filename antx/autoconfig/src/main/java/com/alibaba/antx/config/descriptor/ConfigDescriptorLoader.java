@@ -32,16 +32,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * ×°ÈëÒ»¸öconfig descriptorµÄ¹¤¾ßÀà¡£
+ * è£…å…¥ä¸€ä¸ªconfig descriptorçš„å·¥å…·ç±»ã€‚
  * 
  * @author Michael Zhou
  */
 public class ConfigDescriptorLoader {
     /**
-     * ´ÓÖ¸¶¨ÊäÈëÁ÷×°ÈëÅäÖÃÎÄ¼ş¡£
+     * ä»æŒ‡å®šè¾“å…¥æµè£…å…¥é…ç½®æ–‡ä»¶ã€‚
      * 
-     * @param url ÅäÖÃÎÄ¼şµÄURL
-     * @param name descriptorµÄÃû×Ö£¨Â·¾¶£©
+     * @param url é…ç½®æ–‡ä»¶çš„URL
+     * @param name descriptorçš„åå­—ï¼ˆè·¯å¾„ï¼‰
      * @return config descriptor
      */
     public synchronized ConfigDescriptor load(ConfigResource descriptorResource, InputStream istream) {
@@ -57,7 +57,7 @@ public class ConfigDescriptorLoader {
     }
 
     /**
-     * È¡µÃvalidatorµÄÁĞ±í¡£
+     * å–å¾—validatorçš„åˆ—è¡¨ã€‚
      */
     public synchronized Map loadValidatorClasses() {
         Digester digester = loadValidatorPlugins();
@@ -66,7 +66,7 @@ public class ConfigDescriptorLoader {
     }
 
     /**
-     * ´´½¨¶ÁÈ¡descriptorµÄdigester¡£
+     * åˆ›å»ºè¯»å–descriptorçš„digesterã€‚
      */
     protected Digester getDigester() {
         Digester digester = loadValidatorPlugins();
@@ -104,7 +104,7 @@ public class ConfigDescriptorLoader {
     }
 
     /**
-     * ¶ÁÈ¡validators.xmlÖĞµÄvalidator¶¨Òå¡£
+     * è¯»å–validators.xmlä¸­çš„validatorå®šä¹‰ã€‚
      */
     private Digester loadValidatorPlugins() {
         Digester digester = new Digester();

@@ -140,7 +140,7 @@ public class SshSession extends Session {
 
                     channels.put(key, channel);
 
-                    // ³É¹¦¾ÍÇå³ı£¬ÒÔ±ÜÃâÖØ¸´ÌáÊ¾ÊäÈëÃÜÂë
+                    // æˆåŠŸå°±æ¸…é™¤ï¼Œä»¥é¿å…é‡å¤æç¤ºè¾“å…¥å¯†ç 
                     ResourceContext.get().getVisitedURIs().remove(new ResourceKey(new ResourceURI(uri.getURI())));
                 } catch (RuntimeException e) {
                     throw e;

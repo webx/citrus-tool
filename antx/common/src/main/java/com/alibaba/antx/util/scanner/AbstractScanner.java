@@ -18,7 +18,7 @@
 package com.alibaba.antx.util.scanner;
 
 /**
- * ËùÓĞscannerµÄ»ùÀà¡£
+ * æ‰€æœ‰scannerçš„åŸºç±»ã€‚
  *
  * @author Michael Zhou
  */
@@ -27,16 +27,16 @@ public abstract class AbstractScanner implements Scanner {
     private String         path;
 
 /**
-     * ´´½¨Ò»¸öscanner¡£
+     * åˆ›å»ºä¸€ä¸ªscannerã€‚
      *
-     * @param »Øµ÷º¯Êı
+     * @param å›è°ƒå‡½æ•°
      */
     public AbstractScanner(ScannerHandler handler) {
         this.handler = handler;
     }
 
     /**
-     * È¡µÃscanner handler¡£
+     * å–å¾—scanner handlerã€‚
      *
      * @return scanner handler
      */
@@ -45,9 +45,9 @@ public abstract class AbstractScanner implements Scanner {
     }
 
     /**
-     * È¡µÃµ±Ç°ÕıÔÚÉ¨ÃèµÄÎÄ¼şÂ·¾¶¡£
+     * å–å¾—å½“å‰æ­£åœ¨æ‰«æçš„æ–‡ä»¶è·¯å¾„ã€‚
      *
-     * @return ÎÄ¼şÂ·¾¶
+     * @return æ–‡ä»¶è·¯å¾„
      */
     public String getPath() {
         return (path == null) ? ""
@@ -55,11 +55,11 @@ public abstract class AbstractScanner implements Scanner {
     }
 
     /**
-     * ÉèÖÃµ±Ç°ÕıÔÚÉ¨ÃèµÄÎÄ¼şÂ·¾¶¡£
+     * è®¾ç½®å½“å‰æ­£åœ¨æ‰«æçš„æ–‡ä»¶è·¯å¾„ã€‚
      *
-     * @param path ÎÄ¼şÂ·¾¶
+     * @param path æ–‡ä»¶è·¯å¾„
      *
-     * @return Ô­Â·¾¶
+     * @return åŸè·¯å¾„
      */
     protected String setPath(String path) {
         String old = getPath();
@@ -74,9 +74,9 @@ public abstract class AbstractScanner implements Scanner {
     }
 
     /**
-     * ×ª»»³É×Ö·û´®¡£
+     * è½¬æ¢æˆå­—ç¬¦ä¸²ã€‚
      *
-     * @return ×Ö·û´®±íÊ¾
+     * @return å­—ç¬¦ä¸²è¡¨ç¤º
      */
     public String toString() {
         return "Scanner[URL=" + getBaseURL() + "]";

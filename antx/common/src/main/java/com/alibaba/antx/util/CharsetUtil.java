@@ -25,7 +25,7 @@ public class CharsetUtil {
     public static String detectedSystemCharset() {
         String charset = Charset.defaultCharset().name();
 
-        // ÔÚunix»·¾³ÖĞ£¬¸ù¾İLANGĞŞÕıcharset¡£
+        // åœ¨unixç¯å¢ƒä¸­ï¼Œæ ¹æ®LANGä¿®æ­£charsetã€‚
         if (SystemUtils.IS_OS_UNIX) {
             String lang = System.getenv("LANG");
             int index = -1;

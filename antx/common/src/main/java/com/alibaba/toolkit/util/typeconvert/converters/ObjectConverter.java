@@ -21,14 +21,14 @@ import com.alibaba.toolkit.util.typeconvert.ConvertChain;
 import com.alibaba.toolkit.util.typeconvert.Converter;
 
 /**
- * ObjectÀàĞÍµÄ×ª»»Æ÷.
+ * Objectç±»å‹çš„è½¬æ¢å™¨.
  *
  * <ul>
  * <li>
- * Èç¹û<code>targetType</code>ÊÇ<code>Object</code>ÀàĞÍ, ÔòÖ±½Ó·µ»Ø.
+ * å¦‚æœ<code>targetType</code>æ˜¯<code>Object</code>ç±»å‹, åˆ™ç›´æ¥è¿”å›.
  * </li>
  * <li>
- * ·ñÔò, °Ñ¶ÔÏó´«µİ¸øÏÂÒ»¸ö<code>Converter</code>´¦Àí.
+ * å¦åˆ™, æŠŠå¯¹è±¡ä¼ é€’ç»™ä¸‹ä¸€ä¸ª<code>Converter</code>å¤„ç†.
  * </li>
  * </ul>
  *

@@ -18,102 +18,102 @@
 package com.alibaba.toolkit.util.enumeration;
 
 /**
- * ±ê¼Ç<code>Enum</code>ÎªÎ»²Ù×÷µÄÄ£Ê½, Ò²¾ÍÊÇËµ<code>Enum</code>Öµ²»ÊÇµİÔö, ¶øÊÇ±¶Ôö(×óÒÆ).
+ * æ ‡è®°<code>Enum</code>ä¸ºä½æ“ä½œçš„æ¨¡å¼, ä¹Ÿå°±æ˜¯è¯´<code>Enum</code>å€¼ä¸æ˜¯é€’å¢, è€Œæ˜¯å€å¢(å·¦ç§»).
  *
  * @version $Id: Flags.java,v 1.1 2003/07/03 07:26:20 baobao Exp $
  * @author Michael Zhou
  */
 public interface Flags extends IntegralNumber {
     /**
-     * ÉèÖÃ³É²»¿É±äµÄÎ»¼¯.
+     * è®¾ç½®æˆä¸å¯å˜çš„ä½é›†.
      *
-     * @return Î»¼¯±¾Éí
+     * @return ä½é›†æœ¬èº«
      */
     Flags setImmutable();
 
     /**
-     * ¶Ôµ±Ç°Î»¼¯Ö´ĞĞÂß¼­Óë²Ù×÷.
+     * å¯¹å½“å‰ä½é›†æ‰§è¡Œé€»è¾‘ä¸æ“ä½œ.
      *
-     * @param flags  ±êÖ¾Î»
+     * @param flags  æ ‡å¿—ä½
      *
-     * @return µ±Ç°Î»¼¯
+     * @return å½“å‰ä½é›†
      */
     Flags and(Flags flags);
 
     /**
-     * ¶Ôµ±Ç°Î»¼¯Ö´ĞĞÂß¼­·Ç²Ù×÷.
+     * å¯¹å½“å‰ä½é›†æ‰§è¡Œé€»è¾‘éæ“ä½œ.
      *
-     * @param flags  ±êÖ¾Î»
+     * @param flags  æ ‡å¿—ä½
      *
-     * @return µ±Ç°Î»¼¯
+     * @return å½“å‰ä½é›†
      */
     Flags andNot(Flags flags);
 
     /**
-     * ¶Ôµ±Ç°Î»¼¯Ö´ĞĞÂß¼­»ò²Ù×÷.
+     * å¯¹å½“å‰ä½é›†æ‰§è¡Œé€»è¾‘æˆ–æ“ä½œ.
      *
-     * @param flags  ±êÖ¾Î»
+     * @param flags  æ ‡å¿—ä½
      *
-     * @return µ±Ç°Î»¼¯
+     * @return å½“å‰ä½é›†
      */
     Flags or(Flags flags);
 
     /**
-     * ¶Ôµ±Ç°Î»¼¯Ö´ĞĞÂß¼­Òì»ò²Ù×÷.
+     * å¯¹å½“å‰ä½é›†æ‰§è¡Œé€»è¾‘å¼‚æˆ–æ“ä½œ.
      *
-     * @param flags  ±êÖ¾Î»
+     * @param flags  æ ‡å¿—ä½
      *
-     * @return µ±Ç°Î»¼¯
+     * @return å½“å‰ä½é›†
      */
     Flags xor(Flags flags);
 
     /**
-     * Çå³ıµ±Ç°Î»¼¯µÄÈ«²¿Î».
+     * æ¸…é™¤å½“å‰ä½é›†çš„å…¨éƒ¨ä½.
      *
-     * @return µ±Ç°Î»¼¯
+     * @return å½“å‰ä½é›†
      */
     Flags clear();
 
     /**
-     * Çå³ıµ±Ç°Î»¼¯µÄÖ¸¶¨Î», µÈĞ§ÓÚ<code>andNot</code>²Ù×÷.
+     * æ¸…é™¤å½“å‰ä½é›†çš„æŒ‡å®šä½, ç­‰æ•ˆäº<code>andNot</code>æ“ä½œ.
      *
-     * @param flags  ±êÖ¾Î»
+     * @param flags  æ ‡å¿—ä½
      *
-     * @return µ±Ç°Î»¼¯
+     * @return å½“å‰ä½é›†
      */
     Flags clear(Flags flags);
 
     /**
-     * ÉèÖÃµ±Ç°Î»¼¯µÄÖ¸¶¨Î», µÈĞ§ÓÚ<code>or</code>²Ù×÷.
+     * è®¾ç½®å½“å‰ä½é›†çš„æŒ‡å®šä½, ç­‰æ•ˆäº<code>or</code>æ“ä½œ.
      *
-     * @param flags  ±êÖ¾Î»
+     * @param flags  æ ‡å¿—ä½
      *
-     * @return µ±Ç°Î»¼¯
+     * @return å½“å‰ä½é›†
      */
     Flags set(Flags flags);
 
     /**
-     * ²âÊÔµ±Ç°Î»¼¯µÄÖ¸¶¨Î», µÈĞ§ÓÚ<code>and(flags) != 0</code>.
+     * æµ‹è¯•å½“å‰ä½é›†çš„æŒ‡å®šä½, ç­‰æ•ˆäº<code>and(flags) != 0</code>.
      *
-     * @param flags  ±êÖ¾Î»
+     * @param flags  æ ‡å¿—ä½
      *
-     * @return Èç¹ûÖ¸¶¨Î»±»ÖÃÎ», Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœæŒ‡å®šä½è¢«ç½®ä½, åˆ™è¿”å›<code>true</code>
      */
     boolean test(Flags flags);
 
     /**
-     * ²âÊÔµ±Ç°Î»¼¯µÄÖ¸¶¨Î», µÈĞ§ÓÚ<code>and(flags) == flags</code>.
+     * æµ‹è¯•å½“å‰ä½é›†çš„æŒ‡å®šä½, ç­‰æ•ˆäº<code>and(flags) == flags</code>.
      *
-     * @param flags  ±êÖ¾Î»
+     * @param flags  æ ‡å¿—ä½
      *
-     * @return Èç¹ûÖ¸¶¨Î»±»ÖÃÎ», Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœæŒ‡å®šä½è¢«ç½®ä½, åˆ™è¿”å›<code>true</code>
      */
     boolean testAll(Flags flags);
 
     /**
-     * È¡µÃ±êÖ¾µÄÖµ.
+     * å–å¾—æ ‡å¿—çš„å€¼.
      *
-     * @return ±êÖ¾µÄÖµ
+     * @return æ ‡å¿—çš„å€¼
      */
     Object getValue();
 }

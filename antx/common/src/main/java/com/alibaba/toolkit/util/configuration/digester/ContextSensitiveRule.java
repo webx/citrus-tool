@@ -23,7 +23,7 @@ import org.apache.commons.digester.Rule;
 import org.xml.sax.Attributes;
 
 /**
- * ÉÏÏÂÎÄÏà¹ØµÄ¹æÔòµÄ°ü×°Æ÷.
+ * ä¸Šä¸‹æ–‡ç›¸å…³çš„è§„åˆ™çš„åŒ…è£…å™¨.
  *
  * @version $Id: ContextSensitiveRule.java,v 1.1 2003/07/03 07:26:16 baobao Exp $
  * @author Michael Zhou
@@ -33,10 +33,10 @@ public class ContextSensitiveRule extends Rule {
     protected String context;
 
     /**
-     * °ü×°Ö¸¶¨µÄ¹æÔò, ºÍÖ¸¶¨µÄÉÏÏÂÎÄ¶ÔÓ¦.
+     * åŒ…è£…æŒ‡å®šçš„è§„åˆ™, å’ŒæŒ‡å®šçš„ä¸Šä¸‹æ–‡å¯¹åº”.
      *
-     * @param rule     ¹æÔò
-     * @param context  ÉÏÏÂÎÄ×Ö·û´®
+     * @param rule     è§„åˆ™
+     * @param context  ä¸Šä¸‹æ–‡å­—ç¬¦ä¸²
      */
     public ContextSensitiveRule(Rule rule, String context) {
         this.rule    = rule;
@@ -44,18 +44,18 @@ public class ContextSensitiveRule extends Rule {
     }
 
     /**
-     * ÅĞ¶Ïµ±Ç°ÉÏÏÂÎÄÊÇ·ñÆ¥Åä.
+     * åˆ¤æ–­å½“å‰ä¸Šä¸‹æ–‡æ˜¯å¦åŒ¹é….
      *
-     * @param context  ±»Æ¥ÅäµÄÉÏÏÂÎÄ
+     * @param context  è¢«åŒ¹é…çš„ä¸Šä¸‹æ–‡
      *
-     * @return Èç¹ûÆ¥Åä, Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœåŒ¹é…, åˆ™è¿”å›<code>true</code>
      */
     public boolean isContextMatched(String context) {
         return this.context.equals(context);
     }
 
     /**
-     * È¡µÃdigester.
+     * å–å¾—digester.
      *
      * @return digester
      */
@@ -64,7 +64,7 @@ public class ContextSensitiveRule extends Rule {
     }
 
     /**
-     * ÉèÖÃdigester.
+     * è®¾ç½®digester.
      *
      * @param digester digester
      */
@@ -73,31 +73,31 @@ public class ContextSensitiveRule extends Rule {
     }
 
     /**
-     * È¡µÃÃû×Ö¿Õ¼ä.
+     * å–å¾—åå­—ç©ºé—´.
      *
-     * @return Ãû×Ö¿Õ¼ä
+     * @return åå­—ç©ºé—´
      */
     public String getNamespaceURI() {
         return rule.getNamespaceURI();
     }
 
     /**
-     * ÉèÖÃÃû×Ö¿Õ¼ä.
+     * è®¾ç½®åå­—ç©ºé—´.
      *
-     * @param namespaceURI Ãû×Ö¿Õ¼ä
+     * @param namespaceURI åå­—ç©ºé—´
      */
     public void setNamespaceURI(String namespaceURI) {
         rule.setNamespaceURI(namespaceURI);
     }
 
     /**
-     * Æ¥Åä¿ªÊ¼.
+     * åŒ¹é…å¼€å§‹.
      *
-     * @param namespace  Ãû×Ö¿Õ¼ä
-     * @param name       XMLÔªËØlocalÃû
-     * @param attributes XMLÊôĞÔ
+     * @param namespace  åå­—ç©ºé—´
+     * @param name       XMLå…ƒç´ localå
+     * @param attributes XMLå±æ€§
      *
-     * @throws Exception Èç¹ûÊ§°Ü
+     * @throws Exception å¦‚æœå¤±è´¥
      */
     public void begin(String namespace, String name, Attributes attributes)
             throws Exception {
@@ -105,13 +105,13 @@ public class ContextSensitiveRule extends Rule {
     }
 
     /**
-     * Æ¥ÅäÖ÷Ìå²¿·Ö.
+     * åŒ¹é…ä¸»ä½“éƒ¨åˆ†.
      *
-     * @param namespace  Ãû×Ö¿Õ¼ä
-     * @param name       XMLÔªËØlocalÃû
-     * @param text       XMLÔªËØÖµ
+     * @param namespace  åå­—ç©ºé—´
+     * @param name       XMLå…ƒç´ localå
+     * @param text       XMLå…ƒç´ å€¼
      *
-     * @throws Exception Èç¹ûÊ§°Ü
+     * @throws Exception å¦‚æœå¤±è´¥
      */
     public void body(String namespace, String name, String text)
             throws Exception {
@@ -119,12 +119,12 @@ public class ContextSensitiveRule extends Rule {
     }
 
     /**
-     * Æ¥Åä½áÊø.
+     * åŒ¹é…ç»“æŸ.
      *
-     * @param namespace  Ãû×Ö¿Õ¼ä
-     * @param name       XMLÔªËØlocalÃû
+     * @param namespace  åå­—ç©ºé—´
+     * @param name       XMLå…ƒç´ localå
      *
-     * @throws Exception Èç¹ûÊ§°Ü
+     * @throws Exception å¦‚æœå¤±è´¥
      */
     public void end(String namespace, String name)
             throws Exception {
@@ -132,18 +132,18 @@ public class ContextSensitiveRule extends Rule {
     }
 
     /**
-     * Çå³ı»·¾³.
+     * æ¸…é™¤ç¯å¢ƒ.
      *
-     * @throws Exception Èç¹ûÊ§°Ü
+     * @throws Exception å¦‚æœå¤±è´¥
      */
     public void finish() throws Exception {
         rule.finish();
     }
 
     /**
-     * È¡µÃ¹æÔòµÄ×Ö·û´®±íÊ¾.
+     * å–å¾—è§„åˆ™çš„å­—ç¬¦ä¸²è¡¨ç¤º.
      *
-     * @return ¹æÔòµÄ×Ö·û´®±íÊ¾
+     * @return è§„åˆ™çš„å­—ç¬¦ä¸²è¡¨ç¤º
      */
     public String toString() {
         return rule.toString();

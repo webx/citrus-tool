@@ -18,7 +18,7 @@
 package com.alibaba.antx.util.scanner;
 
 /**
- * Ä¬ÈÏµÄscanner handlerÊµÏÖ¡£
+ * é»˜è®¤çš„scanner handlerå®ç°ã€‚
  *
  * @author Michael Zhou
  */
@@ -26,51 +26,51 @@ public class DefaultScannerHandler implements ScannerHandler {
     private Scanner scanner;
 
     /**
-     * È¡µÃscanner¡£
+     * å–å¾—scannerã€‚
      *
-     * @return µ±Ç°ÕıÔÚÉ¨ÃèµÄscanner
+     * @return å½“å‰æ­£åœ¨æ‰«æçš„scanner
      */
     public Scanner getScanner() {
         return scanner;
     }
 
     /**
-     * ÉèÖÃscanner£¬´Ë·½·¨Ò»¶¨ÊÇÊ×ÏÈ±»µ÷ÓÃµÄ¡£
+     * è®¾ç½®scannerï¼Œæ­¤æ–¹æ³•ä¸€å®šæ˜¯é¦–å…ˆè¢«è°ƒç”¨çš„ã€‚
      *
-     * @param scanner µ±Ç°ÕıÔÚÉ¨ÃèµÄscanner
+     * @param scanner å½“å‰æ­£åœ¨æ‰«æçš„scanner
      */
     public void setScanner(Scanner scanner) {
         this.scanner = scanner;
     }
 
     /**
-     * ¿ªÊ¼É¨Ãè¡£
+     * å¼€å§‹æ‰«æã€‚
      */
     public void startScanning() {
     }
 
     /**
-     * ½áÊøÉ¨Ãè¡£
+     * ç»“æŸæ‰«æã€‚
      */
     public void endScanning() {
     }
 
     /**
-     * É¨ÃèÄ¿Â¼¡£
+     * æ‰«æç›®å½•ã€‚
      */
     public void directory() {
     }
 
     /**
-     * É¨ÃèÎÄ¼ş¡£
+     * æ‰«ææ–‡ä»¶ã€‚
      */
     public void file() {
     }
 
     /**
-     * ÊÇ·ñ¸ú½øÖ¸¶¨Ä¿Â¼»òÎÄ¼ş¡£¸Ã·½·¨ÓĞÖúÓÚÌá¸ßÉ¨ÃèËÙ¶È¡£
+     * æ˜¯å¦è·Ÿè¿›æŒ‡å®šç›®å½•æˆ–æ–‡ä»¶ã€‚è¯¥æ–¹æ³•æœ‰åŠ©äºæé«˜æ‰«æé€Ÿåº¦ã€‚
      *
-     * @return Èç¹ûÊÇ£¬Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœæ˜¯ï¼Œåˆ™è¿”å›<code>true</code>
      */
     public boolean followUp() {
         return true;

@@ -33,32 +33,32 @@ import java.util.Set;
 
 /**
  * <p>
- * Hash±íµÄÒ»¸öÊµÏÖ, ÊµÏÖÁË<code>Map</code>½Ó¿Ú.
+ * Hashè¡¨çš„ä¸€ä¸ªå®ç°, å®ç°äº†<code>Map</code>æ¥å£.
  * </p>
  *
  * <p>
- * Õâ¸öhash±íµÄÊµÏÖÍêÈ«ÀàËÆJDKµÄ<code>HashMap</code>, µ«×÷ÁËÈçÏÂ¸Ä±ä, ÒÔ±ãÓÚ×ÓÀàÅÉÉú, ²¢ÊµÏÖÌØÊâ¹¦ÄÜ:
+ * è¿™ä¸ªhashè¡¨çš„å®ç°å®Œå…¨ç±»ä¼¼JDKçš„<code>HashMap</code>, ä½†ä½œäº†å¦‚ä¸‹æ”¹å˜, ä»¥ä¾¿äºå­ç±»æ´¾ç”Ÿ, å¹¶å®ç°ç‰¹æ®ŠåŠŸèƒ½:
  * </p>
  *
  * <ul>
  * <li>
- * ½«²¿·ÖÀà³ÉÔ±ÉèÖÃ³ÉprotectedºÍfriendly
+ * å°†éƒ¨åˆ†ç±»æˆå‘˜è®¾ç½®æˆprotectedå’Œfriendly
  * </li>
  * <li>
- * Ôö¼ÓÁËÒ»Ğ©·½·¨ºÍÊÂ¼ş
+ * å¢åŠ äº†ä¸€äº›æ–¹æ³•å’Œäº‹ä»¶
  * </li>
  * </ul>
  *
  * <p>
- * ºÍJDKµÄ<code>HashMap</code>Ò»Ñù, Õâ¸öÊµÏÖ¾ßÓĞÒÔÏÂÌØĞÔ:
+ * å’ŒJDKçš„<code>HashMap</code>ä¸€æ ·, è¿™ä¸ªå®ç°å…·æœ‰ä»¥ä¸‹ç‰¹æ€§:
  * </p>
  *
  * <ul>
  * <li>
- * Ö§³ÖÖµÎª<code>null</code>µÄkeyºÍvalue
+ * æ”¯æŒå€¼ä¸º<code>null</code>çš„keyå’Œvalue
  * </li>
  * <li>
- * Ã»ÓĞ½øĞĞÈÎºÎ<code>synchronized</code>²Ù×÷, Òò¶ø²»ÊÇÏß³Ì°²È«µÄ. µ«¿ÉÒÔÍ¨¹ıÒÔÏÂ²Ù×÷ÊµÏÖÏß³Ì°²È«:
+ * æ²¡æœ‰è¿›è¡Œä»»ä½•<code>synchronized</code>æ“ä½œ, å› è€Œä¸æ˜¯çº¿ç¨‹å®‰å…¨çš„. ä½†å¯ä»¥é€šè¿‡ä»¥ä¸‹æ“ä½œå®ç°çº¿ç¨‹å®‰å…¨:
  * </li>
  * </ul>
  *
@@ -68,15 +68,15 @@ import java.util.Set;
  *
  * <ul>
  * <li>
- * ²»±£Ö¤hash±íÖĞµÄentryµÄË³Ğò
+ * ä¸ä¿è¯hashè¡¨ä¸­çš„entryçš„é¡ºåº
  * </li>
  * <li>
- * ÒÔ¼¸ºõºâ¶¨µÄĞÔÄÜ´æÈ¡hash±íÖĞµÄÃ¿¸öentry
+ * ä»¥å‡ ä¹è¡¡å®šçš„æ€§èƒ½å­˜å–hashè¡¨ä¸­çš„æ¯ä¸ªentry
  * </li>
  * <li>
- * ´Óhash±íÖĞÈ¡µÃµÄÈÎºÎ<code>Iterator</code>¾ßÓĞ<i>fail-fast</i>ÌØĞÔ: µ±hash±íµÄ½á¹¹±»¸Ä±äÊ±,
- * µ÷ÓÃ<code>Iterator.remove</code>ºÍ<code>Iterator.add</code>·½·¨Ê±,
- * »áÖÀ³ö<code>ConcurrentModificationException</code>. ÕâÑùÈ·±£²»»á³öÏÖ²»È·¶¨µÄÇé¿ö.
+ * ä»hashè¡¨ä¸­å–å¾—çš„ä»»ä½•<code>Iterator</code>å…·æœ‰<i>fail-fast</i>ç‰¹æ€§: å½“hashè¡¨çš„ç»“æ„è¢«æ”¹å˜æ—¶,
+ * è°ƒç”¨<code>Iterator.remove</code>å’Œ<code>Iterator.add</code>æ–¹æ³•æ—¶,
+ * ä¼šæ·å‡º<code>ConcurrentModificationException</code>. è¿™æ ·ç¡®ä¿ä¸ä¼šå‡ºç°ä¸ç¡®å®šçš„æƒ…å†µ.
  * </li>
  * </ul>
  *
@@ -86,83 +86,83 @@ import java.util.Set;
  */
 public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Serializable {
     /* ============================================================================ */
-    /* ³£Á¿                                                                         */
+    /* å¸¸é‡                                                                         */
     /* ============================================================================ */
 
-    /** Ä¬ÈÏµÄ³õÊ¼ÈİÁ¿ - <code>2µÄÕûÊı´ÎÃİ</code>. */
+    /** é»˜è®¤çš„åˆå§‹å®¹é‡ - <code>2çš„æ•´æ•°æ¬¡å¹‚</code>. */
     private static final int DEFAULT_INITIAL_CAPACITY = 16;
 
-    /** ×î´óÈİÁ¿ - <code>2µÄÕûÊı´ÎÃİ</code>. */
+    /** æœ€å¤§å®¹é‡ - <code>2çš„æ•´æ•°æ¬¡å¹‚</code>. */
     private static final int MAXIMUM_CAPACITY = 1 << 30;
 
-    /** Ä¬ÈÏµÄ¸ºÔØÏµÊı */
+    /** é»˜è®¤çš„è´Ÿè½½ç³»æ•° */
     private static final float DEFAULT_LOAD_FACTOR = 0.75f;
 
     /* ============================================================================ */
-    /* ³ÉÔ±±äÁ¿                                                                     */
+    /* æˆå‘˜å˜é‡                                                                     */
     /* ============================================================================ */
 
-    /** Hash±í, ³¤¶È¿É±ä - µ«³¤¶È±ØĞëÊÇ<code>2µÄÕûÊı´ÎÃİ</code>. */
+    /** Hashè¡¨, é•¿åº¦å¯å˜ - ä½†é•¿åº¦å¿…é¡»æ˜¯<code>2çš„æ•´æ•°æ¬¡å¹‚</code>. */
     protected transient Entry[] table;
 
-    /** Hash±íÖĞµÄentryÊı. */
+    /** Hashè¡¨ä¸­çš„entryæ•°. */
     protected transient int size;
 
     /**
-     * ãĞÖµ. µ±hash±íÖĞµÄentryÊı³¬¹ıËüÊ±, ×Ô¶¯À©Èİ(<code>resize</code>).
-     * ÆäÖµµÈÓÚ<code>capacity&times;loadFactor</code>.
+     * é˜ˆå€¼. å½“hashè¡¨ä¸­çš„entryæ•°è¶…è¿‡å®ƒæ—¶, è‡ªåŠ¨æ‰©å®¹(<code>resize</code>).
+     * å…¶å€¼ç­‰äº<code>capacity&times;loadFactor</code>.
      *
-     * @serial ×Ô¶¯ĞòÁĞ»¯×Ö¶Î
+     * @serial è‡ªåŠ¨åºåˆ—åŒ–å­—æ®µ
      */
     protected int threshold;
 
     /**
-     * ¸ºÔØÏµÊı.
+     * è´Ÿè½½ç³»æ•°.
      *
-     * @serial ×Ô¶¯ĞòÁĞ»¯×Ö¶Î
+     * @serial è‡ªåŠ¨åºåˆ—åŒ–å­—æ®µ
      */
     protected final float loadFactor;
 
     /**
-     * µ±hash±í·¢Éú&quot;½á¹¹¸Ä±ä&quot;µÄ¼ÆÊı. ËùÎ½&quot;½á¹¹¸Ä±ä&quot;,
-     * ÊÇÖ¸hash±íÖĞentryµÄÊıÄ¿·¢Éú¸Ä±ä»òÄÚ²¿½á¹¹¸Ä±ä(Èç<code>resize</code>). Õâ¸ö×Ö¶ÎÊÇÎªÁËÊµÏÖ<i>fail-fast</i>.
+     * å½“hashè¡¨å‘ç”Ÿ&quot;ç»“æ„æ”¹å˜&quot;çš„è®¡æ•°. æ‰€è°“&quot;ç»“æ„æ”¹å˜&quot;,
+     * æ˜¯æŒ‡hashè¡¨ä¸­entryçš„æ•°ç›®å‘ç”Ÿæ”¹å˜æˆ–å†…éƒ¨ç»“æ„æ”¹å˜(å¦‚<code>resize</code>). è¿™ä¸ªå­—æ®µæ˜¯ä¸ºäº†å®ç°<i>fail-fast</i>.
      */
     protected transient volatile int modCount;
 
-    /** keyµÄ¼¯ºÏÊÓÍ¼. */
+    /** keyçš„é›†åˆè§†å›¾. */
     private transient Set keySet = null;
 
-    /** entryµÄ¼¯ºÏÊÓÍ¼. */
+    /** entryçš„é›†åˆè§†å›¾. */
     private transient Set entrySet = null;
 
-    /** valueµÄ¼¯ºÏÊÓÍ¼. */
+    /** valueçš„é›†åˆè§†å›¾. */
     private transient Collection values = null;
 
     /* ============================================================================ */
-    /* ¹¹Ôìº¯Êı                                                                     */
+    /* æ„é€ å‡½æ•°                                                                     */
     /* ============================================================================ */
 
     /**
-     * ´´½¨Ò»¸ö¿ÕµÄhash±í. Ê¹ÓÃÖ¸¶¨µÄÄ¬ÈÏµÄ³õÊ¼ÈİÁ¿(16)ºÍÄ¬ÈÏµÄ¸ºÔØÏµÊı(0.75).
+     * åˆ›å»ºä¸€ä¸ªç©ºçš„hashè¡¨. ä½¿ç”¨æŒ‡å®šçš„é»˜è®¤çš„åˆå§‹å®¹é‡(16)å’Œé»˜è®¤çš„è´Ÿè½½ç³»æ•°(0.75).
      */
     public DefaultHashMap() {
         this(DEFAULT_INITIAL_CAPACITY, DEFAULT_LOAD_FACTOR);
     }
 
     /**
-     * ´´½¨Ò»¸ö¿ÕµÄhash±í. Ê¹ÓÃÖ¸¶¨µÄ³õÊ¼ãĞÖµºÍÄ¬ÈÏµÄ¸ºÔØÏµÊı(0.75).
+     * åˆ›å»ºä¸€ä¸ªç©ºçš„hashè¡¨. ä½¿ç”¨æŒ‡å®šçš„åˆå§‹é˜ˆå€¼å’Œé»˜è®¤çš„è´Ÿè½½ç³»æ•°(0.75).
      *
-     * @param initialCapacity ³õÊ¼ÈİÁ¿.
+     * @param initialCapacity åˆå§‹å®¹é‡.
      */
     public DefaultHashMap(int initialCapacity) {
         this(initialCapacity, DEFAULT_LOAD_FACTOR);
     }
 
     /**
-     * ´´½¨Ò»¸ö¿ÕµÄhash±í. Ê¹ÓÃÖ¸¶¨µÄ³õÊ¼ÈİÁ¿ºÍ¸ºÔØÏµÊı.
+     * åˆ›å»ºä¸€ä¸ªç©ºçš„hashè¡¨. ä½¿ç”¨æŒ‡å®šçš„åˆå§‹å®¹é‡å’Œè´Ÿè½½ç³»æ•°.
      *
-     * @param initialCapacity ³õÊ¼ÈİÁ¿
-     * @param loadFactor ¸ºÔØÏµÊı.
+     * @param initialCapacity åˆå§‹å®¹é‡
+     * @param loadFactor è´Ÿè½½ç³»æ•°.
      */
     public DefaultHashMap(int initialCapacity, float loadFactor) {
         if (initialCapacity < 0) {
@@ -177,7 +177,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
             throw new IllegalArgumentException("Illegal load factor: " + loadFactor);
         }
 
-        // È·±£³õÊ¼ÈİÁ¿Îª2µÄÕûÊı´ÎÃİ.
+        // ç¡®ä¿åˆå§‹å®¹é‡ä¸º2çš„æ•´æ•°æ¬¡å¹‚.
         int capacity = 1;
 
         while (capacity < initialCapacity) {
@@ -192,9 +192,9 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
     }
 
     /**
-     * ¸´ÖÆÖ¸¶¨<code>Map</code>ÄÚÈİÏàÍ¬µÄ<code>HashMap</code>. Ê¹ÓÃÄ¬ÈÏµÄ¸ºÔØÏµÊı(0.75).
+     * å¤åˆ¶æŒ‡å®š<code>Map</code>å†…å®¹ç›¸åŒçš„<code>HashMap</code>. ä½¿ç”¨é»˜è®¤çš„è´Ÿè½½ç³»æ•°(0.75).
      *
-     * @param map Òª¸´ÖÆµÄ<code>Map</code>
+     * @param map è¦å¤åˆ¶çš„<code>Map</code>
      */
     public DefaultHashMap(Map map) {
         this(Math.max((int) (map.size() / DEFAULT_LOAD_FACTOR) + 1, DEFAULT_INITIAL_CAPACITY),
@@ -203,35 +203,35 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
     }
 
     /* ============================================================================ */
-    /* ÊµÏÖMap½Ó¿ÚµÄ·½·¨                                                            */
+    /* å®ç°Mapæ¥å£çš„æ–¹æ³•                                                            */
     /* ============================================================================ */
 
     /**
-     * ·µ»Øhash±íÖĞentryµÄ¸öÊı.
+     * è¿”å›hashè¡¨ä¸­entryçš„ä¸ªæ•°.
      *
-     * @return hash±íÖĞµÄentryÊı.
+     * @return hashè¡¨ä¸­çš„entryæ•°.
      */
     public int size() {
         return size;
     }
 
     /**
-     * ÅĞ¶ÏÊÇ·ñÎª¿ÕµÄhash±í.
+     * åˆ¤æ–­æ˜¯å¦ä¸ºç©ºçš„hashè¡¨.
      *
-     * @return Èç¹ûÎª¿Õ(<code>size() == 0</code>), Ôò·µ»Ø<code>true</code>.
+     * @return å¦‚æœä¸ºç©º(<code>size() == 0</code>), åˆ™è¿”å›<code>true</code>.
      */
     public boolean isEmpty() {
         return size == 0;
     }
 
     /**
-     * ·µ»ØÖ¸¶¨key¶ÔÓ¦µÄvalue. Èç¹ûhash±íÖĞÃ»ÓĞvalue¶ÔÓ¦key, Ôò·µ»Ø<code>null</code>.
-     * µ«ÊÇ·µ»Ø<code>null</code>²¢²»×ÜÊÇ´ú±íÃ»ÓĞvalue¶ÔÓ¦Ö¸¶¨µÄkey, Ò²ÓĞ¿ÉÄÜÊÇÖ¸ valueÖµ±¾ÉíÎª<code>null</code>.
-     * ¿ÉÒÔÍ¨¹ı·½·¨<code>containsKey</code>À´Çø·ÖÕâÁ½ ÖÖÇé¿ö.
+     * è¿”å›æŒ‡å®škeyå¯¹åº”çš„value. å¦‚æœhashè¡¨ä¸­æ²¡æœ‰valueå¯¹åº”key, åˆ™è¿”å›<code>null</code>.
+     * ä½†æ˜¯è¿”å›<code>null</code>å¹¶ä¸æ€»æ˜¯ä»£è¡¨æ²¡æœ‰valueå¯¹åº”æŒ‡å®šçš„key, ä¹Ÿæœ‰å¯èƒ½æ˜¯æŒ‡ valueå€¼æœ¬èº«ä¸º<code>null</code>.
+     * å¯ä»¥é€šè¿‡æ–¹æ³•<code>containsKey</code>æ¥åŒºåˆ†è¿™ä¸¤ ç§æƒ…å†µ.
      *
-     * @param key Ö¸¶¨keyËù¶ÔÓ¦µÄvalue½«±»·µ»Ø.
+     * @param key æŒ‡å®škeyæ‰€å¯¹åº”çš„valueå°†è¢«è¿”å›.
      *
-     * @return Ö¸¶¨key¶ÔÓ¦µÄvalue, Èç¹ûÃ»ÓĞvalue¶ÔÓ¦´Ëkey, Ôò·µ»Ø<code>null</code>.
+     * @return æŒ‡å®škeyå¯¹åº”çš„value, å¦‚æœæ²¡æœ‰valueå¯¹åº”æ­¤key, åˆ™è¿”å›<code>null</code>.
      */
     public Object get(Object key) {
         Entry entry = getEntry(key);
@@ -241,11 +241,11 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
     }
 
     /**
-     * Èç¹ûhash±íÖĞ°üº¬Ö¸¶¨keyµÄentry, Ôò·µ»Ø<code>true</code>.
+     * å¦‚æœhashè¡¨ä¸­åŒ…å«æŒ‡å®škeyçš„entry, åˆ™è¿”å›<code>true</code>.
      *
-     * @param key   ²âÊÔÖ¸¶¨µÄkeyÊÇ·ñ´æÔÚ.
+     * @param key   æµ‹è¯•æŒ‡å®šçš„keyæ˜¯å¦å­˜åœ¨.
      *
-     * @return Èç¹ûkey¶ÔÓ¦µÄentry´æÔÚ, Ôò·µ»Ø<code>true</code>.
+     * @return å¦‚æœkeyå¯¹åº”çš„entryå­˜åœ¨, åˆ™è¿”å›<code>true</code>.
      */
     public boolean containsKey(Object key) {
         Entry entry = getEntry(key);
@@ -254,13 +254,13 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
     }
 
     /**
-     * ½«Ö¸¶¨µÄvalueºÍkey¹ØÁª. Èç¹ûÒÑ¾­ÓĞvalueºÍ´ËkeyÏà¹ØÁª, ÔòÈ¡´úÖ®, ²¢ ·µ»Ø±»È¡´úµÄvalue.
+     * å°†æŒ‡å®šçš„valueå’Œkeyå…³è”. å¦‚æœå·²ç»æœ‰valueå’Œæ­¤keyç›¸å…³è”, åˆ™å–ä»£ä¹‹, å¹¶ è¿”å›è¢«å–ä»£çš„value.
      *
-     * @param key Òª¹ØÁªµÄkey
-     * @param value ÒªºÍkey¹ØÁªµÄvalue
+     * @param key è¦å…³è”çš„key
+     * @param value è¦å’Œkeyå…³è”çš„value
      *
-     * @return Èç¹ûÒÑ¾­´æÔÚºÍ´ËkeyÏà¹ØÁªµÄvalue, Ôò·µ»Ø´Ëvalue. ·ñÔò·µ»Ø<code>null</code>.
-     *         ·µ»Ø<code>null</code>Ò²¿ÉÄÜÊÇÒòÎª±»È¡´úµÄÕâ¸övalueÖµÎª<code>null</code>.
+     * @return å¦‚æœå·²ç»å­˜åœ¨å’Œæ­¤keyç›¸å…³è”çš„value, åˆ™è¿”å›æ­¤value. å¦åˆ™è¿”å›<code>null</code>.
+     *         è¿”å›<code>null</code>ä¹Ÿå¯èƒ½æ˜¯å› ä¸ºè¢«å–ä»£çš„è¿™ä¸ªvalueå€¼ä¸º<code>null</code>.
      */
     public Object put(Object key, Object value) {
         Entry entry = getEntry(key);
@@ -275,7 +275,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
         } else {
             modCount++;
 
-            // Èç¹û±íÖĞµÄÏîÊı¼´½«³¬¹ıãĞÖµ, ÔòÈİÁ¿±¶Ôö.
+            // å¦‚æœè¡¨ä¸­çš„é¡¹æ•°å³å°†è¶…è¿‡é˜ˆå€¼, åˆ™å®¹é‡å€å¢.
             if (size >= threshold) {
                 resize(table.length * 2);
             }
@@ -287,12 +287,12 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
     }
 
     /**
-     * ½«<code>Map</code>ÖĞµÄËùÓĞÏî¶¼¼ÓÈëµ½µ±Ç°µÄ<code>Map</code>ÖĞ. Èç¹ûÓĞÏàÍ¬µÄkey, ÔòÌæ»»Ö®.
+     * å°†<code>Map</code>ä¸­çš„æ‰€æœ‰é¡¹éƒ½åŠ å…¥åˆ°å½“å‰çš„<code>Map</code>ä¸­. å¦‚æœæœ‰ç›¸åŒçš„key, åˆ™æ›¿æ¢ä¹‹.
      *
-     * @param map Òª¼ÓÈëµÄ<code>Map</code>
+     * @param map è¦åŠ å…¥çš„<code>Map</code>
      */
     public void putAll(Map map) {
-        // Ò»´ÎĞÔÀ©Èİ, ÒÔ±ãÈİÄÉĞÔ¼ÓÈëµÄentry.
+        // ä¸€æ¬¡æ€§æ‰©å®¹, ä»¥ä¾¿å®¹çº³æ€§åŠ å…¥çš„entry.
         int n = map.size();
 
         if (n == 0) {
@@ -323,12 +323,12 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
     }
 
     /**
-     * ½«Ö¸¶¨keyµÄentry´Óhash±íÖĞÉ¾³ı(Èç¹û¸Ãentry´æÔÚµÄ»°).
+     * å°†æŒ‡å®škeyçš„entryä»hashè¡¨ä¸­åˆ é™¤(å¦‚æœè¯¥entryå­˜åœ¨çš„è¯).
      *
-     * @param key Òª±»É¾³ıµÄentryµÄkey
+     * @param key è¦è¢«åˆ é™¤çš„entryçš„key
      *
-     * @return ±»É¾³ıµÄentryµÄvalue. Èç¹ûentry²»´æÔÚ, Ôò·µ»Ø<code>null</code>.
-     *         µ«ÊÇ·µ»Ø<code>null</code>²¢²»×ÜÊÇ´ú±íÃ»ÓĞvalue¶ÔÓ¦Ö¸¶¨µÄkey, Ò²ÓĞ¿ÉÄÜÊÇÖ¸ valueÖµ±¾ÉíÎª<code>null</code>.
+     * @return è¢«åˆ é™¤çš„entryçš„value. å¦‚æœentryä¸å­˜åœ¨, åˆ™è¿”å›<code>null</code>.
+     *         ä½†æ˜¯è¿”å›<code>null</code>å¹¶ä¸æ€»æ˜¯ä»£è¡¨æ²¡æœ‰valueå¯¹åº”æŒ‡å®šçš„key, ä¹Ÿæœ‰å¯èƒ½æ˜¯æŒ‡ valueå€¼æœ¬èº«ä¸º<code>null</code>.
      */
     public Object remove(Object key) {
         Entry entry = removeEntryForKey(key);
@@ -338,7 +338,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
     }
 
     /**
-     * Çå³ıhash±íÖĞµÄËùÓĞentry.
+     * æ¸…é™¤hashè¡¨ä¸­çš„æ‰€æœ‰entry.
      */
     public void clear() {
         modCount++;
@@ -347,11 +347,11 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
     }
 
     /**
-     * ÅĞ¶Ïhash±íÖĞÊÇ·ñÓĞÒ»¸ö»ò¶à¸öentry¾ßÓĞÖ¸¶¨µÄvalue.
+     * åˆ¤æ–­hashè¡¨ä¸­æ˜¯å¦æœ‰ä¸€ä¸ªæˆ–å¤šä¸ªentryå…·æœ‰æŒ‡å®šçš„value.
      *
-     * @param value Òª²âÊÔµÄvalue
+     * @param value è¦æµ‹è¯•çš„value
      *
-     * @return Èç¹ûÓĞÒ»¸ö»ò¶à¸öentry¾ßÓĞÖ¸¶¨µÄvalue, Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœæœ‰ä¸€ä¸ªæˆ–å¤šä¸ªentryå…·æœ‰æŒ‡å®šçš„value, åˆ™è¿”å›<code>true</code>
      */
     public boolean containsValue(Object value) {
         Entry[] tab = table;
@@ -368,12 +368,12 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
     }
 
     /**
-     * È¡µÃkeyµÄ¼¯ºÏÊÓÍ¼. Õâ¸ö¼¯ºÏÊÇÒÔhash±íÎª»ù´¡µÄ, ÈÎºÎhash±íµÄ¸Ä±ä, ¶¼»á·´Éäµ½Õâ¸ö¼¯ºÏ, ·´Ö®ÒàÈ». ¸Ã¼¯ºÏÖ§³ÖÉ¾³ı²Ù×÷,
-     * É¾³ı¼¯ºÏÖĞµÄkey¾ÍÉ¾³ıÁËhash±íÖĞµÄÏàÓ¦entry. ¿ÉÒÔÍ¨¹ıÒÔÏÂ·½·¨É¾³ıÒ»¸öentry: <code>Iterator.remove</code>,
+     * å–å¾—keyçš„é›†åˆè§†å›¾. è¿™ä¸ªé›†åˆæ˜¯ä»¥hashè¡¨ä¸ºåŸºç¡€çš„, ä»»ä½•hashè¡¨çš„æ”¹å˜, éƒ½ä¼šåå°„åˆ°è¿™ä¸ªé›†åˆ, åä¹‹äº¦ç„¶. è¯¥é›†åˆæ”¯æŒåˆ é™¤æ“ä½œ,
+     * åˆ é™¤é›†åˆä¸­çš„keyå°±åˆ é™¤äº†hashè¡¨ä¸­çš„ç›¸åº”entry. å¯ä»¥é€šè¿‡ä»¥ä¸‹æ–¹æ³•åˆ é™¤ä¸€ä¸ªentry: <code>Iterator.remove</code>,
      * <code>Set.remove</code>, <code>removeAll</code>, <code>retainAll</code>,
-     * ºÍ<code>clear</code>. µ«¼¯ºÏ²»Ö§³Ö<code>add</code>»ò<code>addAll</code>²Ù×÷.
+     * å’Œ<code>clear</code>. ä½†é›†åˆä¸æ”¯æŒ<code>add</code>æˆ–<code>addAll</code>æ“ä½œ.
      *
-     * @return keyµÄ¼¯ºÏÊÓÍ¼
+     * @return keyçš„é›†åˆè§†å›¾
      */
     public Set keySet() {
         Set ks = keySet;
@@ -383,12 +383,12 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
     }
 
     /**
-     * È¡µÃvalueµÄ¼¯ºÏÊÓÍ¼. Õâ¸ö¼¯ºÏÊÇÒÔhash±íÎª»ù´¡µÄ, ÈÎºÎhash±íµÄ¸Ä±ä, ¶¼»á·´Éäµ½Õâ¸ö¼¯ºÏ, ·´Ö®ÒàÈ». ¸Ã¼¯ºÏÖ§³ÖÉ¾³ı²Ù×÷,
-     * É¾³ı¼¯ºÏÖĞµÄkey¾ÍÉ¾³ıÁËhash±íÖĞµÄÏàÓ¦entry. ¿ÉÒÔÍ¨¹ıÒÔÏÂ·½·¨É¾³ıÒ»¸öentry: <code>Iterator.remove</code>,
+     * å–å¾—valueçš„é›†åˆè§†å›¾. è¿™ä¸ªé›†åˆæ˜¯ä»¥hashè¡¨ä¸ºåŸºç¡€çš„, ä»»ä½•hashè¡¨çš„æ”¹å˜, éƒ½ä¼šåå°„åˆ°è¿™ä¸ªé›†åˆ, åä¹‹äº¦ç„¶. è¯¥é›†åˆæ”¯æŒåˆ é™¤æ“ä½œ,
+     * åˆ é™¤é›†åˆä¸­çš„keyå°±åˆ é™¤äº†hashè¡¨ä¸­çš„ç›¸åº”entry. å¯ä»¥é€šè¿‡ä»¥ä¸‹æ–¹æ³•åˆ é™¤ä¸€ä¸ªentry: <code>Iterator.remove</code>,
      * <code>Collection.remove</code>, <code>removeAll</code>, <code>retainAll</code>,
-     * ºÍ<code>clear</code>. µ«¼¯ºÏ²»Ö§³Ö<code>add</code>»ò<code>addAll</code>²Ù×÷.
+     * å’Œ<code>clear</code>. ä½†é›†åˆä¸æ”¯æŒ<code>add</code>æˆ–<code>addAll</code>æ“ä½œ.
      *
-     * @return valueµÄ¼¯ºÏÊÓÍ¼
+     * @return valueçš„é›†åˆè§†å›¾
      */
     public Collection values() {
         Collection vs = values;
@@ -398,12 +398,12 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
     }
 
     /**
-     * È¡µÃentryµÄ¼¯ºÏÊÓÍ¼. Õâ¸ö¼¯ºÏÊÇÒÔhash±íÎª»ù´¡µÄ, ÈÎºÎhash±íµÄ¸Ä±ä, ¶¼»á·´Éäµ½Õâ¸ö¼¯ºÏ, ·´Ö®ÒàÈ». ¸Ã¼¯ºÏÖ§³ÖÉ¾³ı²Ù×÷,
-     * É¾³ı¼¯ºÏÖĞµÄkey¾ÍÉ¾³ıÁËhash±íÖĞµÄÏàÓ¦entry. ¿ÉÒÔÍ¨¹ıÒÔÏÂ·½·¨É¾³ıÒ»¸öentry: <code>Iterator.remove</code>,
+     * å–å¾—entryçš„é›†åˆè§†å›¾. è¿™ä¸ªé›†åˆæ˜¯ä»¥hashè¡¨ä¸ºåŸºç¡€çš„, ä»»ä½•hashè¡¨çš„æ”¹å˜, éƒ½ä¼šåå°„åˆ°è¿™ä¸ªé›†åˆ, åä¹‹äº¦ç„¶. è¯¥é›†åˆæ”¯æŒåˆ é™¤æ“ä½œ,
+     * åˆ é™¤é›†åˆä¸­çš„keyå°±åˆ é™¤äº†hashè¡¨ä¸­çš„ç›¸åº”entry. å¯ä»¥é€šè¿‡ä»¥ä¸‹æ–¹æ³•åˆ é™¤ä¸€ä¸ªentry: <code>Iterator.remove</code>,
      * <code>Set.remove</code>, <code>removeAll</code>, <code>retainAll</code>,
-     * ºÍ<code>clear</code>. µ«¼¯ºÏ²»Ö§³Ö<code>add</code>»ò<code>addAll</code>²Ù×÷.
+     * å’Œ<code>clear</code>. ä½†é›†åˆä¸æ”¯æŒ<code>add</code>æˆ–<code>addAll</code>æ“ä½œ.
      *
-     * @return entryµÄ¼¯ºÏÊÓÍ¼
+     * @return entryçš„é›†åˆè§†å›¾
      */
     public Set entrySet() {
         Set es = entrySet;
@@ -413,26 +413,26 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
     }
 
     /* ============================================================================ */
-    /* ÄÚ²¿Àà                                                                       */
+    /* å†…éƒ¨ç±»                                                                       */
     /* ============================================================================ */
 
     /**
-     * <code>Map.Entry</code>µÄÊµÏÖ.
+     * <code>Map.Entry</code>çš„å®ç°.
      */
     protected static class Entry extends DefaultMapEntry {
-        /** keyµÄhashÖµ. */
+        /** keyçš„hashå€¼. */
         protected final int hash;
 
-        /** ÏàÍ¬hashÖµµÄentryÊÇÒÔÁ´±íµÄ·½Ê½´æ·ÅµÄ, Õâ¸öÒıÓÃÖ¸ÏòÁ´±íÖĞµÄÏÂÒ»¸öentry. */
+        /** ç›¸åŒhashå€¼çš„entryæ˜¯ä»¥é“¾è¡¨çš„æ–¹å¼å­˜æ”¾çš„, è¿™ä¸ªå¼•ç”¨æŒ‡å‘é“¾è¡¨ä¸­çš„ä¸‹ä¸€ä¸ªentry. */
         protected Entry next;
 
         /**
-         * ´´½¨Ò»¸öĞÂµÄentry.
+         * åˆ›å»ºä¸€ä¸ªæ–°çš„entry.
          *
-         * @param h keyµÄhashÖµ
-         * @param k entryµÄkey
-         * @param v entryµÄvalue
-         * @param n Á´±íÖĞµÄÏÂÒ»¸öentry
+         * @param h keyçš„hashå€¼
+         * @param k entryçš„key
+         * @param v entryçš„value
+         * @param n é“¾è¡¨ä¸­çš„ä¸‹ä¸€ä¸ªentry
          */
         protected Entry(int h, Object k, Object v, Entry n) {
             super(k, v);
@@ -441,36 +441,36 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
         }
 
         /**
-         * µ±<code>put(key, value)</code>·½·¨±»µ÷ÓÃÊ±, Èç¹ûentryÒÑ¾­´æÔÚ½«±»¸²¸ÇÊ±, ´Ë·½·¨±»µ÷ÓÃ.
+         * å½“<code>put(key, value)</code>æ–¹æ³•è¢«è°ƒç”¨æ—¶, å¦‚æœentryå·²ç»å­˜åœ¨å°†è¢«è¦†ç›–æ—¶, æ­¤æ–¹æ³•è¢«è°ƒç”¨.
          */
         protected void onAccess() {
         }
 
         /**
-         * µ±entry½«±»É¾³ıÊ±, ´Ë·½·¨±»µ÷ÓÃ.
+         * å½“entryå°†è¢«åˆ é™¤æ—¶, æ­¤æ–¹æ³•è¢«è°ƒç”¨.
          */
         protected void onRemove() {
         }
     }
 
     /**
-     * ±éÀúÆ÷.
+     * éå†å™¨.
      */
     private abstract class HashIterator implements Iterator {
-        /** µ±Ç°entry. */
+        /** å½“å‰entry. */
         private Entry current;
 
-        /** ÏÂÒ»¸öÒª·µ»ØµÄentry. */
+        /** ä¸‹ä¸€ä¸ªè¦è¿”å›çš„entry. */
         private Entry next;
 
-        /** ´´½¨iteratorÊ±µÄĞŞ¸Ä¼ÆÊı. */
+        /** åˆ›å»ºiteratoræ—¶çš„ä¿®æ”¹è®¡æ•°. */
         private int expectedModCount;
 
-        /** µ±Ç°Î»ÖÃË÷Òı. */
+        /** å½“å‰ä½ç½®ç´¢å¼•. */
         private int index;
 
         /**
-         * ´´½¨Ò»¸ö±éÀúÆ÷.
+         * åˆ›å»ºä¸€ä¸ªéå†å™¨.
          */
         protected HashIterator() {
             expectedModCount = modCount;
@@ -491,16 +491,16 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
         }
 
         /**
-         * ·µ»Ø±éÀúÆ÷ÖĞÊÇ·ñ»¹ÓĞÏÂÒ»¸öentry.
+         * è¿”å›éå†å™¨ä¸­æ˜¯å¦è¿˜æœ‰ä¸‹ä¸€ä¸ªentry.
          *
-         * @return Èç¹û±éÀúÆ÷ÖĞ»¹ÓĞÏÂÒ»¸öentry, ·µ»Ø<code>true</code>
+         * @return å¦‚æœéå†å™¨ä¸­è¿˜æœ‰ä¸‹ä¸€ä¸ªentry, è¿”å›<code>true</code>
          */
         public boolean hasNext() {
             return next != null;
         }
 
         /**
-         * É¾³ıÒ»¸öµ±Ç°entry. Ö´ĞĞÇ°±ØĞëÏÈÖ´ĞĞ<code>next()</code>·½·¨.
+         * åˆ é™¤ä¸€ä¸ªå½“å‰entry. æ‰§è¡Œå‰å¿…é¡»å…ˆæ‰§è¡Œ<code>next()</code>æ–¹æ³•.
          */
         public void remove() {
             if (current == null) {
@@ -517,9 +517,9 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
         }
 
         /**
-         * È¡µÃÏÂÒ»¸öentry.
+         * å–å¾—ä¸‹ä¸€ä¸ªentry.
          *
-         * @return ÏÂÒ»¸öentry
+         * @return ä¸‹ä¸€ä¸ªentry
          */
         protected Entry nextEntry() {
             checkForComodification();
@@ -545,7 +545,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
         }
 
         /**
-         * ¼ì²éÊÇ·ñÍ¬Ê±±»ĞŞ¸Ä.
+         * æ£€æŸ¥æ˜¯å¦åŒæ—¶è¢«ä¿®æ”¹.
          */
         private void checkForComodification() {
             if (modCount != expectedModCount) {
@@ -555,13 +555,13 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
     }
 
     /**
-     * È¡µÃhash±íµÄkeyµÄ±éÀúÆ÷.
+     * å–å¾—hashè¡¨çš„keyçš„éå†å™¨.
      */
     private class KeyIterator extends HashIterator {
         /**
-         * È¡µÃÏÂÒ»¸ökey.
+         * å–å¾—ä¸‹ä¸€ä¸ªkey.
          *
-         * @return ÏÂÒ»¸ökey
+         * @return ä¸‹ä¸€ä¸ªkey
          */
         public Object next() {
             return nextEntry().getKey();
@@ -569,13 +569,13 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
     }
 
     /**
-     * È¡µÃhash±íµÄvalueµÄ±éÀúÆ÷.
+     * å–å¾—hashè¡¨çš„valueçš„éå†å™¨.
      */
     private class ValueIterator extends HashIterator {
         /**
-         * È¡µÃÏÂÒ»¸övalue.
+         * å–å¾—ä¸‹ä¸€ä¸ªvalue.
          *
-         * @return ÏÂÒ»¸övalue
+         * @return ä¸‹ä¸€ä¸ªvalue
          */
         public Object next() {
             return nextEntry().getValue();
@@ -583,13 +583,13 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
     }
 
     /**
-     * È¡µÃhash±íµÄentryµÄ±éÀúÆ÷.
+     * å–å¾—hashè¡¨çš„entryçš„éå†å™¨.
      */
     private class EntryIterator extends HashIterator {
         /**
-         * È¡µÃÏÂÒ»¸öentry.
+         * å–å¾—ä¸‹ä¸€ä¸ªentry.
          *
-         * @return ÏÂÒ»¸öentry
+         * @return ä¸‹ä¸€ä¸ªentry
          */
         public Object next() {
             return nextEntry();
@@ -597,51 +597,51 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
     }
 
     /**
-     * keyµÄ¼¯ºÏÊÓÍ¼.
+     * keyçš„é›†åˆè§†å›¾.
      */
     private class KeySet extends AbstractSet {
         /**
-         * È¡µÃkeyµÄ±éÀúÆ÷.
+         * å–å¾—keyçš„éå†å™¨.
          *
-         * @return keyµÄ±éÀúÆ÷
+         * @return keyçš„éå†å™¨
          */
         public Iterator iterator() {
             return newKeyIterator();
         }
 
         /**
-         * È¡µÃ¼¯ºÏµÄ´óĞ¡, ¾ÍÊÇhash±íÖĞentryµÄÊıÁ¿.
+         * å–å¾—é›†åˆçš„å¤§å°, å°±æ˜¯hashè¡¨ä¸­entryçš„æ•°é‡.
          *
-         * @return hash±íÖĞentryµÄÊıÁ¿
+         * @return hashè¡¨ä¸­entryçš„æ•°é‡
          */
         public int size() {
             return size;
         }
 
         /**
-         * ÅĞ¶ÏkeyÖĞÊÇ·ñ°üº¬Ö¸¶¨¶ÔÏó.
+         * åˆ¤æ–­keyä¸­æ˜¯å¦åŒ…å«æŒ‡å®šå¯¹è±¡.
          *
-         * @param o Òª²éÕÒµÄ¶ÔÏó
+         * @param o è¦æŸ¥æ‰¾çš„å¯¹è±¡
          *
-         * @return Èç¹ûkeyÖĞ°üº¬Ö¸¶¨µÄ¶ÔÏó, Ôò·µ»Ø<code>true</code>
+         * @return å¦‚æœkeyä¸­åŒ…å«æŒ‡å®šçš„å¯¹è±¡, åˆ™è¿”å›<code>true</code>
          */
         public boolean contains(Object o) {
             return containsKey(o);
         }
 
         /**
-         * ´Óhash±íÖĞÉ¾³ıkeyÎªÖ¸¶¨¶ÔÏóµÄentry.
+         * ä»hashè¡¨ä¸­åˆ é™¤keyä¸ºæŒ‡å®šå¯¹è±¡çš„entry.
          *
-         * @param o Ö¸¶¨µÄkey
+         * @param o æŒ‡å®šçš„key
          *
-         * @return Èç¹ûÉ¾³ı³É¹¦, Ôò·µ»Ø<code>true</code>
+         * @return å¦‚æœåˆ é™¤æˆåŠŸ, åˆ™è¿”å›<code>true</code>
          */
         public boolean remove(Object o) {
             return DefaultHashMap.this.removeEntryForKey(o) != null;
         }
 
         /**
-         * Çå³ıËùÓĞentry.
+         * æ¸…é™¤æ‰€æœ‰entry.
          */
         public void clear() {
             DefaultHashMap.this.clear();
@@ -649,40 +649,40 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
     }
 
     /**
-     * valueµÄ¼¯ºÏÊÓÍ¼.
+     * valueçš„é›†åˆè§†å›¾.
      */
     private class Values extends AbstractCollection {
         /**
-         * È¡µÃvalueµÄ±éÀúÆ÷.
+         * å–å¾—valueçš„éå†å™¨.
          *
-         * @return valueµÄ±éÀúÆ÷
+         * @return valueçš„éå†å™¨
          */
         public Iterator iterator() {
             return newValueIterator();
         }
 
         /**
-         * È¡µÃ¼¯ºÏµÄ´óĞ¡, ¾ÍÊÇhash±íÖĞentryµÄÊıÁ¿.
+         * å–å¾—é›†åˆçš„å¤§å°, å°±æ˜¯hashè¡¨ä¸­entryçš„æ•°é‡.
          *
-         * @return hash±íÖĞentryµÄÊıÁ¿
+         * @return hashè¡¨ä¸­entryçš„æ•°é‡
          */
         public int size() {
             return size;
         }
 
         /**
-         * ÅĞ¶ÏvalueÖĞÊÇ·ñ°üº¬Ö¸¶¨¶ÔÏó.
+         * åˆ¤æ–­valueä¸­æ˜¯å¦åŒ…å«æŒ‡å®šå¯¹è±¡.
          *
-         * @param o Òª²éÕÒµÄ¶ÔÏó
+         * @param o è¦æŸ¥æ‰¾çš„å¯¹è±¡
          *
-         * @return Èç¹ûvalueÖĞ°üº¬Ö¸¶¨µÄ¶ÔÏó, Ôò·µ»Ø<code>true</code>
+         * @return å¦‚æœvalueä¸­åŒ…å«æŒ‡å®šçš„å¯¹è±¡, åˆ™è¿”å›<code>true</code>
          */
         public boolean contains(Object o) {
             return containsValue(o);
         }
 
         /**
-         * Çå³ıËùÓĞentry.
+         * æ¸…é™¤æ‰€æœ‰entry.
          */
         public void clear() {
             DefaultHashMap.this.clear();
@@ -690,24 +690,24 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
     }
 
     /**
-     * entryµÄ¼¯ºÏÊÓÍ¼.
+     * entryçš„é›†åˆè§†å›¾.
      */
     private class EntrySet extends AbstractSet {
         /**
-         * È¡µÃentryµÄ±éÀúÆ÷.
+         * å–å¾—entryçš„éå†å™¨.
          *
-         * @return entryµÄ±éÀúÆ÷
+         * @return entryçš„éå†å™¨
          */
         public Iterator iterator() {
             return newEntryIterator();
         }
 
         /**
-         * ÅĞ¶Ïentry¼¯ºÏÖĞÊÇ·ñ°üº¬Ö¸¶¨¶ÔÏó.
+         * åˆ¤æ–­entryé›†åˆä¸­æ˜¯å¦åŒ…å«æŒ‡å®šå¯¹è±¡.
          *
-         * @param o Òª²éÕÒµÄ¶ÔÏó
+         * @param o è¦æŸ¥æ‰¾çš„å¯¹è±¡
          *
-         * @return Èç¹ûentryÖĞÊÇ·ñ°üº¬Ö¸¶¨¶ÔÏó, Ôò·µ»Ø<code>true</code>
+         * @return å¦‚æœentryä¸­æ˜¯å¦åŒ…å«æŒ‡å®šå¯¹è±¡, åˆ™è¿”å›<code>true</code>
          */
         public boolean contains(Object o) {
             if (!(o instanceof Map.Entry)) {
@@ -721,27 +721,27 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
         }
 
         /**
-         * ´Óhash±íÖĞÉ¾³ıÖ¸¶¨entry.
+         * ä»hashè¡¨ä¸­åˆ é™¤æŒ‡å®šentry.
          *
-         * @param o ÒªÉ¾³ıµÄentry
+         * @param o è¦åˆ é™¤çš„entry
          *
-         * @return Èç¹ûÉ¾³ı³É¹¦, Ôò·µ»Ø<code>true</code>
+         * @return å¦‚æœåˆ é™¤æˆåŠŸ, åˆ™è¿”å›<code>true</code>
          */
         public boolean remove(Object o) {
             return removeEntry(o) != null;
         }
 
         /**
-         * È¡µÃ¼¯ºÏµÄ´óĞ¡, ¾ÍÊÇhash±íÖĞentryµÄÊıÁ¿.
+         * å–å¾—é›†åˆçš„å¤§å°, å°±æ˜¯hashè¡¨ä¸­entryçš„æ•°é‡.
          *
-         * @return hash±íÖĞentryµÄÊıÁ¿
+         * @return hashè¡¨ä¸­entryçš„æ•°é‡
          */
         public int size() {
             return size;
         }
 
         /**
-         * Çå³ıËùÓĞentry.
+         * æ¸…é™¤æ‰€æœ‰entry.
          */
         public void clear() {
             DefaultHashMap.this.clear();
@@ -749,38 +749,38 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
     }
 
     /* ============================================================================ */
-    /* ĞòÁĞ»¯                                                                       */
+    /* åºåˆ—åŒ–                                                                       */
     /* ============================================================================ */
 
-    /** ĞòÁĞ»¯°æ±¾ºÅ. */
+    /** åºåˆ—åŒ–ç‰ˆæœ¬å·. */
     private static final long serialVersionUID = 362498820763181265L;
 
     /**
-     * ´ÓÊäÈëÁ÷ÖĞÖØ½¨hash±í(Ò²¾ÍÊÇ·´ĞòÁĞ»¯).
+     * ä»è¾“å…¥æµä¸­é‡å»ºhashè¡¨(ä¹Ÿå°±æ˜¯ååºåˆ—åŒ–).
      *
-     * @param is ÊäÈëÁ÷
+     * @param is è¾“å…¥æµ
      *
-     * @exception IOException ÊäÈëÁ÷Òì³£
-     * @exception ClassNotFoundException ÀàÎ´ÕÒµ½
+     * @exception IOException è¾“å…¥æµå¼‚å¸¸
+     * @exception ClassNotFoundException ç±»æœªæ‰¾åˆ°
      */
     private void readObject(java.io.ObjectInputStream is) throws IOException,
                                                                  ClassNotFoundException {
-        // ¶ÁÈëthreshold, loadfactor, ºÍÆäËüÒş²ØµÄ¶ÔÏó.
+        // è¯»å…¥threshold, loadfactor, å’Œå…¶å®ƒéšè—çš„å¯¹è±¡.
         is.defaultReadObject();
 
-        // È¡µÃhash±íµÄÈİÁ¿.
+        // å–å¾—hashè¡¨çš„å®¹é‡.
         int numBuckets = is.readInt();
 
         table = new Entry[numBuckets];
 
 
-        // ¸ø×ÓÀàÒ»¸ö»ú»á³õÊ¼»¯.
+        // ç»™å­ç±»ä¸€ä¸ªæœºä¼šåˆå§‹åŒ–.
         onInit();
 
-        // ¶ÁÈëhash±íÖĞentryµÄ¸öÊı.
+        // è¯»å…¥hashè¡¨ä¸­entryçš„ä¸ªæ•°.
         int size = is.readInt();
 
-        // ¶ÁÈëËùÓĞµÄentry.
+        // è¯»å…¥æ‰€æœ‰çš„entry.
         for (int i = 0; i < size; i++) {
             Object key   = is.readObject();
             Object value = is.readObject();
@@ -790,25 +790,25 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
     }
 
     /**
-     * ½«hash±íµÄ×´Ì¬±£´æµ½Êä³öÁ÷ÖĞ(Ò²¾ÍÊÇ&quot;ĞòÁĞ»¯&quot;).
+     * å°†hashè¡¨çš„çŠ¶æ€ä¿å­˜åˆ°è¾“å‡ºæµä¸­(ä¹Ÿå°±æ˜¯&quot;åºåˆ—åŒ–&quot;).
      *
-     * @param os Êä³öÁ÷
+     * @param os è¾“å‡ºæµ
      *
-     * @exception IOException Êä³öÁ÷Òì³£
+     * @exception IOException è¾“å‡ºæµå¼‚å¸¸
      */
     private void writeObject(java.io.ObjectOutputStream os) throws IOException {
-        // Êä³öthreshold, loadfactor, ºÍÆäËüÒş²ØµÄ¶ÔÏó.
+        // è¾“å‡ºthreshold, loadfactor, å’Œå…¶å®ƒéšè—çš„å¯¹è±¡.
         os.defaultWriteObject();
 
 
-        // Êä³öhash±íµÄÈİÁ¿.
+        // è¾“å‡ºhashè¡¨çš„å®¹é‡.
         os.writeInt(table.length);
 
 
-        // Êä³öhash±íµÄ´óĞ¡.
+        // è¾“å‡ºhashè¡¨çš„å¤§å°.
         os.writeInt(size);
 
-        // Êä³öËùÓĞentry.
+        // è¾“å‡ºæ‰€æœ‰entry.
         for (Iterator i = entrySet().iterator(); i.hasNext();) {
             Map.Entry entry = (Map.Entry) i.next();
 
@@ -818,13 +818,13 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
     }
 
     /* ============================================================================ */
-    /* ¸´ÖÆ·½·¨(Clonable½Ó¿Ú)                                                       */
+    /* å¤åˆ¶æ–¹æ³•(Clonableæ¥å£)                                                       */
     /* ============================================================================ */
 
     /**
-     * &quot;Ç³&quot;¿½±´hash±í, keyºÍvalue±¾Éí²¢²»±»¸´ÖÆ.
+     * &quot;æµ…&quot;æ‹·è´hashè¡¨, keyå’Œvalueæœ¬èº«å¹¶ä¸è¢«å¤åˆ¶.
      *
-     * @return ±»¸´ÖÆµÄhash±í.
+     * @return è¢«å¤åˆ¶çš„hashè¡¨.
      */
     public Object clone() {
         DefaultHashMap result = null;
@@ -832,7 +832,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
         try {
             result = (DefaultHashMap) super.clone();
         } catch (CloneNotSupportedException e) {
-            throw new InternalError(); // ²»Ö§³Öclone(²»¿ÉÄÜ).
+            throw new InternalError(); // ä¸æ”¯æŒclone(ä¸å¯èƒ½).
         }
 
         result.table    = new Entry[table.length];
@@ -846,22 +846,22 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
     }
 
     /* ============================================================================ */
-    /* ÄÚ²¿·½·¨                                                                     */
+    /* å†…éƒ¨æ–¹æ³•                                                                     */
     /* ============================================================================ */
 
     /**
-     * ¸ø×ÓÀàÒ»¸ö»ú»á³õÊ¼»¯×Ô¼º. ¸Ã·½·¨±»ËùÓĞ¹¹Ôìº¯ÊıÒÔ¼°&quot;Î±¹¹Ôìº¯Êı&quot;(<code>clone</code>, <code>readObject</code>)µ÷ÓÃ.
-     * µ÷ÓÃÊ±, hash±íÒÑ±»³õÊ¼»¯, µ«Êı¾İÉĞÎ´±»²åÈëµ½±íÖĞ.
+     * ç»™å­ç±»ä¸€ä¸ªæœºä¼šåˆå§‹åŒ–è‡ªå·±. è¯¥æ–¹æ³•è¢«æ‰€æœ‰æ„é€ å‡½æ•°ä»¥åŠ&quot;ä¼ªæ„é€ å‡½æ•°&quot;(<code>clone</code>, <code>readObject</code>)è°ƒç”¨.
+     * è°ƒç”¨æ—¶, hashè¡¨å·²è¢«åˆå§‹åŒ–, ä½†æ•°æ®å°šæœªè¢«æ’å…¥åˆ°è¡¨ä¸­.
      */
     protected void onInit() {
     }
 
     /**
-     * ·µ»ØÖ¸¶¨key¶ÔÓ¦µÄentry. Èç¹û²»´æÔÚ, Ôò·µ»Ønull.
+     * è¿”å›æŒ‡å®škeyå¯¹åº”çš„entry. å¦‚æœä¸å­˜åœ¨, åˆ™è¿”å›null.
      *
-     * @param key ·µ»ØÖ¸¶¨key¶ÔÓ¦µÄentry
+     * @param key è¿”å›æŒ‡å®škeyå¯¹åº”çš„entry
      *
-     * @return Ö¸¶¨key¶ÔÓ¦µÄentry
+     * @return æŒ‡å®škeyå¯¹åº”çš„entry
      */
     protected Entry getEntry(Object key) {
         int hash = hash(key);
@@ -877,11 +877,11 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
     }
 
     /**
-     * ¼ÓÈëÒ»¸öentryµ½hash±íÖĞ, µ«²»»á¶Ôhash±í½øĞĞ<code>resize()</code>²Ù×÷. ×ÓÀà¿ÉÒÔ¸²¸Ç´Ë·½·¨, ÒÔ¸Ä±ä<code>put</code>,
-     * <code>new HashMap(Map)</code>, <code>clone</code>, ºÍ<code>readObject</code>·½·¨µÄĞĞÎª.
+     * åŠ å…¥ä¸€ä¸ªentryåˆ°hashè¡¨ä¸­, ä½†ä¸ä¼šå¯¹hashè¡¨è¿›è¡Œ<code>resize()</code>æ“ä½œ. å­ç±»å¯ä»¥è¦†ç›–æ­¤æ–¹æ³•, ä»¥æ”¹å˜<code>put</code>,
+     * <code>new HashMap(Map)</code>, <code>clone</code>, å’Œ<code>readObject</code>æ–¹æ³•çš„è¡Œä¸º.
      *
-     * @param key hash±íµÄkey
-     * @param value hash±íµÄvalue
+     * @param key hashè¡¨çš„key
+     * @param value hashè¡¨çš„value
      */
     protected void addEntry(Object key, Object value) {
         int hash = hash(key);
@@ -892,10 +892,10 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
     }
 
     /**
-     * ´Ë·½·¨±»¹¹Ôìº¯Êı»ò&quot;Î±¹¹Ôìº¯Êı&quot;(clone, readObject)µ÷ÓÃ, ¹¦ÄÜÍ¬put·½·¨, µ«²»»áµ÷ÓÃresize»ò¸Ä±ämodCount¼ÆÊı.
+     * æ­¤æ–¹æ³•è¢«æ„é€ å‡½æ•°æˆ–&quot;ä¼ªæ„é€ å‡½æ•°&quot;(clone, readObject)è°ƒç”¨, åŠŸèƒ½åŒputæ–¹æ³•, ä½†ä¸ä¼šè°ƒç”¨resizeæˆ–æ”¹å˜modCountè®¡æ•°.
      *
-     * @param key Òª¹ØÁªµÄkey
-     * @param value ÒªºÍkey¹ØÁªµÄvalue
+     * @param key è¦å…³è”çš„key
+     * @param value è¦å’Œkeyå…³è”çš„value
      */
     private void putForCreate(Object key, Object value) {
         Entry entry = getEntry(key);
@@ -908,9 +908,9 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
     }
 
     /**
-     * Ò»´Îput¶à¸öentry.
+     * ä¸€æ¬¡putå¤šä¸ªentry.
      *
-     * @param map Ö¸¶¨mapµÄËùÓĞentry¶¼±»·ÅÈëhash±íÖĞ
+     * @param map æŒ‡å®šmapçš„æ‰€æœ‰entryéƒ½è¢«æ”¾å…¥hashè¡¨ä¸­
      */
     private void putAllForCreate(Map map) {
         for (Iterator i = map.entrySet().iterator(); i.hasNext();) {
@@ -921,11 +921,11 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
     }
 
     /**
-     * É¾³ıÖ¸¶¨key¶ÔÓ¦µÄentry, ²¢·µ»Ø±»É¾³ıµÄentry.
+     * åˆ é™¤æŒ‡å®škeyå¯¹åº”çš„entry, å¹¶è¿”å›è¢«åˆ é™¤çš„entry.
      *
-     * @param key ÒªÉ¾³ıµÄentryµÄkey
+     * @param key è¦åˆ é™¤çš„entryçš„key
      *
-     * @return ±»É¾³ıµÄentry, Èç¹ûentry²»´æÔÚ, Ôò·µ»Ø<code>null</code>
+     * @return è¢«åˆ é™¤çš„entry, å¦‚æœentryä¸å­˜åœ¨, åˆ™è¿”å›<code>null</code>
      */
     protected Entry removeEntryForKey(Object key) {
         int   hash  = hash(key);
@@ -959,11 +959,11 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
     }
 
     /**
-     * É¾³ıÖ¸¶¨µÄentry. Õâ¸ö·½·¨ÓÃÓÚ<code>EntrySet.remove</code>.
+     * åˆ é™¤æŒ‡å®šçš„entry. è¿™ä¸ªæ–¹æ³•ç”¨äº<code>EntrySet.remove</code>.
      *
-     * @param o ÒªÉ¾³ıµÄentry
+     * @param o è¦åˆ é™¤çš„entry
      *
-     * @return ±»É¾³ıµÄentry
+     * @return è¢«åˆ é™¤çš„entry
      */
     protected Entry removeEntry(Object o) {
         if (!(o instanceof Map.Entry)) {
@@ -1003,53 +1003,53 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
     }
 
     /**
-     * ×ÓÀà¸²¸Ç´Ë·½·¨, ÓÃÀ´´´½¨keyµÄ±éÀúÆ÷.
+     * å­ç±»è¦†ç›–æ­¤æ–¹æ³•, ç”¨æ¥åˆ›å»ºkeyçš„éå†å™¨.
      *
-     * @return hash±íµÄkeyµÄ±éÀúÆ÷
+     * @return hashè¡¨çš„keyçš„éå†å™¨
      */
     protected Iterator newKeyIterator() {
         return new KeyIterator();
     }
 
     /**
-     * ×ÓÀà¸²¸Ç´Ë·½·¨, ÓÃÀ´´´½¨valueµÄ±éÀúÆ÷.
+     * å­ç±»è¦†ç›–æ­¤æ–¹æ³•, ç”¨æ¥åˆ›å»ºvalueçš„éå†å™¨.
      *
-     * @return hash±íµÄkeyµÄ±éÀúÆ÷
+     * @return hashè¡¨çš„keyçš„éå†å™¨
      */
     protected Iterator newValueIterator() {
         return new ValueIterator();
     }
 
     /**
-     * ×ÓÀà¸²¸Ç´Ë·½·¨, ÓÃÀ´´´½¨entryµÄ±éÀúÆ÷.
+     * å­ç±»è¦†ç›–æ­¤æ–¹æ³•, ç”¨æ¥åˆ›å»ºentryçš„éå†å™¨.
      *
-     * @return hash±íµÄkeyµÄ±éÀúÆ÷
+     * @return hashè¡¨çš„keyçš„éå†å™¨
      */
     protected Iterator newEntryIterator() {
         return new EntryIterator();
     }
 
     /**
-     * ·µ»Ø¶ÔÏóµÄhashÖµ.
+     * è¿”å›å¯¹è±¡çš„hashå€¼.
      *
-     * @param obj È¡µÃÖ¸¶¨¶ÔÏóµÄhashÖµ
+     * @param obj å–å¾—æŒ‡å®šå¯¹è±¡çš„hashå€¼
      *
-     * @return Ö¸¶¨¶ÔÏóµÄhashÖµ
+     * @return æŒ‡å®šå¯¹è±¡çš„hashå€¼
      */
     protected static int hash(Object obj) {
         int h = (obj == null) ? 0
                               : obj.hashCode();
 
-        return h - (h << 7); // Ò²¾ÍÊÇ, -127 * h
+        return h - (h << 7); // ä¹Ÿå°±æ˜¯, -127 * h
     }
 
     /**
-     * ±È½ÏÁ½¸ö¶ÔÏó.
+     * æ¯”è¾ƒä¸¤ä¸ªå¯¹è±¡.
      *
-     * @param x µÚÒ»¸ö¶ÔÏó
-     * @param y µÚ¶ş¸ö¶ÔÏó
+     * @param x ç¬¬ä¸€ä¸ªå¯¹è±¡
+     * @param y ç¬¬äºŒä¸ªå¯¹è±¡
      *
-     * @return Èç¹ûÏàÍ¬, Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœç›¸åŒ, åˆ™è¿”å›<code>true</code>
      */
     protected static boolean eq(Object x, Object y) {
         return (x == null) ? (y == null)
@@ -1057,21 +1057,21 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
     }
 
     /**
-     * ·µ»ØË÷ÒıÖµ, ¸ù¾İÖ¸¶¨µÄhashÖµºÍÊı×éµÄ³¤¶È.
+     * è¿”å›ç´¢å¼•å€¼, æ ¹æ®æŒ‡å®šçš„hashå€¼å’Œæ•°ç»„çš„é•¿åº¦.
      *
-     * @param hash hashÖµ
-     * @param length Êı×éµÄ³¤¶È, ±ØÈ»ÊÇ2µÄÕûÊı´ÎÃİ
+     * @param hash hashå€¼
+     * @param length æ•°ç»„çš„é•¿åº¦, å¿…ç„¶æ˜¯2çš„æ•´æ•°æ¬¡å¹‚
      *
-     * @return hashÖµÔÚÊı×éÖĞµÄĞòºÅ
+     * @return hashå€¼åœ¨æ•°ç»„ä¸­çš„åºå·
      */
     protected static int indexFor(int hash, int length) {
         return hash & (length - 1);
     }
 
     /**
-     * ¶Ômap½øĞĞÀ©Èİ.  ´Ë·½·¨ÔÚentryÊı³¬¹ıãĞÖµÊ±±»µ÷ÓÃ.
+     * å¯¹mapè¿›è¡Œæ‰©å®¹.  æ­¤æ–¹æ³•åœ¨entryæ•°è¶…è¿‡é˜ˆå€¼æ—¶è¢«è°ƒç”¨.
      *
-     * @param newCapacity ĞÂµÄÈİÁ¿(±ØĞëÎª2µÄÕûÊı´ÎÃİ).
+     * @param newCapacity æ–°çš„å®¹é‡(å¿…é¡»ä¸º2çš„æ•´æ•°æ¬¡å¹‚).
      */
     protected void resize(int newCapacity) {
         Entry[] oldTable    = table;
@@ -1089,9 +1089,9 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
     }
 
     /**
-     * ½«ËùÓĞentry´Óµ±Ç°±íÖĞÒÆµ½ĞÂ±íÖĞ(À©Èİ).
+     * å°†æ‰€æœ‰entryä»å½“å‰è¡¨ä¸­ç§»åˆ°æ–°è¡¨ä¸­(æ‰©å®¹).
      *
-     * @param newTable ĞÂ±í
+     * @param newTable æ–°è¡¨
      */
     protected void transfer(Entry[] newTable) {
         Entry[] src         = table;
@@ -1116,27 +1116,27 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
     }
 
     /**
-     * È¡µÃhash±íµÄÈİÁ¿.
+     * å–å¾—hashè¡¨çš„å®¹é‡.
      *
-     * @return hash±íµÄÈİÁ¿
+     * @return hashè¡¨çš„å®¹é‡
      */
     protected int getCapacity() {
         return table.length;
     }
 
     /**
-     * È¡µÃhash±íµÄ¸ºÔØÏµÊı.
+     * å–å¾—hashè¡¨çš„è´Ÿè½½ç³»æ•°.
      *
-     * @return hash±íµÄ¸ºÔØÏµÊı
+     * @return hashè¡¨çš„è´Ÿè½½ç³»æ•°
      */
     protected float getLoadFactor() {
         return loadFactor;
     }
 
     /**
-     * È¡µÃhash±íµÄãĞÖµ.
+     * å–å¾—hashè¡¨çš„é˜ˆå€¼.
      *
-     * @return hash±íµÄãĞÖµ
+     * @return hashè¡¨çš„é˜ˆå€¼
      */
     protected int getThreshold() {
         return threshold;

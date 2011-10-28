@@ -21,7 +21,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * ¸ù¾İÖ¸¶¨µÄ¹ıÂËÌõ¼ş<code>Predicate</code>, ¹ıÂËÖ¸¶¨µÄ<code>Iterator</code>.
+ * æ ¹æ®æŒ‡å®šçš„è¿‡æ»¤æ¡ä»¶<code>Predicate</code>, è¿‡æ»¤æŒ‡å®šçš„<code>Iterator</code>.
  *
  * @version $Id: GrepIterator.java,v 1.1 2003/07/03 07:26:16 baobao Exp $
  * @author Michael Zhou
@@ -32,10 +32,10 @@ public class GrepIterator extends FilterIterator {
     private boolean   nextObjectSet = false;
 
     /**
-     * ´´½¨Ò»¸ö<code>GrepIterator</code>.
+     * åˆ›å»ºä¸€ä¸ª<code>GrepIterator</code>.
      *
-     * @param iterator  ±»¹ıÂËµÄ<code>Iterator</code>
-     * @param predicate ¹ıÂËÌõ¼ş
+     * @param iterator  è¢«è¿‡æ»¤çš„<code>Iterator</code>
+     * @param predicate è¿‡æ»¤æ¡ä»¶
      */
     public GrepIterator(Iterator iterator, Predicate predicate) {
         super(iterator);
@@ -43,18 +43,18 @@ public class GrepIterator extends FilterIterator {
     }
 
     /**
-     * È¡µÃ"¶ÏÑÔ"¶ÔÏó.
+     * å–å¾—"æ–­è¨€"å¯¹è±¡.
      *
-     * @return "¶ÏÑÔ"¶ÔÏó
+     * @return "æ–­è¨€"å¯¹è±¡
      */
     public Predicate getPredicate() {
         return predicate;
     }
 
     /**
-     * ÅĞ¶ÏÊÇ·ñÓĞÏÂÒ»¸öÔªËØ.
+     * åˆ¤æ–­æ˜¯å¦æœ‰ä¸‹ä¸€ä¸ªå…ƒç´ .
      *
-     * @return Èç¹ûÓĞÏÂÒ»¸öÔªËØ, Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœæœ‰ä¸‹ä¸€ä¸ªå…ƒç´ , åˆ™è¿”å›<code>true</code>
      */
     public boolean hasNext() {
         if (nextObjectSet) {
@@ -65,9 +65,9 @@ public class GrepIterator extends FilterIterator {
     }
 
     /**
-     * È¡µÃÏÂÒ»¸öÔªËØ.
+     * å–å¾—ä¸‹ä¸€ä¸ªå…ƒç´ .
      *
-     * @return Ò»ÏÂ¸ö·ûºÏÌõ¼şµÄÔªËØ
+     * @return ä¸€ä¸‹ä¸ªç¬¦åˆæ¡ä»¶çš„å…ƒç´ 
      */
     public Object next() {
         if (!nextObjectSet && !setNextObject()) {
@@ -79,16 +79,16 @@ public class GrepIterator extends FilterIterator {
     }
 
     /**
-     * É¾³ı×î½ø·µ»ØµÄÔªËØ, ²»Ö§³Ö.
+     * åˆ é™¤æœ€è¿›è¿”å›çš„å…ƒç´ , ä¸æ”¯æŒ.
      */
     public void remove() {
         throw new UnsupportedOperationException();
     }
 
     /**
-     * ÉèÖÃÏÂÒ»¸ö¿ÉÓÃµÄÔªËØ.
+     * è®¾ç½®ä¸‹ä¸€ä¸ªå¯ç”¨çš„å…ƒç´ .
      *
-     * @return Èç¹ûÃ»ÓĞÏÂÒ»¸öÔªËØÁË, Ôò·µ»Ø<code>false</code>, ·ñÔò·µ»Ø<code>true</code>
+     * @return å¦‚æœæ²¡æœ‰ä¸‹ä¸€ä¸ªå…ƒç´ äº†, åˆ™è¿”å›<code>false</code>, å¦åˆ™è¿”å›<code>true</code>
      */
     private boolean setNextObject() {
         Iterator  iterator  = getIterator();

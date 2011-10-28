@@ -27,10 +27,10 @@ import com.alibaba.maven.plugin.docbook.WordBreaker;
 
 public abstract class AbstractCitrusPdfMojo extends AbstractPdfMojo {
     /**
-     * Ö¸¶¨Ò»¸ölocale£¬ÀıÈç£º¡°zh_CN¡±£¬ÓÃÀ´¶ÔfoÎÄ¼şÇ¿ÖÆ·Ö´Ê¡£ÕâÑù×öÊÇÎªÁË½â¾öÄ¿Ç°fop²»Ö§³Ö
-     * <code>character-by-character</code>·Ö´Ê·½·¨£¬Ö»Ö§³Ö<code>word-by-word</code>
-     * µÄÎÊÌâ¡£¶ÔÓÚÖĞÎÄfoÎÄ¼ş£¬Èç¹û²»ÉèÖÃ¸Ã²ÎÊı£¨<code>forceBreakingWords == zh_CN</code>
-     * £©£¬ÄÇÃ´¿ÉÄÜ³öÏÖÓ¢ÎÄ×ÖÄ¸´íÎóÊ¹ÓÃÖĞÎÄ×ÖÌåµÄÎÊÌâ¡£
+     * æŒ‡å®šä¸€ä¸ªlocaleï¼Œä¾‹å¦‚ï¼šâ€œzh_CNâ€ï¼Œç”¨æ¥å¯¹foæ–‡ä»¶å¼ºåˆ¶åˆ†è¯ã€‚è¿™æ ·åšæ˜¯ä¸ºäº†è§£å†³ç›®å‰fopä¸æ”¯æŒ
+     * <code>character-by-character</code>åˆ†è¯æ–¹æ³•ï¼Œåªæ”¯æŒ<code>word-by-word</code>
+     * çš„é—®é¢˜ã€‚å¯¹äºä¸­æ–‡foæ–‡ä»¶ï¼Œå¦‚æœä¸è®¾ç½®è¯¥å‚æ•°ï¼ˆ<code>forceBreakingWords == zh_CN</code>
+     * ï¼‰ï¼Œé‚£ä¹ˆå¯èƒ½å‡ºç°è‹±æ–‡å­—æ¯é”™è¯¯ä½¿ç”¨ä¸­æ–‡å­—ä½“çš„é—®é¢˜ã€‚
      * 
      * @parameter
      */
@@ -46,12 +46,12 @@ public abstract class AbstractCitrusPdfMojo extends AbstractPdfMojo {
 
     @Override
     public void postProcessResult(File result) throws MojoExecutionException {
-        // ½«fonts¸´ÖÆµ½¸¸ÀàÖĞ -- ÒòÎªmavenÎŞ·¨×¢ÈëÁíÒ»¸ö°üÖĞµÄ¸¸Àà²ÎÊı¡£
+        // å°†fontså¤åˆ¶åˆ°çˆ¶ç±»ä¸­ -- å› ä¸ºmavenæ— æ³•æ³¨å…¥å¦ä¸€ä¸ªåŒ…ä¸­çš„çˆ¶ç±»å‚æ•°ã€‚
         if (fonts != null) {
             setField(AbstractPdfMojo.class, "fonts", fonts);
         }
 
-        // ¶ÔfopÎÄ¼ş½øĞĞ·Ö´Ê
+        // å¯¹fopæ–‡ä»¶è¿›è¡Œåˆ†è¯
         forceBreakingWords = trimToNull(forceBreakingWords);
 
         if (forceBreakingWords != null) {

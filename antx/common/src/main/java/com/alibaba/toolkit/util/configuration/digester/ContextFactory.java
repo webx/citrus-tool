@@ -22,34 +22,34 @@ import org.apache.commons.digester.Digester;
 import org.xml.sax.Attributes;
 
 /**
- * È¡µÃcontextµÄ¹¤³§.
+ * å–å¾—contextçš„å·¥å‚.
  *
  * @version $Id: ContextFactory.java,v 1.1 2003/07/03 07:26:16 baobao Exp $
  * @author Michael Zhou
  */
 public interface ContextFactory {
     /**
-     * È¡µÃcontext.
+     * å–å¾—context.
      *
-     * @param attributes  XMLÊôĞÔ
+     * @param attributes  XMLå±æ€§
      *
-     * @return context×Ö·û´®
+     * @return contextå­—ç¬¦ä¸²
      *
-     * @throws Exception Èç¹ûÊ§°Ü
+     * @throws Exception å¦‚æœå¤±è´¥
      */
     String getContext(Attributes attributes) throws Exception;
 
     /**
-     * ÉèÖÃdigester.
+     * è®¾ç½®digester.
      *
-     * @param digester µ±Ç°digester
+     * @param digester å½“å‰digester
      */
     void setDigester(Digester digester);
 
     /**
-     * È¡µÃµ±Ç°digester.
+     * å–å¾—å½“å‰digester.
      *
-     * @return µ±Ç°digester
+     * @return å½“å‰digester
      */
     Digester getDigester();
 }

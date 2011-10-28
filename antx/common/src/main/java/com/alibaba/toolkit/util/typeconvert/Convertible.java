@@ -18,18 +18,18 @@
 package com.alibaba.toolkit.util.typeconvert;
 
 /**
- * Èç¹û¶ÔÏóÊµÏÖÁË´Ë½Ó¿Ú, ÔòÔÚÀàĞÍ×ª»»¹ı³ÌÖĞÓÅÏÈÊ¹ÓÃ´Ë¶ÔÏóÖ¸¶¨µÄ×ª»»Æ÷.
+ * å¦‚æœå¯¹è±¡å®ç°äº†æ­¤æ¥å£, åˆ™åœ¨ç±»å‹è½¬æ¢è¿‡ç¨‹ä¸­ä¼˜å…ˆä½¿ç”¨æ­¤å¯¹è±¡æŒ‡å®šçš„è½¬æ¢å™¨.
  *
  * @version $Id: Convertible.java,v 1.1 2003/07/03 07:26:36 baobao Exp $
  * @author Michael Zhou
  */
 public interface Convertible {
     /**
-     * È¡µÃÖ¸¶¨Ä¿±êÀàĞÍµÄ×ª»»Æ÷.
+     * å–å¾—æŒ‡å®šç›®æ ‡ç±»å‹çš„è½¬æ¢å™¨.
      *
-     * @param targetType  Ä¿±êÀàĞÍ
+     * @param targetType  ç›®æ ‡ç±»å‹
      *
-     * @return ×ª»»Æ÷, Èç¹û²»´æÔÚºÏÊÊµÄ×ª»»Æ÷, Ôò·µ»Ø<code>null</code>
+     * @return è½¬æ¢å™¨, å¦‚æœä¸å­˜åœ¨åˆé€‚çš„è½¬æ¢å™¨, åˆ™è¿”å›<code>null</code>
      */
     Converter getConverter(Class targetType);
 }

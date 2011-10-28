@@ -52,7 +52,7 @@ import java.util.LinkedList;
 import java.util.Map;
 
 /**
- * <code>Converter</code>µÄ¹ÜÀíÆ÷.
+ * <code>Converter</code>çš„ç®¡ç†å™¨.
  *
  * @version $Id: ConvertManager.java,v 1.1 2003/07/03 07:26:36 baobao Exp $
  * @author Michael Zhou
@@ -63,7 +63,7 @@ public class ConvertManager {
     private Map                 aliases  = Collections.synchronizedMap(new HashMap());
 
     /**
-     * ´´½¨Ò»¸ö×ª»»Æ÷.
+     * åˆ›å»ºä¸€ä¸ªè½¬æ¢å™¨.
      */
     public ConvertManager() {
         register(BigDecimal.class, new BigDecimalConverter());
@@ -86,16 +86,16 @@ public class ConvertManager {
         register(FlagSet.class, new FlagSetConverter());
 
 
-        // µÇ¼Ç±ğÃû.
+        // ç™»è®°åˆ«å.
         registerAlias("string", String.class);
         registerAlias("enum", Enum.class);
     }
 
     /**
-     * µÇÂ¼Ò»¸ö×ª»»Æ÷.
+     * ç™»å½•ä¸€ä¸ªè½¬æ¢å™¨.
      *
-     * @param type      ×ª»»Æ÷µÄÄ¿±êÀàĞÍ
-     * @param converter ×ª»»Æ÷¶ÔÏó
+     * @param type      è½¬æ¢å™¨çš„ç›®æ ‡ç±»å‹
+     * @param converter è½¬æ¢å™¨å¯¹è±¡
      */
     public void register(Class type, Converter converter) {
         synchronized (registry) {
@@ -130,10 +130,10 @@ public class ConvertManager {
     }
 
     /**
-     * µÇ¼Ç±ğÃû.
+     * ç™»è®°åˆ«å.
      *
-     * @param alias   ±ğÃû
-     * @param type    Ä¿±êÀàĞÍ
+     * @param alias   åˆ«å
+     * @param type    ç›®æ ‡ç±»å‹
      */
     public void registerAlias(String alias, Class type) {
         synchronized (aliases) {
@@ -144,10 +144,10 @@ public class ConvertManager {
     }
 
     /**
-     * ÄÚ²¿¹ı³Ì: µÇ¼ÇÒ»¸ö×ª»»Æ÷.  ²»¼ì²éprimitiveÀàĞÍ, ²»Í¬²½.
+     * å†…éƒ¨è¿‡ç¨‹: ç™»è®°ä¸€ä¸ªè½¬æ¢å™¨.  ä¸æ£€æŸ¥primitiveç±»å‹, ä¸åŒæ­¥.
      *
-     * @param type      ×ª»»Æ÷µÄÄ¿±êÀàĞÍ
-     * @param converter ×ª»»Æ÷¶ÔÏó
+     * @param type      è½¬æ¢å™¨çš„ç›®æ ‡ç±»å‹
+     * @param converter è½¬æ¢å™¨å¯¹è±¡
      */
     private void internalRegister(Class type, Converter converter) {
         LinkedList converters = (LinkedList) registry.get(type);
@@ -164,232 +164,232 @@ public class ConvertManager {
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³É<code>boolean</code>ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆ<code>boolean</code>ç±»å‹.
      *
-     * @param value   Òª×ª»»µÄÖµ
+     * @param value   è¦è½¬æ¢çš„å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public boolean asBoolean(Object value) {
         return ((Boolean) asType(Boolean.class, value)).booleanValue();
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³É<code>boolean</code>ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆ<code>boolean</code>ç±»å‹.
      *
-     * @param value         Òª×ª»»µÄÖµ
-     * @param defaultValue  Ä¬ÈÏÖµ
+     * @param value         è¦è½¬æ¢çš„å€¼
+     * @param defaultValue  é»˜è®¤å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public boolean asBoolean(Object value, boolean defaultValue) {
         return ((Boolean) asType(Boolean.class, value, new Boolean(defaultValue))).booleanValue();
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³É<code>byte</code>ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆ<code>byte</code>ç±»å‹.
      *
-     * @param value   Òª×ª»»µÄÖµ
+     * @param value   è¦è½¬æ¢çš„å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public byte asByte(Object value) {
         return ((Byte) asType(Byte.class, value)).byteValue();
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³É<code>byte</code>ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆ<code>byte</code>ç±»å‹.
      *
-     * @param value         Òª×ª»»µÄÖµ
-     * @param defaultValue  Ä¬ÈÏÖµ
+     * @param value         è¦è½¬æ¢çš„å€¼
+     * @param defaultValue  é»˜è®¤å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public byte asByte(Object value, byte defaultValue) {
         return ((Byte) asType(Byte.class, value, new Byte(defaultValue))).byteValue();
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³É<code>char</code>ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆ<code>char</code>ç±»å‹.
      *
-     * @param value   Òª×ª»»µÄÖµ
+     * @param value   è¦è½¬æ¢çš„å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public char asChar(Object value) {
         return ((Character) asType(Character.class, value)).charValue();
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³É<code>char</code>ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆ<code>char</code>ç±»å‹.
      *
-     * @param value         Òª×ª»»µÄÖµ
-     * @param defaultValue  Ä¬ÈÏÖµ
+     * @param value         è¦è½¬æ¢çš„å€¼
+     * @param defaultValue  é»˜è®¤å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public char asChar(Object value, char defaultValue) {
         return ((Character) asType(Character.class, value, new Character(defaultValue))).charValue();
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³É<code>double</code>ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆ<code>double</code>ç±»å‹.
      *
-     * @param value   Òª×ª»»µÄÖµ
+     * @param value   è¦è½¬æ¢çš„å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public double asDouble(Object value) {
         return ((Double) asType(Double.class, value)).doubleValue();
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³É<code>double</code>ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆ<code>double</code>ç±»å‹.
      *
-     * @param value         Òª×ª»»µÄÖµ
-     * @param defaultValue  Ä¬ÈÏÖµ
+     * @param value         è¦è½¬æ¢çš„å€¼
+     * @param defaultValue  é»˜è®¤å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public double asDouble(Object value, double defaultValue) {
         return ((Double) asType(Double.class, value, new Double(defaultValue))).doubleValue();
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³É<code>float</code>ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆ<code>float</code>ç±»å‹.
      *
-     * @param value   Òª×ª»»µÄÖµ
+     * @param value   è¦è½¬æ¢çš„å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public float asFloat(Object value) {
         return ((Float) asType(Float.class, value)).floatValue();
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³É<code>float</code>ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆ<code>float</code>ç±»å‹.
      *
-     * @param value         Òª×ª»»µÄÖµ
-     * @param defaultValue  Ä¬ÈÏÖµ
+     * @param value         è¦è½¬æ¢çš„å€¼
+     * @param defaultValue  é»˜è®¤å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public float asFloat(Object value, float defaultValue) {
         return ((Float) asType(Float.class, value, new Float(defaultValue))).floatValue();
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³É<code>int</code>ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆ<code>int</code>ç±»å‹.
      *
-     * @param value   Òª×ª»»µÄÖµ
+     * @param value   è¦è½¬æ¢çš„å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public int asInt(Object value) {
         return ((Integer) asType(Integer.class, value)).intValue();
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³É<code>int</code>ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆ<code>int</code>ç±»å‹.
      *
-     * @param value         Òª×ª»»µÄÖµ
-     * @param defaultValue  Ä¬ÈÏÖµ
+     * @param value         è¦è½¬æ¢çš„å€¼
+     * @param defaultValue  é»˜è®¤å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public int asInt(Object value, int defaultValue) {
         return ((Integer) asType(Integer.class, value, new Integer(defaultValue))).intValue();
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³É<code>long</code>ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆ<code>long</code>ç±»å‹.
      *
-     * @param value   Òª×ª»»µÄÖµ
+     * @param value   è¦è½¬æ¢çš„å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public long asLong(Object value) {
         return ((Long) asType(Long.class, value)).longValue();
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³É<code>long</code>ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆ<code>long</code>ç±»å‹.
      *
-     * @param value         Òª×ª»»µÄÖµ
-     * @param defaultValue  Ä¬ÈÏÖµ
+     * @param value         è¦è½¬æ¢çš„å€¼
+     * @param defaultValue  é»˜è®¤å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public long asLong(Object value, long defaultValue) {
         return ((Long) asType(Long.class, value, new Long(defaultValue))).longValue();
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³É<code>short</code>ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆ<code>short</code>ç±»å‹.
      *
-     * @param value   Òª×ª»»µÄÖµ
+     * @param value   è¦è½¬æ¢çš„å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public short asShort(Object value) {
         return ((Short) asType(Short.class, value)).shortValue();
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³É<code>short</code>ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆ<code>short</code>ç±»å‹.
      *
-     * @param value         Òª×ª»»µÄÖµ
-     * @param defaultValue  Ä¬ÈÏÖµ
+     * @param value         è¦è½¬æ¢çš„å€¼
+     * @param defaultValue  é»˜è®¤å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public short asShort(Object value, short defaultValue) {
         return ((Short) asType(Short.class, value, new Short(defaultValue))).shortValue();
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³É<code>String</code>ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆ<code>String</code>ç±»å‹.
      *
-     * @param value   Òª×ª»»µÄÖµ
+     * @param value   è¦è½¬æ¢çš„å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public String asString(Object value) {
         return (String) asType(String.class, value);
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³É<code>String</code>ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆ<code>String</code>ç±»å‹.
      *
-     * @param value         Òª×ª»»µÄÖµ
-     * @param defaultValue  Ä¬ÈÏÖµ
+     * @param value         è¦è½¬æ¢çš„å€¼
+     * @param defaultValue  é»˜è®¤å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public String asString(Object value, String defaultValue) {
         return (String) asType(String.class, value, defaultValue);
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³ÉÖ¸¶¨ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆæŒ‡å®šç±»å‹.
      *
-     * @param targetType Òª×ª»»µÄÄ¿±êÀàĞÍ
-     * @param value      Òª×ª»»µÄÖµ
+     * @param targetType è¦è½¬æ¢çš„ç›®æ ‡ç±»å‹
+     * @param value      è¦è½¬æ¢çš„å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public Object asType(Object targetType, Object value) {
         return asType(targetType, value, NO_DEFAULT_VALUE);
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³ÉÖ¸¶¨ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆæŒ‡å®šç±»å‹.
      *
-     * @param targetType   Òª×ª»»µÄÄ¿±êÀàĞÍ
-     * @param value        Òª×ª»»µÄÖµ
-     * @param defaultValue Ä¬ÈÏÖµ
+     * @param targetType   è¦è½¬æ¢çš„ç›®æ ‡ç±»å‹
+     * @param value        è¦è½¬æ¢çš„å€¼
+     * @param defaultValue é»˜è®¤å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public Object asType(Object targetType, Object value, Object defaultValue) {
         try {
@@ -405,23 +405,23 @@ public class ConvertManager {
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³ÉÖ¸¶¨ÀàĞÍ.  ¼´Ê¹×ª»»Ê§°Ü, Ò²²»»á·µ»ØÄ¬ÈÏÖµ, ¶øÅ×³öÒ»¸öÒì³£.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆæŒ‡å®šç±»å‹.  å³ä½¿è½¬æ¢å¤±è´¥, ä¹Ÿä¸ä¼šè¿”å›é»˜è®¤å€¼, è€ŒæŠ›å‡ºä¸€ä¸ªå¼‚å¸¸.
      *
-     * @param targetType   Òª×ª»»µÄÄ¿±êÀàĞÍ
-     * @param value        Òª×ª»»µÄÖµ
+     * @param targetType   è¦è½¬æ¢çš„ç›®æ ‡ç±»å‹
+     * @param value        è¦è½¬æ¢çš„å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public Object asTypeWithoutDefaultValue(Object targetType, Object value) {
         return new ChainImpl(this, getTargetType(targetType)).convert(value);
     }
 
     /**
-     * È¡µÃtarget typeÀà¶ÔÏó.
+     * å–å¾—target typeç±»å¯¹è±¡.
      *
-     * @param targetType  target typeÀà»ò±ğÃû
+     * @param targetType  target typeç±»æˆ–åˆ«å
      *
-     * @return target typeÀà¶ÔÏó
+     * @return target typeç±»å¯¹è±¡
      */
     private Class getTargetType(Object targetType) {
         if (targetType instanceof Class) {
@@ -440,8 +440,8 @@ public class ConvertManager {
     }
 
     /**
-     * ×ª»»Æ÷Á´. ÒÀ´Î³¢ÊÔ: Convertible.getConverter(targetType), targetType¶ÔÓ¦µÄ×ª»»Æ÷,
-     * targetTypeµÄ»ùÀà(²»°üÀ¨ObjectÀà)¶ÔÓ¦µÄ×ª»»Æ÷, targetTypeµÄ½Ó¿Ú¶ÔÓ¦µÄ×ª»»Æ÷, ObjectÀàËù¶ÔÓ¦µÄ×ª»»Æ÷.
+     * è½¬æ¢å™¨é“¾. ä¾æ¬¡å°è¯•: Convertible.getConverter(targetType), targetTypeå¯¹åº”çš„è½¬æ¢å™¨,
+     * targetTypeçš„åŸºç±»(ä¸åŒ…æ‹¬Objectç±»)å¯¹åº”çš„è½¬æ¢å™¨, targetTypeçš„æ¥å£å¯¹åº”çš„è½¬æ¢å™¨, Objectç±»æ‰€å¯¹åº”çš„è½¬æ¢å™¨.
      */
     private class ChainImpl implements ConvertChain {
         private static final int     STATE_START              = 0;
@@ -459,10 +459,10 @@ public class ConvertManager {
         private Iterator             interfaceIterator;
 
         /**
-         * ´´½¨×ª»»Á´.
+         * åˆ›å»ºè½¬æ¢é“¾.
          *
-         * @param manager            ´´½¨´ËÁ´µÄ<code>ConvertManager</code>
-         * @param targetType         ×ª»»µÄÄ¿±êÀàĞÍ
+         * @param manager            åˆ›å»ºæ­¤é“¾çš„<code>ConvertManager</code>
+         * @param targetType         è½¬æ¢çš„ç›®æ ‡ç±»å‹
          */
         ChainImpl(ConvertManager manager, Class targetType) {
             this.manager        = manager;
@@ -470,35 +470,35 @@ public class ConvertManager {
         }
 
         /**
-         * È¡µÃ´´½¨´ËÁ´µÄ<code>ConvertManager</code>.
+         * å–å¾—åˆ›å»ºæ­¤é“¾çš„<code>ConvertManager</code>.
          *
-         * @return ´´½¨´ËÁ´µÄ<code>ConvertManager</code>
+         * @return åˆ›å»ºæ­¤é“¾çš„<code>ConvertManager</code>
          */
         public ConvertManager getConvertManager() {
             return manager;
         }
 
         /**
-         * È¡µÃ×ª»»µÄÄ¿±êÀàĞÍ.
+         * å–å¾—è½¬æ¢çš„ç›®æ ‡ç±»å‹.
          *
-         * @return Ä¿±êÀàĞÍ
+         * @return ç›®æ ‡ç±»å‹
          */
         public Class getTargetType() {
             return targetTypeInfo.getType();
         }
 
         /**
-         * ½«¿ØÖÆ½»¸øÁ´ÖĞµÄÏÂÒ»¸ö×ª»»Æ÷, ×ª»»Ö¸¶¨µÄÖµµ½Ö¸¶¨µÄÀàĞÍ.
+         * å°†æ§åˆ¶äº¤ç»™é“¾ä¸­çš„ä¸‹ä¸€ä¸ªè½¬æ¢å™¨, è½¬æ¢æŒ‡å®šçš„å€¼åˆ°æŒ‡å®šçš„ç±»å‹.
          *
-         * @param value       Òª×ª»»µÄÖµ
+         * @param value       è¦è½¬æ¢çš„å€¼
          *
-         * @return ×ª»»ºóµÄÖµ
+         * @return è½¬æ¢åçš„å€¼
          */
         public Object convert(Object value) {
             Class targetType = targetTypeInfo.getType();
 
-            // ÓÅÏÈ´¦ÀíÊµÏÖConvertible½Ó¿ÚµÄvalueÖµ,
-            // ²¢·ÀÖ¹¶ÔÍ¬Ò»¸öconvertible value·´¸´µ÷ÓÃÆäconverter
+            // ä¼˜å…ˆå¤„ç†å®ç°Convertibleæ¥å£çš„valueå€¼,
+            // å¹¶é˜²æ­¢å¯¹åŒä¸€ä¸ªconvertible valueåå¤è°ƒç”¨å…¶converter
             if (value instanceof Convertible && !value.equals(previousConvertibleValue)) {
                 Converter converter = ((Convertible) value).getConverter(targetType);
 
@@ -508,41 +508,41 @@ public class ConvertManager {
                 }
             }
 
-            // ¿ªÊ¼×´Ì¬
+            // å¼€å§‹çŠ¶æ€
             if (state == STATE_START) {
-                state++; // ½øÈëSTATE_TARGET_TYPE×´Ì¬
+                state++; // è¿›å…¥STATE_TARGET_TYPEçŠ¶æ€
                 converterIterator = getConverterIterator(targetType);
             }
 
-            // ´¦ÀítargetType¶ÔÓ¦µÄ×ª»»Æ÷
+            // å¤„ç†targetTypeå¯¹åº”çš„è½¬æ¢å™¨
             if (state == STATE_TARGET_TYPE) {
                 if (!hasNext(converterIterator)) {
-                    state++; // ½øÈëSTATE_BASE_TYPE×´Ì¬
+                    state++; // è¿›å…¥STATE_BASE_TYPEçŠ¶æ€
                     superclassIterator = targetTypeInfo.getSuperclasses().iterator();
                     converterIterator  = getSuperclassConverterIterator();
                 }
             }
 
-            // ´¦ÀítargetTypeµÄ»ùÀà¶ÔÓ¦µÄ×ª»»Æ÷
+            // å¤„ç†targetTypeçš„åŸºç±»å¯¹åº”çš„è½¬æ¢å™¨
             if (state == STATE_BASE_TYPE) {
                 if (!hasNext(converterIterator)) {
                     converterIterator = getSuperclassConverterIterator();
 
                     if (!hasNext(converterIterator)) {
-                        state++; // ½øÈëSTATE_INTERFACE×´Ì¬
+                        state++; // è¿›å…¥STATE_INTERFACEçŠ¶æ€
                         interfaceIterator = targetTypeInfo.getInterfaces().iterator();
                         converterIterator = getInterfaceConverterIterator();
                     }
                 }
             }
 
-            // ´¦ÀítargetTypeµÄ½Ó¿Ú¶ÔÓ¦µÄ×ª»»Æ÷
+            // å¤„ç†targetTypeçš„æ¥å£å¯¹åº”çš„è½¬æ¢å™¨
             if (state == STATE_INTERFACE) {
                 if (!hasNext(converterIterator)) {
                     converterIterator = getInterfaceConverterIterator();
 
                     if (!hasNext(converterIterator)) {
-                        state++; // ½øÈëSTATE_OBJECT×´Ì¬
+                        state++; // è¿›å…¥STATE_OBJECTçŠ¶æ€
 
                         if (!Object.class.equals(targetTypeInfo.getType())) {
                             converterIterator = getConverterIterator(Object.class);
@@ -551,30 +551,30 @@ public class ConvertManager {
                 }
             }
 
-            // ´¦ÀíObjectÀà¶ÔÓ¦µÄ×ª»»Æ÷
+            // å¤„ç†Objectç±»å¯¹åº”çš„è½¬æ¢å™¨
             if (state == STATE_OBJECT) {
                 if (!hasNext(converterIterator)) {
-                    state++; // ½øÈëSTATE_END×´Ì¬
+                    state++; // è¿›å…¥STATE_ENDçŠ¶æ€
                 }
             }
 
-            // ¿ªÊ¼×ª»»
+            // å¼€å§‹è½¬æ¢
             if (state != STATE_END) {
                 Converter converter = (Converter) converterIterator.next();
 
                 return converter.convert(value, this);
             }
 
-            // Èç¹ûÕÒ²»µ½converter, ÔòÊ§°Ü
+            // å¦‚æœæ‰¾ä¸åˆ°converter, åˆ™å¤±è´¥
             throw new ConvertFailedException();
         }
 
         /**
-         * È¡µÃÖ¸¶¨ÀàĞÍµÄËùÓĞ×ª»»Æ÷.
+         * å–å¾—æŒ‡å®šç±»å‹çš„æ‰€æœ‰è½¬æ¢å™¨.
          *
-         * @param type  Òª²éÕÒ×ª»»Æ÷µÄÀàĞÍ
+         * @param type  è¦æŸ¥æ‰¾è½¬æ¢å™¨çš„ç±»å‹
          *
-         * @return ×ª»»Æ÷µÄ<code>Iterator</code>, Èç¹û²»´æÔÚ, Ôò·µ»Ø<code>null</code>
+         * @return è½¬æ¢å™¨çš„<code>Iterator</code>, å¦‚æœä¸å­˜åœ¨, åˆ™è¿”å›<code>null</code>
          */
         private Iterator getConverterIterator(Class type) {
             LinkedList converters = (LinkedList) registry.get(type);
@@ -587,9 +587,9 @@ public class ConvertManager {
         }
 
         /**
-         * È¡µÃtargetType»ùÀà(²»°üÀ¨ObjectÀà)µÄ×ª»»Æ÷.
+         * å–å¾—targetTypeåŸºç±»(ä¸åŒ…æ‹¬Objectç±»)çš„è½¬æ¢å™¨.
          *
-         * @return »ùÀàµÄ×ª»»Æ÷µÄ<code>Iterator</code>, Èç¹û²»´æÔÚ, Ôò·µ»Ø<code>null</code>
+         * @return åŸºç±»çš„è½¬æ¢å™¨çš„<code>Iterator</code>, å¦‚æœä¸å­˜åœ¨, åˆ™è¿”å›<code>null</code>
          */
         private Iterator getSuperclassConverterIterator() {
             Iterator iterator = null;
@@ -610,9 +610,9 @@ public class ConvertManager {
         }
 
         /**
-         * È¡µÃtargetType½Ó¿ÚµÄ×ª»»Æ÷.
+         * å–å¾—targetTypeæ¥å£çš„è½¬æ¢å™¨.
          *
-         * @return ½Ó¿ÚµÄ×ª»»Æ÷µÄ<code>Iterator</code>, Èç¹û²»´æÔÚ, Ôò·µ»Ø<code>null</code>
+         * @return æ¥å£çš„è½¬æ¢å™¨çš„<code>Iterator</code>, å¦‚æœä¸å­˜åœ¨, åˆ™è¿”å›<code>null</code>
          */
         private Iterator getInterfaceConverterIterator() {
             Iterator iterator = null;
@@ -629,11 +629,11 @@ public class ConvertManager {
         }
 
         /**
-         * ¼ì²éiteratorÊÇ·ñ´æÔÚÏÂÒ»¸öÔªËØ.
+         * æ£€æŸ¥iteratoræ˜¯å¦å­˜åœ¨ä¸‹ä¸€ä¸ªå…ƒç´ .
          *
-         * @param iterator Òª¼ì²éµÄiterator
+         * @param iterator è¦æ£€æŸ¥çš„iterator
          *
-         * @return Èç¹ûiteratorÎª<code>null</code>, »òiteratorÒÑ¾­×ßµ½µ×, Ôò·µ»Ø<code>false</code>
+         * @return å¦‚æœiteratorä¸º<code>null</code>, æˆ–iteratorå·²ç»èµ°åˆ°åº•, åˆ™è¿”å›<code>false</code>
          */
         private boolean hasNext(Iterator iterator) {
             return (iterator != null) && iterator.hasNext();

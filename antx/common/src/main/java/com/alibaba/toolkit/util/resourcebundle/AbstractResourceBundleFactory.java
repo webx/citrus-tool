@@ -22,16 +22,16 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * ³éÏóµÄ<code>ResourceBundleFactory</code>, ÊµÏÖÁËÍ¨ÓÃµÄ´´½¨<code>ResourceBundle</code>ÊµÀıµÄ·½·¨.
+ * æŠ½è±¡çš„<code>ResourceBundleFactory</code>, å®ç°äº†é€šç”¨çš„åˆ›å»º<code>ResourceBundle</code>å®ä¾‹çš„æ–¹æ³•.
  *
  * <p>
- * Õâ¸öÊµÏÖÍ¨¹ı<code>ResourceBundleLoader</code>×°ÈëbundleµÄÊı¾İÎÄ¼ş,
- * È»ºóÖ´ĞĞ<code>parse</code>·½·¨È¡µÃ<code>ResourceBundle</code>ÊµÀı.
+ * è¿™ä¸ªå®ç°é€šè¿‡<code>ResourceBundleLoader</code>è£…å…¥bundleçš„æ•°æ®æ–‡ä»¶,
+ * ç„¶åæ‰§è¡Œ<code>parse</code>æ–¹æ³•å–å¾—<code>ResourceBundle</code>å®ä¾‹.
  * </p>
  *
  * <p>
- * À©Õ¹Àà¿ÉÒÔÍ¨¹ıÌá¹©ÊÊµ±µÄ<code>ResourceBundleLoader</code>À´¸Ä±äbundleµÄ×°Èë·½Ê½, ÀıÈç´ÓÎÄ¼şÏµÍ³»òÊı¾İ¿âÖĞ×°Èë.
- * Í¨¹ı¸²¸Ç<code>parse</code>·½·¨, ¿ÉÒÔ¸Ä±ä¶ÁÈ¡ÎÄ¼şµÄ¸ñÊ½, ÀıÈç<code>XMLResourceBundleFactory</code>ÒÔXMLµÄ¸ñÊ½À´½âÊÍÎÄ¼ş.
+ * æ‰©å±•ç±»å¯ä»¥é€šè¿‡æä¾›é€‚å½“çš„<code>ResourceBundleLoader</code>æ¥æ”¹å˜bundleçš„è£…å…¥æ–¹å¼, ä¾‹å¦‚ä»æ–‡ä»¶ç³»ç»Ÿæˆ–æ•°æ®åº“ä¸­è£…å…¥.
+ * é€šè¿‡è¦†ç›–<code>parse</code>æ–¹æ³•, å¯ä»¥æ”¹å˜è¯»å–æ–‡ä»¶çš„æ ¼å¼, ä¾‹å¦‚<code>XMLResourceBundleFactory</code>ä»¥XMLçš„æ ¼å¼æ¥è§£é‡Šæ–‡ä»¶.
  * </p>
  *
  * @version $Id
@@ -42,32 +42,32 @@ public abstract class AbstractResourceBundleFactory
     private final ResourceBundleLoader loader;
 
     /**
-     * ´´½¨factory, Ê¹ÓÃµ±Ç°Ïß³ÌµÄcontext class loader×÷Îªbundle×°ÈëÆ÷.
+     * åˆ›å»ºfactory, ä½¿ç”¨å½“å‰çº¿ç¨‹çš„context class loaderä½œä¸ºbundleè£…å…¥å™¨.
      */
     public AbstractResourceBundleFactory() {
         this(new ClassLoaderResourceBundleLoader());
     }
 
     /**
-     * ´´½¨factory, Ê¹ÓÃÖ¸¶¨µÄclass loader×÷Îªbundle×°ÈëÆ÷.
+     * åˆ›å»ºfactory, ä½¿ç”¨æŒ‡å®šçš„class loaderä½œä¸ºbundleè£…å…¥å™¨.
      *
-     * @param classLoader ×°ÈëbundleµÄclass loader
+     * @param classLoader è£…å…¥bundleçš„class loader
      */
     public AbstractResourceBundleFactory(ClassLoader classLoader) {
         this(new ClassLoaderResourceBundleLoader(classLoader));
     }
 
     /**
-     * ´´½¨factory, Ê¹ÓÃÖ¸¶¨µÄloader×÷Îªbundle×°Æ÷
+     * åˆ›å»ºfactory, ä½¿ç”¨æŒ‡å®šçš„loaderä½œä¸ºbundleè£…å™¨
      *
-     * @param loader bundle×°ÈëÆ÷
+     * @param loader bundleè£…å…¥å™¨
      */
     public AbstractResourceBundleFactory(ResourceBundleLoader loader) {
         this.loader = loader;
     }
 
     /**
-     * È¡µÃ<code>ResourceBundleLoader</code>.
+     * å–å¾—<code>ResourceBundleLoader</code>.
      *
      * @return loader
      */
@@ -76,13 +76,13 @@ public abstract class AbstractResourceBundleFactory
     }
 
     /**
-     * ´´½¨<code>ResourceBundle</code>µÄÊµÀı.
+     * åˆ›å»º<code>ResourceBundle</code>çš„å®ä¾‹.
      *
-     * @param bundleName  Òª´´½¨µÄbundleÃû³Æ
+     * @param bundleName  è¦åˆ›å»ºçš„bundleåç§°
      *
-     * @return ĞÂ´´½¨µÄ<code>ResourceBundle</code>ÊµÀı, Èç¹ûÖ¸¶¨bundle²»´æÔÚ, Ôò·µ»Ø<code>null</code>
+     * @return æ–°åˆ›å»ºçš„<code>ResourceBundle</code>å®ä¾‹, å¦‚æœæŒ‡å®šbundleä¸å­˜åœ¨, åˆ™è¿”å›<code>null</code>
      *
-     * @throws ResourceBundleCreateException Ö¸¶¨bundleÎÄ¼ş´æÔÚ, µ«´´½¨bundleÊµÀıÊ§°Ü, ÀıÈçÎÄ¼ş¸ñÊ½´íÎó
+     * @throws ResourceBundleCreateException æŒ‡å®šbundleæ–‡ä»¶å­˜åœ¨, ä½†åˆ›å»ºbundleå®ä¾‹å¤±è´¥, ä¾‹å¦‚æ–‡ä»¶æ ¼å¼é”™è¯¯
      */
     public ResourceBundle createBundle(String bundleName)
             throws ResourceBundleCreateException {
@@ -93,14 +93,14 @@ public abstract class AbstractResourceBundleFactory
             stream = loader.openStream(filename);
         }
 
-        // Èç¹ûÎÄ¼ş²»´æÔÚ, Ôò·µ»Ønull.
+        // å¦‚æœæ–‡ä»¶ä¸å­˜åœ¨, åˆ™è¿”å›null.
         if (stream == null) {
             return null;
         }
 
         try {
             
-            // @TODO: ´Ë´¦×îºÃÒÔURL×÷Îªsystem ID
+            // @TODO: æ­¤å¤„æœ€å¥½ä»¥URLä½œä¸ºsystem ID
             return parse(new BufferedInputStream(stream), filename);
         } finally {
             try {
@@ -111,36 +111,36 @@ public abstract class AbstractResourceBundleFactory
     }
 
     /**
-     * ¸ù¾İbundleµÄÃû³ÆÈ¡µÃresourceµÄÎÄ¼şÃû³Æ.
+     * æ ¹æ®bundleçš„åç§°å–å¾—resourceçš„æ–‡ä»¶åç§°.
      *
-     * @param bundleName  bundleµÄÃû³Æ
+     * @param bundleName  bundleçš„åç§°
      *
-     * @return resourceµÄÃû³Æ
+     * @return resourceçš„åç§°
      */
     protected String getFilename(String bundleName) {
         return bundleName.replace('.', '/');
     }
 
     /**
-     * ½âÎöÊäÈëÁ÷, ´ÓÖĞ´´½¨<code>ResourceBundle</code>.
+     * è§£æè¾“å…¥æµ, ä»ä¸­åˆ›å»º<code>ResourceBundle</code>.
      *
-     * @param stream    ÊäÈëÁ÷
-     * @param systemId  ±ê×¼ÊäÈëÁ÷µÄ×Ö·û´®(Ò»°ãÊÇÎÄ¼şÃû)
+     * @param stream    è¾“å…¥æµ
+     * @param systemId  æ ‡å‡†è¾“å…¥æµçš„å­—ç¬¦ä¸²(ä¸€èˆ¬æ˜¯æ–‡ä»¶å)
      *
      * @return resource bundle
      *
-     * @throws ResourceBundleCreateException Èç¹û½âÎöÊ§°Ü
+     * @throws ResourceBundleCreateException å¦‚æœè§£æå¤±è´¥
      */
     protected abstract ResourceBundle parse(InputStream stream, String systemId)
             throws ResourceBundleCreateException;
 
     /**
-     * ±È½ÏÁ½¸öfactoryÊÇ·ñµÈĞ§.  ¶ÔÓÚµÈĞ§µÄfactory, ¸øÓèÏàÍ¬µÄbundleÃû, µ÷ÓÃ<code>createBundle</code>·½·¨,
-     * ¿ÉÒÔµÃµ½µÈĞ§µÄbundleÊµÀı.
+     * æ¯”è¾ƒä¸¤ä¸ªfactoryæ˜¯å¦ç­‰æ•ˆ.  å¯¹äºç­‰æ•ˆçš„factory, ç»™äºˆç›¸åŒçš„bundleå, è°ƒç”¨<code>createBundle</code>æ–¹æ³•,
+     * å¯ä»¥å¾—åˆ°ç­‰æ•ˆçš„bundleå®ä¾‹.
      *
-     * @param other Òª±È½ÏµÄfactory
+     * @param other è¦æ¯”è¾ƒçš„factory
      *
-     * @return Èç¹ûµÈĞ§, Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœç­‰æ•ˆ, åˆ™è¿”å›<code>true</code>
      */
     public boolean equals(Object other) {
         if (other == this) {
@@ -161,9 +161,9 @@ public abstract class AbstractResourceBundleFactory
     }
 
     /**
-     * È¡µÃfactoryµÄhashÖµ, Èç¹ûÁ½¸öfactoryµÈĞ§, ÔòËüÃÇµÄhashÖµÒ²ÏàµÈ.
+     * å–å¾—factoryçš„hashå€¼, å¦‚æœä¸¤ä¸ªfactoryç­‰æ•ˆ, åˆ™å®ƒä»¬çš„hashå€¼ä¹Ÿç›¸ç­‰.
      *
-     * @return factoryµÄhashÖµ
+     * @return factoryçš„hashå€¼
      */
     public int hashCode() {
         return (loader == null) ? 0

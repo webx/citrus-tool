@@ -31,18 +31,18 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 /**
- * ºÍ²Ù×÷ÎÄ¼şÓĞ¹ØµÄ¹¤¾ßÀà¡£
+ * å’Œæ“ä½œæ–‡ä»¶æœ‰å…³çš„å·¥å…·ç±»ã€‚
  *
  * @author Michael Zhou
  */
 public class FileUtil {
-    /** ÏµÍ³ÊôĞÔ£ºÓÃ»§homeÄ¿Â¼ */
+    /** ç³»ç»Ÿå±æ€§ï¼šç”¨æˆ·homeç›®å½• */
     public static final String SYS_PROP_USER_HOME = "user.home";
 
-    /** ÏµÍ³ÊôĞÔ£ºÓÃ»§µ±Ç°Ä¿Â¼ */
+    /** ç³»ç»Ÿå±æ€§ï¼šç”¨æˆ·å½“å‰ç›®å½• */
     public static final String SYS_PROP_USER_CURRENT_DIR = "user.dir";
 
-    /** Ä¬ÈÏÅÅ³ıµÄÎÄ¼ş¡£ */
+    /** é»˜è®¤æ’é™¤çš„æ–‡ä»¶ã€‚ */
     public static final String[] DEFAULT_EXCLUDES = {
                                                         // Miscellaneous typical temporary files
     "**/*~", "**/#*#", "**/.#*", "**/%*%", "**/._*",
@@ -64,42 +64,42 @@ public class FileUtil {
                                                     };
 
     /**
-     * È¡µÃÓÃ»§homeÄ¿Â¼¡£
+     * å–å¾—ç”¨æˆ·homeç›®å½•ã€‚
      *
-     * @return ÓÃ»§homeÄ¿Â¼
+     * @return ç”¨æˆ·homeç›®å½•
      */
     public static File getUserHome() {
         return new File(System.getProperty(SYS_PROP_USER_HOME));
     }
 
     /**
-     * È¡µÃÓÃ»§µ±Ç°Ä¿Â¼¡£
+     * å–å¾—ç”¨æˆ·å½“å‰ç›®å½•ã€‚
      *
-     * @return ÓÃ»§µ±Ç°Ä¿Â¼
+     * @return ç”¨æˆ·å½“å‰ç›®å½•
      */
     public static File getUserCurrentDir() {
         return new File(System.getProperty(SYS_PROP_USER_CURRENT_DIR));
     }
 
     /**
-     * ´ÓÖ¸¶¨Â·¾¶´´½¨<code>File</code>¡£Èç¹û<code>path</code>ÎªÏà¶ÔÂ·¾¶£¬ÔòÏà¶ÔÓÚÖ¸¶¨<code>basedir</code>¡£
+     * ä»æŒ‡å®šè·¯å¾„åˆ›å»º<code>File</code>ã€‚å¦‚æœ<code>path</code>ä¸ºç›¸å¯¹è·¯å¾„ï¼Œåˆ™ç›¸å¯¹äºæŒ‡å®š<code>basedir</code>ã€‚
      *
-     * @param basedir Ïà¶ÔÂ·¾¶µÄ¸ùÄ¿Â¼
-     * @param path ¾ø¶ÔÂ·¾¶»òÏà¶ÔÂ·¾¶
+     * @param basedir ç›¸å¯¹è·¯å¾„çš„æ ¹ç›®å½•
+     * @param path ç»å¯¹è·¯å¾„æˆ–ç›¸å¯¹è·¯å¾„
      *
-     * @return ÎÄ¼ş¶ÔÏó
+     * @return æ–‡ä»¶å¯¹è±¡
      */
     public static File getFile(String basedir, String path) {
         return getFile(new File(basedir), path);
     }
 
     /**
-     * ´ÓÖ¸¶¨Â·¾¶´´½¨<code>File</code>¡£Èç¹û<code>path</code>ÎªÏà¶ÔÂ·¾¶£¬ÔòÏà¶ÔÓÚÖ¸¶¨<code>basedir</code>¡£
+     * ä»æŒ‡å®šè·¯å¾„åˆ›å»º<code>File</code>ã€‚å¦‚æœ<code>path</code>ä¸ºç›¸å¯¹è·¯å¾„ï¼Œåˆ™ç›¸å¯¹äºæŒ‡å®š<code>basedir</code>ã€‚
      *
-     * @param basedir Ïà¶ÔÂ·¾¶µÄ¸ùÄ¿Â¼
-     * @param path ¾ø¶ÔÂ·¾¶»òÏà¶ÔÂ·¾¶
+     * @param basedir ç›¸å¯¹è·¯å¾„çš„æ ¹ç›®å½•
+     * @param path ç»å¯¹è·¯å¾„æˆ–ç›¸å¯¹è·¯å¾„
      *
-     * @return ÎÄ¼ş¶ÔÏó
+     * @return æ–‡ä»¶å¯¹è±¡
      */
     public static File getFile(File basedir, String path) {
         File file = new File(path);
@@ -112,24 +112,24 @@ public class FileUtil {
     }
 
     /**
-     * ´ÓÖ¸¶¨Â·¾¶¿ªÊ¼²éÕÒÎÄ¼ş£¬Ò»Ö±ÕÒµ½¸ùÄ¿Â¼ÎªÖ¹¡£
+     * ä»æŒ‡å®šè·¯å¾„å¼€å§‹æŸ¥æ‰¾æ–‡ä»¶ï¼Œä¸€ç›´æ‰¾åˆ°æ ¹ç›®å½•ä¸ºæ­¢ã€‚
      *
-     * @param dir ´ÓÕâ¸öÄ¿Â¼¿ªÊ¼ÕÒ
-     * @param filename Òª²éÕÒµÄÎÄ¼şÃû
+     * @param dir ä»è¿™ä¸ªç›®å½•å¼€å§‹æ‰¾
+     * @param filename è¦æŸ¥æ‰¾çš„æ–‡ä»¶å
      *
-     * @return ÕÒµ½µÄÎÄ¼ş£¬Èç¹ûÎ´ÕÒµ½£¬Ôò·µ»Ø<code>null</code>
+     * @return æ‰¾åˆ°çš„æ–‡ä»¶ï¼Œå¦‚æœæœªæ‰¾åˆ°ï¼Œåˆ™è¿”å›<code>null</code>
      */
     public static File find(String filename) {
         return find(getUserCurrentDir(), filename);
     }
 
     /**
-     * ´ÓÖ¸¶¨Â·¾¶¿ªÊ¼²éÕÒÎÄ¼ş£¬Ò»Ö±ÕÒµ½¸ùÄ¿Â¼ÎªÖ¹¡£
+     * ä»æŒ‡å®šè·¯å¾„å¼€å§‹æŸ¥æ‰¾æ–‡ä»¶ï¼Œä¸€ç›´æ‰¾åˆ°æ ¹ç›®å½•ä¸ºæ­¢ã€‚
      *
-     * @param dir ´ÓÕâ¸öÄ¿Â¼¿ªÊ¼ÕÒ
-     * @param filename Òª²éÕÒµÄÎÄ¼şÃû
+     * @param dir ä»è¿™ä¸ªç›®å½•å¼€å§‹æ‰¾
+     * @param filename è¦æŸ¥æ‰¾çš„æ–‡ä»¶å
      *
-     * @return ÕÒµ½µÄÎÄ¼ş£¬Èç¹ûÎ´ÕÒµ½£¬Ôò·µ»Ø<code>null</code>
+     * @return æ‰¾åˆ°çš„æ–‡ä»¶ï¼Œå¦‚æœæœªæ‰¾åˆ°ï¼Œåˆ™è¿”å›<code>null</code>
      */
     public static File find(File dir, String filename) {
         if (dir == null) {
@@ -143,11 +143,11 @@ public class FileUtil {
     }
 
     /**
-     * È¡µÃÕı¹æµÄÎÄ¼ş¡£
+     * å–å¾—æ­£è§„çš„æ–‡ä»¶ã€‚
      *
-     * @param filename ÎÄ¼şÃû
+     * @param filename æ–‡ä»¶å
      *
-     * @return Õı¹æµÄÎÄ¼ş£¬Èç¹ûÎÄ¼şÃûÎª¿Õ£¬Ôò·µ»Ø<code>null</code>
+     * @return æ­£è§„çš„æ–‡ä»¶ï¼Œå¦‚æœæ–‡ä»¶åä¸ºç©ºï¼Œåˆ™è¿”å›<code>null</code>
      */
     public static File getCanonicalFile(String filename) {
         if (StringUtil.isEmpty(filename)) {
@@ -162,12 +162,12 @@ public class FileUtil {
     }
 
     /**
-     * ÅĞ¶ÏÖ¸¶¨×ÊÔ´IDÊÇ·ñ´æÔÚÓÚjarÎÄ¼ş»òÄ¿Â¼ÖĞ¡£
+     * åˆ¤æ–­æŒ‡å®šèµ„æºIDæ˜¯å¦å­˜åœ¨äºjaræ–‡ä»¶æˆ–ç›®å½•ä¸­ã€‚
      *
-     * @param base Ä¿Â¼»òjarÎÄ¼ş
-     * @param resourceId ×ÊÔ´ID
+     * @param base ç›®å½•æˆ–jaræ–‡ä»¶
+     * @param resourceId èµ„æºID
      *
-     * @return Èç¹û´æÔÚ£¬Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœå­˜åœ¨ï¼Œåˆ™è¿”å›<code>true</code>
      */
     public static boolean resourceAvailable(File base, String resourceId) {
         boolean available = false;
@@ -192,13 +192,13 @@ public class FileUtil {
     }
 
     /**
-     * É¨ÃèÄ¿Â¼£¬È¡µÃ·ûºÏÒªÇóµÄËùÓĞÎÄ¼ş¡£
+     * æ‰«æç›®å½•ï¼Œå–å¾—ç¬¦åˆè¦æ±‚çš„æ‰€æœ‰æ–‡ä»¶ã€‚
      *
-     * @param dir Ä¿Â¼
-     * @param includes °üº¬ÎÄ¼ş
-     * @param excludes ²»°üº¬ÎÄ¼ş
+     * @param dir ç›®å½•
+     * @param includes åŒ…å«æ–‡ä»¶
+     * @param excludes ä¸åŒ…å«æ–‡ä»¶
      *
-     * @return ËùÓĞÎÄ¼ş
+     * @return æ‰€æœ‰æ–‡ä»¶
      */
     public static File[] getFilesInDirectory(File dir, String[] includes, String[] excludes) {
         String[] filenames = getFileNamesInDirectory(dir, includes, excludes);
@@ -212,13 +212,13 @@ public class FileUtil {
     }
 
     /**
-     * É¨ÃèÄ¿Â¼£¬È¡µÃ·ûºÏÒªÇóµÄËùÓĞÎÄ¼ş¡£
+     * æ‰«æç›®å½•ï¼Œå–å¾—ç¬¦åˆè¦æ±‚çš„æ‰€æœ‰æ–‡ä»¶ã€‚
      *
-     * @param dir Ä¿Â¼
-     * @param includes °üº¬ÎÄ¼ş
-     * @param excludes ²»°üº¬ÎÄ¼ş
+     * @param dir ç›®å½•
+     * @param includes åŒ…å«æ–‡ä»¶
+     * @param excludes ä¸åŒ…å«æ–‡ä»¶
      *
-     * @return ËùÓĞÎÄ¼ş
+     * @return æ‰€æœ‰æ–‡ä»¶
      */
     public static String[] getFileNamesInDirectory(File dir, String[] includes, String[] excludes) {
         final PatternSet patterns = new PatternSet(includes, excludes).addDefaultExcludes();
@@ -378,7 +378,7 @@ public class FileUtil {
     }
 
     /* ============================================================================ */
-    /*  ³£Á¿ºÍsingleton¡£                                                           */
+    /*  å¸¸é‡å’Œsingletonã€‚                                                           */
     /* ============================================================================ */
     private static final char   COLON_CHAR     = ':';
     private static final String UNC_PREFIX     = "//";
@@ -387,33 +387,33 @@ public class FileUtil {
     private static final char   SLASH_CHAR     = '/';
     private static final char   BACKSLASH_CHAR = '\\';
 
-    /** µ±Ç°Ä¿Â¼¼ÇºÅ£º"." */
+    /** å½“å‰ç›®å½•è®°å·ï¼š"." */
     public static final String CURRENT_DIR = ".";
 
-    /** ÉÏ¼¶Ä¿Â¼¼ÇºÅ£º".." */
+    /** ä¸Šçº§ç›®å½•è®°å·ï¼š".." */
     public static final String UP_LEVEL_DIR = "..";
 
     /* ============================================================================ */
-    /*  ¹æ¸ñ»¯Â·¾¶¡£                                                                */
+    /*  è§„æ ¼åŒ–è·¯å¾„ã€‚                                                                */
     /*                                                                              */
-    /*  È¥³ı'.'ºÍ'..'£¬Ö§³ÖwindowsÂ·¾¶ºÍUNCÂ·¾¶¡£                                   */
+    /*  å»é™¤'.'å’Œ'..'ï¼Œæ”¯æŒwindowsè·¯å¾„å’ŒUNCè·¯å¾„ã€‚                                   */
     /* ============================================================================ */
     /**
-     * ¹æ¸ñ»¯Â·¾¶¡£<p>¸Ã·½·¨ºöÂÔ²Ù×÷ÏµÍ³µÄÀàĞÍ£¬²¢ÊÇ·µ»ØÒÔ¡°<code>/</code>¡±¿ªÊ¼µÄ¾ø¶ÔÂ·¾¶¡£×ª»»¹æÔòÈçÏÂ£º
+     * è§„æ ¼åŒ–è·¯å¾„ã€‚<p>è¯¥æ–¹æ³•å¿½ç•¥æ“ä½œç³»ç»Ÿçš„ç±»å‹ï¼Œå¹¶æ˜¯è¿”å›ä»¥â€œ<code>/</code>â€å¼€å§‹çš„ç»å¯¹è·¯å¾„ã€‚è½¬æ¢è§„åˆ™å¦‚ä¸‹ï¼š
      *  <ol>
-     *      <li>Â·¾¶Îª<code>null</code>£¬Ôò·µ»Ø<code>null</code>¡£</li>
-     *      <li>½«ËùÓĞbackslash("\\")×ª»¯³Éslash("/")¡£</li>
-     *      <li>È¥³ıÖØ¸´µÄ"/"»ò"\\"¡£</li>
-     *      <li>È¥³ı"."£¬Èç¹û·¢ÏÖ".."£¬ÔòÏòÉÏË·Ò»¼¶Ä¿Â¼¡£</li>
-     *      <li>¿ÕÂ·¾¶·µ»Ø"/"¡£</li>
-     *      <li>±£ÁôÂ·¾¶Ä©Î²µÄ"/"£¨Èç¹ûÓĞµÄ»°£©¡£</li>
-     *      <li>¶ÔÓÚ¾ø¶ÔÂ·¾¶£¬Èç¹û".."ÉÏË·µÄÂ·¾¶³¬¹ıÁË¸ùÄ¿Â¼£¬Ôò¿´×÷·Ç·¨Â·¾¶£¬·µ»Ø<code>null</code>¡£</li>
+     *      <li>è·¯å¾„ä¸º<code>null</code>ï¼Œåˆ™è¿”å›<code>null</code>ã€‚</li>
+     *      <li>å°†æ‰€æœ‰backslash("\\")è½¬åŒ–æˆslash("/")ã€‚</li>
+     *      <li>å»é™¤é‡å¤çš„"/"æˆ–"\\"ã€‚</li>
+     *      <li>å»é™¤"."ï¼Œå¦‚æœå‘ç°".."ï¼Œåˆ™å‘ä¸Šæœ”ä¸€çº§ç›®å½•ã€‚</li>
+     *      <li>ç©ºè·¯å¾„è¿”å›"/"ã€‚</li>
+     *      <li>ä¿ç•™è·¯å¾„æœ«å°¾çš„"/"ï¼ˆå¦‚æœæœ‰çš„è¯ï¼‰ã€‚</li>
+     *      <li>å¯¹äºç»å¯¹è·¯å¾„ï¼Œå¦‚æœ".."ä¸Šæœ”çš„è·¯å¾„è¶…è¿‡äº†æ ¹ç›®å½•ï¼Œåˆ™çœ‹ä½œéæ³•è·¯å¾„ï¼Œè¿”å›<code>null</code>ã€‚</li>
      *  </ol>
      *  </p>
      *
-     * @param path Òª¹æ¸ñ»¯µÄÂ·¾¶
+     * @param path è¦è§„æ ¼åŒ–çš„è·¯å¾„
      *
-     * @return ¹æ¸ñ»¯ºóµÄÂ·¾¶£¬Èç¹ûÂ·¾¶·Ç·¨£¬Ôò·µ»Ø<code>null</code>
+     * @return è§„æ ¼åŒ–åçš„è·¯å¾„ï¼Œå¦‚æœè·¯å¾„éæ³•ï¼Œåˆ™è¿”å›<code>null</code>
      */
     public static String normalizeAbsolutePath(String path) {
         String normalizedPath = normalizePath(path, false);
@@ -433,89 +433,89 @@ public class FileUtil {
     }
 
     /**
-     * ¹æ¸ñ»¯Â·¾¶¡£<p>¸Ã·½·¨×Ô¶¯ÅĞ±ğ²Ù×÷ÏµÍ³µÄÀàĞÍ¡£×ª»»¹æÔòÈçÏÂ£º
+     * è§„æ ¼åŒ–è·¯å¾„ã€‚<p>è¯¥æ–¹æ³•è‡ªåŠ¨åˆ¤åˆ«æ“ä½œç³»ç»Ÿçš„ç±»å‹ã€‚è½¬æ¢è§„åˆ™å¦‚ä¸‹ï¼š
      *  <ol>
-     *      <li>Â·¾¶Îª<code>null</code>£¬Ôò·µ»Ø<code>null</code>¡£</li>
-     *      <li>½«ËùÓĞbackslash("\\")×ª»¯³Éslash("/")¡£</li>
-     *      <li>È¥³ıÖØ¸´µÄ"/"»ò"\\"¡£</li>
-     *      <li>È¥³ı"."£¬Èç¹û·¢ÏÖ".."£¬ÔòÏòÉÏË·Ò»¼¶Ä¿Â¼¡£</li>
-     *      <li>¿Õ¾ø¶ÔÂ·¾¶·µ»Ø"/"£¬¿ÕÏà¶ÔÂ·¾¶·µ»Ø"./"¡£</li>
-     *      <li>±£ÁôÂ·¾¶Ä©Î²µÄ"/"£¨Èç¹ûÓĞµÄ»°£©¡£</li>
-     *      <li>¶ÔÓÚ¾ø¶ÔÂ·¾¶£¬Èç¹û".."ÉÏË·µÄÂ·¾¶³¬¹ıÁË¸ùÄ¿Â¼£¬Ôò¿´×÷·Ç·¨Â·¾¶£¬·µ»Ø<code>null</code>¡£</li>
-     *      <li>¶ÔÓÚWindowsÏµÍ³£¬ÓĞĞ©Â·¾¶ÓĞÌØÊâµÄÇ°×º£¬ÈçÇı¶¯Æ÷Ãû"c:"ºÍUNCÃû"//hostname"£¬¶ÔÓÚÕâĞ©Â·¾¶£¬±£ÁôÆäÇ°×º£¬²¢¶ÔÆäºóµÄÂ·¾¶²¿·ÖÊÊÓÃÉÏÊöËùÓĞ¹æÔò¡£</li>
-     *      <li>WindowsÇı¶¯Æ÷Ãû±»×ª»»³É´óĞ´£¬Èç"c:"×ª»»³É"C:"¡£</li>
+     *      <li>è·¯å¾„ä¸º<code>null</code>ï¼Œåˆ™è¿”å›<code>null</code>ã€‚</li>
+     *      <li>å°†æ‰€æœ‰backslash("\\")è½¬åŒ–æˆslash("/")ã€‚</li>
+     *      <li>å»é™¤é‡å¤çš„"/"æˆ–"\\"ã€‚</li>
+     *      <li>å»é™¤"."ï¼Œå¦‚æœå‘ç°".."ï¼Œåˆ™å‘ä¸Šæœ”ä¸€çº§ç›®å½•ã€‚</li>
+     *      <li>ç©ºç»å¯¹è·¯å¾„è¿”å›"/"ï¼Œç©ºç›¸å¯¹è·¯å¾„è¿”å›"./"ã€‚</li>
+     *      <li>ä¿ç•™è·¯å¾„æœ«å°¾çš„"/"ï¼ˆå¦‚æœæœ‰çš„è¯ï¼‰ã€‚</li>
+     *      <li>å¯¹äºç»å¯¹è·¯å¾„ï¼Œå¦‚æœ".."ä¸Šæœ”çš„è·¯å¾„è¶…è¿‡äº†æ ¹ç›®å½•ï¼Œåˆ™çœ‹ä½œéæ³•è·¯å¾„ï¼Œè¿”å›<code>null</code>ã€‚</li>
+     *      <li>å¯¹äºWindowsç³»ç»Ÿï¼Œæœ‰äº›è·¯å¾„æœ‰ç‰¹æ®Šçš„å‰ç¼€ï¼Œå¦‚é©±åŠ¨å™¨å"c:"å’ŒUNCå"//hostname"ï¼Œå¯¹äºè¿™äº›è·¯å¾„ï¼Œä¿ç•™å…¶å‰ç¼€ï¼Œå¹¶å¯¹å…¶åçš„è·¯å¾„éƒ¨åˆ†é€‚ç”¨ä¸Šè¿°æ‰€æœ‰è§„åˆ™ã€‚</li>
+     *      <li>Windowsé©±åŠ¨å™¨åè¢«è½¬æ¢æˆå¤§å†™ï¼Œå¦‚"c:"è½¬æ¢æˆ"C:"ã€‚</li>
      *  </ol>
      *  </p>
      *
-     * @param path Òª¹æ¸ñ»¯µÄÂ·¾¶
+     * @param path è¦è§„æ ¼åŒ–çš„è·¯å¾„
      *
-     * @return ¹æ¸ñ»¯ºóµÄÂ·¾¶£¬Èç¹ûÂ·¾¶·Ç·¨£¬Ôò·µ»Ø<code>null</code>
+     * @return è§„æ ¼åŒ–åçš„è·¯å¾„ï¼Œå¦‚æœè·¯å¾„éæ³•ï¼Œåˆ™è¿”å›<code>null</code>
      */
     public static String normalizePath(String path) {
         return normalizePath(path, isWindows());
     }
 
     /**
-     * ¹æ¸ñ»¯Â·¾¶¡£¹æÔòÈçÏÂ£º
+     * è§„æ ¼åŒ–è·¯å¾„ã€‚è§„åˆ™å¦‚ä¸‹ï¼š
      *  <ol>
-     *      <li>Â·¾¶Îª<code>null</code>£¬Ôò·µ»Ø<code>null</code>¡£</li>
-     *      <li>½«ËùÓĞbackslash("\\")×ª»¯³Éslash("/")¡£</li>
-     *      <li>È¥³ıÖØ¸´µÄ"/"»ò"\\"¡£</li>
-     *      <li>È¥³ı"."£¬Èç¹û·¢ÏÖ".."£¬ÔòÏòÉÏË·Ò»¼¶Ä¿Â¼¡£</li>
-     *      <li>¿Õ¾ø¶ÔÂ·¾¶·µ»Ø"/"£¬¿ÕÏà¶ÔÂ·¾¶·µ»Ø"./"¡£</li>
-     *      <li>±£ÁôÂ·¾¶Ä©Î²µÄ"/"£¨Èç¹ûÓĞµÄ»°£©¡£</li>
-     *      <li>¶ÔÓÚ¾ø¶ÔÂ·¾¶£¬Èç¹û".."ÉÏË·µÄÂ·¾¶³¬¹ıÁË¸ùÄ¿Â¼£¬Ôò¿´×÷·Ç·¨Â·¾¶£¬·µ»Ø<code>null</code>¡£</li>
-     *      <li>¶ÔÓÚWindowsÏµÍ³£¬ÓĞĞ©Â·¾¶ÓĞÌØÊâµÄÇ°×º£¬ÈçÇı¶¯Æ÷Ãû"c:"ºÍUNCÃû"//hostname"£¬¶ÔÓÚÕâĞ©Â·¾¶£¬±£ÁôÆäÇ°×º£¬²¢¶ÔÆäºóµÄÂ·¾¶²¿·ÖÊÊÓÃÉÏÊöËùÓĞ¹æÔò¡£</li>
-     *      <li>WindowsÇı¶¯Æ÷Ãû±»×ª»»³É´óĞ´£¬Èç"c:"×ª»»³É"C:"¡£</li>
+     *      <li>è·¯å¾„ä¸º<code>null</code>ï¼Œåˆ™è¿”å›<code>null</code>ã€‚</li>
+     *      <li>å°†æ‰€æœ‰backslash("\\")è½¬åŒ–æˆslash("/")ã€‚</li>
+     *      <li>å»é™¤é‡å¤çš„"/"æˆ–"\\"ã€‚</li>
+     *      <li>å»é™¤"."ï¼Œå¦‚æœå‘ç°".."ï¼Œåˆ™å‘ä¸Šæœ”ä¸€çº§ç›®å½•ã€‚</li>
+     *      <li>ç©ºç»å¯¹è·¯å¾„è¿”å›"/"ï¼Œç©ºç›¸å¯¹è·¯å¾„è¿”å›"./"ã€‚</li>
+     *      <li>ä¿ç•™è·¯å¾„æœ«å°¾çš„"/"ï¼ˆå¦‚æœæœ‰çš„è¯ï¼‰ã€‚</li>
+     *      <li>å¯¹äºç»å¯¹è·¯å¾„ï¼Œå¦‚æœ".."ä¸Šæœ”çš„è·¯å¾„è¶…è¿‡äº†æ ¹ç›®å½•ï¼Œåˆ™çœ‹ä½œéæ³•è·¯å¾„ï¼Œè¿”å›<code>null</code>ã€‚</li>
+     *      <li>å¯¹äºWindowsç³»ç»Ÿï¼Œæœ‰äº›è·¯å¾„æœ‰ç‰¹æ®Šçš„å‰ç¼€ï¼Œå¦‚é©±åŠ¨å™¨å"c:"å’ŒUNCå"//hostname"ï¼Œå¯¹äºè¿™äº›è·¯å¾„ï¼Œä¿ç•™å…¶å‰ç¼€ï¼Œå¹¶å¯¹å…¶åçš„è·¯å¾„éƒ¨åˆ†é€‚ç”¨ä¸Šè¿°æ‰€æœ‰è§„åˆ™ã€‚</li>
+     *      <li>Windowsé©±åŠ¨å™¨åè¢«è½¬æ¢æˆå¤§å†™ï¼Œå¦‚"c:"è½¬æ¢æˆ"C:"ã€‚</li>
      *  </ol>
      *
-     * @param path Òª¹æ¸ñ»¯µÄÂ·¾¶
+     * @param path è¦è§„æ ¼åŒ–çš„è·¯å¾„
      *
-     * @return ¹æ¸ñ»¯ºóµÄÂ·¾¶£¬Èç¹ûÂ·¾¶·Ç·¨£¬Ôò·µ»Ø<code>null</code>
+     * @return è§„æ ¼åŒ–åçš„è·¯å¾„ï¼Œå¦‚æœè·¯å¾„éæ³•ï¼Œåˆ™è¿”å›<code>null</code>
      */
     public static String normalizeWindowsPath(String path) {
         return normalizePath(path, true);
     }
 
     /**
-     * ¹æ¸ñ»¯Unix·ç¸ñµÄÂ·¾¶£¬²»Ö§³ÖWindowsÇı¶¯Æ÷ÃûºÍUNCÂ·¾¶¡£<p>×ª»»¹æÔòÈçÏÂ£º
+     * è§„æ ¼åŒ–Unixé£æ ¼çš„è·¯å¾„ï¼Œä¸æ”¯æŒWindowsé©±åŠ¨å™¨åå’ŒUNCè·¯å¾„ã€‚<p>è½¬æ¢è§„åˆ™å¦‚ä¸‹ï¼š
      *  <ol>
-     *      <li>Â·¾¶Îª<code>null</code>£¬Ôò·µ»Ø<code>null</code>¡£</li>
-     *      <li>½«ËùÓĞbackslash("\\")×ª»¯³Éslash("/")¡£</li>
-     *      <li>È¥³ıÖØ¸´µÄ"/"»ò"\\"¡£</li>
-     *      <li>È¥³ı"."£¬Èç¹û·¢ÏÖ".."£¬ÔòÏòÉÏË·Ò»¼¶Ä¿Â¼¡£</li>
-     *      <li>¿Õ¾ø¶ÔÂ·¾¶·µ»Ø"/"£¬¿ÕÏà¶ÔÂ·¾¶·µ»Ø"./"¡£</li>
-     *      <li>±£ÁôÂ·¾¶Ä©Î²µÄ"/"£¨Èç¹ûÓĞµÄ»°£©¡£</li>
-     *      <li>¶ÔÓÚ¾ø¶ÔÂ·¾¶£¬Èç¹û".."ÉÏË·µÄÂ·¾¶³¬¹ıÁË¸ùÄ¿Â¼£¬Ôò¿´×÷·Ç·¨Â·¾¶£¬·µ»Ø<code>null</code>¡£</li>
+     *      <li>è·¯å¾„ä¸º<code>null</code>ï¼Œåˆ™è¿”å›<code>null</code>ã€‚</li>
+     *      <li>å°†æ‰€æœ‰backslash("\\")è½¬åŒ–æˆslash("/")ã€‚</li>
+     *      <li>å»é™¤é‡å¤çš„"/"æˆ–"\\"ã€‚</li>
+     *      <li>å»é™¤"."ï¼Œå¦‚æœå‘ç°".."ï¼Œåˆ™å‘ä¸Šæœ”ä¸€çº§ç›®å½•ã€‚</li>
+     *      <li>ç©ºç»å¯¹è·¯å¾„è¿”å›"/"ï¼Œç©ºç›¸å¯¹è·¯å¾„è¿”å›"./"ã€‚</li>
+     *      <li>ä¿ç•™è·¯å¾„æœ«å°¾çš„"/"ï¼ˆå¦‚æœæœ‰çš„è¯ï¼‰ã€‚</li>
+     *      <li>å¯¹äºç»å¯¹è·¯å¾„ï¼Œå¦‚æœ".."ä¸Šæœ”çš„è·¯å¾„è¶…è¿‡äº†æ ¹ç›®å½•ï¼Œåˆ™çœ‹ä½œéæ³•è·¯å¾„ï¼Œè¿”å›<code>null</code>ã€‚</li>
      *  </ol>
      *  </p>
      *
-     * @param path Òª¹æ¸ñ»¯µÄÂ·¾¶
+     * @param path è¦è§„æ ¼åŒ–çš„è·¯å¾„
      *
-     * @return ¹æ¸ñ»¯ºóµÄÂ·¾¶£¬Èç¹ûÂ·¾¶·Ç·¨£¬Ôò·µ»Ø<code>null</code>
+     * @return è§„æ ¼åŒ–åçš„è·¯å¾„ï¼Œå¦‚æœè·¯å¾„éæ³•ï¼Œåˆ™è¿”å›<code>null</code>
      */
     public static String normalizeUnixPath(String path) {
         return normalizePath(path, false);
     }
 
     /**
-     * ¹æ¸ñ»¯Â·¾¶¡£¹æÔòÈçÏÂ£º
+     * è§„æ ¼åŒ–è·¯å¾„ã€‚è§„åˆ™å¦‚ä¸‹ï¼š
      *  <ol>
-     *      <li>Â·¾¶Îª<code>null</code>£¬Ôò·µ»Ø<code>null</code>¡£</li>
-     *      <li>½«ËùÓĞbackslash("\\")×ª»¯³Éslash("/")¡£</li>
-     *      <li>È¥³ıÖØ¸´µÄ"/"»ò"\\"¡£</li>
-     *      <li>È¥³ı"."£¬Èç¹û·¢ÏÖ".."£¬ÔòÏòÉÏË·Ò»¼¶Ä¿Â¼¡£</li>
-     *      <li>¿Õ¾ø¶ÔÂ·¾¶·µ»Ø"/"£¬¿ÕÏà¶ÔÂ·¾¶·µ»Ø"./"¡£</li>
-     *      <li>±£ÁôÂ·¾¶Ä©Î²µÄ"/"£¨Èç¹ûÓĞµÄ»°£©¡£</li>
-     *      <li>¶ÔÓÚ¾ø¶ÔÂ·¾¶£¬Èç¹û".."ÉÏË·µÄÂ·¾¶³¬¹ıÁË¸ùÄ¿Â¼£¬Ôò¿´×÷·Ç·¨Â·¾¶£¬·µ»Ø<code>null</code>¡£</li>
-     *      <li>¶ÔÓÚWindowsÏµÍ³£¬ÓĞĞ©Â·¾¶ÓĞÌØÊâµÄÇ°×º£¬ÈçÇı¶¯Æ÷Ãû"c:"ºÍUNCÃû"//hostname"£¬¶ÔÓÚÕâĞ©Â·¾¶£¬±£ÁôÆäÇ°×º£¬²¢¶ÔÆäºóµÄÂ·¾¶²¿·ÖÊÊÓÃÉÏÊöËùÓĞ¹æÔò¡£</li>
-     *      <li>WindowsÇı¶¯Æ÷Ãû±»×ª»»³É´óĞ´£¬Èç"c:"×ª»»³É"C:"¡£</li>
+     *      <li>è·¯å¾„ä¸º<code>null</code>ï¼Œåˆ™è¿”å›<code>null</code>ã€‚</li>
+     *      <li>å°†æ‰€æœ‰backslash("\\")è½¬åŒ–æˆslash("/")ã€‚</li>
+     *      <li>å»é™¤é‡å¤çš„"/"æˆ–"\\"ã€‚</li>
+     *      <li>å»é™¤"."ï¼Œå¦‚æœå‘ç°".."ï¼Œåˆ™å‘ä¸Šæœ”ä¸€çº§ç›®å½•ã€‚</li>
+     *      <li>ç©ºç»å¯¹è·¯å¾„è¿”å›"/"ï¼Œç©ºç›¸å¯¹è·¯å¾„è¿”å›"./"ã€‚</li>
+     *      <li>ä¿ç•™è·¯å¾„æœ«å°¾çš„"/"ï¼ˆå¦‚æœæœ‰çš„è¯ï¼‰ã€‚</li>
+     *      <li>å¯¹äºç»å¯¹è·¯å¾„ï¼Œå¦‚æœ".."ä¸Šæœ”çš„è·¯å¾„è¶…è¿‡äº†æ ¹ç›®å½•ï¼Œåˆ™çœ‹ä½œéæ³•è·¯å¾„ï¼Œè¿”å›<code>null</code>ã€‚</li>
+     *      <li>å¯¹äºWindowsç³»ç»Ÿï¼Œæœ‰äº›è·¯å¾„æœ‰ç‰¹æ®Šçš„å‰ç¼€ï¼Œå¦‚é©±åŠ¨å™¨å"c:"å’ŒUNCå"//hostname"ï¼Œå¯¹äºè¿™äº›è·¯å¾„ï¼Œä¿ç•™å…¶å‰ç¼€ï¼Œå¹¶å¯¹å…¶åçš„è·¯å¾„éƒ¨åˆ†é€‚ç”¨ä¸Šè¿°æ‰€æœ‰è§„åˆ™ã€‚</li>
+     *      <li>Windowsé©±åŠ¨å™¨åè¢«è½¬æ¢æˆå¤§å†™ï¼Œå¦‚"c:"è½¬æ¢æˆ"C:"ã€‚</li>
      *  </ol>
      *
-     * @param path Òª¹æ¸ñ»¯µÄÂ·¾¶
-     * @param isWindows ÊÇ·ñÊÇwindowsÂ·¾¶£¬Èç¹ûÎª<code>true</code>£¬ÔòÖ§³ÖÇı¶¯Æ÷ÃûºÍUNCÂ·¾¶
+     * @param path è¦è§„æ ¼åŒ–çš„è·¯å¾„
+     * @param isWindows æ˜¯å¦æ˜¯windowsè·¯å¾„ï¼Œå¦‚æœä¸º<code>true</code>ï¼Œåˆ™æ”¯æŒé©±åŠ¨å™¨åå’ŒUNCè·¯å¾„
      *
-     * @return ¹æ¸ñ»¯ºóµÄÂ·¾¶£¬Èç¹ûÂ·¾¶·Ç·¨£¬Ôò·µ»Ø<code>null</code>
+     * @return è§„æ ¼åŒ–åçš„è·¯å¾„ï¼Œå¦‚æœè·¯å¾„éæ³•ï¼Œåˆ™è¿”å›<code>null</code>
      */
     private static String normalizePath(String path, boolean isWindows) {
         if (path == null) {
@@ -524,10 +524,10 @@ public class FileUtil {
 
         path = path.trim();
 
-        // ½«"\\"×ª»»³É"/"£¬ÒÔ±ãÍ³Ò»´¦Àí
+        // å°†"\\"è½¬æ¢æˆ"/"ï¼Œä»¥ä¾¿ç»Ÿä¸€å¤„ç†
         path = path.replace(BACKSLASH_CHAR, SLASH_CHAR);
 
-        // È¡µÃÏµÍ³ÌØ¶¨µÄÂ·¾¶Ç°×º£¬¶ÔÓÚwindowsÏµÍ³£¬¿ÉÄÜÊÇ£º"C:"»òÊÇ"//hostname"
+        // å–å¾—ç³»ç»Ÿç‰¹å®šçš„è·¯å¾„å‰ç¼€ï¼Œå¯¹äºwindowsç³»ç»Ÿï¼Œå¯èƒ½æ˜¯ï¼š"C:"æˆ–æ˜¯"//hostname"
         String prefix = getSystemDependentPrefix(path, isWindows);
 
         if (prefix == null) {
@@ -536,15 +536,15 @@ public class FileUtil {
 
         path = path.substring(prefix.length());
 
-        // ¶ÔÓÚ¾ø¶ÔÂ·¾¶£¬prefix±ØĞëÒÔ"/"½áÎ²£¬·´Ö®£¬¾ø¶ÔÂ·¾¶µÄprefix.length > 0
+        // å¯¹äºç»å¯¹è·¯å¾„ï¼Œprefixå¿…é¡»ä»¥"/"ç»“å°¾ï¼Œåä¹‹ï¼Œç»å¯¹è·¯å¾„çš„prefix.length > 0
         if ((prefix.length() > 0) || path.startsWith(SLASH)) {
             prefix += SLASH_CHAR;
         }
 
-        // ±£ÁôpathÎ²²¿µÄ"/"
+        // ä¿ç•™pathå°¾éƒ¨çš„"/"
         boolean endsWithSlash = path.endsWith(SLASH);
 
-        // Ñ¹ËõÂ·¾¶ÖĞµÄ"."ºÍ".."
+        // å‹ç¼©è·¯å¾„ä¸­çš„"."å’Œ".."
         StringTokenizer tokenizer = new StringTokenizer(path, "/");
         StringBuffer    buffer    = new StringBuffer(prefix.length() + path.length());
         int             level     = 0;
@@ -554,16 +554,16 @@ public class FileUtil {
         while (tokenizer.hasMoreTokens()) {
             String element = tokenizer.nextToken();
 
-            // ºöÂÔ"."
+            // å¿½ç•¥"."
             if (CURRENT_DIR.equals(element)) {
                 continue;
             }
 
-            // »ØË·".."
+            // å›æœ”".."
             if (UP_LEVEL_DIR.equals(element)) {
                 if (level == 0) {
-                    // Èç¹ûprefix´æÔÚ£¬²¢ÇÒÊÔÍ¼Ô½¹ı×îÉÏ²ãÄ¿Â¼£¬ÕâÊÇ²»¿ÉÄÜµÄ£¬
-                    // ·µ»Ønull£¬±íÊ¾Â·¾¶·Ç·¨¡£
+                    // å¦‚æœprefixå­˜åœ¨ï¼Œå¹¶ä¸”è¯•å›¾è¶Šè¿‡æœ€ä¸Šå±‚ç›®å½•ï¼Œè¿™æ˜¯ä¸å¯èƒ½çš„ï¼Œ
+                    // è¿”å›nullï¼Œè¡¨ç¤ºè·¯å¾„éæ³•ã€‚
                     if (prefix.length() > 0) {
                         return null;
                     }
@@ -590,17 +590,17 @@ public class FileUtil {
                 continue;
             }
 
-            // Ìí¼Óµ½path
+            // æ·»åŠ åˆ°path
             buffer.append(element).append(SLASH_CHAR);
             level++;
         }
 
-        // Èç¹ûÊÇ¿ÕµÄÂ·¾¶£¬ÔòÉèÖÃÎª"./"
+        // å¦‚æœæ˜¯ç©ºçš„è·¯å¾„ï¼Œåˆ™è®¾ç½®ä¸º"./"
         if (buffer.length() == 0) {
             buffer.append(CURRENT_DIR).append(SLASH_CHAR);
         }
 
-        // ±£Áô×îºóµÄ"/"
+        // ä¿ç•™æœ€åçš„"/"
         if (!endsWithSlash && (buffer.length() > prefix.length())
                     && (buffer.charAt(buffer.length() - 1) == SLASH_CHAR)) {
             buffer.setLength(buffer.length() - 1);
@@ -610,23 +610,23 @@ public class FileUtil {
     }
 
     /**
-     * È¡µÃºÍÏµÍ³Ïà¹ØµÄÎÄ¼şÃûÇ°×º¡£¶ÔÓÚWindowsÏµÍ³£¬¿ÉÄÜÊÇÇı¶¯Æ÷Ãû»òUNCÂ·¾¶Ç°×º"//hostname"¡£Èç¹û²»´æÔÚÇ°×º£¬Ôò·µ»Ø¿Õ×Ö·û´®¡£
+     * å–å¾—å’Œç³»ç»Ÿç›¸å…³çš„æ–‡ä»¶åå‰ç¼€ã€‚å¯¹äºWindowsç³»ç»Ÿï¼Œå¯èƒ½æ˜¯é©±åŠ¨å™¨åæˆ–UNCè·¯å¾„å‰ç¼€"//hostname"ã€‚å¦‚æœä¸å­˜åœ¨å‰ç¼€ï¼Œåˆ™è¿”å›ç©ºå­—ç¬¦ä¸²ã€‚
      *
-     * @param path ¾ø¶ÔÂ·¾¶
-     * @param isWindows ÊÇ·ñÎªwindowsÏµÍ³
+     * @param path ç»å¯¹è·¯å¾„
+     * @param isWindows æ˜¯å¦ä¸ºwindowsç³»ç»Ÿ
      *
-     * @return ºÍÏµÍ³Ïà¹ØµÄÎÄ¼şÃûÇ°×º£¬Èç¹ûÂ·¾¶·Ç·¨£¬ÀıÈç£º"//"£¬Ôò·µ»Ø<code>null</code>
+     * @return å’Œç³»ç»Ÿç›¸å…³çš„æ–‡ä»¶åå‰ç¼€ï¼Œå¦‚æœè·¯å¾„éæ³•ï¼Œä¾‹å¦‚ï¼š"//"ï¼Œåˆ™è¿”å›<code>null</code>
      */
     private static String getSystemDependentPrefix(String path, boolean isWindows) {
         if (isWindows) {
-            // ÅĞ¶ÏUNCÂ·¾¶
+            // åˆ¤æ–­UNCè·¯å¾„
             if (path.startsWith(UNC_PREFIX)) {
-                // ·Ç·¨UNCÂ·¾¶£º"//"
+                // éæ³•UNCè·¯å¾„ï¼š"//"
                 if (path.length() == UNC_PREFIX.length()) {
                     return null;
                 }
 
-                // ¼ÙÉèÂ·¾¶Îª//hostname/subpath£¬·µ»Ø//hostname
+                // å‡è®¾è·¯å¾„ä¸º//hostname/subpathï¼Œè¿”å›//hostname
                 int index = path.indexOf(SLASH, UNC_PREFIX.length());
 
                 if (index != -1) {
@@ -636,7 +636,7 @@ public class FileUtil {
                 }
             }
 
-            // ÅĞ¶ÏWindows¾ø¶ÔÂ·¾¶£º"c:/..."
+            // åˆ¤æ–­Windowsç»å¯¹è·¯å¾„ï¼š"c:/..."
             if ((path.length() > 1) && (path.charAt(1) == COLON_CHAR)) {
                 return path.substring(0, 2).toUpperCase();
             }
@@ -646,57 +646,57 @@ public class FileUtil {
     }
 
     /* ============================================================================ */
-    /*  È¡µÃ»ùÓÚÖ¸¶¨basedir¹æ¸ñ»¯Â·¾¶¡£                                             */
+    /*  å–å¾—åŸºäºæŒ‡å®šbasedirè§„æ ¼åŒ–è·¯å¾„ã€‚                                             */
     /* ============================================================================ */
     /**
-     * Èç¹ûÖ¸¶¨Â·¾¶ÒÑ¾­ÊÇ¾ø¶ÔÂ·¾¶£¬Ôò¹æ¸ñ»¯ºóÖ±½Ó·µ»ØÖ®£¬·ñÔòÈ¡µÃ»ùÓÚÖ¸¶¨basedirµÄ¹æ¸ñ»¯Â·¾¶¡£<p>¸Ã·½·¨×Ô¶¯ÅĞ¶¨²Ù×÷ÏµÍ³µÄÀàĞÍ£¬Èç¹ûÊÇwindowsÏµÍ³£¬ÔòÖ§³ÖUNCÂ·¾¶ºÍÇı¶¯Æ÷Ãû¡£</p>
+     * å¦‚æœæŒ‡å®šè·¯å¾„å·²ç»æ˜¯ç»å¯¹è·¯å¾„ï¼Œåˆ™è§„æ ¼åŒ–åç›´æ¥è¿”å›ä¹‹ï¼Œå¦åˆ™å–å¾—åŸºäºæŒ‡å®šbasedirçš„è§„æ ¼åŒ–è·¯å¾„ã€‚<p>è¯¥æ–¹æ³•è‡ªåŠ¨åˆ¤å®šæ“ä½œç³»ç»Ÿçš„ç±»å‹ï¼Œå¦‚æœæ˜¯windowsç³»ç»Ÿï¼Œåˆ™æ”¯æŒUNCè·¯å¾„å’Œé©±åŠ¨å™¨åã€‚</p>
      *
-     * @param basedir ¸ùÄ¿Â¼£¬Èç¹û<code>path</code>ÎªÏà¶ÔÂ·¾¶£¬±íÊ¾»ùÓÚ´ËÄ¿Â¼
-     * @param path Òª¼ì²éµÄÂ·¾¶
+     * @param basedir æ ¹ç›®å½•ï¼Œå¦‚æœ<code>path</code>ä¸ºç›¸å¯¹è·¯å¾„ï¼Œè¡¨ç¤ºåŸºäºæ­¤ç›®å½•
+     * @param path è¦æ£€æŸ¥çš„è·¯å¾„
      *
-     * @return ¹æ¸ñ»¯µÄÂ·¾¶£¬Èç¹û<code>path</code>·Ç·¨£¬»ò<code>basedir</code>Îª<code>null</code>£¬Ôò·µ»Ø<code>null</code>
+     * @return è§„æ ¼åŒ–çš„è·¯å¾„ï¼Œå¦‚æœ<code>path</code>éæ³•ï¼Œæˆ–<code>basedir</code>ä¸º<code>null</code>ï¼Œåˆ™è¿”å›<code>null</code>
      */
     public static String getPathBasedOn(String basedir, String path) {
         return getPathBasedOn(basedir, path, isWindows());
     }
 
     /**
-     * Èç¹ûÖ¸¶¨Â·¾¶ÒÑ¾­ÊÇ¾ø¶ÔÂ·¾¶£¬Ôò¹æ¸ñ»¯ºóÖ±½Ó·µ»ØÖ®£¬·ñÔòÈ¡µÃ»ùÓÚÖ¸¶¨basedirµÄ¹æ¸ñ»¯Â·¾¶¡£
+     * å¦‚æœæŒ‡å®šè·¯å¾„å·²ç»æ˜¯ç»å¯¹è·¯å¾„ï¼Œåˆ™è§„æ ¼åŒ–åç›´æ¥è¿”å›ä¹‹ï¼Œå¦åˆ™å–å¾—åŸºäºæŒ‡å®šbasedirçš„è§„æ ¼åŒ–è·¯å¾„ã€‚
      *
-     * @param basedir ¸ùÄ¿Â¼£¬Èç¹û<code>path</code>ÎªÏà¶ÔÂ·¾¶£¬±íÊ¾»ùÓÚ´ËÄ¿Â¼
-     * @param path Òª¼ì²éµÄÂ·¾¶
+     * @param basedir æ ¹ç›®å½•ï¼Œå¦‚æœ<code>path</code>ä¸ºç›¸å¯¹è·¯å¾„ï¼Œè¡¨ç¤ºåŸºäºæ­¤ç›®å½•
+     * @param path è¦æ£€æŸ¥çš„è·¯å¾„
      *
-     * @return ¹æ¸ñ»¯µÄÂ·¾¶£¬Èç¹û<code>path</code>·Ç·¨£¬»ò<code>basedir</code>Îª<code>null</code>£¬Ôò·µ»Ø<code>null</code>
+     * @return è§„æ ¼åŒ–çš„è·¯å¾„ï¼Œå¦‚æœ<code>path</code>éæ³•ï¼Œæˆ–<code>basedir</code>ä¸º<code>null</code>ï¼Œåˆ™è¿”å›<code>null</code>
      */
     public static String getWindowsPathBasedOn(String basedir, String path) {
         return getPathBasedOn(basedir, path, true);
     }
 
     /**
-     * Èç¹ûÖ¸¶¨Â·¾¶ÒÑ¾­ÊÇ¾ø¶ÔÂ·¾¶£¬Ôò¹æ¸ñ»¯ºóÖ±½Ó·µ»ØÖ®£¬·ñÔòÈ¡µÃ»ùÓÚÖ¸¶¨basedirµÄ¹æ¸ñ»¯Â·¾¶¡£
+     * å¦‚æœæŒ‡å®šè·¯å¾„å·²ç»æ˜¯ç»å¯¹è·¯å¾„ï¼Œåˆ™è§„æ ¼åŒ–åç›´æ¥è¿”å›ä¹‹ï¼Œå¦åˆ™å–å¾—åŸºäºæŒ‡å®šbasedirçš„è§„æ ¼åŒ–è·¯å¾„ã€‚
      *
-     * @param basedir ¸ùÄ¿Â¼£¬Èç¹û<code>path</code>ÎªÏà¶ÔÂ·¾¶£¬±íÊ¾»ùÓÚ´ËÄ¿Â¼
-     * @param path Òª¼ì²éµÄÂ·¾¶
+     * @param basedir æ ¹ç›®å½•ï¼Œå¦‚æœ<code>path</code>ä¸ºç›¸å¯¹è·¯å¾„ï¼Œè¡¨ç¤ºåŸºäºæ­¤ç›®å½•
+     * @param path è¦æ£€æŸ¥çš„è·¯å¾„
      *
-     * @return ¹æ¸ñ»¯µÄÂ·¾¶£¬Èç¹û<code>path</code>·Ç·¨£¬»ò<code>basedir</code>Îª<code>null</code>£¬Ôò·µ»Ø<code>null</code>
+     * @return è§„æ ¼åŒ–çš„è·¯å¾„ï¼Œå¦‚æœ<code>path</code>éæ³•ï¼Œæˆ–<code>basedir</code>ä¸º<code>null</code>ï¼Œåˆ™è¿”å›<code>null</code>
      */
     public static String getUnixPathBasedOn(String basedir, String path) {
         return getPathBasedOn(basedir, path, false);
     }
 
     /**
-     * Èç¹ûÖ¸¶¨Â·¾¶ÒÑ¾­ÊÇ¾ø¶ÔÂ·¾¶£¬Ôò¹æ¸ñ»¯ºóÖ±½Ó·µ»ØÖ®£¬·ñÔòÈ¡µÃ»ùÓÚÖ¸¶¨basedirµÄ¹æ¸ñ»¯Â·¾¶¡£
+     * å¦‚æœæŒ‡å®šè·¯å¾„å·²ç»æ˜¯ç»å¯¹è·¯å¾„ï¼Œåˆ™è§„æ ¼åŒ–åç›´æ¥è¿”å›ä¹‹ï¼Œå¦åˆ™å–å¾—åŸºäºæŒ‡å®šbasedirçš„è§„æ ¼åŒ–è·¯å¾„ã€‚
      *
-     * @param basedir ¸ùÄ¿Â¼£¬Èç¹û<code>path</code>ÎªÏà¶ÔÂ·¾¶£¬±íÊ¾»ùÓÚ´ËÄ¿Â¼
-     * @param path Òª¼ì²éµÄÂ·¾¶
-     * @param isWindows ÊÇ·ñÊÇwindowsÂ·¾¶£¬Èç¹ûÎª<code>true</code>£¬ÔòÖ§³ÖÇı¶¯Æ÷ÃûºÍUNCÂ·¾¶
+     * @param basedir æ ¹ç›®å½•ï¼Œå¦‚æœ<code>path</code>ä¸ºç›¸å¯¹è·¯å¾„ï¼Œè¡¨ç¤ºåŸºäºæ­¤ç›®å½•
+     * @param path è¦æ£€æŸ¥çš„è·¯å¾„
+     * @param isWindows æ˜¯å¦æ˜¯windowsè·¯å¾„ï¼Œå¦‚æœä¸º<code>true</code>ï¼Œåˆ™æ”¯æŒé©±åŠ¨å™¨åå’ŒUNCè·¯å¾„
      *
-     * @return ¹æ¸ñ»¯µÄÂ·¾¶£¬Èç¹û<code>path</code>·Ç·¨£¬»ò<code>basedir</code>Îª<code>null</code>£¬Ôò·µ»Ø<code>null</code>
+     * @return è§„æ ¼åŒ–çš„è·¯å¾„ï¼Œå¦‚æœ<code>path</code>éæ³•ï¼Œæˆ–<code>basedir</code>ä¸º<code>null</code>ï¼Œåˆ™è¿”å›<code>null</code>
      */
     private static String getPathBasedOn(String basedir, String path, boolean isWindows) {
         /* ------------------------------------------- *
-         * Ê×ÏÈÈ¡µÃpathµÄÇ°×º£¬ÅĞ¶ÏÊÇ·ñÎª¾ø¶ÔÂ·¾¶¡£    *
-         * Èç¹ûÒÑ¾­ÊÇ¾ø¶ÔÂ·¾¶£¬Ôòµ÷ÓÃnormalizeºó·µ»Ø¡£ *
+         * é¦–å…ˆå–å¾—pathçš„å‰ç¼€ï¼Œåˆ¤æ–­æ˜¯å¦ä¸ºç»å¯¹è·¯å¾„ã€‚    *
+         * å¦‚æœå·²ç»æ˜¯ç»å¯¹è·¯å¾„ï¼Œåˆ™è°ƒç”¨normalizeåè¿”å›ã€‚ *
          * ------------------------------------------- */
         if (path == null) {
             return null;
@@ -704,17 +704,17 @@ public class FileUtil {
 
         path = path.trim();
 
-        // ½«"\\"×ª»»³É"/"£¬ÒÔ±ãÍ³Ò»´¦Àí
+        // å°†"\\"è½¬æ¢æˆ"/"ï¼Œä»¥ä¾¿ç»Ÿä¸€å¤„ç†
         path = path.replace(BACKSLASH_CHAR, SLASH_CHAR);
 
-        // È¡µÃÏµÍ³ÌØ¶¨µÄÂ·¾¶Ç°×º£¬¶ÔÓÚwindowsÏµÍ³£¬¿ÉÄÜÊÇ£º"C:"»òÊÇ"//hostname"
+        // å–å¾—ç³»ç»Ÿç‰¹å®šçš„è·¯å¾„å‰ç¼€ï¼Œå¯¹äºwindowsç³»ç»Ÿï¼Œå¯èƒ½æ˜¯ï¼š"C:"æˆ–æ˜¯"//hostname"
         String prefix = getSystemDependentPrefix(path, isWindows);
 
         if (prefix == null) {
             return null;
         }
 
-        // Èç¹ûÊÇ¾ø¶ÔÂ·¾¶£¬ÔòÖ±½Ó·µ»Ø
+        // å¦‚æœæ˜¯ç»å¯¹è·¯å¾„ï¼Œåˆ™ç›´æ¥è¿”å›
         if ((prefix.length() > 0)
                     || ((path.length() > prefix.length())
                                && (path.charAt(prefix.length()) == SLASH_CHAR))) {
@@ -722,8 +722,8 @@ public class FileUtil {
         }
 
         /* ------------------------------------------- *
-         * ÏÖÔÚÒÑ¾­È·¶¨pathÊÇÏà¶ÔÂ·¾¶ÁË£¬Òò´ËÎÒÃÇÒª    *
-         * ½«ËüºÍbasedirºÏ²¢¡£                         *
+         * ç°åœ¨å·²ç»ç¡®å®špathæ˜¯ç›¸å¯¹è·¯å¾„äº†ï¼Œå› æ­¤æˆ‘ä»¬è¦    *
+         * å°†å®ƒå’Œbasediråˆå¹¶ã€‚                         *
          * ------------------------------------------- */
         if (basedir == null) {
             return null;
@@ -733,7 +733,7 @@ public class FileUtil {
 
         buffer.append(basedir.trim());
 
-        // ·ÀÖ¹ÖØ¸´µÄ"/"£¬·ñÔòÈİÒ×ºÍUNC prefix»ìÏı
+        // é˜²æ­¢é‡å¤çš„"/"ï¼Œå¦åˆ™å®¹æ˜“å’ŒUNC prefixæ··æ·†
         if ((basedir.length() > 0) && (path.length() > 0)
                     && (basedir.charAt(basedir.length() - 1) != SLASH_CHAR)) {
             buffer.append(SLASH_CHAR);
@@ -745,55 +745,55 @@ public class FileUtil {
     }
 
     /* ============================================================================ */
-    /*  È¡µÃÏà¶ÔÓÚÖ¸¶¨basedirÏà¶ÔÂ·¾¶¡£                                             */
+    /*  å–å¾—ç›¸å¯¹äºæŒ‡å®šbasedirç›¸å¯¹è·¯å¾„ã€‚                                             */
     /* ============================================================================ */
     /**
-     * È¡µÃÏà¶ÔÓÚÖ¸¶¨¸ùÄ¿Â¼µÄÏà¶ÔÂ·¾¶¡£<p>¸Ã·½·¨×Ô¶¯ÅĞ¶¨²Ù×÷ÏµÍ³µÄÀàĞÍ£¬Èç¹ûÊÇwindowsÏµÍ³£¬ÔòÖ§³ÖUNCÂ·¾¶ºÍÇı¶¯Æ÷Ãû¡£</p>
+     * å–å¾—ç›¸å¯¹äºæŒ‡å®šæ ¹ç›®å½•çš„ç›¸å¯¹è·¯å¾„ã€‚<p>è¯¥æ–¹æ³•è‡ªåŠ¨åˆ¤å®šæ“ä½œç³»ç»Ÿçš„ç±»å‹ï¼Œå¦‚æœæ˜¯windowsç³»ç»Ÿï¼Œåˆ™æ”¯æŒUNCè·¯å¾„å’Œé©±åŠ¨å™¨åã€‚</p>
      *
-     * @param basedir ¸ùÄ¿Â¼
-     * @param path Òª¼ÆËãµÄÂ·¾¶
+     * @param basedir æ ¹ç›®å½•
+     * @param path è¦è®¡ç®—çš„è·¯å¾„
      *
-     * @return Èç¹û<code>path</code>ºÍ<code>basedir</code>ÊÇ¼æÈİµÄ£¬Ôò·µ»ØÏà¶ÔÓÚ<code>basedir</code>µÄÏà¶ÔÂ·¾¶£¬·ñÔò·µ»Ø<code>path</code>±¾Éí¡£Èç¹û<code>basedir</code>²»ÊÇ¾ø¶ÔÂ·¾¶£¬»òÕßÂ·¾¶·Ç·¨£¬Ôò·µ»Ø<code>null</code>
+     * @return å¦‚æœ<code>path</code>å’Œ<code>basedir</code>æ˜¯å…¼å®¹çš„ï¼Œåˆ™è¿”å›ç›¸å¯¹äº<code>basedir</code>çš„ç›¸å¯¹è·¯å¾„ï¼Œå¦åˆ™è¿”å›<code>path</code>æœ¬èº«ã€‚å¦‚æœ<code>basedir</code>ä¸æ˜¯ç»å¯¹è·¯å¾„ï¼Œæˆ–è€…è·¯å¾„éæ³•ï¼Œåˆ™è¿”å›<code>null</code>
      */
     public static String getRelativePath(String basedir, String path) {
         return getRelativePath(basedir, path, isWindows());
     }
 
     /**
-     * È¡µÃÏà¶ÔÓÚÖ¸¶¨¸ùÄ¿Â¼µÄÏà¶ÔÂ·¾¶¡£
+     * å–å¾—ç›¸å¯¹äºæŒ‡å®šæ ¹ç›®å½•çš„ç›¸å¯¹è·¯å¾„ã€‚
      *
-     * @param basedir ¸ùÄ¿Â¼
-     * @param path Òª¼ÆËãµÄÂ·¾¶
+     * @param basedir æ ¹ç›®å½•
+     * @param path è¦è®¡ç®—çš„è·¯å¾„
      *
-     * @return Èç¹û<code>path</code>ºÍ<code>basedir</code>ÊÇ¼æÈİµÄ£¬Ôò·µ»ØÏà¶ÔÓÚ<code>basedir</code>µÄÏà¶ÔÂ·¾¶£¬·ñÔò·µ»Ø<code>path</code>±¾Éí¡£Èç¹û<code>basedir</code>²»ÊÇ¾ø¶ÔÂ·¾¶£¬»òÕßÂ·¾¶·Ç·¨£¬Ôò·µ»Ø<code>null</code>
+     * @return å¦‚æœ<code>path</code>å’Œ<code>basedir</code>æ˜¯å…¼å®¹çš„ï¼Œåˆ™è¿”å›ç›¸å¯¹äº<code>basedir</code>çš„ç›¸å¯¹è·¯å¾„ï¼Œå¦åˆ™è¿”å›<code>path</code>æœ¬èº«ã€‚å¦‚æœ<code>basedir</code>ä¸æ˜¯ç»å¯¹è·¯å¾„ï¼Œæˆ–è€…è·¯å¾„éæ³•ï¼Œåˆ™è¿”å›<code>null</code>
      */
     public static String getWindowsRelativePath(String basedir, String path) {
         return getRelativePath(basedir, path, true);
     }
 
     /**
-     * È¡µÃÏà¶ÔÓÚÖ¸¶¨¸ùÄ¿Â¼µÄÏà¶ÔÂ·¾¶¡£
+     * å–å¾—ç›¸å¯¹äºæŒ‡å®šæ ¹ç›®å½•çš„ç›¸å¯¹è·¯å¾„ã€‚
      *
-     * @param basedir ¸ùÄ¿Â¼
-     * @param path Òª¼ÆËãµÄÂ·¾¶
+     * @param basedir æ ¹ç›®å½•
+     * @param path è¦è®¡ç®—çš„è·¯å¾„
      *
-     * @return Èç¹û<code>path</code>ºÍ<code>basedir</code>ÊÇ¼æÈİµÄ£¬Ôò·µ»ØÏà¶ÔÓÚ<code>basedir</code>µÄÏà¶ÔÂ·¾¶£¬·ñÔò·µ»Ø<code>path</code>±¾Éí¡£Èç¹û<code>basedir</code>²»ÊÇ¾ø¶ÔÂ·¾¶£¬»òÕßÂ·¾¶·Ç·¨£¬Ôò·µ»Ø<code>null</code>
+     * @return å¦‚æœ<code>path</code>å’Œ<code>basedir</code>æ˜¯å…¼å®¹çš„ï¼Œåˆ™è¿”å›ç›¸å¯¹äº<code>basedir</code>çš„ç›¸å¯¹è·¯å¾„ï¼Œå¦åˆ™è¿”å›<code>path</code>æœ¬èº«ã€‚å¦‚æœ<code>basedir</code>ä¸æ˜¯ç»å¯¹è·¯å¾„ï¼Œæˆ–è€…è·¯å¾„éæ³•ï¼Œåˆ™è¿”å›<code>null</code>
      */
     public static String getUnixRelativePath(String basedir, String path) {
         return getRelativePath(basedir, path, false);
     }
 
     /**
-     * È¡µÃÏà¶ÔÓÚÖ¸¶¨¸ùÄ¿Â¼µÄÏà¶ÔÂ·¾¶¡£
+     * å–å¾—ç›¸å¯¹äºæŒ‡å®šæ ¹ç›®å½•çš„ç›¸å¯¹è·¯å¾„ã€‚
      *
-     * @param basedir ¸ùÄ¿Â¼
-     * @param path Òª¼ÆËãµÄÂ·¾¶
-     * @param isWindows ÊÇ·ñÊÇwindowsÂ·¾¶£¬Èç¹ûÎª<code>true</code>£¬ÔòÖ§³ÖÇı¶¯Æ÷ÃûºÍUNCÂ·¾¶
+     * @param basedir æ ¹ç›®å½•
+     * @param path è¦è®¡ç®—çš„è·¯å¾„
+     * @param isWindows æ˜¯å¦æ˜¯windowsè·¯å¾„ï¼Œå¦‚æœä¸º<code>true</code>ï¼Œåˆ™æ”¯æŒé©±åŠ¨å™¨åå’ŒUNCè·¯å¾„
      *
-     * @return Èç¹û<code>path</code>ºÍ<code>basedir</code>ÊÇ¼æÈİµÄ£¬Ôò·µ»ØÏà¶ÔÓÚ<code>basedir</code>µÄÏà¶ÔÂ·¾¶£¬·ñÔò·µ»Ø<code>path</code>±¾Éí¡£Èç¹û<code>basedir</code>²»ÊÇ¾ø¶ÔÂ·¾¶£¬»òÕßÂ·¾¶·Ç·¨£¬Ôò·µ»Ø<code>null</code>
+     * @return å¦‚æœ<code>path</code>å’Œ<code>basedir</code>æ˜¯å…¼å®¹çš„ï¼Œåˆ™è¿”å›ç›¸å¯¹äº<code>basedir</code>çš„ç›¸å¯¹è·¯å¾„ï¼Œå¦åˆ™è¿”å›<code>path</code>æœ¬èº«ã€‚å¦‚æœ<code>basedir</code>ä¸æ˜¯ç»å¯¹è·¯å¾„ï¼Œæˆ–è€…è·¯å¾„éæ³•ï¼Œåˆ™è¿”å›<code>null</code>
      */
     private static String getRelativePath(String basedir, String path, boolean isWindows) {
-        // È¡µÃ¹æ¸ñ»¯µÄbasedir£¬È·±£ÆäÎª¾ø¶ÔÂ·¾¶
+        // å–å¾—è§„æ ¼åŒ–çš„basedirï¼Œç¡®ä¿å…¶ä¸ºç»å¯¹è·¯å¾„
         basedir = normalizePath(basedir, isWindows);
 
         if (basedir == null) {
@@ -803,10 +803,10 @@ public class FileUtil {
         String basePrefix = getSystemDependentPrefix(basedir, isWindows);
 
         if ((basePrefix == null) || ((basePrefix.length() == 0) && !basedir.startsWith(SLASH))) {
-            return null; // basedir±ØĞëÊÇ¾ø¶ÔÂ·¾¶
+            return null; // basedirå¿…é¡»æ˜¯ç»å¯¹è·¯å¾„
         }
 
-        // È¡µÃ¹æ¸ñ»¯µÄpath
+        // å–å¾—è§„æ ¼åŒ–çš„path
         path = getPathBasedOn(basedir, path, isWindows);
 
         if (path == null) {
@@ -815,16 +815,16 @@ public class FileUtil {
 
         String prefix = getSystemDependentPrefix(path, isWindows);
 
-        // Èç¹ûpathºÍbasedirµÄÇ°×º²»Í¬£¬Ôò²»ÄÜ×ª»»³ÉÏà¶ÔÓÚbasedirµÄÏà¶ÔÂ·¾¶¡£
-        // Ö±½Ó·µ»Ø¹æ¸ñ»¯µÄpath¼´¿É¡£
+        // å¦‚æœpathå’Œbasedirçš„å‰ç¼€ä¸åŒï¼Œåˆ™ä¸èƒ½è½¬æ¢æˆç›¸å¯¹äºbasedirçš„ç›¸å¯¹è·¯å¾„ã€‚
+        // ç›´æ¥è¿”å›è§„æ ¼åŒ–çš„pathå³å¯ã€‚
         if (!basePrefix.equals(prefix)) {
             return path;
         }
 
-        // ±£ÁôpathÎ²²¿µÄ"/"
+        // ä¿ç•™pathå°¾éƒ¨çš„"/"
         boolean endsWithSlash = path.endsWith(SLASH);
 
-        // °´"/"·Ö¸ôbasedirºÍpath
+        // æŒ‰"/"åˆ†éš”basedirå’Œpath
         String[]     baseParts = StringUtil.split(basedir.substring(basePrefix.length()), SLASH);
         String[]     parts     = StringUtil.split(path.substring(prefix.length()), SLASH);
         StringBuffer buffer    = new StringBuffer();

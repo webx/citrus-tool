@@ -21,7 +21,7 @@ import java.util.Enumeration;
 import java.util.Iterator;
 
 /**
- * ½«<code>Enumeration</code>×ª»»³É<code>Iterator</code>µÄÊÊÅäÆ÷.
+ * å°†<code>Enumeration</code>è½¬æ¢æˆ<code>Iterator</code>çš„é€‚é…å™¨.
  *
  * @version $Id: EnumerationIterator.java,v 1.1 2003/07/03 07:26:16 baobao Exp $
  * @author Michael Zhou
@@ -31,43 +31,43 @@ public class EnumerationIterator implements Iterator {
     private Object      lastReturned;
 
     /**
-     * ´´½¨Ò»¸ö<code>EnumerationIterator</code>.
+     * åˆ›å»ºä¸€ä¸ª<code>EnumerationIterator</code>.
      *
-     * @param enumeration  ±»ÊÊÅäµÄ<code>Enumeration</code>
+     * @param enumeration  è¢«é€‚é…çš„<code>Enumeration</code>
      */
     public EnumerationIterator(Enumeration enumeration) {
         this.enumeration = enumeration;
     }
 
     /**
-     * È¡µÃ±»ÊÊÅäµÄ<code>Enumeration</code>.
+     * å–å¾—è¢«é€‚é…çš„<code>Enumeration</code>.
      *
-     * @return ±»ÊÊÅäµÄ<code>Enumeration</code>
+     * @return è¢«é€‚é…çš„<code>Enumeration</code>
      */
     public Enumeration getEnumeration() {
         return enumeration;
     }
 
     /**
-     * ÊÇ·ñÓĞÏÂÒ»¸öÔªËØ.
+     * æ˜¯å¦æœ‰ä¸‹ä¸€ä¸ªå…ƒç´ .
      *
-     * @return Èç¹ûÓĞÏÂÒ»¸öÔªËØ, Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœæœ‰ä¸‹ä¸€ä¸ªå…ƒç´ , åˆ™è¿”å›<code>true</code>
      */
     public boolean hasNext() {
         return enumeration.hasMoreElements();
     }
 
     /**
-     * È¡µÃÏÂÒ»¸öÔªËØ.
+     * å–å¾—ä¸‹ä¸€ä¸ªå…ƒç´ .
      *
-     * @return ÏÂÒ»¸öÔªËØ
+     * @return ä¸‹ä¸€ä¸ªå…ƒç´ 
      */
     public Object next() {
         return (lastReturned = enumeration.nextElement());
     }
 
     /**
-     * É¾³ı×î½ü·µ»ØµÄÔªËØ, ²»Ö§³Ö.
+     * åˆ é™¤æœ€è¿‘è¿”å›çš„å…ƒç´ , ä¸æ”¯æŒ.
      */
     public void remove() {
         throw new UnsupportedOperationException("remove() method is not supported");

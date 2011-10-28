@@ -18,7 +18,7 @@
 package com.alibaba.toolkit.util.typeconvert;
 
 /**
- * ×ª»»¶ÔÏóÀàĞÍµÄ¹¤¾ßÀà, Ö§³ÖËùÓĞprimitiveÀàĞÍºÍÊı×éµÄ×ª»».
+ * è½¬æ¢å¯¹è±¡ç±»å‹çš„å·¥å…·ç±», æ”¯æŒæ‰€æœ‰primitiveç±»å‹å’Œæ•°ç»„çš„è½¬æ¢.
  *
  * @version $Id: Convert.java,v 1.1 2003/07/03 07:26:36 baobao Exp $
  * @author Michael Zhou
@@ -27,232 +27,232 @@ public class Convert {
     private static final ConvertManager defaultConvertManager = new ConvertManager();
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³É<code>boolean</code>ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆ<code>boolean</code>ç±»å‹.
      *
-     * @param value   Òª×ª»»µÄÖµ
+     * @param value   è¦è½¬æ¢çš„å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public static boolean asBoolean(Object value) {
         return defaultConvertManager.asBoolean(value);
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³É<code>boolean</code>ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆ<code>boolean</code>ç±»å‹.
      *
-     * @param value         Òª×ª»»µÄÖµ
-     * @param defaultValue  Ä¬ÈÏÖµ
+     * @param value         è¦è½¬æ¢çš„å€¼
+     * @param defaultValue  é»˜è®¤å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public static boolean asBoolean(Object value, boolean defaultValue) {
         return defaultConvertManager.asBoolean(value, defaultValue);
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³É<code>byte</code>ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆ<code>byte</code>ç±»å‹.
      *
-     * @param value   Òª×ª»»µÄÖµ
+     * @param value   è¦è½¬æ¢çš„å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public static byte asByte(Object value) {
         return defaultConvertManager.asByte(value);
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³É<code>byte</code>ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆ<code>byte</code>ç±»å‹.
      *
-     * @param value         Òª×ª»»µÄÖµ
-     * @param defaultValue  Ä¬ÈÏÖµ
+     * @param value         è¦è½¬æ¢çš„å€¼
+     * @param defaultValue  é»˜è®¤å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public static byte asByte(Object value, byte defaultValue) {
         return defaultConvertManager.asByte(value, defaultValue);
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³É<code>char</code>ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆ<code>char</code>ç±»å‹.
      *
-     * @param value   Òª×ª»»µÄÖµ
+     * @param value   è¦è½¬æ¢çš„å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public static char asChar(Object value) {
         return defaultConvertManager.asChar(value);
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³É<code>char</code>ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆ<code>char</code>ç±»å‹.
      *
-     * @param value         Òª×ª»»µÄÖµ
-     * @param defaultValue  Ä¬ÈÏÖµ
+     * @param value         è¦è½¬æ¢çš„å€¼
+     * @param defaultValue  é»˜è®¤å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public static char asChar(Object value, char defaultValue) {
         return defaultConvertManager.asChar(value, defaultValue);
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³É<code>double</code>ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆ<code>double</code>ç±»å‹.
      *
-     * @param value   Òª×ª»»µÄÖµ
+     * @param value   è¦è½¬æ¢çš„å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public static double asDouble(Object value) {
         return defaultConvertManager.asDouble(value);
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³É<code>double</code>ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆ<code>double</code>ç±»å‹.
      *
-     * @param value         Òª×ª»»µÄÖµ
-     * @param defaultValue  Ä¬ÈÏÖµ
+     * @param value         è¦è½¬æ¢çš„å€¼
+     * @param defaultValue  é»˜è®¤å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public static double asDouble(Object value, double defaultValue) {
         return defaultConvertManager.asDouble(value, defaultValue);
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³É<code>float</code>ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆ<code>float</code>ç±»å‹.
      *
-     * @param value   Òª×ª»»µÄÖµ
+     * @param value   è¦è½¬æ¢çš„å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public static float asFloat(Object value) {
         return defaultConvertManager.asFloat(value);
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³É<code>float</code>ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆ<code>float</code>ç±»å‹.
      *
-     * @param value         Òª×ª»»µÄÖµ
-     * @param defaultValue  Ä¬ÈÏÖµ
+     * @param value         è¦è½¬æ¢çš„å€¼
+     * @param defaultValue  é»˜è®¤å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public static float asFloat(Object value, float defaultValue) {
         return defaultConvertManager.asFloat(value, defaultValue);
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³É<code>int</code>ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆ<code>int</code>ç±»å‹.
      *
-     * @param value   Òª×ª»»µÄÖµ
+     * @param value   è¦è½¬æ¢çš„å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public static int asInt(Object value) {
         return defaultConvertManager.asInt(value);
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³É<code>int</code>ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆ<code>int</code>ç±»å‹.
      *
-     * @param value         Òª×ª»»µÄÖµ
-     * @param defaultValue  Ä¬ÈÏÖµ
+     * @param value         è¦è½¬æ¢çš„å€¼
+     * @param defaultValue  é»˜è®¤å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public static int asInt(Object value, int defaultValue) {
         return defaultConvertManager.asInt(value, defaultValue);
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³É<code>long</code>ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆ<code>long</code>ç±»å‹.
      *
-     * @param value   Òª×ª»»µÄÖµ
+     * @param value   è¦è½¬æ¢çš„å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public static long asLong(Object value) {
         return defaultConvertManager.asLong(value);
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³É<code>long</code>ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆ<code>long</code>ç±»å‹.
      *
-     * @param value         Òª×ª»»µÄÖµ
-     * @param defaultValue  Ä¬ÈÏÖµ
+     * @param value         è¦è½¬æ¢çš„å€¼
+     * @param defaultValue  é»˜è®¤å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public static long asLong(Object value, long defaultValue) {
         return defaultConvertManager.asLong(value, defaultValue);
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³É<code>short</code>ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆ<code>short</code>ç±»å‹.
      *
-     * @param value   Òª×ª»»µÄÖµ
+     * @param value   è¦è½¬æ¢çš„å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public static short asShort(Object value) {
         return defaultConvertManager.asShort(value);
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³É<code>short</code>ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆ<code>short</code>ç±»å‹.
      *
-     * @param value         Òª×ª»»µÄÖµ
-     * @param defaultValue  Ä¬ÈÏÖµ
+     * @param value         è¦è½¬æ¢çš„å€¼
+     * @param defaultValue  é»˜è®¤å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public static short asShort(Object value, short defaultValue) {
         return defaultConvertManager.asShort(value, defaultValue);
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³É<code>String</code>ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆ<code>String</code>ç±»å‹.
      *
-     * @param value   Òª×ª»»µÄÖµ
+     * @param value   è¦è½¬æ¢çš„å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public static String asString(Object value) {
         return defaultConvertManager.asString(value);
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³É<code>String</code>ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆ<code>String</code>ç±»å‹.
      *
-     * @param value         Òª×ª»»µÄÖµ
-     * @param defaultValue  Ä¬ÈÏÖµ
+     * @param value         è¦è½¬æ¢çš„å€¼
+     * @param defaultValue  é»˜è®¤å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public static String asString(Object value, String defaultValue) {
         return defaultConvertManager.asString(value, defaultValue);
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³ÉÖ¸¶¨ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆæŒ‡å®šç±»å‹.
      *
-     * @param targetType Òª×ª»»µÄÄ¿±êÀàĞÍ
-     * @param value      Òª×ª»»µÄÖµ
+     * @param targetType è¦è½¬æ¢çš„ç›®æ ‡ç±»å‹
+     * @param value      è¦è½¬æ¢çš„å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public static Object asType(Object targetType, Object value) {
         return defaultConvertManager.asType(targetType, value);
     }
 
     /**
-     * ½«Ö¸¶¨Öµ×ª»»³ÉÖ¸¶¨ÀàĞÍ.
+     * å°†æŒ‡å®šå€¼è½¬æ¢æˆæŒ‡å®šç±»å‹.
      *
-     * @param targetType   Òª×ª»»µÄÄ¿±êÀàĞÍ
-     * @param value        Òª×ª»»µÄÖµ
-     * @param defaultValue Ä¬ÈÏÖµ
+     * @param targetType   è¦è½¬æ¢çš„ç›®æ ‡ç±»å‹
+     * @param value        è¦è½¬æ¢çš„å€¼
+     * @param defaultValue é»˜è®¤å€¼
      *
-     * @return ×ª»»ºóµÄÖµ
+     * @return è½¬æ¢åçš„å€¼
      */
     public static Object asType(Object targetType, Object value, Object defaultValue) {
         return defaultConvertManager.asType(targetType, value, defaultValue);

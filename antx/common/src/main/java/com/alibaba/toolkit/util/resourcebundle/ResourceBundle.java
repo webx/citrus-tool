@@ -26,17 +26,17 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * "×ÊÔ´Êø"´ú±íÁËºÍ¹ú¼Ò, ÓïÑÔ¼°µØÇøÏà¹ØµÄ¶ÔÏó.  µ±ÄãµÄ³ÌĞòĞèÒªµØÇøÏà¹ØµÄ×ÊÔ´, ÀıÈç×Ö·û´®, ÄÇÃ´ÄãµÄ³ÌĞò¾Í¿ÉÒÔ×°ÈëÒ»¸öresource bundle, ²¢Ö¸¶¨ÄãËùĞèÒªµÄlocale¶ÔÏó.
- * Resource bundle»á°´ÕÕÒ»¶¨µÄ¹æÔòÈ¡µÃ¾¡¿ÉÄÜ½Ó½üĞèÒªµÄ×ÊÔ´.
+ * "èµ„æºæŸ"ä»£è¡¨äº†å’Œå›½å®¶, è¯­è¨€åŠåœ°åŒºç›¸å…³çš„å¯¹è±¡.  å½“ä½ çš„ç¨‹åºéœ€è¦åœ°åŒºç›¸å…³çš„èµ„æº, ä¾‹å¦‚å­—ç¬¦ä¸², é‚£ä¹ˆä½ çš„ç¨‹åºå°±å¯ä»¥è£…å…¥ä¸€ä¸ªresource bundle, å¹¶æŒ‡å®šä½ æ‰€éœ€è¦çš„localeå¯¹è±¡.
+ * Resource bundleä¼šæŒ‰ç…§ä¸€å®šçš„è§„åˆ™å–å¾—å°½å¯èƒ½æ¥è¿‘éœ€è¦çš„èµ„æº.
  *
  * <p>
- * <code>ResourceBundle</code>ÊÇ¶Ô<code>java.util.ResourceBundle</code>µÄÀ©Õ¹.
- * Õâ¸ö<code>ResourceBundle</code>²ÉÓÃÁËºÍ<code>java.util.ResourceBundle</code>ÏàÍ¬µÄ×ÊÔ´²éÕÒ²ßÂÔ, µ«Ê¹ÓÃÁËfactoryÄ£Ê½,
- * Ê¹Ö®¸üÈİÒ×À©Õ¹³öĞÂµÄ×ÊÔ´¸ñÊ½.
+ * <code>ResourceBundle</code>æ˜¯å¯¹<code>java.util.ResourceBundle</code>çš„æ‰©å±•.
+ * è¿™ä¸ª<code>ResourceBundle</code>é‡‡ç”¨äº†å’Œ<code>java.util.ResourceBundle</code>ç›¸åŒçš„èµ„æºæŸ¥æ‰¾ç­–ç•¥, ä½†ä½¿ç”¨äº†factoryæ¨¡å¼,
+ * ä½¿ä¹‹æ›´å®¹æ˜“æ‰©å±•å‡ºæ–°çš„èµ„æºæ ¼å¼.
  * </p>
  *
  * <p>
- * ËÑË÷°´ÕÕÈçÏÂË³Ğò½øĞĞ, ÆäÖĞlanguage1/country1/variant1ÊÇÓÃ»§Ö¸¶¨µÄlocale, language2/country2/variant2ÊÇÏµÍ³Ä¬ÈÏµÄlocale:
+ * æœç´¢æŒ‰ç…§å¦‚ä¸‹é¡ºåºè¿›è¡Œ, å…¶ä¸­language1/country1/variant1æ˜¯ç”¨æˆ·æŒ‡å®šçš„locale, language2/country2/variant2æ˜¯ç³»ç»Ÿé»˜è®¤çš„locale:
  *
  * <ul>
  * <li>
@@ -62,148 +62,148 @@ import java.util.Map;
  * </li>
  * </ul>
  *
- * ÁíÍâ, ËÑË÷Ê±ºöÂÔ×îºóÒ»¸ölocaleÔªËØÎª¿ÕµÄÇé¿ö, ÀıÈç: ËÑË÷new Locale("langauge1", "", ""),
- * ÔòbaseName_language1_country1_variant1ÒÔ¼°baseName_language1_country1±»ºöÂÔ. Èç¹ûÈ«²¿localeÔªËØ¾ùÎª¿Õ,
- * ÔòÖ»ËÑË÷baseName.
+ * å¦å¤–, æœç´¢æ—¶å¿½ç•¥æœ€åä¸€ä¸ªlocaleå…ƒç´ ä¸ºç©ºçš„æƒ…å†µ, ä¾‹å¦‚: æœç´¢new Locale("langauge1", "", ""),
+ * åˆ™baseName_language1_country1_variant1ä»¥åŠbaseName_language1_country1è¢«å¿½ç•¥. å¦‚æœå…¨éƒ¨localeå…ƒç´ å‡ä¸ºç©º,
+ * åˆ™åªæœç´¢baseName.
  * </p>
  *
  * @version $Id: ResourceBundle.java,v 1.1 2003/07/03 07:26:35 baobao Exp $
  * @author Michael Zhou
  */
 public abstract class ResourceBundle extends java.util.ResourceBundle {
-    /** Õâ¸öbundleµÄ»ù±¾Ãû. */
+    /** è¿™ä¸ªbundleçš„åŸºæœ¬å. */
     private String baseName;
 
-    /** Õâ¸öbundleËù´ú±íµÄÇøÓò. */
+    /** è¿™ä¸ªbundleæ‰€ä»£è¡¨çš„åŒºåŸŸ. */
     private Locale locale;
 
     /**
-     * È¡µÃÕâ¸öbundleµÄ»ù±¾Ãû.
+     * å–å¾—è¿™ä¸ªbundleçš„åŸºæœ¬å.
      *
-     * @return »ù±¾Ãû
+     * @return åŸºæœ¬å
      */
     public String getBaseName() {
         return baseName;
     }
 
     /**
-     * È¡µÃÕâ¸öbundleµÄÕæÊµlocale, ¶ø²»ÊÇÓÃ»§µ÷ÓÃ<code>getBundle</code>Ê±Ìá¹©µÄlocale²ÎÊı.
+     * å–å¾—è¿™ä¸ªbundleçš„çœŸå®locale, è€Œä¸æ˜¯ç”¨æˆ·è°ƒç”¨<code>getBundle</code>æ—¶æä¾›çš„localeå‚æ•°.
      *
-     * @return Õâ¸öbundleµÄÕæÊµlocale
+     * @return è¿™ä¸ªbundleçš„çœŸå®locale
      */
     public Locale getLocale() {
         return locale;
     }
 
     /**
-     * È¡µÃÓÃÓÚ¸ñÊ½»¯message×Ö·û´®µÄ<code>MessageBuilder</code>.
+     * å–å¾—ç”¨äºæ ¼å¼åŒ–messageå­—ç¬¦ä¸²çš„<code>MessageBuilder</code>.
      *
      * @param key  resource bundle key
      *
-     * @return <code>MessageBuilder</code>¶ÔÏó
+     * @return <code>MessageBuilder</code>å¯¹è±¡
      */
     public MessageBuilder getMessageBuilder(Object key) {
         return new MessageBuilder(this, key);
     }
 
     /**
-     * Ê¹ÓÃ<code>MessageFormat</code>¸ñÊ½»¯×Ö·û´®.
+     * ä½¿ç”¨<code>MessageFormat</code>æ ¼å¼åŒ–å­—ç¬¦ä¸².
      *
-     * @param key     Òª²éÕÒµÄ¼ü
-     * @param params  ²ÎÊı±í
+     * @param key     è¦æŸ¥æ‰¾çš„é”®
+     * @param params  å‚æ•°è¡¨
      *
-     * @return key¶ÔÓ¦µÄ×Ö·û´®
+     * @return keyå¯¹åº”çš„å­—ç¬¦ä¸²
      *
-     * @throws MissingResourceException  Ö¸¶¨resource keyÎ´ÕÒµ½
+     * @throws MissingResourceException  æŒ‡å®šresource keyæœªæ‰¾åˆ°
      */
     public final String getMessage(Object key, Object[] params) {
         return StringUtil.getMessage(this, key, params);
     }
 
     /**
-     * ´Óµ±Ç°resource bundle»òËüµÄÒ»¸ö¸¸bundleÖĞ, È¡µÃºÍÖ¸¶¨¼ü¶ÔÓ¦µÄ×Ö·û´®.  Èç¹û²»³É¹¦,
-     * ÔòÖÀ³ö<code>MissingResourceException</code>Òì³£.
+     * ä»å½“å‰resource bundleæˆ–å®ƒçš„ä¸€ä¸ªçˆ¶bundleä¸­, å–å¾—å’ŒæŒ‡å®šé”®å¯¹åº”çš„å­—ç¬¦ä¸².  å¦‚æœä¸æˆåŠŸ,
+     * åˆ™æ·å‡º<code>MissingResourceException</code>å¼‚å¸¸.
      *
-     * @param key  Òª²éÕÒµÄ¼ü
+     * @param key  è¦æŸ¥æ‰¾çš„é”®
      *
-     * @return key¶ÔÓ¦µÄ×Ö·û´®
+     * @return keyå¯¹åº”çš„å­—ç¬¦ä¸²
      *
-     * @throws MissingResourceException  Ö¸¶¨resource keyÎ´ÕÒµ½
+     * @throws MissingResourceException  æŒ‡å®šresource keyæœªæ‰¾åˆ°
      */
     public final String getString(Object key) {
         return (String) getObject(key);
     }
 
     /**
-     * ´Óµ±Ç°resource bundle»òËüµÄÒ»¸ö¸¸bundleÖĞ, È¡µÃºÍÖ¸¶¨¼ü¶ÔÓ¦µÄ×Ö·û´®.  Èç¹û²»³É¹¦,
-     * ÔòÖÀ³ö<code>MissingResourceException</code>Òì³£.
+     * ä»å½“å‰resource bundleæˆ–å®ƒçš„ä¸€ä¸ªçˆ¶bundleä¸­, å–å¾—å’ŒæŒ‡å®šé”®å¯¹åº”çš„å­—ç¬¦ä¸².  å¦‚æœä¸æˆåŠŸ,
+     * åˆ™æ·å‡º<code>MissingResourceException</code>å¼‚å¸¸.
      *
-     * @param key  Òª²éÕÒµÄ¼ü
+     * @param key  è¦æŸ¥æ‰¾çš„é”®
      *
-     * @return key¶ÔÓ¦µÄ×Ö·û´®
+     * @return keyå¯¹åº”çš„å­—ç¬¦ä¸²
      *
-     * @throws MissingResourceException  Ö¸¶¨resource keyÎ´ÕÒµ½
+     * @throws MissingResourceException  æŒ‡å®šresource keyæœªæ‰¾åˆ°
      */
     public final String[] getStringArray(Object key) {
         return (String[]) getObject(key);
     }
 
     /**
-     * ´Óµ±Ç°resource bundle»òËüµÄÒ»¸ö¸¸bundleÖĞ, È¡µÃºÍÖ¸¶¨¼ü¶ÔÓ¦µÄ<code>Map</code>.  Èç¹û²»³É¹¦,
-     * ÔòÖÀ³ö<code>MissingResourceException</code>Òì³£.
+     * ä»å½“å‰resource bundleæˆ–å®ƒçš„ä¸€ä¸ªçˆ¶bundleä¸­, å–å¾—å’ŒæŒ‡å®šé”®å¯¹åº”çš„<code>Map</code>.  å¦‚æœä¸æˆåŠŸ,
+     * åˆ™æ·å‡º<code>MissingResourceException</code>å¼‚å¸¸.
      *
-     * @param key  Òª²éÕÒµÄ¼ü
+     * @param key  è¦æŸ¥æ‰¾çš„é”®
      *
-     * @return key¶ÔÓ¦µÄ<code>Map</code>
+     * @return keyå¯¹åº”çš„<code>Map</code>
      *
-     * @throws MissingResourceException  Ö¸¶¨resource keyÎ´ÕÒµ½
+     * @throws MissingResourceException  æŒ‡å®šresource keyæœªæ‰¾åˆ°
      */
     public final Map getMap(Object key) {
         return (Map) getObject(key);
     }
 
     /**
-     * ´Óµ±Ç°resource bundle»òËüµÄÒ»¸ö¸¸bundleÖĞ, È¡µÃºÍÖ¸¶¨¼ü¶ÔÓ¦µÄ<code>List</code>.  Èç¹û²»³É¹¦,
-     * ÔòÖÀ³ö<code>MissingResourceException</code>Òì³£.
+     * ä»å½“å‰resource bundleæˆ–å®ƒçš„ä¸€ä¸ªçˆ¶bundleä¸­, å–å¾—å’ŒæŒ‡å®šé”®å¯¹åº”çš„<code>List</code>.  å¦‚æœä¸æˆåŠŸ,
+     * åˆ™æ·å‡º<code>MissingResourceException</code>å¼‚å¸¸.
      *
-     * @param key  Òª²éÕÒµÄ¼ü
+     * @param key  è¦æŸ¥æ‰¾çš„é”®
      *
-     * @return key¶ÔÓ¦µÄ<code>List</code>
+     * @return keyå¯¹åº”çš„<code>List</code>
      *
-     * @throws MissingResourceException  Ö¸¶¨resource keyÎ´ÕÒµ½
+     * @throws MissingResourceException  æŒ‡å®šresource keyæœªæ‰¾åˆ°
      */
     public final List getList(Object key) {
         return (List) getObject(key);
     }
 
     /**
-     * ´Óµ±Ç°resource bundle»òËüµÄÒ»¸ö¸¸bundleÖĞ, È¡µÃºÍÖ¸¶¨¼ü¶ÔÓ¦µÄ¶ÔÏó.  Èç¹û²»³É¹¦,
-     * ÔòÖÀ³ö<code>MissingResourceException</code>Òì³£.
+     * ä»å½“å‰resource bundleæˆ–å®ƒçš„ä¸€ä¸ªçˆ¶bundleä¸­, å–å¾—å’ŒæŒ‡å®šé”®å¯¹åº”çš„å¯¹è±¡.  å¦‚æœä¸æˆåŠŸ,
+     * åˆ™æ·å‡º<code>MissingResourceException</code>å¼‚å¸¸.
      *
-     * @param key  Òª²éÕÒµÄ¼ü
+     * @param key  è¦æŸ¥æ‰¾çš„é”®
      *
-     * @return key¶ÔÓ¦µÄ¶ÔÏó
+     * @return keyå¯¹åº”çš„å¯¹è±¡
      *
-     * @throws MissingResourceException  Ö¸¶¨resource keyÎ´ÕÒµ½
+     * @throws MissingResourceException  æŒ‡å®šresource keyæœªæ‰¾åˆ°
      */
     public final Object getObject(Object key) {
         return super.getObject(key.toString());
     }
 
     /**
-     * ÉèÖÃÕâ¸öbundleµÄ»ù±¾Ãû.
+     * è®¾ç½®è¿™ä¸ªbundleçš„åŸºæœ¬å.
      *
-     * @param baseName »ù±¾Ãû
+     * @param baseName åŸºæœ¬å
      */
     protected final void setBaseName(String baseName) {
         this.baseName = baseName;
     }
 
     /**
-     * ÉèÖÃbundleµÄlocale.  Èç¹ûÓÃ»§²éÕÒfr_FR, µ«ÕÒµ½µÄÊÇen_US, ÔòÕâ¸öbundleµÄlocale½«±»ÉèÖÃ³Éen_US¶ø²»ÊÇfr_FR.
+     * è®¾ç½®bundleçš„locale.  å¦‚æœç”¨æˆ·æŸ¥æ‰¾fr_FR, ä½†æ‰¾åˆ°çš„æ˜¯en_US, åˆ™è¿™ä¸ªbundleçš„localeå°†è¢«è®¾ç½®æˆen_USè€Œä¸æ˜¯fr_FR.
      *
-     * @param baseName   bundle»ù±¾Ãû³Æ
-     * @param bundleName bundleµÄÃû³Æ, °üÀ¨localeµÄÀ©Õ¹
+     * @param baseName   bundleåŸºæœ¬åç§°
+     * @param bundleName bundleçš„åç§°, åŒ…æ‹¬localeçš„æ‰©å±•
      */
     protected final void setLocale(String baseName, String bundleName) {
         if (baseName.length() == bundleName.length()) {
@@ -235,7 +235,7 @@ public abstract class ResourceBundle extends java.util.ResourceBundle {
 
             locale = new Locale(language, country, temp);
         } else {
-            // »ù±¾Ãû³¤ÓÚbundleÃû
+            // åŸºæœ¬åé•¿äºbundleå
             throw new IllegalArgumentException(MessageFormat.format(
                                                        ResourceBundleConstant.RB_BASE_NAME_LONGER_THAN_BUNDLE_NAME,
                                                        new Object[] {
@@ -246,18 +246,18 @@ public abstract class ResourceBundle extends java.util.ResourceBundle {
     }
 
     /**
-     * ÉèÖÃ¸¸bundle. Èç¹ûÔÚµ±Ç°bundleÖĞÕÒ²»µ½Ö¸¶¨µÄ¶ÔÏó, ¾Í»áµ½¸¸bundleÖĞÈ¥ËÑË÷.
+     * è®¾ç½®çˆ¶bundle. å¦‚æœåœ¨å½“å‰bundleä¸­æ‰¾ä¸åˆ°æŒ‡å®šçš„å¯¹è±¡, å°±ä¼šåˆ°çˆ¶bundleä¸­å»æœç´¢.
      *
-     * @param parent ¸¸bundle
+     * @param parent çˆ¶bundle
      */
     protected final void setParent(ResourceBundle parent) {
         this.parent = parent;
     }
 
     /**
-     * È¡µÃ¸¸bundle.
+     * å–å¾—çˆ¶bundle.
      *
-     * @return ¸¸bundle¶ÔÏó, Èç¹û²»´æÔÚ, Ôò·µ»Ø<code>null</code>
+     * @return çˆ¶bundleå¯¹è±¡, å¦‚æœä¸å­˜åœ¨, åˆ™è¿”å›<code>null</code>
      */
     protected final java.util.ResourceBundle getParent() {
         return parent;

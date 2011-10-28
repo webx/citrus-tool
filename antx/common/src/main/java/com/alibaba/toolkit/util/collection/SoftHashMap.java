@@ -32,7 +32,7 @@ import java.util.Set;
  * A memory-sensitive implementation of the <code>Map</code> interface.
  *
  * <p>
- * Õâ¸öÀàÊÇ´ÓsunµÄ<code>sun.misc.SoftCache</code>ÒÆÖ²²¢ĞŞ¸ÄµÄ.
+ * è¿™ä¸ªç±»æ˜¯ä»sunçš„<code>sun.misc.SoftCache</code>ç§»æ¤å¹¶ä¿®æ”¹çš„.
  * </p>
  *
  * <p>

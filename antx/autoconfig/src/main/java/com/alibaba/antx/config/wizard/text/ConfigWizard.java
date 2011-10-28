@@ -46,7 +46,7 @@ import com.alibaba.antx.util.StringUtil;
 import com.alibaba.antx.util.i18n.LocaleInfo;
 
 /**
- * »ùÓÚÎÄ±¾µÄ½»»¥µØÅäÖÃÊôĞÔÎÄ¼şµÄ¹¤¾ßÀà¡£
+ * åŸºäºæ–‡æœ¬çš„äº¤äº’åœ°é…ç½®å±æ€§æ–‡ä»¶çš„å·¥å…·ç±»ã€‚
  * 
  * @author Michael Zhou
  */
@@ -56,7 +56,7 @@ public class ConfigWizard {
     private static final int QUIT = -3;
     private static final int MAX_ALIGN = 40;
 
-    // wizard²ÎÊı
+    // wizardå‚æ•°
     private ConfigGroup[] groups;
     private PropertiesSet propSet;
     private String confirmMessage;
@@ -64,7 +64,7 @@ public class ConfigWizard {
     private PrintWriter out;
     private PrintWriter fileWriter;
 
-    // Wizard×´Ì¬±äÁ¿
+    // WizardçŠ¶æ€å˜é‡
     private int step;
     private ConfigGroup group;
     private ConfigProperty[] props;
@@ -73,15 +73,15 @@ public class ConfigWizard {
     private int validatorIndex;
 
     /**
-     * ´´½¨Ò»¸öwizard¡£
+     * åˆ›å»ºä¸€ä¸ªwizardã€‚
      * 
-     * @param descriptors ËùÓĞÃèÊöÎÄ¼ş
-     * @param props ÊôĞÔÎÄ¼ş
+     * @param descriptors æ‰€æœ‰æè¿°æ–‡ä»¶
+     * @param props å±æ€§æ–‡ä»¶
      */
     public ConfigWizard(ConfigDescriptor[] descriptors, PropertiesSet propSet, String charset) {
         this.propSet = propSet;
 
-        // ³õÊ¼»¯ÊäÈëÊä³öÁ÷
+        // åˆå§‹åŒ–è¾“å…¥è¾“å‡ºæµ
         try {
             in = new BufferedReader(new InputStreamReader(System.in, charset));
             out = new PrintWriter(new OutputStreamWriter(System.out, charset), true);
@@ -89,7 +89,7 @@ public class ConfigWizard {
             throw new ConfigWizardException(e);
         }
 
-        // È¡µÃdescriptorsÖĞµÄËùÓĞgroups
+        // å–å¾—descriptorsä¸­çš„æ‰€æœ‰groups
         List groups = new ArrayList();
 
         for (int i = 0; i < descriptors.length; i++) {
@@ -102,23 +102,23 @@ public class ConfigWizard {
 
         this.groups = (ConfigGroup[]) groups.toArray(new ConfigGroup[groups.size()]);
 
-        // ÉèÖÃ³õÊ¼step
+        // è®¾ç½®åˆå§‹step
         setStep(0);
     }
 
     /**
-     * ÉèÖÃÈ·ÈÏĞÅÏ¢¡£
+     * è®¾ç½®ç¡®è®¤ä¿¡æ¯ã€‚
      * 
-     * @param message È·ÈÏĞÅÏ¢
+     * @param message ç¡®è®¤ä¿¡æ¯
      */
     public void setConfirmMessage(String confirmMessage) {
         this.confirmMessage = confirmMessage;
     }
 
     /**
-     * ÑéÖ¤ÊôĞÔÎÄ¼şÊÇ·ñÂú×ãËùÓĞdescriptorµÄĞèÒª¡£
+     * éªŒè¯å±æ€§æ–‡ä»¶æ˜¯å¦æ»¡è¶³æ‰€æœ‰descriptorçš„éœ€è¦ã€‚
      * 
-     * @return Èç¹ûÂú×ãÒªÇó£¬Ôò·µ»Øtrue
+     * @return å¦‚æœæ»¡è¶³è¦æ±‚ï¼Œåˆ™è¿”å›true
      */
     public boolean validate() {
         for (int i = 0; i < groups.length; i++) {
@@ -158,7 +158,7 @@ public class ConfigWizard {
     }
 
     /**
-     * Ìî³äÄ¬ÈÏÖµ¡£
+     * å¡«å……é»˜è®¤å€¼ã€‚
      */
     private void fillDefaultValues() {
         int savedStep = step;
@@ -169,7 +169,7 @@ public class ConfigWizard {
             for (int j = 0; j < props.length; j++) {
                 ConfigProperty prop = props[j];
 
-                // ³ı·Çkey´æÔÚÇÒvalue²»Îª¿Õ£¬·ñÔòÉèÖÃÄ¬ÈÏÖµ
+                // é™¤ékeyå­˜åœ¨ä¸”valueä¸ä¸ºç©ºï¼Œå¦åˆ™è®¾ç½®é»˜è®¤å€¼
                 if ((getValues().get(prop.getName()) == null) || !getKeys().contains(prop.getName())) {
                     String value = getPropertyValue(prop, true);
 
@@ -182,18 +182,18 @@ public class ConfigWizard {
     }
 
     /**
-     * Ö´ĞĞwizard¡£
+     * æ‰§è¡Œwizardã€‚
      */
     public void start() {
         boolean continueWizard = true;
 
-        // Èç¹ûÃ»ÓĞÊ²Ã´¿É×öµÄ£¬Ö±½Ó·µ»Ø
+        // å¦‚æœæ²¡æœ‰ä»€ä¹ˆå¯åšçš„ï¼Œç›´æ¥è¿”å›
         if (group == null) {
             confirmAndSave();
             return;
         }
 
-        // ÌáÊ¾ÓÃ»§, ÊÇ·ñ¼ÌĞø
+        // æç¤ºç”¨æˆ·, æ˜¯å¦ç»§ç»­
         if (confirmMessage != null) {
             print(confirmMessage + " [Yes][No] ");
 
@@ -212,20 +212,20 @@ public class ConfigWizard {
 
         println();
 
-        // ×°ÈëÄ¬ÈÏÖµ£¬ÒÔ¼ò»¯ÓÃ»§µÄ²Ù×÷
+        // è£…å…¥é»˜è®¤å€¼ï¼Œä»¥ç®€åŒ–ç”¨æˆ·çš„æ“ä½œ
         if (continueWizard) {
             fillDefaultValues();
         }
 
-        // ¿ªÊ¼wizard
+        // å¼€å§‹wizard
         while (continueWizard) {
-            // ´òÓ¡±êÌâ
+            // æ‰“å°æ ‡é¢˜
             printTitle();
 
-            // ´òÓ¡groupÄÚÈİ
+            // æ‰“å°groupå†…å®¹
             printGroup();
 
-            // ÌáÊ¾ÊäÈë
+            // æç¤ºè¾“å…¥
             int toStep = processMenu();
 
             switch (toStep) {
@@ -256,7 +256,7 @@ public class ConfigWizard {
                 continueWizard = false;
             }
         } else {
-            // ÓÃ»§Ñ¡ÔñÁË¡°ÍË³ö²»±£´æ¡±£¬ËùÒÔÒª»Ö¸´Ô­Ê¼µÄÊı¾İ
+            // ç”¨æˆ·é€‰æ‹©äº†â€œé€€å‡ºä¸ä¿å­˜â€ï¼Œæ‰€ä»¥è¦æ¢å¤åŸå§‹çš„æ•°æ®
             propSet.reloadUserProperties();
             continueWizard = false;
         }
@@ -279,7 +279,7 @@ public class ConfigWizard {
     private void println(Object message) {
         String messageString = (message == null) ? "" : message.toString();
 
-        out.println(((fileWriter == null) ? "" : "©¦") + messageString);
+        out.println(((fileWriter == null) ? "" : "â”‚") + messageString);
 
         if (fileWriter != null) {
             fileWriter.println(messageString);
@@ -293,31 +293,31 @@ public class ConfigWizard {
     private void printTitle() {
         StringBuffer buffer = new StringBuffer();
 
-        buffer.append("¨q©¤©¤©¤©¤©¤©¤©Ğ©¤ Step ").append(step + 1);
-        buffer.append(" of ").append(groups.length).append(" ©¤©¤©¤©¤©¤©¤©¤©¤©¬©¬©¬©¬\n");
+        buffer.append("â•­â”€â”€â”€â”€â”€â”€â”¬â”€ Step ").append(step + 1);
+        buffer.append(" of ").append(groups.length).append(" â”€â”€â”€â”€â”€â”€â”€â”€â”ˆâ”ˆâ”ˆâ”ˆ\n");
 
-        buffer.append("©¦            ©¦\n");
+        buffer.append("â”‚            â”‚\n");
 
         if (group.getConfigDescriptor().getDescription() != null) {
             buffer.append(
                     formatLines(group.getConfigDescriptor().getDescription(), 60, LocaleInfo.getDefault().getLocale(),
-                            "©¦Description ©¦ ", "©¦            ©¦   ")).append("\n");
+                            "â”‚Description â”‚ ", "â”‚            â”‚   ")).append("\n");
 
-            buffer.append("©¦©¬©¬©¬©¬©¬©¬©¦©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬\n");
+            buffer.append("â”‚â”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”‚â”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆ\n");
         }
 
         buffer.append(
                 formatLines(group.getConfigDescriptor().getURL().toString(), 60, LocaleInfo.getDefault().getLocale(),
-                        "©¦Descriptor  ©¦ ", "©¦            ©¦   ")).append("\n");
+                        "â”‚Descriptor  â”‚ ", "â”‚            â”‚   ")).append("\n");
 
-        buffer.append("©¦©¬©¬©¬©¬©¬©¬©¦©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬\n");
+        buffer.append("â”‚â”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”‚â”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆ\n");
 
         buffer.append(
-                formatLines(getURI(), 60, LocaleInfo.getDefault().getLocale(), "©¦Properties  ©¦ ", "©¦            ©¦   "))
+                formatLines(getURI(), 60, LocaleInfo.getDefault().getLocale(), "â”‚Properties  â”‚ ", "â”‚            â”‚   "))
                 .append("\n");
 
-        buffer.append("©¦            ©¦").append("\n");
-        buffer.append("©¸©¤©¤©¤©¤©¤©¤©Ø©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬").append("\n");
+        buffer.append("â”‚            â”‚").append("\n");
+        buffer.append("â””â”€â”€â”€â”€â”€â”€â”´â”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆ").append("\n");
 
         println();
         println(buffer);
@@ -325,14 +325,14 @@ public class ConfigWizard {
 
     private void printGroup() {
         if (group.getDescription() != null) {
-            println(" " + group.getDescription() + " (? - ¸ÃÖµÔÚÓÃ»§ÅäÖÃÎÄ¼şÖĞ²»´æÔÚ£¬* - ±ØÌîÏî£¬S - ¸²¸Ç¹²ÏíÄ¬ÈÏÖµ£¬s - ¹²ÏíÖµ)");
+            println(" " + group.getDescription() + " (? - è¯¥å€¼åœ¨ç”¨æˆ·é…ç½®æ–‡ä»¶ä¸­ä¸å­˜åœ¨ï¼Œ* - å¿…å¡«é¡¹ï¼ŒS - è¦†ç›–å…±äº«é»˜è®¤å€¼ï¼Œs - å…±äº«å€¼)");
         } else {
-            println(" (? - ¸ÃÖµÔÚÓÃ»§ÅäÖÃÎÄ¼şÖĞ²»´æÔÚ£¬* - ±ØÌîÏî£¬S - ¸²¸Ç¹²ÏíÄ¬ÈÏÖµ£¬s - ¹²ÏíÖµ)");
+            println(" (? - è¯¥å€¼åœ¨ç”¨æˆ·é…ç½®æ–‡ä»¶ä¸­ä¸å­˜åœ¨ï¼Œ* - å¿…å¡«é¡¹ï¼ŒS - è¦†ç›–å…±äº«é»˜è®¤å€¼ï¼Œs - å…±äº«å€¼)");
         }
 
         println();
 
-        // ÕÒ³ö×î³¤µÄÃû³ÆºÍÖµ
+        // æ‰¾å‡ºæœ€é•¿çš„åç§°å’Œå€¼
         int maxLength = -1;
         int maxLengthValue = -1;
 
@@ -359,13 +359,13 @@ public class ConfigWizard {
 
             StringBuffer buffer = new StringBuffer();
 
-            // Èç¹ûÏîÄ¿ÔÚÅäÖÃÎÄ¼şÖĞ²»´æÔÚ£¬ÔòÏÔÊ¾?
+            // å¦‚æœé¡¹ç›®åœ¨é…ç½®æ–‡ä»¶ä¸­ä¸å­˜åœ¨ï¼Œåˆ™æ˜¾ç¤º?
             boolean absent = !getKeys().contains(prop.getName());
 
-            // Èç¹ûÊÇ±ØÌîÏî, ÔòÏÔÊ¾*ºÅ
+            // å¦‚æœæ˜¯å¿…å¡«é¡¹, åˆ™æ˜¾ç¤º*å·
             boolean required = prop.isRequired();
 
-            // Èç¹ûÏîÄ¿¶¨ÒåÔÚshared propertiesÖĞ£¬ÔòÏÔÊ¾S
+            // å¦‚æœé¡¹ç›®å®šä¹‰åœ¨shared propertiesä¸­ï¼Œåˆ™æ˜¾ç¤ºS
             boolean shared = propSet.isShared(prop.getName());
 
             if (shared) {
@@ -388,13 +388,13 @@ public class ConfigWizard {
                 buffer.append("  ");
             }
 
-            // ÏÔÊ¾propertyĞòºÅ
+            // æ˜¾ç¤ºpropertyåºå·
             buffer.append(i + 1).append(" - ");
 
-            // ÏÔÊ¾propertyÃû³Æ
+            // æ˜¾ç¤ºpropertyåç§°
             buffer.append(prop.getName());
 
-            // ÏÔÊ¾propertyÖµ
+            // æ˜¾ç¤ºpropertyå€¼
             String value = getPropertyValue(prop, true);
 
             if (value != null) {
@@ -405,7 +405,7 @@ public class ConfigWizard {
                 buffer.append("  = ").append(value);
             }
 
-            // ÏÔÊ¾propertyÃèÊö
+            // æ˜¾ç¤ºpropertyæè¿°
             if (prop.getDescription() != null) {
                 int length = (value == null) ? prop.getName().length() : (Math.max(prop.getName().length(), maxLength)
                         + "  = ".length() + value.length());
@@ -417,7 +417,7 @@ public class ConfigWizard {
                 buffer.append("   # ").append(prop.getDescription());
             }
 
-            // Èç¹ûÖµÊÇ±í´ïÊ½£¬ÔòÍ¬Ê±ÏÔÊ¾±í´ïÊ½µÄ¼ÆËãÖµ
+            // å¦‚æœå€¼æ˜¯è¡¨è¾¾å¼ï¼Œåˆ™åŒæ—¶æ˜¾ç¤ºè¡¨è¾¾å¼çš„è®¡ç®—å€¼
             String evaluatedValue = evaluatePropertyValue(prop, true);
 
             if ((evaluatedValue != null) && !ObjectUtil.equals(value, evaluatedValue)) {
@@ -442,8 +442,8 @@ public class ConfigWizard {
 
     private int processMenu() {
         while (true) {
-            // ÌáÊ¾ÊäÈë
-            StringBuffer buffer = new StringBuffer(" ÇëÑ¡Ôñ");
+            // æç¤ºè¾“å…¥
+            StringBuffer buffer = new StringBuffer(" è¯·é€‰æ‹©");
 
             if (props.length > 0) {
                 buffer.append("[1-").append(props.length).append("]");
@@ -463,7 +463,7 @@ public class ConfigWizard {
 
             print(buffer);
 
-            // µÈ´ıÊäÈë
+            // ç­‰å¾…è¾“å…¥
             String input = null;
 
             try {
@@ -499,17 +499,17 @@ public class ConfigWizard {
 
     private void processInput(int index) {
         ConfigProperty prop = props[index];
-        StringBuffer buffer = new StringBuffer(" ÇëÊäÈë");
+        StringBuffer buffer = new StringBuffer(" è¯·è¾“å…¥");
 
-        // ÏÔÊ¾propertyÃèÊö
+        // æ˜¾ç¤ºpropertyæè¿°
         if (prop.getDescription() != null) {
             buffer.append(prop.getDescription()).append(" ");
         }
 
-        // ÏÔÊ¾propertyÃû³Æ
+        // æ˜¾ç¤ºpropertyåç§°
         buffer.append(prop.getName()).append(" = ");
 
-        // ÏÔÊ¾propertyÖµ
+        // æ˜¾ç¤ºpropertyå€¼
         String value = getPropertyValue(prop, true);
 
         if (value != null) {
@@ -518,7 +518,7 @@ public class ConfigWizard {
 
         print(buffer);
 
-        // µÈ´ıÊäÈë
+        // ç­‰å¾…è¾“å…¥
         String input = null;
 
         try {
@@ -538,7 +538,7 @@ public class ConfigWizard {
 
     private boolean confirmSave() {
         println();
-        print(" ¼´½«±£´æµ½ÎÄ¼ş\"" + getURI() + "\"ÖĞ, È·¶¨? [Yes][No] ");
+        print(" å³å°†ä¿å­˜åˆ°æ–‡ä»¶\"" + getURI() + "\"ä¸­, ç¡®å®š? [Yes][No] ");
 
         String input = null;
 
@@ -560,9 +560,9 @@ public class ConfigWizard {
     private boolean validateSave() {
         if (!validate()) {
             println();
-            println(" ×Ö¶Î" + validatorProperty.getName() + "²»ºÏ·¨: " + validatorMessage);
+            println(" å­—æ®µ" + validatorProperty.getName() + "ä¸åˆæ³•: " + validatorMessage);
             println();
-            print(" ÄúÈÔÈ»Òª±£´æÂğ? [Yes=Ç¿ÖÆ±£´æ/No=¼ÌĞø±à¼­] ");
+            print(" æ‚¨ä»ç„¶è¦ä¿å­˜å—? [Yes=å¼ºåˆ¶ä¿å­˜/No=ç»§ç»­ç¼–è¾‘] ");
 
             String input = null;
 
@@ -592,9 +592,9 @@ public class ConfigWizard {
         Map modifiedProperties = propSet.getModifiedProperties();
 
         println();
-        println("¨q©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¬©¬©¬©¬");
-        println("©¦ ±£´æÎÄ¼ş " + getURI() + "...");
-        println("©¦©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬");
+        println("â•­â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”ˆâ”ˆâ”ˆâ”ˆ");
+        println("â”‚ ä¿å­˜æ–‡ä»¶ " + getURI() + "...");
+        println("â”‚â”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆ");
 
         try {
             OutputStream os = propSet.getUserPropertiesFile().getResource().getOutputStream();
@@ -611,7 +611,7 @@ public class ConfigWizard {
             for (int i = 0; i < keyGroups.length; i++) {
                 List keys = keyGroups[i];
 
-                // ÕÒ³ö×î³¤µÄÃû³Æ
+                // æ‰¾å‡ºæœ€é•¿çš„åç§°
                 int maxLength = -1;
 
                 for (Iterator j = keys.iterator(); j.hasNext();) {
@@ -623,7 +623,7 @@ public class ConfigWizard {
                     }
                 }
 
-                // Êä³öpropertyÏî
+                // è¾“å‡ºpropertyé¡¹
                 for (Iterator j = keys.iterator(); j.hasNext();) {
                     String key = (String) j.next();
                     String value = (String) modifiedProperties.get(key);
@@ -656,17 +656,17 @@ public class ConfigWizard {
             fileWriter = null;
         }
 
-        println("©¸©¤©¤©¤©¤©¤©¤©¤©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬");
-        println(" ÒÑ±£´æÖÁÎÄ¼ş: " + getURI());
+        println("â””â”€â”€â”€â”€â”€â”€â”€â”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆ");
+        println(" å·²ä¿å­˜è‡³æ–‡ä»¶: " + getURI());
 
         propSet.reloadUserProperties();
     }
 
     /**
-     * ¶ÔËùÓĞpropertiesµÄkeyÅÅĞò²¢·Ö×é¡£
+     * å¯¹æ‰€æœ‰propertiesçš„keyæ’åºå¹¶åˆ†ç»„ã€‚
      * 
-     * @param level ·Ö×éµÄ¼¶±ğ
-     * @return ·Ö×éÁĞ±í
+     * @param level åˆ†ç»„çš„çº§åˆ«
+     * @return åˆ†ç»„åˆ—è¡¨
      */
     private List[] getSortedKeys(Map props, int level) {
         List keys = new ArrayList(props.keySet());
@@ -729,10 +729,10 @@ public class ConfigWizard {
     }
 
     /**
-     * È¡µÃpropertyµÄÖµ£¬²»¼ÆËã±í´ïÊ½¡£
+     * å–å¾—propertyçš„å€¼ï¼Œä¸è®¡ç®—è¡¨è¾¾å¼ã€‚
      * 
-     * @param prop ÊôĞÔ
-     * @param defaultValue ÊÇ·ñÊ¹ÓÃÄ¬ÈÏÖµ
+     * @param prop å±æ€§
+     * @param defaultValue æ˜¯å¦ä½¿ç”¨é»˜è®¤å€¼
      */
     private String getPropertyValue(ConfigProperty prop, boolean defaultValue) {
         Object value = getValues().get(prop.getName());
@@ -763,10 +763,10 @@ public class ConfigWizard {
     }
 
     /**
-     * ¼ÆËãpropertyµÄÖµ¡£
+     * è®¡ç®—propertyçš„å€¼ã€‚
      * 
-     * @param prop ÊôĞÔ
-     * @param defaultValue ÊÇ·ñÊ¹ÓÃÄ¬ÈÏÖµ
+     * @param prop å±æ€§
+     * @param defaultValue æ˜¯å¦ä½¿ç”¨é»˜è®¤å€¼
      */
     private String evaluatePropertyValue(ConfigProperty prop, boolean defaultValue) {
         final String ref = prop.getName();
@@ -787,7 +787,7 @@ public class ConfigWizard {
         if (value instanceof Expression) {
             value = ((Expression) value).evaluate(new ExpressionContext() {
                 public Object get(String key) {
-                    // ±ÜÃâÎŞÏŞµİ¹é
+                    // é¿å…æ— é™é€’å½’
                     if (ref.equals(key)
                             || StringUtil.getValidIdentifier(ref).equals(StringUtil.getValidIdentifier(key))) {
                         return null;
@@ -820,9 +820,9 @@ public class ConfigWizard {
     }
 
     /**
-     * ÉèÖÃµ±Ç°²½Êı¡£
+     * è®¾ç½®å½“å‰æ­¥æ•°ã€‚
      * 
-     * @param step µ±Ç°²½Êı
+     * @param step å½“å‰æ­¥æ•°
      */
     private void setStep(int step) {
         if (step >= groups.length) {
@@ -844,14 +844,14 @@ public class ConfigWizard {
     }
 
     /**
-     * ¸ñÊ½»¯×Ö·û´®£¬Èç¹û×Ö·û´®³¬¹ıÖ¸¶¨³¤¶È£¬Ôò×Ô¶¯ÕÛĞĞ¡£
+     * æ ¼å¼åŒ–å­—ç¬¦ä¸²ï¼Œå¦‚æœå­—ç¬¦ä¸²è¶…è¿‡æŒ‡å®šé•¿åº¦ï¼Œåˆ™è‡ªåŠ¨æŠ˜è¡Œã€‚
      * 
-     * @param text Òª¸ñÊ½»¯µÄ×Ö·û´®
-     * @param maxLength ĞĞµÄ³¤¶È
-     * @param locale ¹ú¼ÒµØÇø
-     * @param prefix1 Ê×ĞĞÇ°×º
-     * @param prefix2 µÚ¶şĞĞ¼°ºóÃæĞĞµÄÇ°×º
-     * @return ¸ñÊ½»¯ºóµÄ×Ö·û´®
+     * @param text è¦æ ¼å¼åŒ–çš„å­—ç¬¦ä¸²
+     * @param maxLength è¡Œçš„é•¿åº¦
+     * @param locale å›½å®¶åœ°åŒº
+     * @param prefix1 é¦–è¡Œå‰ç¼€
+     * @param prefix2 ç¬¬äºŒè¡ŒåŠåé¢è¡Œçš„å‰ç¼€
+     * @return æ ¼å¼åŒ–åçš„å­—ç¬¦ä¸²
      */
     private String formatLines(String text, int maxLength, Locale locale, String prefix1, String prefix) {
         BreakIterator boundary = BreakIterator.getLineInstance(locale);

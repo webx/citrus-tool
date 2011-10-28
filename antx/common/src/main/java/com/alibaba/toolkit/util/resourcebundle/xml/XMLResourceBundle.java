@@ -36,7 +36,7 @@ import org.dom4j.Document;
 import org.dom4j.Node;
 
 /**
- * XML¸ñÊ½µÄ<code>ResourceBundle</code>.
+ * XMLæ ¼å¼çš„<code>ResourceBundle</code>.
  *
  * @version $Id: XMLResourceBundle.java,v 1.1 2003/07/03 07:26:35 baobao Exp $
  * @author Michael Zhou
@@ -45,14 +45,14 @@ public class XMLResourceBundle extends ResourceBundle {
     protected ListMap values = new ArrayHashMap();
 
     /**
-     * ´ÓXMLÎÄµµÖĞ´´½¨<code>ResourceBundle</code>.
+     * ä»XMLæ–‡æ¡£ä¸­åˆ›å»º<code>ResourceBundle</code>.
      *
-     * @param doc XMLÎÄµµ
+     * @param doc XMLæ–‡æ¡£
      *
-     * @throws ResourceBundleCreateException ½âÎö´íÎó
+     * @throws ResourceBundleCreateException è§£æé”™è¯¯
      */
     public XMLResourceBundle(Document doc) throws ResourceBundleCreateException {
-        // ½âÎögroup.
+        // è§£ægroup.
         for (Iterator i = doc.selectNodes(ResourceBundleConstant.XPATH_GROUPS).iterator();
              i.hasNext();) {
             Node groupNode = (Node) i.next();
@@ -60,7 +60,7 @@ public class XMLResourceBundle extends ResourceBundle {
             initGroup(groupNode);
         }
 
-        // ½âÎöÃ»ÓĞgroupµÄresource.
+        // è§£ææ²¡æœ‰groupçš„resource.
         for (Iterator i = doc.selectNodes(ResourceBundleConstant.XPATH_UNGROUPED_RESOURCES)
                              .iterator(); i.hasNext();) {
             Node resourceNode = (Node) i.next();
@@ -70,11 +70,11 @@ public class XMLResourceBundle extends ResourceBundle {
     }
 
     /**
-     * ¸ù¾İXML Node³õÊ¼»¯Ò»¸öresourceÏî.
+     * æ ¹æ®XML Nodeåˆå§‹åŒ–ä¸€ä¸ªresourceé¡¹.
      *
-     * @param groupNode  ´ú±íresourceĞÅÏ¢µÄXML Node
+     * @param groupNode  ä»£è¡¨resourceä¿¡æ¯çš„XML Node
      *
-     * @throws ResourceBundleCreateException  ½âÎö´íÎó
+     * @throws ResourceBundleCreateException  è§£æé”™è¯¯
      */
     protected void initGroup(Node groupNode) throws ResourceBundleCreateException {
         String enumTypeName = (String) groupNode.selectObject(
@@ -102,18 +102,18 @@ public class XMLResourceBundle extends ResourceBundle {
     }
 
     /**
-     * ¸ù¾İXML Node³õÊ¼»¯Ò»¸öresourceÏî.
+     * æ ¹æ®XML Nodeåˆå§‹åŒ–ä¸€ä¸ªresourceé¡¹.
      *
-     * @param resourceNode  ´ú±íresourceĞÅÏ¢µÄXML Node
-     * @param enumType      <code>Enum</code>Àà
+     * @param resourceNode  ä»£è¡¨resourceä¿¡æ¯çš„XML Node
+     * @param enumType      <code>Enum</code>ç±»
      *
-     * @throws ResourceBundleCreateException  ½âÎö´íÎó
+     * @throws ResourceBundleCreateException  è§£æé”™è¯¯
      */
     protected void initResource(Node resourceNode, Class enumType)
             throws ResourceBundleCreateException {
         String id = (String) resourceNode.selectObject(ResourceBundleConstant.XPATH_RESOURCE_ID);
 
-        // Èç¹ûÖ¸¶¨ÁËenumÊôĞÔ, ÔòÒÔ´ËenumÖµ×÷Îªresource key.
+        // å¦‚æœæŒ‡å®šäº†enumå±æ€§, åˆ™ä»¥æ­¤enumå€¼ä½œä¸ºresource key.
         if (enumType != null) {
             Enum enumObj = Enum.getEnumByName(enumType, (String) id);
 
@@ -150,14 +150,14 @@ public class XMLResourceBundle extends ResourceBundle {
     }
 
     /**
-     * ¸ù¾İXML Node´´½¨message resourceÏî.
+     * æ ¹æ®XML Nodeåˆ›å»ºmessage resourceé¡¹.
      *
      * @param id            resource ID
-     * @param resourceNode  ´ú±íresourceĞÅÏ¢µÄXML Node
+     * @param resourceNode  ä»£è¡¨resourceä¿¡æ¯çš„XML Node
      *
-     * @return resourceµÄÖµ
+     * @return resourceçš„å€¼
      *
-     * @throws ResourceBundleCreateException  ½âÎö´íÎó
+     * @throws ResourceBundleCreateException  è§£æé”™è¯¯
      */
     protected Object getMessageResource(String id, Node resourceNode)
             throws ResourceBundleCreateException {
@@ -165,14 +165,14 @@ public class XMLResourceBundle extends ResourceBundle {
     }
 
     /**
-     * ¸ù¾İXML Node´´½¨map resourceÏî.
+     * æ ¹æ®XML Nodeåˆ›å»ºmap resourceé¡¹.
      *
      * @param id            resource ID
-     * @param resourceNode  ´ú±íresourceĞÅÏ¢µÄXML Node
+     * @param resourceNode  ä»£è¡¨resourceä¿¡æ¯çš„XML Node
      *
-     * @return resourceµÄÖµ
+     * @return resourceçš„å€¼
      *
-     * @throws ResourceBundleCreateException  ½âÎö´íÎó
+     * @throws ResourceBundleCreateException  è§£æé”™è¯¯
      */
     protected Object getMapResource(String id, Node resourceNode)
             throws ResourceBundleCreateException {
@@ -209,14 +209,14 @@ public class XMLResourceBundle extends ResourceBundle {
     }
 
     /**
-     * ¸ù¾İXML Node´´½¨list resourceÏî.
+     * æ ¹æ®XML Nodeåˆ›å»ºlist resourceé¡¹.
      *
      * @param id            resource ID
-     * @param resourceNode  ´ú±íresourceĞÅÏ¢µÄXML Node
+     * @param resourceNode  ä»£è¡¨resourceä¿¡æ¯çš„XML Node
      *
-     * @return resourceµÄÖµ
+     * @return resourceçš„å€¼
      *
-     * @throws ResourceBundleCreateException  ½âÎö´íÎó
+     * @throws ResourceBundleCreateException  è§£æé”™è¯¯
      */
     protected Object getListResource(String id, Node resourceNode)
             throws ResourceBundleCreateException {
@@ -243,20 +243,20 @@ public class XMLResourceBundle extends ResourceBundle {
     }
 
     /**
-     * ¸ù¾İÖ¸¶¨µÄ¼ü, ´Óresource bundleÖĞÈ¡µÃÏàÓ¦µÄ¶ÔÏó. Èç¹û·µ»Ø<code>null</code>±íÊ¾¶ÔÓ¦µÄ¶ÔÏó²»´æÔÚ.
+     * æ ¹æ®æŒ‡å®šçš„é”®, ä»resource bundleä¸­å–å¾—ç›¸åº”çš„å¯¹è±¡. å¦‚æœè¿”å›<code>null</code>è¡¨ç¤ºå¯¹åº”çš„å¯¹è±¡ä¸å­˜åœ¨.
      *
-     * @param key  Òª²éÕÒµÄ¼ü
+     * @param key  è¦æŸ¥æ‰¾çš„é”®
      *
-     * @return key¶ÔÓ¦µÄ¶ÔÏó, »ò<code>null</code>±íÊ¾²»´æÔÚ¸Ã¶ÔÏó
+     * @return keyå¯¹åº”çš„å¯¹è±¡, æˆ–<code>null</code>è¡¨ç¤ºä¸å­˜åœ¨è¯¥å¯¹è±¡
      */
     protected Object handleGetObject(String key) {
         return values.get(key);
     }
 
     /**
-     * È¡µÃËùÓĞkeys.
+     * å–å¾—æ‰€æœ‰keys.
      *
-     * @return ËùÓĞkeys
+     * @return æ‰€æœ‰keys
      */
     public Enumeration getKeys() {
         java.util.ResourceBundle parent = getParent();

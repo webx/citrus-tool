@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * ´ú±íÒ»¸öauto-configÃèÊöÎÄ¼şµÄÄÚÈİ¡£
+ * ä»£è¡¨ä¸€ä¸ªauto-configæè¿°æ–‡ä»¶çš„å†…å®¹ã€‚
  * 
  * @author Michael Zhou
  */

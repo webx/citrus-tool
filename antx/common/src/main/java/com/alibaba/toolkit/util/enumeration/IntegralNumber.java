@@ -18,7 +18,7 @@
 package com.alibaba.toolkit.util.enumeration;
 
 /**
- * »ùÓÚÕûÊıµÄÊı×Ö½Ó¿Ú.
+ * åŸºäºæ•´æ•°çš„æ•°å­—æ¥å£.
  *
  * @version $Id: IntegralNumber.java,v 1.1 2003/07/03 07:26:21 baobao Exp $
  * @author Michael Zhou
@@ -29,65 +29,65 @@ public interface IntegralNumber {
     int RADIX_BIN = 2;
 
     /**
-     * È¡µÃÕûÊıÖµ
+     * å–å¾—æ•´æ•°å€¼
      *
-     * @return ÕûÊıÖµ
+     * @return æ•´æ•°å€¼
      */
     int intValue();
 
     /**
-     * È¡µÃ³¤ÕûÊıÖµ
+     * å–å¾—é•¿æ•´æ•°å€¼
      *
-     * @return ³¤ÕûÊıÖµ
+     * @return é•¿æ•´æ•°å€¼
      */
     long longValue();
 
     /**
-     * È¡µÃ¸¡µãÖµ
+     * å–å¾—æµ®ç‚¹å€¼
      *
-     * @return ¸¡µãÖµ
+     * @return æµ®ç‚¹å€¼
      */
     float floatValue();
 
     /**
-     * È¡µÃÈ¡µÃdoubleÖµ
+     * å–å¾—å–å¾—doubleå€¼
      *
-     * @return doubleÖµ
+     * @return doubleå€¼
      */
     double doubleValue();
 
     /**
-     * È¡µÃbyteÖµ
+     * å–å¾—byteå€¼
      *
-     * @return byteÖµ
+     * @return byteå€¼
      */
     byte byteValue();
 
     /**
-     * È¡µÃshortÖµ
+     * å–å¾—shortå€¼
      *
-     * @return shortÖµ
+     * @return shortå€¼
      */
     short shortValue();
 
     /**
-     * ×ª»»³ÉÊ®Áù½øÖÆÕûÊı×Ö·û´®.
+     * è½¬æ¢æˆåå…­è¿›åˆ¶æ•´æ•°å­—ç¬¦ä¸².
      *
-     * @return Ê®Áù½øÖÆÕûÊı×Ö·û´®
+     * @return åå…­è¿›åˆ¶æ•´æ•°å­—ç¬¦ä¸²
      */
     String toHexString();
 
     /**
-     * ×ª»»³É°Ë½øÖÆÕûÊı×Ö·û´®.
+     * è½¬æ¢æˆå…«è¿›åˆ¶æ•´æ•°å­—ç¬¦ä¸².
      *
-     * @return °Ë½øÖÆÕûÊı×Ö·û´®
+     * @return å…«è¿›åˆ¶æ•´æ•°å­—ç¬¦ä¸²
      */
     String toOctalString();
 
     /**
-     * ×ª»»³É¶ş½øÖÆÕûÊı×Ö·û´®.
+     * è½¬æ¢æˆäºŒè¿›åˆ¶æ•´æ•°å­—ç¬¦ä¸².
      *
-     * @return ¶ş½øÖÆÕûÊı×Ö·û´®
+     * @return äºŒè¿›åˆ¶æ•´æ•°å­—ç¬¦ä¸²
      */
     String toBinaryString();
 }

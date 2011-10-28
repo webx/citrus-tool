@@ -18,43 +18,43 @@
 package com.alibaba.antx.util.scanner;
 
 /**
- * É¨ÃèÆ÷µÄ»Øµ÷º¯Êı¡£
+ * æ‰«æå™¨çš„å›è°ƒå‡½æ•°ã€‚
  *
  * @author Michael Zhou
  *
  */
 public interface ScannerHandler {
     /**
-     * ÉèÖÃscanner£¬´Ë·½·¨Ò»¶¨ÊÇÊ×ÏÈ±»µ÷ÓÃµÄ¡£
+     * è®¾ç½®scannerï¼Œæ­¤æ–¹æ³•ä¸€å®šæ˜¯é¦–å…ˆè¢«è°ƒç”¨çš„ã€‚
      *
-     * @param scanner µ±Ç°ÕıÔÚÉ¨ÃèµÄscanner
+     * @param scanner å½“å‰æ­£åœ¨æ‰«æçš„scanner
      */
     void setScanner(Scanner scanner);
 
     /**
-     * ¿ªÊ¼É¨Ãè¡£
+     * å¼€å§‹æ‰«æã€‚
      */
     void startScanning();
 
     /**
-     * ½áÊøÉ¨Ãè¡£
+     * ç»“æŸæ‰«æã€‚
      */
     void endScanning();
 
     /**
-     * É¨ÃèÄ¿Â¼¡£
+     * æ‰«æç›®å½•ã€‚
      */
     void directory();
 
     /**
-     * É¨ÃèÎÄ¼ş¡£
+     * æ‰«ææ–‡ä»¶ã€‚
      */
     void file();
 
     /**
-     * ÊÇ·ñ¸ú½øÖ¸¶¨Ä¿Â¼»òÎÄ¼ş¡£¸Ã·½·¨ÓĞÖúÓÚÌá¸ßÉ¨ÃèËÙ¶È¡£
+     * æ˜¯å¦è·Ÿè¿›æŒ‡å®šç›®å½•æˆ–æ–‡ä»¶ã€‚è¯¥æ–¹æ³•æœ‰åŠ©äºæé«˜æ‰«æé€Ÿåº¦ã€‚
      *
-     * @return Èç¹ûÊÇ£¬Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœæ˜¯ï¼Œåˆ™è¿”å›<code>true</code>
      */
     boolean followUp();
 }

@@ -24,7 +24,7 @@ import java.util.TreeSet;
 import com.alibaba.antx.config.generator.PropertiesLoader;
 
 /**
- * ´ú±íÏµÍ³ÊôÐÔ¡£
+ * ä»£è¡¨ç³»ç»Ÿå±žæ€§ã€‚
  * 
  * @author Michael Zhou
  */

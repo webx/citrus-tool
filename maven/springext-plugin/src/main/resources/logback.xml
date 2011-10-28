@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="GB18030"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="false">
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <target>System.out</target>
-        <encoding>GB18030</encoding>
+        <encoding>UTF-8</encoding>
         <layout class="ch.qos.logback.classic.PatternLayout">
             <pattern>[%-5level] %logger - %msg%n</pattern>
         </layout>

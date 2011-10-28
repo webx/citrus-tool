@@ -32,29 +32,29 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * ½«¶ÔÏó×ª»»³É¶ÔÏóÊý×é.
+ * å°†å¯¹è±¡è½¬æ¢æˆå¯¹è±¡æ•°ç»„.
  *
  * <ul>
  * <li>
- * Èç¹û<code>targetType</code>²»ÊÇÊý×éÀàÐÍ, ÔòÅ×³ö<code>ConvertFailedException</code>.
+ * å¦‚æžœ<code>targetType</code>ä¸æ˜¯æ•°ç»„ç±»åž‹, åˆ™æŠ›å‡º<code>ConvertFailedException</code>.
  * </li>
  * <li>
- * Èç¹û¶ÔÏóÎª<code>null</code>, ÔòÅ×³ö´øÄ¬ÈÏÖµµÄ<code>ConvertFailedException</code>.
+ * å¦‚æžœå¯¹è±¡ä¸º<code>null</code>, åˆ™æŠ›å‡ºå¸¦é»˜è®¤å€¼çš„<code>ConvertFailedException</code>.
  * </li>
  * <li>
- * Èç¹û¶ÔÏóÒÑ¾­ÊÇ<code>targetType</code>ÁË, Ö±½Ó·µ»Ø.
+ * å¦‚æžœå¯¹è±¡å·²ç»æ˜¯<code>targetType</code>äº†, ç›´æŽ¥è¿”å›ž.
  * </li>
  * <li>
- * Èç¹û¶ÔÏóÎªÊý×é, Ôò±éÀúÊý×é, ¶ÔÓÚÃ¿¸öÊý×éÔªËØ, Ö´ÐÐ×ª»».
+ * å¦‚æžœå¯¹è±¡ä¸ºæ•°ç»„, åˆ™éåŽ†æ•°ç»„, å¯¹äºŽæ¯ä¸ªæ•°ç»„å…ƒç´ , æ‰§è¡Œè½¬æ¢.
  * </li>
  * <li>
- * Èç¹û¶ÔÏóÎª<code>Collection</code>, Ôò±éÀúÖ®, ¶ÔÓÚÃ¿¸ö¼¯ºÏÔªËØ, Ö´ÐÐ×ª»».
+ * å¦‚æžœå¯¹è±¡ä¸º<code>Collection</code>, åˆ™éåŽ†ä¹‹, å¯¹äºŽæ¯ä¸ªé›†åˆå…ƒç´ , æ‰§è¡Œè½¬æ¢.
  * </li>
  * <li>
- * Èç¹û¶ÔÏóÎª<code>Iterator</code>»ò<code>Enumeration</code>, Ôò±éÀúÖ®, ¶ÔÓÚÃ¿¸öÔªËØ, Ö´ÐÐ×ª»».
+ * å¦‚æžœå¯¹è±¡ä¸º<code>Iterator</code>æˆ–<code>Enumeration</code>, åˆ™éåŽ†ä¹‹, å¯¹äºŽæ¯ä¸ªå…ƒç´ , æ‰§è¡Œè½¬æ¢.
  * </li>
  * <li>
- * ·ñÔò, °Ñ¶ÔÏó´«µÝ¸øÏÂÒ»¸ö<code>Converter</code>´¦Àí.
+ * å¦åˆ™, æŠŠå¯¹è±¡ä¼ é€’ç»™ä¸‹ä¸€ä¸ª<code>Converter</code>å¤„ç†.
  * </li>
  * </ul>
  *

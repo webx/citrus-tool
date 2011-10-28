@@ -20,51 +20,51 @@ package com.alibaba.toolkit.util.regex;
 import org.apache.oro.text.regex.MalformedPatternException;
 
 /**
- * Õâ¸öÀà½«Ò»¸ö°üº¬Í¨Åä·ûµÄÎÄ¼şÂ·¾¶, ±àÒë³ÉPerl5µÄÕıÔò±í´ïÊ½.  ¸ñÊ½ÃèÊöÈçÏÂ:
+ * è¿™ä¸ªç±»å°†ä¸€ä¸ªåŒ…å«é€šé…ç¬¦çš„æ–‡ä»¶è·¯å¾„, ç¼–è¯‘æˆPerl5çš„æ­£åˆ™è¡¨è¾¾å¼.  æ ¼å¼æè¿°å¦‚ä¸‹:
  *
  * <ul>
  * <li>
- * ºÏ·¨µÄ<em>ÎÄ¼şÃû×Ö·û</em>°üÀ¨: ×ÖÄ¸/Êı×Ö/ÏÂ»®Ïß/Ğ¡Êıµã/¶ÌºáÏß;
+ * åˆæ³•çš„<em>æ–‡ä»¶åå­—ç¬¦</em>åŒ…æ‹¬: å­—æ¯/æ•°å­—/ä¸‹åˆ’çº¿/å°æ•°ç‚¹/çŸ­æ¨ªçº¿;
  * </li>
  * <li>
- * ºÏ·¨µÄ<em>Â·¾¶·Ö¸ô·û</em>ÎªĞ±¸Ü"/";
+ * åˆæ³•çš„<em>è·¯å¾„åˆ†éš”ç¬¦</em>ä¸ºæ–œæ "/";
  * </li>
  * <li>
- * "£ª"´ú±í0¸ö»ò¶à¸ö<em>ÎÄ¼şÃû×Ö·û</em>;
+ * "ï¼Š"ä»£è¡¨0ä¸ªæˆ–å¤šä¸ª<em>æ–‡ä»¶åå­—ç¬¦</em>;
  * </li>
  * <li>
- * "£¿"´ú±í1¸ö<em>ÎÄ¼şÃû×Ö·û</em>;
+ * "ï¼Ÿ"ä»£è¡¨1ä¸ª<em>æ–‡ä»¶åå­—ç¬¦</em>;
  * </li>
  * <li>
- * "£ª£ª"´ú±í0¸ö»ò¶à¸ö<em>ÎÄ¼şÃû×Ö·û</em>»ò<em>Â·¾¶·Ö¸ô·û</em>;
+ * "ï¼Šï¼Š"ä»£è¡¨0ä¸ªæˆ–å¤šä¸ª<em>æ–‡ä»¶åå­—ç¬¦</em>æˆ–<em>è·¯å¾„åˆ†éš”ç¬¦</em>;
  * </li>
  * <li>
- * ²»ÄÜÁ¬Ğø³öÏÖ3¸ö"£ª";
+ * ä¸èƒ½è¿ç»­å‡ºç°3ä¸ª"ï¼Š";
  * </li>
  * <li>
- * ²»ÄÜÁ¬Ğø³öÏÖ2¸ö<em>Â·¾¶·Ö¸ô·û</em>;
+ * ä¸èƒ½è¿ç»­å‡ºç°2ä¸ª<em>è·¯å¾„åˆ†éš”ç¬¦</em>;
  * </li>
  * <li>
- * "£ª£ª"µÄÇ°ºóÖ»ÄÜÊÇ<em>Â·¾¶·Ö¸ô·û</em>.
+ * "ï¼Šï¼Š"çš„å‰ååªèƒ½æ˜¯<em>è·¯å¾„åˆ†éš”ç¬¦</em>.
  * </li>
  * </ul>
  *
- * ×ª»»ºóµÄÕıÔò±í´ïÊ½, ¶ÔÃ¿Ò»¸öÍ¨Åä·û½¨Á¢<em>ÒıÓÃ±äÁ¿</em>, ÒÀ´ÎÎª<code>$1</code>, <code>$2</code>, ...
+ * è½¬æ¢åçš„æ­£åˆ™è¡¨è¾¾å¼, å¯¹æ¯ä¸€ä¸ªé€šé…ç¬¦å»ºç«‹<em>å¼•ç”¨å˜é‡</em>, ä¾æ¬¡ä¸º<code>$1</code>, <code>$2</code>, ...
  *
  * @version $Id: PathNameCompiler.java,v 1.1 2003/07/03 07:26:34 baobao Exp $
  * @author Michael Zhou
  */
 public class PathNameCompiler extends Perl5CompilerWrapper {
-    /** Ç¿ÖÆÊ¹ÓÃ¾ø¶ÔÂ·¾¶ */
+    /** å¼ºåˆ¶ä½¿ç”¨ç»å¯¹è·¯å¾„ */
     public static final int FORCE_ABSOLUTE_PATH = 0x1;
 
-    /** Ç¿ÖÆÊ¹ÓÃÏà¶ÔÂ·¾¶ */
+    /** å¼ºåˆ¶ä½¿ç”¨ç›¸å¯¹è·¯å¾„ */
     public static final int FORCE_RELATIVE_PATH = 0x2;
 
-    /** ´ÓÍ·Æ¥Åä */
+    /** ä»å¤´åŒ¹é… */
     public static final int FORCE_MATCH_PREFIX = 0x4;
 
-    // Ë½ÓĞ³£Á¿
+    // ç§æœ‰å¸¸é‡
     private static final char   SLASH                       = '/';
     private static final char   UNDERSCORE                  = '_';
     private static final char   DASH                  = '-';
@@ -82,7 +82,7 @@ public class PathNameCompiler extends Perl5CompilerWrapper {
             "(" + REGEX_FILE_NAME_CHAR + "+(?:" + REGEX_SLASH_NO_DUP + REGEX_FILE_NAME_CHAR
             + "*)*(?=" + REGEX_SLASH + "|$)|)" + REGEX_SLASH + "?";
 
-    // ÉÏÒ»¸ötokenµÄ×´Ì¬
+    // ä¸Šä¸€ä¸ªtokençš„çŠ¶æ€
     private static final int LAST_TOKEN_START       = 0;
     private static final int LAST_TOKEN_SLASH       = 1;
     private static final int LAST_TOKEN_FILE_NAME   = 2;
@@ -91,14 +91,14 @@ public class PathNameCompiler extends Perl5CompilerWrapper {
     private static final int LAST_TOKEN_QUESTION    = 5;
 
     /**
-     * ½«°üº¬Í¨Åä·ûµÄÂ·¾¶±í´ïÊ½, ±àÒë³Éperl5ÕıÔò±í´ïÊ½.
+     * å°†åŒ…å«é€šé…ç¬¦çš„è·¯å¾„è¡¨è¾¾å¼, ç¼–è¯‘æˆperl5æ­£åˆ™è¡¨è¾¾å¼.
      *
-     * @param pattern  Òª±àÒëµÄÂ·¾¶
-     * @param options  Î»±êÖ¾
+     * @param pattern  è¦ç¼–è¯‘çš„è·¯å¾„
+     * @param options  ä½æ ‡å¿—
      *
-     * @return Perl5ÕıÔò±í´ïÊ½×Ö·û´®
+     * @return Perl5æ­£åˆ™è¡¨è¾¾å¼å­—ç¬¦ä¸²
      *
-     * @throws MalformedPatternException  Èç¹ûÂ·¾¶×Ö·û´®¸ñÊ½²»ÕıÈ·
+     * @throws MalformedPatternException  å¦‚æœè·¯å¾„å­—ç¬¦ä¸²æ ¼å¼ä¸æ­£ç¡®
      */
     public String toPerl5Regex(char[] pattern, int options)
             throws MalformedPatternException {
@@ -109,7 +109,7 @@ public class PathNameCompiler extends Perl5CompilerWrapper {
         boolean      forceAbsolutePath = (options & FORCE_ABSOLUTE_PATH) != 0;
         boolean      forceRelativePath = (options & FORCE_RELATIVE_PATH) != 0;
 
-        // Èç¹ûµÚÒ»¸ö×Ö·ûÎªslash, »òµ÷ÓÃÕßÒªÇóforceMatchPrefix, Ôò´ÓÍ·Æ¥Åä
+        // å¦‚æœç¬¬ä¸€ä¸ªå­—ç¬¦ä¸ºslash, æˆ–è°ƒç”¨è€…è¦æ±‚forceMatchPrefix, åˆ™ä»å¤´åŒ¹é…
         if (forceMatchPrefix || (pattern.length > 0 && pattern[0] == SLASH)) {
             buffer.append(REGEX_MATCH_PREFIX);
         }
@@ -124,14 +124,14 @@ public class PathNameCompiler extends Perl5CompilerWrapper {
             switch (ch) {
                 case SLASH:
 
-                    // slashºóÃæ²»ÄÜÊÇslash, slash²»ÄÜÎ»ÓÚÊ××Ö·û(Èç¹ûÖ¸¶¨ÁËforce relative pathµÄ»°)
+                    // slashåé¢ä¸èƒ½æ˜¯slash, slashä¸èƒ½ä½äºé¦–å­—ç¬¦(å¦‚æœæŒ‡å®šäº†force relative pathçš„è¯)
                     if (lastToken == LAST_TOKEN_SLASH) {
                         throw new MalformedPatternException(getDefaultErrorMessage(pattern, i));
                     } else if (forceRelativePath && (lastToken == LAST_TOKEN_START)) {
                         throw new MalformedPatternException(getDefaultErrorMessage(pattern, i));
                     }
 
-                    // ÒòÎª**ÒÑ¾­°üÀ¨ÁËslash, ËùÒÔ²»ĞèÒª¶îÍâµØÆ¥Åäslash
+                    // å› ä¸º**å·²ç»åŒ…æ‹¬äº†slash, æ‰€ä»¥ä¸éœ€è¦é¢å¤–åœ°åŒ¹é…slash
                     if (lastToken != LAST_TOKEN_DOUBLE_STAR) {
                         buffer.append(REGEX_SLASH_NO_DUP);
                     }
@@ -146,7 +146,7 @@ public class PathNameCompiler extends Perl5CompilerWrapper {
                     if ((j < pattern.length) && (pattern[j] == STAR)) {
                         i = j;
 
-                        // **Ç°ÃæÖ»ÄÜÊÇslash
+                        // **å‰é¢åªèƒ½æ˜¯slash
                         if ((lastToken != LAST_TOKEN_START) && (lastToken != LAST_TOKEN_SLASH)) {
                             throw new MalformedPatternException(getDefaultErrorMessage(pattern, i));
                         }
@@ -154,7 +154,7 @@ public class PathNameCompiler extends Perl5CompilerWrapper {
                         lastToken = LAST_TOKEN_DOUBLE_STAR;
                         buffer.append(REGEX_FILE_PATH);
                     } else {
-                        // *Ç°Ãæ²»ÄÜÊÇ*»ò**
+                        // *å‰é¢ä¸èƒ½æ˜¯*æˆ–**
                         if ((lastToken == LAST_TOKEN_STAR) || (lastToken == LAST_TOKEN_DOUBLE_STAR)) {
                             throw new MalformedPatternException(getDefaultErrorMessage(pattern, i));
                         }
@@ -172,17 +172,17 @@ public class PathNameCompiler extends Perl5CompilerWrapper {
 
                 default:
 
-                    // **ºóÖ»ÄÜÊÇslash
+                    // **ååªèƒ½æ˜¯slash
                     if (lastToken == LAST_TOKEN_DOUBLE_STAR) {
                         throw new MalformedPatternException(getDefaultErrorMessage(pattern, i));
                     }
 
                     if (Character.isLetterOrDigit(ch) || (ch == UNDERSCORE) || (ch == DASH)) {
-                        // ¼ÓÉÏword±ß½ç, ½øĞĞÕû×ÖÆ¥Åä
+                        // åŠ ä¸Šwordè¾¹ç•Œ, è¿›è¡Œæ•´å­—åŒ¹é…
                         if (lastToken == LAST_TOKEN_START) {
-                            buffer.append(REGEX_WORD_BOUNDARY).append(ch); // Ç°±ß½ç
+                            buffer.append(REGEX_WORD_BOUNDARY).append(ch); // å‰è¾¹ç•Œ
                         } else if ((i + 1) == pattern.length) {
-                            buffer.append(ch).append(REGEX_WORD_BOUNDARY); // ºó±ß½ç
+                            buffer.append(ch).append(REGEX_WORD_BOUNDARY); // åè¾¹ç•Œ
                         } else {
                             buffer.append(ch);
                         }

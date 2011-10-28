@@ -28,7 +28,7 @@ import java.text.MessageFormat;
 import java.util.Iterator;
 
 /**
- * ´ú±íÒ»¸ö»ò¶à¸ö<code>Flags</code>¹¹³ÉµÄÎ»¼¯.
+ * ä»£è¡¨ä¸€ä¸ªæˆ–å¤šä¸ª<code>Flags</code>æ„æˆçš„ä½é›†.
  *
  * @version $Id: FlagSet.java,v 1.1 2003/07/03 07:26:20 baobao Exp $
  * @author Michael Zhou
@@ -40,9 +40,9 @@ public abstract class FlagSet implements Flags, Cloneable, Comparable, Serializa
     protected transient boolean immutable;
 
     /**
-     * ´´½¨Ò»¸öÎ»¼¯.
+     * åˆ›å»ºä¸€ä¸ªä½é›†.
      *
-     * @param enumClass Î»¼¯Ëù´ú±íµÄÄÚ²¿Ã¶¾ÙÀà
+     * @param enumClass ä½é›†æ‰€ä»£è¡¨çš„å†…éƒ¨æšä¸¾ç±»
      */
     public FlagSet(Class enumClass) {
         this.enumClass = enumClass;
@@ -65,72 +65,72 @@ public abstract class FlagSet implements Flags, Cloneable, Comparable, Serializa
     }
 
     /**
-     * È¡µÃÄÚ²¿Ã¶¾ÙÀàĞÍ.
+     * å–å¾—å†…éƒ¨æšä¸¾ç±»å‹.
      *
-     * @return ÄÚ²¿Ã¶¾ÙÀàĞÍ
+     * @return å†…éƒ¨æšä¸¾ç±»å‹
      */
     public Class getEnumClass() {
         return enumClass;
     }
 
     /**
-     * È¡µÃÎ»¼¯µÄÖµµÄÀàĞÍ.
+     * å–å¾—ä½é›†çš„å€¼çš„ç±»å‹.
      *
-     * @return Î»¼¯µÄÖµµÄÀàĞÍ
+     * @return ä½é›†çš„å€¼çš„ç±»å‹
      */
     public Class getUnderlyingClass() {
         return Enum.getUnderlyingClass(enumClass);
     }
 
     /**
-     * ÉèÖÃÎ»¼¯µÄÖµ, ÖµµÄÀàĞÍÓÉ<code>getUnderlyingClass()</code>È·¶¨.
+     * è®¾ç½®ä½é›†çš„å€¼, å€¼çš„ç±»å‹ç”±<code>getUnderlyingClass()</code>ç¡®å®š.
      *
-     * @param value Î»¼¯µÄÖµ
+     * @param value ä½é›†çš„å€¼
      */
     public abstract void setValue(Object value);
 
     /**
-     * È¡µÃÎ»¼¯µÄÖµ, ÖµµÄÀàĞÍÓÉ<code>getUnderlyingClass()</code>È·¶¨.
+     * å–å¾—ä½é›†çš„å€¼, å€¼çš„ç±»å‹ç”±<code>getUnderlyingClass()</code>ç¡®å®š.
      *
-     * @return Î»¼¯µÄÖµ
+     * @return ä½é›†çš„å€¼
      */
     public abstract Object getValue();
 
     /**
-     * ÊµÏÖ<code>Number</code>Àà, È¡µÃ<code>byte</code>Öµ.
+     * å®ç°<code>Number</code>ç±», å–å¾—<code>byte</code>å€¼.
      *
-     * @return <code>byte</code>Öµ
+     * @return <code>byte</code>å€¼
      */
     public byte byteValue() {
         return (byte) intValue();
     }
 
     /**
-     * ÊµÏÖ<code>Number</code>Àà, È¡µÃ<code>short</code>Öµ.
+     * å®ç°<code>Number</code>ç±», å–å¾—<code>short</code>å€¼.
      *
-     * @return <code>short</code>Öµ
+     * @return <code>short</code>å€¼
      */
     public short shortValue() {
         return (short) intValue();
     }
 
     /**
-     * ÊµÏÖ<code>Convertible</code>½Ó¿Ú, È¡µÃ½«µ±Ç°Î»¼¯×ª»»³ÉÖ¸¶¨<code>targetType</code>µÄ<code>Converter</code>.
-     * ×ª»»µÄ¹æÔòÈçÏÂ:
+     * å®ç°<code>Convertible</code>æ¥å£, å–å¾—å°†å½“å‰ä½é›†è½¬æ¢æˆæŒ‡å®š<code>targetType</code>çš„<code>Converter</code>.
+     * è½¬æ¢çš„è§„åˆ™å¦‚ä¸‹:
      *
      * <ul>
      * <li>
-     * Èç¹û<code>targetType</code>ÊÇ×Ö·û´®, Ôò·µ»Ø<code>FlagSet.toString()</code>.
+     * å¦‚æœ<code>targetType</code>æ˜¯å­—ç¬¦ä¸², åˆ™è¿”å›<code>FlagSet.toString()</code>.
      * </li>
      * <li>
-     * ·ñÔò½«Î»¼¯µÄÖµ´«µİµ½×ª»»Á´ÖĞ.
+     * å¦åˆ™å°†ä½é›†çš„å€¼ä¼ é€’åˆ°è½¬æ¢é“¾ä¸­.
      * </li>
      * </ul>
      *
      *
-     * @param targetType Ä¿±êÀàĞÍ
+     * @param targetType ç›®æ ‡ç±»å‹
      *
-     * @return ½«µ±Ç°Î»¼¯×ª»»³ÉÖ¸¶¨<code>targetType</code>µÄ<code>Converter</code>
+     * @return å°†å½“å‰ä½é›†è½¬æ¢æˆæŒ‡å®š<code>targetType</code>çš„<code>Converter</code>
      */
     public Converter getConverter(Class targetType) {
         return new Converter() {
@@ -148,9 +148,9 @@ public abstract class FlagSet implements Flags, Cloneable, Comparable, Serializa
     }
 
     /**
-     * ¸´ÖÆÎ»¼¯¶ÔÏó.
+     * å¤åˆ¶ä½é›†å¯¹è±¡.
      *
-     * @return ¸´ÖÆÆ·
+     * @return å¤åˆ¶å“
      */
     public Object clone() {
         FlagSet flagSet = null;
@@ -169,12 +169,12 @@ public abstract class FlagSet implements Flags, Cloneable, Comparable, Serializa
     }
 
     /**
-     * ºÍÁíÒ»¸öÎ»¼¯±È½Ï´óĞ¡, ¾ÍÊÇ°´Î»¼¯µÄÖµ±È½Ï.
+     * å’Œå¦ä¸€ä¸ªä½é›†æ¯”è¾ƒå¤§å°, å°±æ˜¯æŒ‰ä½é›†çš„å€¼æ¯”è¾ƒ.
      *
-     * @param other Òª±È½ÏµÄÎ»¼¯
+     * @param other è¦æ¯”è¾ƒçš„ä½é›†
      *
-     * @return Èç¹ûµÈÓÚ<code>0</code>, ±íÊ¾ÖµÏàµÈ, ´óÓÚ<code>0</code>±íÊ¾µ±Ç°µÄÎ»¼¯µÄÖµ±È<code>otherFlags</code>´ó,
-     *         Ğ¡ÓÚ<code>0</code>±íÊ¾µ±Ç°µÄÎ»¼¯µÄÖµ±È<code>otherFlags</code>Ğ¡
+     * @return å¦‚æœç­‰äº<code>0</code>, è¡¨ç¤ºå€¼ç›¸ç­‰, å¤§äº<code>0</code>è¡¨ç¤ºå½“å‰çš„ä½é›†çš„å€¼æ¯”<code>otherFlags</code>å¤§,
+     *         å°äº<code>0</code>è¡¨ç¤ºå½“å‰çš„ä½é›†çš„å€¼æ¯”<code>otherFlags</code>å°
      */
     public int compareTo(Object other) {
         if (!getClass().equals(other.getClass())) {
@@ -201,11 +201,11 @@ public abstract class FlagSet implements Flags, Cloneable, Comparable, Serializa
     }
 
     /**
-     * ±È½ÏÁ½¸öÎ»¼¯ÊÇ·ñÏàµÈ, ¼´: ÀàĞÍÏàÍ¬, ÄÚ²¿ÀàÏàÍ¬, ²¢ÇÒÖµÏàÍ¬.
+     * æ¯”è¾ƒä¸¤ä¸ªä½é›†æ˜¯å¦ç›¸ç­‰, å³: ç±»å‹ç›¸åŒ, å†…éƒ¨ç±»ç›¸åŒ, å¹¶ä¸”å€¼ç›¸åŒ.
      *
-     * @param obj  Òª±È½ÏµÄ¶ÔÏó
+     * @param obj  è¦æ¯”è¾ƒçš„å¯¹è±¡
      *
-     * @return Èç¹ûÏàµÈ, Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœç›¸ç­‰, åˆ™è¿”å›<code>true</code>
      */
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -221,18 +221,18 @@ public abstract class FlagSet implements Flags, Cloneable, Comparable, Serializa
     }
 
     /**
-     * È¡µÃÎ»¼¯µÄhashÖµ.  Èç¹ûÁ½¸öÎ»¼¯ÏàÍ¬, ÔòËüÃÇµÄhashÖµÒ»¶¨ÏàÍ¬.
+     * å–å¾—ä½é›†çš„hashå€¼.  å¦‚æœä¸¤ä¸ªä½é›†ç›¸åŒ, åˆ™å®ƒä»¬çš„hashå€¼ä¸€å®šç›¸åŒ.
      *
-     * @return hashÖµ
+     * @return hashå€¼
      */
     public int hashCode() {
         return getClass().hashCode() ^ enumClass.hashCode() ^ getValue().hashCode();
     }
 
     /**
-     * È¡µÃÎ»¼¯µÄ×Ö·û´®±íÊ¾.
+     * å–å¾—ä½é›†çš„å­—ç¬¦ä¸²è¡¨ç¤º.
      *
-     * @return Î»¼¯µÄ×Ö·û´®±íÊ¾
+     * @return ä½é›†çš„å­—ç¬¦ä¸²è¡¨ç¤º
      */
     public String toString() {
         StringBuffer buffer = new StringBuffer("{");
@@ -253,9 +253,9 @@ public abstract class FlagSet implements Flags, Cloneable, Comparable, Serializa
     }
 
     /**
-     * ÉèÖÃ³É²»¿É±äµÄÎ»¼¯.
+     * è®¾ç½®æˆä¸å¯å˜çš„ä½é›†.
      *
-     * @return Î»¼¯±¾Éí
+     * @return ä½é›†æœ¬èº«
      */
     public Flags setImmutable() {
         this.immutable = true;
@@ -263,18 +263,18 @@ public abstract class FlagSet implements Flags, Cloneable, Comparable, Serializa
     }
 
     /**
-     * Çå³ıµ±Ç°Î»¼¯µÄÈ«²¿Î».
+     * æ¸…é™¤å½“å‰ä½é›†çš„å…¨éƒ¨ä½.
      *
-     * @return µ±Ç°Î»¼¯
+     * @return å½“å‰ä½é›†
      */
     public abstract Flags clear();
 
     /**
-     * Çå³ıµ±Ç°Î»¼¯µÄÖ¸¶¨Î», µÈĞ§ÓÚ<code>andNot</code>²Ù×÷.
+     * æ¸…é™¤å½“å‰ä½é›†çš„æŒ‡å®šä½, ç­‰æ•ˆäº<code>andNot</code>æ“ä½œ.
      *
-     * @param flags  ±êÖ¾Î»
+     * @param flags  æ ‡å¿—ä½
      *
-     * @return µ±Ç°Î»¼¯
+     * @return å½“å‰ä½é›†
      */
     public Flags clear(Flags flags) {
         checkImmutable();
@@ -282,11 +282,11 @@ public abstract class FlagSet implements Flags, Cloneable, Comparable, Serializa
     }
 
     /**
-     * ÉèÖÃµ±Ç°Î»¼¯µÄÖ¸¶¨Î», µÈĞ§ÓÚ<code>or</code>²Ù×÷.
+     * è®¾ç½®å½“å‰ä½é›†çš„æŒ‡å®šä½, ç­‰æ•ˆäº<code>or</code>æ“ä½œ.
      *
-     * @param flags  ±êÖ¾Î»
+     * @param flags  æ ‡å¿—ä½
      *
-     * @return µ±Ç°Î»¼¯
+     * @return å½“å‰ä½é›†
      */
     public Flags set(Flags flags) {
         checkImmutable();
@@ -294,18 +294,18 @@ public abstract class FlagSet implements Flags, Cloneable, Comparable, Serializa
     }
 
     /**
-     * ²âÊÔµ±Ç°Î»¼¯µÄÖ¸¶¨Î», µÈĞ§ÓÚ<code>and(flags) != 0</code>.
+     * æµ‹è¯•å½“å‰ä½é›†çš„æŒ‡å®šä½, ç­‰æ•ˆäº<code>and(flags) != 0</code>.
      *
-     * @param flags  ±êÖ¾Î»
+     * @param flags  æ ‡å¿—ä½
      *
-     * @return Èç¹ûÖ¸¶¨Î»±»ÖÃÎ», Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœæŒ‡å®šä½è¢«ç½®ä½, åˆ™è¿”å›<code>true</code>
      */
     public abstract boolean test(Flags flags);
 
     /**
-     * Èç¹ûÊÇ²»¿É±äÎ»¼¯, Ôò´´½¨Ò»¸öĞÂµÄÎ»¼¯, ·ñÔò·µ»Ø±¾Éí.
+     * å¦‚æœæ˜¯ä¸å¯å˜ä½é›†, åˆ™åˆ›å»ºä¸€ä¸ªæ–°çš„ä½é›†, å¦åˆ™è¿”å›æœ¬èº«.
      *
-     * @return Î»¼¯±¾Éí»ò¸´ÖÆÆ·
+     * @return ä½é›†æœ¬èº«æˆ–å¤åˆ¶å“
      */
     protected FlagSet getFlagSetForModification() {
         if (immutable) {
@@ -316,7 +316,7 @@ public abstract class FlagSet implements Flags, Cloneable, Comparable, Serializa
     }
 
     /**
-     * Èç¹ûÊÇ²»¿É±äµÄÎ»¼¯, ÔòÖÀ³ö<code>UnsupportedOperationException</code>.
+     * å¦‚æœæ˜¯ä¸å¯å˜çš„ä½é›†, åˆ™æ·å‡º<code>UnsupportedOperationException</code>.
      */
     protected void checkImmutable() {
         if (immutable) {
@@ -325,9 +325,9 @@ public abstract class FlagSet implements Flags, Cloneable, Comparable, Serializa
     }
 
     /**
-     * È·±£<code>flags</code>·Ç¿Õ, ²¢ÇÒÊÇ<code>Enum</code>»ò<code>FlagSet</code>Àà.
+     * ç¡®ä¿<code>flags</code>éç©º, å¹¶ä¸”æ˜¯<code>Enum</code>æˆ–<code>FlagSet</code>ç±».
      *
-     * @param flags ÒªÅĞ¶ÏµÄ¶ÔÏó
+     * @param flags è¦åˆ¤æ–­çš„å¯¹è±¡
      */
     protected void checkFlags(Flags flags) {
         if (flags == null) {

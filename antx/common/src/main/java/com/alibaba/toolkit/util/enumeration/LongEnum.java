@@ -18,7 +18,7 @@
 package com.alibaba.toolkit.util.enumeration;
 
 /**
- * ÀàĞÍ°²È«µÄÃ¶¾ÙÀàĞÍ, ´ú±íÒ»¸ö³¤ÕûÊı.
+ * ç±»å‹å®‰å…¨çš„æšä¸¾ç±»å‹, ä»£è¡¨ä¸€ä¸ªé•¿æ•´æ•°.
  *
  * @version $Id: LongEnum.java,v 1.1 2003/07/03 07:26:21 baobao Exp $
  * @author Michael Zhou
@@ -27,28 +27,28 @@ public abstract class LongEnum extends Enum {
     private static final long serialVersionUID = 8152633183977823349L;
 
     /**
-     * ´´½¨Ò»¸öÃ¶¾ÙÁ¿.
+     * åˆ›å»ºä¸€ä¸ªæšä¸¾é‡.
      *
-     * @param name Ã¶¾ÙÁ¿µÄÃû³Æ
+     * @param name æšä¸¾é‡çš„åç§°
      */
     protected LongEnum(String name) {
         super(name);
     }
 
     /**
-     * ´´½¨Ò»¸öÃ¶¾ÙÁ¿.
+     * åˆ›å»ºä¸€ä¸ªæšä¸¾é‡.
      *
-     * @param name  Ã¶¾ÙÁ¿µÄÃû³Æ
-     * @param value Ã¶¾ÙÁ¿µÄ³¤ÕûÊıÖµ
+     * @param name  æšä¸¾é‡çš„åç§°
+     * @param value æšä¸¾é‡çš„é•¿æ•´æ•°å€¼
      */
     protected LongEnum(String name, long value) {
         super(name, new Long(value));
     }
 
     /**
-     * ´´½¨Ò»¸öÃ¶¾ÙÀàĞÍµÄ<code>EnumType</code>.
+     * åˆ›å»ºä¸€ä¸ªæšä¸¾ç±»å‹çš„<code>EnumType</code>.
      *
-     * @return Ã¶¾ÙÀàĞÍµÄ<code>EnumType</code>
+     * @return æšä¸¾ç±»å‹çš„<code>EnumType</code>
      */
     protected static Object createEnumType() {
         return new EnumType() {
@@ -59,13 +59,13 @@ public abstract class LongEnum extends Enum {
             protected Object getNextValue(Object value, boolean flagMode) {
                 if (value == null) {
                     return flagMode ? new Long(1)
-                                    : new Long(0); // Ä¬ÈÏÆğÊ¼Öµ
+                                    : new Long(0); // é»˜è®¤èµ·å§‹å€¼
                 }
 
                 long longValue = ((Long) value).longValue();
 
                 if (flagMode) {
-                    return new Long(longValue << 1); // Î»Ä£Ê½
+                    return new Long(longValue << 1); // ä½æ¨¡å¼
                 } else {
                     return new Long(longValue + 1);
                 }
@@ -92,63 +92,63 @@ public abstract class LongEnum extends Enum {
     }
 
     /**
-     * ÊµÏÖ<code>Number</code>Àà, È¡µÃÕûÊıÖµ.
+     * å®ç°<code>Number</code>ç±», å–å¾—æ•´æ•°å€¼.
      *
-     * @return ÕûÊıÖµ
+     * @return æ•´æ•°å€¼
      */
     public int intValue() {
         return ((Long) getValue()).intValue();
     }
 
     /**
-     * ÊµÏÖ<code>Number</code>Àà, È¡µÃ³¤ÕûÊıÖµ.
+     * å®ç°<code>Number</code>ç±», å–å¾—é•¿æ•´æ•°å€¼.
      *
-     * @return ³¤ÕûÊıÖµ
+     * @return é•¿æ•´æ•°å€¼
      */
     public long longValue() {
         return ((Long) getValue()).longValue();
     }
 
     /**
-     * ÊµÏÖ<code>Number</code>Àà, È¡µÃ<code>double</code>Öµ.
+     * å®ç°<code>Number</code>ç±», å–å¾—<code>double</code>å€¼.
      *
-     * @return <code>double</code>Öµ
+     * @return <code>double</code>å€¼
      */
     public double doubleValue() {
         return ((Long) getValue()).doubleValue();
     }
 
     /**
-     * ÊµÏÖ<code>Number</code>Àà, È¡µÃ<code>float</code>Öµ.
+     * å®ç°<code>Number</code>ç±», å–å¾—<code>float</code>å€¼.
      *
-     * @return <code>float</code>Öµ
+     * @return <code>float</code>å€¼
      */
     public float floatValue() {
         return ((Long) getValue()).floatValue();
     }
 
     /**
-     * ÊµÏÖ<code>IntegralNumber</code>Àà, ×ª»»³ÉÊ®Áù½øÖÆÕûÊı×Ö·û´®.
+     * å®ç°<code>IntegralNumber</code>ç±», è½¬æ¢æˆåå…­è¿›åˆ¶æ•´æ•°å­—ç¬¦ä¸².
      *
-     * @return Ê®Áù½øÖÆÕûÊı×Ö·û´®
+     * @return åå…­è¿›åˆ¶æ•´æ•°å­—ç¬¦ä¸²
      */
     public String toHexString() {
         return Long.toHexString(((Long) getValue()).intValue());
     }
 
     /**
-     * ÊµÏÖ<code>IntegralNumber</code>Àà, ×ª»»³É°Ë½øÖÆÕûÊı×Ö·û´®.
+     * å®ç°<code>IntegralNumber</code>ç±», è½¬æ¢æˆå…«è¿›åˆ¶æ•´æ•°å­—ç¬¦ä¸².
      *
-     * @return °Ë½øÖÆÕûÊı×Ö·û´®
+     * @return å…«è¿›åˆ¶æ•´æ•°å­—ç¬¦ä¸²
      */
     public String toOctalString() {
         return Long.toOctalString(((Long) getValue()).intValue());
     }
 
     /**
-     * ÊµÏÖ<code>IntegralNumber</code>Àà, ×ª»»³É¶ş½øÖÆÕûÊı×Ö·û´®.
+     * å®ç°<code>IntegralNumber</code>ç±», è½¬æ¢æˆäºŒè¿›åˆ¶æ•´æ•°å­—ç¬¦ä¸².
      *
-     * @return ¶ş½øÖÆÕûÊı×Ö·û´®
+     * @return äºŒè¿›åˆ¶æ•´æ•°å­—ç¬¦ä¸²
      */
     public String toBinaryString() {
         return Long.toBinaryString(((Long) getValue()).intValue());

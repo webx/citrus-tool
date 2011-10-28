@@ -93,7 +93,7 @@ public class RegexpValidator extends ConfigValidator {
                     + ", should be contain, exact or prefix.");
         }
 
-        // Æ¥Åä
+        // åŒ¹é…
         PatternMatcher matcher = new Perl5Matcher();
         boolean not = getMode().startsWith("!");
 
@@ -116,6 +116,6 @@ public class RegexpValidator extends ConfigValidator {
 
     @Override
     protected String getDefaultMessage() {
-        return "²ÎÊıÖµ±ØĞë·ûºÏÕıÔò±í´ïÊ½£º" + getRegexp();
+        return "å‚æ•°å€¼å¿…é¡»ç¬¦åˆæ­£åˆ™è¡¨è¾¾å¼ï¼š" + getRegexp();
     }
 }

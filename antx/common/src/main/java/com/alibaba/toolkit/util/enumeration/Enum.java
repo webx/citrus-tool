@@ -40,7 +40,7 @@ import java.util.Map;
 import java.util.WeakHashMap;
 
 /**
- * ÀàĞÍ°²È«µÄÃ¶¾ÙÀàĞÍ.
+ * ç±»å‹å®‰å…¨çš„æšä¸¾ç±»å‹.
  *
  * @version $Id: Enum.java,v 1.1 2003/07/03 07:26:20 baobao Exp $
  * @author Michael Zhou
@@ -53,31 +53,31 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable,
     private final Object      value;
 
     /**
-     * ´´½¨Ò»¸öÃ¶¾ÙÁ¿.  ¸ÃÃ¶¾ÙÁ¿±»¸³ÓèÒ»¸ö×Ô¶¯²úÉúµÄÖµ.  Õâ¸öÖµÈ¡¾öÓÚ<code>Enum</code>µÄÀàĞÍ, Ò»°ãÊÇµİÔöµÄ.
-     * Èç¹û<code>Enum</code>ÀàÊµÏÖÁË<code>Flags</code>½Ó¿Ú, ÔòÕâ¸öÖµÊÇ±¶ÔöµÄ(×óÒÆ).
+     * åˆ›å»ºä¸€ä¸ªæšä¸¾é‡.  è¯¥æšä¸¾é‡è¢«èµ‹äºˆä¸€ä¸ªè‡ªåŠ¨äº§ç”Ÿçš„å€¼.  è¿™ä¸ªå€¼å–å†³äº<code>Enum</code>çš„ç±»å‹, ä¸€èˆ¬æ˜¯é€’å¢çš„.
+     * å¦‚æœ<code>Enum</code>ç±»å®ç°äº†<code>Flags</code>æ¥å£, åˆ™è¿™ä¸ªå€¼æ˜¯å€å¢çš„(å·¦ç§»).
      *
-     * @param name Ã¶¾ÙÁ¿µÄÃû³Æ
+     * @param name æšä¸¾é‡çš„åç§°
      */
     protected Enum(String name) {
         this(name, null, false);
     }
 
     /**
-     * ´´½¨Ò»¸öÃ¶¾ÙÁ¿, ²¢¸³ÓèÖ¸¶¨µÄÖµ.
+     * åˆ›å»ºä¸€ä¸ªæšä¸¾é‡, å¹¶èµ‹äºˆæŒ‡å®šçš„å€¼.
      *
-     * @param name  Ã¶¾ÙÁ¿µÄÃû³Æ
-     * @param value Ã¶¾ÙÁ¿µÄÖµ, Õâ¸öÖµ²»ÄÜÎª<code>null</code>
+     * @param name  æšä¸¾é‡çš„åç§°
+     * @param value æšä¸¾é‡çš„å€¼, è¿™ä¸ªå€¼ä¸èƒ½ä¸º<code>null</code>
      */
     protected Enum(String name, Object value) {
         this(name, value, true);
     }
 
     /**
-     * ´´½¨Ò»¸öÃ¶¾ÙÁ¿.
+     * åˆ›å»ºä¸€ä¸ªæšä¸¾é‡.
      *
-     * @param name      Ã¶¾ÙÁ¿µÄÃû³Æ
-     * @param value     Ã¶¾ÙÁ¿µÄÖµ
-     * @param withValue Èç¹ûÊÇ<code>true</code>, Ôò¸ÃÃ¶¾ÙÁ¿±»¸³ÓèÖ¸¶¨µÄÖµ, ·ñÔò¸ÃÃ¶¾ÙÁ¿½«±»¸³ÓèÒ»¸ö×Ô¶¯²úÉúµÄÖµ
+     * @param name      æšä¸¾é‡çš„åç§°
+     * @param value     æšä¸¾é‡çš„å€¼
+     * @param withValue å¦‚æœæ˜¯<code>true</code>, åˆ™è¯¥æšä¸¾é‡è¢«èµ‹äºˆæŒ‡å®šçš„å€¼, å¦åˆ™è¯¥æšä¸¾é‡å°†è¢«èµ‹äºˆä¸€ä¸ªè‡ªåŠ¨äº§ç”Ÿçš„å€¼
      */
     private Enum(String name, Object value, boolean withValue) {
         if ((name == null) || ((name = name.trim()).length() == 0)) {
@@ -111,12 +111,12 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable,
 
         enumType.nameMap.put(name, this);
 
-        // ½«enum¼ÓÈëvalueMap, Èç¹ûÓĞ¶à¸öenumµÄÖµÏàÍ¬, ÔòÈ¡µÚÒ»¸ö
+        // å°†enumåŠ å…¥valueMap, å¦‚æœæœ‰å¤šä¸ªenumçš„å€¼ç›¸åŒ, åˆ™å–ç¬¬ä¸€ä¸ª
         if (!enumType.valueMap.containsKey(this.value)) {
             enumType.valueMap.put(this.value, this);
         }
 
-        // Èç¹ûÊÇflagÄ£Ê½, Ôò½«µ±Ç°enum¼ÓÈëÈ«¼¯
+        // å¦‚æœæ˜¯flagæ¨¡å¼, åˆ™å°†å½“å‰enumåŠ å…¥å…¨é›†
         if (flagMode) {
             if (enumType.fullSet == null) {
                 try {
@@ -132,92 +132,92 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable,
     }
 
     /**
-     * È¡µÃ<code>Enum</code>ÖµµÄÀàĞÍ.
+     * å–å¾—<code>Enum</code>å€¼çš„ç±»å‹.
      *
-     * @param enumClass  Ã¶¾ÙÀàĞÍ
+     * @param enumClass  æšä¸¾ç±»å‹
      *
-     * @return <code>Enum</code>ÖµµÄÀàĞÍ
+     * @return <code>Enum</code>å€¼çš„ç±»å‹
      */
     public static Class getUnderlyingClass(Class enumClass) {
         return getEnumType(enumClass).getUnderlyingClass();
     }
 
     /**
-     * ÅĞ¶ÏÖ¸¶¨Ãû³ÆµÄÃ¶¾ÙÁ¿ÊÇ·ñ±»¶¨Òå.
+     * åˆ¤æ–­æŒ‡å®šåç§°çš„æšä¸¾é‡æ˜¯å¦è¢«å®šä¹‰.
      *
-     * @param enumClass  Ã¶¾ÙÀàĞÍ
-     * @param name       Ã¶¾ÙÁ¿µÄÃû³Æ
+     * @param enumClass  æšä¸¾ç±»å‹
+     * @param name       æšä¸¾é‡çš„åç§°
      *
-     * @return Èç¹û´æÔÚ, Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœå­˜åœ¨, åˆ™è¿”å›<code>true</code>
      */
     public static boolean isNameDefined(Class enumClass, String name) {
         return getEnumType(enumClass).nameMap.containsKey(name);
     }
 
     /**
-     * ÅĞ¶ÏÖ¸¶¨ÖµµÄÃ¶¾ÙÁ¿ÊÇ·ñ±»¶¨Òå.
+     * åˆ¤æ–­æŒ‡å®šå€¼çš„æšä¸¾é‡æ˜¯å¦è¢«å®šä¹‰.
      *
-     * @param enumClass  Ã¶¾ÙÀàĞÍ
-     * @param value      Ã¶¾ÙÁ¿µÄÖµ
+     * @param enumClass  æšä¸¾ç±»å‹
+     * @param value      æšä¸¾é‡çš„å€¼
      *
-     * @return Èç¹û´æÔÚ, Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœå­˜åœ¨, åˆ™è¿”å›<code>true</code>
      */
     public static boolean isValueDefined(Class enumClass, Object value) {
         return getEnumType(enumClass).valueMap.containsKey(value);
     }
 
     /**
-     * È¡µÃÖ¸¶¨Ãû³ÆµÄÃ¶¾ÙÁ¿.
+     * å–å¾—æŒ‡å®šåç§°çš„æšä¸¾é‡.
      *
-     * @param enumClass  Ã¶¾ÙÀàĞÍ
-     * @param name       Ã¶¾ÙÁ¿µÄÃû³Æ
+     * @param enumClass  æšä¸¾ç±»å‹
+     * @param name       æšä¸¾é‡çš„åç§°
      *
-     * @return Ã¶¾ÙÁ¿, Èç¹û²»´æÔÚ, Ôò·µ»Ø<code>null</code>
+     * @return æšä¸¾é‡, å¦‚æœä¸å­˜åœ¨, åˆ™è¿”å›<code>null</code>
      */
     public static Enum getEnumByName(Class enumClass, String name) {
         return (Enum) getEnumType(enumClass).nameMap.get(name);
     }
 
     /**
-     * È¡µÃÖ¸¶¨ÖµµÄÃ¶¾ÙÁ¿.
+     * å–å¾—æŒ‡å®šå€¼çš„æšä¸¾é‡.
      *
-     * @param enumClass  Ã¶¾ÙÀàĞÍ
-     * @param value      Ã¶¾ÙÁ¿µÄÖµ
+     * @param enumClass  æšä¸¾ç±»å‹
+     * @param value      æšä¸¾é‡çš„å€¼
      *
-     * @return Ã¶¾ÙÁ¿, Èç¹û²»´æÔÚ, Ôò·µ»Ø<code>null</code>
+     * @return æšä¸¾é‡, å¦‚æœä¸å­˜åœ¨, åˆ™è¿”å›<code>null</code>
      */
     public static Enum getEnumByValue(Class enumClass, Object value) {
         return (Enum) getEnumType(enumClass).valueMap.get(value);
     }
 
     /**
-     * È¡µÃÖ¸¶¨ÀàĞÍµÄËùÓĞÃ¶¾ÙÁ¿µÄ<code>Map</code>, ´Ë<code>Map</code>ÊÇÓĞĞòµÄ.
+     * å–å¾—æŒ‡å®šç±»å‹çš„æ‰€æœ‰æšä¸¾é‡çš„<code>Map</code>, æ­¤<code>Map</code>æ˜¯æœ‰åºçš„.
      *
-     * @param enumClass Ã¶¾ÙÀàĞÍ
+     * @param enumClass æšä¸¾ç±»å‹
      *
-     * @return Ö¸¶¨ÀàĞÍµÄËùÓĞÃ¶¾ÙÁ¿µÄ<code>Map</code>
+     * @return æŒ‡å®šç±»å‹çš„æ‰€æœ‰æšä¸¾é‡çš„<code>Map</code>
      */
     public static Map getEnumMap(Class enumClass) {
         return Collections.unmodifiableMap(getEnumType(enumClass).nameMap);
     }
 
     /**
-     * È¡µÃÖ¸¶¨ÀàĞÍµÄËùÓĞÃ¶¾ÙÁ¿µÄ<code>Iterator</code>.
+     * å–å¾—æŒ‡å®šç±»å‹çš„æ‰€æœ‰æšä¸¾é‡çš„<code>Iterator</code>.
      *
-     * @param enumClass Ã¶¾ÙÀàĞÍ
+     * @param enumClass æšä¸¾ç±»å‹
      *
-     * @return Ö¸¶¨ÀàĞÍµÄËùÓĞÃ¶¾ÙÁ¿µÄ<code>Iterator</code>
+     * @return æŒ‡å®šç±»å‹çš„æ‰€æœ‰æšä¸¾é‡çš„<code>Iterator</code>
      */
     public static Iterator iterator(Class enumClass) {
         return getEnumMap(enumClass).values().iterator();
     }
 
     /**
-     * ´´½¨ºÍÖ¸¶¨Ã¶¾ÙÀà¶ÔÓ¦µÄ¿ÕÎ»¼¯.
+     * åˆ›å»ºå’ŒæŒ‡å®šæšä¸¾ç±»å¯¹åº”çš„ç©ºä½é›†.
      *
-     * @param enumClass  Ã¶¾ÙÀà
+     * @param enumClass  æšä¸¾ç±»
      *
-     * @return ¿ÕÎ»¼¯
+     * @return ç©ºä½é›†
      */
     public static FlagSet createFlagSet(Class enumClass) {
         if (!(Flags.class.isAssignableFrom(enumClass))) {
@@ -256,11 +256,11 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable,
     }
 
     /**
-     * ´´½¨È«¼¯.
+     * åˆ›å»ºå…¨é›†.
      *
-     * @param enumClass  Ã¶¾ÙÀàĞÍ
+     * @param enumClass  æšä¸¾ç±»å‹
      *
-     * @return µ±Ç°Ã¶¾ÙÀàĞÍµÄÈ«¼¯
+     * @return å½“å‰æšä¸¾ç±»å‹çš„å…¨é›†
      */
     public static FlagSet createFullSet(Class enumClass) {
         FlagSet  flagSet  = createFlagSet(enumClass);
@@ -274,11 +274,11 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable,
     }
 
     /**
-     * È¡µÃÖ¸¶¨ÀàµÄ<code>ClassLoader</code>¶ÔÓ¦µÄentry±í.
+     * å–å¾—æŒ‡å®šç±»çš„<code>ClassLoader</code>å¯¹åº”çš„entryè¡¨.
      *
-     * @param enumClass  <code>Enum</code>Àà
+     * @param enumClass  <code>Enum</code>ç±»
      *
-     * @return entry±í
+     * @return entryè¡¨
      */
     private static Map getEnumEntryMap(Class enumClass) {
         ClassLoader classLoader = enumClass.getClassLoader();
@@ -296,11 +296,11 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable,
     }
 
     /**
-     * È¡µÃ<code>Enum</code>ÀàµÄ<code>EnumType</code>
+     * å–å¾—<code>Enum</code>ç±»çš„<code>EnumType</code>
      *
-     * @param enumClass <code>Enum</code>Àà
+     * @param enumClass <code>Enum</code>ç±»
      *
-     * @return <code>Enum</code>Àà¶ÔÓ¦µÄ<code>EnumType</code>¶ÔÏó
+     * @return <code>Enum</code>ç±»å¯¹åº”çš„<code>EnumType</code>å¯¹è±¡
      */
     private static EnumType getEnumType(Class enumClass) {
         if (enumClass == null) {
@@ -349,13 +349,13 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable,
     }
 
     /**
-     * ²éÕÒ·½·¨.
+     * æŸ¥æ‰¾æ–¹æ³•.
      *
-     * @param enumClass   Ã¶¾ÙÀàĞÍ
-     * @param methodName  ·½·¨Ãû
-     * @param paramTypes  ²ÎÊıÀàĞÍ±í
+     * @param enumClass   æšä¸¾ç±»å‹
+     * @param methodName  æ–¹æ³•å
+     * @param paramTypes  å‚æ•°ç±»å‹è¡¨
      *
-     * @return ·½·¨¶ÔÏó, »ò<code>null</code>±íÊ¾Î´ÕÒµ½
+     * @return æ–¹æ³•å¯¹è±¡, æˆ–<code>null</code>è¡¨ç¤ºæœªæ‰¾åˆ°
      */
     private static Method findStaticMethod(Class enumClass, String methodName, Class[] paramTypes) {
         Method method = null;
@@ -376,13 +376,13 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable,
     }
 
     /**
-     * ²éÕÒÄÚ²¿Àà.
+     * æŸ¥æ‰¾å†…éƒ¨ç±».
      *
-     * @param enumClass       Ã¶¾ÙÀàĞÍ
-     * @param innerClassName  ·½·¨Ãû
-     * @param superClass      ¸¸Àà
+     * @param enumClass       æšä¸¾ç±»å‹
+     * @param innerClassName  æ–¹æ³•å
+     * @param superClass      çˆ¶ç±»
      *
-     * @return ÄÚ²¿Àà¶ÔÏó, »ò<code>null</code>±íÊ¾Î´ÕÒµ½
+     * @return å†…éƒ¨ç±»å¯¹è±¡, æˆ–<code>null</code>è¡¨ç¤ºæœªæ‰¾åˆ°
      */
     private static Class findStaticInnerClass(Class enumClass, String innerClassName,
                                               Class superClass) {
@@ -410,58 +410,58 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable,
     }
 
     /**
-     * È¡µÃÃ¶¾ÙÁ¿µÄÃû³Æ.
+     * å–å¾—æšä¸¾é‡çš„åç§°.
      *
-     * @return Ã¶¾ÙÁ¿µÄÃû³Æ
+     * @return æšä¸¾é‡çš„åç§°
      */
     public String getName() {
         return name;
     }
 
     /**
-     * È¡µÃÃ¶¾ÙÁ¿µÄÖµ.
+     * å–å¾—æšä¸¾é‡çš„å€¼.
      *
-     * @return Ã¶¾ÙÁ¿µÄÖµ
+     * @return æšä¸¾é‡çš„å€¼
      */
     public Object getValue() {
         return value;
     }
 
     /**
-     * ÊµÏÖ<code>Number</code>Àà, È¡µÃ<code>byte</code>Öµ.
+     * å®ç°<code>Number</code>ç±», å–å¾—<code>byte</code>å€¼.
      *
-     * @return <code>byte</code>Öµ
+     * @return <code>byte</code>å€¼
      */
     public byte byteValue() {
         return (byte) intValue();
     }
 
     /**
-     * ÊµÏÖ<code>Number</code>Àà, È¡µÃ<code>short</code>Öµ.
+     * å®ç°<code>Number</code>ç±», å–å¾—<code>short</code>å€¼.
      *
-     * @return <code>short</code>Öµ
+     * @return <code>short</code>å€¼
      */
     public short shortValue() {
         return (short) intValue();
     }
 
     /**
-     * ÊµÏÖ<code>Convertible</code>½Ó¿Ú,
-     * È¡µÃ½«µ±Ç°<code>Enum</code>×ª»»³ÉÖ¸¶¨<code>targetType</code>µÄ<code>Converter</code>. ×ª»»µÄ¹æÔòÈçÏÂ:
+     * å®ç°<code>Convertible</code>æ¥å£,
+     * å–å¾—å°†å½“å‰<code>Enum</code>è½¬æ¢æˆæŒ‡å®š<code>targetType</code>çš„<code>Converter</code>. è½¬æ¢çš„è§„åˆ™å¦‚ä¸‹:
      *
      * <ul>
      * <li>
-     * Èç¹û<code>targetType</code>ÊÇ×Ö·û´®, Ôò·µ»ØÃ¶¾ÙÁ¿µÄÃû³Æ.
+     * å¦‚æœ<code>targetType</code>æ˜¯å­—ç¬¦ä¸², åˆ™è¿”å›æšä¸¾é‡çš„åç§°.
      * </li>
      * <li>
-     * ·ñÔò½«Ã¶¾ÙÁ¿µÄÖµ´«µİµ½×ª»»Á´ÖĞ.
+     * å¦åˆ™å°†æšä¸¾é‡çš„å€¼ä¼ é€’åˆ°è½¬æ¢é“¾ä¸­.
      * </li>
      * </ul>
      *
      *
-     * @param targetType Ä¿±êÀàĞÍ
+     * @param targetType ç›®æ ‡ç±»å‹
      *
-     * @return ½«µ±Ç°<code>Enum</code>×ª»»³ÉÖ¸¶¨<code>targetType</code>µÄ<code>Converter</code>
+     * @return å°†å½“å‰<code>Enum</code>è½¬æ¢æˆæŒ‡å®š<code>targetType</code>çš„<code>Converter</code>
      */
     public Converter getConverter(Class targetType) {
         return new Converter() {
@@ -479,9 +479,9 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable,
     }
 
     /**
-     * È¡µÃºÍµ±Ç°Ã¶¾ÙÁ¿µÄÖµÏàÍ¬µÄÎ»¼¯.
+     * å–å¾—å’Œå½“å‰æšä¸¾é‡çš„å€¼ç›¸åŒçš„ä½é›†.
      *
-     * @return ĞÂµÄÎ»¼¯
+     * @return æ–°çš„ä½é›†
      */
     public FlagSet createFlagSet() {
         FlagSet flagSet = createFlagSet(getClass());
@@ -494,118 +494,118 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable,
     }
 
     /**
-     * ÉèÖÃ³É²»¿É±äµÄÎ»¼¯.
+     * è®¾ç½®æˆä¸å¯å˜çš„ä½é›†.
      *
-     * @return Î»¼¯±¾Éí
+     * @return ä½é›†æœ¬èº«
      */
     public Flags setImmutable() {
         return createFlagSet().setImmutable();
     }
 
     /**
-     * ¶Ôµ±Ç°Î»¼¯Ö´ĞĞÂß¼­Óë²Ù×÷.
+     * å¯¹å½“å‰ä½é›†æ‰§è¡Œé€»è¾‘ä¸æ“ä½œ.
      *
-     * @param flags  ±êÖ¾Î»
+     * @param flags  æ ‡å¿—ä½
      *
-     * @return µ±Ç°Î»¼¯
+     * @return å½“å‰ä½é›†
      */
     public Flags and(Flags flags) {
         return createFlagSet().and(flags);
     }
 
     /**
-     * ¶Ôµ±Ç°Î»¼¯Ö´ĞĞÂß¼­·Ç²Ù×÷.
+     * å¯¹å½“å‰ä½é›†æ‰§è¡Œé€»è¾‘éæ“ä½œ.
      *
-     * @param flags  ±êÖ¾Î»
+     * @param flags  æ ‡å¿—ä½
      *
-     * @return µ±Ç°Î»¼¯
+     * @return å½“å‰ä½é›†
      */
     public Flags andNot(Flags flags) {
         return createFlagSet().andNot(flags);
     }
 
     /**
-     * ¶Ôµ±Ç°Î»¼¯Ö´ĞĞÂß¼­»ò²Ù×÷.
+     * å¯¹å½“å‰ä½é›†æ‰§è¡Œé€»è¾‘æˆ–æ“ä½œ.
      *
-     * @param flags  ±êÖ¾Î»
+     * @param flags  æ ‡å¿—ä½
      *
-     * @return µ±Ç°Î»¼¯
+     * @return å½“å‰ä½é›†
      */
     public Flags or(Flags flags) {
         return createFlagSet().or(flags);
     }
 
     /**
-     * ¶Ôµ±Ç°Î»¼¯Ö´ĞĞÂß¼­Òì»ò²Ù×÷.
+     * å¯¹å½“å‰ä½é›†æ‰§è¡Œé€»è¾‘å¼‚æˆ–æ“ä½œ.
      *
-     * @param flags  ±êÖ¾Î»
+     * @param flags  æ ‡å¿—ä½
      *
-     * @return µ±Ç°Î»¼¯
+     * @return å½“å‰ä½é›†
      */
     public Flags xor(Flags flags) {
         return createFlagSet().xor(flags);
     }
 
     /**
-     * Çå³ıµ±Ç°Î»¼¯µÄÈ«²¿Î».
+     * æ¸…é™¤å½“å‰ä½é›†çš„å…¨éƒ¨ä½.
      *
-     * @return µ±Ç°Î»¼¯
+     * @return å½“å‰ä½é›†
      */
     public Flags clear() {
         return createFlagSet().clear();
     }
 
     /**
-     * Çå³ıµ±Ç°Î»¼¯µÄÖ¸¶¨Î», µÈĞ§ÓÚ<code>andNot</code>²Ù×÷.
+     * æ¸…é™¤å½“å‰ä½é›†çš„æŒ‡å®šä½, ç­‰æ•ˆäº<code>andNot</code>æ“ä½œ.
      *
-     * @param flags  ±êÖ¾Î»
+     * @param flags  æ ‡å¿—ä½
      *
-     * @return µ±Ç°Î»¼¯
+     * @return å½“å‰ä½é›†
      */
     public Flags clear(Flags flags) {
         return createFlagSet().clear(flags);
     }
 
     /**
-     * ÉèÖÃµ±Ç°Î»¼¯µÄÖ¸¶¨Î», µÈĞ§ÓÚ<code>or</code>²Ù×÷.
+     * è®¾ç½®å½“å‰ä½é›†çš„æŒ‡å®šä½, ç­‰æ•ˆäº<code>or</code>æ“ä½œ.
      *
-     * @param flags  ±êÖ¾Î»
+     * @param flags  æ ‡å¿—ä½
      *
-     * @return µ±Ç°Î»¼¯
+     * @return å½“å‰ä½é›†
      */
     public Flags set(Flags flags) {
         return createFlagSet().set(flags);
     }
 
     /**
-     * ²âÊÔµ±Ç°Î»¼¯µÄÖ¸¶¨Î», µÈĞ§ÓÚ<code>and(flags) != 0</code>.
+     * æµ‹è¯•å½“å‰ä½é›†çš„æŒ‡å®šä½, ç­‰æ•ˆäº<code>and(flags) != 0</code>.
      *
-     * @param flags  ±êÖ¾Î»
+     * @param flags  æ ‡å¿—ä½
      *
-     * @return Èç¹ûÖ¸¶¨Î»±»ÖÃÎ», Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœæŒ‡å®šä½è¢«ç½®ä½, åˆ™è¿”å›<code>true</code>
      */
     public boolean test(Flags flags) {
         return createFlagSet().test(flags);
     }
 
     /**
-     * ²âÊÔµ±Ç°Î»¼¯µÄÖ¸¶¨Î», µÈĞ§ÓÚ<code>and(flags) == flags</code>.
+     * æµ‹è¯•å½“å‰ä½é›†çš„æŒ‡å®šä½, ç­‰æ•ˆäº<code>and(flags) == flags</code>.
      *
-     * @param flags  ±êÖ¾Î»
+     * @param flags  æ ‡å¿—ä½
      *
-     * @return Èç¹ûÖ¸¶¨Î»±»ÖÃÎ», Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœæŒ‡å®šä½è¢«ç½®ä½, åˆ™è¿”å›<code>true</code>
      */
     public boolean testAll(Flags flags) {
         return createFlagSet().test(flags);
     }
 
     /**
-     * ºÍÁíÒ»¸öÃ¶¾ÙÁ¿±È½Ï´óĞ¡, ¾ÍÊÇ°´Ã¶¾ÙÁ¿µÄÖµ±È½Ï.
+     * å’Œå¦ä¸€ä¸ªæšä¸¾é‡æ¯”è¾ƒå¤§å°, å°±æ˜¯æŒ‰æšä¸¾é‡çš„å€¼æ¯”è¾ƒ.
      *
-     * @param otherEnum Òª±È½ÏµÄÃ¶¾ÙÁ¿
+     * @param otherEnum è¦æ¯”è¾ƒçš„æšä¸¾é‡
      *
-     * @return Èç¹ûµÈÓÚ<code>0</code>, ±íÊ¾ÖµÏàµÈ, ´óÓÚ<code>0</code>±íÊ¾µ±Ç°µÄÃ¶¾ÙÁ¿µÄÖµ±È<code>otherEnum</code>´ó,
-     *         Ğ¡ÓÚ<code>0</code>±íÊ¾µ±Ç°µÄÃ¶¾ÙÁ¿µÄÖµ±È<code>otherEnum</code>Ğ¡
+     * @return å¦‚æœç­‰äº<code>0</code>, è¡¨ç¤ºå€¼ç›¸ç­‰, å¤§äº<code>0</code>è¡¨ç¤ºå½“å‰çš„æšä¸¾é‡çš„å€¼æ¯”<code>otherEnum</code>å¤§,
+     *         å°äº<code>0</code>è¡¨ç¤ºå½“å‰çš„æšä¸¾é‡çš„å€¼æ¯”<code>otherEnum</code>å°
      */
     public int compareTo(Object otherEnum) {
         if (!getClass().equals(otherEnum.getClass())) {
@@ -621,11 +621,11 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable,
     }
 
     /**
-     * ±È½ÏÁ½¸öÃ¶¾ÙÁ¿ÊÇ·ñÏàµÈ, ¼´: ÀàĞÍÏàÍ¬, ²¢ÇÒÖµÏàÍ¬(µ«Ãû×Ö¿ÉÒÔ²»Í¬).
+     * æ¯”è¾ƒä¸¤ä¸ªæšä¸¾é‡æ˜¯å¦ç›¸ç­‰, å³: ç±»å‹ç›¸åŒ, å¹¶ä¸”å€¼ç›¸åŒ(ä½†åå­—å¯ä»¥ä¸åŒ).
      *
-     * @param obj  Òª±È½ÏµÄ¶ÔÏó
+     * @param obj  è¦æ¯”è¾ƒçš„å¯¹è±¡
      *
-     * @return Èç¹ûÏàµÈ, Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœç›¸ç­‰, åˆ™è¿”å›<code>true</code>
      */
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -640,29 +640,29 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable,
     }
 
     /**
-     * È¡µÃÃ¶¾ÙÁ¿µÄhashÖµ.  Èç¹ûÁ½¸öÃ¶¾ÙÁ¿ÏàÍ¬, ÔòËüÃÇµÄhashÖµÒ»¶¨ÏàÍ¬.
+     * å–å¾—æšä¸¾é‡çš„hashå€¼.  å¦‚æœä¸¤ä¸ªæšä¸¾é‡ç›¸åŒ, åˆ™å®ƒä»¬çš„hashå€¼ä¸€å®šç›¸åŒ.
      *
-     * @return hashÖµ
+     * @return hashå€¼
      */
     public int hashCode() {
         return getClass().hashCode() ^ value.hashCode();
     }
 
     /**
-     * ½«Ã¶¾ÙÁ¿×ª»»³É×Ö·û´®, Ò²¾ÍÊÇÃ¶¾ÙÁ¿µÄÃû³Æ.
+     * å°†æšä¸¾é‡è½¬æ¢æˆå­—ç¬¦ä¸², ä¹Ÿå°±æ˜¯æšä¸¾é‡çš„åç§°.
      *
-     * @return Ã¶¾ÙÁ¿µÄÃû³Æ
+     * @return æšä¸¾é‡çš„åç§°
      */
     public String toString() {
         return name;
     }
 
     /**
-     * ±»"·´ĞòÁĞ»¯"¹ı³Ìµ÷ÓÃ, È·±£·µ»ØÃ¶¾ÙÁ¿µÄsingleton.
+     * è¢«"ååºåˆ—åŒ–"è¿‡ç¨‹è°ƒç”¨, ç¡®ä¿è¿”å›æšä¸¾é‡çš„singleton.
      *
-     * @return Ã¶¾ÙÁ¿µÄsingleton
+     * @return æšä¸¾é‡çš„singleton
      *
-     * @throws ObjectStreamException Èç¹û·´ĞòÁĞ»¯³ö´í
+     * @throws ObjectStreamException å¦‚æœååºåˆ—åŒ–å‡ºé”™
      */
     protected Object readResolve() throws ObjectStreamException {
         Enum enumObj = Enum.getEnumByName(getClass(), getName());
@@ -675,7 +675,7 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable,
     }
 
     /**
-     * ´ú±íÒ»¸öÃ¶¾ÙÀàĞÍµÄ¶îÍâĞÅÏ¢.
+     * ä»£è¡¨ä¸€ä¸ªæšä¸¾ç±»å‹çš„é¢å¤–ä¿¡æ¯.
      */
     protected abstract static class EnumType {
         private Object value;
@@ -686,12 +686,12 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable,
         FlagSet        fullSet;
 
         /**
-         * ÉèÖÃÖ¸¶¨ÖµÎªµ±Ç°Öµ.
+         * è®¾ç½®æŒ‡å®šå€¼ä¸ºå½“å‰å€¼.
          *
-         * @param value    µ±Ç°Öµ
-         * @param flagMode ÊÇ·ñÎªÎ»Ä£Ê½
+         * @param value    å½“å‰å€¼
+         * @param flagMode æ˜¯å¦ä¸ºä½æ¨¡å¼
          *
-         * @return µ±Ç°Öµ
+         * @return å½“å‰å€¼
          */
         final Object setValue(Object value, boolean flagMode) {
             this.value = value;
@@ -708,11 +708,11 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable,
         }
 
         /**
-         * È¡µÃÏÂÒ»¸öÖµ.
+         * å–å¾—ä¸‹ä¸€ä¸ªå€¼.
          *
-         * @param flagMode ÊÇ·ñÎªÎ»Ä£Ê½
+         * @param flagMode æ˜¯å¦ä¸ºä½æ¨¡å¼
          *
-         * @return µ±Ç°Öµ
+         * @return å½“å‰å€¼
          */
         final Object getNextValue(boolean flagMode) {
             value = getNextValue(value, flagMode);
@@ -725,37 +725,37 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable,
         }
 
         /**
-         * È¡µÃ<code>Enum</code>ÖµµÄÀàĞÍ.
+         * å–å¾—<code>Enum</code>å€¼çš„ç±»å‹.
          *
-         * @return <code>Enum</code>ÖµµÄÀàĞÍ
+         * @return <code>Enum</code>å€¼çš„ç±»å‹
          */
         protected abstract Class getUnderlyingClass();
 
         /**
-         * È¡µÃÖ¸¶¨ÖµµÄÏÂÒ»¸öÖµ.
+         * å–å¾—æŒ‡å®šå€¼çš„ä¸‹ä¸€ä¸ªå€¼.
          *
-         * @param value    Ö¸¶¨Öµ
-         * @param flagMode ÊÇ·ñÎªÎ»Ä£Ê½
+         * @param value    æŒ‡å®šå€¼
+         * @param flagMode æ˜¯å¦ä¸ºä½æ¨¡å¼
          *
-         * @return Èç¹û<code>value</code>Îª<code>null</code>, Ôò·µ»ØÄ¬ÈÏµÄ³õÊ¼Öµ, ·ñÔò·µ»ØÏÂÒ»¸öÖµ
+         * @return å¦‚æœ<code>value</code>ä¸º<code>null</code>, åˆ™è¿”å›é»˜è®¤çš„åˆå§‹å€¼, å¦åˆ™è¿”å›ä¸‹ä¸€ä¸ªå€¼
          */
         protected abstract Object getNextValue(Object value, boolean flagMode);
 
         /**
-         * ÅĞ¶ÏÊÇ·ñÎª<code>0</code>.
+         * åˆ¤æ–­æ˜¯å¦ä¸º<code>0</code>.
          *
-         * @param value ÒªÅĞ¶ÏµÄÖµ
+         * @param value è¦åˆ¤æ–­çš„å€¼
          *
-         * @return Èç¹ûÊÇ, Ôò·µ»Ø<code>true</code>
+         * @return å¦‚æœæ˜¯, åˆ™è¿”å›<code>true</code>
          */
         protected abstract boolean isZero(Object value);
 
         /**
-         * ÅĞ¶ÏÊÇ·ñÎª¶şµÄÕûÊı´ÎÃİ.
+         * åˆ¤æ–­æ˜¯å¦ä¸ºäºŒçš„æ•´æ•°æ¬¡å¹‚.
          *
-         * @param value ÒªÅĞ¶ÏµÄÖµ
+         * @param value è¦åˆ¤æ–­çš„å€¼
          *
-         * @return Èç¹ûÊÇ, Ôò·µ»Ø<code>true</code>
+         * @return å¦‚æœæ˜¯, åˆ™è¿”å›<code>true</code>
          */
         protected abstract boolean isPowerOfTwo(Object value);
     }

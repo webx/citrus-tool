@@ -20,7 +20,7 @@ package com.alibaba.toolkit.util.collection;
 import java.util.Iterator;
 
 /**
- * IteratorµÄ¹ıÂËÆ÷.
+ * Iteratorçš„è¿‡æ»¤å™¨.
  *
  * @version $Id: FilterIterator.java,v 1.1 2003/07/03 07:26:16 baobao Exp $
  * @author Michael Zhou
@@ -29,43 +29,43 @@ public abstract class FilterIterator implements Iterator {
     private Iterator iterator;
 
     /**
-     * ´´½¨Ò»¸ö¹ıÂËÆ÷.
+     * åˆ›å»ºä¸€ä¸ªè¿‡æ»¤å™¨.
      *
-     * @param iterator  ±»¹ıÂËµÄ<code>Iterator</code>
+     * @param iterator  è¢«è¿‡æ»¤çš„<code>Iterator</code>
      */
     public FilterIterator(Iterator iterator) {
         this.iterator = iterator;
     }
 
     /**
-     * È¡µÃ±»¹ıÂËµÄ<code>Iterator</code>.
+     * å–å¾—è¢«è¿‡æ»¤çš„<code>Iterator</code>.
      *
-     * @return ±»¹ıÂËµÄ<code>Iterator</code>
+     * @return è¢«è¿‡æ»¤çš„<code>Iterator</code>
      */
     public Iterator getIterator() {
         return iterator;
     }
 
     /**
-     * ÊÇ·ñ´æÔÚÏÂÒ»¸öÔªËØ.
+     * æ˜¯å¦å­˜åœ¨ä¸‹ä¸€ä¸ªå…ƒç´ .
      *
-     * @return Èç¹û´æÔÚÏÂÒ»¸öÔªËØ, Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœå­˜åœ¨ä¸‹ä¸€ä¸ªå…ƒç´ , åˆ™è¿”å›<code>true</code>
      */
     public boolean hasNext() {
         return getIterator().hasNext();
     }
 
     /**
-     * È¡µÃÏÂÒ»¸öÔªËØ.
+     * å–å¾—ä¸‹ä¸€ä¸ªå…ƒç´ .
      *
-     * @return ÏÂÒ»¸öÔªËØ
+     * @return ä¸‹ä¸€ä¸ªå…ƒç´ 
      */
     public Object next() {
         return getIterator().next();
     }
 
     /**
-     * É¾³ı×î½ü·µ»ØµÄÔªËØ.
+     * åˆ é™¤æœ€è¿‘è¿”å›çš„å…ƒç´ .
      */
     public void remove() {
         getIterator().remove();

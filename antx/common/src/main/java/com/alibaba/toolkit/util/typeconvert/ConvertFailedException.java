@@ -20,7 +20,7 @@ package com.alibaba.toolkit.util.typeconvert;
 import com.alibaba.toolkit.util.exception.ChainedRuntimeException;
 
 /**
- * ±íÊ¾×ª»»Ê§°ÜµÄÒì³£.  ×ª»»Ê§°ÜÊ±, ¿ÉÒÔÖ¸¶¨Ò»¸ö½¨ÒéµÄÄ¬ÈÏÖµ.
+ * è¡¨ç¤ºè½¬æ¢å¤±è´¥çš„å¼‚å¸¸.  è½¬æ¢å¤±è´¥æ—¶, å¯ä»¥æŒ‡å®šä¸€ä¸ªå»ºè®®çš„é»˜è®¤å€¼.
  *
  * @version $Id: ConvertFailedException.java,v 1.1 2003/07/03 07:26:36 baobao Exp $
  * @author Michael Zhou
@@ -31,46 +31,46 @@ public class ConvertFailedException extends ChainedRuntimeException {
     private boolean defaultValueSet = false;
 
     /**
-     * ¹¹ÔìÒ»¸ö¿ÕµÄÒì³£.
+     * æ„é€ ä¸€ä¸ªç©ºçš„å¼‚å¸¸.
      */
     public ConvertFailedException() {
         super();
     }
 
     /**
-     * ¹¹ÔìÒ»¸öÒì³£, Ö¸Ã÷Òì³£µÄÏêÏ¸ĞÅÏ¢.
+     * æ„é€ ä¸€ä¸ªå¼‚å¸¸, æŒ‡æ˜å¼‚å¸¸çš„è¯¦ç»†ä¿¡æ¯.
      *
-     * @param message  ÏêÏ¸ĞÅÏ¢
+     * @param message  è¯¦ç»†ä¿¡æ¯
      */
     public ConvertFailedException(String message) {
         super(message);
     }
 
     /**
-     * ¹¹ÔìÒ»¸öÒì³£, Ö¸Ã÷ÒıÆğÕâ¸öÒì³£µÄÆğÒò.
+     * æ„é€ ä¸€ä¸ªå¼‚å¸¸, æŒ‡æ˜å¼•èµ·è¿™ä¸ªå¼‚å¸¸çš„èµ·å› .
      *
-     * @param cause  Òì³£µÄÆğÒò
+     * @param cause  å¼‚å¸¸çš„èµ·å› 
      */
     public ConvertFailedException(Throwable cause) {
         super(cause);
     }
 
     /**
-     * ¹¹ÔìÒ»¸öÒì³£, Ö¸Ã÷ÒıÆğÕâ¸öÒì³£µÄÆğÒò.
+     * æ„é€ ä¸€ä¸ªå¼‚å¸¸, æŒ‡æ˜å¼•èµ·è¿™ä¸ªå¼‚å¸¸çš„èµ·å› .
      *
-     * @param message  ÏêÏ¸ĞÅÏ¢
-     * @param cause    Òì³£µÄÆğÒò
+     * @param message  è¯¦ç»†ä¿¡æ¯
+     * @param cause    å¼‚å¸¸çš„èµ·å› 
      */
     public ConvertFailedException(String message, Throwable cause) {
         super(message, cause);
     }
 
     /**
-     * ÉèÖÃ½¨ÒéµÄÄ¬ÈÏÖµ.
+     * è®¾ç½®å»ºè®®çš„é»˜è®¤å€¼.
      *
-     * @param defaultValue Ä¬ÈÏÖµ
+     * @param defaultValue é»˜è®¤å€¼
      *
-     * @return Òì³£±¾Éí
+     * @return å¼‚å¸¸æœ¬èº«
      */
     public ConvertFailedException setDefaultValue(Object defaultValue) {
         this.defaultValue    = defaultValue;
@@ -79,18 +79,18 @@ public class ConvertFailedException extends ChainedRuntimeException {
     }
 
     /**
-     * È¡µÃÄ¬ÈÏÖµ.
+     * å–å¾—é»˜è®¤å€¼.
      *
-     * @return Ä¬ÈÏÖµ¶ÔÏó
+     * @return é»˜è®¤å€¼å¯¹è±¡
      */
     public Object getDefaultValue() {
         return defaultValue;
     }
 
     /**
-     * ÊÇ·ñÉèÖÃÁËÄ¬ÈÏÖµ.
+     * æ˜¯å¦è®¾ç½®äº†é»˜è®¤å€¼.
      *
-     * @return Èç¹ûÉèÖÃÁËÄ¬ÈÏÖµ, Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœè®¾ç½®äº†é»˜è®¤å€¼, åˆ™è¿”å›<code>true</code>
      */
     public boolean isDefaultValueSet() {
         return defaultValueSet;

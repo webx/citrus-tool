@@ -36,7 +36,7 @@ import com.alibaba.antx.util.PasswordField;
 import com.alibaba.antx.util.StringUtil;
 
 /**
- * Ä¬ÈÏµÄ»ùÓÚ¿ØÖÆÌ¨µÄAuthenticationHandler¡£
+ * é»˜è®¤çš„åŸºäºæ§åˆ¶å°çš„AuthenticationHandlerã€‚
  */
 public class DefaultAuthenticationHandler implements AuthenticationHandler {
     private final ResourceManager resourceManager;
@@ -48,7 +48,7 @@ public class DefaultAuthenticationHandler implements AuthenticationHandler {
     }
 
     public UsernamePassword authenticate(String message, URI uri, String username, boolean visited) {
-        // Èç¹ûÕâ¸öURIµÄÃÜÂë´ÓÎ´±»Ñ¯ÎÊ¹ı£¬ÔòÊÔ×Å´ÓpasswordÎÄ¼şÖĞÈ¡µÃÃÜÂë
+        // å¦‚æœè¿™ä¸ªURIçš„å¯†ç ä»æœªè¢«è¯¢é—®è¿‡ï¼Œåˆ™è¯•ç€ä»passwordæ–‡ä»¶ä¸­å–å¾—å¯†ç 
         if (!visited) {
             UsernamePassword userPass = loadPassword(uri);
 

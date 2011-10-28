@@ -20,7 +20,7 @@ package com.alibaba.antx.config;
 import com.alibaba.toolkit.util.exception.ChainedRuntimeException;
 
 /**
- * ´ú±íÒ»¸öauto configµÄÒì³£
+ * ä»£è¡¨ä¸€ä¸ªauto configçš„å¼‚å¸¸
  * 
  * @author Michael Zhou
  */
@@ -28,35 +28,35 @@ public class ConfigException extends ChainedRuntimeException {
     private static final long serialVersionUID = -756372236339875155L;
 
     /**
-     * ´´½¨Ò»¸öÒì³£¡£
+     * åˆ›å»ºä¸€ä¸ªå¼‚å¸¸ã€‚
      */
     public ConfigException() {
         super();
     }
 
     /**
-     * ´´½¨Ò»¸öÒì³£¡£
+     * åˆ›å»ºä¸€ä¸ªå¼‚å¸¸ã€‚
      * 
-     * @param message Òì³£ĞÅÏ¢
+     * @param message å¼‚å¸¸ä¿¡æ¯
      */
     public ConfigException(String message) {
         super(message);
     }
 
     /**
-     * ´´½¨Ò»¸öÒì³£¡£
+     * åˆ›å»ºä¸€ä¸ªå¼‚å¸¸ã€‚
      * 
-     * @param message Òì³£ĞÅÏ¢
-     * @param cause Òì³£Ô­Òò
+     * @param message å¼‚å¸¸ä¿¡æ¯
+     * @param cause å¼‚å¸¸åŸå› 
      */
     public ConfigException(String message, Throwable cause) {
         super(message, cause);
     }
 
     /**
-     * ´´½¨Ò»¸öÒì³£¡£
+     * åˆ›å»ºä¸€ä¸ªå¼‚å¸¸ã€‚
      * 
-     * @param cause Òì³£Ô­Òò
+     * @param cause å¼‚å¸¸åŸå› 
      */
     public ConfigException(Throwable cause) {
         super(cause);

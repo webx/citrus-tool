@@ -45,7 +45,7 @@ public class ConfigWizardLoader {
     }
 
     public void loadAndStart() {
-        // Ê¹ÓÃwizardÑéÖ¤²¢ºÍÓÃ»§½»»¥
+        // ä½¿ç”¨wizardéªŒè¯å¹¶å’Œç”¨æˆ·äº¤äº’
         ConfigDescriptor[] descriptors = getAllDescriptors();
         PropertiesSet props = settings.getPropertiesSet();
         ConfigWizard wizard = new ConfigWizard(descriptors, props, settings.getCharset());
@@ -58,18 +58,18 @@ public class ConfigWizardLoader {
             if (!valid) {
                 StringBuffer confirm = new StringBuffer();
 
-                confirm.append("¨q©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¬©¬©¬©¬\n");
-                confirm.append("©¦\n");
-                confirm.append("©¦ ÄúµÄÅäÖÃÎÄ¼şĞèÒª±»¸üĞÂ£º\n");
-                confirm.append("©¦\n");
-                confirm.append("©¦ ").append(props.getUserPropertiesFile().getURI()).append("\n");
-                confirm.append("©¦\n");
-                confirm.append("©¦ Õâ¸öÎÄ¼ş°üÀ¨ÁËÄú¸öÈËµÄÌØÊâÉèÖÃ£¬\n");
-                confirm.append("©¦ °üÀ¨·şÎñÆ÷¶Ë¿Ú¡¢ÄúµÄÓÊ¼şµØÖ·µÈÄÚÈİ¡£\n");
-                confirm.append("©¦\n");
-                confirm.append("©¸©¤©¤©¤©¤©¤©¤©¤©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬©¬\n");
-                confirm.append("\n").append(" Èç¹û²»¸üĞÂ´ËÎÄ¼ş£¬¿ÉÄÜ»áµ¼ÖÂÅäÖÃÎÄ¼şµÄÄÚÈİ²»ÍêÕû¡£\n");
-                confirm.append(" ÄúĞèÒªÏÖÔÚ¸üĞÂ´ËÎÄ¼şÂğ?");
+                confirm.append("â•­â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”ˆâ”ˆâ”ˆâ”ˆ\n");
+                confirm.append("â”‚\n");
+                confirm.append("â”‚ æ‚¨çš„é…ç½®æ–‡ä»¶éœ€è¦è¢«æ›´æ–°ï¼š\n");
+                confirm.append("â”‚\n");
+                confirm.append("â”‚ ").append(props.getUserPropertiesFile().getURI()).append("\n");
+                confirm.append("â”‚\n");
+                confirm.append("â”‚ è¿™ä¸ªæ–‡ä»¶åŒ…æ‹¬äº†æ‚¨ä¸ªäººçš„ç‰¹æ®Šè®¾ç½®ï¼Œ\n");
+                confirm.append("â”‚ åŒ…æ‹¬æœåŠ¡å™¨ç«¯å£ã€æ‚¨çš„é‚®ä»¶åœ°å€ç­‰å†…å®¹ã€‚\n");
+                confirm.append("â”‚\n");
+                confirm.append("â””â”€â”€â”€â”€â”€â”€â”€â”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆâ”ˆ\n");
+                confirm.append("\n").append(" å¦‚æœä¸æ›´æ–°æ­¤æ–‡ä»¶ï¼Œå¯èƒ½ä¼šå¯¼è‡´é…ç½®æ–‡ä»¶çš„å†…å®¹ä¸å®Œæ•´ã€‚\n");
+                confirm.append(" æ‚¨éœ€è¦ç°åœ¨æ›´æ–°æ­¤æ–‡ä»¶å—?");
 
                 wizard.setConfirmMessage(confirm.toString());
             }
@@ -79,16 +79,16 @@ public class ConfigWizardLoader {
             valid = wizard.validate();
         }
 
-        // ÉèÖÃvalid±äÁ¿Îªtrue£¬»òÅ×³öÒì³£
+        // è®¾ç½®validå˜é‡ä¸ºtrueï¼Œæˆ–æŠ›å‡ºå¼‚å¸¸
         if (!valid) {
-            throw new ConfigWizardException("ÒòÎªÅäÖÃÎÄ¼ş¡°" + props.getUserPropertiesFile().getURI() + "¡±Î´×¼±¸ºÃ£¬ËùÒÔÎŞ·¨¼ÌĞøÏÂÈ¥£¡");
+            throw new ConfigWizardException("å› ä¸ºé…ç½®æ–‡ä»¶â€œ" + props.getUserPropertiesFile().getURI() + "â€æœªå‡†å¤‡å¥½ï¼Œæ‰€ä»¥æ— æ³•ç»§ç»­ä¸‹å»ï¼");
         }
     }
 
     /**
-     * È¡µÃËùÓĞµÄdescriptors¡£
+     * å–å¾—æ‰€æœ‰çš„descriptorsã€‚
      * 
-     * @return ËùÓĞdescriptorsµÄÊı×é
+     * @return æ‰€æœ‰descriptorsçš„æ•°ç»„
      */
     private ConfigDescriptor[] getAllDescriptors() {
         if (configEntries != null) {
@@ -109,10 +109,10 @@ public class ConfigWizardLoader {
     }
 
     /**
-     * ½«entry¼°ËùÓĞ×ÓentryÖĞµÄdescriptors¼ÓÈëÁĞ±íÖĞ¡£
+     * å°†entryåŠæ‰€æœ‰å­entryä¸­çš„descriptorsåŠ å…¥åˆ—è¡¨ä¸­ã€‚
      * 
      * @param entry config entry
-     * @param descriptors descriptorsÁĞ±í
+     * @param descriptors descriptorsåˆ—è¡¨
      */
     private void addConfigEntryRecursive(ConfigEntry entry, List descriptors) {
         if (entry == null) {

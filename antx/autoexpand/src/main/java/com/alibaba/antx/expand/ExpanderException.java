@@ -20,7 +20,7 @@ package com.alibaba.antx.expand;
 import com.alibaba.toolkit.util.exception.ChainedRuntimeException;
 
 /**
- * ´ú±íÒ»¸öexpanderµÄÒì³£
+ * ä»£è¡¨ä¸€ä¸ªexpanderçš„å¼‚å¸¸
  *
  * @author Michael Zhou
  */
@@ -28,35 +28,35 @@ public class ExpanderException extends ChainedRuntimeException {
     private static final long serialVersionUID = -6138090297450520233L;
 
 /**
-     * ´´½¨Ò»¸öÒì³£¡£
+     * åˆ›å»ºä¸€ä¸ªå¼‚å¸¸ã€‚
      */
     public ExpanderException() {
         super();
     }
 
 /**
-     * ´´½¨Ò»¸öÒì³£¡£
+     * åˆ›å»ºä¸€ä¸ªå¼‚å¸¸ã€‚
      *
-     * @param message Òì³£ĞÅÏ¢
+     * @param message å¼‚å¸¸ä¿¡æ¯
      */
     public ExpanderException(String message) {
         super(message);
     }
 
 /**
-     * ´´½¨Ò»¸öÒì³£¡£
+     * åˆ›å»ºä¸€ä¸ªå¼‚å¸¸ã€‚
      *
-     * @param message Òì³£ĞÅÏ¢
-     * @param cause Òì³£Ô­Òò
+     * @param message å¼‚å¸¸ä¿¡æ¯
+     * @param cause å¼‚å¸¸åŸå› 
      */
     public ExpanderException(String message, Throwable cause) {
         super(message, cause);
     }
 
 /**
-     * ´´½¨Ò»¸öÒì³£¡£
+     * åˆ›å»ºä¸€ä¸ªå¼‚å¸¸ã€‚
      *
-     * @param cause Òì³£Ô­Òò
+     * @param cause å¼‚å¸¸åŸå› 
      */
     public ExpanderException(Throwable cause) {
         super(cause);

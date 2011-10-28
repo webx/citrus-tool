@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Òì³£µÄ¸¨ÖúÀà.
+ * å¼‚å¸¸çš„è¾…åŠ©ç±».
  *
  * @version $Id: ExceptionHelper.java,v 1.1 2003/07/03 07:26:22 baobao Exp $
  * @author Michael Zhou
@@ -45,7 +45,7 @@ public class ExceptionHelper {
     private static Method       GET_STACK_TRACE_METHOD;
 
     static {
-        // JDK1.4Ö§³ÖThrowable.getStackTrace()·½·¨
+        // JDK1.4æ”¯æŒThrowable.getStackTrace()æ–¹æ³•
         try {
             GET_STACK_TRACE_METHOD = Throwable.class.getMethod(GET_STACK_TRACE_METHOD_NAME,
                                                                new Class[0]);
@@ -54,11 +54,11 @@ public class ExceptionHelper {
     }
 
     /**
-     * ´Ó<code>ChainedThrowable</code>ÊµÀıÖĞÈ¡µÃ<code>Throwable</code>¶ÔÏó.
+     * ä»<code>ChainedThrowable</code>å®ä¾‹ä¸­å–å¾—<code>Throwable</code>å¯¹è±¡.
      *
-     * @param throwable <code>ChainedThrowable</code>ÊµÀı
+     * @param throwable <code>ChainedThrowable</code>å®ä¾‹
      *
-     * @return <code>Throwable</code>¶ÔÏó
+     * @return <code>Throwable</code>å¯¹è±¡
      */
     private static Throwable getThrowable(ChainedThrowable throwable) {
         if (throwable instanceof ChainedThrowableDelegate) {
@@ -69,13 +69,13 @@ public class ExceptionHelper {
     }
 
     /**
-     * ½«<code>Throwable</code>×ª»»³É<code>ChainedThrowable</code>.
-     * Èç¹ûÒÑ¾­ÊÇ<code>ChainedThrowable</code>ÁË, ÔòÖ±½Ó·µ»Ø,
-     * ·ñÔò½«Ëü°ü×°ÔÚ<code>ChainedThrowableDelegate</code>ÖĞ·µ»Ø.
+     * å°†<code>Throwable</code>è½¬æ¢æˆ<code>ChainedThrowable</code>.
+     * å¦‚æœå·²ç»æ˜¯<code>ChainedThrowable</code>äº†, åˆ™ç›´æ¥è¿”å›,
+     * å¦åˆ™å°†å®ƒåŒ…è£…åœ¨<code>ChainedThrowableDelegate</code>ä¸­è¿”å›.
      *
-     * @param throwable <code>Throwable</code>¶ÔÏó
+     * @param throwable <code>Throwable</code>å¯¹è±¡
      *
-     * @return <code>ChainedThrowable</code>¶ÔÏó
+     * @return <code>ChainedThrowable</code>å¯¹è±¡
      */
     public static ChainedThrowable getChainedThrowable(Throwable throwable) {
         if ((throwable != null) && !(throwable instanceof ChainedThrowable)) {
@@ -86,41 +86,41 @@ public class ExceptionHelper {
     }
 
     /**
-     * È¡µÃ±»´úÀíµÄÒì³£µÄÆğÒò, Èç¹ûÆğÒò²»ÊÇ<code>ChainedThrowable</code>,
-     * ÔòÓÃ<code>ChainedThrowableDelegate</code>°ü×°²¢·µ»Ø.
+     * å–å¾—è¢«ä»£ç†çš„å¼‚å¸¸çš„èµ·å› , å¦‚æœèµ·å› ä¸æ˜¯<code>ChainedThrowable</code>,
+     * åˆ™ç”¨<code>ChainedThrowableDelegate</code>åŒ…è£…å¹¶è¿”å›.
      *
-     * @param throwable Òì³£
+     * @param throwable å¼‚å¸¸
      *
-     * @return Òì³£µÄÆğÒò
+     * @return å¼‚å¸¸çš„èµ·å› 
      */
     public static ChainedThrowable getChainedThrowableCause(ChainedThrowable throwable) {
         return getChainedThrowable(throwable.getCause());
     }
 
     /**
-     * ´òÓ¡µ÷ÓÃÕ»µ½±ê×¼´íÎó.
+     * æ‰“å°è°ƒç”¨æ ˆåˆ°æ ‡å‡†é”™è¯¯.
      *
-     * @param throwable Òì³£
+     * @param throwable å¼‚å¸¸
      */
     public static void printStackTrace(ChainedThrowable throwable) {
         printStackTrace(throwable, System.err);
     }
 
     /**
-     * ´òÓ¡µ÷ÓÃÕ»µ½Ö¸¶¨Êä³öÁ÷.
+     * æ‰“å°è°ƒç”¨æ ˆåˆ°æŒ‡å®šè¾“å‡ºæµ.
      *
-     * @param throwable Òì³£
-     * @param stream    Êä³ö×Ö½ÚÁ÷
+     * @param throwable å¼‚å¸¸
+     * @param stream    è¾“å‡ºå­—èŠ‚æµ
      */
     public static void printStackTrace(ChainedThrowable throwable, PrintStream stream) {
         printStackTrace(throwable, new PrintWriter(stream));
     }
 
     /**
-     * ´òÓ¡µ÷ÓÃÕ»µ½Ö¸¶¨Êä³öÁ÷.
+     * æ‰“å°è°ƒç”¨æ ˆåˆ°æŒ‡å®šè¾“å‡ºæµ.
      *
-     * @param throwable Òì³£
-     * @param writer    Êä³ö×Ö·ûÁ÷
+     * @param throwable å¼‚å¸¸
+     * @param writer    è¾“å‡ºå­—ç¬¦æµ
      */
     public static void printStackTrace(ChainedThrowable throwable, PrintWriter writer) {
         synchronized (writer) {
@@ -139,11 +139,11 @@ public class ExceptionHelper {
     }
 
     /**
-     * µİ¹éµØ´òÓ¡ËùÓĞÒì³£Á´µÄµ÷ÓÃÕ».
+     * é€’å½’åœ°æ‰“å°æ‰€æœ‰å¼‚å¸¸é“¾çš„è°ƒç”¨æ ˆ.
      *
-     * @param throwable     Òì³£
-     * @param writer        Êä³öÁ÷
-     * @param currentStack  µ±Ç°µÄ¶ÑÕ»
+     * @param throwable     å¼‚å¸¸
+     * @param writer        è¾“å‡ºæµ
+     * @param currentStack  å½“å‰çš„å †æ ˆ
      */
     private static void printStackTraceRecursive(ChainedThrowable throwable, PrintWriter writer,
                                                  String[] currentStack) {
@@ -176,11 +176,11 @@ public class ExceptionHelper {
     }
 
     /**
-     * ´òÓ¡Òì³£µÄmessage.
+     * æ‰“å°å¼‚å¸¸çš„message.
      *
-     * @param throwable Òì³£
-     * @param writer    Êä³öÁ÷
-     * @param cause     ÊÇ·ñÊÇÆğÒòÒì³£
+     * @param throwable å¼‚å¸¸
+     * @param writer    è¾“å‡ºæµ
+     * @param cause     æ˜¯å¦æ˜¯èµ·å› å¼‚å¸¸
      */
     private static void printThrowableMessage(ChainedThrowable throwable, PrintWriter writer,
                                               boolean cause) {
@@ -204,11 +204,11 @@ public class ExceptionHelper {
     }
 
     /**
-     * ·ÖÎöÒì³£µÄµ÷ÓÃÕ», È¡µÃµ±Ç°Òì³£µÄĞÅÏ¢, ²»°üÀ¨ÆğÒòÒì³£µÄĞÅÏ¢.
+     * åˆ†æå¼‚å¸¸çš„è°ƒç”¨æ ˆ, å–å¾—å½“å‰å¼‚å¸¸çš„ä¿¡æ¯, ä¸åŒ…æ‹¬èµ·å› å¼‚å¸¸çš„ä¿¡æ¯.
      *
-     * @param throwable  È¡µÃÖ¸¶¨Òì³£µÄµ÷ÓÃÕ»
+     * @param throwable  å–å¾—æŒ‡å®šå¼‚å¸¸çš„è°ƒç”¨æ ˆ
      *
-     * @return µ÷ÓÃÕ»Êı×é
+     * @return è°ƒç”¨æ ˆæ•°ç»„
      */
     private static String[] analyzeStackTrace(ChainedThrowable throwable) {
         if (GET_STACK_TRACE_METHOD != null) {
@@ -233,7 +233,7 @@ public class ExceptionHelper {
     }
 
     /**
-     * ·ÖÎöstack traceµÄ¸¨ÖúÀà.
+     * åˆ†æstack traceçš„è¾…åŠ©ç±».
      */
     private static class StackTraceAnalyzer {
         private Throwable       throwable;
@@ -246,7 +246,7 @@ public class ExceptionHelper {
             this.throwable = getThrowable(throwable);
             this.message   = this.throwable.getMessage();
 
-            // È¡µÃstack trace×Ö·û´®.
+            // å–å¾—stack traceå­—ç¬¦ä¸².
             StringWriter writer = new StringWriter();
             PrintWriter  pw = new PrintWriter(writer);
 
@@ -254,7 +254,7 @@ public class ExceptionHelper {
 
             String stackTraceDump = writer.toString();
 
-            // ·Ö¸î×Ö·û´®, °´ĞĞ·Ö¸î, µ«²»ÄÜ¸î¿ªmessage×Ö´®
+            // åˆ†å‰²å­—ç¬¦ä¸², æŒ‰è¡Œåˆ†å‰², ä½†ä¸èƒ½å‰²å¼€messageå­—ä¸²
             int p = 0;
             int i = -1;
             int j = -1;
@@ -276,7 +276,7 @@ public class ExceptionHelper {
                     k = stackTraceDump.indexOf(STRING_LF, p);
                 }
 
-                // Èç¹ûÕÒµ½message
+                // å¦‚æœæ‰¾åˆ°message
                 if ((i != -1) && (j == -1 || i <= j) && (k == -1 || i <= k)) {
                     includesMessage = true;
                     p               = i + message.length();
@@ -290,10 +290,10 @@ public class ExceptionHelper {
                         k = -1;
                     }
 
-                    // ¼ÌĞøÖ±µ½»»ĞĞ
+                    // ç»§ç»­ç›´åˆ°æ¢è¡Œ
                 }
 
-                // Èç¹ûÕÒµ½»»ĞĞCR»òCRLF
+                // å¦‚æœæ‰¾åˆ°æ¢è¡ŒCRæˆ–CRLF
                 if ((j != -1) && (k == -1 || j < k)) {
                     p = j + 1;
 
@@ -313,7 +313,7 @@ public class ExceptionHelper {
                     continue;
                 }
 
-                // Èç¹ûÕÒµ½LF
+                // å¦‚æœæ‰¾åˆ°LF
                 if (k != -1) {
                     int q = k + 1;
 
@@ -323,7 +323,7 @@ public class ExceptionHelper {
                     continue;
                 }
 
-                // Èç¹û¶¼Ã»ÕÒµ½, ËµÃ÷µ½ÁË×îºóÒ»ĞĞ
+                // å¦‚æœéƒ½æ²¡æ‰¾åˆ°, è¯´æ˜åˆ°äº†æœ€åä¸€è¡Œ
                 int q = stackTraceDump.length();
 
                 if ((p + 1) < q) {
@@ -332,7 +332,7 @@ public class ExceptionHelper {
                 }
             }
 
-            // Ñ¡Ôñ"½ÏĞ¡"µÄentry
+            // é€‰æ‹©"è¾ƒå°"çš„entry
             if (currentEntry.compareTo(selectedEntry) < 0) {
                 selectedEntry = currentEntry;
             }
@@ -342,7 +342,7 @@ public class ExceptionHelper {
             StackTraceEntry nextEntry = currentEntry.accept(line, includesMessage);
 
             if (nextEntry != null) {
-                // Ñ¡Ôñ"½ÏĞ¡"µÄentry
+                // é€‰æ‹©"è¾ƒå°"çš„entry
                 if (currentEntry.compareTo(selectedEntry) < 0) {
                     selectedEntry = currentEntry;
                 }
@@ -362,8 +362,8 @@ public class ExceptionHelper {
             private int  count             = 0;
 
             StackTraceEntry accept(String line, boolean includesMessage) {
-                // Èç¹ûÊÇ...at XXX.java(Line...), Ôò¼ÓÈëµ½linesÁĞ±íÖĞ.
-                // ·ñÔò´´½¨²¢·µ»ØĞÂµÄentry.
+                // å¦‚æœæ˜¯...at XXX.java(Line...), åˆ™åŠ å…¥åˆ°linesåˆ—è¡¨ä¸­.
+                // å¦åˆ™åˆ›å»ºå¹¶è¿”å›æ–°çš„entry.
                 if (line.startsWith(STRING_STACK_TRACE_PREFIX)) {
                     lines.add(line);
                     count++;
@@ -375,7 +375,7 @@ public class ExceptionHelper {
                     return newEntry;
                 }
 
-                // ÉèÖÃÈ¨ÖØ
+                // è®¾ç½®æƒé‡
                 if (includesMessage) {
                     this.includesMessage = 1;
                 }
@@ -393,7 +393,7 @@ public class ExceptionHelper {
                 int             otherWeight = otherEntry.includesMessage
                                               + otherEntry.includesThrowable;
 
-                // weight´óµÄÅÅÔÚÇ°, Èç¹ûweightÏàÍ¬, ÔòcountĞ¡µÄÅÅÔÚÇ°
+                // weightå¤§çš„æ’åœ¨å‰, å¦‚æœweightç›¸åŒ, åˆ™countå°çš„æ’åœ¨å‰
                 if (thisWeight == otherWeight) {
                     return count - otherEntry.count;
                 } else {

@@ -20,7 +20,7 @@ package com.alibaba.antx.config.cli;
 import com.alibaba.antx.config.ConfigException;
 
 /**
- * ´ú±íÒ»¸öauto configÃüÁîĞĞµÄÒì³£
+ * ä»£è¡¨ä¸€ä¸ªauto configå‘½ä»¤è¡Œçš„å¼‚å¸¸
  * 
  * @author Michael Zhou
  */
@@ -28,35 +28,35 @@ public class CLIException extends ConfigException {
     private static final long serialVersionUID = -8586160707907380813L;
 
     /**
-     * ´´½¨Ò»¸öÒì³£¡£
+     * åˆ›å»ºä¸€ä¸ªå¼‚å¸¸ã€‚
      */
     public CLIException() {
         super();
     }
 
     /**
-     * ´´½¨Ò»¸öÒì³£¡£
+     * åˆ›å»ºä¸€ä¸ªå¼‚å¸¸ã€‚
      * 
-     * @param message Òì³£ĞÅÏ¢
+     * @param message å¼‚å¸¸ä¿¡æ¯
      */
     public CLIException(String message) {
         super(message);
     }
 
     /**
-     * ´´½¨Ò»¸öÒì³£¡£
+     * åˆ›å»ºä¸€ä¸ªå¼‚å¸¸ã€‚
      * 
-     * @param message Òì³£ĞÅÏ¢
-     * @param cause Òì³£Ô­Òò
+     * @param message å¼‚å¸¸ä¿¡æ¯
+     * @param cause å¼‚å¸¸åŸå› 
      */
     public CLIException(String message, Throwable cause) {
         super(message, cause);
     }
 
     /**
-     * ´´½¨Ò»¸öÒì³£¡£
+     * åˆ›å»ºä¸€ä¸ªå¼‚å¸¸ã€‚
      * 
-     * @param cause Òì³£Ô­Òò
+     * @param cause å¼‚å¸¸åŸå› 
      */
     public CLIException(Throwable cause) {
         super(cause);

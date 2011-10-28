@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * ÎÄ¼şÉ¨ÃèÆ÷¡£
+ * æ–‡ä»¶æ‰«æå™¨ã€‚
  *
  * @author Michael Zhou
  */
@@ -44,10 +44,10 @@ public class DirectoryScanner extends AbstractScanner {
     private boolean followSymlinks = true;
 
 /**
-     * ´´½¨Ò»¸öÎÄ¼şÄ¿Â¼É¨ÃèÆ÷¡£
+     * åˆ›å»ºä¸€ä¸ªæ–‡ä»¶ç›®å½•æ‰«æå™¨ã€‚
      *
-     * @param basedir ÎÄ¼şÄ¿Â¼
-     * @param handler »Øµ÷º¯Êı
+     * @param basedir æ–‡ä»¶ç›®å½•
+     * @param handler å›è°ƒå‡½æ•°
      */
     public DirectoryScanner(File basedir, ScannerHandler handler) {
         super(handler);
@@ -66,25 +66,25 @@ public class DirectoryScanner extends AbstractScanner {
     }
 
     /**
-     * È¡µÃÉ¨ÃèµÄ¸ùÄ¿Â¼¡£
+     * å–å¾—æ‰«æçš„æ ¹ç›®å½•ã€‚
      *
-     * @return ÕıÔÚÉ¨ÃèµÄ¸ùÄ¿Â¼
+     * @return æ­£åœ¨æ‰«æçš„æ ¹ç›®å½•
      */
     public File getBasedir() {
         return basedir;
     }
 
     /**
-     * È¡µÃÉ¨ÃèµÄ¸ùÄ¿Â¼µÄURL¡£
+     * å–å¾—æ‰«æçš„æ ¹ç›®å½•çš„URLã€‚
      *
-     * @return ÕıÔÚÉ¨ÃèµÄ¸ùÄ¿Â¼µÄURL
+     * @return æ­£åœ¨æ‰«æçš„æ ¹ç›®å½•çš„URL
      */
     public URL getBaseURL() {
         return baseURL;
     }
 
     /**
-     * È¡µÃµ±Ç°ÕıÔÚÉ¨ÃèµÄÎÄ¼şµÄURL¡£
+     * å–å¾—å½“å‰æ­£åœ¨æ‰«æçš„æ–‡ä»¶çš„URLã€‚
      *
      * @return URL
      */
@@ -97,9 +97,9 @@ public class DirectoryScanner extends AbstractScanner {
     }
 
     /**
-     * È¡µÃµ±Ç°ÕıÔÚÉ¨ÃèµÄÎÄ¼şµÄÊäÈëÁ÷¡£
+     * å–å¾—å½“å‰æ­£åœ¨æ‰«æçš„æ–‡ä»¶çš„è¾“å…¥æµã€‚
      *
-     * @return ÊäÈëÁ÷
+     * @return è¾“å…¥æµ
      */
     public InputStream getInputStream() {
         try {
@@ -110,25 +110,25 @@ public class DirectoryScanner extends AbstractScanner {
     }
 
     /**
-     * ÊÇ·ñÉ¨Ãè·ûºÅÁ´½Ó¡£
+     * æ˜¯å¦æ‰«æç¬¦å·é“¾æ¥ã€‚
      *
-     * @return Èç¹ûÊÇ£¬Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœæ˜¯ï¼Œåˆ™è¿”å›<code>true</code>
      */
     public boolean isFollowSymlinks() {
         return followSymlinks;
     }
 
     /**
-     * ÉèÖÃÊÇ·ñÉ¨Ãè·ûºÅÁ´½Ó¡£
+     * è®¾ç½®æ˜¯å¦æ‰«æç¬¦å·é“¾æ¥ã€‚
      *
-     * @param followSymlinks ÊÇ·ñÉ¨Ãè·ûºÅÁ´½Ó
+     * @param followSymlinks æ˜¯å¦æ‰«æç¬¦å·é“¾æ¥
      */
     public void setFollowSymlinks(boolean followSymlinks) {
         this.followSymlinks = followSymlinks;
     }
 
     /**
-     * Ö´ĞĞÉ¨Ãè¡£
+     * æ‰§è¡Œæ‰«æã€‚
      */
     public void scan() {
         Set processed = new HashSet();
@@ -143,13 +143,13 @@ public class DirectoryScanner extends AbstractScanner {
     }
 
     /**
-     * É¨ÃèÖ¸¶¨Ä¿Â¼¡£
+     * æ‰«ææŒ‡å®šç›®å½•ã€‚
      *
-     * @param dir ±»É¨ÃèµÄÄ¿Â¼
-     * @param processed ÒÑ±»É¨ÃèµÄ¾ø¶ÔÂ·¾¶£¬ÓÃÀ´·ÀÖ¹ÒòÎª·ûºÏÁ´½Ó´íÎóµ¼ÖÂµÄÖØ¸´É¨Ãè
+     * @param dir è¢«æ‰«æçš„ç›®å½•
+     * @param processed å·²è¢«æ‰«æçš„ç»å¯¹è·¯å¾„ï¼Œç”¨æ¥é˜²æ­¢å› ä¸ºç¬¦åˆé“¾æ¥é”™è¯¯å¯¼è‡´çš„é‡å¤æ‰«æ
      */
     protected void scandir(File dir, Set processed) {
-        // ·ÀÖ¹·ûºÅÁ´½ÓÎŞÏŞÑ­»·
+        // é˜²æ­¢ç¬¦å·é“¾æ¥æ— é™å¾ªç¯
         try {
             String canonicalPath = dir.getCanonicalPath();
 
@@ -162,14 +162,14 @@ public class DirectoryScanner extends AbstractScanner {
             throw new ScannerException(e);
         }
 
-        // ÁĞ³öµ±Ç°Ä¿Â¼ÏÂµÄËùÓĞÎÄ¼ş
+        // åˆ—å‡ºå½“å‰ç›®å½•ä¸‹çš„æ‰€æœ‰æ–‡ä»¶
         String[] files = dir.list();
 
         if (files == null) {
             throw new ScannerException("IO error scanning directory " + dir.getAbsolutePath());
         }
 
-        // ÅÅ³ı·ûºÅÁ´½Ó£¨Èç¹ûĞèÒªµÄ»°£©
+        // æ’é™¤ç¬¦å·é“¾æ¥ï¼ˆå¦‚æœéœ€è¦çš„è¯ï¼‰
         if (!followSymlinks) {
             List noLinks = new ArrayList(files.length);
 
@@ -187,7 +187,7 @@ public class DirectoryScanner extends AbstractScanner {
             files = (String[]) noLinks.toArray(new String[noLinks.size()]);
         }
 
-        // µİ¹éÉ¨ÃèÎÄ¼şºÍÄ¿Â¼
+        // é€’å½’æ‰«ææ–‡ä»¶å’Œç›®å½•
         for (int i = 0; i < files.length; i++) {
             String name      = getPath() + files[i];
             File   file      = new File(dir, files[i]);

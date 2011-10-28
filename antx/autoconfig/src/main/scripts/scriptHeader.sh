@@ -1,18 +1,18 @@
 #!/bin/bash
 
 #-------------------------------------------------------------------
-#    ĞèÒªÉèÖÃÈçÏÂ»·¾³±äÁ¿£º
+#    éœ€è¦è®¾ç½®å¦‚ä¸‹ç¯å¢ƒå˜é‡ï¼š
 #
-#      JAVA_HOME           - JDKµÄ°²×°Â·¾¶
+#      JAVA_HOME           - JDKçš„å®‰è£…è·¯å¾„
 #-------------------------------------------------------------------
 
-# ÅĞ¶ÏÊÇ·ñÔÚcygwin»·¾³ÏÂ
+# åˆ¤æ–­æ˜¯å¦åœ¨cygwinç¯å¢ƒä¸‹
 cygwin=false
 case "`uname`" in
   CYGWIN*) cygwin=true ;;
 esac
 
-# È·¶¨°²×°ÁËjava£¬²¢ÉèÖÃÁËJAVA_HOME»·¾³±äÁ¿.
+# ç¡®å®šå®‰è£…äº†javaï¼Œå¹¶è®¾ç½®äº†JAVA_HOMEç¯å¢ƒå˜é‡.
 noJavaHome=false
 if [ -z "$JAVA_HOME" ] ; then
     noJavaHome=true
@@ -25,7 +25,7 @@ if [ ! -e "$JAVA_HOME/bin/java" ] ; then
     noJavaHome=true
 fi
 
-# ÉèÖÃJAVA_CMD
+# è®¾ç½®JAVA_CMD
 if $noJavaHome
 then JAVA_CMD=`which java`
 else JAVA_CMD="$JAVA_HOME/bin/java"
@@ -45,7 +45,7 @@ if $noJavaCmd ; then
     exit 1
 fi
 
-# Ö´ĞĞjava -jar.
+# æ‰§è¡Œjava -jar.
 CMD="exec \"$JAVA_CMD\" -jar \"$0\" $@"
 eval $CMD
 

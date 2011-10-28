@@ -42,7 +42,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 /**
- * ½âÎöXML£¬ÔÚwordsÖĞ¼ä²åÈëÒş²ØµÄ¿Õ°×£¨<code>U+200B</code>£©¡£
+ * è§£æXMLï¼Œåœ¨wordsä¸­é—´æ’å…¥éšè—çš„ç©ºç™½ï¼ˆ<code>U+200B</code>ï¼‰ã€‚
  * 
  * @author Michael Zhou
  */
@@ -81,12 +81,12 @@ public class WordBreaker {
                 for (int i = 0; (j = breaker.next()) >= 0; i = j) {
                     buf.append(content.substring(i, j));
 
-                    // Èç¹ûpreserveSpacesÊ±£¬²»²åÈë¿Õ°×£¬fop´¦Àí²»ºÃ¡£
+                    // å¦‚æœpreserveSpacesæ—¶ï¼Œä¸æ’å…¥ç©ºç™½ï¼Œfopå¤„ç†ä¸å¥½ã€‚
                     if (!preserveSpaces && j > i) {
                         int c1 = content.charAt(j - 1);
                         int type1 = Character.getType(c1);
 
-                        // ÔÚ×óÀ¨»¡µÄºóÃæ£¬²»Òª²åÈë¿Õ°×¡£
+                        // åœ¨å·¦æ‹¬å¼§çš„åé¢ï¼Œä¸è¦æ’å…¥ç©ºç™½ã€‚
                         if (type1 == Character.START_PUNCTUATION) {
                             continue;
                         }
@@ -95,24 +95,24 @@ public class WordBreaker {
                             int c2 = content.charAt(j);
                             int type2 = Character.getType(c2);
 
-                            // Èç¹û±»¿Õ°×°üÎ§£¬Ôò²»²åÈë¿Õ°×¡£
+                            // å¦‚æœè¢«ç©ºç™½åŒ…å›´ï¼Œåˆ™ä¸æ’å…¥ç©ºç™½ã€‚
                             if (!Character.isWhitespace(c1) && Character.isWhitespace(c2)) {
                                 continue;
                             }
 
-                            // ÔÚ±êµã·ûºÅ¡¢ÓÒÀ¨»¡µÄÇ°Ãæ£¬²»Òª²åÈë¿Õ°×¡£
+                            // åœ¨æ ‡ç‚¹ç¬¦å·ã€å³æ‹¬å¼§çš„å‰é¢ï¼Œä¸è¦æ’å…¥ç©ºç™½ã€‚
                             if (type2 == Character.OTHER_PUNCTUATION || type2 == Character.END_PUNCTUATION) {
                                 continue;
                             }
 
-                            // Èç¹ûÇ°ºóÁ½×Ö·ûÊôÓÚ²»Í¬µÄunicode block£¬Ôò²åÈë¿Õ°×¡£
+                            // å¦‚æœå‰åä¸¤å­—ç¬¦å±äºä¸åŒçš„unicode blockï¼Œåˆ™æ’å…¥ç©ºç™½ã€‚
                             if (Character.UnicodeBlock.of(c1) != Character.UnicodeBlock.of(c2)) {
                                 buf.append('\u200B');
                                 continue;
                             }
                         }
 
-                        // ÔÚ±êµã·ûºÅµÄºóÃæ£¬²åÈë¿Õ°×¡£
+                        // åœ¨æ ‡ç‚¹ç¬¦å·çš„åé¢ï¼Œæ’å…¥ç©ºç™½ã€‚
                         if (Character.OTHER_PUNCTUATION == Character.getType(c1) && c1 != '/' && c1 != '|') {
                             buf.append('\u200B');
                         }

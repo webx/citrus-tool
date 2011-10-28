@@ -33,7 +33,7 @@ import com.alibaba.antx.config.descriptor.ConfigGenerate;
 import com.alibaba.antx.util.StreamUtil;
 
 /**
- * ÔÚÄ¿Â¼ÖĞÉú³ÉÎÄ¼şµÄcallback¡£
+ * åœ¨ç›®å½•ä¸­ç”Ÿæˆæ–‡ä»¶çš„callbackã€‚
  * 
  * @author Michael Zhou
  */
@@ -92,7 +92,7 @@ public class DirectoryCallback implements ConfigGeneratorCallback {
             template = base + template;
         }
 
-        // ´´½¨destFileµÄ¸¸Ä¿Â¼
+        // åˆ›å»ºdestFileçš„çˆ¶ç›®å½•
         File destBase = destFile.getParentFile();
 
         destBase.mkdirs();
@@ -127,7 +127,7 @@ public class DirectoryCallback implements ConfigGeneratorCallback {
 
         File logfile = new File(destfileBase, logfileName);
 
-        // ´´½¨logfileµÄ¸¸Ä¿Â¼
+        // åˆ›å»ºlogfileçš„çˆ¶ç›®å½•
         File logbase = logfile.getParentFile();
 
         logbase.mkdirs();

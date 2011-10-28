@@ -23,7 +23,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * ¶ÔÊı×éÊµÏÖ<code>Iterator</code>½Ó¿Ú.
+ * å¯¹æ•°ç»„å®ç°<code>Iterator</code>æ¥å£.
  *
  * @version $Id: ArrayIterator.java,v 1.1 2003/07/03 07:26:15 baobao Exp $
  * @author Michael Zhou
@@ -34,9 +34,9 @@ public class ArrayIterator implements Iterator {
     private int    index  = 0;
 
     /**
-     * ´´½¨Ò»¸ö<code>ArrayIterator</code>.
+     * åˆ›å»ºä¸€ä¸ª<code>ArrayIterator</code>.
      *
-     * @param array  Òª±éÀúµÄÊı×é
+     * @param array  è¦éå†çš„æ•°ç»„
      */
     public ArrayIterator(Object array) {
         this.array  = array;
@@ -44,27 +44,27 @@ public class ArrayIterator implements Iterator {
     }
 
     /**
-     * È¡µÃ±»±éÀúµÄÊı×é.
+     * å–å¾—è¢«éå†çš„æ•°ç»„.
      *
-     * @return ±»±éÀúµÄÊı×é
+     * @return è¢«éå†çš„æ•°ç»„
      */
     public Object getArray() {
         return array;
     }
 
     /**
-     * ÊÇ·ñ»¹ÓĞÏÂÒ»¸öÊı×éÔªËØ.
+     * æ˜¯å¦è¿˜æœ‰ä¸‹ä¸€ä¸ªæ•°ç»„å…ƒç´ .
      *
-     * @return Èç¹û»¹ÓĞÏÂÒ»¸öÊı×éÔªËØ, Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœè¿˜æœ‰ä¸‹ä¸€ä¸ªæ•°ç»„å…ƒç´ , åˆ™è¿”å›<code>true</code>
      */
     public boolean hasNext() {
         return index < length;
     }
 
     /**
-     * È¡µÃÏÂÒ»¸öÊı×éÔªËØ.
+     * å–å¾—ä¸‹ä¸€ä¸ªæ•°ç»„å…ƒç´ .
      *
-     * @return ÏÂÒ»¸öÊı×éÔªËØ
+     * @return ä¸‹ä¸€ä¸ªæ•°ç»„å…ƒç´ 
      */
     public Object next() {
         if (!hasNext()) {
@@ -75,7 +75,7 @@ public class ArrayIterator implements Iterator {
     }
 
     /**
-     * É¾³ıµ±Ç°ÔªËØ, ²»Ö§³Ö.
+     * åˆ é™¤å½“å‰å…ƒç´ , ä¸æ”¯æŒ.
      */
     public void remove() {
         throw new UnsupportedOperationException("remove() method is not supported");

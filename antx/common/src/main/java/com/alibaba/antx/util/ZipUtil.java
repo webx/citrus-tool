@@ -37,7 +37,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 /**
- * ºÍZipÎÄ¼şÏà¹ØµÄ¹¤¾ßÀà¡£
+ * å’ŒZipæ–‡ä»¶ç›¸å…³çš„å·¥å…·ç±»ã€‚
  *
  * @author Michael Zhou
  */
@@ -45,10 +45,10 @@ public class ZipUtil {
     private static final Log log = LogFactory.getLog(ZipUtil.class);
 
     /**
-     * È¡µÃjar URL¡£
+     * å–å¾—jar URLã€‚
      *
-     * @param jarfileURL ´ú±íjarÎÄ¼şµÄURL
-     * @param path ×ÊÔ´ÔÚjarÎÄ¼şÖĞµÄÂ·¾¶
+     * @param jarfileURL ä»£è¡¨jaræ–‡ä»¶çš„URL
+     * @param path èµ„æºåœ¨jaræ–‡ä»¶ä¸­çš„è·¯å¾„
      *
      * @return jar URL
      */
@@ -68,13 +68,13 @@ public class ZipUtil {
     }
 
     /**
-     * É¨ÃèzipÎÄ¼ş£¬È¡µÃ·ûºÏÒªÇóµÄËùÓĞÎÄ¼ş¡£
+     * æ‰«æzipæ–‡ä»¶ï¼Œå–å¾—ç¬¦åˆè¦æ±‚çš„æ‰€æœ‰æ–‡ä»¶ã€‚
      *
-     * @param zipfileURL zipÎÄ¼şµÄURL
-     * @param includes °üº¬ÎÄ¼ş
-     * @param excludes ²»°üº¬ÎÄ¼ş
+     * @param zipfileURL zipæ–‡ä»¶çš„URL
+     * @param includes åŒ…å«æ–‡ä»¶
+     * @param excludes ä¸åŒ…å«æ–‡ä»¶
      *
-     * @return ËùÓĞÎÄ¼şµÄURL
+     * @return æ‰€æœ‰æ–‡ä»¶çš„URL
      */
     public static URL[] getFilesInZipFile(URL zipfileURL, String[] includes, String[] excludes)
             throws IOException {
@@ -89,13 +89,13 @@ public class ZipUtil {
     }
 
     /**
-     * É¨ÃèzipÎÄ¼ş£¬È¡µÃ·ûºÏÒªÇóµÄËùÓĞÎÄ¼ş¡£
+     * æ‰«æzipæ–‡ä»¶ï¼Œå–å¾—ç¬¦åˆè¦æ±‚çš„æ‰€æœ‰æ–‡ä»¶ã€‚
      *
-     * @param zipfileURL zipÎÄ¼şµÄURL
-     * @param includes °üº¬ÎÄ¼ş
-     * @param excludes ²»°üº¬ÎÄ¼ş
+     * @param zipfileURL zipæ–‡ä»¶çš„URL
+     * @param includes åŒ…å«æ–‡ä»¶
+     * @param excludes ä¸åŒ…å«æ–‡ä»¶
      *
-     * @return ËùÓĞÎÄ¼şÂ·¾¶
+     * @return æ‰€æœ‰æ–‡ä»¶è·¯å¾„
      */
     public static String[] getFileNamesInZipFile(URL zipfileURL, String[] includes,
                                                  String[] excludes)
@@ -112,13 +112,13 @@ public class ZipUtil {
     }
 
     /**
-     * Õ¹¿ªzipÎÄ¼şµ½Ö¸¶¨Ä¿Â¼
+     * å±•å¼€zipæ–‡ä»¶åˆ°æŒ‡å®šç›®å½•
      *
-     * @param zipfile ZipÎÄ¼ş
-     * @param todir Õ¹¿ªÄ¿Â¼
-     * @param overwrite ÊÇ·ñ¸²¸Ç
+     * @param zipfile Zipæ–‡ä»¶
+     * @param todir å±•å¼€ç›®å½•
+     * @param overwrite æ˜¯å¦è¦†ç›–
      *
-     * @throws IOException ¶ÁĞ´ÎÄ¼şÊ§°Ü£¬»òZip¸ñÊ½´íÎó
+     * @throws IOException è¯»å†™æ–‡ä»¶å¤±è´¥ï¼Œæˆ–Zipæ ¼å¼é”™è¯¯
      */
     public static void expandFile(File zipfile, File todir, boolean overwrite)
             throws IOException {
@@ -138,13 +138,13 @@ public class ZipUtil {
     }
 
     /**
-     * Õ¹¿ªzipÎÄ¼şµ½Ö¸¶¨Ä¿Â¼
+     * å±•å¼€zipæ–‡ä»¶åˆ°æŒ‡å®šç›®å½•
      *
-     * @param istream ÊäÈëÁ÷
-     * @param todir Õ¹¿ªÄ¿Â¼
-     * @param overwrite ÊÇ·ñ¸²¸Ç
+     * @param istream è¾“å…¥æµ
+     * @param todir å±•å¼€ç›®å½•
+     * @param overwrite æ˜¯å¦è¦†ç›–
      *
-     * @throws IOException ¶ÁĞ´ÎÄ¼şÊ§°Ü£¬»òZip¸ñÊ½´íÎó
+     * @throws IOException è¯»å†™æ–‡ä»¶å¤±è´¥ï¼Œæˆ–Zipæ ¼å¼é”™è¯¯
      */
     public static void expandFile(InputStream istream, File todir, boolean overwrite)
             throws IOException {
@@ -175,14 +175,14 @@ public class ZipUtil {
     }
 
     /**
-     * Õ¹¿ªÒ»¸öÎÄ¼ş¡£
+     * å±•å¼€ä¸€ä¸ªæ–‡ä»¶ã€‚
      *
-     * @param todir Õ¹¿ªµ½´ËÄ¿Â¼
-     * @param zipStream Ñ¹ËõÁ÷
-     * @param zipEntry zip½áµã
-     * @param overwrite Èç¹ûÎÄ¼ş»òÄ¿Â¼ÒÑ´æÔÚ£¬ÊÇ·ñ¸²¸Ç
+     * @param todir å±•å¼€åˆ°æ­¤ç›®å½•
+     * @param zipStream å‹ç¼©æµ
+     * @param zipEntry zipç»“ç‚¹
+     * @param overwrite å¦‚æœæ–‡ä»¶æˆ–ç›®å½•å·²å­˜åœ¨ï¼Œæ˜¯å¦è¦†ç›–
      *
-     * @throws IOException ¶ÁĞ´ÎÄ¼şÊ§°Ü£¬»òZip¸ñÊ½´íÎó
+     * @throws IOException è¯»å†™æ–‡ä»¶å¤±è´¥ï¼Œæˆ–Zipæ ¼å¼é”™è¯¯
      */
     protected static void extractFile(File todir, InputStream zipStream, ZipEntry zipEntry,
                                       boolean overwrite) throws IOException {

@@ -23,7 +23,7 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 
 /**
- * ½«Ò»¸ö¼¯ºÏºÍÒ»¸ö<code>Enumeration</code>½áºÏµÄ<code>Enumeration</code>, ÓÃÀ´±éÀúresource bundle¼°Æä¸¸bundleÖĞµÄËùÓĞÄÚÈİ.
+ * å°†ä¸€ä¸ªé›†åˆå’Œä¸€ä¸ª<code>Enumeration</code>ç»“åˆçš„<code>Enumeration</code>, ç”¨æ¥éå†resource bundleåŠå…¶çˆ¶bundleä¸­çš„æ‰€æœ‰å†…å®¹.
  *
  * @version $Id: ResourceBundleEnumeration.java,v 1.1 2003/07/03 07:26:35 baobao Exp $
  * @author Michael Zhou
@@ -31,14 +31,14 @@ import java.util.Set;
 public class ResourceBundleEnumeration implements Enumeration {
     private Set         set;
     private Iterator    iterator;
-    private Enumeration enumeration; // ¿ÉÒÔÎªnull
+    private Enumeration enumeration; // å¯ä»¥ä¸ºnull
     private Object      next = null;
 
     /**
-     * ´´½¨Ò»¸ö<code>Enumeration</code>.
+     * åˆ›å»ºä¸€ä¸ª<code>Enumeration</code>.
      *
-     * @param set          ¼¯ºÏ
-     * @param enumeration  <code>Enumeration</code>¶ÔÏó, ¿ÉÒÔÎª<code>null</code>
+     * @param set          é›†åˆ
+     * @param enumeration  <code>Enumeration</code>å¯¹è±¡, å¯ä»¥ä¸º<code>null</code>
      */
     public ResourceBundleEnumeration(Set set, Enumeration enumeration) {
         this.set         = set;
@@ -47,9 +47,9 @@ public class ResourceBundleEnumeration implements Enumeration {
     }
 
     /**
-     * ÅĞ¶ÏÊÇ·ñÓĞÏÂÒ»¸öÔªËØ.
+     * åˆ¤æ–­æ˜¯å¦æœ‰ä¸‹ä¸€ä¸ªå…ƒç´ .
      *
-     * @return Èç¹û»¹ÓĞÏÂÒ»¸öÔªËØ, Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœè¿˜æœ‰ä¸‹ä¸€ä¸ªå…ƒç´ , åˆ™è¿”å›<code>true</code>
      */
     public boolean hasMoreElements() {
         if (next == null) {
@@ -70,9 +70,9 @@ public class ResourceBundleEnumeration implements Enumeration {
     }
 
     /**
-     * È¡µÃÏÂÒ»¸öÔªËØ.
+     * å–å¾—ä¸‹ä¸€ä¸ªå…ƒç´ .
      *
-     * @return ÏÂÒ»¸öÔªËØµÄÖµ
+     * @return ä¸‹ä¸€ä¸ªå…ƒç´ çš„å€¼
      */
     public Object nextElement() {
         if (hasMoreElements()) {

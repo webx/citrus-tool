@@ -22,42 +22,42 @@ import java.io.PrintWriter;
 import java.io.Serializable;
 
 /**
- * ÊµÏÖ´Ë½Ó¿ÚµÄÒì³£, ÊÇÓÉÁíÒ»¸öÒì³£ÒıÆğµÄ.
+ * å®ç°æ­¤æ¥å£çš„å¼‚å¸¸, æ˜¯ç”±å¦ä¸€ä¸ªå¼‚å¸¸å¼•èµ·çš„.
  *
  * @version $Id: ChainedThrowable.java,v 1.1 2003/07/03 07:26:22 baobao Exp $
  * @author Michael Zhou
  */
 public interface ChainedThrowable extends Serializable {
     /**
-     * È¡µÃÒì³£µÄÆğÒò.
+     * å–å¾—å¼‚å¸¸çš„èµ·å› .
      *
-     * @return Òì³£µÄÆğÒò.
+     * @return å¼‚å¸¸çš„èµ·å› .
      */
     Throwable getCause();
 
     /**
-     * ´òÓ¡µ÷ÓÃÕ»µ½±ê×¼´íÎó.
+     * æ‰“å°è°ƒç”¨æ ˆåˆ°æ ‡å‡†é”™è¯¯.
      */
     void printStackTrace();
 
     /**
-     * ´òÓ¡µ÷ÓÃÕ»µ½Ö¸¶¨Êä³öÁ÷.
+     * æ‰“å°è°ƒç”¨æ ˆåˆ°æŒ‡å®šè¾“å‡ºæµ.
      *
-     * @param stream  Êä³ö×Ö½ÚÁ÷.
+     * @param stream  è¾“å‡ºå­—èŠ‚æµ.
      */
     void printStackTrace(PrintStream stream);
 
     /**
-     * ´òÓ¡µ÷ÓÃÕ»µ½Ö¸¶¨Êä³öÁ÷.
+     * æ‰“å°è°ƒç”¨æ ˆåˆ°æŒ‡å®šè¾“å‡ºæµ.
      *
-     * @param writer  Êä³ö×Ö·ûÁ÷.
+     * @param writer  è¾“å‡ºå­—ç¬¦æµ.
      */
     void printStackTrace(PrintWriter writer);
 
     /**
-     * ´òÓ¡Òì³£µÄµ÷ÓÃÕ», ²»°üÀ¨ÆğÒòÒì³£µÄĞÅÏ¢.
+     * æ‰“å°å¼‚å¸¸çš„è°ƒç”¨æ ˆ, ä¸åŒ…æ‹¬èµ·å› å¼‚å¸¸çš„ä¿¡æ¯.
      *
-     * @param writer  ´òÓ¡µ½Êä³öÁ÷
+     * @param writer  æ‰“å°åˆ°è¾“å‡ºæµ
      */
     void printCurrentStackTrace(PrintWriter writer);
 }

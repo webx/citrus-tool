@@ -21,18 +21,18 @@ import java.util.Map;
 
 /**
  * <p>
- * <code>Map.Entry</code>µÄÄ¬ÈÏÊµÏÖ. ¾ßÓĞÈçÏÂÌØÕ÷:
+ * <code>Map.Entry</code>çš„é»˜è®¤å®ç°. å…·æœ‰å¦‚ä¸‹ç‰¹å¾:
  * </p>
  *
  * <ul>
  * <li>
- * Ö§³ÖÖµÎª<code>null</code>µÄkey
+ * æ”¯æŒå€¼ä¸º<code>null</code>çš„key
  * </li>
  * <li>
- * ¿ÉÒÔºÍÈÎÒâ<code>Map.Entry</code>µÄÊµÏÖ½øĞĞ<code>equals</code>±È½Ï
+ * å¯ä»¥å’Œä»»æ„<code>Map.Entry</code>çš„å®ç°è¿›è¡Œ<code>equals</code>æ¯”è¾ƒ
  * </li>
  * <li>
- * Èç¹ûÁ½¸ö<code>Map.Entry</code>ÏàÍ¬(<code>e1.equals(e2) == true</code>), ÔòËüÃÇµÄ<code>hashCode()</code>Ò²ÏàµÈ
+ * å¦‚æœä¸¤ä¸ª<code>Map.Entry</code>ç›¸åŒ(<code>e1.equals(e2) == true</code>), åˆ™å®ƒä»¬çš„<code>hashCode()</code>ä¹Ÿç›¸ç­‰
  * </li>
  * </ul>
  *
@@ -45,10 +45,10 @@ public class DefaultMapEntry implements Map.Entry {
     private Object       value;
 
     /**
-     * ´´½¨Ò»¸ö<code>Map.Entry</code>.
+     * åˆ›å»ºä¸€ä¸ª<code>Map.Entry</code>.
      *
-     * @param key <code>Map.Entry</code>µÄkey
-     * @param value <code>Map.Entry</code>µÄvalue
+     * @param key <code>Map.Entry</code>çš„key
+     * @param value <code>Map.Entry</code>çš„value
      */
     public DefaultMapEntry(Object key, Object value) {
         this.key   = key;
@@ -56,29 +56,29 @@ public class DefaultMapEntry implements Map.Entry {
     }
 
     /**
-     * È¡µÃkey.
+     * å–å¾—key.
      *
-     * @return <code>Map.Entry</code>µÄkey
+     * @return <code>Map.Entry</code>çš„key
      */
     public Object getKey() {
         return key;
     }
 
     /**
-     * È¡µÃvalue.
+     * å–å¾—value.
      *
-     * @return <code>Map.Entry</code>µÄvalue
+     * @return <code>Map.Entry</code>çš„value
      */
     public Object getValue() {
         return value;
     }
 
     /**
-     * ÉèÖÃvalueµÄÖµ.
+     * è®¾ç½®valueçš„å€¼.
      *
-     * @param value ĞÂµÄvalueÖµ
+     * @param value æ–°çš„valueå€¼
      *
-     * @return ÀÏµÄvalueÖµ
+     * @return è€çš„valueå€¼
      */
     public Object setValue(Object value) {
         Object oldValue = this.value;
@@ -89,11 +89,11 @@ public class DefaultMapEntry implements Map.Entry {
     }
 
     /**
-     * ÅĞ¶ÏÁ½¸ö¶ÔÏóÊÇ·ñÏàÍ¬.
+     * åˆ¤æ–­ä¸¤ä¸ªå¯¹è±¡æ˜¯å¦ç›¸åŒ.
      *
-     * @param o Òª±È½ÏµÄ¶ÔÏó
+     * @param o è¦æ¯”è¾ƒçš„å¯¹è±¡
      *
-     * @return Èç¹ûÏàÍ¬, Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœç›¸åŒ, åˆ™è¿”å›<code>true</code>
      */
     public boolean equals(Object o) {
         if (o == null) {
@@ -125,9 +125,9 @@ public class DefaultMapEntry implements Map.Entry {
     }
 
     /**
-     * È¡µÃ<code>Map.Entry</code>µÄhashÖµ. Èç¹ûÁ½¸ö<code>Map.Entry</code>ÏàÍ¬, ÔòËüÃÇµÄhashÖµÒ²ÏàÍ¬.
+     * å–å¾—<code>Map.Entry</code>çš„hashå€¼. å¦‚æœä¸¤ä¸ª<code>Map.Entry</code>ç›¸åŒ, åˆ™å®ƒä»¬çš„hashå€¼ä¹Ÿç›¸åŒ.
      *
-     * @return hashÖµ
+     * @return hashå€¼
      */
     public int hashCode() {
         return ((key == null) ? 0
@@ -137,9 +137,9 @@ public class DefaultMapEntry implements Map.Entry {
     }
 
     /**
-     * ½«<code>Map.Entry</code>×ª»»³É×Ö·û´®.
+     * å°†<code>Map.Entry</code>è½¬æ¢æˆå­—ç¬¦ä¸².
      *
-     * @return ×Ö·û´®ĞÎÊ½µÄ<code>Map.Entry</code>
+     * @return å­—ç¬¦ä¸²å½¢å¼çš„<code>Map.Entry</code>
      */
     public String toString() {
         return getKey() + "=" + getValue();

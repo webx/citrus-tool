@@ -24,17 +24,17 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 /**
- * ºÍ×Ö·û´®ÓĞ¹ØµÄĞ¡¹¤¾ß.
+ * å’Œå­—ç¬¦ä¸²æœ‰å…³çš„å°å·¥å…·.
  *
  * @author Michael Zhou
  */
 public class StringUtil {
     /**
-     * ¼ì²é×Ö·û´®ÊÇ·ñÎª<code>null</code>»ò¿Õ×Ö·û´®.
+     * æ£€æŸ¥å­—ç¬¦ä¸²æ˜¯å¦ä¸º<code>null</code>æˆ–ç©ºå­—ç¬¦ä¸².
      *
-     * @param str Òª¼ì²éµÄ×Ö·û´®
+     * @param str è¦æ£€æŸ¥çš„å­—ç¬¦ä¸²
      *
-     * @return Èç¹ûÎª¿Õ, Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœä¸ºç©º, åˆ™è¿”å›<code>true</code>
      */
     public static boolean isEmpty(String str) {
         return (str == null) || (str.length() == 0);
@@ -45,11 +45,11 @@ public class StringUtil {
     }
 
     /**
-     * ¼ì²é×Ö·û´®ÊÇ·ñÎª<code>null</code>»ò¿Õ×Ö·û´®.
+     * æ£€æŸ¥å­—ç¬¦ä¸²æ˜¯å¦ä¸º<code>null</code>æˆ–ç©ºå­—ç¬¦ä¸².
      *
-     * @param str Òª¼ì²éµÄ×Ö·û´®
+     * @param str è¦æ£€æŸ¥çš„å­—ç¬¦ä¸²
      *
-     * @return Èç¹ûÎª¿Õ, Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœä¸ºç©º, åˆ™è¿”å›<code>true</code>
      */
     public static boolean isBlank(String str) {
         return (str == null) || (str.trim().length() == 0);
@@ -60,22 +60,22 @@ public class StringUtil {
     }
 
     /**
-     * È¡µÃÀàÃû£¬²»°üÀ¨packageÃû¡£
+     * å–å¾—ç±»åï¼Œä¸åŒ…æ‹¬packageåã€‚
      *
-     * @param clazz Òª²é¿´µÄÀà
+     * @param clazz è¦æŸ¥çœ‹çš„ç±»
      *
-     * @return ¶ÌÀàÃû
+     * @return çŸ­ç±»å
      */
     public static String getShortClassName(Class clazz) {
         return getShortClassName(clazz.getName());
     }
 
     /**
-     * È¡µÃÀàÃû£¬²»°üÀ¨packageÃû¡£
+     * å–å¾—ç±»åï¼Œä¸åŒ…æ‹¬packageåã€‚
      *
-     * @param className Òª²é¿´µÄÀàÃû
+     * @param className è¦æŸ¥çœ‹çš„ç±»å
      *
-     * @return ¶ÌÀàÃû
+     * @return çŸ­ç±»å
      */
     public static String getShortClassName(String className) {
         int index = className.lastIndexOf('.');
@@ -84,11 +84,11 @@ public class StringUtil {
     }
 
     /**
-     * ½«×Ö·û´®°´¿Õ¸ñºÍ¶ººÅ·Ö½â.
+     * å°†å­—ç¬¦ä¸²æŒ‰ç©ºæ ¼å’Œé€—å·åˆ†è§£.
      *
-     * @param str Òª·Ö½âµÄ×Ö·û´®
+     * @param str è¦åˆ†è§£çš„å­—ç¬¦ä¸²
      *
-     * @return ×Ö·û´®Êı×é
+     * @return å­—ç¬¦ä¸²æ•°ç»„
      */
     public static String[] split(String str) {
         return split(str, ",");
@@ -99,17 +99,17 @@ public class StringUtil {
     }
 
     /**
-     * ½«Êı×éÖĞµÄÔªËØÁ¬½Ó³ÉÒ»¸ö×Ö·û´®¡£<pre>StringUtil.join(null, *)                = null
+     * å°†æ•°ç»„ä¸­çš„å…ƒç´ è¿æ¥æˆä¸€ä¸ªå­—ç¬¦ä¸²ã€‚<pre>StringUtil.join(null, *)                = null
      * StringUtil.join([], *)                  = ""StringUtil.join([null], *)              = ""
      * StringUtil.join(["a", "b", "c"], "--")  = "a--b--c"
      * StringUtil.join(["a", "b", "c"], null)  = "abc"
      * StringUtil.join(["a", "b", "c"], "")    = "abc"
      * StringUtil.join([null, "", "a"], ',')   = ",,a"</pre>
      *
-     * @param array ÒªÁ¬½ÓµÄÊı×é
-     * @param separator ·Ö¸ô·û
+     * @param array è¦è¿æ¥çš„æ•°ç»„
+     * @param separator åˆ†éš”ç¬¦
      *
-     * @return Á¬½ÓºóµÄ×Ö·û´®£¬Èç¹ûÔ­Êı×éÎª<code>null</code>£¬Ôò·µ»Ø<code>null</code>
+     * @return è¿æ¥åçš„å­—ç¬¦ä¸²ï¼Œå¦‚æœåŸæ•°ç»„ä¸º<code>null</code>ï¼Œåˆ™è¿”å›<code>null</code>
      */
     public static String join(Object[] array, String separator) {
         if (array == null) {
@@ -124,7 +124,7 @@ public class StringUtil {
 
         // ArraySize ==  0: Len = 0
         // ArraySize > 0:   Len = NofStrings *(len(firstString) + len(separator))
-        //           (¹À¼Æ´óÔ¼ËùÓĞµÄ×Ö·û´®¶¼Ò»Ñù³¤)
+        //           (ä¼°è®¡å¤§çº¦æ‰€æœ‰çš„å­—ç¬¦ä¸²éƒ½ä¸€æ ·é•¿)
         int bufSize = (arraySize == 0) ? 0
                                        : (arraySize * (((array[0] == null) ? 16
                                                                            : array[0].toString()
@@ -148,23 +148,23 @@ public class StringUtil {
     }
 
     /**
-     * ½«×Ö·û´®°´¿Õ¸ñºÍ¶ººÅ·Ö½â.
+     * å°†å­—ç¬¦ä¸²æŒ‰ç©ºæ ¼å’Œé€—å·åˆ†è§£.
      *
-     * @param str Òª·Ö½âµÄ×Ö·û´®
+     * @param str è¦åˆ†è§£çš„å­—ç¬¦ä¸²
      *
-     * @return ×Ö·û´®Êı×é
+     * @return å­—ç¬¦ä¸²æ•°ç»„
      */
     public static String[] splitPath(String str) {
         return split(str, "," + File.pathSeparator);
     }
 
     /**
-     * ½«×Ö·û´®°´Ö¸¶¨·Ö¸ô·û·Ö½â.
+     * å°†å­—ç¬¦ä¸²æŒ‰æŒ‡å®šåˆ†éš”ç¬¦åˆ†è§£.
      *
-     * @param str Òª·Ö½âµÄ×Ö·û´®
-     * @param delimiters ·Ö¸ô·û
+     * @param str è¦åˆ†è§£çš„å­—ç¬¦ä¸²
+     * @param delimiters åˆ†éš”ç¬¦
      *
-     * @return ×Ö·û´®Êı×é
+     * @return å­—ç¬¦ä¸²æ•°ç»„
      */
     public static String[] split(String str, String delimiters) {
         if ((str == null) || (str.trim().length() == 0)) {
@@ -186,11 +186,11 @@ public class StringUtil {
     }
 
     /**
-     * É¾³ıÁ½¶Ë¿Õ°×¡£
+     * åˆ é™¤ä¸¤ç«¯ç©ºç™½ã€‚
      *
-     * @param str Òª´¦ÀíµÄ×Ö·û´®
+     * @param str è¦å¤„ç†çš„å­—ç¬¦ä¸²
      *
-     * @return ³ıÈ¥Á½¶Ë¿Õ°×µÄ×Ö·û´®£¬Èç¹û×Ö·û´®Îª<code>null</code>£¬Ôò·µ»Ø¿Õ×Ö·û´®
+     * @return é™¤å»ä¸¤ç«¯ç©ºç™½çš„å­—ç¬¦ä¸²ï¼Œå¦‚æœå­—ç¬¦ä¸²ä¸º<code>null</code>ï¼Œåˆ™è¿”å›ç©ºå­—ç¬¦ä¸²
      */
     public static String trimWhitespace(String str) {
         if (str == null) {
@@ -201,11 +201,11 @@ public class StringUtil {
     }
 
     /**
-     * É¾³ıËùÓĞ¿Õ°×¡£
+     * åˆ é™¤æ‰€æœ‰ç©ºç™½ã€‚
      *
-     * @param str Òª´¦ÀíµÄ×Ö·û´®
+     * @param str è¦å¤„ç†çš„å­—ç¬¦ä¸²
      *
-     * @return ³ıÈ¥¿Õ°×µÄ×Ö·û´®£¬Èç¹û×Ö·û´®Îª<code>null</code>£¬Ôò·µ»Ø¿Õ×Ö·û´®
+     * @return é™¤å»ç©ºç™½çš„å­—ç¬¦ä¸²ï¼Œå¦‚æœå­—ç¬¦ä¸²ä¸º<code>null</code>ï¼Œåˆ™è¿”å›ç©ºå­—ç¬¦ä¸²
      */
     public static String deleteWhitespace(String str) {
         if (str == null) {
@@ -226,23 +226,23 @@ public class StringUtil {
     }
 
     /**
-     * Í¨¹ı½«²»ºÏ·¨µÄ×Ö·ûÌæ»»³É"_", ½«²»ºÏ·¨µÄJava Identifier×Ö·û×ª»»³ÉºÏ·¨µÄID.
+     * é€šè¿‡å°†ä¸åˆæ³•çš„å­—ç¬¦æ›¿æ¢æˆ"_", å°†ä¸åˆæ³•çš„Java Identifierå­—ç¬¦è½¬æ¢æˆåˆæ³•çš„ID.
      *
-     * @param id Òª×ª»»µÄ×Ö·û´®
+     * @param id è¦è½¬æ¢çš„å­—ç¬¦ä¸²
      *
-     * @return ºÏ·¨µÄID
+     * @return åˆæ³•çš„ID
      */
     public static String getValidIdentifier(String id) {
         return getValidIdentifier(id, null);
     }
 
     /**
-     * Í¨¹ıÌæ»»²»ºÏ·¨µÄ×Ö·û, ½«²»ºÏ·¨µÄJava Identifier×Ö·û×ª»»³ÉºÏ·¨µÄID.
+     * é€šè¿‡æ›¿æ¢ä¸åˆæ³•çš„å­—ç¬¦, å°†ä¸åˆæ³•çš„Java Identifierå­—ç¬¦è½¬æ¢æˆåˆæ³•çš„ID.
      *
-     * @param id Òª×ª»»µÄ×Ö·û´®
-     * @param replaceInvalid ÓÃÀ´Ìæ»»²»ºÏ·¨×Ö·ûµÄ×Ö·û´®, Èç¹û²»Ö¸¶¨, ÔòÊ¹ÓÃÄ¬ÈÏ×Ö·û´®"_"
+     * @param id è¦è½¬æ¢çš„å­—ç¬¦ä¸²
+     * @param replaceInvalid ç”¨æ¥æ›¿æ¢ä¸åˆæ³•å­—ç¬¦çš„å­—ç¬¦ä¸², å¦‚æœä¸æŒ‡å®š, åˆ™ä½¿ç”¨é»˜è®¤å­—ç¬¦ä¸²"_"
      *
-     * @return ºÏ·¨µÄID
+     * @return åˆæ³•çš„ID
      */
     public static String getValidIdentifier(String id, String replaceInvalid) {
         if (replaceInvalid == null) {
@@ -282,31 +282,31 @@ public class StringUtil {
     }
 
     /**
-     * À©Õ¹²¢×ó¶ÔÆë×Ö·û´®£¬ÓÃ¿Õ¸ñ<code>' '</code>Ìî³äÓÒ±ß¡£<pre>StringUtil.alignLeft(null, *)   = null
+     * æ‰©å±•å¹¶å·¦å¯¹é½å­—ç¬¦ä¸²ï¼Œç”¨ç©ºæ ¼<code>' '</code>å¡«å……å³è¾¹ã€‚<pre>StringUtil.alignLeft(null, *)   = null
      * StringUtil.alignLeft("", 3)     = "   "StringUtil.alignLeft("bat", 3)  = "bat"
      * StringUtil.alignLeft("bat", 5)  = "bat  "StringUtil.alignLeft("bat", 1)  = "bat"
      * StringUtil.alignLeft("bat", -1) = "bat"</pre>
      *
-     * @param str Òª¶ÔÆëµÄ×Ö·û´®
-     * @param size À©Õ¹×Ö·û´®µ½Ö¸¶¨¿í¶È
+     * @param str è¦å¯¹é½çš„å­—ç¬¦ä¸²
+     * @param size æ‰©å±•å­—ç¬¦ä¸²åˆ°æŒ‡å®šå®½åº¦
      *
-     * @return À©Õ¹ºóµÄ×Ö·û´®£¬Èç¹û×Ö·û´®Îª<code>null</code>£¬Ôò·µ»Ø<code>null</code>
+     * @return æ‰©å±•åçš„å­—ç¬¦ä¸²ï¼Œå¦‚æœå­—ç¬¦ä¸²ä¸º<code>null</code>ï¼Œåˆ™è¿”å›<code>null</code>
      */
     public static String alignLeft(String str, int size) {
         return alignLeft(str, size, ' ');
     }
 
     /**
-     * À©Õ¹²¢×ó¶ÔÆë×Ö·û´®£¬ÓÃÖ¸¶¨×Ö·ûÌî³äÓÒ±ß¡£<pre>StringUtil.alignLeft(null, *, *)     = null
+     * æ‰©å±•å¹¶å·¦å¯¹é½å­—ç¬¦ä¸²ï¼Œç”¨æŒ‡å®šå­—ç¬¦å¡«å……å³è¾¹ã€‚<pre>StringUtil.alignLeft(null, *, *)     = null
      * StringUtil.alignLeft("", 3, 'z')     = "zzz"StringUtil.alignLeft("bat", 3, 'z')  = "bat"
      * StringUtil.alignLeft("bat", 5, 'z')  = "batzz"StringUtil.alignLeft("bat", 1, 'z')  = "bat"
      * StringUtil.alignLeft("bat", -1, 'z') = "bat"</pre>
      *
-     * @param str Òª¶ÔÆëµÄ×Ö·û´®
-     * @param size À©Õ¹×Ö·û´®µ½Ö¸¶¨¿í¶È
-     * @param padChar Ìî³ä×Ö·û
+     * @param str è¦å¯¹é½çš„å­—ç¬¦ä¸²
+     * @param size æ‰©å±•å­—ç¬¦ä¸²åˆ°æŒ‡å®šå®½åº¦
+     * @param padChar å¡«å……å­—ç¬¦
      *
-     * @return À©Õ¹ºóµÄ×Ö·û´®£¬Èç¹û×Ö·û´®Îª<code>null</code>£¬Ôò·µ»Ø<code>null</code>
+     * @return æ‰©å±•åçš„å­—ç¬¦ä¸²ï¼Œå¦‚æœå­—ç¬¦ä¸²ä¸º<code>null</code>ï¼Œåˆ™è¿”å›<code>null</code>
      */
     public static String alignLeft(String str, int size, char padChar) {
         if (str == null) {
@@ -323,7 +323,7 @@ public class StringUtil {
     }
 
     /**
-     * À©Õ¹²¢×ó¶ÔÆë×Ö·û´®£¬ÓÃÖ¸¶¨×Ö·û´®Ìî³äÓÒ±ß¡£<pre>StringUtil.alignLeft(null, *, *)      = null
+     * æ‰©å±•å¹¶å·¦å¯¹é½å­—ç¬¦ä¸²ï¼Œç”¨æŒ‡å®šå­—ç¬¦ä¸²å¡«å……å³è¾¹ã€‚<pre>StringUtil.alignLeft(null, *, *)      = null
      * StringUtil.alignLeft("", 3, "z")      = "zzz"StringUtil.alignLeft("bat", 3, "yz")  = "bat"
      * StringUtil.alignLeft("bat", 5, "yz")  = "batyz"
      * StringUtil.alignLeft("bat", 8, "yz")  = "batyzyzy"
@@ -331,11 +331,11 @@ public class StringUtil {
      * StringUtil.alignLeft("bat", 5, null)  = "bat  "
      * StringUtil.alignLeft("bat", 5, "")    = "bat  "</pre>
      *
-     * @param str Òª¶ÔÆëµÄ×Ö·û´®
-     * @param size À©Õ¹×Ö·û´®µ½Ö¸¶¨¿í¶È
-     * @param padStr Ìî³ä×Ö·û´®
+     * @param str è¦å¯¹é½çš„å­—ç¬¦ä¸²
+     * @param size æ‰©å±•å­—ç¬¦ä¸²åˆ°æŒ‡å®šå®½åº¦
+     * @param padStr å¡«å……å­—ç¬¦ä¸²
      *
-     * @return À©Õ¹ºóµÄ×Ö·û´®£¬Èç¹û×Ö·û´®Îª<code>null</code>£¬Ôò·µ»Ø<code>null</code>
+     * @return æ‰©å±•åçš„å­—ç¬¦ä¸²ï¼Œå¦‚æœå­—ç¬¦ä¸²ä¸º<code>null</code>ï¼Œåˆ™è¿”å›<code>null</code>
      */
     public static String alignLeft(String str, int size, String padStr) {
         if (str == null) {
@@ -371,31 +371,31 @@ public class StringUtil {
     }
 
     /**
-     * À©Õ¹²¢ÓÒ¶ÔÆë×Ö·û´®£¬ÓÃ¿Õ¸ñ<code>' '</code>Ìî³ä×ó±ß¡£<pre>StringUtil.alignRight(null, *)   = null
+     * æ‰©å±•å¹¶å³å¯¹é½å­—ç¬¦ä¸²ï¼Œç”¨ç©ºæ ¼<code>' '</code>å¡«å……å·¦è¾¹ã€‚<pre>StringUtil.alignRight(null, *)   = null
      * StringUtil.alignRight("", 3)     = "   "StringUtil.alignRight("bat", 3)  = "bat"
      * StringUtil.alignRight("bat", 5)  = "  bat"StringUtil.alignRight("bat", 1)  = "bat"
      * StringUtil.alignRight("bat", -1) = "bat"</pre>
      *
-     * @param str Òª¶ÔÆëµÄ×Ö·û´®
-     * @param size À©Õ¹×Ö·û´®µ½Ö¸¶¨¿í¶È
+     * @param str è¦å¯¹é½çš„å­—ç¬¦ä¸²
+     * @param size æ‰©å±•å­—ç¬¦ä¸²åˆ°æŒ‡å®šå®½åº¦
      *
-     * @return À©Õ¹ºóµÄ×Ö·û´®£¬Èç¹û×Ö·û´®Îª<code>null</code>£¬Ôò·µ»Ø<code>null</code>
+     * @return æ‰©å±•åçš„å­—ç¬¦ä¸²ï¼Œå¦‚æœå­—ç¬¦ä¸²ä¸º<code>null</code>ï¼Œåˆ™è¿”å›<code>null</code>
      */
     public static String alignRight(String str, int size) {
         return alignRight(str, size, ' ');
     }
 
     /**
-     * À©Õ¹²¢ÓÒ¶ÔÆë×Ö·û´®£¬ÓÃÖ¸¶¨×Ö·ûÌî³ä×ó±ß¡£<pre>StringUtil.alignRight(null, *, *)     = null
+     * æ‰©å±•å¹¶å³å¯¹é½å­—ç¬¦ä¸²ï¼Œç”¨æŒ‡å®šå­—ç¬¦å¡«å……å·¦è¾¹ã€‚<pre>StringUtil.alignRight(null, *, *)     = null
      * StringUtil.alignRight("", 3, 'z')     = "zzz"StringUtil.alignRight("bat", 3, 'z')  = "bat"
      * StringUtil.alignRight("bat", 5, 'z')  = "zzbat"StringUtil.alignRight("bat", 1, 'z')  = "bat"
      * StringUtil.alignRight("bat", -1, 'z') = "bat"</pre>
      *
-     * @param str Òª¶ÔÆëµÄ×Ö·û´®
-     * @param size À©Õ¹×Ö·û´®µ½Ö¸¶¨¿í¶È
-     * @param padChar Ìî³ä×Ö·û
+     * @param str è¦å¯¹é½çš„å­—ç¬¦ä¸²
+     * @param size æ‰©å±•å­—ç¬¦ä¸²åˆ°æŒ‡å®šå®½åº¦
+     * @param padChar å¡«å……å­—ç¬¦
      *
-     * @return À©Õ¹ºóµÄ×Ö·û´®£¬Èç¹û×Ö·û´®Îª<code>null</code>£¬Ôò·µ»Ø<code>null</code>
+     * @return æ‰©å±•åçš„å­—ç¬¦ä¸²ï¼Œå¦‚æœå­—ç¬¦ä¸²ä¸º<code>null</code>ï¼Œåˆ™è¿”å›<code>null</code>
      */
     public static String alignRight(String str, int size, char padChar) {
         if (str == null) {
@@ -412,7 +412,7 @@ public class StringUtil {
     }
 
     /**
-     * À©Õ¹²¢ÓÒ¶ÔÆë×Ö·û´®£¬ÓÃÖ¸¶¨×Ö·û´®Ìî³ä×ó±ß¡£<pre>StringUtil.alignRight(null, *, *)      = null
+     * æ‰©å±•å¹¶å³å¯¹é½å­—ç¬¦ä¸²ï¼Œç”¨æŒ‡å®šå­—ç¬¦ä¸²å¡«å……å·¦è¾¹ã€‚<pre>StringUtil.alignRight(null, *, *)      = null
      * StringUtil.alignRight("", 3, "z")      = "zzz"StringUtil.alignRight("bat", 3, "yz")  = "bat"
      * StringUtil.alignRight("bat", 5, "yz")  = "yzbat"
      * StringUtil.alignRight("bat", 8, "yz")  = "yzyzybat"
@@ -420,11 +420,11 @@ public class StringUtil {
      * StringUtil.alignRight("bat", 5, null)  = "  bat"
      * StringUtil.alignRight("bat", 5, "")    = "  bat"</pre>
      *
-     * @param str Òª¶ÔÆëµÄ×Ö·û´®
-     * @param size À©Õ¹×Ö·û´®µ½Ö¸¶¨¿í¶È
-     * @param padStr Ìî³ä×Ö·û´®
+     * @param str è¦å¯¹é½çš„å­—ç¬¦ä¸²
+     * @param size æ‰©å±•å­—ç¬¦ä¸²åˆ°æŒ‡å®šå®½åº¦
+     * @param padStr å¡«å……å­—ç¬¦ä¸²
      *
-     * @return À©Õ¹ºóµÄ×Ö·û´®£¬Èç¹û×Ö·û´®Îª<code>null</code>£¬Ôò·µ»Ø<code>null</code>
+     * @return æ‰©å±•åçš„å­—ç¬¦ä¸²ï¼Œå¦‚æœå­—ç¬¦ä¸²ä¸º<code>null</code>ï¼Œåˆ™è¿”å›<code>null</code>
      */
     public static String alignRight(String str, int size, String padStr) {
         if (str == null) {
@@ -460,31 +460,31 @@ public class StringUtil {
     }
 
     /**
-     * À©Õ¹²¢¾ÓÖĞ×Ö·û´®£¬ÓÃ¿Õ¸ñ<code>' '</code>Ìî³äÁ½±ß¡£<pre>StringUtil.center(null, *)   = null
+     * æ‰©å±•å¹¶å±…ä¸­å­—ç¬¦ä¸²ï¼Œç”¨ç©ºæ ¼<code>' '</code>å¡«å……ä¸¤è¾¹ã€‚<pre>StringUtil.center(null, *)   = null
      * StringUtil.center("", 4)     = "    "StringUtil.center("ab", -1)  = "ab"
      * StringUtil.center("ab", 4)   = " ab "StringUtil.center("abcd", 2) = "abcd"
      * StringUtil.center("a", 4)    = " a  "</pre>
      *
-     * @param str Òª¶ÔÆëµÄ×Ö·û´®
-     * @param size À©Õ¹×Ö·û´®µ½Ö¸¶¨¿í¶È
+     * @param str è¦å¯¹é½çš„å­—ç¬¦ä¸²
+     * @param size æ‰©å±•å­—ç¬¦ä¸²åˆ°æŒ‡å®šå®½åº¦
      *
-     * @return À©Õ¹ºóµÄ×Ö·û´®£¬Èç¹û×Ö·û´®Îª<code>null</code>£¬Ôò·µ»Ø<code>null</code>
+     * @return æ‰©å±•åçš„å­—ç¬¦ä¸²ï¼Œå¦‚æœå­—ç¬¦ä¸²ä¸º<code>null</code>ï¼Œåˆ™è¿”å›<code>null</code>
      */
     public static String center(String str, int size) {
         return center(str, size, ' ');
     }
 
     /**
-     * À©Õ¹²¢¾ÓÖĞ×Ö·û´®£¬ÓÃÖ¸¶¨×Ö·ûÌî³äÁ½±ß¡£<pre>StringUtil.center(null, *, *)     = null
+     * æ‰©å±•å¹¶å±…ä¸­å­—ç¬¦ä¸²ï¼Œç”¨æŒ‡å®šå­—ç¬¦å¡«å……ä¸¤è¾¹ã€‚<pre>StringUtil.center(null, *, *)     = null
      * StringUtil.center("", 4, ' ')     = "    "StringUtil.center("ab", -1, ' ')  = "ab"
      * StringUtil.center("ab", 4, ' ')   = " ab "StringUtil.center("abcd", 2, ' ') = "abcd"
      * StringUtil.center("a", 4, ' ')    = " a  "StringUtil.center("a", 4, 'y')    = "yayy"</pre>
      *
-     * @param str Òª¶ÔÆëµÄ×Ö·û´®
-     * @param size À©Õ¹×Ö·û´®µ½Ö¸¶¨¿í¶È
-     * @param padChar Ìî³ä×Ö·û
+     * @param str è¦å¯¹é½çš„å­—ç¬¦ä¸²
+     * @param size æ‰©å±•å­—ç¬¦ä¸²åˆ°æŒ‡å®šå®½åº¦
+     * @param padChar å¡«å……å­—ç¬¦
      *
-     * @return À©Õ¹ºóµÄ×Ö·û´®£¬Èç¹û×Ö·û´®Îª<code>null</code>£¬Ôò·µ»Ø<code>null</code>
+     * @return æ‰©å±•åçš„å­—ç¬¦ä¸²ï¼Œå¦‚æœå­—ç¬¦ä¸²ä¸º<code>null</code>ï¼Œåˆ™è¿”å›<code>null</code>
      */
     public static String center(String str, int size, char padChar) {
         if ((str == null) || (size <= 0)) {
@@ -504,18 +504,18 @@ public class StringUtil {
     }
 
     /**
-     * À©Õ¹²¢¾ÓÖĞ×Ö·û´®£¬ÓÃÖ¸¶¨×Ö·û´®Ìî³äÁ½±ß¡£<pre>StringUtil.center(null, *, *)     = null
+     * æ‰©å±•å¹¶å±…ä¸­å­—ç¬¦ä¸²ï¼Œç”¨æŒ‡å®šå­—ç¬¦ä¸²å¡«å……ä¸¤è¾¹ã€‚<pre>StringUtil.center(null, *, *)     = null
      * StringUtil.center("", 4, " ")     = "    "StringUtil.center("ab", -1, " ")  = "ab"
      * StringUtil.center("ab", 4, " ")   = " ab "StringUtil.center("abcd", 2, " ") = "abcd"
      * StringUtil.center("a", 4, " ")    = " a  "StringUtil.center("a", 4, "yz")   = "yayz"
      * StringUtil.center("abc", 7, null) = "  abc  "StringUtil.center("abc", 7, "")   = "  abc  "
      * </pre>
      *
-     * @param str Òª¶ÔÆëµÄ×Ö·û´®
-     * @param size À©Õ¹×Ö·û´®µ½Ö¸¶¨¿í¶È
-     * @param padStr Ìî³ä×Ö·û´®
+     * @param str è¦å¯¹é½çš„å­—ç¬¦ä¸²
+     * @param size æ‰©å±•å­—ç¬¦ä¸²åˆ°æŒ‡å®šå®½åº¦
+     * @param padStr å¡«å……å­—ç¬¦ä¸²
      *
-     * @return À©Õ¹ºóµÄ×Ö·û´®£¬Èç¹û×Ö·û´®Îª<code>null</code>£¬Ôò·µ»Ø<code>null</code>
+     * @return æ‰©å±•åçš„å­—ç¬¦ä¸²ï¼Œå¦‚æœå­—ç¬¦ä¸²ä¸º<code>null</code>ï¼Œåˆ™è¿”å›<code>null</code>
      */
     public static String center(String str, int size, String padStr) {
         if ((str == null) || (size <= 0)) {
@@ -539,11 +539,11 @@ public class StringUtil {
     }
 
     /**
-     * È¥³ıÊı¾İÖĞµÄ¿ÕÖµ¡£
+     * å»é™¤æ•°æ®ä¸­çš„ç©ºå€¼ã€‚
      *
-     * @param strs ×Ö·û´®Êı×é
+     * @param strs å­—ç¬¦ä¸²æ•°ç»„
      *
-     * @return ÕûÀíºóµÄÊı×é
+     * @return æ•´ç†åçš„æ•°ç»„
      */
     public static String[] trimStringArray(String[] strs) {
         if (strs == null) {

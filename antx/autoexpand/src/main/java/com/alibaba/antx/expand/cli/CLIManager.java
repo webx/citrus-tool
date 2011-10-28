@@ -27,7 +27,7 @@ import com.alibaba.antx.util.cli.PosixParser;
 import java.io.PrintWriter;
 
 /**
- * AntxexpandÃüÁîĞĞ½âÎöÆ÷¡£
+ * Antxexpandå‘½ä»¤è¡Œè§£æå™¨ã€‚
  * 
  * @author Michael Zhou
  */
@@ -47,26 +47,26 @@ public class CLIManager {
 
         options = new Options();
 
-        options.addOption(builder.withLongOpt("help").withDescription("ÏÔÊ¾°ïÖúĞÅÏ¢").create(OPT_HELP));
+        options.addOption(builder.withLongOpt("help").withDescription("æ˜¾ç¤ºå¸®åŠ©ä¿¡æ¯").create(OPT_HELP));
 
-        options.addOption(builder.withLongOpt("verbose").withDescription("ÏÔÊ¾¸ü¶àĞÅÏ¢").create(OPT_VERBOSE));
+        options.addOption(builder.withLongOpt("verbose").withDescription("æ˜¾ç¤ºæ›´å¤šä¿¡æ¯").create(OPT_VERBOSE));
 
-        options.addOption(builder.withLongOpt("charset").hasArg().withDescription("ÊäÈë/Êä³ö±àÂë×Ö·û¼¯").create(OPT_CHARSET));
+        options.addOption(builder.withLongOpt("charset").hasArg().withDescription("è¾“å…¥/è¾“å‡ºç¼–ç å­—ç¬¦é›†").create(OPT_CHARSET));
 
-        options.addOption(builder.withLongOpt("expand-war").hasOptionalArg().withDescription("ÊÇ·ñÕ¹¿ªwar£¨yes|no£©£¬Ä¬ÈÏÎªyes")
+        options.addOption(builder.withLongOpt("expand-war").hasOptionalArg().withDescription("æ˜¯å¦å±•å¼€warï¼ˆyes|noï¼‰ï¼Œé»˜è®¤ä¸ºyes")
                 .create(OPT_EXPAND_WAR));
 
-        options.addOption(builder.withLongOpt("expand-rar").hasOptionalArg().withDescription("ÊÇ·ñÕ¹¿ªrar£¨yes|no£©£¬Ä¬ÈÏÎªyes")
+        options.addOption(builder.withLongOpt("expand-rar").hasOptionalArg().withDescription("æ˜¯å¦å±•å¼€rarï¼ˆyes|noï¼‰ï¼Œé»˜è®¤ä¸ºyes")
                 .create(OPT_EXPAND_RAR));
 
         options.addOption(builder.withLongOpt("expand-ejb-jar").hasOptionalArg().withDescription(
-                "ÊÇ·ñÕ¹¿ªejb-jar£¨yes|no£©£¬Ä¬ÈÏÎªno").create(OPT_EXPAND_EJB_JAR));
+                "æ˜¯å¦å±•å¼€ejb-jarï¼ˆyes|noï¼‰ï¼Œé»˜è®¤ä¸ºno").create(OPT_EXPAND_EJB_JAR));
 
         options.addOption(builder.withLongOpt("overwrite").hasOptionalArg().withDescription(
-                "Èç¹ûÄ¿±êÄ¿Â¼ÖĞµÄÎÄ¼ş±ÈzipÎÄ¼şÖĞµÄÏîÒªĞÂ£¬ÊÇ·ñ¸²¸ÇÖ®£¬Ä¬ÈÏÎªno").create(OPT_OVERWRITE));
+                "å¦‚æœç›®æ ‡ç›®å½•ä¸­çš„æ–‡ä»¶æ¯”zipæ–‡ä»¶ä¸­çš„é¡¹è¦æ–°ï¼Œæ˜¯å¦è¦†ç›–ä¹‹ï¼Œé»˜è®¤ä¸ºno").create(OPT_OVERWRITE));
 
         options.addOption(builder.withLongOpt("keep-redundant-files").hasOptionalArg().withDescription(
-                "Èç¹ûÄ¿±êÄ¿Â¼ÖĞÓĞ¶àÓàµÄÎÄ¼ş£¬ÊÇ·ñ±£³Ö¶ø²»É¾³ı£¬Ä¬ÈÏÎªno").create(OPT_KEEP_REDUNDANT_FILES));
+                "å¦‚æœç›®æ ‡ç›®å½•ä¸­æœ‰å¤šä½™çš„æ–‡ä»¶ï¼Œæ˜¯å¦ä¿æŒè€Œä¸åˆ é™¤ï¼Œé»˜è®¤ä¸ºno").create(OPT_KEEP_REDUNDANT_FILES));
     }
 
     public CommandLine parse(String[] args) {
@@ -84,9 +84,9 @@ public class CLIManager {
     public void help(PrintWriter out) {
         HelpFormatter formatter = new HelpFormatter();
 
-        formatter.defaultSyntaxPrefix = "Ê¹ÓÃ·½·¨£º";
+        formatter.defaultSyntaxPrefix = "ä½¿ç”¨æ–¹æ³•ï¼š";
 
-        formatter.printHelp(out, HelpFormatter.DEFAULT_WIDTH, "antxexpand [¿ÉÑ¡²ÎÊı] ÎÄ¼şÃû [Ä¿±êÄ¿Â¼]\n", "¿ÉÑ¡²ÎÊı£º", options,
+        formatter.printHelp(out, HelpFormatter.DEFAULT_WIDTH, "antxexpand [å¯é€‰å‚æ•°] æ–‡ä»¶å [ç›®æ ‡ç›®å½•]\n", "å¯é€‰å‚æ•°ï¼š", options,
                 HelpFormatter.DEFAULT_LEFT_PAD, HelpFormatter.DEFAULT_DESC_PAD, "\n");
     }
 }

@@ -49,7 +49,7 @@ public class ExpanderRuntimeImpl implements ExpanderRuntime {
             out = new PrintWriter(new OutputStreamWriter(outStream, this.charset), true);
             err = new PrintWriter(new OutputStreamWriter(errStream, this.charset), true);
         } catch (UnsupportedEncodingException e) {
-            throw new ExpanderException(e); // 不应发生
+            throw new ExpanderException(e); // 涓嶅簲鍙戠敓
         }
 
         if (!charsetSpecified) {

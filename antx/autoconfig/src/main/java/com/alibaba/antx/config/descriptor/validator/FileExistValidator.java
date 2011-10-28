@@ -66,6 +66,6 @@ public class FileExistValidator extends ConfigValidator {
 
     @Override
     protected String getDefaultMessage() {
-        return "ÎÄ¼ş»òÄ¿Â¼²»´æÔÚ£¬»ò²»ÊÇ¾ø¶ÔÂ·¾¶£º" + file;
+        return "æ–‡ä»¶æˆ–ç›®å½•ä¸å­˜åœ¨ï¼Œæˆ–ä¸æ˜¯ç»å¯¹è·¯å¾„ï¼š" + file;
     }
 }

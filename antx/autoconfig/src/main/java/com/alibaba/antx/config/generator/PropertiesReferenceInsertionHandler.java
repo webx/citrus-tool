@@ -54,28 +54,28 @@ public class PropertiesReferenceInsertionHandler implements ReferenceInsertionEv
     }
 
     public Object referenceInsert(String reference, Object value) {
-        // ¼ÙÈç¿É´ÓcontextÖĞÈ¡µÃµÄÖµ£¬Ö±½Ó·µ»ØÖ®¡£
+        // å‡å¦‚å¯ä»contextä¸­å–å¾—çš„å€¼ï¼Œç›´æ¥è¿”å›ä¹‹ã€‚
         if (value != null) {
             return value;
         }
 
         String normalizedRef = normalizeReference(reference);
 
-        // ´ÓpropsÖĞÈ¡Öµ£¬Ò²¾ÍÊÇ´Óantx.propertiesÖĞÈ¡Öµ¡£
+        // ä»propsä¸­å–å€¼ï¼Œä¹Ÿå°±æ˜¯ä»antx.propertiesä¸­å–å€¼ã€‚
         value = PropertiesLoader.evaluate(normalizedRef, props);
 
-        // ¼ÙÈç${placeholder±»¶¨Òå£¬±Ø¶¨ÊÇºÏ·¨Öµ£¨ÒòÎªÒÑ¾­ÑéÖ¤¹ıÁË£©¡£
-        // ¶ÔÓÚnullÖµ·µ»Ø¿Õ°×¡£
+        // å‡å¦‚${placeholderè¢«å®šä¹‰ï¼Œå¿…å®šæ˜¯åˆæ³•å€¼ï¼ˆå› ä¸ºå·²ç»éªŒè¯è¿‡äº†ï¼‰ã€‚
+        // å¯¹äºnullå€¼è¿”å›ç©ºç™½ã€‚
         if (value == null) {
             value = "";
         }
 
-        // ¼ì²éplaceholderÊÇ·ñÔÚauto-config.xmlÖĞ¶¨Òå¡£
-        // ÓĞÒ»ÖÖÇé¿ö£ºauto-config.xmlÖĞÎ´¶¨Òå£¬µ«antx.propertiesÖĞÓĞÖµ£¬ÈÔÈ»»á·µ»Ø¸ÃÖµ£¬µ«±¨¾¯¸æ¡£
+        // æ£€æŸ¥placeholderæ˜¯å¦åœ¨auto-config.xmlä¸­å®šä¹‰ã€‚
+        // æœ‰ä¸€ç§æƒ…å†µï¼šauto-config.xmlä¸­æœªå®šä¹‰ï¼Œä½†antx.propertiesä¸­æœ‰å€¼ï¼Œä»ç„¶ä¼šè¿”å›è¯¥å€¼ï¼Œä½†æŠ¥è­¦å‘Šã€‚
         @SuppressWarnings("unchecked")
         Set<String> unknownRefs = (Set<String>) context.get(ConfigConstant.UNKNWON_REFS_KEY);
 
-        // ¼ÙÈç${placeholder}Î´¶¨Òå
+        // å‡å¦‚${placeholder}æœªå®šä¹‰
         if (!definedProperties.containsKey(normalizedRef)) {
             if (unknownRefs != null) {
                 unknownRefs.add(normalizedRef);

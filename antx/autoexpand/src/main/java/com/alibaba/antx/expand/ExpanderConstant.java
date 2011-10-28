@@ -18,7 +18,7 @@
 package com.alibaba.antx.expand;
 
 /**
- * ConfigµÄ³£Á¿¡£
+ * Configçš„å¸¸é‡ã€‚
  * 
  * @author Michael Zhou
  */

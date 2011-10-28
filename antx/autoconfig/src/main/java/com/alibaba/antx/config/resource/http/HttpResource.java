@@ -84,7 +84,7 @@ public class HttpResource extends Resource {
                 throw new ResourceNotFoundException(HttpStatus.getStatusText(httpget.getStatusCode()));
             }
 
-            // ³É¹¦¾ÍÇå³ı£¬ÒÔ±ÜÃâÖØ¸´ÌáÊ¾ÊäÈëÃÜÂë
+            // æˆåŠŸå°±æ¸…é™¤ï¼Œä»¥é¿å…é‡å¤æç¤ºè¾“å…¥å¯†ç 
             ResourceContext.get().getVisitedURIs().remove(new ResourceKey(new ResourceURI(getURI().getURI())));
 
             content = httpget.getResponseBody();

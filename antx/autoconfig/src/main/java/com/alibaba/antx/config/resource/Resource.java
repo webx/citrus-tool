@@ -61,7 +61,7 @@ public abstract class Resource implements Comparable {
     public abstract List list();
 
     /**
-     * Ä¿Â¼ÅÅÔÚÎÄ¼şÇ°Ãæ£¬È»ºó°´ÎÄ¼şÃûÅÅĞò¡£
+     * ç›®å½•æ’åœ¨æ–‡ä»¶å‰é¢ï¼Œç„¶åæŒ‰æ–‡ä»¶åæ’åºã€‚
      */
     public int compareTo(Object other) {
         if (other instanceof Resource) {

@@ -18,19 +18,19 @@
 package com.alibaba.antx.util;
 
 /**
- * ºÍÒ»°ã¶ÔÏóÓĞ¹ØµÄĞ¡¹¤¾ß.
+ * å’Œä¸€èˆ¬å¯¹è±¡æœ‰å…³çš„å°å·¥å…·.
  *
  * @author Michael Zhou
  *
  */
 public class ObjectUtil {
     /**
-     * ±È½ÏÁ½¸ö¶ÔÏóÊÇ·ñÏàÍ¬¡£
+     * æ¯”è¾ƒä¸¤ä¸ªå¯¹è±¡æ˜¯å¦ç›¸åŒã€‚
      *
-     * @param o1 ¶ÔÏó1
-     * @param o2 ¶ÔÏó2
+     * @param o1 å¯¹è±¡1
+     * @param o2 å¯¹è±¡2
      *
-     * @return Èç¹ûÏàÍ¬£¬Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœç›¸åŒï¼Œåˆ™è¿”å›<code>true</code>
      */
     public static boolean equals(Object o1, Object o2) {
         if (o1 == null) {

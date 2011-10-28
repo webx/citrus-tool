@@ -35,7 +35,7 @@ import com.alibaba.antx.util.SelectorUtil;
 import com.alibaba.antx.util.scanner.DefaultScannerHandler;
 
 /**
- * ´ú±íÒ»¸ö¿ÉÅäÖÃÏîµÄĞÅÏ¢¡£
+ * ä»£è¡¨ä¸€ä¸ªå¯é…ç½®é¡¹çš„ä¿¡æ¯ã€‚
  * 
  * @author Michael Zhou
  */
@@ -49,10 +49,10 @@ public abstract class ConfigEntry {
     private final ConfigGenerator generator;
 
     /**
-     * ´´½¨Ò»¸ö½áµã¡£
+     * åˆ›å»ºä¸€ä¸ªç»“ç‚¹ã€‚
      * 
-     * @param resource Ö¸¶¨½áµãµÄ×ÊÔ´
-     * @param settings antxconfigµÄÉèÖÃ
+     * @param resource æŒ‡å®šç»“ç‚¹çš„èµ„æº
+     * @param settings antxconfigçš„è®¾ç½®
      */
     public ConfigEntry(ConfigResource resource, File outputFile, ConfigSettings settings) {
         this.resource = resource;
@@ -62,66 +62,66 @@ public abstract class ConfigEntry {
     }
 
     /**
-     * È¡µÃ½áµãµÄÃû³Æ¡£
+     * å–å¾—ç»“ç‚¹çš„åç§°ã€‚
      * 
-     * @return ½áµãµÄÃû³Æ
+     * @return ç»“ç‚¹çš„åç§°
      */
     public String getName() {
         return getConfigEntryResource().getName();
     }
 
     /**
-     * ²»°üº¬ÈÎºÎdescriptorºÍsub entriesµÄ¿Õ½áµã¡£
+     * ä¸åŒ…å«ä»»ä½•descriptorå’Œsub entriesçš„ç©ºç»“ç‚¹ã€‚
      */
     public boolean isEmpty() {
         return (getSubEntries().length == 0) && (getGenerator().getConfigDescriptors().length == 0);
     }
 
     /**
-     * È¡µÃ×ÊÔ´¡£
+     * å–å¾—èµ„æºã€‚
      * 
-     * @return ×ÊÔ´
+     * @return èµ„æº
      */
     public ConfigResource getConfigEntryResource() {
         return resource;
     }
 
     /**
-     * È¡µÃÊä³öÎÄ¼ş»òÄ¿Â¼¡£
+     * å–å¾—è¾“å‡ºæ–‡ä»¶æˆ–ç›®å½•ã€‚
      */
     public File getOutputFile() {
         return outputFile;
     }
 
     /**
-     * È¡µÃconfigÉèÖÃ¡£
+     * å–å¾—configè®¾ç½®ã€‚
      * 
-     * @return configÉèÖÃ
+     * @return configè®¾ç½®
      */
     public ConfigSettings getConfigSettings() {
         return settings;
     }
 
     /**
-     * È¡µÃconfig descriptorµÄpatterns£¬Èç¹ûÎ´ÉèÖÃ£¬ÔòÊ¹ÓÃÄ¬ÈÏÖµ¡£
+     * å–å¾—config descriptorçš„patternsï¼Œå¦‚æœæœªè®¾ç½®ï¼Œåˆ™ä½¿ç”¨é»˜è®¤å€¼ã€‚
      * 
-     * @return config descriptorµÄpattern
+     * @return config descriptorçš„pattern
      */
     public PatternSet getDescriptorPatterns() {
         return descriptorPatterns;
     }
 
     /**
-     * ÉèÖÃconfig descriptorµÄpattern£¬Èç¹ûÎ´ÉèÖÃ£¬ÔòÊ¹ÓÃÄ¬ÈÏÖµ¡£
+     * è®¾ç½®config descriptorçš„patternï¼Œå¦‚æœæœªè®¾ç½®ï¼Œåˆ™ä½¿ç”¨é»˜è®¤å€¼ã€‚
      * 
-     * @param descriptorsPatterns config descriptorµÄpattern
+     * @param descriptorsPatterns config descriptorçš„pattern
      */
     public void setDescriptorPatterns(PatternSet descriptorPatterns) {
         this.descriptorPatterns = descriptorPatterns;
     }
 
     /**
-     * È¡µÃÓÃÓÚÆ¥Åäµ±Ç°½áµãÏÂµÄËùÓĞ×Ó½áµãµÄpattern¡£
+     * å–å¾—ç”¨äºåŒ¹é…å½“å‰ç»“ç‚¹ä¸‹çš„æ‰€æœ‰å­ç»“ç‚¹çš„patternã€‚
      * 
      * @return pattern
      */
@@ -130,7 +130,7 @@ public abstract class ConfigEntry {
     }
 
     /**
-     * ÉèÖÃÓÃÓÚÆ¥Åäµ±Ç°½áµãÏÂµÄËùÓĞ×Ó½áµãµÄpattern¡£
+     * è®¾ç½®ç”¨äºåŒ¹é…å½“å‰ç»“ç‚¹ä¸‹çš„æ‰€æœ‰å­ç»“ç‚¹çš„patternã€‚
      * 
      * @param packagePatterns pattern
      */
@@ -139,43 +139,43 @@ public abstract class ConfigEntry {
     }
 
     /**
-     * È¡µÃµ±Ç°config½áµã¶ÔÓ¦µÄgenerator¡£
+     * å–å¾—å½“å‰configç»“ç‚¹å¯¹åº”çš„generatorã€‚
      * 
-     * @return generator¶ÔÏó
+     * @return generatorå¯¹è±¡
      */
     public ConfigGenerator getGenerator() {
         return generator;
     }
 
     /**
-     * È¡µÃµ±Ç°config½áµãÏÂµÄËùÓĞ×Ó½áµã¡£
+     * å–å¾—å½“å‰configç»“ç‚¹ä¸‹çš„æ‰€æœ‰å­ç»“ç‚¹ã€‚
      * 
-     * @return ×Ó½áµãÊı×é£¬Èç¹û²»´æÔÚ£¬Ôò·µ»Ø¿ÕÊı×é
+     * @return å­ç»“ç‚¹æ•°ç»„ï¼Œå¦‚æœä¸å­˜åœ¨ï¼Œåˆ™è¿”å›ç©ºæ•°ç»„
      */
     public ConfigEntry[] getSubEntries() {
         return subEntries;
     }
 
     /**
-     * É¨Ãè½áµã¡£
+     * æ‰«æç»“ç‚¹ã€‚
      */
     public void scan() {
         scan(null);
     }
 
     /**
-     * É¨Ãè½áµã¡£
+     * æ‰«æç»“ç‚¹ã€‚
      */
     protected abstract void scan(InputStream istream);
 
     /**
-     * ×°ÅädescriptorµÄcontext£¬ÓÃÀ´Éú³ÉÎÄ¼ş¡£
+     * è£…é…descriptorçš„contextï¼Œç”¨æ¥ç”Ÿæˆæ–‡ä»¶ã€‚
      */
     protected void populateDescriptorContext(Map context, String string) {
     }
 
     /**
-     * Éú³ÉÅäÖÃÎÄ¼ş¡£
+     * ç”Ÿæˆé…ç½®æ–‡ä»¶ã€‚
      */
     public boolean generate() {
         if (getOutputFile() != null) {
@@ -186,12 +186,12 @@ public abstract class ConfigEntry {
     }
 
     /**
-     * Éú³ÉÅäÖÃÎÄ¼ş¡£
+     * ç”Ÿæˆé…ç½®æ–‡ä»¶ã€‚
      */
     protected abstract boolean generate(InputStream istream, OutputStream ostream);
 
     /**
-     * É¨Ãè´¦ÀíÆ÷¡£
+     * æ‰«æå¤„ç†å™¨ã€‚
      */
     public class Handler extends DefaultScannerHandler {
         private List subEntries = new ArrayList();
@@ -271,9 +271,9 @@ public abstract class ConfigEntry {
         }
 
         /**
-         * ÊÇ·ñ¸ú½øÖ¸¶¨Ä¿Â¼»òÎÄ¼ş¡£¸Ã·½·¨ÓĞÖúÓÚÌá¸ßÉ¨ÃèËÙ¶È¡£
+         * æ˜¯å¦è·Ÿè¿›æŒ‡å®šç›®å½•æˆ–æ–‡ä»¶ã€‚è¯¥æ–¹æ³•æœ‰åŠ©äºæé«˜æ‰«æé€Ÿåº¦ã€‚
          * 
-         * @return Èç¹ûÊÇ£¬Ôò·µ»Ø<code>true</code>
+         * @return å¦‚æœæ˜¯ï¼Œåˆ™è¿”å›<code>true</code>
          */
         public boolean followUp() {
             String name = getScanner().getPath();
@@ -297,7 +297,7 @@ public abstract class ConfigEntry {
         }
 
         /**
-         * ×°Èëdescriptor¡£
+         * è£…å…¥descriptorã€‚
          */
         private void loadDescriptor() {
             URL descriptorURL = getScanner().getURL();
@@ -322,10 +322,10 @@ public abstract class ConfigEntry {
         }
 
         /**
-         * ²é¿´Ö¸¶¨Ãû³ÆÊÇ·ñ·ûºÏdescriptorµÄpatterns¡£
+         * æŸ¥çœ‹æŒ‡å®šåç§°æ˜¯å¦ç¬¦åˆdescriptorçš„patternsã€‚
          * 
-         * @param name ÒªÆ¥ÅäµÄÃû³Æ
-         * @return Èç¹û·ûºÏdescriptorµÄpatterns£¬Ôò·µ»Ø<code>true</code>
+         * @param name è¦åŒ¹é…çš„åç§°
+         * @return å¦‚æœç¬¦åˆdescriptorçš„patternsï¼Œåˆ™è¿”å›<code>true</code>
          */
         private boolean isDescriptorFile(String name) {
             return SelectorUtil.matchPath(name, getDescriptorPatterns().getIncludes(), getDescriptorPatterns()
@@ -333,10 +333,10 @@ public abstract class ConfigEntry {
         }
 
         /**
-         * ²é¿´Ö¸¶¨Ãû³ÆÊÇ·ñ·ûºÏjarfileµÄpatterns¡£
+         * æŸ¥çœ‹æŒ‡å®šåç§°æ˜¯å¦ç¬¦åˆjarfileçš„patternsã€‚
          * 
-         * @param name ÒªÆ¥ÅäµÄÃû³Æ
-         * @return Èç¹û·ûºÏjarfileµÄpatterns£¬Ôò·µ»Ø<code>true</code>
+         * @param name è¦åŒ¹é…çš„åç§°
+         * @return å¦‚æœç¬¦åˆjarfileçš„patternsï¼Œåˆ™è¿”å›<code>true</code>
          */
         private boolean isPackageFile(String name) {
             return SelectorUtil.matchPath(name, getPackagePatterns().getIncludes(), getPackagePatterns().getExcludes());

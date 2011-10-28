@@ -31,57 +31,57 @@ import org.dom4j.DocumentException;
 import org.dom4j.io.SAXReader;
 
 /**
- * ´ÓXMLÎÄ¼şÖĞ´´½¨<code>ResourceBundle</code>µÄÊµÀıµÄ¹¤³§.
+ * ä»XMLæ–‡ä»¶ä¸­åˆ›å»º<code>ResourceBundle</code>çš„å®ä¾‹çš„å·¥å‚.
  *
  * @version $Id: XMLResourceBundleFactory.java,v 1.1 2003/07/03 07:26:35 baobao Exp $
  * @author Michael Zhou
  */
 public class XMLResourceBundleFactory extends AbstractResourceBundleFactory {
     /**
-     * ´´½¨factory, Ê¹ÓÃµ±Ç°Ïß³ÌµÄcontext class loader×÷Îªbundle×°ÈëÆ÷.
+     * åˆ›å»ºfactory, ä½¿ç”¨å½“å‰çº¿ç¨‹çš„context class loaderä½œä¸ºbundleè£…å…¥å™¨.
      */
     public XMLResourceBundleFactory() {
         super();
     }
 
     /**
-     * ´´½¨factory, Ê¹ÓÃÖ¸¶¨µÄclass loader×÷Îªbundle×°ÈëÆ÷.
+     * åˆ›å»ºfactory, ä½¿ç”¨æŒ‡å®šçš„class loaderä½œä¸ºbundleè£…å…¥å™¨.
      *
-     * @param classLoader ×°ÈëbundleµÄclass loader
+     * @param classLoader è£…å…¥bundleçš„class loader
      */
     public XMLResourceBundleFactory(ClassLoader classLoader) {
         super(classLoader);
     }
 
     /**
-     * ´´½¨factory, Ê¹ÓÃÖ¸¶¨µÄloader×÷Îªbundle×°Æ÷
+     * åˆ›å»ºfactory, ä½¿ç”¨æŒ‡å®šçš„loaderä½œä¸ºbundleè£…å™¨
      *
-     * @param loader bundle×°ÈëÆ÷
+     * @param loader bundleè£…å…¥å™¨
      */
     public XMLResourceBundleFactory(ResourceBundleLoader loader) {
         super(loader);
     }
 
     /**
-     * ¸ù¾İbundleµÄÃû³ÆÈ¡µÃresourceµÄÎÄ¼şÃû³Æ.
+     * æ ¹æ®bundleçš„åç§°å–å¾—resourceçš„æ–‡ä»¶åç§°.
      *
-     * @param bundleName  bundleµÄÃû³Æ
+     * @param bundleName  bundleçš„åç§°
      *
-     * @return resourceµÄÃû³Æ
+     * @return resourceçš„åç§°
      */
     protected String getFilename(String bundleName) {
         return super.getFilename(bundleName) + ResourceBundleConstant.RB_RESOURCE_EXT_XML;
     }
 
     /**
-     * ÒÔXML¸ñÊ½½âÎöÊäÈëÁ÷, ²¢´´½¨<code>ResourceBundle</code>.
+     * ä»¥XMLæ ¼å¼è§£æè¾“å…¥æµ, å¹¶åˆ›å»º<code>ResourceBundle</code>.
      *
-     * @param stream    ÊäÈëÁ÷
-     * @param systemId  ±êÖ¾ÊäÈëÁ÷µÄ×Ö·û´®
+     * @param stream    è¾“å…¥æµ
+     * @param systemId  æ ‡å¿—è¾“å…¥æµçš„å­—ç¬¦ä¸²
      *
      * @return resource bundle
      *
-     * @throws ResourceBundleCreateException Èç¹û½âÎöÊ§°Ü
+     * @throws ResourceBundleCreateException å¦‚æœè§£æå¤±è´¥
      */
     protected ResourceBundle parse(InputStream stream, String systemId)
             throws ResourceBundleCreateException {

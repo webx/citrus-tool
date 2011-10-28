@@ -42,7 +42,7 @@ public abstract class TextBasedPageParser implements IndexPageParser {
     }
 
     /**
-     * È¡µÃxmlÎÄµµ¡£
+     * å–å¾—xmlæ–‡æ¡£ã€‚
      */
     protected Document getXmlDocument(Resource resource) {
         String contentType = resource.getContentType();
@@ -58,7 +58,7 @@ public abstract class TextBasedPageParser implements IndexPageParser {
     }
 
     /**
-     * È¡µÃhtmlÎÄµµ¡£
+     * å–å¾—htmlæ–‡æ¡£ã€‚
      */
     protected Document getHtmlDocument(Resource resource) {
         String contentType = resource.getContentType();
@@ -91,7 +91,7 @@ public abstract class TextBasedPageParser implements IndexPageParser {
     }
 
     /**
-     * ¸ù¾İÃû×ÖÈ¡µÃitem¡£
+     * æ ¹æ®åå­—å–å¾—itemã€‚
      */
     protected Item getItem(String name) {
         if (name == null) {

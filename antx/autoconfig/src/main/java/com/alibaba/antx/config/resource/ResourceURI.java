@@ -44,7 +44,7 @@ public class ResourceURI {
     public static URI guessURI(String file) {
         URI uri = null;
 
-        // 排除windows文件名，例如c:/test.txt
+        // 鎺掗櫎windows鏂囦欢鍚嶏紝渚嬪c:/test.txt
         if (!util.match("/^\\w:/", file)) {
             try {
                 uri = new URI(file);

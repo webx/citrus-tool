@@ -25,82 +25,82 @@ import org.apache.oro.text.regex.PatternCompiler;
 import org.apache.oro.text.regex.Perl5Compiler;
 
 /**
- * ½«Ò»ÖÖ¸ñÊ½µÄpattern×ª»»³ÉPerl5±ê×¼µÄÕıÔò±í´ïÊ½µÄ±àÒëÆ÷.
+ * å°†ä¸€ç§æ ¼å¼çš„patternè½¬æ¢æˆPerl5æ ‡å‡†çš„æ­£åˆ™è¡¨è¾¾å¼çš„ç¼–è¯‘å™¨.
  *
  * @version $Id: Perl5CompilerWrapper.java,v 1.1 2003/07/03 07:26:34 baobao Exp $
  * @author Michael Zhou
  */
 public abstract class Perl5CompilerWrapper implements PatternCompiler {
-    /** Ä¬ÈÏµÄÎ»±êÖ¾ */
+    /** é»˜è®¤çš„ä½æ ‡å¿— */
     public static final int DEFAULT_MASK = 0;
 
-    /** ´óĞ¡Ğ´²»Ãô¸Ğ±êÖ¾ */
+    /** å¤§å°å†™ä¸æ•æ„Ÿæ ‡å¿— */
     public static final int CASE_INSENSITIVE_MASK = 0x1000;
 
-    /** ·µ»ØÖ»¶ÁµÄpattern±êÖ¾ */
+    /** è¿”å›åªè¯»çš„patternæ ‡å¿— */
     public static final int READ_ONLY_MASK = 0x2000;
 
-    /** Escape×Ö·û */
+    /** Escapeå­—ç¬¦ */
     protected static final char ESCAPE_CHAR = '\\';
 
-    /** Perl5ÕıÔò±í´ïÊ½µÄ±£Áô×Ö·û */
+    /** Perl5æ­£åˆ™è¡¨è¾¾å¼çš„ä¿ç•™å­—ç¬¦ */
     private static final String PERL5_META_CHARS = "*?+[]()|^$.{}\\";
 
-    // ´íÎóĞÅÏ¢
+    // é”™è¯¯ä¿¡æ¯
     private static final String ERROR_UNEXPECTED_CHAR = "Unexpected \"{0}\" near \"{1}\"";
 
-    /** ÄÚ²¿µÄperl5±àÒëÆ÷ */
+    /** å†…éƒ¨çš„perl5ç¼–è¯‘å™¨ */
     protected final Perl5Compiler compiler = new Perl5Compiler();
 
     /**
-     * ½«pattern±àÒë³Éperl5ÕıÔò±í´ïÊ½.
+     * å°†patternç¼–è¯‘æˆperl5æ­£åˆ™è¡¨è¾¾å¼.
      *
-     * @param pattern  Òª±àÒëµÄpattern
+     * @param pattern  è¦ç¼–è¯‘çš„pattern
      *
-     * @return Perl5ÕıÔò±í´ïÊ½
+     * @return Perl5æ­£åˆ™è¡¨è¾¾å¼
      *
-     * @throws MalformedPatternException  Èç¹ûpattern¸ñÊ½²»ÕıÈ·
+     * @throws MalformedPatternException  å¦‚æœpatternæ ¼å¼ä¸æ­£ç¡®
      */
     public Pattern compile(String pattern) throws MalformedPatternException {
         return compile(pattern.toCharArray(), DEFAULT_MASK);
     }
 
     /**
-     * ½«pattern±àÒë³Éperl5ÕıÔò±í´ïÊ½.
+     * å°†patternç¼–è¯‘æˆperl5æ­£åˆ™è¡¨è¾¾å¼.
      *
-     * @param pattern  Òª±àÒëµÄpattern
-     * @param options  Î»±êÖ¾
+     * @param pattern  è¦ç¼–è¯‘çš„pattern
+     * @param options  ä½æ ‡å¿—
      *
-     * @return Perl5ÕıÔò±í´ïÊ½
+     * @return Perl5æ­£åˆ™è¡¨è¾¾å¼
      *
-     * @throws MalformedPatternException  Èç¹ûpattern¸ñÊ½²»ÕıÈ·
+     * @throws MalformedPatternException  å¦‚æœpatternæ ¼å¼ä¸æ­£ç¡®
      */
     public Pattern compile(String pattern, int options) throws MalformedPatternException {
         return compile(pattern.toCharArray(), options);
     }
 
     /**
-     * ½«pattern±àÒë³Éperl5ÕıÔò±í´ïÊ½.
+     * å°†patternç¼–è¯‘æˆperl5æ­£åˆ™è¡¨è¾¾å¼.
      *
-     * @param pattern  Òª±àÒëµÄpattern
+     * @param pattern  è¦ç¼–è¯‘çš„pattern
      *
-     * @return Perl5ÕıÔò±í´ïÊ½
+     * @return Perl5æ­£åˆ™è¡¨è¾¾å¼
      *
-     * @throws MalformedPatternException  Èç¹ûpattern¸ñÊ½²»ÕıÈ·
+     * @throws MalformedPatternException  å¦‚æœpatternæ ¼å¼ä¸æ­£ç¡®
      */
     public Pattern compile(char[] pattern) throws MalformedPatternException {
         return compile(pattern, DEFAULT_MASK);
     }
 
     /**
-     * ½«pattern±àÒë³Éperl5ÕıÔò±í´ïÊ½.
+     * å°†patternç¼–è¯‘æˆperl5æ­£åˆ™è¡¨è¾¾å¼.
      *
-     * @param pattern  Òª±àÒëµÄpattern
-     * @param options  Î»±êÖ¾
+     * @param pattern  è¦ç¼–è¯‘çš„pattern
+     * @param options  ä½æ ‡å¿—
      *
-     * @return Perl5ÕıÔò±í´ïÊ½
+     * @return Perl5æ­£åˆ™è¡¨è¾¾å¼
      *
-     * @throws MalformedPatternException  Èç¹ûpattern¸ñÊ½²»ÕıÈ·
+     * @throws MalformedPatternException  å¦‚æœpatternæ ¼å¼ä¸æ­£ç¡®
      */
     public Pattern compile(char[] pattern, int options) throws MalformedPatternException {
         int perlOptions = 0;
@@ -117,36 +117,36 @@ public abstract class Perl5CompilerWrapper implements PatternCompiler {
     }
 
     /**
-     * ½«pattern±àÒë³Éperl5ÕıÔò±í´ïÊ½×Ö·û´®.
+     * å°†patternç¼–è¯‘æˆperl5æ­£åˆ™è¡¨è¾¾å¼å­—ç¬¦ä¸².
      *
-     * @param pattern  Òª±àÒëµÄpattern
-     * @param options  Î»±êÖ¾
+     * @param pattern  è¦ç¼–è¯‘çš„pattern
+     * @param options  ä½æ ‡å¿—
      *
-     * @return Perl5ÕıÔò±í´ïÊ½
+     * @return Perl5æ­£åˆ™è¡¨è¾¾å¼
      *
-     * @throws MalformedPatternException  Èç¹ûpattern¸ñÊ½²»ÕıÈ·
+     * @throws MalformedPatternException  å¦‚æœpatternæ ¼å¼ä¸æ­£ç¡®
      */
     protected abstract String toPerl5Regex(char[] pattern, int options)
             throws MalformedPatternException;
 
     /**
-     * ÅĞ¶ÏÖ¸¶¨×Ö·ûÊÇ·ñÊÇperl5ÕıÔò±í´ïÊ½±£ÁôµÄ×Ö·û
+     * åˆ¤æ–­æŒ‡å®šå­—ç¬¦æ˜¯å¦æ˜¯perl5æ­£åˆ™è¡¨è¾¾å¼ä¿ç•™çš„å­—ç¬¦
      *
-     * @param ch ×Ö·û
+     * @param ch å­—ç¬¦
      *
-     * @return Èç¹ûÊÇ±£Áô×Ö·û, Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœæ˜¯ä¿ç•™å­—ç¬¦, åˆ™è¿”å›<code>true</code>
      */
     protected boolean isPerl5MetaChar(char ch) {
         return PERL5_META_CHARS.indexOf(ch) != -1;
     }
 
     /**
-     * È¡µÃ´íÎóĞÅÏ¢.
+     * å–å¾—é”™è¯¯ä¿¡æ¯.
      *
-     * @param pattern  µ±Ç°´¦ÀíµÄpattern
-     * @param index    µ±Ç°´¦ÀíµÄpatternµÄindex
+     * @param pattern  å½“å‰å¤„ç†çš„pattern
+     * @param index    å½“å‰å¤„ç†çš„patternçš„index
      *
-     * @return ´íÎóĞÅÏ¢
+     * @return é”™è¯¯ä¿¡æ¯
      */
     protected String getDefaultErrorMessage(char[] pattern, int index) {
         return MessageFormat.format(ERROR_UNEXPECTED_CHAR,

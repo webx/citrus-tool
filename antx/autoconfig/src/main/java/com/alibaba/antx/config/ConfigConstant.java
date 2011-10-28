@@ -20,30 +20,30 @@ package com.alibaba.antx.config;
 import com.alibaba.antx.config.generator.VelocityTemplateEngine;
 
 /**
- * ConfigµÄ³£Á¿¡£
+ * Configçš„å¸¸é‡ã€‚
  * 
  * @author Michael Zhou
  */
 public interface ConfigConstant {
-    /** GUI½»»¥Ä£Ê½¡£ */
+    /** GUIäº¤äº’æ¨¡å¼ã€‚ */
     String MODE_GUI = "gui";
 
-    /** ÎÄ±¾½»»¥Ä£Ê½¡£ */
+    /** æ–‡æœ¬äº¤äº’æ¨¡å¼ã€‚ */
     String MODE_TEXT = "text";
 
-    /** ½»»¥Ä£Ê½£º¿ª */
+    /** äº¤äº’æ¨¡å¼ï¼šå¼€ */
     String INTERACTIVE_ON = "on";
 
-    /** ½»»¥Ä£Ê½£º¹Ø */
+    /** äº¤äº’æ¨¡å¼ï¼šå…³ */
     String INTERACTIVE_OFF = "off";
 
-    /** ½»»¥Ä£Ê½£º×Ô¶¯ */
+    /** äº¤äº’æ¨¡å¼ï¼šè‡ªåŠ¨ */
     String INTERACTIVE_AUTO = "auto";
 
-    /** VelocityÉèÖÃ£º»º³å³ØÖĞ´´½¨µÄparserÊı. */
+    /** Velocityè®¾ç½®ï¼šç¼“å†²æ± ä¸­åˆ›å»ºçš„parseræ•°. */
     int VELOCITY_NUMBER_OF_PARSERS = 1;
 
-    /** VelocityÉèÖÃ£ºÄ¬ÈÏµÄmacroÎÄ¼ş, ´ÓclasspathÖĞ×°Èë */
+    /** Velocityè®¾ç½®ï¼šé»˜è®¤çš„macroæ–‡ä»¶, ä»classpathä¸­è£…å…¥ */
     String VELOCITY_MACRO_FILE = VelocityTemplateEngine.class.getPackage().getName().replace('.', '/') + "/macro.vm";
 
     String UNKNWON_REFS_KEY = "_unknwonRefs";

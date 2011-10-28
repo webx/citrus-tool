@@ -29,7 +29,7 @@ import java.security.PrivilegedActionException;
 import java.security.PrivilegedExceptionAction;
 
 /**
- * Í¨¹ı<code>ClassLoader</code>×°Èëresource bundleµÄÊı¾İ.
+ * é€šè¿‡<code>ClassLoader</code>è£…å…¥resource bundleçš„æ•°æ®.
  *
  * @version $Id: ClassLoaderResourceBundleLoader.java,v 1.1 2003/07/03 07:26:34 baobao Exp $
  * @author Michael Zhou
@@ -38,16 +38,16 @@ public class ClassLoaderResourceBundleLoader implements ResourceBundleLoader {
     private ClassLoader classLoader;
 
     /**
-     * ´´½¨ĞÂloader, Ê¹ÓÃµ±Ç°Ïß³ÌµÄcontext class loader.
+     * åˆ›å»ºæ–°loader, ä½¿ç”¨å½“å‰çº¿ç¨‹çš„context class loader.
      */
     public ClassLoaderResourceBundleLoader() {
         this(null);
     }
 
     /**
-     * ´´½¨ĞÂloader, Ê¹ÓÃÖ¸¶¨µÄclass loader.
+     * åˆ›å»ºæ–°loader, ä½¿ç”¨æŒ‡å®šçš„class loader.
      *
-     * @param classLoader Ö¸¶¨µÄclass loader
+     * @param classLoader æŒ‡å®šçš„class loader
      */
     public ClassLoaderResourceBundleLoader(ClassLoader classLoader) {
         if (classLoader == null) {
@@ -62,13 +62,13 @@ public class ClassLoaderResourceBundleLoader implements ResourceBundleLoader {
     }
 
     /**
-     * ¸ù¾İÖ¸¶¨µÄbundleÃû³Æ, È¡µÃÊäÈëÁ÷.
+     * æ ¹æ®æŒ‡å®šçš„bundleåç§°, å–å¾—è¾“å…¥æµ.
      *
-     * @param bundleFilename Òª²éÕÒµÄbundleÃû
+     * @param bundleFilename è¦æŸ¥æ‰¾çš„bundleå
      *
-     * @return bundleµÄÊı¾İÁ÷, Èç¹ûÖ¸¶¨bundleÎÄ¼ş²»´æÔÚ, Ôò·µ»Ø<code>null</code>
+     * @return bundleçš„æ•°æ®æµ, å¦‚æœæŒ‡å®šbundleæ–‡ä»¶ä¸å­˜åœ¨, åˆ™è¿”å›<code>null</code>
      *
-     * @throws ResourceBundleCreateException Èç¹ûÎÄ¼ş´æÔÚ, µ«¶ÁÈ¡Êı¾İÁ÷Ê§°Ü
+     * @throws ResourceBundleCreateException å¦‚æœæ–‡ä»¶å­˜åœ¨, ä½†è¯»å–æ•°æ®æµå¤±è´¥
      */
     public InputStream openStream(final String bundleFilename)
             throws ResourceBundleCreateException {
@@ -77,7 +77,7 @@ public class ClassLoaderResourceBundleLoader implements ResourceBundleLoader {
                 public Object run() throws ResourceBundleCreateException {
                     URL url = classLoader.getResource(bundleFilename);
 
-                    // Èç¹û×ÊÔ´²»´æÔÚ, Ôò·µ»Ønull
+                    // å¦‚æœèµ„æºä¸å­˜åœ¨, åˆ™è¿”å›null
                     if (url == null) {
                         return null;
                     }
@@ -98,12 +98,12 @@ public class ClassLoaderResourceBundleLoader implements ResourceBundleLoader {
     }
 
     /**
-     * ÅĞ¶ÏÁ½¸ö<code>ResourceBundleLoader</code>ÊÇ·ñµÈĞ§. Õâ½«×÷Îª<code>ResourceBundle</code>µÄcacheµÄÒÀ¾İ.
-     * ¾ßÓĞÏàÍ¬µÄcontext class loaderµÄ<code>ResourceBundleLoader</code>ÊÇµÈĞ§µÄ.
+     * åˆ¤æ–­ä¸¤ä¸ª<code>ResourceBundleLoader</code>æ˜¯å¦ç­‰æ•ˆ. è¿™å°†ä½œä¸º<code>ResourceBundle</code>çš„cacheçš„ä¾æ®.
+     * å…·æœ‰ç›¸åŒçš„context class loaderçš„<code>ResourceBundleLoader</code>æ˜¯ç­‰æ•ˆçš„.
      *
-     * @param obj Òª±È½ÏµÄÁíÒ»¸ö¶ÔÏó
+     * @param obj è¦æ¯”è¾ƒçš„å¦ä¸€ä¸ªå¯¹è±¡
      *
-     * @return Èç¹ûµÈĞ§, Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœç­‰æ•ˆ, åˆ™è¿”å›<code>true</code>
      */
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -118,9 +118,9 @@ public class ClassLoaderResourceBundleLoader implements ResourceBundleLoader {
     }
 
     /**
-     * È¡µÃhashÖµ.  µÈĞ§µÄ<code>ResourceBundleLoader</code>Ó¦¸Ã¾ßÓĞÏàÍ¬µÄhashÖµ.
+     * å–å¾—hashå€¼.  ç­‰æ•ˆçš„<code>ResourceBundleLoader</code>åº”è¯¥å…·æœ‰ç›¸åŒçš„hashå€¼.
      *
-     * @return hashÖµ
+     * @return hashå€¼
      */
     public int hashCode() {
         return (classLoader == null) ? 0

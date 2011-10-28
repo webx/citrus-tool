@@ -18,18 +18,18 @@
 package com.alibaba.toolkit.util.collection;
 
 /**
- * ½«Ò»¸ö¶ÔÏó×ª»»³ÉÁíÒ»¸ö¶ÔÏóµÄ½Ó¿Ú.
+ * å°†ä¸€ä¸ªå¯¹è±¡è½¬æ¢æˆå¦ä¸€ä¸ªå¯¹è±¡çš„æ¥å£.
  *
  * @version $Id: Transformer.java,v 1.1 2003/07/03 07:26:16 baobao Exp $
  * @author Michael Zhou
  */
 public interface Transformer {
     /**
-     * ½«¶ÔÏó×ª»»³ÉÁíÒ»¸ö¶ÔÏó.
+     * å°†å¯¹è±¡è½¬æ¢æˆå¦ä¸€ä¸ªå¯¹è±¡.
      *
-     * @param input  ±»×ª»»µÄ¶ÔÏó
+     * @param input  è¢«è½¬æ¢çš„å¯¹è±¡
      *
-     * @return ×ª»»ºóµÄ¶ÔÏó
+     * @return è½¬æ¢åçš„å¯¹è±¡
      */
     public Object transform(Object input);
 }

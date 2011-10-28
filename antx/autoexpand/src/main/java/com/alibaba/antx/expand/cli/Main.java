@@ -27,7 +27,7 @@ import com.alibaba.antx.util.cli.CommandLine;
 import com.alibaba.citrus.logconfig.LogConfigurator;
 
 /**
- * AntxexpandµÄÃüÁîĞĞÖ÷³ÌĞò¡£
+ * Antxexpandçš„å‘½ä»¤è¡Œä¸»ç¨‹åºã€‚
  * 
  * @author Michael Zhou
  */
@@ -36,13 +36,13 @@ public class Main {
     private static ExpanderRuntime runtime;
 
     public static void main(String[] args) {
-        // ÆğÊ¼Ê±¼ä
+        // èµ·å§‹æ—¶é—´
         Profiler.start("Starting antxexpand");
 
-        // ³õÊ¼»¯ÈÕÖ¾
+        // åˆå§‹åŒ–æ—¥å¿—
         initLogging(false, null);
 
-        // Ö´ĞĞ
+        // æ‰§è¡Œ
         int returnCode = 0;
 
         try {
@@ -54,14 +54,14 @@ public class Main {
             Profiler.release();
         }
 
-        // ½áÊø£¬ÏÔÊ¾×ÜÊ±¼ä
+        // ç»“æŸï¼Œæ˜¾ç¤ºæ€»æ—¶é—´
         runtime.info("");
         runtime.info(getDuration(
-                "×ÜºÄ·ÑÊ±¼ä£º{0,choice,0#|.1#{0,number,integer}·Ö}{1,choice,0#|.1#{1,number,integer}Ãë}{2,number,integer}ºÁÃë",
+                "æ€»è€—è´¹æ—¶é—´ï¼š{0,choice,0#|.1#{0,number,integer}åˆ†}{1,choice,0#|.1#{1,number,integer}ç§’}{2,number,integer}æ¯«ç§’",
                 Profiler.getEntry().getDuration()));
         runtime.info("");
 
-        // ·µ»ØÖµ
+        // è¿”å›å€¼
         System.exit(returnCode);
     }
 
@@ -91,7 +91,7 @@ public class Main {
 
         runtime = runtimeImpl;
 
-        // ÏÔÊ¾°ïÖú
+        // æ˜¾ç¤ºå¸®åŠ©
         if (cli.hasOption(CLIManager.OPT_HELP)) {
             manager.help(runtimeImpl.getOut());
             return 0;
@@ -134,7 +134,7 @@ public class Main {
             runtimeImpl.getExpander().setDestdir(args[1]);
         }
 
-        // ÔËĞĞantxexpand
+        // è¿è¡Œantxexpand
         try {
             runtimeImpl.start();
         } catch (Exception e) {

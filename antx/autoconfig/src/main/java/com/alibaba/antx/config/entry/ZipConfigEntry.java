@@ -42,25 +42,25 @@ import com.alibaba.antx.util.scanner.ScannerException;
 import com.alibaba.antx.util.scanner.ZipScanner;
 
 /**
- * ´ú±íÒ»¸öJarÎÄ¼şÀàĞÍµÄÅäÖÃÏîĞÅÏ¢¡£
+ * ä»£è¡¨ä¸€ä¸ªJaræ–‡ä»¶ç±»å‹çš„é…ç½®é¡¹ä¿¡æ¯ã€‚
  * 
  * @author Michael Zhou
  */
 public class ZipConfigEntry extends ConfigEntry {
     /**
-     * ´´½¨Ò»¸ö½áµã¡£
+     * åˆ›å»ºä¸€ä¸ªç»“ç‚¹ã€‚
      * 
-     * @param resource Ö¸¶¨½áµãµÄ×ÊÔ´
-     * @param settings antxconfigµÄÉèÖÃ
+     * @param resource æŒ‡å®šç»“ç‚¹çš„èµ„æº
+     * @param settings antxconfigçš„è®¾ç½®
      */
     public ZipConfigEntry(ConfigResource resource, File outputFile, ConfigSettings settings) {
         super(resource, outputFile, settings);
     }
 
     /**
-     * É¨Ãè½áµã¡£
+     * æ‰«æç»“ç‚¹ã€‚
      * 
-     * @param istream zipÎÄ¼şµÄÊäÈëÁ÷
+     * @param istream zipæ–‡ä»¶çš„è¾“å…¥æµ
      */
     protected void scan(InputStream istream) {
         Handler handler = new Handler();
@@ -80,7 +80,7 @@ public class ZipConfigEntry extends ConfigEntry {
     }
 
     /**
-     * Éú³ÉÅäÖÃÎÄ¼ş¡£
+     * ç”Ÿæˆé…ç½®æ–‡ä»¶ã€‚
      */
     protected boolean generate(InputStream istream, OutputStream ostream) {
         boolean needCloseOutputStream = false;
@@ -98,7 +98,7 @@ public class ZipConfigEntry extends ConfigEntry {
         boolean allSuccess = true;
 
         try {
-            // ¼ì²é»ò´ò¿ªostream
+            // æ£€æŸ¥æˆ–æ‰“å¼€ostream
             if (ostream == null) {
                 if (outputFile == null) {
                     destfile = getConfigEntryResource().getFile();
@@ -116,7 +116,7 @@ public class ZipConfigEntry extends ConfigEntry {
                 needCloseOutputStream = true;
             }
 
-            // ¼ì²é»ò´ò¿ªistream
+            // æ£€æŸ¥æˆ–æ‰“å¼€istream
             if (istream == null) {
                 istream = getConfigEntryResource().getURL().openStream();
 
@@ -149,7 +149,7 @@ public class ZipConfigEntry extends ConfigEntry {
         } finally {
             getGenerator().closeSession();
 
-            // ½áÊøzipÎÄ¼ş£¬µ«²»¹Ø±ÕÁ÷
+            // ç»“æŸzipæ–‡ä»¶ï¼Œä½†ä¸å…³é—­æµ
             if (zos != null) {
                 try {
                     zos.finish();
@@ -157,7 +157,7 @@ public class ZipConfigEntry extends ConfigEntry {
                 }
             }
 
-            // ½öµ±ÊäÈëÁ÷ÊÇÓÉµ±Ç°entryÇ××Ô´ò¿ªµÄ£¬²Å¹Ø±ÕÁ÷
+            // ä»…å½“è¾“å…¥æµæ˜¯ç”±å½“å‰entryäº²è‡ªæ‰“å¼€çš„ï¼Œæ‰å…³é—­æµ
             if (needCloseInputStream && (istream != null)) {
                 try {
                     istream.close();
@@ -165,7 +165,7 @@ public class ZipConfigEntry extends ConfigEntry {
                 }
             }
 
-            // ½öµ±Êä³öÁ÷ÊÇÓÉµ±Ç°entryÇ××Ô´ò¿ªµÄ£¬²Å¹Ø±ÕÁ÷
+            // ä»…å½“è¾“å‡ºæµæ˜¯ç”±å½“å‰entryäº²è‡ªæ‰“å¼€çš„ï¼Œæ‰å…³é—­æµ
             if (needCloseOutputStream && (ostream != null)) {
                 try {
                     ostream.flush();
@@ -173,11 +173,11 @@ public class ZipConfigEntry extends ConfigEntry {
                 } catch (IOException e) {
                 }
 
-                // Èç¹û³É¹¦£¬Ôò½«ÁÙÊ±ÎÄ¼ş¸Ä³ÉÕıÊ½ÎÄ¼ş£¬·ñÔòÉ¾³ıÁÙÊ±ÎÄ¼ş
+                // å¦‚æœæˆåŠŸï¼Œåˆ™å°†ä¸´æ—¶æ–‡ä»¶æ”¹æˆæ­£å¼æ–‡ä»¶ï¼Œå¦åˆ™åˆ é™¤ä¸´æ—¶æ–‡ä»¶
                 if (success) {
-                    // ½öµ±Ã»ÓĞÖ¸¶¨outputFileÊ±²Å×öÏÂÃæµÄÊÂ 
+                    // ä»…å½“æ²¡æœ‰æŒ‡å®šoutputFileæ—¶æ‰åšä¸‹é¢çš„äº‹ 
                     if (getOutputFile() == null) {
-                        // ÔÚwindowsÏÂ£¬¹Û²ìµ½renameÊ§°Ü£¬ÒòÎªlockµÄÔ­Òò¡£¹ıÒ»»áÖØÊÔ¡£
+                        // åœ¨windowsä¸‹ï¼Œè§‚å¯Ÿåˆ°renameå¤±è´¥ï¼Œå› ä¸ºlockçš„åŸå› ã€‚è¿‡ä¸€ä¼šé‡è¯•ã€‚
                         int retryTimes = 10;
                         boolean succ = false;
                         String message = String.format("Moving file %s to %s failed.", outputFile.getName(),
@@ -220,35 +220,35 @@ public class ZipConfigEntry extends ConfigEntry {
         ConfigEntry subEntry = getSubEntry(name);
 
         if (subEntry != null) {
-            // ÕâÊÇÒ»¸öÇ¶Ì×µÄjar entry
+            // è¿™æ˜¯ä¸€ä¸ªåµŒå¥—çš„jar entry
             ZipEntry zipEntryToWrite = new ZipEntry(zipEntry.getName());
 
             zos.putNextEntry(zipEntryToWrite);
 
             return subEntry.generate(zis, zos);
         } else if (getGenerator().isTemplateFile(name)) {
-            // ÏÈ°ÑÁ÷µ¹µ½ÄÚ´æÀï£¬ÒòÎªÒªÓÃ¶à´Î
+            // å…ˆæŠŠæµå€’åˆ°å†…å­˜é‡Œï¼Œå› ä¸ºè¦ç”¨å¤šæ¬¡
             byte[] bytes = streamToBytes(zis);
 
             if (getGenerator().isDestFile(name)) {
-                // ¶ÔÓÚÄ¿±êÎÄ¼ş£¬¼ÙÉèÎªWEB-INF/web.xml£¬ÏÈ±£´æÆäÄÚÈİ¡£
-                // ÔÚ×îºó£¬¼ì²éÈç¹ûÃ»ÓĞMETA-INF/autoconf/WEB-INF/web.xml´æÔÚ£¬Ôò½«ÆäÊÓÎªÄ£°å²¢Éú³ÉÖ®¡£
+                // å¯¹äºç›®æ ‡æ–‡ä»¶ï¼Œå‡è®¾ä¸ºWEB-INF/web.xmlï¼Œå…ˆä¿å­˜å…¶å†…å®¹ã€‚
+                // åœ¨æœ€åï¼Œæ£€æŸ¥å¦‚æœæ²¡æœ‰META-INF/autoconf/WEB-INF/web.xmlå­˜åœ¨ï¼Œåˆ™å°†å…¶è§†ä¸ºæ¨¡æ¿å¹¶ç”Ÿæˆä¹‹ã€‚
                 getGenerator().getSession().addLazyGenerateItem(name, bytes);
                 return true;
             } else {
-                // ¼ÙÉèµ±Ç°ÎÄ¼şÎªMETA-INF/autoconf/**£¬ÄÇÃ´¸´ÖÆ²¢Éú³ÉÄ¿±êÎÄ¼ş¡£
+                // å‡è®¾å½“å‰æ–‡ä»¶ä¸ºMETA-INF/autoconf/**ï¼Œé‚£ä¹ˆå¤åˆ¶å¹¶ç”Ÿæˆç›®æ ‡æ–‡ä»¶ã€‚
                 copyFile(zipEntry, new ByteArrayInputStream(bytes), zos);
                 return getGenerator().getSession().generate(name, new ZipCallback(bytes, zos, dirs));
             }
         } else if (getGenerator().isDestFile(name)) {
-            // Õâ¸öÎÄ¼ş½«±»Ä£°åÉú³ÉµÄÎÄ¼ş¸²¸Ç£¬¹ÊºöÂÔÖ®
+            // è¿™ä¸ªæ–‡ä»¶å°†è¢«æ¨¡æ¿ç”Ÿæˆçš„æ–‡ä»¶è¦†ç›–ï¼Œæ•…å¿½ç•¥ä¹‹
         } else if (getGenerator().isDescriptorLogFile(name)) {
-            // Õâ¸öÎÄ¼ş½«±»descriptorÈÕÖ¾ÎÄ¼ş¸²¸Ç£¬¹ÊºöÂÔÖ®
+            // è¿™ä¸ªæ–‡ä»¶å°†è¢«descriptoræ—¥å¿—æ–‡ä»¶è¦†ç›–ï¼Œæ•…å¿½ç•¥ä¹‹
         } else if (zipEntry.isDirectory()) {
-            // ÕâÊÇÒ»¸öµÄÄ¿Â¼£¬ÔÚ²»ÖØ¸´´´½¨Ä¿Â¼µÄÇ°ÌáÏÂ£¬¸´ÖÆ¼´¿É
+            // è¿™æ˜¯ä¸€ä¸ªçš„ç›®å½•ï¼Œåœ¨ä¸é‡å¤åˆ›å»ºç›®å½•çš„å‰æä¸‹ï¼Œå¤åˆ¶å³å¯
             mkdirs(zipEntry.getName(), zos, dirs);
         } else {
-            // ÕâÊÇÒ»¸öÆÕÍ¨ÎÄ¼ş£¬¸´ÖÆ¼´¿É
+            // è¿™æ˜¯ä¸€ä¸ªæ™®é€šæ–‡ä»¶ï¼Œå¤åˆ¶å³å¯
             copyFile(zipEntry, zis, zos);
         }
 
@@ -311,16 +311,16 @@ public class ZipConfigEntry extends ConfigEntry {
     }
 
     /**
-     * ×ª»»³É×Ö·û´®¡£
+     * è½¬æ¢æˆå­—ç¬¦ä¸²ã€‚
      * 
-     * @return ×Ö·û´®±íÊ¾
+     * @return å­—ç¬¦ä¸²è¡¨ç¤º
      */
     public String toString() {
         return "ZipConfigEntry[" + getConfigEntryResource() + "]";
     }
 
     /**
-     * ÓÃÀ´Éú³ÉÄ¿±êÎÄ¼şµÄcallback¡£
+     * ç”¨æ¥ç”Ÿæˆç›®æ ‡æ–‡ä»¶çš„callbackã€‚
      */
     private final class ZipCallback implements ConfigGeneratorCallback {
         private final byte[] bytes;
@@ -366,7 +366,7 @@ public class ZipConfigEntry extends ConfigEntry {
         }
 
         public void closeEntry() {
-            // ²»ĞèÒª¹Ø±ÕÁ÷£¬ÒòÎªÊÇzip stream¡£
+            // ä¸éœ€è¦å…³é—­æµï¼Œå› ä¸ºæ˜¯zip streamã€‚
         }
 
         private void makeParentDirs(String name) throws IOException {

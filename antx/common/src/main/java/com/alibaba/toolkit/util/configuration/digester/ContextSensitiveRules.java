@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * ÉÏÏÂÎÄÏà¹ØµÄ<code>Rules</code>°ü×°Æ÷.
+ * ä¸Šä¸‹æ–‡ç›¸å…³çš„<code>Rules</code>åŒ…è£…å™¨.
  *
  * @author Michael Zhou
  * @version $Id: ContextSensitiveRules.java,v 1.2 2003/08/07 08:08:59 zyh Exp $
@@ -43,25 +43,25 @@ public class ContextSensitiveRules implements Rules {
     private Map                 contextStatus       = new HashMap();
 
     /**
-     * ´´½¨Ä¬ÈÏµÄ<code>Rules</code>.
+     * åˆ›å»ºé»˜è®¤çš„<code>Rules</code>.
      */
     public ContextSensitiveRules() {
         this(new RulesBase());
     }
 
     /**
-     * ´´½¨Ö¸¶¨<code>Rules</code>µÄ°ü×°.
+     * åˆ›å»ºæŒ‡å®š<code>Rules</code>çš„åŒ…è£….
      *
-     * @param rules ±»°ü×°µÄ<code>Rules</code>
+     * @param rules è¢«åŒ…è£…çš„<code>Rules</code>
      */
     public ContextSensitiveRules(Rules rules) {
         this.rules = rules;
     }
 
     /**
-     * Ñ¹ÈëÖ¸¶¨µÄÉÏÏÂÎÄ.
+     * å‹å…¥æŒ‡å®šçš„ä¸Šä¸‹æ–‡.
      *
-     * @param context ÒªÑ¹ÈëµÄÉÏÏÂÎÄ×Ö·û´®
+     * @param context è¦å‹å…¥çš„ä¸Šä¸‹æ–‡å­—ç¬¦ä¸²
      */
     public void pushContext(String context) {
         contextBuffer.append('/').append(context);
@@ -69,9 +69,9 @@ public class ContextSensitiveRules implements Rules {
     }
 
     /**
-     * µ¯³ö×îĞÂµÄÉÏÏÂÎÄ.
+     * å¼¹å‡ºæœ€æ–°çš„ä¸Šä¸‹æ–‡.
      *
-     * @return ×îĞÂµÄÉÏÏÂÎÄ
+     * @return æœ€æ–°çš„ä¸Šä¸‹æ–‡
      */
     public String popContext() {
         int    index      = context.lastIndexOf("/");
@@ -87,45 +87,45 @@ public class ContextSensitiveRules implements Rules {
     }
 
     /**
-     * ¼ì²éÖ¸¶¨µÄcontextÊÇ·ñ±»³õÊ¼»¯.
+     * æ£€æŸ¥æŒ‡å®šçš„contextæ˜¯å¦è¢«åˆå§‹åŒ–.
      *
-     * @param context Òª¼ì²éµÄcontext
+     * @param context è¦æ£€æŸ¥çš„context
      *
-     * @return Èç¹û±»³õÊ¼»¯, Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœè¢«åˆå§‹åŒ–, åˆ™è¿”å›<code>true</code>
      */
     public boolean isInitialized(String context) {
         return CONTEXT_INITIALIZED.equals(contextStatus.get(context));
     }
 
     /**
-     * ÉèÖÃÖ¸¶¨contextÎª³õÊ¼»¯ÖĞµÄ×´Ì¬.
+     * è®¾ç½®æŒ‡å®šcontextä¸ºåˆå§‹åŒ–ä¸­çš„çŠ¶æ€.
      *
-     * @param context ÒªÉèÖÃµÄcontext
+     * @param context è¦è®¾ç½®çš„context
      */
     public void setInitializing(String context) {
         contextStatus.put(context, CONTEXT_INITIALIZING);
     }
 
     /**
-     * ÉèÖÃÖ¸¶¨contextÎªÒÑ³õÊ¼»¯µÄ×´Ì¬.
+     * è®¾ç½®æŒ‡å®šcontextä¸ºå·²åˆå§‹åŒ–çš„çŠ¶æ€.
      *
-     * @param context ÒªÉèÖÃµÄcontext
+     * @param context è¦è®¾ç½®çš„context
      */
     public void setInitialized(String context) {
         contextStatus.put(context, CONTEXT_INITIALIZED);
     }
 
     /**
-     * È¡µÃµ±Ç°µÄÉÏÏÂÎÄ.
+     * å–å¾—å½“å‰çš„ä¸Šä¸‹æ–‡.
      *
-     * @return µ±Ç°µÄÉÏÏÂÎÄ
+     * @return å½“å‰çš„ä¸Šä¸‹æ–‡
      */
     public String getContext() {
         return context;
     }
 
     /**
-     * È¡µÃdigester.
+     * å–å¾—digester.
      *
      * @return digester
      */
@@ -134,7 +134,7 @@ public class ContextSensitiveRules implements Rules {
     }
 
     /**
-     * ÉèÖÃdigester.
+     * è®¾ç½®digester.
      *
      * @param digester digester
      */
@@ -143,28 +143,28 @@ public class ContextSensitiveRules implements Rules {
     }
 
     /**
-     * È¡µÃÃû×Ö¿Õ¼ä.
+     * å–å¾—åå­—ç©ºé—´.
      *
-     * @return Ãû×Ö¿Õ¼ä
+     * @return åå­—ç©ºé—´
      */
     public String getNamespaceURI() {
         return rules.getNamespaceURI();
     }
 
     /**
-     * ÉèÖÃÃû×Ö¿Õ¼ä.
+     * è®¾ç½®åå­—ç©ºé—´.
      *
-     * @param namespaceURI Ãû×Ö¿Õ¼ä
+     * @param namespaceURI åå­—ç©ºé—´
      */
     public void setNamespaceURI(String namespaceURI) {
         rules.setNamespaceURI(namespaceURI);
     }
 
     /**
-     * µÇ¼Ç¹æÔò.
+     * ç™»è®°è§„åˆ™.
      *
-     * @param pattern Æ¥ÅäÄ£°å
-     * @param rule ÒªµÇ¼ÇµÄ¹æÔò
+     * @param pattern åŒ¹é…æ¨¡æ¿
+     * @param rule è¦ç™»è®°çš„è§„åˆ™
      */
     public void add(String pattern, Rule rule) {
         if ((context.length() > 0) && !(rule instanceof SetContextRule)
@@ -176,18 +176,18 @@ public class ContextSensitiveRules implements Rules {
     }
 
     /**
-     * Çå³ıËùÓĞ¹æÔò.
+     * æ¸…é™¤æ‰€æœ‰è§„åˆ™.
      */
     public void clear() {
         rules.clear();
     }
 
     /**
-     * Æ¥ÅäÖ¸¶¨Ä£°å.
+     * åŒ¹é…æŒ‡å®šæ¨¡æ¿.
      *
-     * @param pattern Æ¥ÅäÄ£°å
+     * @param pattern åŒ¹é…æ¨¡æ¿
      *
-     * @return Æ¥ÅäµÄ¹æÔò
+     * @return åŒ¹é…çš„è§„åˆ™
      *
      * @deprecated
      */
@@ -196,12 +196,12 @@ public class ContextSensitiveRules implements Rules {
     }
 
     /**
-     * Æ¥ÅäÖ¸¶¨Ä£°å.
+     * åŒ¹é…æŒ‡å®šæ¨¡æ¿.
      *
-     * @param namespaceURI Ãû×Ö¿Õ¼ä
-     * @param pattern Æ¥ÅäÄ£°å
+     * @param namespaceURI åå­—ç©ºé—´
+     * @param pattern åŒ¹é…æ¨¡æ¿
      *
-     * @return Æ¥ÅäµÄ¹æÔò
+     * @return åŒ¹é…çš„è§„åˆ™
      */
     public List match(String namespaceURI, String pattern) {
         List list    = rules.match(namespaceURI, pattern);
@@ -220,18 +220,18 @@ public class ContextSensitiveRules implements Rules {
     }
 
     /**
-     * È¡µÃËùÓĞ¹æÔò.
+     * å–å¾—æ‰€æœ‰è§„åˆ™.
      *
-     * @return ËùÓĞ¹æÔò
+     * @return æ‰€æœ‰è§„åˆ™
      */
     public List rules() {
         return rules.rules();
     }
 
     /**
-     * È¡µÃ<code>Rules</code>µÄ×Ö·û´®±íÊ¾.
+     * å–å¾—<code>Rules</code>çš„å­—ç¬¦ä¸²è¡¨ç¤º.
      *
-     * @return <code>Rules</code>µÄ×Ö·û´®±íÊ¾
+     * @return <code>Rules</code>çš„å­—ç¬¦ä¸²è¡¨ç¤º
      */
     public String toString() {
         return rules.toString();

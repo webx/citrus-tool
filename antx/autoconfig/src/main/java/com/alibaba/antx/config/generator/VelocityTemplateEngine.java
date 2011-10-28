@@ -37,7 +37,7 @@ import com.alibaba.antx.config.ConfigConstant;
 import com.alibaba.antx.config.ConfigException;
 
 /**
- * VelocityÒıÇæ¡£
+ * Velocityå¼•æ“ã€‚
  * 
  * @author Michael Zhou
  */
@@ -55,26 +55,26 @@ public class VelocityTemplateEngine {
     }
 
     /**
-     * ³õÊ¼»¯velocity.
+     * åˆå§‹åŒ–velocity.
      */
     public VelocityTemplateEngine() {
-        // parserµÄÊıÁ¿.
+        // parserçš„æ•°é‡.
         engine.setProperty(RuntimeConstants.PARSER_POOL_SIZE, new Integer(ConfigConstant.VELOCITY_NUMBER_OF_PARSERS));
 
-        // ÉèÖÃlogÏµÍ³.
+        // è®¾ç½®logç³»ç»Ÿ.
         engine.setProperty(RuntimeConstants.RUNTIME_LOG_LOGSYSTEM, new LogSystem());
 
-        // ÔÊĞíµİ¹é
+        // å…è®¸é€’å½’
         engine.setProperty("velocimacro.context.localscope", "true");
 
-        // ÉèÖÃresource loaderÏµÍ³.
+        // è®¾ç½®resource loaderç³»ç»Ÿ.
         engine.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
         engine.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
 
-        // ÉèÖÃvelocimacro.
+        // è®¾ç½®velocimacro.
         engine.setProperty(RuntimeConstants.VM_LIBRARY, ConfigConstant.VELOCITY_MACRO_FILE);
 
-        // Ö´ĞĞ³õÊ¼»¯.
+        // æ‰§è¡Œåˆå§‹åŒ–.
         try {
             engine.init();
         } catch (Exception e) {
@@ -83,14 +83,14 @@ public class VelocityTemplateEngine {
     }
 
     /**
-     * äÖÈ¾Ä£°å.
+     * æ¸²æŸ“æ¨¡æ¿.
      * 
-     * @param context ÉÏÏÂÎÄĞÅÏ¢
-     * @param reader Ä£°åÔ´
-     * @param writer Êä³öÁ÷
+     * @param context ä¸Šä¸‹æ–‡ä¿¡æ¯
+     * @param reader æ¨¡æ¿æº
+     * @param writer è¾“å‡ºæµ
      * @param url
-     * @return ±»äÖÈ¾ºóµÄ×Ö·ûÊı×é
-     * @throws Exception äÖÈ¾³ö´í
+     * @return è¢«æ¸²æŸ“åçš„å­—ç¬¦æ•°ç»„
+     * @throws Exception æ¸²æŸ“å‡ºé”™
      */
     public boolean render(Context context, Reader reader, Writer writer, String templateName, String configName,
                           URL baseURL) throws Exception {
@@ -189,7 +189,7 @@ public class VelocityTemplateEngine {
         }
 
         /**
-         * ³ıÈ¥messageÖĞµÄexceptionÇ°×º£¬Ê¹Ö®¸üÃÀ¹Û¡£
+         * é™¤å»messageä¸­çš„exceptionå‰ç¼€ï¼Œä½¿ä¹‹æ›´ç¾è§‚ã€‚
          */
         private String processMessage(String message) {
             if (message != null) {

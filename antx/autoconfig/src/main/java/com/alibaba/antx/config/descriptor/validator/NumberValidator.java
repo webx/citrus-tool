@@ -40,6 +40,6 @@ public class NumberValidator extends RegexpValidator {
 
     @Override
     protected String getDefaultMessage() {
-        return "参数值必须是数字";
+        return "鍙傛暟鍊煎繀椤绘槸鏁板瓧";
     }
 }

@@ -169,7 +169,7 @@ public class MainWindow extends ApplicationWindow {
     }
 
     public void handleShellCloseEvent() {
-        if (MessageDialog.openQuestion(getShell(), "ÍË³öÌáÊ¾", "ÄãÒÑ¾­ĞŞ¸ÄÁË×ÊÔ´/È¨ÏŞµÄÓ³Éä¹æÔò£¬Èç¹ûÏÖÔÚÍË³ö£¬Ëù×öµÄ¸Ä¶¯½«²»»á±£´æ£¬È·¶¨ÍË³öÃ´£¿")) {
+        if (MessageDialog.openQuestion(getShell(), "é€€å‡ºæç¤º", "ä½ å·²ç»ä¿®æ”¹äº†èµ„æº/æƒé™çš„æ˜ å°„è§„åˆ™ï¼Œå¦‚æœç°åœ¨é€€å‡ºï¼Œæ‰€åšçš„æ”¹åŠ¨å°†ä¸ä¼šä¿å­˜ï¼Œç¡®å®šé€€å‡ºä¹ˆï¼Ÿ")) {
             super.handleShellCloseEvent();
         }
     }

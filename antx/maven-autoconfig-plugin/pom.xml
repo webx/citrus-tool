@@ -18,7 +18,7 @@
                 <configuration>
                     <source>1.5</source>
                     <target>1.5</target>
-                    <encoding>GBK</encoding>
+                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
             <plugin>

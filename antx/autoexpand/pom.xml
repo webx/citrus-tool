@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="GB18030"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
@@ -28,7 +28,7 @@
                 <executions>
                     <execution>
                         <id>attach-sources</id>
-                        <!-- 确保在shade之前完成 -->
+                        <!-- 纭繚鍦╯hade涔嬪墠瀹屾垚 -->
                         <phase>prepare-package</phase>
                     </execution>
                 </executions>
@@ -159,7 +159,7 @@
                 </executions>
             </plugin>
             <plugin>
-                <!-- 确保gpg最后执行 -->
+                <!-- 纭繚gpg鏈�鍚庢墽琛� -->
                 <artifactId>maven-gpg-plugin</artifactId>
             </plugin>
         </plugins>

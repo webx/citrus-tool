@@ -28,7 +28,7 @@ import java.io.PrintWriter;
 import java.text.MessageFormat;
 
 /**
- * ±íÊ¾<code>ResourceBundle</code>Î´ÕÒµ½, »ò´´½¨Ê§°ÜµÄÒì³£.
+ * è¡¨ç¤º<code>ResourceBundle</code>æœªæ‰¾åˆ°, æˆ–åˆ›å»ºå¤±è´¥çš„å¼‚å¸¸.
  *
  * @version $Id: ResourceBundleException.java,v 1.1 2003/07/03 07:26:35 baobao Exp $
  * @author Michael Zhou
@@ -41,12 +41,12 @@ public class ResourceBundleException extends java.util.MissingResourceException
     private Enum                   errorCode;
 
     /**
-     * ¹¹ÔìÒ»¸öÒì³£, Ö¸Ã÷ÒıÆğÕâ¸öÒì³£µÄÆğÒò.
+     * æ„é€ ä¸€ä¸ªå¼‚å¸¸, æŒ‡æ˜å¼•èµ·è¿™ä¸ªå¼‚å¸¸çš„èµ·å› .
      *
-     * @param messageId   ÏêÏ¸ĞÅÏ¢ID
-     * @param params      ÏêÏ¸ĞÅÏ¢²ÎÊı
-     * @param cause       Òì³£µÄÆğÒò
-     * @param bundleName  bundleÃû³Æ
+     * @param messageId   è¯¦ç»†ä¿¡æ¯ID
+     * @param params      è¯¦ç»†ä¿¡æ¯å‚æ•°
+     * @param cause       å¼‚å¸¸çš„èµ·å› 
+     * @param bundleName  bundleåç§°
      * @param key         resource key
      */
     public ResourceBundleException(String messageId, Object[] params, Throwable cause,
@@ -58,61 +58,61 @@ public class ResourceBundleException extends java.util.MissingResourceException
     }
 
     /**
-     * È¡µÃbundleÃû.
+     * å–å¾—bundleå.
      *
-     * @return bundleÃû
+     * @return bundleå
      */
     public String getBundleName() {
         return super.getClassName();
     }
 
     /**
-     * È¡µÃÒıÆğÕâ¸öÒì³£µÄÆğÒò.
+     * å–å¾—å¼•èµ·è¿™ä¸ªå¼‚å¸¸çš„èµ·å› .
      *
-     * @return Òì³£µÄÆğÒò.
+     * @return å¼‚å¸¸çš„èµ·å› .
      */
     public Throwable getCause() {
         return cause;
     }
 
     /**
-     * È¡µÃ´íÎóÂë.
+     * å–å¾—é”™è¯¯ç .
      *
-     * @return ´íÎóÂë
+     * @return é”™è¯¯ç 
      */
     public Enum getErrorCode() {
         return errorCode;
     }
 
     /**
-     * ´òÓ¡µ÷ÓÃÕ»µ½±ê×¼´íÎó.
+     * æ‰“å°è°ƒç”¨æ ˆåˆ°æ ‡å‡†é”™è¯¯.
      */
     public void printStackTrace() {
         delegate.printStackTrace();
     }
 
     /**
-     * ´òÓ¡µ÷ÓÃÕ»µ½Ö¸¶¨Êä³öÁ÷.
+     * æ‰“å°è°ƒç”¨æ ˆåˆ°æŒ‡å®šè¾“å‡ºæµ.
      *
-     * @param stream  Êä³ö×Ö½ÚÁ÷.
+     * @param stream  è¾“å‡ºå­—èŠ‚æµ.
      */
     public void printStackTrace(PrintStream stream) {
         delegate.printStackTrace(stream);
     }
 
     /**
-     * ´òÓ¡µ÷ÓÃÕ»µ½Ö¸¶¨Êä³öÁ÷.
+     * æ‰“å°è°ƒç”¨æ ˆåˆ°æŒ‡å®šè¾“å‡ºæµ.
      *
-     * @param writer  Êä³ö×Ö·ûÁ÷.
+     * @param writer  è¾“å‡ºå­—ç¬¦æµ.
      */
     public void printStackTrace(PrintWriter writer) {
         delegate.printStackTrace(writer);
     }
 
     /**
-     * ´òÓ¡Òì³£µÄµ÷ÓÃÕ», ²»°üÀ¨ÆğÒòÒì³£µÄĞÅÏ¢.
+     * æ‰“å°å¼‚å¸¸çš„è°ƒç”¨æ ˆ, ä¸åŒ…æ‹¬èµ·å› å¼‚å¸¸çš„ä¿¡æ¯.
      *
-     * @param writer  ´òÓ¡µ½Êä³öÁ÷
+     * @param writer  æ‰“å°åˆ°è¾“å‡ºæµ
      */
     public void printCurrentStackTrace(PrintWriter writer) {
         super.printStackTrace(writer);

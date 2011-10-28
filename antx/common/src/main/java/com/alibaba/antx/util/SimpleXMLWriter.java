@@ -28,42 +28,42 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * ´ú±íÒ»¸ö¼òµ¥µÄXML writer£¬²»Ö§³ÖÃû×Ö¿Õ¼ä¡£
+ * ä»£è¡¨ä¸€ä¸ªç®€å•çš„XML writerï¼Œä¸æ”¯æŒåå­—ç©ºé—´ã€‚
  *
  * @author Michael Zhou
  *
  */
 public class SimpleXMLWriter extends XMLWriter {
     /**
-     * ´´½¨Ò»¸öXML writer¡£
+     * åˆ›å»ºä¸€ä¸ªXML writerã€‚
      *
-     * @param file XMLÎÄ¼ş
+     * @param file XMLæ–‡ä»¶
      *
-     * @throws IOException ÎÄ¼ş´ò¿ªÊ§°Ü
+     * @throws IOException æ–‡ä»¶æ‰“å¼€å¤±è´¥
      */
     public SimpleXMLWriter(File file) throws IOException {
         super(new FileOutputStream(file), OutputFormat.createPrettyPrint());
     }
 
     /**
-     * ¿ªÊ¼Ò»¸öXML element¡£
+     * å¼€å§‹ä¸€ä¸ªXML elementã€‚
      *
-     * @param elementName elementÃû
+     * @param elementName elementå
      *
-     * @throws SAXException SAXÒì³£
+     * @throws SAXException SAXå¼‚å¸¸
      */
     public void startElement(String elementName) throws SAXException {
         startElement("", "", elementName, new AttributesImpl());
     }
 
     /**
-     * ¿ªÊ¼Ò»¸öXML element¡£
+     * å¼€å§‹ä¸€ä¸ªXML elementã€‚
      *
-     * @param elementName elementÃû
-     * @param attrName ÊôĞÔÃû
-     * @param attrValue ÊôĞÔÖµ
+     * @param elementName elementå
+     * @param attrName å±æ€§å
+     * @param attrValue å±æ€§å€¼
      *
-     * @throws SAXException SAXÒì³£
+     * @throws SAXException SAXå¼‚å¸¸
      */
     public void startElement(String elementName, String attrName, String attrValue)
             throws SAXException {
@@ -79,15 +79,15 @@ public class SimpleXMLWriter extends XMLWriter {
     }
 
     /**
-     * ¿ªÊ¼Ò»¸öXML element¡£
+     * å¼€å§‹ä¸€ä¸ªXML elementã€‚
      *
-     * @param elementName elementÃû
-     * @param attrName1 ÊôĞÔÃû
-     * @param attrValue1 ÊôĞÔÖµ
-     * @param attrName2 ÊôĞÔÃû
-     * @param attrValue2 ÊôĞÔÖµ
+     * @param elementName elementå
+     * @param attrName1 å±æ€§å
+     * @param attrValue1 å±æ€§å€¼
+     * @param attrName2 å±æ€§å
+     * @param attrValue2 å±æ€§å€¼
      *
-     * @throws SAXException SAXÒì³£
+     * @throws SAXException SAXå¼‚å¸¸
      */
     public void startElement(String elementName, String attrName1, String attrValue1,
         String attrName2, String attrValue2) throws SAXException {
@@ -108,12 +108,12 @@ public class SimpleXMLWriter extends XMLWriter {
     }
 
     /**
-     * ´´½¨Ò»¸öXML element¡£
+     * åˆ›å»ºä¸€ä¸ªXML elementã€‚
      *
-     * @param elementName elementÃû
-     * @param bodyText elementÖµ
+     * @param elementName elementå
+     * @param bodyText elementå€¼
      *
-     * @throws SAXException SAXÒì³£
+     * @throws SAXException SAXå¼‚å¸¸
      */
     public void processElement(String elementName, String bodyText)
             throws SAXException {
@@ -127,11 +127,11 @@ public class SimpleXMLWriter extends XMLWriter {
     }
 
     /**
-     * ½áÊøÒ»¸öXML element¡£
+     * ç»“æŸä¸€ä¸ªXML elementã€‚
      *
-     * @param elementName elementÃû
+     * @param elementName elementå
      *
-     * @throws SAXException SAXÒì³£
+     * @throws SAXException SAXå¼‚å¸¸
      */
     public void endElement(String elementName) throws SAXException {
         endElement("", "", elementName);

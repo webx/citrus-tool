@@ -74,7 +74,7 @@ public class ConfigRuntimeImpl implements ConfigRuntime {
             out = new PrintWriter(new OutputStreamWriter(outStream, this.charset), true);
             err = new PrintWriter(new OutputStreamWriter(errStream, this.charset), true);
         } catch (UnsupportedEncodingException e) {
-            throw new ConfigException(e); // 不应发生
+            throw new ConfigException(e); // 涓嶅簲鍙戠敓
         }
 
         if (!charsetSpecified) {
@@ -310,7 +310,7 @@ public class ConfigRuntimeImpl implements ConfigRuntime {
             // MainWindow.run(this);
             throw new UnsupportedOperationException("GUI mode currently unsupported");
         } else if (inlineDescriptor == null) {
-            // 扫描所有文件或目录，取得要配置的entries
+            // 鎵弿鎵�鏈夋枃浠舵垨鐩綍锛屽彇寰楄閰嶇疆鐨別ntries
             List entries = scan(false);
 
             if (entries.isEmpty() && !ConfigConstant.INTERACTIVE_ON.equals(interactiveMode)) {
@@ -320,10 +320,10 @@ public class ConfigRuntimeImpl implements ConfigRuntime {
 
             ConfigWizardLoader wizard = new ConfigWizardLoader(this, entries);
 
-            // 交互式编辑props文件
+            // 浜や簰寮忕紪杈憄rops鏂囦欢
             wizard.loadAndStart();
 
-            // 生成配置文件
+            // 鐢熸垚閰嶇疆鏂囦欢
             boolean allSuccess = true;
 
             for (Iterator i = entries.iterator(); i.hasNext();) {
@@ -336,7 +336,7 @@ public class ConfigRuntimeImpl implements ConfigRuntime {
         } else {
             ConfigWizardLoader wizard = new ConfigWizardLoader(this, inlineDescriptor);
 
-            // 交互式编辑props文件
+            // 浜や簰寮忕紪杈憄rops鏂囦欢
             wizard.loadAndStart();
 
             return true;

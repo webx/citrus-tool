@@ -20,7 +20,7 @@ package com.alibaba.antx.util;
 import java.io.InputStream;
 
 /**
- * Í¨¹ı<code>ByteArray</code>¼õÉÙÄÚ´æ¿½±´´ÎÊıµÄ<code>ByteArrayOutputStream</code>ÊµÏÖ¡£
+ * é€šè¿‡<code>ByteArray</code>å‡å°‘å†…å­˜æ‹·è´æ¬¡æ•°çš„<code>ByteArrayOutputStream</code>å®ç°ã€‚
  * 
  * @author Michael Zhou
  */

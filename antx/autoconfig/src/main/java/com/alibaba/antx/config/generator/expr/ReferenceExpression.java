@@ -20,7 +20,7 @@ package com.alibaba.antx.config.generator.expr;
 import com.alibaba.antx.util.StringUtil;
 
 /**
- * ´ú±íÒ»¸öÒıÓÃ±í´ïÊ½£¬¸Ã±í´ïÊ½µÄÖµÒıÓÃcontextÖĞµÄÆäËü±í´ïÊ½¡£
+ * ä»£è¡¨ä¸€ä¸ªå¼•ç”¨è¡¨è¾¾å¼ï¼Œè¯¥è¡¨è¾¾å¼çš„å€¼å¼•ç”¨contextä¸­çš„å…¶å®ƒè¡¨è¾¾å¼ã€‚
  * 
  * @author Michael Zhou
  */
@@ -47,7 +47,7 @@ public class ReferenceExpression implements Expression {
         } else if (value instanceof Expression) {
             return ((Expression) value).evaluate(new ExpressionContext() {
                 public Object get(String key) {
-                    // ±ÜÃâÎŞÏŞµİ¹é
+                    // é¿å…æ— é™é€’å½’
                     if (ref.equals(key)
                             || StringUtil.getValidIdentifier(ref).equals(StringUtil.getValidIdentifier(key))) {
                         return null;

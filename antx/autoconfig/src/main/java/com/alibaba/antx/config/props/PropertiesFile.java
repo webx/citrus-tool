@@ -30,7 +30,7 @@ import com.alibaba.antx.config.resource.ResourceManager;
 import com.alibaba.antx.config.resource.ResourceURI;
 
 /**
- * ´ú±íÒ»¸öpropsÎÄ¼þ¡£
+ * ä»£è¡¨ä¸€ä¸ªpropsæ–‡ä»¶ã€‚
  * 
  * @author Michael Zhou
  */

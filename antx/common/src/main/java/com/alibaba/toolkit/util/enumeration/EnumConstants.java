@@ -18,7 +18,7 @@
 package com.alibaba.toolkit.util.enumeration;
 
 /**
- * ¶¨Òå<code>Enum</code>Ïà¹ØµÄ³£Á¿ºÍ´íÎóĞÅÏ¢.
+ * å®šä¹‰<code>Enum</code>ç›¸å…³çš„å¸¸é‡å’Œé”™è¯¯ä¿¡æ¯.
  *
  * @version $Id: EnumConstants.java,v 1.1 2003/07/03 07:26:20 baobao Exp $
  * @author Michael Zhou
@@ -27,7 +27,7 @@ public interface EnumConstants {
     String CREATE_ENUM_TYPE_METHOD_NAME = "createEnumType";
     String FLAG_SET_INNER_CLASS_NAME = "FlagSet";
 
-    // EnumµÄ³ö´íĞÅÏ¢.
+    // Enumçš„å‡ºé”™ä¿¡æ¯.
     String ENUM_NAME_IS_EMPTY             = "The Enum name must not be empty";
     String ENUM_VALUE_IS_NULL             = "The Enum value must not be null";
     String DUPLICATED_ENUM_NAME           = "Duplicated name \"{0}\" of Enum class \"{1}\"";
@@ -40,7 +40,7 @@ public interface EnumConstants {
     String ENUM_IS_NOT_A_FLAG             = "The Enum class \"{0}\" is not an implementation of Flags";
     String CREATE_FLAG_SET_IS_UNSUPPORTED = "Creating FlagSet is not supported by Enum class \"{0}\".  Make sure there is a static inner class \"{0}.FlagSet\" with a constructor without parameters";
 
-    // FlagSetµÄ³ö´íĞÅÏ¢
+    // FlagSetçš„å‡ºé”™ä¿¡æ¯
     String ILLEGAL_CLASS                     = "Class \"{0}\" is not a subclass of \"{1}\"";
     String ILLEGAL_INTERFACE                 = "Class \"{0}\" is not an implementation of \"{1}\"";
     String CLONE_NOT_SUPPORTED               = "Clone not supported by class \"{0}\"";

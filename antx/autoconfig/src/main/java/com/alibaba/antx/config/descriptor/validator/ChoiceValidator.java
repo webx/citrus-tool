@@ -88,7 +88,7 @@ public class ChoiceValidator extends ConfigValidator {
 
     @Override
     protected String getDefaultMessage() {
-        StringBuffer buffer = new StringBuffer("Äú±ØÐëÔÚÏÂÁÐÖµÖÐÑ¡Ôñ£º");
+        StringBuffer buffer = new StringBuffer("æ‚¨å¿…é¡»åœ¨ä¸‹åˆ—å€¼ä¸­é€‰æ‹©ï¼š");
         String[] choices = getAllChoices();
 
         for (int i = 0; i < choices.length; i++) {

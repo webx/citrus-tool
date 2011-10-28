@@ -32,52 +32,52 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * ´´½¨<code>ResourceBundle</code>µÄÊµÀıµÄ¹¤³§.
+ * åˆ›å»º<code>ResourceBundle</code>çš„å®ä¾‹çš„å·¥å‚.
  *
  * @version $Id: ResourceBundleFactory.java,v 1.1 2003/07/03 07:26:35 baobao Exp $
  * @author Michael Zhou
  */
 public abstract class ResourceBundleFactory {
     /**
-     * Ê¹ÓÃÖ¸¶¨µÄbundle»ù±¾Ãû, Ä¬ÈÏµÄlocale, Ä¬ÈÏµÄfactoryÖĞÈ¡µÃresource bundle. Ä¬ÈÏµÄfactoryÊÇ´ÓÏß³ÌµÄcontext class
-     * loaderÖĞÈ¡µÃ×ÊÔ´ÎÄ¼ş, ²¢ÒÔXMLµÄ¸ñÊ½½âÊÍ×ÊÔ´ÎÄ¼ş.
+     * ä½¿ç”¨æŒ‡å®šçš„bundleåŸºæœ¬å, é»˜è®¤çš„locale, é»˜è®¤çš„factoryä¸­å–å¾—resource bundle. é»˜è®¤çš„factoryæ˜¯ä»çº¿ç¨‹çš„context class
+     * loaderä¸­å–å¾—èµ„æºæ–‡ä»¶, å¹¶ä»¥XMLçš„æ ¼å¼è§£é‡Šèµ„æºæ–‡ä»¶.
      *
-     * @param baseName  bundleµÄ»ù±¾Ãû
+     * @param baseName  bundleçš„åŸºæœ¬å
      *
      * @return resource bundle
      *
-     * @throws MissingResourceException  Ö¸¶¨bundleÎ´ÕÒµ½, »ò´´½¨bundle´íÎó
+     * @throws MissingResourceException  æŒ‡å®šbundleæœªæ‰¾åˆ°, æˆ–åˆ›å»ºbundleé”™è¯¯
      */
     public static final ResourceBundle getBundle(String baseName) {
         return getBundle(baseName, null, (ResourceBundleFactory) null);
     }
 
     /**
-     * Ê¹ÓÃÖ¸¶¨µÄbundle»ù±¾Ãû, Ö¸¶¨µÄlocale, Ä¬ÈÏµÄfactoryÖĞÈ¡µÃresource bundle. Ä¬ÈÏµÄfactoryÊÇ´ÓÏß³ÌµÄcontext class
-     * loaderÖĞÈ¡µÃ×ÊÔ´ÎÄ¼ş, ²¢ÒÔXMLµÄ¸ñÊ½½âÊÍ×ÊÔ´ÎÄ¼ş.
+     * ä½¿ç”¨æŒ‡å®šçš„bundleåŸºæœ¬å, æŒ‡å®šçš„locale, é»˜è®¤çš„factoryä¸­å–å¾—resource bundle. é»˜è®¤çš„factoryæ˜¯ä»çº¿ç¨‹çš„context class
+     * loaderä¸­å–å¾—èµ„æºæ–‡ä»¶, å¹¶ä»¥XMLçš„æ ¼å¼è§£é‡Šèµ„æºæ–‡ä»¶.
      *
-     * @param baseName  bundleµÄ»ù±¾Ãû
-     * @param locale    ÇøÓòÉèÖÃ
+     * @param baseName  bundleçš„åŸºæœ¬å
+     * @param locale    åŒºåŸŸè®¾ç½®
      *
      * @return resource bundle
      *
-     * @throws MissingResourceException  Ö¸¶¨bundleÎ´ÕÒµ½, »ò´´½¨bundle´íÎó
+     * @throws MissingResourceException  æŒ‡å®šbundleæœªæ‰¾åˆ°, æˆ–åˆ›å»ºbundleé”™è¯¯
      */
     public static final ResourceBundle getBundle(String baseName, Locale locale) {
         return getBundle(baseName, locale, (ResourceBundleFactory) null);
     }
 
     /**
-     * Ê¹ÓÃÖ¸¶¨µÄbundle»ù±¾Ãû, Ö¸¶¨µÄlocale, Ä¬ÈÏµÄfactoryÖĞÈ¡µÃresource bundle. Ä¬ÈÏµÄfactoryÊÇ´ÓÖ¸¶¨µÄclass loaderÖĞÈ¡µÃ×ÊÔ´ÎÄ¼ş,
-     * ²¢ÒÔXMLµÄ¸ñÊ½½âÊÍ×ÊÔ´ÎÄ¼ş.
+     * ä½¿ç”¨æŒ‡å®šçš„bundleåŸºæœ¬å, æŒ‡å®šçš„locale, é»˜è®¤çš„factoryä¸­å–å¾—resource bundle. é»˜è®¤çš„factoryæ˜¯ä»æŒ‡å®šçš„class loaderä¸­å–å¾—èµ„æºæ–‡ä»¶,
+     * å¹¶ä»¥XMLçš„æ ¼å¼è§£é‡Šèµ„æºæ–‡ä»¶.
      *
-     * @param baseName    bundleµÄ»ù±¾Ãû
-     * @param locale      ÇøÓòÉèÖÃ
+     * @param baseName    bundleçš„åŸºæœ¬å
+     * @param locale      åŒºåŸŸè®¾ç½®
      * @param classLoader class loader
      *
      * @return resource bundle
      *
-     * @throws MissingResourceException  Ö¸¶¨bundleÎ´ÕÒµ½, »ò´´½¨bundle´íÎó
+     * @throws MissingResourceException  æŒ‡å®šbundleæœªæ‰¾åˆ°, æˆ–åˆ›å»ºbundleé”™è¯¯
      */
     public static final ResourceBundle getBundle(String baseName, Locale locale,
                                                  ClassLoader classLoader) {
@@ -85,16 +85,16 @@ public abstract class ResourceBundleFactory {
     }
 
     /**
-     * Ê¹ÓÃÖ¸¶¨µÄbundle»ù±¾Ãû, Ö¸¶¨µÄlocale, Ö¸¶¨µÄloader, Ä¬ÈÏµÄfactoryÖĞÈ¡µÃresource bundle.
-     * Ä¬ÈÏµÄfactoryÊÇ´ÓÖ¸¶¨µÄloaderÖĞÈ¡µÃ×ÊÔ´ÎÄ¼ş, ²¢ÒÔXMLµÄ¸ñÊ½½âÊÍ×ÊÔ´ÎÄ¼ş.
+     * ä½¿ç”¨æŒ‡å®šçš„bundleåŸºæœ¬å, æŒ‡å®šçš„locale, æŒ‡å®šçš„loader, é»˜è®¤çš„factoryä¸­å–å¾—resource bundle.
+     * é»˜è®¤çš„factoryæ˜¯ä»æŒ‡å®šçš„loaderä¸­å–å¾—èµ„æºæ–‡ä»¶, å¹¶ä»¥XMLçš„æ ¼å¼è§£é‡Šèµ„æºæ–‡ä»¶.
      *
-     * @param baseName  bundleµÄ»ù±¾Ãû
-     * @param locale    ÇøÓòÉèÖÃ
-     * @param loader    bundleµÄ×°ÈëÆ÷
+     * @param baseName  bundleçš„åŸºæœ¬å
+     * @param locale    åŒºåŸŸè®¾ç½®
+     * @param loader    bundleçš„è£…å…¥å™¨
      *
      * @return resource bundle
      *
-     * @throws MissingResourceException  Ö¸¶¨bundleÎ´ÕÒµ½, »ò´´½¨bundle´íÎó
+     * @throws MissingResourceException  æŒ‡å®šbundleæœªæ‰¾åˆ°, æˆ–åˆ›å»ºbundleé”™è¯¯
      */
     public static final ResourceBundle getBundle(String baseName, Locale locale,
                                                  ResourceBundleLoader loader) {
@@ -102,15 +102,15 @@ public abstract class ResourceBundleFactory {
     }
 
     /**
-     * Ê¹ÓÃÖ¸¶¨µÄbundle»ù±¾Ãû, Ö¸¶¨µÄlocale, Ö¸¶¨µÄfactoryÖĞÈ¡µÃresource bundle.
+     * ä½¿ç”¨æŒ‡å®šçš„bundleåŸºæœ¬å, æŒ‡å®šçš„locale, æŒ‡å®šçš„factoryä¸­å–å¾—resource bundle.
      *
-     * @param baseName  bundleµÄ»ù±¾Ãû
-     * @param locale    ÇøÓòÉèÖÃ
-     * @param factory   bundle¹¤³§
+     * @param baseName  bundleçš„åŸºæœ¬å
+     * @param locale    åŒºåŸŸè®¾ç½®
+     * @param factory   bundleå·¥å‚
      *
      * @return resource bundle
      *
-     * @throws MissingResourceException  Ö¸¶¨bundleÎ´ÕÒµ½, »ò´´½¨bundle´íÎó
+     * @throws MissingResourceException  æŒ‡å®šbundleæœªæ‰¾åˆ°, æˆ–åˆ›å»ºbundleé”™è¯¯
      */
     public static final ResourceBundle getBundle(String baseName, Locale locale,
                                                  ResourceBundleFactory factory) {
@@ -126,50 +126,50 @@ public abstract class ResourceBundleFactory {
     }
 
     /**
-     * ´´½¨<code>ResourceBundle</code>µÄÊµÀı.
+     * åˆ›å»º<code>ResourceBundle</code>çš„å®ä¾‹.
      *
-     * @param bundleName  Òª´´½¨µÄbundleÃû³Æ
+     * @param bundleName  è¦åˆ›å»ºçš„bundleåç§°
      *
-     * @return ĞÂ´´½¨µÄ<code>ResourceBundle</code>ÊµÀı, Èç¹ûÖ¸¶¨bundle²»´æÔÚ, Ôò·µ»Ø<code>null</code>
+     * @return æ–°åˆ›å»ºçš„<code>ResourceBundle</code>å®ä¾‹, å¦‚æœæŒ‡å®šbundleä¸å­˜åœ¨, åˆ™è¿”å›<code>null</code>
      *
-     * @throws ResourceBundleCreateException Ö¸¶¨bundleÎÄ¼ş´æÔÚ, µ«´´½¨bundleÊµÀıÊ§°Ü, ÀıÈçÎÄ¼ş¸ñÊ½´íÎó
+     * @throws ResourceBundleCreateException æŒ‡å®šbundleæ–‡ä»¶å­˜åœ¨, ä½†åˆ›å»ºbundleå®ä¾‹å¤±è´¥, ä¾‹å¦‚æ–‡ä»¶æ ¼å¼é”™è¯¯
      */
     public abstract ResourceBundle createBundle(String bundleName)
             throws ResourceBundleCreateException;
 
     /**
-     * ÅĞ¶ÏÁ½¸ö<code>ResourceBundleFactory</code>ÊÇ·ñµÈĞ§. Õâ½«×÷Îª<code>ResourceBundle</code>µÄcacheµÄÒÀ¾İ.
+     * åˆ¤æ–­ä¸¤ä¸ª<code>ResourceBundleFactory</code>æ˜¯å¦ç­‰æ•ˆ. è¿™å°†ä½œä¸º<code>ResourceBundle</code>çš„cacheçš„ä¾æ®.
      *
-     * @param obj Òª±È½ÏµÄÁíÒ»¸ö¶ÔÏó
+     * @param obj è¦æ¯”è¾ƒçš„å¦ä¸€ä¸ªå¯¹è±¡
      *
-     * @return Èç¹ûµÈĞ§, Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœç­‰æ•ˆ, åˆ™è¿”å›<code>true</code>
      */
     public abstract boolean equals(Object obj);
 
     /**
-     * È¡µÃhashÖµ.  µÈĞ§µÄ<code>ResourceBundleFactory</code>Ó¦¸Ã¾ßÓĞÏàÍ¬µÄhashÖµ.
+     * å–å¾—hashå€¼.  ç­‰æ•ˆçš„<code>ResourceBundleFactory</code>åº”è¯¥å…·æœ‰ç›¸åŒçš„hashå€¼.
      *
-     * @return hashÖµ
+     * @return hashå€¼
      */
     public abstract int hashCode();
 
     /**
-     * ²éÕÒºÍ´´½¨bundleµÄÀà.
+     * æŸ¥æ‰¾å’Œåˆ›å»ºbundleçš„ç±».
      */
     private static final class Helper {
-        /** ½«(factory, bundleName, defaultLocale)Ó³Éäµ½bundle¶ÔÏóµÄcache. µ±ÄÚ´æ²»×ãÊ±, cacheµÄÄÚÈİ»á×Ô¶¯ÊÍ·Å. */
+        /** å°†(factory, bundleName, defaultLocale)æ˜ å°„åˆ°bundleå¯¹è±¡çš„cache. å½“å†…å­˜ä¸è¶³æ—¶, cacheçš„å†…å®¹ä¼šè‡ªåŠ¨é‡Šæ”¾. */
         private static final Cache cache = new Cache();
 
         /**
-         * Ê¹ÓÃÖ¸¶¨µÄbundle»ù±¾Ãû, Ö¸¶¨µÄlocale, Ö¸¶¨µÄfactoryÖĞÈ¡µÃresource bundle.
+         * ä½¿ç”¨æŒ‡å®šçš„bundleåŸºæœ¬å, æŒ‡å®šçš„locale, æŒ‡å®šçš„factoryä¸­å–å¾—resource bundle.
          *
-         * @param baseName  bundleµÄ»ù±¾Ãû
-         * @param locale    ÇøÓòÉèÖÃ
-         * @param factory   bundle¹¤³§
+         * @param baseName  bundleçš„åŸºæœ¬å
+         * @param locale    åŒºåŸŸè®¾ç½®
+         * @param factory   bundleå·¥å‚
          *
          * @return resource bundle
          *
-         * @throws MissingResourceException  Ö¸¶¨bundleÎ´ÕÒµ½, »ò´´½¨bundle´íÎó
+         * @throws MissingResourceException  æŒ‡å®šbundleæœªæ‰¾åˆ°, æˆ–åˆ›å»ºbundleé”™è¯¯
          */
         private static ResourceBundle getBundleImpl(String baseName, Locale locale,
                                                     ResourceBundleFactory factory) {
@@ -177,21 +177,21 @@ public abstract class ResourceBundleFactory {
                 throw new NullPointerException(ResourceBundleConstant.RB_BASE_NAME_IS_NULL);
             }
 
-            // Ê¹ÓÃfactory×÷ÎªbundleÎ´ÕÒµ½µÄ±ê¼Ç, ÕâÑùµ±factory±»GC»ØÊÕµÄÊ±ºò, cacheÀï¶ÔÓ¦µÄÏîÒ²¿ÉÒÔ±»»ØÊÕ.
+            // ä½¿ç”¨factoryä½œä¸ºbundleæœªæ‰¾åˆ°çš„æ ‡è®°, è¿™æ ·å½“factoryè¢«GCå›æ”¶çš„æ—¶å€™, cacheé‡Œå¯¹åº”çš„é¡¹ä¹Ÿå¯ä»¥è¢«å›æ”¶.
             final Object NOT_FOUND = factory;
 
-            // ´ÓcacheÖĞÈ¡µÃbundle.
+            // ä»cacheä¸­å–å¾—bundle.
             String bundleName   = baseName;
             String localeSuffix = locale.toString();
 
             if (localeSuffix.length() > 0) {
                 bundleName += ("_" + localeSuffix);
             } else if (locale.getVariant().length() > 0) {
-                // ĞŞÕı: new Locale("", "", "VARIANT").toString == ""
+                // ä¿®æ­£: new Locale("", "", "VARIANT").toString == ""
                 bundleName += ("___" + locale.getVariant());
             }
 
-            // È¡µÃÏµÍ³locale, ×¢Òâ, Õâ¸öÖµ¿ÉÄÜ±»¸Ä±ä, ËùÒÔÃ¿´ÎÖ´ĞĞÊ±¶¼ÖØĞÂÈ¡.
+            // å–å¾—ç³»ç»Ÿlocale, æ³¨æ„, è¿™ä¸ªå€¼å¯èƒ½è¢«æ”¹å˜, æ‰€ä»¥æ¯æ¬¡æ‰§è¡Œæ—¶éƒ½é‡æ–°å–.
             Locale defaultLocale = Locale.getDefault();
 
             Object lookup = cache.get(factory, bundleName, defaultLocale);
@@ -202,11 +202,11 @@ public abstract class ResourceBundleFactory {
                 return (ResourceBundle) lookup;
             }
 
-            // ¿ªÊ¼²éÕÒ²¢´´½¨bundle.
+            // å¼€å§‹æŸ¥æ‰¾å¹¶åˆ›å»ºbundle.
             Object parent = NOT_FOUND;
 
             try {
-                // ²éÕÒbase bundle.
+                // æŸ¥æ‰¾base bundle.
                 Object root = findBundle(factory, baseName, defaultLocale, baseName, null,
                                          NOT_FOUND);
 
@@ -215,12 +215,12 @@ public abstract class ResourceBundleFactory {
                     cache.put(factory, baseName, defaultLocale, root);
                 }
 
-                // ²éÕÒÖ÷ÒªÂ·¾¶, ÀıÈçgetBundle("baseName", new Locale("zh", "CN", "Variant")),
-                // Ö÷ÒªÂ·¾¶ÎªbaseName_zh, baseName_zh_CN, baseName_zh_CN_Varient.
+                // æŸ¥æ‰¾ä¸»è¦è·¯å¾„, ä¾‹å¦‚getBundle("baseName", new Locale("zh", "CN", "Variant")),
+                // ä¸»è¦è·¯å¾„ä¸ºbaseName_zh, baseName_zh_CN, baseName_zh_CN_Varient.
                 final List names        = calculateBundleNames(baseName, locale);
                 List       bundlesFound = new ArrayList(ResourceBundleConstant.MAX_BUNDLES_SEARCHED);
 
-                // Èç¹ûbase bundleÒÑ¾­ÕÒµ½, ²¢ÇÒÖ÷Â·¾¶Îª¿Õ.
+                // å¦‚æœbase bundleå·²ç»æ‰¾åˆ°, å¹¶ä¸”ä¸»è·¯å¾„ä¸ºç©º.
                 boolean foundInMainBranch = (!NOT_FOUND.equals(root) && names.size() == 0);
 
                 if (!foundInMainBranch) {
@@ -240,8 +240,8 @@ public abstract class ResourceBundleFactory {
                 }
 
 
-                // Èç¹ûÖ÷Â·¾¶Î´ÕÒµ½bundle, Ôò²éÕÒÏµÍ³Ä¬ÈÏÂ·¾¶, ÀıÈçµ±Ç°ÏµÍ³Ä¬ÈÏlocaleÎªen_US,
-                // ÔòËÑË÷Â·¾¶Îª: baseName_en, baseName_US.
+                // å¦‚æœä¸»è·¯å¾„æœªæ‰¾åˆ°bundle, åˆ™æŸ¥æ‰¾ç³»ç»Ÿé»˜è®¤è·¯å¾„, ä¾‹å¦‚å½“å‰ç³»ç»Ÿé»˜è®¤localeä¸ºen_US,
+                // åˆ™æœç´¢è·¯å¾„ä¸º: baseName_en, baseName_US.
                 parent = root;
 
                 if (!foundInMainBranch) {
@@ -250,7 +250,7 @@ public abstract class ResourceBundleFactory {
                     for (int i = 0; i < fallbackNames.size(); i++) {
                         bundleName = (String) fallbackNames.get(i);
 
-                        // Èç¹ûÏµÍ³Ä¬ÈÏÂ·¾¶ºÍÖ÷Â·¾¶Ò»ÖÂ, Ôò²»ĞèÒªÔÙÕÒÏÂÈ¥ÁË
+                        // å¦‚æœç³»ç»Ÿé»˜è®¤è·¯å¾„å’Œä¸»è·¯å¾„ä¸€è‡´, åˆ™ä¸éœ€è¦å†æ‰¾ä¸‹å»äº†
                         if (names.contains(bundleName)) {
                             break;
                         }
@@ -261,33 +261,33 @@ public abstract class ResourceBundleFactory {
                         if (lookup != null) {
                             parent = lookup;
                         } else {
-                            // ½«¸¸bundle´«µİ¸ø×Óbundle, ÀıÈç:
-                            // ¸¸bundle: baseName_en.xmlÒÑ¾­ÕÒµ½, ×Óbundle: baseName_en_USÎ´ÕÒµ½,
-                            // ÔòcacheÖĞ:
-                            // baseName       => bundle¶ÔÏó: baseName.xml
-                            // baseName_en    => bundle¶ÔÏó: baseName_en.xml
-                            // baseName_en_US => bundle¶ÔÏó: baseName_en.xml
+                            // å°†çˆ¶bundleä¼ é€’ç»™å­bundle, ä¾‹å¦‚:
+                            // çˆ¶bundle: baseName_en.xmlå·²ç»æ‰¾åˆ°, å­bundle: baseName_en_USæœªæ‰¾åˆ°,
+                            // åˆ™cacheä¸­:
+                            // baseName       => bundleå¯¹è±¡: baseName.xml
+                            // baseName_en    => bundleå¯¹è±¡: baseName_en.xml
+                            // baseName_en_US => bundleå¯¹è±¡: baseName_en.xml
                             cache.put(factory, bundleName, defaultLocale, parent);
                         }
                     }
                 }
 
-                // ÔÚÖ÷Â·¾¶ÖĞ, ½«¸¸bundle´«µİ¸ø×Óbundle, ÕâÀïÓĞÈıÖÖÇé¿ö:
-                // 1. bundleÔÚÖ÷Â·¾¶ÖĞ, ÀıÈçgetBundle("baseName", new Locale("zh", "CN")),
-                //    baseName_zh±»ÕÒµ½, ÔòcacheÖĞ:
-                //    baseName       => bundle¶ÔÏó: baseName.xml
-                //    baseName_zh    => bundle¶ÔÏó: baseName_zh.xml
-                //    baseName_zh_CN => bundle¶ÔÏó: baseName_zh.xml
+                // åœ¨ä¸»è·¯å¾„ä¸­, å°†çˆ¶bundleä¼ é€’ç»™å­bundle, è¿™é‡Œæœ‰ä¸‰ç§æƒ…å†µ:
+                // 1. bundleåœ¨ä¸»è·¯å¾„ä¸­, ä¾‹å¦‚getBundle("baseName", new Locale("zh", "CN")),
+                //    baseName_zhè¢«æ‰¾åˆ°, åˆ™cacheä¸­:
+                //    baseName       => bundleå¯¹è±¡: baseName.xml
+                //    baseName_zh    => bundleå¯¹è±¡: baseName_zh.xml
+                //    baseName_zh_CN => bundleå¯¹è±¡: baseName_zh.xml
                 //
-                // 2. bundleÔÚÏµÍ³Â·¾¶ÖĞ, Ö÷Â·¾¶Î´ÕÒµ½, ÀıÈçgetBundle("baseName", new Locale("zh", "CN")),
-                //    baseName_zhºÍbaseName_zh_CN¾ùÎ´ÕÒµ½, µ«ÏµÍ³Â·¾¶ÖĞbaseName_en±»ÕÒµ½, ÔòcacheÖĞ:
-                //    baseName       => bundle¶ÔÏó: baseName.xml
-                //    baseName_zh    => bundle¶ÔÏó: baseName_en.xml
-                //    baseName_zh_CN => bundle¶ÔÏó: baseName_en.xml
-                //    baseName_en    => bundle¶ÔÏó: baseName_en.xml
-                //    baseName_en_US => bundle¶ÔÏó: baseName_en.xml
+                // 2. bundleåœ¨ç³»ç»Ÿè·¯å¾„ä¸­, ä¸»è·¯å¾„æœªæ‰¾åˆ°, ä¾‹å¦‚getBundle("baseName", new Locale("zh", "CN")),
+                //    baseName_zhå’ŒbaseName_zh_CNå‡æœªæ‰¾åˆ°, ä½†ç³»ç»Ÿè·¯å¾„ä¸­baseName_enè¢«æ‰¾åˆ°, åˆ™cacheä¸­:
+                //    baseName       => bundleå¯¹è±¡: baseName.xml
+                //    baseName_zh    => bundleå¯¹è±¡: baseName_en.xml
+                //    baseName_zh_CN => bundleå¯¹è±¡: baseName_en.xml
+                //    baseName_en    => bundleå¯¹è±¡: baseName_en.xml
+                //    baseName_en_US => bundleå¯¹è±¡: baseName_en.xml
                 //
-                // 3. bundleµÄ»ù±¾ÃûÎ´ÕÒµ½:
+                // 3. bundleçš„åŸºæœ¬åæœªæ‰¾åˆ°:
                 //    baseName       => NOT_FOUND
                 //    baseName_zh    => NOT_FOUND
                 //    baseName_zh_CN => NOT_FOUND
@@ -304,7 +304,7 @@ public abstract class ResourceBundleFactory {
                     }
                 }
             } catch (Exception e) {
-                // ¿ÉÄÜÊÇResourceBundleCreateExceptionºÍÆäËüRuntimeException.
+                // å¯èƒ½æ˜¯ResourceBundleCreateExceptionå’Œå…¶å®ƒRuntimeException.
                 cache.cleanUpConstructionList();
                 throwResourceBundleException(false, baseName, locale, e);
             } catch (Error e) {
@@ -320,19 +320,19 @@ public abstract class ResourceBundleFactory {
         }
 
         /**
-         * ÔÚcacheÖĞ²éÕÒbundle, »ò´ÓfactoryÖĞ×°Èëbundle.  Èç¹û´Ë·½·¨·µ»Ø<code>null</code>, Ôòµ÷ÓÃÕß±ØĞë×Ô¼º¶¨Òåbundle,
-         * ²¢µ÷ÓÃ<code>cache.put</code>·½·¨.
+         * åœ¨cacheä¸­æŸ¥æ‰¾bundle, æˆ–ä»factoryä¸­è£…å…¥bundle.  å¦‚æœæ­¤æ–¹æ³•è¿”å›<code>null</code>, åˆ™è°ƒç”¨è€…å¿…é¡»è‡ªå·±å®šä¹‰bundle,
+         * å¹¶è°ƒç”¨<code>cache.put</code>æ–¹æ³•.
          *
-         * @param factory       bundle¹¤³§
-         * @param bundleName    bundleÃû³Æ
-         * @param defaultLocale ÏµÍ³Ä¬ÈÏµÄlocale
-         * @param baseName      bundle»ù±¾Ãû
-         * @param parent        ¸¸bundle, ¶ÔÓÚ¸ùbundle,  Îª<code>null</code>
-         * @param NOT_FOUND     ±ê¼Ç"Î´ÕÒµ½"×´Ì¬µÄ¶ÔÏó
+         * @param factory       bundleå·¥å‚
+         * @param bundleName    bundleåç§°
+         * @param defaultLocale ç³»ç»Ÿé»˜è®¤çš„locale
+         * @param baseName      bundleåŸºæœ¬å
+         * @param parent        çˆ¶bundle, å¯¹äºæ ¹bundle,  ä¸º<code>null</code>
+         * @param NOT_FOUND     æ ‡è®°"æœªæ‰¾åˆ°"çŠ¶æ€çš„å¯¹è±¡
          *
-         * @return resource bundle, »òÕß<code>null</code>±íÊ¾bundleÎ´ÕÒµ½
+         * @return resource bundle, æˆ–è€…<code>null</code>è¡¨ç¤ºbundleæœªæ‰¾åˆ°
          *
-         * @throws ResourceBundleCreateException bundle±»ÕÒµ½, µ«¹¹Ôì²»³É¹¦
+         * @throws ResourceBundleCreateException bundleè¢«æ‰¾åˆ°, ä½†æ„é€ ä¸æˆåŠŸ
          */
         private static Object findBundle(ResourceBundleFactory factory, String bundleName,
                                          Locale defaultLocale, String baseName, Object parent,
@@ -345,18 +345,18 @@ public abstract class ResourceBundleFactory {
             }
 
 
-            // ³¢ÊÔ´ÓfactoryÖĞ×°Èëbundle.
+            // å°è¯•ä»factoryä¸­è£…å…¥bundle.
             result = factory.createBundle(bundleName);
 
             if (result != null) {
-                // ÔÚµ÷ÓÃfactoryÊ±, ÓĞ¿ÉÄÜµİ¹éµØµ÷ÓÃÁËgetBundle·½·¨, ²¢ÇÒÕâ¸öbundleÒÑ¾­±»´´½¨ÁË.
-                // ÕâÖÖÇé¿öÏÂ, bundleÒ»¶¨ÔÚcacheÖĞ.  ÎªÁËÒ»ÖÂĞÔ, Ó¦·µ»ØcacheÖĞµÄbundle.
+                // åœ¨è°ƒç”¨factoryæ—¶, æœ‰å¯èƒ½é€’å½’åœ°è°ƒç”¨äº†getBundleæ–¹æ³•, å¹¶ä¸”è¿™ä¸ªbundleå·²ç»è¢«åˆ›å»ºäº†.
+                // è¿™ç§æƒ…å†µä¸‹, bundleä¸€å®šåœ¨cacheä¸­.  ä¸ºäº†ä¸€è‡´æ€§, åº”è¿”å›cacheä¸­çš„bundle.
                 Object otherBundle = cache.get(factory, bundleName, defaultLocale);
 
                 if (otherBundle != null) {
                     result = otherBundle;
                 } else {
-                    // ÉèÖÃbundleµÄ¸¸bundle, ²¢°ÑËü·Åµ½cacheÖĞ.
+                    // è®¾ç½®bundleçš„çˆ¶bundle, å¹¶æŠŠå®ƒæ”¾åˆ°cacheä¸­.
                     final ResourceBundle bundle = (ResourceBundle) result;
 
                     if ((!NOT_FOUND.equals(parent)) && (bundle.getParent() == null)) {
@@ -373,12 +373,12 @@ public abstract class ResourceBundleFactory {
         }
 
         /**
-         * È¡µÃ±¸Ñ¡µÄbundleÃû.
+         * å–å¾—å¤‡é€‰çš„bundleå.
          *
-         * @param baseName bundleµÄ»ù±¾Ãû
-         * @param locale   ÇøÓòÉèÖÃ
+         * @param baseName bundleçš„åŸºæœ¬å
+         * @param locale   åŒºåŸŸè®¾ç½®
          *
-         * @return ËùÓĞ±¸Ñ¡µÄbundleÃû
+         * @return æ‰€æœ‰å¤‡é€‰çš„bundleå
          */
         private static List calculateBundleNames(String baseName, Locale locale) {
             final List   result         = new ArrayList(ResourceBundleConstant.MAX_BUNDLES_SEARCHED);
@@ -389,7 +389,7 @@ public abstract class ResourceBundleFactory {
             final String variant        = locale.getVariant();
             final int    variantLength  = variant.length();
 
-            // Èç¹ûlocaleÊÇ("", "", "").
+            // å¦‚æœlocaleæ˜¯("", "", "").
             if ((languageLength + countryLength + variantLength) == 0) {
                 return result;
             }
@@ -397,7 +397,7 @@ public abstract class ResourceBundleFactory {
             final StringBuffer buffer = new StringBuffer(baseName);
 
 
-            // ¼ÓÈëbaseName_language
+            // åŠ å…¥baseName_language
             buffer.append('_');
             buffer.append(language);
 
@@ -410,7 +410,7 @@ public abstract class ResourceBundleFactory {
             }
 
 
-            // ¼ÓÈëbaseName_language_country
+            // åŠ å…¥baseName_language_country
             buffer.append('_');
             buffer.append(country);
 
@@ -423,7 +423,7 @@ public abstract class ResourceBundleFactory {
             }
 
 
-            // ¼ÓÈëbaseName_language_country_variant
+            // åŠ å…¥baseName_language_country_variant
             buffer.append('_');
             buffer.append(variant);
             result.add(buffer.toString());
@@ -432,12 +432,12 @@ public abstract class ResourceBundleFactory {
         }
 
         /**
-         * ÖÀ³ö"resource bundleÎ´ÕÒµ½"µÄÒì³£.
+         * æ·å‡º"resource bundleæœªæ‰¾åˆ°"çš„å¼‚å¸¸.
          *
-         * @param missing  Ö¸¶¨bundleÎ´ÕÒµ½, »¹ÊÇ´´½¨bundle´íÎó
-         * @param baseName Î´ÕÒµ½µÄbundle»ù±¾Ãû
-         * @param locale   Î´ÕÒµ½µÄbundleµÄÇøÓòÉèÖÃ
-         * @param cause    Òì³£ÆğÒò
+         * @param missing  æŒ‡å®šbundleæœªæ‰¾åˆ°, è¿˜æ˜¯åˆ›å»ºbundleé”™è¯¯
+         * @param baseName æœªæ‰¾åˆ°çš„bundleåŸºæœ¬å
+         * @param locale   æœªæ‰¾åˆ°çš„bundleçš„åŒºåŸŸè®¾ç½®
+         * @param cause    å¼‚å¸¸èµ·å› 
          */
         private static void throwResourceBundleException(boolean missing, String baseName,
                                                          Locale locale, Throwable cause) {
@@ -460,21 +460,21 @@ public abstract class ResourceBundleFactory {
     }
 
     /**
-     * ½«(factory, bundleName, defaultLocale)Ó³Éäµ½bundle¶ÔÏóµÄcacheÀà.
+     * å°†(factory, bundleName, defaultLocale)æ˜ å°„åˆ°bundleå¯¹è±¡çš„cacheç±».
      */
     private static final class Cache extends SoftHashMap {
-        /** ¾²Ì¬µÄkey, ÓÃÀ´ÔÚcacheÖĞ²éÕÒbundle. Ê¹ÓÃ¾²Ì¬Á¿¿ÉÒÔ¼õÉÙGCµÄ¸ºµ£. Ê¹ÓÃcacheKey±ØĞë¶ÔÕû¸öcache½øĞĞÍ¬²½. */
+        /** é™æ€çš„key, ç”¨æ¥åœ¨cacheä¸­æŸ¥æ‰¾bundle. ä½¿ç”¨é™æ€é‡å¯ä»¥å‡å°‘GCçš„è´Ÿæ‹…. ä½¿ç”¨cacheKeyå¿…é¡»å¯¹æ•´ä¸ªcacheè¿›è¡ŒåŒæ­¥. */
         private static final CacheKey cacheKey = new CacheKey();
 
         /**
-         * Õâ¸öhash±íÓÃÀ´Í¬²½¶à¸öÏß³Ì, ÒÔ±ãÍ¬Ê±×°ÈëÍ¬Ò»¸öbundle. Õâ¸öhash±í±£´æÁËcacheKeyµ½threadµÄÓ³Éä. Ê¹ÓÃ´Ëhash±í±ØĞë¶ÔÕû¸öcache½øĞĞÍ¬²½.
+         * è¿™ä¸ªhashè¡¨ç”¨æ¥åŒæ­¥å¤šä¸ªçº¿ç¨‹, ä»¥ä¾¿åŒæ—¶è£…å…¥åŒä¸€ä¸ªbundle. è¿™ä¸ªhashè¡¨ä¿å­˜äº†cacheKeyåˆ°threadçš„æ˜ å°„. ä½¿ç”¨æ­¤hashè¡¨å¿…é¡»å¯¹æ•´ä¸ªcacheè¿›è¡ŒåŒæ­¥.
          */
         private final Map underConstruction = new HashMap(
                                                       ResourceBundleConstant.MAX_BUNDLES_SEARCHED,
                                                       ResourceBundleConstant.CACHE_LOAD_FACTOR);
 
         /**
-         * ¹¹ÔìÒ»¸öcache.
+         * æ„é€ ä¸€ä¸ªcache.
          */
         public Cache() {
             super(ResourceBundleConstant.INITIAL_CACHE_SIZE,
@@ -482,13 +482,13 @@ public abstract class ResourceBundleFactory {
         }
 
         /**
-         * ÔÚcacheÖĞ²éÕÒbundle.
+         * åœ¨cacheä¸­æŸ¥æ‰¾bundle.
          *
-         * @param factory       bundle¹¤³§
-         * @param bundleName    bundleÃû³Æ
-         * @param defaultLocale ÏµÍ³locale
+         * @param factory       bundleå·¥å‚
+         * @param bundleName    bundleåç§°
+         * @param defaultLocale ç³»ç»Ÿlocale
          *
-         * @return ±»cacheµÄbundle. Èç¹ûÎ´ÕÒµ½, Ôò·µ»Ø<code>null</code>
+         * @return è¢«cacheçš„bundle. å¦‚æœæœªæ‰¾åˆ°, åˆ™è¿”å›<code>null</code>
          */
         public synchronized Object get(ResourceBundleFactory factory, String bundleName,
                                        Locale defaultLocale) {
@@ -501,21 +501,21 @@ public abstract class ResourceBundleFactory {
         }
 
         /**
-         * ÔÚcacheÖĞ²éÕÒbundle, Èç¹ûbundle²»´æÔÚ, ²¢ÇÒÓĞÁíÒ»¸öÏß³ÌÕıÔÚ¹¹Ôì´Ëbundle, ÔòµÈ´ıÖ®. Èç¹û´Ë·½·¨·µ»Ø<code>null</code>,
-         * Ôòµ÷ÓÃÕß±ØĞë¸ºÔğµ÷ÓÃ<code>put</code>»ò<code>cleanUpConstructionList</code>·½·¨, ·ñÔò±ğµÄÏß³Ì¿ÉÄÜµÈ´ıËü, ¶øÔì³ÉËÀËø.
+         * åœ¨cacheä¸­æŸ¥æ‰¾bundle, å¦‚æœbundleä¸å­˜åœ¨, å¹¶ä¸”æœ‰å¦ä¸€ä¸ªçº¿ç¨‹æ­£åœ¨æ„é€ æ­¤bundle, åˆ™ç­‰å¾…ä¹‹. å¦‚æœæ­¤æ–¹æ³•è¿”å›<code>null</code>,
+         * åˆ™è°ƒç”¨è€…å¿…é¡»è´Ÿè´£è°ƒç”¨<code>put</code>æˆ–<code>cleanUpConstructionList</code>æ–¹æ³•, å¦åˆ™åˆ«çš„çº¿ç¨‹å¯èƒ½ç­‰å¾…å®ƒ, è€Œé€ æˆæ­»é”.
          *
-         * @param factory       bundle¹¤³§
-         * @param bundleName    bundleÃû³Æ
-         * @param defaultLocale ÏµÍ³locale
+         * @param factory       bundleå·¥å‚
+         * @param bundleName    bundleåç§°
+         * @param defaultLocale ç³»ç»Ÿlocale
          *
-         * @return ±»cacheµÄbundle. Èç¹ûÎ´ÕÒµ½, Ôò·µ»Ø<code>null</code>
+         * @return è¢«cacheçš„bundle. å¦‚æœæœªæ‰¾åˆ°, åˆ™è¿”å›<code>null</code>
          */
         public synchronized Object getWait(ResourceBundleFactory factory, String bundleName,
                                            Locale defaultLocale) {
             Object result;
 
 
-            // Ê×ÏÈ²éÕÒcacheÖĞÊÇ·ñÒÑ¾­ÓĞÕâ¸öbundleÁË, Èç¹ûÓĞ, Ö±½Ó·µ»Ø.
+            // é¦–å…ˆæŸ¥æ‰¾cacheä¸­æ˜¯å¦å·²ç»æœ‰è¿™ä¸ªbundleäº†, å¦‚æœæœ‰, ç›´æ¥è¿”å›.
             cacheKey.set(factory, bundleName, defaultLocale);
             result = get(cacheKey);
 
@@ -524,19 +524,19 @@ public abstract class ResourceBundleFactory {
                 return result;
             }
 
-            // ¼ì²éÊÇ²»ÒÑ¾­ÓĞÁíÒ»¸öthreadÕıÔÚ´´½¨Õâ¸öbundle.
-            // ×¢Òâ, ÓĞ¿ÉÄÜµİ¹éµ÷ÓÃgetBundle·½·¨, ÀıÈç, ÔÚfactoryÖĞµ÷ÓÃÁËgetBundle.
-            // ÕâÖÖÇé¿öÏÂ, beingBuilt == false
+            // æ£€æŸ¥æ˜¯ä¸å·²ç»æœ‰å¦ä¸€ä¸ªthreadæ­£åœ¨åˆ›å»ºè¿™ä¸ªbundle.
+            // æ³¨æ„, æœ‰å¯èƒ½é€’å½’è°ƒç”¨getBundleæ–¹æ³•, ä¾‹å¦‚, åœ¨factoryä¸­è°ƒç”¨äº†getBundle.
+            // è¿™ç§æƒ…å†µä¸‹, beingBuilt == false
             Thread  builder    = (Thread) underConstruction.get(cacheKey);
             boolean beingBuilt = (builder != null && builder != Thread.currentThread());
 
-            // Èç¹ûÒÑ¾­ÓĞÁíÒ»¸öthreadÕıÔÚ´´½¨Õâ¸öbundle.
+            // å¦‚æœå·²ç»æœ‰å¦ä¸€ä¸ªthreadæ­£åœ¨åˆ›å»ºè¿™ä¸ªbundle.
             if (beingBuilt) {
                 while (beingBuilt) {
                     cacheKey.clear();
 
                     try {
-                        // µÈ´ı, Ö±µ½±ğµÄÏß³Ì´´½¨Íê³É.
+                        // ç­‰å¾…, ç›´åˆ°åˆ«çš„çº¿ç¨‹åˆ›å»ºå®Œæˆ.
                         wait();
                     } catch (InterruptedException e) {
                     }
@@ -546,7 +546,7 @@ public abstract class ResourceBundleFactory {
                 }
 
 
-                // Èç¹ûÁíÒ»¸öÏß³Ì°ÑÕâ¸öbundle´´½¨ºÃÁË, ÔòÖ±½Ó·µ»Ø¼´¿É
+                // å¦‚æœå¦ä¸€ä¸ªçº¿ç¨‹æŠŠè¿™ä¸ªbundleåˆ›å»ºå¥½äº†, åˆ™ç›´æ¥è¿”å›å³å¯
                 result = get(cacheKey);
 
                 if (result != null) {
@@ -556,8 +556,8 @@ public abstract class ResourceBundleFactory {
             }
 
 
-            // Èç¹ûbundle²»ÔÚcacheÖĞ, Ôò×¼±¸¹¹Ôì´Ëbundle.
-            // µ÷ÓÃÕß±ØĞëÔÚËæºóµ÷ÓÃput»òcleanUpConstructionList·½·¨, ·ñÔò½«»áËÀËø.
+            // å¦‚æœbundleä¸åœ¨cacheä¸­, åˆ™å‡†å¤‡æ„é€ æ­¤bundle.
+            // è°ƒç”¨è€…å¿…é¡»åœ¨éšåè°ƒç”¨putæˆ–cleanUpConstructionListæ–¹æ³•, å¦åˆ™å°†ä¼šæ­»é”.
             underConstruction.put(cacheKey.clone(), Thread.currentThread());
 
             cacheKey.clear();
@@ -566,12 +566,12 @@ public abstract class ResourceBundleFactory {
         }
 
         /**
-         * ½«bundle·ÅÈëcache, ²¢»½ĞÑËùÓĞµÈ´ıµÄÏß³Ì.
+         * å°†bundleæ”¾å…¥cache, å¹¶å”¤é†’æ‰€æœ‰ç­‰å¾…çš„çº¿ç¨‹.
          *
-         * @param factory       bundle¹¤³§
-         * @param bundleName    bundleÃû³Æ
-         * @param defaultLocale ÏµÍ³locale
-         * @param bundle        ½«±»cacheµÄbundle¶ÔÏó
+         * @param factory       bundleå·¥å‚
+         * @param bundleName    bundleåç§°
+         * @param defaultLocale ç³»ç»Ÿlocale
+         * @param bundle        å°†è¢«cacheçš„bundleå¯¹è±¡
          */
         public synchronized void put(ResourceBundleFactory factory, String bundleName,
                                      Locale defaultLocale, Object bundle) {
@@ -584,12 +584,12 @@ public abstract class ResourceBundleFactory {
             cacheKey.clear();
 
 
-            // »½ĞÑËùÓĞÏß³Ì
+            // å”¤é†’æ‰€æœ‰çº¿ç¨‹
             notifyAll();
         }
 
         /**
-         * ´Ó"ÕıÔÚ¹¹Ôìbundle"µÄÏß³Ì±íÖĞÇå³ıµ±Ç°Ïß³Ì. Èç¹û×°ÈëbundleÊ§°Ü, ÔòĞèÒªµ÷ÓÃ´Ë·½·¨.
+         * ä»"æ­£åœ¨æ„é€ bundle"çš„çº¿ç¨‹è¡¨ä¸­æ¸…é™¤å½“å‰çº¿ç¨‹. å¦‚æœè£…å…¥bundleå¤±è´¥, åˆ™éœ€è¦è°ƒç”¨æ­¤æ–¹æ³•.
          */
         public synchronized void cleanUpConstructionList() {
             final Collection entries    = underConstruction.values();
@@ -599,13 +599,13 @@ public abstract class ResourceBundleFactory {
             }
 
 
-            // »½ĞÑËùÓĞÏß³Ì
+            // å”¤é†’æ‰€æœ‰çº¿ç¨‹
             notifyAll();
         }
     }
 
     /**
-     * ºÍbundle¶ÔÓ¦µÄcache key, ÓÉbundle¹¤³§, bundleÃû³Æ, ÏµÍ³locale¼¸¸ö×Ö¶Î×é³É.
+     * å’Œbundleå¯¹åº”çš„cache key, ç”±bundleå·¥å‚, bundleåç§°, ç³»ç»Ÿlocaleå‡ ä¸ªå­—æ®µç»„æˆ.
      */
     private static final class CacheKey implements Cloneable {
         private SoftReference factoryRef;
@@ -614,11 +614,11 @@ public abstract class ResourceBundleFactory {
         private int           hashCode;
 
         /**
-         * ÉèÖÃcache key.
+         * è®¾ç½®cache key.
          *
-         * @param factory       bundle¹¤³§
-         * @param bundleName    bundleÃû³Æ
-         * @param defaultLocale ÏµÍ³locale
+         * @param factory       bundleå·¥å‚
+         * @param bundleName    bundleåç§°
+         * @param defaultLocale ç³»ç»Ÿlocale
          */
         public void set(ResourceBundleFactory factory, String bundleName, Locale defaultLocale) {
             this.bundleName    = bundleName;
@@ -638,18 +638,18 @@ public abstract class ResourceBundleFactory {
         }
 
         /**
-         * Çå³ıcache key.
+         * æ¸…é™¤cache key.
          */
         public void clear() {
             set(null, "", null);
         }
 
         /**
-         * ¼ì²éÁ½¸ökeyÊÇ·ñÆ¥Åä.
+         * æ£€æŸ¥ä¸¤ä¸ªkeyæ˜¯å¦åŒ¹é….
          *
-         * @param other  ÁíÒ»¸öcache key
+         * @param other  å¦ä¸€ä¸ªcache key
          *
-         * @return Èç¹ûÆ¥Åä, Ôò·µ»Ø<code>true</code>
+         * @return å¦‚æœåŒ¹é…, åˆ™è¿”å›<code>true</code>
          */
         public boolean equals(Object other) {
             if (this == other) {
@@ -659,22 +659,22 @@ public abstract class ResourceBundleFactory {
             try {
                 final CacheKey otherKey = (CacheKey) other;
 
-                // hashÖµ²»Í¬, ÔòÁ¢¼´·µ»Ø
+                // hashå€¼ä¸åŒ, åˆ™ç«‹å³è¿”å›
                 if (hashCode != otherKey.hashCode) {
                     return false;
                 }
 
-                // bundleÃû³ÆÊÇ·ñÏàÍ¬?
+                // bundleåç§°æ˜¯å¦ç›¸åŒ?
                 if (!eq(bundleName, otherKey.bundleName)) {
                     return false;
                 }
 
-                // localeÊÇ·ñÏàÍ¬
+                // localeæ˜¯å¦ç›¸åŒ
                 if (!eq(defaultLocale, otherKey.defaultLocale)) {
                     return false;
                 }
 
-                // factoryÊÇ·ñÏàÍ¬?
+                // factoryæ˜¯å¦ç›¸åŒ?
                 if (factoryRef == null) {
                     return otherKey.factoryRef == null;
                 } else {
@@ -689,12 +689,12 @@ public abstract class ResourceBundleFactory {
         }
 
         /**
-         * ±È½ÏÁ½¸ö¶ÔÏóÊÇ·ñÏàµÈ.
+         * æ¯”è¾ƒä¸¤ä¸ªå¯¹è±¡æ˜¯å¦ç›¸ç­‰.
          *
-         * @param o1 ¶ÔÏó1
-         * @param o2 ¶ÔÏó2
+         * @param o1 å¯¹è±¡1
+         * @param o2 å¯¹è±¡2
          *
-         * @return Èç¹ûÏàµÈ, Ôò·µ»Ø<code>true</code>
+         * @return å¦‚æœç›¸ç­‰, åˆ™è¿”å›<code>true</code>
          */
         private boolean eq(Object o1, Object o2) {
             return (o1 == null) ? (o2 == null)
@@ -702,18 +702,18 @@ public abstract class ResourceBundleFactory {
         }
 
         /**
-         * È¡µÃhashÖµ, Èç¹ûÁ½¸ö¶ÔÏóµÈĞ§, ÔòhashÖµÒ²ÏàµÈ.
+         * å–å¾—hashå€¼, å¦‚æœä¸¤ä¸ªå¯¹è±¡ç­‰æ•ˆ, åˆ™hashå€¼ä¹Ÿç›¸ç­‰.
          *
-         * @return hashÖµ
+         * @return hashå€¼
          */
         public int hashCode() {
             return hashCode;
         }
 
         /**
-         * ¸´ÖÆ¶ÔÏó.
+         * å¤åˆ¶å¯¹è±¡.
          *
-         * @return cache keyµÄ¸´±¾
+         * @return cache keyçš„å¤æœ¬
          */
         public Object clone() {
             try {
@@ -728,9 +728,9 @@ public abstract class ResourceBundleFactory {
         }
 
         /**
-         * È¡µÃ×Ö·û´®Öµ±íÊ¾.
+         * å–å¾—å­—ç¬¦ä¸²å€¼è¡¨ç¤º.
          *
-         * @return ×Ö·û´®±íÊ¾
+         * @return å­—ç¬¦ä¸²è¡¨ç¤º
          */
         public String toString() {
             return new StringBuffer("CacheKey[factory=").append((factoryRef == null)

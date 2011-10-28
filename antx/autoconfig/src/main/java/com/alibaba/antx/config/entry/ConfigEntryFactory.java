@@ -22,7 +22,7 @@ import java.io.File;
 import com.alibaba.antx.config.ConfigResource;
 
 /**
- * ´´½¨²»Í¬ÀàĞÍµÄ<code>ConfigEntry</code>µÄ¹¤³§¡£
+ * åˆ›å»ºä¸åŒç±»å‹çš„<code>ConfigEntry</code>çš„å·¥å‚ã€‚
  * 
  * @author Michael Zhou
  */

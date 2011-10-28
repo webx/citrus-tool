@@ -20,41 +20,41 @@ package com.alibaba.toolkit.util.resourcebundle;
 import java.io.InputStream;
 
 /**
- * ×°Èëresource bundleµÄÊı¾İ.
+ * è£…å…¥resource bundleçš„æ•°æ®.
  *
  * @version $Id: ResourceBundleLoader.java,v 1.1 2003/07/03 07:26:35 baobao Exp $
  * @author Michael Zhou
  */
 public interface ResourceBundleLoader {
     /**
-     * ¸ù¾İÖ¸¶¨µÄbundleÎÄ¼şÃû³Æ, È¡µÃÊäÈëÁ÷.
+     * æ ¹æ®æŒ‡å®šçš„bundleæ–‡ä»¶åç§°, å–å¾—è¾“å…¥æµ.
      *
      * <p>
-     * ×¢Òâ, ´Ë´¦µÄ²ÎÊıÎªÎÄ¼şÃû, Çø±ğÓÚbundleµÄÃû³Æ, <code>ResourceBundleFactory</code>±ØĞëÔÚµ÷ÓÃ´Ë·½·¨Ç°, ½«bundleµÄÃû³Æ×ª»»³ÉÎÄ¼şÃû.
-     * ÀıÈç, bundleÃûÎªbaseName_langauge_country, ÔòÎÄ¼şÃû¿ÉÄÜÊÇbaseName_language_country.xml.
+     * æ³¨æ„, æ­¤å¤„çš„å‚æ•°ä¸ºæ–‡ä»¶å, åŒºåˆ«äºbundleçš„åç§°, <code>ResourceBundleFactory</code>å¿…é¡»åœ¨è°ƒç”¨æ­¤æ–¹æ³•å‰, å°†bundleçš„åç§°è½¬æ¢æˆæ–‡ä»¶å.
+     * ä¾‹å¦‚, bundleåä¸ºbaseName_langauge_country, åˆ™æ–‡ä»¶åå¯èƒ½æ˜¯baseName_language_country.xml.
      * </p>
      *
-     * @param bundleFilename Òª²éÕÒµÄbundleÎÄ¼şÃû
+     * @param bundleFilename è¦æŸ¥æ‰¾çš„bundleæ–‡ä»¶å
      *
-     * @return bundleµÄÊı¾İÁ÷, Èç¹ûÖ¸¶¨bundleÎÄ¼ş²»´æÔÚ, Ôò·µ»Ø<code>null</code>
+     * @return bundleçš„æ•°æ®æµ, å¦‚æœæŒ‡å®šbundleæ–‡ä»¶ä¸å­˜åœ¨, åˆ™è¿”å›<code>null</code>
      *
-     * @throws ResourceBundleCreateException Èç¹ûÎÄ¼ş´æÔÚ, µ«¶ÁÈ¡Êı¾İÁ÷Ê§°Ü
+     * @throws ResourceBundleCreateException å¦‚æœæ–‡ä»¶å­˜åœ¨, ä½†è¯»å–æ•°æ®æµå¤±è´¥
      */
     InputStream openStream(String bundleFilename) throws ResourceBundleCreateException;
 
     /**
-     * ÅĞ¶ÏÁ½¸ö<code>ResourceBundleLoader</code>ÊÇ·ñµÈĞ§. Õâ½«×÷Îª<code>ResourceBundle</code>µÄcacheµÄÒÀ¾İ.
+     * åˆ¤æ–­ä¸¤ä¸ª<code>ResourceBundleLoader</code>æ˜¯å¦ç­‰æ•ˆ. è¿™å°†ä½œä¸º<code>ResourceBundle</code>çš„cacheçš„ä¾æ®.
      *
-     * @param obj Òª±È½ÏµÄÁíÒ»¸ö¶ÔÏó
+     * @param obj è¦æ¯”è¾ƒçš„å¦ä¸€ä¸ªå¯¹è±¡
      *
-     * @return Èç¹ûµÈĞ§, Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœç­‰æ•ˆ, åˆ™è¿”å›<code>true</code>
      */
     boolean equals(Object obj);
 
     /**
-     * È¡µÃhashÖµ.  µÈĞ§µÄ<code>ResourceBundleLoader</code>Ó¦¸Ã¾ßÓĞÏàÍ¬µÄhashÖµ.
+     * å–å¾—hashå€¼.  ç­‰æ•ˆçš„<code>ResourceBundleLoader</code>åº”è¯¥å…·æœ‰ç›¸åŒçš„hashå€¼.
      *
-     * @return hashÖµ
+     * @return hashå€¼
      */
     int hashCode();
 }

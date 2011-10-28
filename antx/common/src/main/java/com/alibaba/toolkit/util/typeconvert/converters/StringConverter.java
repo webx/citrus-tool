@@ -22,20 +22,20 @@ import com.alibaba.toolkit.util.typeconvert.ConvertFailedException;
 import com.alibaba.toolkit.util.typeconvert.Converter;
 
 /**
- * ½«¶ÔÏó×ª»»³É×Ö·û´®.
+ * å°†å¯¹è±¡è½¬æ¢æˆå­—ç¬¦ä¸².
  *
  * <ul>
  * <li>
- * Èç¹û¶ÔÏóÎª<code>null</code>, ÔòÅ×³ö´øÄ¬ÈÏÖµµÄ<code>ConvertFailedException</code>.
+ * å¦‚æœå¯¹è±¡ä¸º<code>null</code>, åˆ™æŠ›å‡ºå¸¦é»˜è®¤å€¼çš„<code>ConvertFailedException</code>.
  * </li>
  * <li>
- * Èç¹û¶ÔÏóÒÑ¾­ÊÇ×Ö·û´®, Ö±½Ó·µ»Ø.
+ * å¦‚æœå¯¹è±¡å·²ç»æ˜¯å­—ç¬¦ä¸², ç›´æ¥è¿”å›.
  * </li>
  * <li>
- * Èç¹û¶ÔÏóÊÇ×Ö·ûÊı×é, Ôò½«Ëü×éºÏ³É×Ö·û´®.
+ * å¦‚æœå¯¹è±¡æ˜¯å­—ç¬¦æ•°ç»„, åˆ™å°†å®ƒç»„åˆæˆå­—ç¬¦ä¸².
  * </li>
  * <li>
- * ·ñÔò·µ»Ø<code>toString()</code>.
+ * å¦åˆ™è¿”å›<code>toString()</code>.
  * </li>
  * </ul>
  *

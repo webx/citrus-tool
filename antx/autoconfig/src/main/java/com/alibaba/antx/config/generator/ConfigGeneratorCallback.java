@@ -24,19 +24,19 @@ import com.alibaba.antx.config.descriptor.ConfigGenerate;
 
 public interface ConfigGeneratorCallback {
     /**
-     * ÇĞ»»µ½ÏÂÒ»¸öÄ¿±êÎÄ¼ş£¬²¢ÉèÖÃÏàÓ¦µÄÊäÈë/Êä³öÁ÷¡£
+     * åˆ‡æ¢åˆ°ä¸‹ä¸€ä¸ªç›®æ ‡æ–‡ä»¶ï¼Œå¹¶è®¾ç½®ç›¸åº”çš„è¾“å…¥/è¾“å‡ºæµã€‚
      */
     String nextEntry(String template, ConfigGenerate generate);
 
     void nextEntry(ConfigDescriptor descriptor, InputStream is, String dest);
 
     /**
-     * ÇĞ»»µ½ÈÕÖ¾ÎÄ¼ş£¬²¢ÉèÖÃÏàÓ¦µÄÊäÈë/Êä³öÁ÷¡£
+     * åˆ‡æ¢åˆ°æ—¥å¿—æ–‡ä»¶ï¼Œå¹¶è®¾ç½®ç›¸åº”çš„è¾“å…¥/è¾“å‡ºæµã€‚
      */
     void logEntry(ConfigDescriptor descriptor, String logfileName);
 
     /**
-     * ¹Ø±ÕÒ»¸öÄ¿±ê»òÈÕÖ¾ÎÄ¼ş¡£
+     * å…³é—­ä¸€ä¸ªç›®æ ‡æˆ–æ—¥å¿—æ–‡ä»¶ã€‚
      */
     void closeEntry();
 }

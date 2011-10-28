@@ -33,7 +33,7 @@ import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.SelectorUtils;
 
 /**
- * ºÏ²¢Í¬ÃûµÄ×ÊÔ´£¬ºÏ²¢Ê±ÒÔ»»ĞĞ·Ö¸ô¡£Ö§³ÖÓÃÍ¨Åä·ûÆ¥Åä×ÊÔ´¡£
+ * åˆå¹¶åŒåçš„èµ„æºï¼Œåˆå¹¶æ—¶ä»¥æ¢è¡Œåˆ†éš”ã€‚æ”¯æŒç”¨é€šé…ç¬¦åŒ¹é…èµ„æºã€‚
  * 
  * <pre>
  * &lt;plugin&gt;

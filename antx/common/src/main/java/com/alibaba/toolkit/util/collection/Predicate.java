@@ -18,18 +18,18 @@
 package com.alibaba.toolkit.util.collection;
 
 /**
- * "¶ÏÑÔ"½Ó¿Ú, »ùÓÚÖ¸¶¨µÄÊäÈë¶ÔÏó, ·µ»Ø<code>true</code>»ò<code>false</code>. Õâ¸ö½Ó¿Ú±»ÓÃÓÚ¹ıÂËÆ÷, Ö¸¶¨¹ıÂËµÄÌõ¼ş.
+ * "æ–­è¨€"æ¥å£, åŸºäºæŒ‡å®šçš„è¾“å…¥å¯¹è±¡, è¿”å›<code>true</code>æˆ–<code>false</code>. è¿™ä¸ªæ¥å£è¢«ç”¨äºè¿‡æ»¤å™¨, æŒ‡å®šè¿‡æ»¤çš„æ¡ä»¶.
  *
  * @version $Id: Predicate.java,v 1.1 2003/07/03 07:26:16 baobao Exp $
  * @author Michael Zhou
  */
 public interface Predicate {
     /**
-     * ¸ù¾İÖ¸¶¨µÄÊäÈë¶ÔÏó, ·µ»Ø<code>true</code>»ò<code>false</code>.
+     * æ ¹æ®æŒ‡å®šçš„è¾“å…¥å¯¹è±¡, è¿”å›<code>true</code>æˆ–<code>false</code>.
      *
-     * @param input ÊäÈë¶ÔÏó
+     * @param input è¾“å…¥å¯¹è±¡
      *
-     * @return <code>true</code>»ò<code>false</code>
+     * @return <code>true</code>æˆ–<code>false</code>
      */
     public boolean evaluate(Object input);
 }

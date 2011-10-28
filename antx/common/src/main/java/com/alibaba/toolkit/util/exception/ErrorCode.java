@@ -20,16 +20,16 @@ package com.alibaba.toolkit.util.exception;
 import com.alibaba.toolkit.util.enumeration.Enum;
 
 /**
- * ±êÖ¾Ö¸¶¨µÄÒì³£Ö§³Ö´íÎóÂë.
+ * æ ‡å¿—æŒ‡å®šçš„å¼‚å¸¸æ”¯æŒé”™è¯¯ç .
  *
  * @version $Id: ErrorCode.java,v 1.1 2003/07/03 07:26:22 baobao Exp $
  * @author Michael Zhou
  */
 public interface ErrorCode {
     /**
-     * È¡µÃ´íÎóÂë.
+     * å–å¾—é”™è¯¯ç .
      *
-     * @return ´íÎóÂë
+     * @return é”™è¯¯ç 
      */
     Enum getErrorCode();
 }

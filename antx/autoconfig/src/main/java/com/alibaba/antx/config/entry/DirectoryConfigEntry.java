@@ -31,23 +31,23 @@ import com.alibaba.antx.util.scanner.Scanner;
 import com.alibaba.antx.util.scanner.ScannerException;
 
 /**
- * ´ú±íÒ»¸öÄ¿Â¼ÀàĞÍµÄÅäÖÃÏîĞÅÏ¢¡£
+ * ä»£è¡¨ä¸€ä¸ªç›®å½•ç±»å‹çš„é…ç½®é¡¹ä¿¡æ¯ã€‚
  * 
  * @author Michael Zhou
  */
 public class DirectoryConfigEntry extends ConfigEntry {
     /**
-     * ´´½¨Ò»¸ö½áµã¡£
+     * åˆ›å»ºä¸€ä¸ªç»“ç‚¹ã€‚
      * 
-     * @param resource Ö¸¶¨½áµãµÄ×ÊÔ´
-     * @param settings antxconfigµÄÉèÖÃ
+     * @param resource æŒ‡å®šç»“ç‚¹çš„èµ„æº
+     * @param settings antxconfigçš„è®¾ç½®
      */
     public DirectoryConfigEntry(ConfigResource resource, File outputFile, ConfigSettings settings) {
         super(resource, outputFile, settings);
     }
 
     /**
-     * É¨Ãè½áµã¡£
+     * æ‰«æç»“ç‚¹ã€‚
      */
     protected void scan(InputStream istream) {
         Handler handler = new Handler();
@@ -65,14 +65,14 @@ public class DirectoryConfigEntry extends ConfigEntry {
     }
 
     /**
-     * Éú³ÉÅäÖÃÎÄ¼ş¡£
+     * ç”Ÿæˆé…ç½®æ–‡ä»¶ã€‚
      */
     protected boolean generate(InputStream istream, OutputStream ostream) {
         getConfigSettings().debug("Processing files in " + getConfigEntryResource().getURL());
 
         boolean allSuccess = true;
 
-        // ´¦Àí×Ô¼ºµÄdescriptors
+        // å¤„ç†è‡ªå·±çš„descriptors
         try {
             ConfigGeneratorSession session = getGenerator().startSession(getConfigSettings().getPropertiesSet());
 
@@ -81,7 +81,7 @@ public class DirectoryConfigEntry extends ConfigEntry {
             getGenerator().closeSession();
         }
 
-        // ´¦Àí×Óentries
+        // å¤„ç†å­entries
         ConfigEntry[] subEntries = getSubEntries();
 
         for (int i = 0; i < subEntries.length; i++) {
@@ -94,9 +94,9 @@ public class DirectoryConfigEntry extends ConfigEntry {
     }
 
     /**
-     * ×ª»»³É×Ö·û´®¡£
+     * è½¬æ¢æˆå­—ç¬¦ä¸²ã€‚
      * 
-     * @return ×Ö·û´®±íÊ¾
+     * @return å­—ç¬¦ä¸²è¡¨ç¤º
      */
     public String toString() {
         return "DirectoryConfigEntry[" + getConfigEntryResource() + "]";

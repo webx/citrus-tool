@@ -85,7 +85,7 @@ public class ConfigEntryFactoryImpl implements ConfigEntryFactory {
     }
 
     /**
-     * ÉèÖÃ¹«¹²context¡£
+     * è®¾ç½®å…¬å…±contextã€‚
      * 
      * @param context context
      */
@@ -95,7 +95,7 @@ public class ConfigEntryFactoryImpl implements ConfigEntryFactory {
     }
 
     /**
-     * ÉèÖÃ»ùÓÚwarµÄcontext£¬¸ù¾İdescriptor nameÈ¡µÃcomponent name¡£
+     * è®¾ç½®åŸºäºwarçš„contextï¼Œæ ¹æ®descriptor nameå–å¾—component nameã€‚
      * 
      * @param context context
      */
@@ -118,7 +118,7 @@ public class ConfigEntryFactoryImpl implements ConfigEntryFactory {
     }
 
     /**
-     * ´´½¨»ùÓÚwarµÄentry¡£
+     * åˆ›å»ºåŸºäºwarçš„entryã€‚
      */
     private ConfigEntry createWarEntry(ConfigResource resource, File outputFile) {
         File file = resource.getFile();
@@ -148,7 +148,7 @@ public class ConfigEntryFactoryImpl implements ConfigEntryFactory {
     }
 
     /**
-     * ´´½¨»ùÓÚÆÕÍ¨jarµÄentry¡£
+     * åˆ›å»ºåŸºäºæ™®é€šjarçš„entryã€‚
      */
     private ConfigEntry createGenericJarEntry(ConfigResource resource, File outputFile) {
         File file = resource.getFile();
@@ -176,7 +176,7 @@ public class ConfigEntryFactoryImpl implements ConfigEntryFactory {
     }
 
     /**
-     * ´´½¨»ùÓÚÆÕÍ¨Ä¿Â¼µÄentry¡£
+     * åˆ›å»ºåŸºäºæ™®é€šç›®å½•çš„entryã€‚
      */
     private ConfigEntry createGenericDirectoryEntry(ConfigResource resource, File outputFile) {
         ConfigEntry entry = new DirectoryConfigEntry(resource, outputFile, settings) {
@@ -188,7 +188,7 @@ public class ConfigEntryFactoryImpl implements ConfigEntryFactory {
         entry.setDescriptorPatterns(new PatternSet(settings.getDescriptorPatterns(), new PatternSet(
                 "conf/**/auto-config.xml, META-INF/**/auto-config.xml")).addDefaultExcludes());
 
-        // Èç¹ûÊÇ¶ÔÄ¿Â¼²Ù×÷£¬ÇÒÎ´Ö¸¶¨package patterns£¬ÔòÄ¬ÈÏ²»ËÑË÷Ä¿Â¼ÏÂµÄpackagesÎÄ¼ş
+        // å¦‚æœæ˜¯å¯¹ç›®å½•æ“ä½œï¼Œä¸”æœªæŒ‡å®špackage patternsï¼Œåˆ™é»˜è®¤ä¸æœç´¢ç›®å½•ä¸‹çš„packagesæ–‡ä»¶
         entry.setPackagePatterns(new PatternSet(settings.getPackagePatterns(), new PatternSet(null, "**"))
                 .addDefaultExcludes());
 

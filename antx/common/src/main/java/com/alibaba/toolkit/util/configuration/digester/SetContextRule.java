@@ -22,7 +22,7 @@ import org.apache.commons.digester.Rule;
 import org.xml.sax.Attributes;
 
 /**
- * ÔÚ±»Æ¥ÅäÔªËØ¿ªÊ¼Ê±, ÉèÖÃÉÏÏÂÎÄ, ÔÚÔªËØ½áÊøÊ±, Çå³ı×î½üµÄÉÏÏÂÎÄ.
+ * åœ¨è¢«åŒ¹é…å…ƒç´ å¼€å§‹æ—¶, è®¾ç½®ä¸Šä¸‹æ–‡, åœ¨å…ƒç´ ç»“æŸæ—¶, æ¸…é™¤æœ€è¿‘çš„ä¸Šä¸‹æ–‡.
  *
  * @version $Id: SetContextRule.java,v 1.2 2003/08/07 08:08:59 zyh Exp $
  * @author Michael Zhou
@@ -33,38 +33,38 @@ public class SetContextRule extends Rule {
     protected ContextFactory contextFactory;
 
     /**
-     * Ê¹ÓÃÖ¸¶¨attributeµÄÖµ×÷Îªµ±Ç°contextµÄÖµ.
+     * ä½¿ç”¨æŒ‡å®šattributeçš„å€¼ä½œä¸ºå½“å‰contextçš„å€¼.
      *
-     * @param attributeName XMLÊôĞÔÃû
+     * @param attributeName XMLå±æ€§å
      */
     public SetContextRule(String attributeName) {
         this.attributeName = attributeName;
     }
 
     /**
-     * Ê¹ÓÃÖ¸¶¨Àà×÷ÎªÈ¡µÃcontextµÄ¹¤³§.
+     * ä½¿ç”¨æŒ‡å®šç±»ä½œä¸ºå–å¾—contextçš„å·¥å‚.
      *
-     * @param contextFactoryClass  ¹¤³§Àà
+     * @param contextFactoryClass  å·¥å‚ç±»
      */
     public SetContextRule(Class contextFactoryClass) {
         this.contextFactoryClass = contextFactoryClass;
     }
 
     /**
-     * Ê¹ÓÃÖ¸¶¨context¹¤³§È¡µÃµ±Ç°contextµÄÖµ.
+     * ä½¿ç”¨æŒ‡å®šcontextå·¥å‚å–å¾—å½“å‰contextçš„å€¼.
      *
-     * @param contextFactory ¹¤³§¶ÔÏó
+     * @param contextFactory å·¥å‚å¯¹è±¡
      */
     public SetContextRule(ContextFactory contextFactory) {
         this.contextFactory = contextFactory;
     }
 
     /**
-     * ¿ªÊ¼´¦Àí, Ñ¹ÈëĞÂµÄcontext.
+     * å¼€å§‹å¤„ç†, å‹å…¥æ–°çš„context.
      *
-     * @param attributes XMLÊôĞÔÖµ
+     * @param attributes XMLå±æ€§å€¼
      *
-     * @throws Exception Èç¹ûÊ§°Ü
+     * @throws Exception å¦‚æœå¤±è´¥
      */
     public void begin(String namespace, String name, Attributes attributes) throws Exception {
         String context = null;
@@ -90,9 +90,9 @@ public class SetContextRule extends Rule {
     }
 
     /**
-     * ½áÊø´¦Àí, µ¯³ö×î½üµÄcontext
+     * ç»“æŸå¤„ç†, å¼¹å‡ºæœ€è¿‘çš„context
      *
-     * @throws Exception Èç¹ûÊ§°Ü
+     * @throws Exception å¦‚æœå¤±è´¥
      */
     public void end(String namespace, String name) throws Exception {
         ContextSensitiveRules rules   = (ContextSensitiveRules) digester.getRules();
@@ -107,9 +107,9 @@ public class SetContextRule extends Rule {
     }
 
     /**
-     * È¡µÃruleµÄ×Ö·û´®±íÊ¾.
+     * å–å¾—ruleçš„å­—ç¬¦ä¸²è¡¨ç¤º.
      *
-     * @return ×Ö·û´®±íÊ¾
+     * @return å­—ç¬¦ä¸²è¡¨ç¤º
      */
     public String toString() {
         StringBuffer buffer = new StringBuffer("SetContextRule[");
@@ -127,11 +127,11 @@ public class SetContextRule extends Rule {
     }
 
     /**
-     * È¡µÃ¹¤³§.
+     * å–å¾—å·¥å‚.
      *
-     * @return È¡µÃµ±Ç°contextµÄ¹¤³§
+     * @return å–å¾—å½“å‰contextçš„å·¥å‚
      *
-     * @throws Exception Èç¹ûÊ§°Ü
+     * @throws Exception å¦‚æœå¤±è´¥
      */
     protected ContextFactory getFactory() throws Exception {
         if ((contextFactory == null) && (contextFactoryClass != null)) {

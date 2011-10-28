@@ -21,16 +21,16 @@ import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.Rules;
 
 /**
- * ÕâÊÇ´Ócommons-digesterÀ©Õ¹µÄ<code>Digester</code>, Ôö¼ÓÁËÒ»Ğ©·½·¨, ÒÔ±ãÊµÏÖÉÏÏÂÎÄÏà¹ØµÄ¹æÔò.
+ * è¿™æ˜¯ä»commons-digesteræ‰©å±•çš„<code>Digester</code>, å¢åŠ äº†ä¸€äº›æ–¹æ³•, ä»¥ä¾¿å®ç°ä¸Šä¸‹æ–‡ç›¸å…³çš„è§„åˆ™.
  *
  * @version $Id: ContextSensitiveDigester.java,v 1.1 2003/07/03 07:26:16 baobao Exp $
  * @author Michael Zhou
  */
 public class ContextSensitiveDigester extends Digester {
     /**
-     * ¸²¸Ç¸¸ÀàµÄ·½·¨, ½«²ÎÊı<code>rules</code>°ü×°³É<code>ContextSensitiveRules</code>¶ÔÏó.
+     * è¦†ç›–çˆ¶ç±»çš„æ–¹æ³•, å°†å‚æ•°<code>rules</code>åŒ…è£…æˆ<code>ContextSensitiveRules</code>å¯¹è±¡.
      *
-     * @param rules <code>Rules</code>¶ÔÏó
+     * @param rules <code>Rules</code>å¯¹è±¡
      */
     public void setRules(Rules rules) {
         if (!(rules instanceof ContextSensitiveRules)) {
@@ -42,9 +42,9 @@ public class ContextSensitiveDigester extends Digester {
     }
 
     /**
-     * ¸²¸Ç¸¸Àà·½·¨, È·±£È¡µÃµÄ¶ÔÏóÎª<code>ContextSensitiveRules</code>¶ÔÏó.
+     * è¦†ç›–çˆ¶ç±»æ–¹æ³•, ç¡®ä¿å–å¾—çš„å¯¹è±¡ä¸º<code>ContextSensitiveRules</code>å¯¹è±¡.
      *
-     * @return <code>Rules</code>¶ÔÏó
+     * @return <code>Rules</code>å¯¹è±¡
      */
     public Rules getRules() {
         if (rules == null) {
@@ -55,50 +55,50 @@ public class ContextSensitiveDigester extends Digester {
     }
 
     /**
-     * ´´½¨<code>SetContextRule</code>, Ê¹ÓÃÖ¸¶¨attributeµÄÖµ×÷Îªµ±Ç°contextµÄÖµ.
+     * åˆ›å»º<code>SetContextRule</code>, ä½¿ç”¨æŒ‡å®šattributeçš„å€¼ä½œä¸ºå½“å‰contextçš„å€¼.
      *
-     * @param pattern       µ±Ç°µÄÆ¥Åä
-     * @param attributeName XMLÊôĞÔÃû
+     * @param pattern       å½“å‰çš„åŒ¹é…
+     * @param attributeName XMLå±æ€§å
      */
     public void addSetContextRule(String pattern, String attributeName) {
         addRule(pattern, new SetContextRule(attributeName));
     }
 
     /**
-     * ´´½¨<code>SetContextRule</code>, Ê¹ÓÃÖ¸¶¨Àà×÷ÎªÈ¡µÃcontextµÄ¹¤³§.
+     * åˆ›å»º<code>SetContextRule</code>, ä½¿ç”¨æŒ‡å®šç±»ä½œä¸ºå–å¾—contextçš„å·¥å‚.
      *
-     * @param pattern              µ±Ç°µÄÆ¥Åä
-     * @param contextFactoryClass  ¹¤³§Àà
+     * @param pattern              å½“å‰çš„åŒ¹é…
+     * @param contextFactoryClass  å·¥å‚ç±»
      */
     public void addSetContextRule(String pattern, Class contextFactoryClass) {
         addRule(pattern, new SetContextRule(contextFactoryClass));
     }
 
     /**
-     * ´´½¨<code>SetContextRule</code>, Ê¹ÓÃÖ¸¶¨context¹¤³§È¡µÃµ±Ç°contextµÄÖµ.
+     * åˆ›å»º<code>SetContextRule</code>, ä½¿ç”¨æŒ‡å®šcontextå·¥å‚å–å¾—å½“å‰contextçš„å€¼.
      *
-     * @param pattern        µ±Ç°µÄÆ¥Åä
-     * @param contextFactory ¹¤³§¶ÔÏó
+     * @param pattern        å½“å‰çš„åŒ¹é…
+     * @param contextFactory å·¥å‚å¯¹è±¡
      */
     public void addSetContextRule(String pattern, ContextFactory contextFactory) {
         addRule(pattern, new SetContextRule(contextFactory));
     }
 
     /**
-     * ´´½¨<code>SetRuleSetRule</code>, Ê¹ÓÃÖ¸¶¨Àà×÷ÎªÈ¡µÃ<code>RuleSet</code>µÄ¹¤³§.
+     * åˆ›å»º<code>SetRuleSetRule</code>, ä½¿ç”¨æŒ‡å®šç±»ä½œä¸ºå–å¾—<code>RuleSet</code>çš„å·¥å‚.
      *
-     * @param pattern              µ±Ç°µÄÆ¥Åä
-     * @param ruleSetFactoryClass  ¹¤³§Àà
+     * @param pattern              å½“å‰çš„åŒ¹é…
+     * @param ruleSetFactoryClass  å·¥å‚ç±»
      */
     public void addSetRuleSetRule(String pattern, Class ruleSetFactoryClass) {
         addRule(pattern, new SetRuleSetRule(ruleSetFactoryClass));
     }
 
     /**
-     * ´´½¨<code>SetRuleSetRule</code>, Ê¹ÓÃÖ¸¶¨<code>RuleSet</code>¹¤³§.
+     * åˆ›å»º<code>SetRuleSetRule</code>, ä½¿ç”¨æŒ‡å®š<code>RuleSet</code>å·¥å‚.
      *
-     * @param pattern        µ±Ç°µÄÆ¥Åä
-     * @param ruleSetFactory ¹¤³§¶ÔÏó
+     * @param pattern        å½“å‰çš„åŒ¹é…
+     * @param ruleSetFactory å·¥å‚å¯¹è±¡
      */
     public void addSetRuleSetRule(String pattern, RuleSetFactory ruleSetFactory) {
         addRule(pattern, new SetRuleSetRule(ruleSetFactory));

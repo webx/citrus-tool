@@ -20,7 +20,7 @@ package com.alibaba.antx.config.generator.expr;
 import com.alibaba.antx.config.ConfigException;
 
 /**
- * ´ú±íÒ»¸öexpressionµÄÒì³£
+ * ä»£è¡¨ä¸€ä¸ªexpressionçš„å¼‚å¸¸
  * 
  * @author Michael Zhou
  */
@@ -28,35 +28,35 @@ public class ExpressionException extends ConfigException {
     private static final long serialVersionUID = 24552988073596985L;
 
     /**
-     * ´´½¨Ò»¸öÒì³£¡£
+     * åˆ›å»ºä¸€ä¸ªå¼‚å¸¸ã€‚
      */
     public ExpressionException() {
         super();
     }
 
     /**
-     * ´´½¨Ò»¸öÒì³£¡£
+     * åˆ›å»ºä¸€ä¸ªå¼‚å¸¸ã€‚
      * 
-     * @param message Òì³£ĞÅÏ¢
+     * @param message å¼‚å¸¸ä¿¡æ¯
      */
     public ExpressionException(String message) {
         super(message);
     }
 
     /**
-     * ´´½¨Ò»¸öÒì³£¡£
+     * åˆ›å»ºä¸€ä¸ªå¼‚å¸¸ã€‚
      * 
-     * @param message Òì³£ĞÅÏ¢
-     * @param cause Òì³£Ô­Òò
+     * @param message å¼‚å¸¸ä¿¡æ¯
+     * @param cause å¼‚å¸¸åŸå› 
      */
     public ExpressionException(String message, Throwable cause) {
         super(message, cause);
     }
 
     /**
-     * ´´½¨Ò»¸öÒì³£¡£
+     * åˆ›å»ºä¸€ä¸ªå¼‚å¸¸ã€‚
      * 
-     * @param cause Òì³£Ô­Òò
+     * @param cause å¼‚å¸¸åŸå› 
      */
     public ExpressionException(Throwable cause) {
         super(cause);

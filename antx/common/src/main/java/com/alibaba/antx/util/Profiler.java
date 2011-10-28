@@ -26,7 +26,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * ÓÃÀ´²âÊÔ²¢Í³¼ÆÏß³ÌÖ´ĞĞÊ±¼äµÄ¹¤¾ß¡£
+ * ç”¨æ¥æµ‹è¯•å¹¶ç»Ÿè®¡çº¿ç¨‹æ‰§è¡Œæ—¶é—´çš„å·¥å…·ã€‚
  *
  * @author Michael Zhou
  *
@@ -35,35 +35,35 @@ public final class Profiler {
     private static final ThreadLocal entryStack = new ThreadLocal();
 
     /**
-     * ¿ªÊ¼¼ÆÊ±¡£
+     * å¼€å§‹è®¡æ—¶ã€‚
      */
     public static void start() {
         start((String) null);
     }
 
     /**
-     * ¿ªÊ¼¼ÆÊ±¡£
+     * å¼€å§‹è®¡æ—¶ã€‚
      *
-     * @param message µÚÒ»¸öentryµÄĞÅÏ¢
+     * @param message ç¬¬ä¸€ä¸ªentryçš„ä¿¡æ¯
      */
     public static void start(String message) {
         entryStack.set(new Entry(message, null, null));
     }
 
     /**
-     * ¿ªÊ¼¼ÆÊ±¡£
+     * å¼€å§‹è®¡æ—¶ã€‚
      *
-     * @param message µÚÒ»¸öentryµÄĞÅÏ¢
+     * @param message ç¬¬ä¸€ä¸ªentryçš„ä¿¡æ¯
      */
     public static void start(Message message) {
         entryStack.set(new Entry(message, null, null));
     }
 
     /**
-     * Çå³ı¼ÆÊ±Æ÷¡£
+     * æ¸…é™¤è®¡æ—¶å™¨ã€‚
      * 
      * <p>
-     * Çå³ıÒÔºó±ØĞëÔÙ´Îµ÷ÓÃ<code>start</code>·½¿ÉÖØĞÂ¼ÆÊ±¡£
+     * æ¸…é™¤ä»¥åå¿…é¡»å†æ¬¡è°ƒç”¨<code>start</code>æ–¹å¯é‡æ–°è®¡æ—¶ã€‚
      * </p>
      */
     public static void reset() {
@@ -71,9 +71,9 @@ public final class Profiler {
     }
 
     /**
-     * ¿ªÊ¼Ò»¸öĞÂµÄentry£¬²¢¼ÆÊ±¡£
+     * å¼€å§‹ä¸€ä¸ªæ–°çš„entryï¼Œå¹¶è®¡æ—¶ã€‚
      *
-     * @param message ĞÂentryµÄĞÅÏ¢
+     * @param message æ–°entryçš„ä¿¡æ¯
      */
     public static void enter(String message) {
         Entry currentEntry = getCurrentEntry();
@@ -84,9 +84,9 @@ public final class Profiler {
     }
 
     /**
-     * ¿ªÊ¼Ò»¸öĞÂµÄentry£¬²¢¼ÆÊ±¡£
+     * å¼€å§‹ä¸€ä¸ªæ–°çš„entryï¼Œå¹¶è®¡æ—¶ã€‚
      *
-     * @param message ĞÂentryµÄĞÅÏ¢
+     * @param message æ–°entryçš„ä¿¡æ¯
      */
     public static void enter(Message message) {
         Entry currentEntry = getCurrentEntry();
@@ -97,7 +97,7 @@ public final class Profiler {
     }
 
     /**
-     * ½áÊø×î½üµÄÒ»¸öentry£¬¼ÇÂ¼½áÊøÊ±¼ä¡£
+     * ç»“æŸæœ€è¿‘çš„ä¸€ä¸ªentryï¼Œè®°å½•ç»“æŸæ—¶é—´ã€‚
      */
     public static Entry release() {
         Entry currentEntry = getCurrentEntry();
@@ -110,9 +110,9 @@ public final class Profiler {
     }
 
     /**
-     * È¡µÃºÄ·ÑµÄ×ÜÊ±¼ä¡£
+     * å–å¾—è€—è´¹çš„æ€»æ—¶é—´ã€‚
      *
-     * @return ºÄ·ÑµÄ×ÜÊ±¼ä£¬Èç¹ûÎ´¿ªÊ¼¼ÆÊ±£¬Ôò·µ»Ø<code>-1</code>
+     * @return è€—è´¹çš„æ€»æ—¶é—´ï¼Œå¦‚æœæœªå¼€å§‹è®¡æ—¶ï¼Œåˆ™è¿”å›<code>-1</code>
      */
     public static long getDuration() {
         Entry entry = (Entry) entryStack.get();
@@ -125,32 +125,32 @@ public final class Profiler {
     }
 
     /**
-     * ÁĞ³öËùÓĞµÄentry¡£
+     * åˆ—å‡ºæ‰€æœ‰çš„entryã€‚
      *
-     * @return ÁĞ³öËùÓĞentry£¬²¢Í³¼Æ¸÷×ÔËùÕ¼ÓÃµÄÊ±¼ä
+     * @return åˆ—å‡ºæ‰€æœ‰entryï¼Œå¹¶ç»Ÿè®¡å„è‡ªæ‰€å ç”¨çš„æ—¶é—´
      */
     public static String dump() {
         return dump("", "");
     }
 
     /**
-     * ÁĞ³öËùÓĞµÄentry¡£
+     * åˆ—å‡ºæ‰€æœ‰çš„entryã€‚
      *
-     * @param prefix Ç°×º
+     * @param prefix å‰ç¼€
      *
-     * @return ÁĞ³öËùÓĞentry£¬²¢Í³¼Æ¸÷×ÔËùÕ¼ÓÃµÄÊ±¼ä
+     * @return åˆ—å‡ºæ‰€æœ‰entryï¼Œå¹¶ç»Ÿè®¡å„è‡ªæ‰€å ç”¨çš„æ—¶é—´
      */
     public static String dump(String prefix) {
         return dump(prefix, prefix);
     }
 
     /**
-     * ÁĞ³öËùÓĞµÄentry¡£
+     * åˆ—å‡ºæ‰€æœ‰çš„entryã€‚
      *
-     * @param prefix1 Ê×ĞĞÇ°×º
-     * @param prefix2 ºóĞøĞĞÇ°×º
+     * @param prefix1 é¦–è¡Œå‰ç¼€
+     * @param prefix2 åç»­è¡Œå‰ç¼€
      *
-     * @return ÁĞ³öËùÓĞentry£¬²¢Í³¼Æ¸÷×ÔËùÕ¼ÓÃµÄÊ±¼ä
+     * @return åˆ—å‡ºæ‰€æœ‰entryï¼Œå¹¶ç»Ÿè®¡å„è‡ªæ‰€å ç”¨çš„æ—¶é—´
      */
     public static String dump(String prefix1, String prefix2) {
         Entry entry = (Entry) entryStack.get();
@@ -163,18 +163,18 @@ public final class Profiler {
     }
 
     /**
-     * È¡µÃµÚÒ»¸öentry¡£
+     * å–å¾—ç¬¬ä¸€ä¸ªentryã€‚
      *
-     * @return µÚÒ»¸öentry£¬Èç¹û²»´æÔÚ£¬Ôò·µ»Ø<code>null</code>
+     * @return ç¬¬ä¸€ä¸ªentryï¼Œå¦‚æœä¸å­˜åœ¨ï¼Œåˆ™è¿”å›<code>null</code>
      */
     public static Entry getEntry() {
         return (Entry) entryStack.get();
     }
 
     /**
-     * È¡µÃ×î½üµÄÒ»¸öentry¡£
+     * å–å¾—æœ€è¿‘çš„ä¸€ä¸ªentryã€‚
      *
-     * @return ×î½üµÄÒ»¸öentry£¬Èç¹û²»´æÔÚ£¬Ôò·µ»Ø<code>null</code>
+     * @return æœ€è¿‘çš„ä¸€ä¸ªentryï¼Œå¦‚æœä¸å­˜åœ¨ï¼Œåˆ™è¿”å›<code>null</code>
      */
     private static Entry getCurrentEntry() {
         Entry subEntry = (Entry) entryStack.get();
@@ -201,7 +201,7 @@ public final class Profiler {
     }
 
     /**
-     * ´ú±íÒ»¸ö¼ÆÊ±µ¥Ôª¡£
+     * ä»£è¡¨ä¸€ä¸ªè®¡æ—¶å•å…ƒã€‚
      */
     public static final class Entry {
         private final List   subEntries  = new ArrayList(4);
@@ -213,11 +213,11 @@ public final class Profiler {
         private long         endTime;
 
         /**
-         * ´´½¨Ò»¸öĞÂµÄentry¡£
+         * åˆ›å»ºä¸€ä¸ªæ–°çš„entryã€‚
          *
-         * @param message entryµÄĞÅÏ¢£¬¿ÉÒÔÊÇ<code>null</code>
-         * @param parentEntry ¸¸entry£¬¿ÉÒÔÊÇ<code>null</code>
-         * @param firstEntry µÚÒ»¸öentry£¬¿ÉÒÔÊÇ<code>null</code>
+         * @param message entryçš„ä¿¡æ¯ï¼Œå¯ä»¥æ˜¯<code>null</code>
+         * @param parentEntry çˆ¶entryï¼Œå¯ä»¥æ˜¯<code>null</code>
+         * @param firstEntry ç¬¬ä¸€ä¸ªentryï¼Œå¯ä»¥æ˜¯<code>null</code>
          */
         private Entry(Object message, Entry parentEntry, Entry firstEntry) {
             this.message     = message;
@@ -229,7 +229,7 @@ public final class Profiler {
         }
 
         /**
-         * È¡µÃentryµÄĞÅÏ¢¡£
+         * å–å¾—entryçš„ä¿¡æ¯ã€‚
          */
         public String getMessage() {
             String messageString = null;
@@ -255,9 +255,9 @@ public final class Profiler {
         }
 
         /**
-         * È¡µÃentryÏà¶ÔÓÚµÚÒ»¸öentryµÄÆğÊ¼Ê±¼ä¡£
+         * å–å¾—entryç›¸å¯¹äºç¬¬ä¸€ä¸ªentryçš„èµ·å§‹æ—¶é—´ã€‚
          *
-         * @return Ïà¶ÔÆğÊ¼Ê±¼ä
+         * @return ç›¸å¯¹èµ·å§‹æ—¶é—´
          */
         public long getStartTime() {
             return (baseTime > 0) ? (startTime - baseTime)
@@ -265,9 +265,9 @@ public final class Profiler {
         }
 
         /**
-         * È¡µÃentryÏà¶ÔÓÚµÚÒ»¸öentryµÄ½áÊøÊ±¼ä¡£
+         * å–å¾—entryç›¸å¯¹äºç¬¬ä¸€ä¸ªentryçš„ç»“æŸæ—¶é—´ã€‚
          *
-         * @return Ïà¶Ô½áÊøÊ±¼ä£¬Èç¹ûentry»¹Î´½áÊø£¬Ôò·µ»Ø<code>-1</code>
+         * @return ç›¸å¯¹ç»“æŸæ—¶é—´ï¼Œå¦‚æœentryè¿˜æœªç»“æŸï¼Œåˆ™è¿”å›<code>-1</code>
          */
         public long getEndTime() {
             if (endTime < baseTime) {
@@ -278,9 +278,9 @@ public final class Profiler {
         }
 
         /**
-         * È¡µÃentry³ÖĞøµÄÊ±¼ä¡£
+         * å–å¾—entryæŒç»­çš„æ—¶é—´ã€‚
          *
-         * @return entry³ÖĞøµÄÊ±¼ä£¬Èç¹ûentry»¹Î´½áÊø£¬Ôò·µ»Ø<code>-1</code>
+         * @return entryæŒç»­çš„æ—¶é—´ï¼Œå¦‚æœentryè¿˜æœªç»“æŸï¼Œåˆ™è¿”å›<code>-1</code>
          */
         public long getDuration() {
             if (endTime < startTime) {
@@ -291,9 +291,9 @@ public final class Profiler {
         }
 
         /**
-         * È¡µÃentry×ÔÉíËùÓÃµÄÊ±¼ä£¬¼´×ÜÊ±¼ä¼õÈ¥ËùÓĞ×ÓentryËùÓÃµÄÊ±¼ä¡£
+         * å–å¾—entryè‡ªèº«æ‰€ç”¨çš„æ—¶é—´ï¼Œå³æ€»æ—¶é—´å‡å»æ‰€æœ‰å­entryæ‰€ç”¨çš„æ—¶é—´ã€‚
          *
-         * @return entry×ÔÉíËùÓÃµÄÊ±¼ä£¬Èç¹ûentry»¹Î´½áÊø£¬Ôò·µ»Ø<code>-1</code>
+         * @return entryè‡ªèº«æ‰€ç”¨çš„æ—¶é—´ï¼Œå¦‚æœentryè¿˜æœªç»“æŸï¼Œåˆ™è¿”å›<code>-1</code>
          */
         public long getDurationOfSelf() {
             long duration = getDuration();
@@ -318,9 +318,9 @@ public final class Profiler {
         }
 
         /**
-         * È¡µÃµ±Ç°entryÔÚ¸¸entryÖĞËùÕ¼µÄÊ±¼ä°Ù·Ö±È¡£
+         * å–å¾—å½“å‰entryåœ¨çˆ¶entryä¸­æ‰€å çš„æ—¶é—´ç™¾åˆ†æ¯”ã€‚
          *
-         * @return °Ù·Ö±È
+         * @return ç™¾åˆ†æ¯”
          */
         public double getPecentage() {
             double parentDuration = 0;
@@ -338,9 +338,9 @@ public final class Profiler {
         }
 
         /**
-         * È¡µÃµ±Ç°entryÔÚµÚÒ»¸öentryÖĞËùÕ¼µÄÊ±¼ä°Ù·Ö±È¡£
+         * å–å¾—å½“å‰entryåœ¨ç¬¬ä¸€ä¸ªentryä¸­æ‰€å çš„æ—¶é—´ç™¾åˆ†æ¯”ã€‚
          *
-         * @return °Ù·Ö±È
+         * @return ç™¾åˆ†æ¯”
          */
         public double getPecentageOfAll() {
             double firstDuration = 0;
@@ -358,34 +358,34 @@ public final class Profiler {
         }
 
         /**
-         * È¡µÃËùÓĞ×Óentries¡£
+         * å–å¾—æ‰€æœ‰å­entriesã€‚
          *
-         * @return ËùÓĞ×ÓentriesµÄÁĞ±í£¨²»¿É¸ü¸Ä£©
+         * @return æ‰€æœ‰å­entriesçš„åˆ—è¡¨ï¼ˆä¸å¯æ›´æ”¹ï¼‰
          */
         public List getSubEntries() {
             return Collections.unmodifiableList(subEntries);
         }
 
         /**
-         * ½áÊøµ±Ç°entry£¬²¢¼ÇÂ¼½áÊøÊ±¼ä¡£
+         * ç»“æŸå½“å‰entryï¼Œå¹¶è®°å½•ç»“æŸæ—¶é—´ã€‚
          */
         private void release() {
             endTime = System.currentTimeMillis();
         }
 
         /**
-         * ÅĞ¶Ïµ±Ç°entryÊÇ·ñ½áÊø¡£
+         * åˆ¤æ–­å½“å‰entryæ˜¯å¦ç»“æŸã€‚
          *
-         * @return Èç¹ûentryÒÑ¾­½áÊø£¬Ôò·µ»Ø<code>true</code>
+         * @return å¦‚æœentryå·²ç»ç»“æŸï¼Œåˆ™è¿”å›<code>true</code>
          */
         private boolean isReleased() {
             return endTime > 0;
         }
 
         /**
-         * ´´½¨Ò»¸öĞÂµÄ×Óentry¡£
+         * åˆ›å»ºä¸€ä¸ªæ–°çš„å­entryã€‚
          *
-         * @param message ×ÓentryµÄĞÅÏ¢
+         * @param message å­entryçš„ä¿¡æ¯
          */
         private void enterSubEntry(Object message) {
             Entry subEntry = new Entry(message, this, firstEntry);
@@ -394,9 +394,9 @@ public final class Profiler {
         }
 
         /**
-         * È¡µÃÎ´½áÊøµÄ×Óentry¡£
+         * å–å¾—æœªç»“æŸçš„å­entryã€‚
          *
-         * @return Î´½áÊøµÄ×Óentry£¬Èç¹ûÃ»ÓĞ×Óentry£¬»òËùÓĞentry¾ùÒÑ½áÊø£¬Ôò·µ»Ø<code>null</code>
+         * @return æœªç»“æŸçš„å­entryï¼Œå¦‚æœæ²¡æœ‰å­entryï¼Œæˆ–æ‰€æœ‰entryå‡å·²ç»“æŸï¼Œåˆ™è¿”å›<code>null</code>
          */
         private Entry getUnreleasedEntry() {
             Entry subEntry = null;
@@ -413,21 +413,21 @@ public final class Profiler {
         }
 
         /**
-         * ½«entry×ª»»³É×Ö·û´®µÄ±íÊ¾¡£
+         * å°†entryè½¬æ¢æˆå­—ç¬¦ä¸²çš„è¡¨ç¤ºã€‚
          *
-         * @return ×Ö·û´®±íÊ¾µÄentry
+         * @return å­—ç¬¦ä¸²è¡¨ç¤ºçš„entry
          */
         public String toString() {
             return toString("", "");
         }
 
         /**
-         * ½«entry×ª»»³É×Ö·û´®µÄ±íÊ¾¡£
+         * å°†entryè½¬æ¢æˆå­—ç¬¦ä¸²çš„è¡¨ç¤ºã€‚
          *
-         * @param prefix1 Ê×ĞĞÇ°×º
-         * @param prefix2 ºóĞøĞĞÇ°×º
+         * @param prefix1 é¦–è¡Œå‰ç¼€
+         * @param prefix2 åç»­è¡Œå‰ç¼€
          *
-         * @return ×Ö·û´®±íÊ¾µÄentry
+         * @return å­—ç¬¦ä¸²è¡¨ç¤ºçš„entry
          */
         private String toString(String prefix1, String prefix2) {
             StringBuffer buffer = new StringBuffer();
@@ -438,11 +438,11 @@ public final class Profiler {
         }
 
         /**
-         * ½«entry×ª»»³É×Ö·û´®µÄ±íÊ¾¡£
+         * å°†entryè½¬æ¢æˆå­—ç¬¦ä¸²çš„è¡¨ç¤ºã€‚
          *
-         * @param buffer ×Ö·û´®buffer
-         * @param prefix1 Ê×ĞĞÇ°×º
-         * @param prefix2 ºóĞøĞĞÇ°×º
+         * @param buffer å­—ç¬¦ä¸²buffer
+         * @param prefix1 é¦–è¡Œå‰ç¼€
+         * @param prefix2 åç»­è¡Œå‰ç¼€
          */
         private void toString(StringBuffer buffer, String prefix1, String prefix2) {
             buffer.append(prefix1);
@@ -455,12 +455,12 @@ public final class Profiler {
             double percentOfAll   = getPecentageOfAll();
 
             Object[] params = new Object[] {
-                                  message, // {0} - entryĞÅÏ¢ 
-            new Long(startTime), // {1} - ÆğÊ¼Ê±¼ä
-            new Long(duration), // {2} - ³ÖĞø×ÜÊ±¼ä
-            new Long(durationOfSelf), // {3} - ×ÔÉíÏûºÄµÄÊ±¼ä
-            new Double(percent), // {4} - ÔÚ¸¸entryÖĞËùÕ¼µÄÊ±¼ä±ÈÀı
-            new Double(percentOfAll) // {5} - ÔÚ×ÜÊ±¼äÖĞËù¾ÉµÄÊ±¼ä±ÈÀı
+                                  message, // {0} - entryä¿¡æ¯ 
+            new Long(startTime), // {1} - èµ·å§‹æ—¶é—´
+            new Long(duration), // {2} - æŒç»­æ€»æ—¶é—´
+            new Long(durationOfSelf), // {3} - è‡ªèº«æ¶ˆè€—çš„æ—¶é—´
+            new Double(percent), // {4} - åœ¨çˆ¶entryä¸­æ‰€å çš„æ—¶é—´æ¯”ä¾‹
+            new Double(percentOfAll) // {5} - åœ¨æ€»æ—¶é—´ä¸­æ‰€æ—§çš„æ—¶é—´æ¯”ä¾‹
                               };
 
             StringBuffer pattern = new StringBuffer("{1,number} ");
@@ -497,18 +497,18 @@ public final class Profiler {
                 buffer.append('\n');
 
                 if (i == (subEntries.size() - 1)) {
-                    subEntry.toString(buffer, prefix2 + "`---", prefix2 + "    "); // ×îºóÒ»Ïî
+                    subEntry.toString(buffer, prefix2 + "`---", prefix2 + "    "); // æœ€åä¸€é¡¹
                 } else if (i == 0) {
-                    subEntry.toString(buffer, prefix2 + "+---", prefix2 + "|   "); // µÚÒ»Ïî
+                    subEntry.toString(buffer, prefix2 + "+---", prefix2 + "|   "); // ç¬¬ä¸€é¡¹
                 } else {
-                    subEntry.toString(buffer, prefix2 + "+---", prefix2 + "|   "); // ÖĞ¼äÏî
+                    subEntry.toString(buffer, prefix2 + "+---", prefix2 + "|   "); // ä¸­é—´é¡¹
                 }
             }
         }
     }
 
     /**
-     * ÏÔÊ¾ÏûÏ¢µÄ¼¶±ğ¡£
+     * æ˜¾ç¤ºæ¶ˆæ¯çš„çº§åˆ«ã€‚
      */
     public static final class MessageLevel implements Serializable {
         private static final long        serialVersionUID = 3257849896026388537L;
@@ -518,7 +518,7 @@ public final class Profiler {
     }
 
     /**
-     * ´ú±íÒ»¸öprofiler entryµÄÏêÏ¸ĞÅÏ¢¡£
+     * ä»£è¡¨ä¸€ä¸ªprofiler entryçš„è¯¦ç»†ä¿¡æ¯ã€‚
      */
     public interface Message {
         MessageLevel getMessageLevel(Entry entry);

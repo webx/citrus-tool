@@ -18,7 +18,7 @@
 package com.alibaba.antx.config.generator.expr;
 
 /**
- * ´ú±íÒ»¸ö³£Á¿±í´ïÊ½£¬¸Ã±í´ïÊ½µÄÖµ²»ÒÀÀµÓÚcontext¡£
+ * ä»£è¡¨ä¸€ä¸ªå¸¸é‡è¡¨è¾¾å¼ï¼Œè¯¥è¡¨è¾¾å¼çš„å€¼ä¸ä¾èµ–äºcontextã€‚
  * 
  * @author Michael Zhou
  */

@@ -23,7 +23,7 @@ import com.alibaba.toolkit.util.resourcebundle.MessageBuilder;
 import java.util.ResourceBundle;
 
 /**
- * ²úÉúĞ¯´ø´íÎó´úÂëµÄÒì³£µÄ´íÎóĞÅÏ¢.
+ * äº§ç”Ÿæºå¸¦é”™è¯¯ä»£ç çš„å¼‚å¸¸çš„é”™è¯¯ä¿¡æ¯.
  *
  * @version $Id: ErrorCodeMessageBuilder.java,v 1.1 2003/07/03 07:26:22 baobao Exp $
  * @author Michael Zhou
@@ -33,33 +33,33 @@ public class ErrorCodeMessageBuilder extends MessageBuilder {
     protected static final String STRING_ERROR_CODE_SUFFIX = ": ";
 
     /**
-     * ´´½¨Ò»¸ö<code>ErrorCodeMessageBuilder</code>.
+     * åˆ›å»ºä¸€ä¸ª<code>ErrorCodeMessageBuilder</code>.
      *
-     * @param bundleName  ´íÎóĞÅÏ¢µÄ×ÊÔ´ÊøÃû³Æ
-     * @param errorCode   ´íÎó´úÂë
+     * @param bundleName  é”™è¯¯ä¿¡æ¯çš„èµ„æºæŸåç§°
+     * @param errorCode   é”™è¯¯ä»£ç 
      *
-     * @throws MissingResourceException  Ö¸¶¨bundleÎ´ÕÒµ½, »ò´´½¨bundle´íÎó
+     * @throws MissingResourceException  æŒ‡å®šbundleæœªæ‰¾åˆ°, æˆ–åˆ›å»ºbundleé”™è¯¯
      */
     public ErrorCodeMessageBuilder(String bundleName, Enum errorCode) {
         super(bundleName, errorCode);
     }
 
     /**
-     * ´´½¨Ò»¸ö<code>ErrorCodeMessageBuilder</code>.
+     * åˆ›å»ºä¸€ä¸ª<code>ErrorCodeMessageBuilder</code>.
      *
-     * @param bundle     ´íÎóĞÅÏ¢µÄ×ÊÔ´Êø
-     * @param errorCode  ´íÎó´úÂë
+     * @param bundle     é”™è¯¯ä¿¡æ¯çš„èµ„æºæŸ
+     * @param errorCode  é”™è¯¯ä»£ç 
      */
     public ErrorCodeMessageBuilder(ResourceBundle bundle, Enum errorCode) {
         super(bundle, errorCode);
     }
 
     /**
-     * È¡µÃ´íÎóĞÅÏ¢.
+     * å–å¾—é”™è¯¯ä¿¡æ¯.
      *
-     * @param message ´íÎóĞÅÏ¢
+     * @param message é”™è¯¯ä¿¡æ¯
      *
-     * @return ´íÎóĞÅÏ¢
+     * @return é”™è¯¯ä¿¡æ¯
      */
     public String toString(String message) {
         return new StringBuffer(STRING_ERROR_CODE_PREFIX).append(((Enum) key).toHexString())

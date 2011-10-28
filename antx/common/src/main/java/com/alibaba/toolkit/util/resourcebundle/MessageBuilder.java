@@ -25,10 +25,10 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 /**
- * Í¨¹ı×ÊÔ´Êø´´½¨ÏûÏ¢µÄ¹¤¾ßÀà, Ö§³ÖËùÓĞÔ­×ÓÀàĞÍ, ·½±ãÊ¹ÓÃ.
+ * é€šè¿‡èµ„æºæŸåˆ›å»ºæ¶ˆæ¯çš„å·¥å…·ç±», æ”¯æŒæ‰€æœ‰åŸå­ç±»å‹, æ–¹ä¾¿ä½¿ç”¨.
  *
  * <p>
- * Ê¹ÓÃ·½·¨:
+ * ä½¿ç”¨æ–¹æ³•:
  * <pre>
  *   String message = new MessageBuilder(bundle, key)
  *                   .append(param1)
@@ -38,8 +38,8 @@ import java.util.ResourceBundle;
  * </p>
  *
  * <p>
- * ÔÚ¹¹Ôì´ËÀàÊ±, ¿ÉÒÔÌá¹©Ò»¸ö<code>quiet</code>²ÎÊı.  Èç¹û´Ë²ÎÊıÎª<code>true</code>, ²¢ÇÒresource bundleÕÒ²»µ½,
- * Ôò²»»áÅ×³ö<code>MissingResourceException</code>, ¶øÊÇ·µ»ØÒ»¸öÄ¬ÈÏµÄ×Ö·û´®.
+ * åœ¨æ„é€ æ­¤ç±»æ—¶, å¯ä»¥æä¾›ä¸€ä¸ª<code>quiet</code>å‚æ•°.  å¦‚æœæ­¤å‚æ•°ä¸º<code>true</code>, å¹¶ä¸”resource bundleæ‰¾ä¸åˆ°,
+ * åˆ™ä¸ä¼šæŠ›å‡º<code>MissingResourceException</code>, è€Œæ˜¯è¿”å›ä¸€ä¸ªé»˜è®¤çš„å­—ç¬¦ä¸².
  * </p>
  *
  * @version $Id: MessageBuilder.java,v 1.1 2003/07/03 07:26:35 baobao Exp $
@@ -51,22 +51,22 @@ public class MessageBuilder {
     protected final Object         key;
 
     /**
-     * ´´½¨Ò»¸ö<code>MessageBuilder</code>.
+     * åˆ›å»ºä¸€ä¸ª<code>MessageBuilder</code>.
      *
-     * @param bundleName  ×ÊÔ´Êø
-     * @param key         ¼üÖµ
+     * @param bundleName  èµ„æºæŸ
+     * @param key         é”®å€¼
      *
-     * @throws MissingResourceException  Ö¸¶¨bundleÎ´ÕÒµ½, »ò´´½¨bundle´íÎó
+     * @throws MissingResourceException  æŒ‡å®šbundleæœªæ‰¾åˆ°, æˆ–åˆ›å»ºbundleé”™è¯¯
      */
     public MessageBuilder(String bundleName, Object key) {
         this(ResourceBundleFactory.getBundle(bundleName), key);
     }
 
     /**
-     * ´´½¨Ò»¸ö<code>MessageBuilder</code>.
+     * åˆ›å»ºä¸€ä¸ª<code>MessageBuilder</code>.
      *
-     * @param bundle  ×ÊÔ´Êø
-     * @param key     ¼üÖµ
+     * @param bundle  èµ„æºæŸ
+     * @param key     é”®å€¼
      */
     public MessageBuilder(ResourceBundle bundle, Object key) {
         this.bundle = bundle;
@@ -74,11 +74,11 @@ public class MessageBuilder {
     }
 
     /**
-     * Ôö¼ÓÒ»¸ö²ÎÊı.
+     * å¢åŠ ä¸€ä¸ªå‚æ•°.
      *
-     * @param param ²ÎÊı
+     * @param param å‚æ•°
      *
-     * @return <code>MessageBuilder</code>×ÔÉí
+     * @return <code>MessageBuilder</code>è‡ªèº«
      */
     public MessageBuilder append(Object param) {
         params.add(param);
@@ -86,11 +86,11 @@ public class MessageBuilder {
     }
 
     /**
-     * Ôö¼ÓÒ»¸ö²ÎÊı.
+     * å¢åŠ ä¸€ä¸ªå‚æ•°.
      *
-     * @param param ²ÎÊı
+     * @param param å‚æ•°
      *
-     * @return <code>MessageBuilder</code>×ÔÉí
+     * @return <code>MessageBuilder</code>è‡ªèº«
      */
     public MessageBuilder append(boolean param) {
         params.add(new Boolean(param));
@@ -98,11 +98,11 @@ public class MessageBuilder {
     }
 
     /**
-     * Ôö¼ÓÒ»¸ö²ÎÊı.
+     * å¢åŠ ä¸€ä¸ªå‚æ•°.
      *
-     * @param param ²ÎÊı
+     * @param param å‚æ•°
      *
-     * @return <code>MessageBuilder</code>×ÔÉí
+     * @return <code>MessageBuilder</code>è‡ªèº«
      */
     public MessageBuilder append(char param) {
         params.add(new Character(param));
@@ -110,11 +110,11 @@ public class MessageBuilder {
     }
 
     /**
-     * Ôö¼ÓÒ»¸ö²ÎÊı.
+     * å¢åŠ ä¸€ä¸ªå‚æ•°.
      *
-     * @param param ²ÎÊı
+     * @param param å‚æ•°
      *
-     * @return <code>MessageBuilder</code>×ÔÉí
+     * @return <code>MessageBuilder</code>è‡ªèº«
      */
     public MessageBuilder append(double param) {
         params.add(new Double(param));
@@ -122,11 +122,11 @@ public class MessageBuilder {
     }
 
     /**
-     * Ôö¼ÓÒ»¸ö²ÎÊı.
+     * å¢åŠ ä¸€ä¸ªå‚æ•°.
      *
-     * @param param ²ÎÊı
+     * @param param å‚æ•°
      *
-     * @return <code>MessageBuilder</code>×ÔÉí
+     * @return <code>MessageBuilder</code>è‡ªèº«
      */
     public MessageBuilder append(float param) {
         params.add(new Float(param));
@@ -134,11 +134,11 @@ public class MessageBuilder {
     }
 
     /**
-     * Ôö¼ÓÒ»¸ö²ÎÊı.
+     * å¢åŠ ä¸€ä¸ªå‚æ•°.
      *
-     * @param param ²ÎÊı
+     * @param param å‚æ•°
      *
-     * @return <code>MessageBuilder</code>×ÔÉí
+     * @return <code>MessageBuilder</code>è‡ªèº«
      */
     public MessageBuilder append(int param) {
         params.add(new Integer(param));
@@ -146,11 +146,11 @@ public class MessageBuilder {
     }
 
     /**
-     * Ôö¼ÓÒ»¸ö²ÎÊı.
+     * å¢åŠ ä¸€ä¸ªå‚æ•°.
      *
-     * @param param ²ÎÊı
+     * @param param å‚æ•°
      *
-     * @return <code>MessageBuilder</code>×ÔÉí
+     * @return <code>MessageBuilder</code>è‡ªèº«
      */
     public MessageBuilder append(long param) {
         params.add(new Long(param));
@@ -158,11 +158,11 @@ public class MessageBuilder {
     }
 
     /**
-     * Ôö¼Ó¶à¸ö²ÎÊı.
+     * å¢åŠ å¤šä¸ªå‚æ•°.
      *
-     * @param params ²ÎÊı±í
+     * @param params å‚æ•°è¡¨
      *
-     * @return <code>MessageBuilder</code>×ÔÉí
+     * @return <code>MessageBuilder</code>è‡ªèº«
      */
     public MessageBuilder append(Object[] params) {
         if (params != null) {
@@ -173,20 +173,20 @@ public class MessageBuilder {
     }
 
     /**
-     * È¡µÃÏûÏ¢×Ö·û´®.
+     * å–å¾—æ¶ˆæ¯å­—ç¬¦ä¸².
      *
-     * @return ÏûÏ¢×Ö·û´®
+     * @return æ¶ˆæ¯å­—ç¬¦ä¸²
      */
     public String toString() {
         return getMessage();
     }
 
     /**
-     * ´Ó×ÊÔ´ÊøÖĞÈ¡µÃÏûÏ¢×Ö·û´®.
+     * ä»èµ„æºæŸä¸­å–å¾—æ¶ˆæ¯å­—ç¬¦ä¸².
      *
-     * @return ÏûÏ¢×Ö·û´®
+     * @return æ¶ˆæ¯å­—ç¬¦ä¸²
      *
-     * @throws MissingResourceException  Ö¸¶¨resource keyÎ´ÕÒµ½
+     * @throws MissingResourceException  æŒ‡å®šresource keyæœªæ‰¾åˆ°
      */
     protected String getMessage() {
         return StringUtil.getMessage(bundle, key, params.toArray());

@@ -22,7 +22,7 @@ import com.alibaba.toolkit.util.exception.ChainedException;
 import java.text.MessageFormat;
 
 /**
- * ±íÊ¾´´½¨<code>ResourceBundle</code>Ê§°ÜµÄÒì³£.
+ * è¡¨ç¤ºåˆ›å»º<code>ResourceBundle</code>å¤±è´¥çš„å¼‚å¸¸.
  *
  * @version $Id: ResourceBundleCreateException.java,v 1.1 2003/07/03 07:26:35 baobao Exp $
  * @author Michael Zhou
@@ -31,11 +31,11 @@ public class ResourceBundleCreateException extends ChainedException {
     private static final long serialVersionUID = -1816609850584933734L;
 
     /**
-     * ¹¹ÔìÒ»¸öÒì³£, Ö¸Ã÷ÒıÆğÕâ¸öÒì³£µÄÆğÒò.
+     * æ„é€ ä¸€ä¸ªå¼‚å¸¸, æŒ‡æ˜å¼•èµ·è¿™ä¸ªå¼‚å¸¸çš„èµ·å› .
      *
-     * @param messageId  ÏêÏ¸ĞÅÏ¢ID
-     * @param params     ÏêÏ¸ĞÅÏ¢²ÎÊı
-     * @param cause      Òì³£µÄÆğÒò
+     * @param messageId  è¯¦ç»†ä¿¡æ¯ID
+     * @param params     è¯¦ç»†ä¿¡æ¯å‚æ•°
+     * @param cause      å¼‚å¸¸çš„èµ·å› 
      */
     public ResourceBundleCreateException(String messageId, Object[] params, Throwable cause) {
         super(MessageFormat.format(messageId,

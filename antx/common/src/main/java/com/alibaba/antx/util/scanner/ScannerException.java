@@ -20,7 +20,7 @@ package com.alibaba.antx.util.scanner;
 import com.alibaba.toolkit.util.exception.ChainedRuntimeException;
 
 /**
- * ´ú±íÒ»¸öÉ¨ÃèÆ÷µÄÒì³£
+ * ä»£è¡¨ä¸€ä¸ªæ‰«æå™¨çš„å¼‚å¸¸
  *
  * @author Michael Zhou
  */
@@ -28,35 +28,35 @@ public class ScannerException extends ChainedRuntimeException {
     private static final long serialVersionUID = 5765730179081284697L;
 
 /**
-     * ´´½¨Ò»¸öÒì³£¡£
+     * åˆ›å»ºä¸€ä¸ªå¼‚å¸¸ã€‚
      */
     public ScannerException() {
         super();
     }
 
 /**
-     * ´´½¨Ò»¸öÒì³£¡£
+     * åˆ›å»ºä¸€ä¸ªå¼‚å¸¸ã€‚
      *
-     * @param message Òì³£ĞÅÏ¢
+     * @param message å¼‚å¸¸ä¿¡æ¯
      */
     public ScannerException(String message) {
         super(message);
     }
 
 /**
-     * ´´½¨Ò»¸öÒì³£¡£
+     * åˆ›å»ºä¸€ä¸ªå¼‚å¸¸ã€‚
      *
-     * @param message Òì³£ĞÅÏ¢
-     * @param cause Òì³£Ô­Òò
+     * @param message å¼‚å¸¸ä¿¡æ¯
+     * @param cause å¼‚å¸¸åŸå› 
      */
     public ScannerException(String message, Throwable cause) {
         super(message, cause);
     }
 
 /**
-     * ´´½¨Ò»¸öÒì³£¡£
+     * åˆ›å»ºä¸€ä¸ªå¼‚å¸¸ã€‚
      *
-     * @param cause Òì³£Ô­Òò
+     * @param cause å¼‚å¸¸åŸå› 
      */
     public ScannerException(Throwable cause) {
         super(cause);

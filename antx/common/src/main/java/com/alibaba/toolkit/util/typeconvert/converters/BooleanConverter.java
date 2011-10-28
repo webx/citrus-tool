@@ -26,36 +26,36 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * ½«¶ÔÏó×ª»»³É²¼¶ûÖµ.
+ * å°†å¯¹è±¡è½¬æ¢æˆå¸ƒå°”å€¼.
  *
  * <ul>
  * <li>
- * Èç¹û¶ÔÏóÎª<code>null</code>, ÔòÅ×³ö´øÄ¬ÈÏÖµµÄ<code>ConvertFailedException</code>.
+ * å¦‚æžœå¯¹è±¡ä¸º<code>null</code>, åˆ™æŠ›å‡ºå¸¦é»˜è®¤å€¼çš„<code>ConvertFailedException</code>.
  * </li>
  * <li>
- * Èç¹û¶ÔÏóÒÑ¾­ÊÇ<code>Boolean</code>ÁË, Ö±½Ó·µ»Ø.
+ * å¦‚æžœå¯¹è±¡å·²ç»æ˜¯<code>Boolean</code>äº†, ç›´æŽ¥è¿”å›ž.
  * </li>
  * <li>
- * Èç¹û¶ÔÏóÊÇ<code>Number</code>ÀàÐÍ, ÇÒ²»Îª<code>0</code>, Ôò·µ»Ø<code>true</code>, ·ñÔò·µ»Ø<code>false</code>.
+ * å¦‚æžœå¯¹è±¡æ˜¯<code>Number</code>ç±»åž‹, ä¸”ä¸ä¸º<code>0</code>, åˆ™è¿”å›ž<code>true</code>, å¦åˆ™è¿”å›ž<code>false</code>.
  * </li>
  * <li>
- * Èç¹û¶ÔÏóÊÇ×Ö·û´®, ÇÒ×Ö·û´®¿´ÆðÀ´ÏñÒ»¸öÕûÊý, ÇÒÊýÖµ²»Îª<code>0</code>, Ôò·µ»Ø<code>true</code>, ·ñÔò·µ»Ø<code>false</code>.
+ * å¦‚æžœå¯¹è±¡æ˜¯å­—ç¬¦ä¸², ä¸”å­—ç¬¦ä¸²çœ‹èµ·æ¥åƒä¸€ä¸ªæ•´æ•°, ä¸”æ•°å€¼ä¸ä¸º<code>0</code>, åˆ™è¿”å›ž<code>true</code>, å¦åˆ™è¿”å›ž<code>false</code>.
  * </li>
  * <li>
- * Èç¹û¶ÔÏóÎª¿Õ×Ö·û´®, ÔòÅ×³ö´øÄ¬ÈÏÖµµÄ<code>ConvertFailedException</code>.
+ * å¦‚æžœå¯¹è±¡ä¸ºç©ºå­—ç¬¦ä¸², åˆ™æŠ›å‡ºå¸¦é»˜è®¤å€¼çš„<code>ConvertFailedException</code>.
  * </li>
  * <li>
- * Èç¹û¶ÔÏóÎªÏÂÁÐÖµÖ®Ò»µÄ×Ö·û´®(´óÐ¡Ð´²»Ãô¸Ð): <code>"false", "null", "nul", "nil", "off", "no", "n"</code>
- * ÔòÎª<code>false</code>.
+ * å¦‚æžœå¯¹è±¡ä¸ºä¸‹åˆ—å€¼ä¹‹ä¸€çš„å­—ç¬¦ä¸²(å¤§å°å†™ä¸æ•æ„Ÿ): <code>"false", "null", "nul", "nil", "off", "no", "n"</code>
+ * åˆ™ä¸º<code>false</code>.
  * </li>
  * <li>
- * Èç¹û¶ÔÏóÎªÏÂÁÐÖµÖ®Ò»µÄ×Ö·û´®(´óÐ¡Ð´²»Ãô¸Ð): <code>"true", "on", "yes", "y"</code> ÔòÎª<code>true</code>.
+ * å¦‚æžœå¯¹è±¡ä¸ºä¸‹åˆ—å€¼ä¹‹ä¸€çš„å­—ç¬¦ä¸²(å¤§å°å†™ä¸æ•æ„Ÿ): <code>"true", "on", "yes", "y"</code> åˆ™ä¸º<code>true</code>.
  * </li>
  * <li>
- * Èç¹û¶ÔÏóÊÇ×Ö·û´®, ÇÒ²»·ûºÏÉÏÊöËùÓÐÌõ¼þ, ÔòÅ×³ö<code>ConvertFailedException</code>.
+ * å¦‚æžœå¯¹è±¡æ˜¯å­—ç¬¦ä¸², ä¸”ä¸ç¬¦åˆä¸Šè¿°æ‰€æœ‰æ¡ä»¶, åˆ™æŠ›å‡º<code>ConvertFailedException</code>.
  * </li>
  * <li>
- * ·ñÔò, °Ñ¶ÔÏó´«µÝ¸øÏÂÒ»¸ö<code>Converter</code>´¦Àí.
+ * å¦åˆ™, æŠŠå¯¹è±¡ä¼ é€’ç»™ä¸‹ä¸€ä¸ª<code>Converter</code>å¤„ç†.
  * </li>
  * </ul>
  *

@@ -23,34 +23,34 @@ import org.apache.commons.digester.RuleSet;
 import org.xml.sax.Attributes;
 
 /**
- * È¡µÃÉÏÏÂÎÄÏà¹ØµÄ<code>RuleSet</code>µÄ¹¤³§.
+ * å–å¾—ä¸Šä¸‹æ–‡ç›¸å…³çš„<code>RuleSet</code>çš„å·¥å‚.
  *
  * @version $Id: RuleSetFactory.java,v 1.1 2003/07/03 07:26:16 baobao Exp $
  * @author Michael Zhou
  */
 public interface RuleSetFactory {
     /**
-     * È¡µÃ<code>RuleSet</code>.
+     * å–å¾—<code>RuleSet</code>.
      *
-     * @param attributes  XMLÊôĞÔ
+     * @param attributes  XMLå±æ€§
      *
      * @return <code>RuleSet</code>
      *
-     * @throws Exception Èç¹ûÊ§°Ü
+     * @throws Exception å¦‚æœå¤±è´¥
      */
     RuleSet getRuleSet(Attributes attributes) throws Exception;
 
     /**
-     * ÉèÖÃdigester.
+     * è®¾ç½®digester.
      *
-     * @param digester µ±Ç°digester
+     * @param digester å½“å‰digester
      */
     void setDigester(Digester digester);
 
     /**
-     * È¡µÃµ±Ç°digester.
+     * å–å¾—å½“å‰digester.
      *
-     * @return µ±Ç°digester
+     * @return å½“å‰digester
      */
     Digester getDigester();
 }

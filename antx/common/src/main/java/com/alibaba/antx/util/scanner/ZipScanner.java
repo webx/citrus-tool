@@ -31,7 +31,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 /**
- * ZipÎÄ¼şÉ¨ÃèÆ÷¡£
+ * Zipæ–‡ä»¶æ‰«æå™¨ã€‚
  *
  * @author Michael Zhou
  */
@@ -41,10 +41,10 @@ public class ZipScanner extends AbstractScanner {
     private ZipEntry       zipEntry;
 
 /**
-     * ´´½¨Ò»¸özipÎÄ¼şÉ¨ÃèÆ÷¡£
+     * åˆ›å»ºä¸€ä¸ªzipæ–‡ä»¶æ‰«æå™¨ã€‚
      *
-     * @param zipfile zipÎÄ¼ş
-     * @param handler »Øµ÷º¯Êı
+     * @param zipfile zipæ–‡ä»¶
+     * @param handler å›è°ƒå‡½æ•°
      */
     public ZipScanner(File zipfile, ScannerHandler handler) {
         super(handler);
@@ -61,10 +61,10 @@ public class ZipScanner extends AbstractScanner {
     }
 
 /**
-     * ´´½¨Ò»¸özipÎÄ¼şÉ¨ÃèÆ÷¡£
+     * åˆ›å»ºä¸€ä¸ªzipæ–‡ä»¶æ‰«æå™¨ã€‚
      *
-     * @param zipURL zipÎÄ¼şµÄURL
-     * @param handler »Øµ÷º¯Êı
+     * @param zipURL zipæ–‡ä»¶çš„URL
+     * @param handler å›è°ƒå‡½æ•°
      */
     public ZipScanner(URL zipURL, ScannerHandler handler) {
         super(handler);
@@ -73,16 +73,16 @@ public class ZipScanner extends AbstractScanner {
     }
 
     /**
-     * È¡µÃÉ¨ÃèµÄzipÎÄ¼şµÄURL¡£
+     * å–å¾—æ‰«æçš„zipæ–‡ä»¶çš„URLã€‚
      *
-     * @return ÕıÔÚÉ¨ÃèµÄzipÎÄ¼şµÄURL
+     * @return æ­£åœ¨æ‰«æçš„zipæ–‡ä»¶çš„URL
      */
     public URL getBaseURL() {
         return zipURL;
     }
 
     /**
-     * È¡µÃµ±Ç°ÕıÔÚÉ¨ÃèµÄÎÄ¼şµÄURL¡£
+     * å–å¾—å½“å‰æ­£åœ¨æ‰«æçš„æ–‡ä»¶çš„URLã€‚
      *
      * @return URL
      */
@@ -95,22 +95,22 @@ public class ZipScanner extends AbstractScanner {
     }
 
     /**
-     * È¡µÃµ±Ç°ÕıÔÚÉ¨ÃèµÄÎÄ¼şµÄÊäÈëÁ÷¡£
+     * å–å¾—å½“å‰æ­£åœ¨æ‰«æçš„æ–‡ä»¶çš„è¾“å…¥æµã€‚
      *
-     * @return ÊäÈëÁ÷
+     * @return è¾“å…¥æµ
      */
     public InputStream getInputStream() {
         return new FilterInputStream(zis) {
                 public void close() throws IOException {
-                    // ±ÜÃâ¹Ø±Õ
+                    // é¿å…å…³é—­
                 }
             };
     }
 
     /**
-     * ÉèÖÃzipÎÄ¼şµÄÊäÈëÁ÷¡£
+     * è®¾ç½®zipæ–‡ä»¶çš„è¾“å…¥æµã€‚
      *
-     * @param istream zipÎÄ¼şµÄÊäÈëÁ÷
+     * @param istream zipæ–‡ä»¶çš„è¾“å…¥æµ
      */
     public void setInputStream(InputStream istream) {
         if (istream != null) {
@@ -119,7 +119,7 @@ public class ZipScanner extends AbstractScanner {
     }
 
     /**
-     * È¡µÃµ±Ç°ÕıÔÚ´¦ÀíµÄzip entry¡£
+     * å–å¾—å½“å‰æ­£åœ¨å¤„ç†çš„zip entryã€‚
      *
      * @return zip entry
      */
@@ -128,7 +128,7 @@ public class ZipScanner extends AbstractScanner {
     }
 
     /**
-     * Ö´ĞĞÉ¨Ãè¡£
+     * æ‰§è¡Œæ‰«æã€‚
      */
     public void scan() {
         getScannerHandler().setScanner(this);
@@ -160,7 +160,7 @@ public class ZipScanner extends AbstractScanner {
     }
 
     /**
-     * Ö´ĞĞÉ¨Ãè¡£
+     * æ‰§è¡Œæ‰«æã€‚
      */
     protected void doScan() {
         try {

@@ -130,7 +130,7 @@ public class SettingsDialog extends Dialog {
     private void createFilesGroup(Composite composite) {
         composite.setLayout(new FormLayout());
 
-        // ÎÄ¼şÁĞ±í
+        // æ–‡ä»¶åˆ—è¡¨
         filesViewer = new TableViewer(composite, SWT.BORDER | SWT.FULL_SELECTION);
 
         filesViewer.setLabelProvider(new ITableLabelProvider() {
@@ -175,7 +175,7 @@ public class SettingsDialog extends Dialog {
         filesViewer.setComparator(new ViewerComparator());
         filesViewer.setInput(files);
 
-        // Ìí¼Ó¡¢É¾³ı°´Å¥
+        // æ·»åŠ ã€åˆ é™¤æŒ‰é’®
         Button addFolder = new Button(composite, SWT.NULL);
         Button addFile = new Button(composite, SWT.NULL);
         Button remove = new Button(composite, SWT.NULL);
@@ -210,7 +210,7 @@ public class SettingsDialog extends Dialog {
             }
         });
 
-        // ÉèÖÃlayout
+        // è®¾ç½®layout
         FormData data;
 
         data = new FormData(400, 300);
@@ -328,14 +328,14 @@ public class SettingsDialog extends Dialog {
             File parent = file.getParentFile();
 
             if (parent != null) {
-                dir = parent.getAbsoluteFile(); // µ±Ç°Ñ¡ÖĞÎÄ¼şµÄ¸¸Ä¿Â¼
+                dir = parent.getAbsoluteFile(); // å½“å‰é€‰ä¸­æ–‡ä»¶çš„çˆ¶ç›®å½•
             } else if (file.isDirectory()) {
-                dir = file.getAbsoluteFile(); // µ±Ç°Ñ¡ÖĞµÄÄ¿Â¼
+                dir = file.getAbsoluteFile(); // å½“å‰é€‰ä¸­çš„ç›®å½•
             }
         }
 
         if (dir == null) {
-            dir = new File("").getAbsoluteFile(); // µ±Ç°Ä¿Â¼
+            dir = new File("").getAbsoluteFile(); // å½“å‰ç›®å½•
         }
 
         return dir;
@@ -403,7 +403,7 @@ public class SettingsDialog extends Dialog {
     }
 
     /**
-     * ´ú±íÒ»¶Ôinclude/exclude patterns¡£
+     * ä»£è¡¨ä¸€å¯¹include/exclude patternsã€‚
      * 
      * @author Michael Zhou
      */

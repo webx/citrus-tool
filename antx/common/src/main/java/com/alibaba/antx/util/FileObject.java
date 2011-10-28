@@ -30,7 +30,7 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 /**
- * ´ú±íÒ»¸ö<code>File</code>µÄ¸¨ÖúÀà, ·½±ãÈ¡µÃ¾ø¶ÔºÍÏà¶ÔÂ·¾¶.
+ * ä»£è¡¨ä¸€ä¸ª<code>File</code>çš„è¾…åŠ©ç±», æ–¹ä¾¿å–å¾—ç»å¯¹å’Œç›¸å¯¹è·¯å¾„.
  *
  * @author Michael Zhou
  *
@@ -51,15 +51,15 @@ public class FileObject {
     private String               relpath;
 
     /**
-     * ´´½¨Ò»¸ö¿ÕµÄfile object¡£
+     * åˆ›å»ºä¸€ä¸ªç©ºçš„file objectã€‚
      */
     public FileObject() {
     }
 
     /**
-     * ´´½¨Ò»¸ö<code>FileObject</code>.
+     * åˆ›å»ºä¸€ä¸ª<code>FileObject</code>.
      *
-     * @param file ÎÄ¼ş
+     * @param file æ–‡ä»¶
      */
     public FileObject(File file) {
         this((file == null) ? null
@@ -67,19 +67,19 @@ public class FileObject {
     }
 
     /**
-     * ´´½¨Ò»¸ö<code>FileObject</code>.
+     * åˆ›å»ºä¸€ä¸ª<code>FileObject</code>.
      *
-     * @param path ÎÄ¼şÃû
+     * @param path æ–‡ä»¶å
      */
     public FileObject(String path) {
         setPath(path);
     }
 
     /**
-     * ´´½¨Ò»¸ö<code>FileObject</code>.
+     * åˆ›å»ºä¸€ä¸ª<code>FileObject</code>.
      *
-     * @param abspath ¾ø¶ÔÂ·¾¶
-     * @param relpath Ïà¶ÔÂ·¾¶
+     * @param abspath ç»å¯¹è·¯å¾„
+     * @param relpath ç›¸å¯¹è·¯å¾„
      */
     private FileObject(String abspath, String relpath) {
         this(abspath);
@@ -87,7 +87,7 @@ public class FileObject {
     }
 
     /**
-     * ÉèÖÃpath¡£
+     * è®¾ç½®pathã€‚
      *
      * @param path path
      */
@@ -108,72 +108,72 @@ public class FileObject {
     }
 
     /**
-     * È¡µÃ¾ø¶ÔÂ·¾¶.
+     * å–å¾—ç»å¯¹è·¯å¾„.
      *
-     * @return µ±Ç°<code>FileObject</code>µÄ¾ø¶ÔÂ·¾¶
+     * @return å½“å‰<code>FileObject</code>çš„ç»å¯¹è·¯å¾„
      */
     public String getAbsolutePath() {
         return toString(false, SLASH);
     }
 
     /**
-     * È¡µÃ¾ø¶ÔÂ·¾¶.
+     * å–å¾—ç»å¯¹è·¯å¾„.
      *
-     * @param sep ·Ö¸ô·û
+     * @param sep åˆ†éš”ç¬¦
      *
-     * @return µ±Ç°<code>FileObject</code>µÄ¾ø¶ÔÂ·¾¶
+     * @return å½“å‰<code>FileObject</code>çš„ç»å¯¹è·¯å¾„
      */
     public String getAbsolutePath(String sep) {
         return toString(false, sep);
     }
 
     /**
-     * È¡µÃÏà¶ÔÂ·¾¶.
+     * å–å¾—ç›¸å¯¹è·¯å¾„.
      *
-     * @return µ±Ç°<code>FileObject</code>µÄÏà¶ÔÂ·¾¶
+     * @return å½“å‰<code>FileObject</code>çš„ç›¸å¯¹è·¯å¾„
      */
     public String getRelativePath() {
         return toString(true, SLASH);
     }
 
     /**
-     * È¡µÃÏà¶ÔÂ·¾¶.
+     * å–å¾—ç›¸å¯¹è·¯å¾„.
      *
-     * @param sep ·Ö¸ô·û
+     * @param sep åˆ†éš”ç¬¦
      *
-     * @return µ±Ç°<code>FileObject</code>µÄÏà¶ÔÂ·¾¶
+     * @return å½“å‰<code>FileObject</code>çš„ç›¸å¯¹è·¯å¾„
      */
     public String getRelativePath(String sep) {
         return toString(true, sep);
     }
 
     /**
-     * È¡µÃ<code>File</code>¶ÔÏó.
+     * å–å¾—<code>File</code>å¯¹è±¡.
      *
-     * @return <code>File</code>¶ÔÏó
+     * @return <code>File</code>å¯¹è±¡
      */
     public File getFile() {
         return new File(abspath);
     }
 
     /**
-     * È¡µÃÏà¶ÔÓÚµ±Ç°<code>FileObject</code>µÄÂ·¾¶.
+     * å–å¾—ç›¸å¯¹äºå½“å‰<code>FileObject</code>çš„è·¯å¾„.
      *
-     * @param basedir ¸ùÄ¿Â¼
-     * @param path ÎÄ¼ş
+     * @param basedir æ ¹ç›®å½•
+     * @param path æ–‡ä»¶
      *
-     * @return Ïà¶ÔÓÚµ±Ç°<code>FileObject</code>µÄÂ·¾¶
+     * @return ç›¸å¯¹äºå½“å‰<code>FileObject</code>çš„è·¯å¾„
      */
     public FileObject newFileObject(FileObject basedir, String path) {
         return newFileObject(basedir.newFileObject(path).getFile());
     }
 
     /**
-     * È¡µÃÏà¶ÔÓÚµ±Ç°<code>FileObject</code>µÄÂ·¾¶.
+     * å–å¾—ç›¸å¯¹äºå½“å‰<code>FileObject</code>çš„è·¯å¾„.
      *
-     * @param file ÎÄ¼ş
+     * @param file æ–‡ä»¶
      *
-     * @return Ïà¶ÔÓÚµ±Ç°<code>FileObject</code>µÄÂ·¾¶
+     * @return ç›¸å¯¹äºå½“å‰<code>FileObject</code>çš„è·¯å¾„
      */
     public FileObject newFileObject(File file) {
         return newFileObject((file == null) ? null
@@ -181,11 +181,11 @@ public class FileObject {
     }
 
     /**
-     * È¡µÃÏà¶ÔÓÚµ±Ç°<code>FileObject</code>µÄÂ·¾¶.
+     * å–å¾—ç›¸å¯¹äºå½“å‰<code>FileObject</code>çš„è·¯å¾„.
      *
-     * @param path Â·¾¶
+     * @param path è·¯å¾„
      *
-     * @return Ïà¶ÔÓÚµ±Ç°<code>FileObject</code>µÄÂ·¾¶
+     * @return ç›¸å¯¹äºå½“å‰<code>FileObject</code>çš„è·¯å¾„
      */
     public FileObject newFileObject(String path) {
         path = normalizePath(path);
@@ -211,7 +211,7 @@ public class FileObject {
         String prefix = getSystemDependentPrefix(path);
 
         if (!prefix.equals(thisPrefix)) {
-            return new FileObject(path); // Èç¹û²»ÄÜ×ª³ÉÏà¶ÔÂ·¾¶, Ôò·µ»Ø¾ø¶ÔÂ·¾¶
+            return new FileObject(path); // å¦‚æœä¸èƒ½è½¬æˆç›¸å¯¹è·¯å¾„, åˆ™è¿”å›ç»å¯¹è·¯å¾„
         }
 
         String[]     thisParts = getPathParts(abspath, thisPrefix, isFile(abspath));
@@ -255,24 +255,24 @@ public class FileObject {
     }
 
     /**
-     * ½«Ö¸¶¨µÄÊı×éÖĞµÄÂ·¾¶, ×ª»»³ÉÏà¶ÔÓÚµ±Ç°<code>FileObject</code>µÄÊ÷.
+     * å°†æŒ‡å®šçš„æ•°ç»„ä¸­çš„è·¯å¾„, è½¬æ¢æˆç›¸å¯¹äºå½“å‰<code>FileObject</code>çš„æ ‘.
      *
-     * @param basedir ¸ùÄ¿Â¼
-     * @param paths Â·¾¶Êı×é
+     * @param basedir æ ¹ç›®å½•
+     * @param paths è·¯å¾„æ•°ç»„
      *
-     * @return Ê÷
+     * @return æ ‘
      */
     public Map tree(FileObject basedir, String[] paths) {
         return tree(basedir, Arrays.asList(paths));
     }
 
     /**
-     * ½«Ö¸¶¨µÄ¼¯ºÏÖĞµÄÂ·¾¶, ×ª»»³ÉÏà¶ÔÓÚµ±Ç°<code>FileObject</code>µÄÊ÷.
+     * å°†æŒ‡å®šçš„é›†åˆä¸­çš„è·¯å¾„, è½¬æ¢æˆç›¸å¯¹äºå½“å‰<code>FileObject</code>çš„æ ‘.
      *
-     * @param basedir ¸ùÄ¿Â¼
-     * @param paths Â·¾¶¼¯ºÏ
+     * @param basedir æ ¹ç›®å½•
+     * @param paths è·¯å¾„é›†åˆ
      *
-     * @return Ê÷
+     * @return æ ‘
      */
     public Map tree(FileObject basedir, Collection paths) {
         Map tree = new HashMap();
@@ -306,21 +306,21 @@ public class FileObject {
     }
 
     /**
-     * È¡µÃ¾ø¶ÔÂ·¾¶µÄ×Ö·û´®.
+     * å–å¾—ç»å¯¹è·¯å¾„çš„å­—ç¬¦ä¸².
      *
-     * @return ¾ø¶ÔÂ·¾¶µÄ×Ö·û´®
+     * @return ç»å¯¹è·¯å¾„çš„å­—ç¬¦ä¸²
      */
     public String toString() {
         return toString(false, SLASH);
     }
 
     /**
-     * È¡µÃÏà¶Ô»ò¾ø¶ÔÂ·¾¶µÄ×Ö·û´®.
+     * å–å¾—ç›¸å¯¹æˆ–ç»å¯¹è·¯å¾„çš„å­—ç¬¦ä¸².
      *
-     * @param relative ÊÇ·ñÎªÏà¶ÔÂ·¾¶
-     * @param sep Ê¹ÓÃÖ¸¶¨µÄ·Ö¸ô·û(¶ÔUNCÂ·¾¶ÎŞĞ§)
+     * @param relative æ˜¯å¦ä¸ºç›¸å¯¹è·¯å¾„
+     * @param sep ä½¿ç”¨æŒ‡å®šçš„åˆ†éš”ç¬¦(å¯¹UNCè·¯å¾„æ— æ•ˆ)
      *
-     * @return Ïà¶Ô»ò¾ø¶ÔÂ·¾¶µÄ×Ö·û´®
+     * @return ç›¸å¯¹æˆ–ç»å¯¹è·¯å¾„çš„å­—ç¬¦ä¸²
      */
     private String toString(boolean relative, String sep) {
         String path;
@@ -344,11 +344,11 @@ public class FileObject {
     }
 
     /**
-     * ÅĞ¶ÏÒ»¸öÂ·¾¶ÊÇ·ñÎªÎÄ¼ş.
+     * åˆ¤æ–­ä¸€ä¸ªè·¯å¾„æ˜¯å¦ä¸ºæ–‡ä»¶.
      *
-     * @param path Òª¼ì²éµÄÂ·¾¶
+     * @param path è¦æ£€æŸ¥çš„è·¯å¾„
      *
-     * @return Èç¹ûÊÇÎÄ¼ş, Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœæ˜¯æ–‡ä»¶, åˆ™è¿”å›<code>true</code>
      */
     private boolean isFile(String path) {
         if (path == null) {
@@ -361,11 +361,11 @@ public class FileObject {
     }
 
     /**
-     * ¹æ¸ñ»¯Â·¾¶, È·±£Â·¾¶·Ç¿Õ.
+     * è§„æ ¼åŒ–è·¯å¾„, ç¡®ä¿è·¯å¾„éç©º.
      *
-     * @param path Òª¹æ¸ñ»¯µÄÂ·¾¶
+     * @param path è¦è§„æ ¼åŒ–çš„è·¯å¾„
      *
-     * @return ¹æ¸ñ»¯µÄÂ·¾¶
+     * @return è§„æ ¼åŒ–çš„è·¯å¾„
      */
     private String normalizePath(String path) {
         if (path == null) {
@@ -382,33 +382,33 @@ public class FileObject {
     }
 
     /**
-     * ¼ì²éÖ¸¶¨Â·¾¶ÊÇ·ñÎªUNCÂ·¾¶.
+     * æ£€æŸ¥æŒ‡å®šè·¯å¾„æ˜¯å¦ä¸ºUNCè·¯å¾„.
      *
-     * @param path Òª¼ì²éµÄÂ·¾¶.
+     * @param path è¦æ£€æŸ¥çš„è·¯å¾„.
      *
-     * @return Èç¹ûÊÇUNCÂ·¾¶, Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœæ˜¯UNCè·¯å¾„, åˆ™è¿”å›<code>true</code>
      */
     private boolean isUncPath(String path) {
         return path.startsWith(UNC_PREFIX);
     }
 
     /**
-     * ¼ì²éÖ¸¶¨Â·¾¶ÊÇ·ñÒÔ"/"»ò"\\"½áÎ².
+     * æ£€æŸ¥æŒ‡å®šè·¯å¾„æ˜¯å¦ä»¥"/"æˆ–"\\"ç»“å°¾.
      *
-     * @param path Òª¼ì²éµÄÂ·¾¶.
+     * @param path è¦æ£€æŸ¥çš„è·¯å¾„.
      *
-     * @return Èç¹ûÒÔ"/"»ò"\\"½áÎ², Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœä»¥"/"æˆ–"\\"ç»“å°¾, åˆ™è¿”å›<code>true</code>
      */
     private boolean endsWithSlash(String path) {
         return path.endsWith(SLASH) || path.endsWith(BACKSLASH);
     }
 
     /**
-     * È¡µÃºÍÏµÍ³Ïà¹ØµÄÎÄ¼şÃûÇ°×º.  ¶ÔÓÚWindowsÏµÍ³, ¿ÉÄÜÊÇÇı¶¯Æ÷Ãû»òUNCÂ·¾¶Ç°×º"\\". Èç¹û²»´æÔÚÇ°×º, Ôò·µ»Ø¿Õ×Ö·û´®.
+     * å–å¾—å’Œç³»ç»Ÿç›¸å…³çš„æ–‡ä»¶åå‰ç¼€.  å¯¹äºWindowsç³»ç»Ÿ, å¯èƒ½æ˜¯é©±åŠ¨å™¨åæˆ–UNCè·¯å¾„å‰ç¼€"\\". å¦‚æœä¸å­˜åœ¨å‰ç¼€, åˆ™è¿”å›ç©ºå­—ç¬¦ä¸².
      *
-     * @param path ¾ø¶ÔÂ·¾¶
+     * @param path ç»å¯¹è·¯å¾„
      *
-     * @return ºÍÏµÍ³Ïà¹ØµÄÎÄ¼şÃûÇ°×º
+     * @return å’Œç³»ç»Ÿç›¸å…³çš„æ–‡ä»¶åå‰ç¼€
      */
     private String getSystemDependentPrefix(String path) {
         if (IS_WINDOWS) {
@@ -429,13 +429,13 @@ public class FileObject {
     }
 
     /**
-     * ½«path²ğ³ÉÈô¸É²¿·Ö, ²¢·ÅÈëÊı×éÖĞ.
+     * å°†pathæ‹†æˆè‹¥å¹²éƒ¨åˆ†, å¹¶æ”¾å…¥æ•°ç»„ä¸­.
      *
-     * @param path ¾ø¶ÔÂ·¾¶
-     * @param prefix Â·¾¶Ç°×º
-     * @param treatAsFile ¿´×÷ÎÄ¼ş
+     * @param path ç»å¯¹è·¯å¾„
+     * @param prefix è·¯å¾„å‰ç¼€
+     * @param treatAsFile çœ‹ä½œæ–‡ä»¶
      *
-     * @return Ö¸¶¨¾ø¶ÔÂ·¾¶µÄÆ¬¶ÎÊı×é
+     * @return æŒ‡å®šç»å¯¹è·¯å¾„çš„ç‰‡æ®µæ•°ç»„
      */
     private String[] getPathParts(String path, String prefix, boolean treatAsFile) {
         StringTokenizer tokenizer = new StringTokenizer(path.substring(prefix.length()), FILE_SEP);

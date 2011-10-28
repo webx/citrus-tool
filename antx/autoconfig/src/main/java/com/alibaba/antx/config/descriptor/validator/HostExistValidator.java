@@ -62,6 +62,6 @@ public class HostExistValidator extends ConfigValidator {
 
     @Override
     protected String getDefaultMessage() {
-        return "·Ç·¨µÄÓòÃû»òIP£º" + hostname;
+        return "éæ³•çš„åŸŸåæˆ–IPï¼š" + hostname;
     }
 }

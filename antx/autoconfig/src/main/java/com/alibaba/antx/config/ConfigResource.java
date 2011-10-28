@@ -25,7 +25,7 @@ import java.net.URL;
 import java.net.URLDecoder;
 
 /**
- * ´ú±íÒ»¸öConfigEntryËù´ú±íµÄ×ÊÔ´£¬¿ÉÒÔÊÇURL¡¢FileµÈ¡£
+ * ä»£è¡¨ä¸€ä¸ªConfigEntryæ‰€ä»£è¡¨çš„èµ„æºï¼Œå¯ä»¥æ˜¯URLã€Fileç­‰ã€‚
  * 
  * @author Michael Zhou
  */
@@ -58,7 +58,7 @@ public final class ConfigResource {
             throw new IllegalArgumentException("missing file or url");
         }
 
-        // ´¦Àíname
+        // å¤„ç†name
         if (name == null) {
             if (file != null) {
                 name = file.getName();
@@ -91,7 +91,7 @@ public final class ConfigResource {
             name = name.substring(1);
         }
 
-        // ´¦Àíurl
+        // å¤„ç†url
         if (file != null) {
             try {
                 url = file.toURI().toURL();
@@ -133,7 +133,7 @@ public final class ConfigResource {
             }
         }
 
-        // ´¦Àífile
+        // å¤„ç†file
         if (file != null) {
             file = file.getAbsoluteFile();
         }
@@ -145,10 +145,10 @@ public final class ConfigResource {
     }
 
     /**
-     * È¡µÃURLµÄÎÄ¼şÃû¡£
+     * å–å¾—URLçš„æ–‡ä»¶åã€‚
      * 
      * @param url URL
-     * @return URLËù±íÊ¾µÄµÄÎÄ¼şÃû
+     * @return URLæ‰€è¡¨ç¤ºçš„çš„æ–‡ä»¶å
      */
     private static String[] getURLName(URL url) {
         String urlStr = url.toExternalForm();

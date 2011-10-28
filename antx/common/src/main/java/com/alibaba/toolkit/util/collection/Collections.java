@@ -30,168 +30,168 @@ import java.util.SortedMap;
 import java.util.SortedSet;
 
 /**
- * Õâ¸öÀàÊÇ<code>java.util.Collections</code>ÀàµÄÀ©Õ¹, °üÀ¨ÁË¶Ô<code>ListMap</code>½Ó¿ÚµÄÖ§³Ö.
+ * è¿™ä¸ªç±»æ˜¯<code>java.util.Collections</code>ç±»çš„æ‰©å±•, åŒ…æ‹¬äº†å¯¹<code>ListMap</code>æ¥å£çš„æ”¯æŒ.
  *
  * @version $Id: Collections.java,v 1.1 2003/07/03 07:26:15 baobao Exp $
  * @author Michael Zhou
  */
 public class Collections {
     /**
-     * È¡µÃÒ»¸öÏß³Ì°²È«µÄ<code>Collection</code>¶ÔÏó.
+     * å–å¾—ä¸€ä¸ªçº¿ç¨‹å®‰å…¨çš„<code>Collection</code>å¯¹è±¡.
      *
-     * @param collection ±»°ü×°µÄ<code>Collection</code>¶ÔÏó
+     * @param collection è¢«åŒ…è£…çš„<code>Collection</code>å¯¹è±¡
      *
-     * @return Ïß³Ì°²È«µÄ<code>Collection</code>¶ÔÏó
+     * @return çº¿ç¨‹å®‰å…¨çš„<code>Collection</code>å¯¹è±¡
      */
     public static Collection synchronizedCollection(Collection collection) {
         return new SynchronizedCollection(collection);
     }
 
     /**
-     * È¡µÃÒ»¸öÏß³Ì°²È«µÄ<code>Collection</code>¶ÔÏó.
+     * å–å¾—ä¸€ä¸ªçº¿ç¨‹å®‰å…¨çš„<code>Collection</code>å¯¹è±¡.
      *
-     * @param collection ±»°ü×°µÄ<code>Collection</code>¶ÔÏó
-     * @param syncRoot   Í¬²½¶ÔÏó
+     * @param collection è¢«åŒ…è£…çš„<code>Collection</code>å¯¹è±¡
+     * @param syncRoot   åŒæ­¥å¯¹è±¡
      *
-     * @return Ïß³Ì°²È«µÄ<code>Collection</code>¶ÔÏó
+     * @return çº¿ç¨‹å®‰å…¨çš„<code>Collection</code>å¯¹è±¡
      */
     public static Collection synchronizedCollection(Collection collection, Object syncRoot) {
         return new SynchronizedCollection(collection, syncRoot);
     }
 
     /**
-     * È¡µÃÒ»¸öÏß³Ì°²È«µÄ<code>Set</code>¶ÔÏó.
+     * å–å¾—ä¸€ä¸ªçº¿ç¨‹å®‰å…¨çš„<code>Set</code>å¯¹è±¡.
      *
-     * @param set ±»°ü×°µÄ<code>Set</code>¶ÔÏó
+     * @param set è¢«åŒ…è£…çš„<code>Set</code>å¯¹è±¡
      *
-     * @return Ïß³Ì°²È«µÄ<code>Set</code>¶ÔÏó
+     * @return çº¿ç¨‹å®‰å…¨çš„<code>Set</code>å¯¹è±¡
      */
     public static Set synchronizedSet(Set set) {
         return new SynchronizedSet(set);
     }
 
     /**
-     * È¡µÃÒ»¸öÏß³Ì°²È«µÄ<code>Set</code>¶ÔÏó.
+     * å–å¾—ä¸€ä¸ªçº¿ç¨‹å®‰å…¨çš„<code>Set</code>å¯¹è±¡.
      *
-     * @param set        ±»°ü×°µÄ<code>Set</code>¶ÔÏó
-     * @param syncRoot   Í¬²½¶ÔÏó
+     * @param set        è¢«åŒ…è£…çš„<code>Set</code>å¯¹è±¡
+     * @param syncRoot   åŒæ­¥å¯¹è±¡
      *
-     * @return Ïß³Ì°²È«µÄ<code>Set</code>¶ÔÏó
+     * @return çº¿ç¨‹å®‰å…¨çš„<code>Set</code>å¯¹è±¡
      */
     public static Set synchronizedSet(Set set, Object syncRoot) {
         return new SynchronizedSet(set, syncRoot);
     }
 
     /**
-     * È¡µÃÒ»¸öÏß³Ì°²È«µÄ<code>SortedSet</code>¶ÔÏó.
+     * å–å¾—ä¸€ä¸ªçº¿ç¨‹å®‰å…¨çš„<code>SortedSet</code>å¯¹è±¡.
      *
-     * @param set ±»°ü×°µÄ<code>SortedSet</code>¶ÔÏó
+     * @param set è¢«åŒ…è£…çš„<code>SortedSet</code>å¯¹è±¡
      *
-     * @return Ïß³Ì°²È«µÄ<code>SortedSet</code>¶ÔÏó
+     * @return çº¿ç¨‹å®‰å…¨çš„<code>SortedSet</code>å¯¹è±¡
      */
     public static SortedSet synchronizedSortedSet(SortedSet set) {
         return new SynchronizedSortedSet(set);
     }
 
     /**
-     * È¡µÃÒ»¸öÏß³Ì°²È«µÄ<code>SortedSet</code>¶ÔÏó.
+     * å–å¾—ä¸€ä¸ªçº¿ç¨‹å®‰å…¨çš„<code>SortedSet</code>å¯¹è±¡.
      *
-     * @param set        ±»°ü×°µÄ<code>SortedSet</code>¶ÔÏó
-     * @param syncRoot   Í¬²½¶ÔÏó
+     * @param set        è¢«åŒ…è£…çš„<code>SortedSet</code>å¯¹è±¡
+     * @param syncRoot   åŒæ­¥å¯¹è±¡
      *
-     * @return Ïß³Ì°²È«µÄ<code>SortedSet</code>¶ÔÏó
+     * @return çº¿ç¨‹å®‰å…¨çš„<code>SortedSet</code>å¯¹è±¡
      */
     public static SortedSet synchronizedSortedSet(SortedSet set, Object syncRoot) {
         return new SynchronizedSortedSet(set, syncRoot);
     }
 
     /**
-     * È¡µÃÒ»¸öÏß³Ì°²È«µÄ<code>List</code>¶ÔÏó.
+     * å–å¾—ä¸€ä¸ªçº¿ç¨‹å®‰å…¨çš„<code>List</code>å¯¹è±¡.
      *
-     * @param list       ±»°ü×°µÄ<code>List</code>¶ÔÏó
+     * @param list       è¢«åŒ…è£…çš„<code>List</code>å¯¹è±¡
      *
-     * @return Ïß³Ì°²È«µÄ<code>List</code>¶ÔÏó
+     * @return çº¿ç¨‹å®‰å…¨çš„<code>List</code>å¯¹è±¡
      */
     public static List synchronizedList(List list) {
         return new SynchronizedList(list);
     }
 
     /**
-     * È¡µÃÒ»¸öÏß³Ì°²È«µÄ<code>List</code>¶ÔÏó.
+     * å–å¾—ä¸€ä¸ªçº¿ç¨‹å®‰å…¨çš„<code>List</code>å¯¹è±¡.
      *
-     * @param list       ±»°ü×°µÄ<code>List</code>¶ÔÏó
-     * @param syncRoot   Í¬²½¶ÔÏó
+     * @param list       è¢«åŒ…è£…çš„<code>List</code>å¯¹è±¡
+     * @param syncRoot   åŒæ­¥å¯¹è±¡
      *
-     * @return Ïß³Ì°²È«µÄ<code>List</code>¶ÔÏó
+     * @return çº¿ç¨‹å®‰å…¨çš„<code>List</code>å¯¹è±¡
      */
     public static List synchronizedList(List list, Object syncRoot) {
         return new SynchronizedList(list, syncRoot);
     }
 
     /**
-     * È¡µÃÒ»¸öÏß³Ì°²È«µÄ<code>Map</code>¶ÔÏó.
+     * å–å¾—ä¸€ä¸ªçº¿ç¨‹å®‰å…¨çš„<code>Map</code>å¯¹è±¡.
      *
-     * @param map        ±»°ü×°µÄ<code>Map</code>¶ÔÏó
+     * @param map        è¢«åŒ…è£…çš„<code>Map</code>å¯¹è±¡
      *
-     * @return Ïß³Ì°²È«µÄ<code>Map</code>¶ÔÏó
+     * @return çº¿ç¨‹å®‰å…¨çš„<code>Map</code>å¯¹è±¡
      */
     public static Map synchronizedMap(Map map) {
         return new SynchronizedMap(map);
     }
 
     /**
-     * È¡µÃÒ»¸öÏß³Ì°²È«µÄ<code>Map</code>¶ÔÏó.
+     * å–å¾—ä¸€ä¸ªçº¿ç¨‹å®‰å…¨çš„<code>Map</code>å¯¹è±¡.
      *
-     * @param map        ±»°ü×°µÄ<code>Map</code>¶ÔÏó
-     * @param syncRoot   Í¬²½¶ÔÏó
+     * @param map        è¢«åŒ…è£…çš„<code>Map</code>å¯¹è±¡
+     * @param syncRoot   åŒæ­¥å¯¹è±¡
      *
-     * @return Ïß³Ì°²È«µÄ<code>Map</code>¶ÔÏó
+     * @return çº¿ç¨‹å®‰å…¨çš„<code>Map</code>å¯¹è±¡
      */
     public static Map synchronizedMap(Map map, Object syncRoot) {
         return new SynchronizedMap(map, syncRoot);
     }
 
     /**
-     * È¡µÃÒ»¸öÏß³Ì°²È«µÄ<code>SortedMap</code>¶ÔÏó.
+     * å–å¾—ä¸€ä¸ªçº¿ç¨‹å®‰å…¨çš„<code>SortedMap</code>å¯¹è±¡.
      *
-     * @param map        ±»°ü×°µÄ<code>SortedMap</code>¶ÔÏó
+     * @param map        è¢«åŒ…è£…çš„<code>SortedMap</code>å¯¹è±¡
      *
-     * @return Ïß³Ì°²È«µÄ<code>SortedMap</code>¶ÔÏó
+     * @return çº¿ç¨‹å®‰å…¨çš„<code>SortedMap</code>å¯¹è±¡
      */
     public static SortedMap synchronizedSortedMap(SortedMap map) {
         return new SynchronizedSortedMap(map);
     }
 
     /**
-     * È¡µÃÒ»¸öÏß³Ì°²È«µÄ<code>SortedMap</code>¶ÔÏó.
+     * å–å¾—ä¸€ä¸ªçº¿ç¨‹å®‰å…¨çš„<code>SortedMap</code>å¯¹è±¡.
      *
-     * @param map        ±»°ü×°µÄ<code>SortedMap</code>¶ÔÏó
-     * @param syncRoot   Í¬²½¶ÔÏó
+     * @param map        è¢«åŒ…è£…çš„<code>SortedMap</code>å¯¹è±¡
+     * @param syncRoot   åŒæ­¥å¯¹è±¡
      *
-     * @return Ïß³Ì°²È«µÄ<code>SortedMap</code>¶ÔÏó
+     * @return çº¿ç¨‹å®‰å…¨çš„<code>SortedMap</code>å¯¹è±¡
      */
     public static SortedMap synchronizedSortedMap(SortedMap map, Object syncRoot) {
         return new SynchronizedSortedMap(map, syncRoot);
     }
 
     /**
-     * È¡µÃÒ»¸öÏß³Ì°²È«µÄ<code>ListMap</code>¶ÔÏó.
+     * å–å¾—ä¸€ä¸ªçº¿ç¨‹å®‰å…¨çš„<code>ListMap</code>å¯¹è±¡.
      *
-     * @param map        ±»°ü×°µÄ<code>ListMap</code>¶ÔÏó
+     * @param map        è¢«åŒ…è£…çš„<code>ListMap</code>å¯¹è±¡
      *
-     * @return Ïß³Ì°²È«µÄ<code>ListMap</code>¶ÔÏó
+     * @return çº¿ç¨‹å®‰å…¨çš„<code>ListMap</code>å¯¹è±¡
      */
     public static ListMap synchronizedListMap(ListMap map) {
         return new SynchronizedListMap(map);
     }
 
     /**
-     * È¡µÃÒ»¸öÏß³Ì°²È«µÄ<code>ListMap</code>¶ÔÏó.
+     * å–å¾—ä¸€ä¸ªçº¿ç¨‹å®‰å…¨çš„<code>ListMap</code>å¯¹è±¡.
      *
-     * @param map        ±»°ü×°µÄ<code>ListMap</code>¶ÔÏó
-     * @param syncRoot   Í¬²½¶ÔÏó
+     * @param map        è¢«åŒ…è£…çš„<code>ListMap</code>å¯¹è±¡
+     * @param syncRoot   åŒæ­¥å¯¹è±¡
      *
-     * @return Ïß³Ì°²È«µÄ<code>ListMap</code>¶ÔÏó
+     * @return çº¿ç¨‹å®‰å…¨çš„<code>ListMap</code>å¯¹è±¡
      */
     public static ListMap synchronizedListMap(ListMap map, Object syncRoot) {
         return new SynchronizedListMap(map, syncRoot);
@@ -199,7 +199,7 @@ public class Collections {
 }
 
 /**
- * Ïß³Ì°²È«µÄ<code>Collection</code>µÄ°ü×°Æ÷.
+ * çº¿ç¨‹å®‰å…¨çš„<code>Collection</code>çš„åŒ…è£…å™¨.
  */
 class SynchronizedCollection implements Collection, Serializable {
     private static final long serialVersionUID = 3053995032091335093L;
@@ -305,7 +305,7 @@ class SynchronizedCollection implements Collection, Serializable {
 }
 
 /**
- * Ïß³Ì°²È«µÄ<code>Set</code>µÄ°ü×°Æ÷.
+ * çº¿ç¨‹å®‰å…¨çš„<code>Set</code>çš„åŒ…è£…å™¨.
  */
 class SynchronizedSet extends SynchronizedCollection implements Set {
     private static final long serialVersionUID = -1688591608929270671L;
@@ -332,7 +332,7 @@ class SynchronizedSet extends SynchronizedCollection implements Set {
 }
 
 /**
- * Ïß³Ì°²È«µÄ<code>SortedSet</code>µÄ°ü×°Æ÷.
+ * çº¿ç¨‹å®‰å…¨çš„<code>SortedSet</code>çš„åŒ…è£…å™¨.
  */
 class SynchronizedSortedSet extends SynchronizedSet implements SortedSet {
     private static final long serialVersionUID = -4254250562122002613L;
@@ -387,7 +387,7 @@ class SynchronizedSortedSet extends SynchronizedSet implements SortedSet {
 }
 
 /**
- * Ïß³Ì°²È«µÄ<code>List</code>µÄ°ü×°Æ÷.
+ * çº¿ç¨‹å®‰å…¨çš„<code>List</code>çš„åŒ…è£…å™¨.
  */
 class SynchronizedList extends SynchronizedCollection implements List {
     private static final long serialVersionUID = -7754090372962971524L;
@@ -471,7 +471,7 @@ class SynchronizedList extends SynchronizedCollection implements List {
 }
 
 /**
- * Ïß³Ì°²È«µÄ<code>Map</code>µÄ°ü×°Æ÷.
+ * çº¿ç¨‹å®‰å…¨çš„<code>Map</code>çš„åŒ…è£…å™¨.
  */
 class SynchronizedMap implements Map, Serializable {
     private static final long serialVersionUID = 1978198479659022715L;
@@ -601,7 +601,7 @@ class SynchronizedMap implements Map, Serializable {
 }
 
 /**
- * Ïß³Ì°²È«µÄ<code>SortedMap</code>µÄ°ü×°Æ÷.
+ * çº¿ç¨‹å®‰å…¨çš„<code>SortedMap</code>çš„åŒ…è£…å™¨.
  */
 class SynchronizedSortedMap extends SynchronizedMap implements SortedMap {
     private static final long serialVersionUID = -4739449073617952001L;
@@ -653,7 +653,7 @@ class SynchronizedSortedMap extends SynchronizedMap implements SortedMap {
 }
 
 /**
- * Ïß³Ì°²È«µÄ<code>Collection</code>µÄ°ü×°Æ÷.
+ * çº¿ç¨‹å®‰å…¨çš„<code>Collection</code>çš„åŒ…è£…å™¨.
  */
 class SynchronizedListMap extends SynchronizedMap implements ListMap {
     private static final long serialVersionUID = -8069282343682823184L;

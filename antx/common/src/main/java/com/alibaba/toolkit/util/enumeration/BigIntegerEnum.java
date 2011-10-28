@@ -21,7 +21,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
- * ÀàĞÍ°²È«µÄÃ¶¾ÙÀàĞÍ, ´ú±íÒ»¸ö³¬³¤ÕûÊı.
+ * ç±»å‹å®‰å…¨çš„æšä¸¾ç±»å‹, ä»£è¡¨ä¸€ä¸ªè¶…é•¿æ•´æ•°.
  *
  * @version $Id: BigIntegerEnum.java,v 1.1 2003/07/03 07:26:20 baobao Exp $
  * @author Michael Zhou
@@ -30,68 +30,68 @@ public abstract class BigIntegerEnum extends Enum {
     static final long serialVersionUID = 3407019802348379119L;
 
     /**
-     * ´´½¨Ò»¸öÃ¶¾ÙÁ¿.
+     * åˆ›å»ºä¸€ä¸ªæšä¸¾é‡.
      *
-     * @param name Ã¶¾ÙÁ¿µÄÃû³Æ
+     * @param name æšä¸¾é‡çš„åç§°
      */
     protected BigIntegerEnum(String name) {
         super(name);
     }
 
     /**
-     * ´´½¨Ò»¸öÃ¶¾ÙÁ¿.
+     * åˆ›å»ºä¸€ä¸ªæšä¸¾é‡.
      *
-     * @param name  Ã¶¾ÙÁ¿µÄÃû³Æ
-     * @param value Ã¶¾ÙÁ¿µÄ³¬³¤ÕûÊıÖµ
+     * @param name  æšä¸¾é‡çš„åç§°
+     * @param value æšä¸¾é‡çš„è¶…é•¿æ•´æ•°å€¼
      */
     protected BigIntegerEnum(String name, int value) {
         super(name, new BigInteger(String.valueOf(value)));
     }
 
     /**
-     * ´´½¨Ò»¸öÃ¶¾ÙÁ¿.
+     * åˆ›å»ºä¸€ä¸ªæšä¸¾é‡.
      *
-     * @param name  Ã¶¾ÙÁ¿µÄÃû³Æ
-     * @param value Ã¶¾ÙÁ¿µÄ³¬³¤ÕûÊıÖµ
+     * @param name  æšä¸¾é‡çš„åç§°
+     * @param value æšä¸¾é‡çš„è¶…é•¿æ•´æ•°å€¼
      */
     protected BigIntegerEnum(String name, long value) {
         super(name, new BigInteger(String.valueOf(value)));
     }
 
     /**
-     * ´´½¨Ò»¸öÃ¶¾ÙÁ¿.
+     * åˆ›å»ºä¸€ä¸ªæšä¸¾é‡.
      *
-     * @param name  Ã¶¾ÙÁ¿µÄÃû³Æ
-     * @param value Ã¶¾ÙÁ¿µÄ³¬³¤ÕûÊıÖµ
+     * @param name  æšä¸¾é‡çš„åç§°
+     * @param value æšä¸¾é‡çš„è¶…é•¿æ•´æ•°å€¼
      */
     protected BigIntegerEnum(String name, String value) {
         super(name, new BigInteger(value));
     }
 
     /**
-     * ´´½¨Ò»¸öÃ¶¾ÙÁ¿.
+     * åˆ›å»ºä¸€ä¸ªæšä¸¾é‡.
      *
-     * @param name  Ã¶¾ÙÁ¿µÄÃû³Æ
-     * @param value Ã¶¾ÙÁ¿µÄ³¬³¤ÕûÊıÖµ
+     * @param name  æšä¸¾é‡çš„åç§°
+     * @param value æšä¸¾é‡çš„è¶…é•¿æ•´æ•°å€¼
      */
     protected BigIntegerEnum(String name, BigInteger value) {
         super(name, value);
     }
 
     /**
-     * ´´½¨Ò»¸öÃ¶¾ÙÁ¿.
+     * åˆ›å»ºä¸€ä¸ªæšä¸¾é‡.
      *
-     * @param name  Ã¶¾ÙÁ¿µÄÃû³Æ
-     * @param value Ã¶¾ÙÁ¿µÄ³¬³¤ÕûÊıÖµ
+     * @param name  æšä¸¾é‡çš„åç§°
+     * @param value æšä¸¾é‡çš„è¶…é•¿æ•´æ•°å€¼
      */
     protected BigIntegerEnum(String name, BigDecimal value) {
         super(name, value.toBigInteger());
     }
 
     /**
-     * ´´½¨Ò»¸öÃ¶¾ÙÀàĞÍµÄ<code>EnumType</code>.
+     * åˆ›å»ºä¸€ä¸ªæšä¸¾ç±»å‹çš„<code>EnumType</code>.
      *
-     * @return Ã¶¾ÙÀàĞÍµÄ<code>EnumType</code>
+     * @return æšä¸¾ç±»å‹çš„<code>EnumType</code>
      */
     protected static Object createEnumType() {
         return new EnumType() {
@@ -102,11 +102,11 @@ public abstract class BigIntegerEnum extends Enum {
             protected Object getNextValue(Object value, boolean flagMode) {
                 if (value == null) {
                     return flagMode ? BigInteger.ONE
-                                    : BigInteger.ZERO; // Ä¬ÈÏÆğÊ¼Öµ
+                                    : BigInteger.ZERO; // é»˜è®¤èµ·å§‹å€¼
                 }
 
                 if (flagMode) {
-                    return ((BigInteger) value).shiftLeft(1); // Î»Ä£Ê½
+                    return ((BigInteger) value).shiftLeft(1); // ä½æ¨¡å¼
                 } else {
                     return ((BigInteger) value).add(BigInteger.ONE);
                 }
@@ -130,63 +130,63 @@ public abstract class BigIntegerEnum extends Enum {
     }
 
     /**
-     * ÊµÏÖ<code>Number</code>Àà, È¡µÃÕûÊıÖµ.
+     * å®ç°<code>Number</code>ç±», å–å¾—æ•´æ•°å€¼.
      *
-     * @return ÕûÊıÖµ
+     * @return æ•´æ•°å€¼
      */
     public int intValue() {
         return ((BigInteger) getValue()).intValue();
     }
 
     /**
-     * ÊµÏÖ<code>Number</code>Àà, È¡µÃ³¤ÕûÊıÖµ.
+     * å®ç°<code>Number</code>ç±», å–å¾—é•¿æ•´æ•°å€¼.
      *
-     * @return ³¤ÕûÊıÖµ
+     * @return é•¿æ•´æ•°å€¼
      */
     public long longValue() {
         return ((BigInteger) getValue()).longValue();
     }
 
     /**
-     * ÊµÏÖ<code>Number</code>Àà, È¡µÃ<code>double</code>Öµ.
+     * å®ç°<code>Number</code>ç±», å–å¾—<code>double</code>å€¼.
      *
-     * @return <code>double</code>Öµ
+     * @return <code>double</code>å€¼
      */
     public double doubleValue() {
         return ((BigInteger) getValue()).doubleValue();
     }
 
     /**
-     * ÊµÏÖ<code>Number</code>Àà, È¡µÃ<code>float</code>Öµ.
+     * å®ç°<code>Number</code>ç±», å–å¾—<code>float</code>å€¼.
      *
-     * @return <code>float</code>Öµ
+     * @return <code>float</code>å€¼
      */
     public float floatValue() {
         return ((BigInteger) getValue()).floatValue();
     }
 
     /**
-     * ÊµÏÖ<code>IntegralNumber</code>Àà, ×ª»»³ÉÊ®Áù½øÖÆÕûÊı×Ö·û´®.
+     * å®ç°<code>IntegralNumber</code>ç±», è½¬æ¢æˆåå…­è¿›åˆ¶æ•´æ•°å­—ç¬¦ä¸².
      *
-     * @return Ê®Áù½øÖÆÕûÊı×Ö·û´®
+     * @return åå…­è¿›åˆ¶æ•´æ•°å­—ç¬¦ä¸²
      */
     public String toHexString() {
         return ((BigInteger) getValue()).toString(RADIX_HEX);
     }
 
     /**
-     * ÊµÏÖ<code>IntegralNumber</code>Àà, ×ª»»³É°Ë½øÖÆÕûÊı×Ö·û´®.
+     * å®ç°<code>IntegralNumber</code>ç±», è½¬æ¢æˆå…«è¿›åˆ¶æ•´æ•°å­—ç¬¦ä¸².
      *
-     * @return °Ë½øÖÆÕûÊı×Ö·û´®
+     * @return å…«è¿›åˆ¶æ•´æ•°å­—ç¬¦ä¸²
      */
     public String toOctalString() {
         return ((BigInteger) getValue()).toString(RADIX_OCT);
     }
 
     /**
-     * ÊµÏÖ<code>IntegralNumber</code>Àà, ×ª»»³É¶ş½øÖÆÕûÊı×Ö·û´®.
+     * å®ç°<code>IntegralNumber</code>ç±», è½¬æ¢æˆäºŒè¿›åˆ¶æ•´æ•°å­—ç¬¦ä¸².
      *
-     * @return ¶ş½øÖÆÕûÊı×Ö·û´®
+     * @return äºŒè¿›åˆ¶æ•´æ•°å­—ç¬¦ä¸²
      */
     public String toBinaryString() {
         return ((BigInteger) getValue()).toString(RADIX_BIN);

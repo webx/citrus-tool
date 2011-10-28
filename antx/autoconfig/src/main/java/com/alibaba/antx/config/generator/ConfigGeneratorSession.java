@@ -52,7 +52,7 @@ import com.alibaba.antx.util.StringUtil;
 import com.alibaba.antx.util.i18n.LocaleInfo;
 
 /**
- * ´ú±íÒ»×éÔËĞĞÊ±×´Ì¬¡£
+ * ä»£è¡¨ä¸€ç»„è¿è¡Œæ—¶çŠ¶æ€ã€‚
  */
 public class ConfigGeneratorSession {
     protected final ConfigGenerator generator;
@@ -71,7 +71,7 @@ public class ConfigGeneratorSession {
         this.processedDestfiles = new HashSet<String>();
         this.lazyGenerateItems = new HashMap<String, LazyGenerateItem>();
 
-        // ³õÊ¼»¯ÈÕÖ¾£¬½«±»Ğ´Èëµ½ºÍdescriptor²¢ÁĞµÄÄ¿Â¼ÖĞ¡£
+        // åˆå§‹åŒ–æ—¥å¿—ï¼Œå°†è¢«å†™å…¥åˆ°å’Œdescriptorå¹¶åˆ—çš„ç›®å½•ä¸­ã€‚
         ConfigDescriptor[] descriptors = generator.getConfigDescriptors();
         Date now = new Date();
 
@@ -82,7 +82,7 @@ public class ConfigGeneratorSession {
 
             descriptorLogs.put(descriptorName, new Object[] { logBuffer, log, descriptor });
 
-            // ³õÊ¼ÈÕÖ¾ÄÚÈİ
+            // åˆå§‹æ—¥å¿—å†…å®¹
             log.println("Last Configured at: " + now);
             log.println();
 
@@ -93,21 +93,21 @@ public class ConfigGeneratorSession {
     }
 
     /**
-     * ÉèÖÃµ±Ç°ÊäÈëÁ÷¡£
+     * è®¾ç½®å½“å‰è¾“å…¥æµã€‚
      */
     public void setInputStream(InputStream istream) {
         this.currentInputStream = istream;
     }
 
     /**
-     * ÉèÖÃµ±Ç°Êä³öÁ÷¡£
+     * è®¾ç½®å½“å‰è¾“å‡ºæµã€‚
      */
     public void setOutputStream(OutputStream ostream) {
         this.currentOutputStream = ostream;
     }
 
     /**
-     * È¡µÃvelocity context¡£
+     * å–å¾—velocity contextã€‚
      */
     public Context getVelocityContext() {
         if (currentGenerate == null) {
@@ -153,14 +153,14 @@ public class ConfigGeneratorSession {
             }
         };
 
-        eventCartridge.attachToContext(context); // ÔÊĞíÊ¹ÓÃ${a.b.c}
-        context.put("D", "$"); // ¿ÉÒÔÓÃ${D}À´Éú³É$
+        eventCartridge.attachToContext(context); // å…è®¸ä½¿ç”¨${a.b.c}
+        context.put("D", "$"); // å¯ä»¥ç”¨${D}æ¥ç”Ÿæˆ$
 
         return context;
     }
 
     /**
-     * ½«ËùÓĞtemplateÉú³ÉÏàÓ¦µÄÎÄ¼ş£¬²¢Éú³ÉÈÕÖ¾¡£
+     * å°†æ‰€æœ‰templateç”Ÿæˆç›¸åº”çš„æ–‡ä»¶ï¼Œå¹¶ç”Ÿæˆæ—¥å¿—ã€‚
      */
     public boolean generate(ConfigGeneratorCallback callback) {
         boolean allSuccess = true;
@@ -175,7 +175,7 @@ public class ConfigGeneratorSession {
     }
 
     /**
-     * ¸ù¾İÖ¸¶¨µÄtemplate£¬Éú³ÉÏàÓ¦µÄÎÄ¼ş¡£
+     * æ ¹æ®æŒ‡å®šçš„templateï¼Œç”Ÿæˆç›¸åº”çš„æ–‡ä»¶ã€‚
      */
     public boolean generate(String template, ConfigGeneratorCallback callback) {
         List<ConfigGenerate> generates = generator.generateTemplateFilesIncludingMetaInfos.get(template);
@@ -212,7 +212,7 @@ public class ConfigGeneratorSession {
     }
 
     private boolean generate(String template, ConfigGenerate generate, InputStream istream, OutputStream ostream) {
-        // ¼ÇÂ¼´¦Àí¹ıµÄdestfiles
+        // è®°å½•å¤„ç†è¿‡çš„destfiles
         processedDestfiles.add(generate.getDestfile());
 
         String charset = generate.getCharset();
@@ -239,13 +239,13 @@ public class ConfigGeneratorSession {
             reader = new BufferedReader(new InputStreamReader(istream, charset)) {
                 @Override
                 public void close() throws IOException {
-                    // ±ÜÃâ¹Ø±Õ
+                    // é¿å…å…³é—­
                 }
             };
             writer = new BufferedWriter(new OutputStreamWriter(ostream, outputCharset)) {
                 @Override
                 public void close() throws IOException {
-                    // ±ÜÃâ¹Ø±Õ
+                    // é¿å…å…³é—­
                 }
             };
 
@@ -276,7 +276,7 @@ public class ConfigGeneratorSession {
     private final static Pattern encodingPattern = Pattern.compile("encoding\\s*=\\s*[\\\"|']([^\\\"|']+)[\\\"|']");
 
     /**
-     * ´ÓÊäÈëÁ÷ÖĞ²Â²âcharset¡£
+     * ä»è¾“å…¥æµä¸­çŒœæµ‹charsetã€‚
      */
     private String guessCharsetEncoding(BufferedInputStream istream) {
         String str;
@@ -325,7 +325,7 @@ public class ConfigGeneratorSession {
                             .getCharset())) {
                         @Override
                         public void close() throws IOException {
-                            // ±ÜÃâ¹Ø±Õ
+                            // é¿å…å…³é—­
                         }
                     };
 
@@ -368,7 +368,7 @@ public class ConfigGeneratorSession {
                 String destname = generate.getDestfile();
 
                 if (!processedDestfiles.contains(destname)) {
-                    // ½«WEB-INF/web.xml¸´ÖÆµ½META-INF/autoconf/WEB-INF/web.xml
+                    // å°†WEB-INF/web.xmlå¤åˆ¶åˆ°META-INF/autoconf/WEB-INF/web.xml
                     try {
                         currentGenerate = generate;
 
@@ -392,7 +392,7 @@ public class ConfigGeneratorSession {
                         }
                     }
 
-                    // ½«WEB-INF/web.xmlÄ£°åÉú³ÉWEB-INF/web.xmlÎÄ¼ş
+                    // å°†WEB-INF/web.xmlæ¨¡æ¿ç”ŸæˆWEB-INF/web.xmlæ–‡ä»¶
                     try {
                         currentGenerate = generate;
 
@@ -421,7 +421,7 @@ public class ConfigGeneratorSession {
     }
 
     /**
-     * ²é¿´ÓĞÃ»ÓĞÒÅÂ©Ã»ÓĞÉú³ÉµÄtemplate¡£
+     * æŸ¥çœ‹æœ‰æ²¡æœ‰é—æ¼æ²¡æœ‰ç”Ÿæˆçš„templateã€‚
      */
     public void checkNonprocessedTemplates() {
         for (String destfile : generator.generateDestFiles.keySet()) {
@@ -436,7 +436,7 @@ public class ConfigGeneratorSession {
     }
 
     /**
-     * ¹Ø±Õsession£¬ÉÆºó¹¤×÷¡£
+     * å…³é—­sessionï¼Œå–„åå·¥ä½œã€‚
      */
     public void close() {
     }

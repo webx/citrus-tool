@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * ´ú±íincludes¡¢excludesµÄpattern¼¯ºÏ¡£
+ * ä»£è¡¨includesã€excludesçš„patterné›†åˆã€‚
  *
  * @author Michael Zhou
  */
@@ -63,7 +63,7 @@ public class PatternSet {
     }
 
     /**
-     * ½«ËùÓĞpattern¹æ¸ñ»¯³É£ºÎŞ/Ç°×º/ºó×º£¬ÒÔ/·Ö¸ô¡£
+     * å°†æ‰€æœ‰patternè§„æ ¼åŒ–æˆï¼šæ— /å‰ç¼€/åç¼€ï¼Œä»¥/åˆ†éš”ã€‚
      */
     private static String[] normalizePatterns(String[] patterns) {
         if (patterns == null) {
@@ -105,7 +105,7 @@ public class PatternSet {
     }
 
     /**
-     * ÅÅ³ıÖ¸¶¨µÄÎÄ¼ş¡£
+     * æ’é™¤æŒ‡å®šçš„æ–‡ä»¶ã€‚
      */
     public PatternSet addExcludes(String[] addedExcludes) {
         Set excludeSet = new ArrayHashSet();
@@ -124,35 +124,35 @@ public class PatternSet {
     }
 
     /**
-     * ÅÅ³ıÄ¬ÈÏµÄÎÄ¼ş¡£
+     * æ’é™¤é»˜è®¤çš„æ–‡ä»¶ã€‚
      */
     public PatternSet addDefaultExcludes() {
         return addExcludes(FileUtil.DEFAULT_EXCLUDES);
     }
 
     /**
-     * È¡µÃinclude patterns
+     * å–å¾—include patterns
      */
     public String[] getIncludes() {
         return includes;
     }
 
     /**
-     * È¡µÃexclude patterns
+     * å–å¾—exclude patterns
      */
     public String[] getExcludes() {
         return excludes;
     }
 
     /**
-     * ÊÇ·ñÎª¿Õ¡£
+     * æ˜¯å¦ä¸ºç©ºã€‚
      */
     public boolean isEmpty() {
         return (includes.length == 0) && (excludes.length == 0);
     }
 
     /**
-     * ÊÇ·ñ°üº¬ËùÓĞ¡£
+     * æ˜¯å¦åŒ…å«æ‰€æœ‰ã€‚
      */
     public boolean isIncludeAll() {
         if (isExcludeAll()) {
@@ -163,14 +163,14 @@ public class PatternSet {
     }
 
     /**
-     * ÊÇ·ñÅÅ³ıËùÓĞ¡£
+     * æ˜¯å¦æ’é™¤æ‰€æœ‰ã€‚
      */
     public boolean isExcludeAll() {
         return (excludes.length == 1) && "**".equals(excludes[0]);
     }
 
     /**
-     * ×ª»»³É×Ö·û´®ĞÎÊ½¡£
+     * è½¬æ¢æˆå­—ç¬¦ä¸²å½¢å¼ã€‚
      */
     public String toString() {
         StringBuffer buffer = new StringBuffer();

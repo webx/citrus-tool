@@ -31,46 +31,46 @@ import java.util.Set;
 
 /**
  * <p>
- * ²éÕÒ²¢×°ÈëÀàºÍ×ÊÔ´µÄ¸¨ÖúÀà.
+ * æŸ¥æ‰¾å¹¶è£…å…¥ç±»å’Œèµ„æºçš„è¾…åŠ©ç±».
  * </p>
  *
  * <p>
- * <code>ClassFinder</code>²éÕÒÀàºÍ×ÊÔ´µÄĞ§¹û,
- * Ïàµ±ÓÚ<code>ClassLoader.loadClass</code>·½·¨ºÍ<code>ClassLoader.getResource</code>·½·¨.
- * µ«<code>ClassFinder</code>×ÜÊÇÊ×ÏÈ³¢ÊÔ´Ó<code>Thread.getContextClassLoader()</code>·½·¨È¡µÃ<code>ClassLoader</code>ÖĞ²¢×°ÈëÀàºÍ×ÊÔ´.
- * ÕâÖÖ·½·¨±ÜÃâÁËÔÚ¶à¼¶<code>ClassLoader</code>µÄÇé¿öÏÂ, ÕÒ²»µ½Àà»ò×ÊÔ´µÄÇé¿ö.
+ * <code>ClassFinder</code>æŸ¥æ‰¾ç±»å’Œèµ„æºçš„æ•ˆæœ,
+ * ç›¸å½“äº<code>ClassLoader.loadClass</code>æ–¹æ³•å’Œ<code>ClassLoader.getResource</code>æ–¹æ³•.
+ * ä½†<code>ClassFinder</code>æ€»æ˜¯é¦–å…ˆå°è¯•ä»<code>Thread.getContextClassLoader()</code>æ–¹æ³•å–å¾—<code>ClassLoader</code>ä¸­å¹¶è£…å…¥ç±»å’Œèµ„æº.
+ * è¿™ç§æ–¹æ³•é¿å…äº†åœ¨å¤šçº§<code>ClassLoader</code>çš„æƒ…å†µä¸‹, æ‰¾ä¸åˆ°ç±»æˆ–èµ„æºçš„æƒ…å†µ.
  * </p>
  *
  * <p>
- * ¼ÙÉèÓĞÈçÏÂÇé¿ö:
+ * å‡è®¾æœ‰å¦‚ä¸‹æƒ…å†µ:
  * </p>
  *
  * <ul>
  * <li>
- * ¹¤¾ßÀà<code>A</code>ÊÇ´ÓÏµÍ³<code>ClassLoader</code>×°ÈëµÄ(classpath)
+ * å·¥å…·ç±»<code>A</code>æ˜¯ä»ç³»ç»Ÿ<code>ClassLoader</code>è£…å…¥çš„(classpath)
  * </li>
  * <li>
- * Àà<code>B</code>ÊÇWeb ApplicationÖĞµÄÒ»¸öÀà, ÊÇÓÉservletÒıÇæµÄ<code>ClassLoader</code>¶¯Ì¬×°ÈëµÄ
+ * ç±»<code>B</code>æ˜¯Web Applicationä¸­çš„ä¸€ä¸ªç±», æ˜¯ç”±servletå¼•æ“çš„<code>ClassLoader</code>åŠ¨æ€è£…å…¥çš„
  * </li>
  * <li>
- * ×ÊÔ´ÎÄ¼ş<code>C.properties</code>Ò²ÔÚWeb ApplicationÖĞ, Ö»ÓĞservletÒıÇæµÄ¶¯Ì¬<code>ClassLoader</code>¿ÉÒÔÕÒµ½Ëü
+ * èµ„æºæ–‡ä»¶<code>C.properties</code>ä¹Ÿåœ¨Web Applicationä¸­, åªæœ‰servletå¼•æ“çš„åŠ¨æ€<code>ClassLoader</code>å¯ä»¥æ‰¾åˆ°å®ƒ
  * </li>
  * <li>
- * Àà<code>B</code>µ÷ÓÃ¹¤¾ßÀà<code>A</code>µÄ·½·¨, Ï£ÍûÍ¨¹ıÀà<code>A</code>È¡µÃ×ÊÔ´ÎÄ¼ş<code>C.properties</code>
+ * ç±»<code>B</code>è°ƒç”¨å·¥å…·ç±»<code>A</code>çš„æ–¹æ³•, å¸Œæœ›é€šè¿‡ç±»<code>A</code>å–å¾—èµ„æºæ–‡ä»¶<code>C.properties</code>
  * </li>
  * </ul>
  *
  * <p>
- * Èç¹ûÀà<code>A</code>Ê¹ÓÃ<code>getClass().getClassLoader().getResource(&quot;C.properties&quot;)</code>,
- * ¾Í»áÊ§°Ü, ÒòÎªÏµÍ³<code>ClassLoader</code>²»ÄÜÕÒµ½´Ë×ÊÔ´.
- * µ«ÀàA¿ÉÒÔÊ¹ÓÃClassFinder.getResource(&quot;C.properties&quot;), ¾Í¿ÉÒÔÕÒµ½Õâ¸ö×ÊÔ´,
- * ÒòÎªClassFinderµ÷ÓÃ<code>Thread.currentThead().getContextClassLoader()</code>È¡µÃÁËservletÒıÇæµÄ<code>ClassLoader</code>,
- * ´Ó¶øÕÒµ½ÁËÕâ¸ö×ÊÔ´ÎÄ¼ş.
+ * å¦‚æœç±»<code>A</code>ä½¿ç”¨<code>getClass().getClassLoader().getResource(&quot;C.properties&quot;)</code>,
+ * å°±ä¼šå¤±è´¥, å› ä¸ºç³»ç»Ÿ<code>ClassLoader</code>ä¸èƒ½æ‰¾åˆ°æ­¤èµ„æº.
+ * ä½†ç±»Aå¯ä»¥ä½¿ç”¨ClassFinder.getResource(&quot;C.properties&quot;), å°±å¯ä»¥æ‰¾åˆ°è¿™ä¸ªèµ„æº,
+ * å› ä¸ºClassFinderè°ƒç”¨<code>Thread.currentThead().getContextClassLoader()</code>å–å¾—äº†servletå¼•æ“çš„<code>ClassLoader</code>,
+ * ä»è€Œæ‰¾åˆ°äº†è¿™ä¸ªèµ„æºæ–‡ä»¶.
  * </p>
  *
  * <p>
- * ×¢Òâ, <code>Thread.getContextClassLoader()</code>ÊÇÔÚJDK1.2Ö®ºó²ÅÓĞµÄ, ¶ÔÓÚµÍ°æ±¾µÄJDK,
- * <code>ClassFinder</code>µÄĞ§¹ûºÍÖ±½Óµ÷ÓÃ<code>ClassLoader</code>ÍêÈ«ÏàÍ¬.
+ * æ³¨æ„, <code>Thread.getContextClassLoader()</code>æ˜¯åœ¨JDK1.2ä¹‹åæ‰æœ‰çš„, å¯¹äºä½ç‰ˆæœ¬çš„JDK,
+ * <code>ClassFinder</code>çš„æ•ˆæœå’Œç›´æ¥è°ƒç”¨<code>ClassLoader</code>å®Œå…¨ç›¸åŒ.
  * </p>
  *
  * @version $Id: ContextClassLoader.java,v 1.1 2003/07/03 07:26:15 baobao Exp $
@@ -78,8 +78,8 @@ import java.util.Set;
  */
 public class ContextClassLoader {
     /**
-     * JDK1.2ÒÔÉÏ, Õâ¸ö±äÁ¿±£´æÁË<code>Thread.getContextClassLoader()</code>·½·¨. ¶ÔÓÚµÍ°æ±¾µÄJDK,
-     * ´Ë±äÁ¿Îª<code>null</code>.
+     * JDK1.2ä»¥ä¸Š, è¿™ä¸ªå˜é‡ä¿å­˜äº†<code>Thread.getContextClassLoader()</code>æ–¹æ³•. å¯¹äºä½ç‰ˆæœ¬çš„JDK,
+     * æ­¤å˜é‡ä¸º<code>null</code>.
      */
     private static Method GET_CONTEXT_CLASS_LOADER_METHOD = null;
 
@@ -87,31 +87,31 @@ public class ContextClassLoader {
         try {
             GET_CONTEXT_CLASS_LOADER_METHOD = Thread.class.getMethod("getContextClassLoader", null);
         } catch (NoSuchMethodException e) {
-            // JDK 1.2ÒÔÏÂ.
+            // JDK 1.2ä»¥ä¸‹.
         }
     }
 
     /**
      * <p>
-     * ´Ó<code>ClassLoader</code>È¡µÃËùÓĞresource URL. °´ÈçÏÂË³Ğò²éÕÒ:
+     * ä»<code>ClassLoader</code>å–å¾—æ‰€æœ‰resource URL. æŒ‰å¦‚ä¸‹é¡ºåºæŸ¥æ‰¾:
      * </p>
      *
      * <ol>
      * <li>
-     * ÔÚµ±Ç°Ïß³ÌµÄ<code>ClassLoader</code>ÖĞ²éÕÒ.
+     * åœ¨å½“å‰çº¿ç¨‹çš„<code>ClassLoader</code>ä¸­æŸ¥æ‰¾.
      * </li>
      * <li>
-     * ÔÚ×°Èë×Ô¼ºµÄ<code>ClassLoader</code>ÖĞ²éÕÒ.
+     * åœ¨è£…å…¥è‡ªå·±çš„<code>ClassLoader</code>ä¸­æŸ¥æ‰¾.
      * </li>
      * <li>
-     * Í¨¹ı<code>ClassLoader.getSystemResource</code>·½·¨²éÕÒ.
+     * é€šè¿‡<code>ClassLoader.getSystemResource</code>æ–¹æ³•æŸ¥æ‰¾.
      * </li>
      * </ol>
      *
      *
-     * @param resourceName Òª²éÕÒµÄ×ÊÔ´Ãû, ¾ÍÊÇÒÔ&quot;/&quot;·Ö¸ôµÄ±êÊ¶·û×Ö·û´®
+     * @param resourceName è¦æŸ¥æ‰¾çš„èµ„æºå, å°±æ˜¯ä»¥&quot;/&quot;åˆ†éš”çš„æ ‡è¯†ç¬¦å­—ç¬¦ä¸²
      *
-     * @return resourceµÄURLÊı×é, Èç¹ûÃ»ÕÒµ½, Ôò·µ»Ø¿ÕÊı×é. Êı×éÖĞ±£Ö¤²»°üº¬ÖØ¸´µÄURL.
+     * @return resourceçš„URLæ•°ç»„, å¦‚æœæ²¡æ‰¾åˆ°, åˆ™è¿”å›ç©ºæ•°ç»„. æ•°ç»„ä¸­ä¿è¯ä¸åŒ…å«é‡å¤çš„URL.
      */
     public static URL[] getResources(String resourceName) {
         ClassLoader classLoader = null;
@@ -119,16 +119,16 @@ public class ContextClassLoader {
         boolean     found  = false;
 
 
-        // Ê×ÏÈÊÔ×Å´Óµ±Ç°Ïß³ÌµÄClassLoaderÖĞ²éÕÒ.
+        // é¦–å…ˆè¯•ç€ä»å½“å‰çº¿ç¨‹çš„ClassLoaderä¸­æŸ¥æ‰¾.
         found = getResources(urlSet, resourceName, getClassLoader(), false);
 
-        // Èç¹ûÃ»ÕÒµ½, ÊÔ×Å´Ó×°Èë×Ô¼ºµÄClassLoaderÖĞ²éÕÒ.
+        // å¦‚æœæ²¡æ‰¾åˆ°, è¯•ç€ä»è£…å…¥è‡ªå·±çš„ClassLoaderä¸­æŸ¥æ‰¾.
         if (!found) {
             getResources(urlSet, resourceName, ContextClassLoader.class.getClassLoader(), false);
         }
 
-        // ×îºóµÄ³¢ÊÔ: ÔÚÏµÍ³ClassLoaderÖĞ²éÕÒ(JDK1.2ÒÔÉÏ),
-        // »òÕßÔÚJDKµÄÄÚ²¿ClassLoaderÖĞ²éÕÒ(JDK1.2ÒÔÏÂ).
+        // æœ€åçš„å°è¯•: åœ¨ç³»ç»ŸClassLoaderä¸­æŸ¥æ‰¾(JDK1.2ä»¥ä¸Š),
+        // æˆ–è€…åœ¨JDKçš„å†…éƒ¨ClassLoaderä¸­æŸ¥æ‰¾(JDK1.2ä»¥ä¸‹).
         if (!found) {
             getResources(urlSet, resourceName, null, true);
         }
@@ -141,14 +141,14 @@ public class ContextClassLoader {
     }
 
     /**
-     * ÔÚÖ¸¶¨class loaderÖĞ²éÕÒÖ¸¶¨Ãû³ÆµÄresource, °ÑËùÓĞÕÒµ½µÄresourceµÄURL·ÅÈëÖ¸¶¨µÄ¼¯ºÏÖĞ.
+     * åœ¨æŒ‡å®šclass loaderä¸­æŸ¥æ‰¾æŒ‡å®šåç§°çš„resource, æŠŠæ‰€æœ‰æ‰¾åˆ°çš„resourceçš„URLæ”¾å…¥æŒ‡å®šçš„é›†åˆä¸­.
      *
-     * @param urlSet          ´æ·Åresource URLµÄ¼¯ºÏ
-     * @param resourceName    ×ÊÔ´Ãû
-     * @param classLoader     Àà×°ÈëÆ÷
-     * @param sysClassLoader  ÊÇ·ñÓÃsystem class loader×°ÔØ×ÊÔ´
+     * @param urlSet          å­˜æ”¾resource URLçš„é›†åˆ
+     * @param resourceName    èµ„æºå
+     * @param classLoader     ç±»è£…å…¥å™¨
+     * @param sysClassLoader  æ˜¯å¦ç”¨system class loaderè£…è½½èµ„æº
      *
-     * @return Èç¹ûÕÒµ½, Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœæ‰¾åˆ°, åˆ™è¿”å›<code>true</code>
      */
     private static boolean getResources(Set urlSet, String resourceName, ClassLoader classLoader,
                                         boolean sysClassLoader) {
@@ -176,32 +176,32 @@ public class ContextClassLoader {
 
     /**
      * <p>
-     * ´Ó<code>ClassLoader</code>È¡µÃresource URL. °´ÈçÏÂË³Ğò²éÕÒ:
+     * ä»<code>ClassLoader</code>å–å¾—resource URL. æŒ‰å¦‚ä¸‹é¡ºåºæŸ¥æ‰¾:
      * </p>
      *
      * <ol>
      * <li>
-     * ÔÚµ±Ç°Ïß³ÌµÄ<code>ClassLoader</code>ÖĞ²éÕÒ.
+     * åœ¨å½“å‰çº¿ç¨‹çš„<code>ClassLoader</code>ä¸­æŸ¥æ‰¾.
      * </li>
      * <li>
-     * ÔÚ×°Èë×Ô¼ºµÄ<code>ClassLoader</code>ÖĞ²éÕÒ.
+     * åœ¨è£…å…¥è‡ªå·±çš„<code>ClassLoader</code>ä¸­æŸ¥æ‰¾.
      * </li>
      * <li>
-     * Í¨¹ı<code>ClassLoader.getSystemResource</code>·½·¨²éÕÒ.
+     * é€šè¿‡<code>ClassLoader.getSystemResource</code>æ–¹æ³•æŸ¥æ‰¾.
      * </li>
      * </ol>
      *
      *
-     * @param resourceName Òª²éÕÒµÄ×ÊÔ´Ãû, ¾ÍÊÇÒÔ&quot;/&quot;·Ö¸ôµÄ±êÊ¶·û×Ö·û´®
+     * @param resourceName è¦æŸ¥æ‰¾çš„èµ„æºå, å°±æ˜¯ä»¥&quot;/&quot;åˆ†éš”çš„æ ‡è¯†ç¬¦å­—ç¬¦ä¸²
      *
-     * @return resourceµÄURL
+     * @return resourceçš„URL
      */
     public static URL getResource(String resourceName) {
         ClassLoader classLoader = null;
         URL         url = null;
 
 
-        // Ê×ÏÈÊÔ×Å´Óµ±Ç°Ïß³ÌµÄClassLoaderÖĞ²éÕÒ.
+        // é¦–å…ˆè¯•ç€ä»å½“å‰çº¿ç¨‹çš„ClassLoaderä¸­æŸ¥æ‰¾.
         classLoader = getClassLoader();
 
         if (classLoader != null) {
@@ -213,7 +213,7 @@ public class ContextClassLoader {
         }
 
 
-        // Èç¹ûÃ»ÕÒµ½, ÊÔ×Å´Ó×°Èë×Ô¼ºµÄClassLoaderÖĞ²éÕÒ.
+        // å¦‚æœæ²¡æ‰¾åˆ°, è¯•ç€ä»è£…å…¥è‡ªå·±çš„ClassLoaderä¸­æŸ¥æ‰¾.
         classLoader = ContextClassLoader.class.getClassLoader();
 
         if (classLoader != null) {
@@ -224,18 +224,18 @@ public class ContextClassLoader {
             }
         }
 
-        // ×îºóµÄ³¢ÊÔ: ÔÚÏµÍ³ClassLoaderÖĞ²éÕÒ(JDK1.2ÒÔÉÏ),
-        // »òÕßÔÚJDKµÄÄÚ²¿ClassLoaderÖĞ²éÕÒ(JDK1.2ÒÔÏÂ).
+        // æœ€åçš„å°è¯•: åœ¨ç³»ç»ŸClassLoaderä¸­æŸ¥æ‰¾(JDK1.2ä»¥ä¸Š),
+        // æˆ–è€…åœ¨JDKçš„å†…éƒ¨ClassLoaderä¸­æŸ¥æ‰¾(JDK1.2ä»¥ä¸‹).
         return ClassLoader.getSystemResource(resourceName);
     }
 
     /**
-     * ´Ó<code>ClassLoader</code>È¡µÃresourceµÄÊäÈëÁ÷.
-     * Ïàµ±ÓÚ<code>getResource(resourceName).openStream()</code>.
+     * ä»<code>ClassLoader</code>å–å¾—resourceçš„è¾“å…¥æµ.
+     * ç›¸å½“äº<code>getResource(resourceName).openStream()</code>.
      *
-     * @param resourceName Òª²éÕÒµÄ×ÊÔ´Ãû, ¾ÍÊÇÒÔ"/"·Ö¸ôµÄ±êÊ¶·û×Ö·û´®
+     * @param resourceName è¦æŸ¥æ‰¾çš„èµ„æºå, å°±æ˜¯ä»¥"/"åˆ†éš”çš„æ ‡è¯†ç¬¦å­—ç¬¦ä¸²
      *
-     * @return resourceµÄÊäÈëÁ÷
+     * @return resourceçš„è¾“å…¥æµ
      */
     public static InputStream getResourceAsStream(String resourceName) {
         URL url = getResource(resourceName);
@@ -245,20 +245,20 @@ public class ContextClassLoader {
                 return url.openStream();
             }
         } catch (IOException e) {
-            // ´ò¿ªURLÊ§°Ü.
+            // æ‰“å¼€URLå¤±è´¥.
         }
 
         return null;
     }
 
     /**
-     * ´Óµ±Ç°Ïß³ÌµÄ<code>ClassLoader</code>×°ÈëÀà.  ¶ÔÓÚJDK1.2ÒÔÏÂ, ÔòÏàµ±ÓÚ<code>Class.forName</code>.
+     * ä»å½“å‰çº¿ç¨‹çš„<code>ClassLoader</code>è£…å…¥ç±».  å¯¹äºJDK1.2ä»¥ä¸‹, åˆ™ç›¸å½“äº<code>Class.forName</code>.
      *
-     * @param className Òª×°ÈëµÄÀàÃû
+     * @param className è¦è£…å…¥çš„ç±»å
      *
-     * @return ÒÑ×°ÈëµÄÀà
+     * @return å·²è£…å…¥çš„ç±»
      *
-     * @throws ClassNotFoundException Èç¹ûÀàÃ»ÕÒµ½
+     * @throws ClassNotFoundException å¦‚æœç±»æ²¡æ‰¾åˆ°
      */
     public static Class loadClass(String className)
             throws ClassNotFoundException {
@@ -266,16 +266,16 @@ public class ContextClassLoader {
     }
 
     /**
-     * ´ÓÖ¸¶¨µÄ<code>ClassLoader</code>ÖĞ×°ÈëÀà.  Èç¹ûÎ´Ö¸¶¨<code>ClassLoader</code>,
-     * Ôò´Óµ±Ç°Ïß³ÌµÄ<code>ClassLoader</code>ÖĞ×°Èë.
+     * ä»æŒ‡å®šçš„<code>ClassLoader</code>ä¸­è£…å…¥ç±».  å¦‚æœæœªæŒ‡å®š<code>ClassLoader</code>,
+     * åˆ™ä»å½“å‰çº¿ç¨‹çš„<code>ClassLoader</code>ä¸­è£…å…¥.
      *
-     * @param className   Òª×°ÈëµÄÀàÃû
-     * @param initialize  ÊÇ·ñÒª³õÊ¼»¯Àà
-     * @param classLoader ´ÓÖ¸¶¨µÄ<code>ClassLoader</code>ÖĞ×°ÈëÀà
+     * @param className   è¦è£…å…¥çš„ç±»å
+     * @param initialize  æ˜¯å¦è¦åˆå§‹åŒ–ç±»
+     * @param classLoader ä»æŒ‡å®šçš„<code>ClassLoader</code>ä¸­è£…å…¥ç±»
      *
-     * @return ÒÑ×°ÈëµÄÀà
+     * @return å·²è£…å…¥çš„ç±»
      *
-     * @throws ClassNotFoundException Èç¹ûÀàÃ»ÕÒµ½
+     * @throws ClassNotFoundException å¦‚æœç±»æ²¡æ‰¾åˆ°
      */
     public static Class loadClass(String className, boolean initialize, ClassLoader classLoader)
             throws ClassNotFoundException {
@@ -287,9 +287,9 @@ public class ContextClassLoader {
     }
 
     /**
-     * È¡µÃµ±Ç°Ïß³ÌµÄ<code>ClassLoader</code>. Õâ¸ö¹¦ÄÜĞèÒªJDK1.2»ò¸ü¸ß°æ±¾µÄJDKµÄÖ§³Ö.
+     * å–å¾—å½“å‰çº¿ç¨‹çš„<code>ClassLoader</code>. è¿™ä¸ªåŠŸèƒ½éœ€è¦JDK1.2æˆ–æ›´é«˜ç‰ˆæœ¬çš„JDKçš„æ”¯æŒ.
      *
-     * @return Èç¹ûJDKÊÇ1.2ÒÔÇ°°æ±¾, ·µ»Ønull. ·ñÔò·µ»Øµ±Ç°Ïß³ÌµÄ<code>ClassLoader</code>.
+     * @return å¦‚æœJDKæ˜¯1.2ä»¥å‰ç‰ˆæœ¬, è¿”å›null. å¦åˆ™è¿”å›å½“å‰çº¿ç¨‹çš„<code>ClassLoader</code>.
      */
     public static ClassLoader getClassLoader() {
         if (GET_CONTEXT_CLASS_LOADER_METHOD != null) {

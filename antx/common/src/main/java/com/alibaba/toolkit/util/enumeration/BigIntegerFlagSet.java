@@ -22,7 +22,7 @@ import java.math.BigInteger;
 import java.text.MessageFormat;
 
 /**
- * ´ú±í³¬³¤ÕûÊıÀàĞÍµÄ<code>FlagSet</code>.
+ * ä»£è¡¨è¶…é•¿æ•´æ•°ç±»å‹çš„<code>FlagSet</code>.
  *
  * @version $Id: BigIntegerFlagSet.java,v 1.1 2003/07/03 07:26:20 baobao Exp $
  * @author Michael Zhou
@@ -32,9 +32,9 @@ public abstract class BigIntegerFlagSet extends FlagSet {
     private BigInteger        value = BigInteger.ZERO;
 
     /**
-     * ´´½¨Ò»¸ö³¬³¤ÕûÊıÎ»¼¯.
+     * åˆ›å»ºä¸€ä¸ªè¶…é•¿æ•´æ•°ä½é›†.
      *
-     * @param enumClass Î»¼¯Ëù´ú±íµÄÄÚ²¿Ã¶¾ÙÀà
+     * @param enumClass ä½é›†æ‰€ä»£è¡¨çš„å†…éƒ¨æšä¸¾ç±»
      */
     public BigIntegerFlagSet(Class enumClass) {
         super(enumClass);
@@ -49,9 +49,9 @@ public abstract class BigIntegerFlagSet extends FlagSet {
     }
 
     /**
-     * ÉèÖÃÎ»¼¯µÄÖµ, ÖµµÄÀàĞÍÓÉ<code>getUnderlyingClass()</code>È·¶¨.
+     * è®¾ç½®ä½é›†çš„å€¼, å€¼çš„ç±»å‹ç”±<code>getUnderlyingClass()</code>ç¡®å®š.
      *
-     * @param value Î»¼¯µÄÖµ
+     * @param value ä½é›†çš„å€¼
      */
     public void setValue(Object value) {
         checkImmutable();
@@ -64,18 +64,18 @@ public abstract class BigIntegerFlagSet extends FlagSet {
     }
 
     /**
-     * È¡µÃÎ»¼¯µÄÖµ, ÖµµÄÀàĞÍÓÉ<code>getUnderlyingClass()</code>È·¶¨.
+     * å–å¾—ä½é›†çš„å€¼, å€¼çš„ç±»å‹ç”±<code>getUnderlyingClass()</code>ç¡®å®š.
      *
-     * @return Î»¼¯µÄÖµ
+     * @return ä½é›†çš„å€¼
      */
     public Object getValue() {
         return value;
     }
 
     /**
-     * Çå³ıµ±Ç°Î»¼¯µÄÈ«²¿Î».
+     * æ¸…é™¤å½“å‰ä½é›†çš„å…¨éƒ¨ä½.
      *
-     * @return µ±Ç°Î»¼¯
+     * @return å½“å‰ä½é›†
      */
     public Flags clear() {
         checkImmutable();
@@ -84,22 +84,22 @@ public abstract class BigIntegerFlagSet extends FlagSet {
     }
 
     /**
-     * ²âÊÔµ±Ç°Î»¼¯µÄÖ¸¶¨Î», µÈĞ§ÓÚ<code>and(flags) != 0</code>.
+     * æµ‹è¯•å½“å‰ä½é›†çš„æŒ‡å®šä½, ç­‰æ•ˆäº<code>and(flags) != 0</code>.
      *
-     * @param flags  ±êÖ¾Î»
+     * @param flags  æ ‡å¿—ä½
      *
-     * @return Èç¹ûÖ¸¶¨Î»±»ÖÃÎ», Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœæŒ‡å®šä½è¢«ç½®ä½, åˆ™è¿”å›<code>true</code>
      */
     public boolean test(Flags flags) {
         return !value.and(getFlagsValue(flags)).equals(BigInteger.ZERO);
     }
 
     /**
-     * ²âÊÔµ±Ç°Î»¼¯µÄÖ¸¶¨Î», µÈĞ§ÓÚ<code>and(flags) == flags</code>.
+     * æµ‹è¯•å½“å‰ä½é›†çš„æŒ‡å®šä½, ç­‰æ•ˆäº<code>and(flags) == flags</code>.
      *
-     * @param flags  ±êÖ¾Î»
+     * @param flags  æ ‡å¿—ä½
      *
-     * @return Èç¹ûÖ¸¶¨Î»±»ÖÃÎ», Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœæŒ‡å®šä½è¢«ç½®ä½, åˆ™è¿”å›<code>true</code>
      */
     public boolean testAll(Flags flags) {
         BigInteger testValue = getFlagsValue(flags);
@@ -108,11 +108,11 @@ public abstract class BigIntegerFlagSet extends FlagSet {
     }
 
     /**
-     * ¶Ôµ±Ç°Î»¼¯Ö´ĞĞÂß¼­Óë²Ù×÷.
+     * å¯¹å½“å‰ä½é›†æ‰§è¡Œé€»è¾‘ä¸æ“ä½œ.
      *
-     * @param flags  ±êÖ¾Î»
+     * @param flags  æ ‡å¿—ä½
      *
-     * @return µ±Ç°Î»¼¯
+     * @return å½“å‰ä½é›†
      */
     public Flags and(Flags flags) {
         BigIntegerFlagSet flagSet = (BigIntegerFlagSet) getFlagSetForModification();
@@ -122,11 +122,11 @@ public abstract class BigIntegerFlagSet extends FlagSet {
     }
 
     /**
-     * ¶Ôµ±Ç°Î»¼¯Ö´ĞĞÂß¼­·Ç²Ù×÷.
+     * å¯¹å½“å‰ä½é›†æ‰§è¡Œé€»è¾‘éæ“ä½œ.
      *
-     * @param flags  ±êÖ¾Î»
+     * @param flags  æ ‡å¿—ä½
      *
-     * @return µ±Ç°Î»¼¯
+     * @return å½“å‰ä½é›†
      */
     public Flags andNot(Flags flags) {
         BigIntegerFlagSet flagSet = (BigIntegerFlagSet) getFlagSetForModification();
@@ -136,11 +136,11 @@ public abstract class BigIntegerFlagSet extends FlagSet {
     }
 
     /**
-     * ¶Ôµ±Ç°Î»¼¯Ö´ĞĞÂß¼­»ò²Ù×÷.
+     * å¯¹å½“å‰ä½é›†æ‰§è¡Œé€»è¾‘æˆ–æ“ä½œ.
      *
-     * @param flags  ±êÖ¾Î»
+     * @param flags  æ ‡å¿—ä½
      *
-     * @return µ±Ç°Î»¼¯
+     * @return å½“å‰ä½é›†
      */
     public Flags or(Flags flags) {
         BigIntegerFlagSet flagSet = (BigIntegerFlagSet) getFlagSetForModification();
@@ -150,11 +150,11 @@ public abstract class BigIntegerFlagSet extends FlagSet {
     }
 
     /**
-     * ¶Ôµ±Ç°Î»¼¯Ö´ĞĞÂß¼­Òì»ò²Ù×÷.
+     * å¯¹å½“å‰ä½é›†æ‰§è¡Œé€»è¾‘å¼‚æˆ–æ“ä½œ.
      *
-     * @param flags  ±êÖ¾Î»
+     * @param flags  æ ‡å¿—ä½
      *
-     * @return µ±Ç°Î»¼¯
+     * @return å½“å‰ä½é›†
      */
     public Flags xor(Flags flags) {
         BigIntegerFlagSet flagSet = (BigIntegerFlagSet) getFlagSetForModification();
@@ -164,11 +164,11 @@ public abstract class BigIntegerFlagSet extends FlagSet {
     }
 
     /**
-     * È¡µÃÎ»¼¯µÄÖµ.
+     * å–å¾—ä½é›†çš„å€¼.
      *
-     * @param flags Î»¼¯
+     * @param flags ä½é›†
      *
-     * @return Î»¼¯µÄÖµ
+     * @return ä½é›†çš„å€¼
      */
     private BigInteger getFlagsValue(Flags flags) {
         checkFlags(flags);
@@ -178,63 +178,63 @@ public abstract class BigIntegerFlagSet extends FlagSet {
     }
 
     /**
-     * ÊµÏÖ<code>Number</code>Àà, È¡µÃÕûÊıÖµ.
+     * å®ç°<code>Number</code>ç±», å–å¾—æ•´æ•°å€¼.
      *
-     * @return ÕûÊıÖµ
+     * @return æ•´æ•°å€¼
      */
     public int intValue() {
         return value.intValue();
     }
 
     /**
-     * ÊµÏÖ<code>Number</code>Àà, È¡µÃ³¤ÕûÊıÖµ.
+     * å®ç°<code>Number</code>ç±», å–å¾—é•¿æ•´æ•°å€¼.
      *
-     * @return ³¤ÕûÊıÖµ
+     * @return é•¿æ•´æ•°å€¼
      */
     public long longValue() {
         return (long) value.longValue();
     }
 
     /**
-     * ÊµÏÖ<code>Number</code>Àà, È¡µÃ<code>double</code>Öµ.
+     * å®ç°<code>Number</code>ç±», å–å¾—<code>double</code>å€¼.
      *
-     * @return <code>double</code>Öµ
+     * @return <code>double</code>å€¼
      */
     public double doubleValue() {
         return (double) value.doubleValue();
     }
 
     /**
-     * ÊµÏÖ<code>Number</code>Àà, È¡µÃ<code>float</code>Öµ.
+     * å®ç°<code>Number</code>ç±», å–å¾—<code>float</code>å€¼.
      *
-     * @return <code>float</code>Öµ
+     * @return <code>float</code>å€¼
      */
     public float floatValue() {
         return (float) value.floatValue();
     }
 
     /**
-     * ÊµÏÖ<code>IntegralNumber</code>Àà, ×ª»»³ÉÊ®Áù½øÖÆÕûÊı×Ö·û´®.
+     * å®ç°<code>IntegralNumber</code>ç±», è½¬æ¢æˆåå…­è¿›åˆ¶æ•´æ•°å­—ç¬¦ä¸².
      *
-     * @return Ê®Áù½øÖÆÕûÊı×Ö·û´®
+     * @return åå…­è¿›åˆ¶æ•´æ•°å­—ç¬¦ä¸²
      */
     public String toHexString() {
         return value.toString(RADIX_HEX);
     }
 
     /**
-     * ÊµÏÖ<code>IntegralNumber</code>Àà, ×ª»»³É°Ë½øÖÆÕûÊı×Ö·û´®.
+     * å®ç°<code>IntegralNumber</code>ç±», è½¬æ¢æˆå…«è¿›åˆ¶æ•´æ•°å­—ç¬¦ä¸².
      *
-     * @return °Ë½øÖÆÕûÊı×Ö·û´®
+     * @return å…«è¿›åˆ¶æ•´æ•°å­—ç¬¦ä¸²
      */
     public String toOctalString() {
         return value.toString(RADIX_OCT);
     }
 
     /**
-     * ÊµÏÖ<code>IntegralNumber</code>Àà, ×ª»»³É¶ş½øÖÆÕûÊı×Ö·û´®.
+     * å®ç°<code>IntegralNumber</code>ç±», è½¬æ¢æˆäºŒè¿›åˆ¶æ•´æ•°å­—ç¬¦ä¸².
      *
-     * @return ¶ş½øÖÆÕûÊı×Ö·û´®
+     * @return äºŒè¿›åˆ¶æ•´æ•°å­—ç¬¦ä¸²
      */
     public String toBinaryString() {
         return value.toString(RADIX_BIN);

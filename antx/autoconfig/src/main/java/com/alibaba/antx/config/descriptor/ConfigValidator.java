@@ -22,7 +22,7 @@ import org.slf4j.Logger;
 import com.alibaba.antx.util.StringUtil;
 
 /**
- * ÊôĞÔÑéÖ¤Æ÷¡£
+ * å±æ€§éªŒè¯å™¨ã€‚
  * 
  * @author Michael Zhou
  */

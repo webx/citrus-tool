@@ -22,20 +22,20 @@ import com.alibaba.toolkit.util.typeconvert.ConvertFailedException;
 import com.alibaba.toolkit.util.typeconvert.Converter;
 
 /**
- * ½«¶ÔÏó×ª»»³É<code>FlagSet</code>.
+ * å°†å¯¹è±¡è½¬æ¢æˆ<code>FlagSet</code>.
  *
  * <ul>
  * <li>
- * Èç¹û¶ÔÏóÒÑ¾­ÊÇ<code>targetType</code>ÁË, Ö±½Ó·µ»Ø.
+ * å¦‚æœå¯¹è±¡å·²ç»æ˜¯<code>targetType</code>äº†, ç›´æ¥è¿”å›.
  * </li>
  * <li>
- * ÊÔ×Å½«¶ÔÏó×ª»»³É<code>FlagSet.getUnderlyingType</code>ÀàĞÍ, Èç¹û³É¹¦, Ôò·µ»Ø¶ÔÓ¦µÄ<code>FlagSet</code>.
+ * è¯•ç€å°†å¯¹è±¡è½¬æ¢æˆ<code>FlagSet.getUnderlyingType</code>ç±»å‹, å¦‚æœæˆåŠŸ, åˆ™è¿”å›å¯¹åº”çš„<code>FlagSet</code>.
  * </li>
  * <li>
- * Èç¹ûÓĞÄ¬ÈÏÖµ, ÔòÅ×³ö´øÄ¬ÈÏÖµµÄ<code>ConvertFailedException</code>
+ * å¦‚æœæœ‰é»˜è®¤å€¼, åˆ™æŠ›å‡ºå¸¦é»˜è®¤å€¼çš„<code>ConvertFailedException</code>
  * </li>
  * <li>
- * ·ñÔò, °Ñ¶ÔÏó´«µİ¸øÏÂÒ»¸ö<code>Converter</code>´¦Àí.
+ * å¦åˆ™, æŠŠå¯¹è±¡ä¼ é€’ç»™ä¸‹ä¸€ä¸ª<code>Converter</code>å¤„ç†.
  * </li>
  * </ul>
  *

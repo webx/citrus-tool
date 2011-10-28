@@ -24,24 +24,24 @@ import com.alibaba.toolkit.util.typeconvert.Converter;
 import java.sql.Timestamp;
 
 /**
- * ½«¶ÔÏó×ª»»³É<code>java.sql.Timestamp</code>.
+ * å°†å¯¹è±¡è½¬æ¢æˆ<code>java.sql.Timestamp</code>.
  *
  * <ul>
  * <li>
- * Èç¹û¶ÔÏóÎª<code>null</code>, ÔòÅ×³ö´øÄ¬ÈÏÖµµÄ<code>ConvertFailedException</code>.
+ * å¦‚æœå¯¹è±¡ä¸º<code>null</code>, åˆ™æŠ›å‡ºå¸¦é»˜è®¤å€¼çš„<code>ConvertFailedException</code>.
  * </li>
  * <li>
- * Èç¹û¶ÔÏóÒÑ¾­ÊÇ<code>java.sql.Timestamp</code>ÁË, Ö±½Ó·µ»Ø.
+ * å¦‚æœå¯¹è±¡å·²ç»æ˜¯<code>java.sql.Timestamp</code>äº†, ç›´æ¥è¿”å›.
  * </li>
  * <li>
- * Èç¹û¶ÔÏóÊÇ¿Õ×Ö·û´®, ÔòÅ×³ö´øÄ¬ÈÏÖµµÄ<code>ConvertFailedException</code>.
+ * å¦‚æœå¯¹è±¡æ˜¯ç©ºå­—ç¬¦ä¸², åˆ™æŠ›å‡ºå¸¦é»˜è®¤å€¼çš„<code>ConvertFailedException</code>.
  * </li>
  * <li>
- * Èç¹û¶ÔÏóÊÇ×Ö·û´®, ÔòÊÔ×Å°ÑËü×ª»»³É<code>java.sql.Timestamp</code>, ¸ñÊ½±ØĞëÎª"yyyy-mm-dd hh:mm:ss.fffffffff".  Èç¹û²»³É¹¦,
- * ÔòÅ×³ö<code>ConvertFailedException</code>.
+ * å¦‚æœå¯¹è±¡æ˜¯å­—ç¬¦ä¸², åˆ™è¯•ç€æŠŠå®ƒè½¬æ¢æˆ<code>java.sql.Timestamp</code>, æ ¼å¼å¿…é¡»ä¸º"yyyy-mm-dd hh:mm:ss.fffffffff".  å¦‚æœä¸æˆåŠŸ,
+ * åˆ™æŠ›å‡º<code>ConvertFailedException</code>.
  * </li>
  * <li>
- * ·ñÔò, °Ñ¶ÔÏó´«µİ¸øÏÂÒ»¸ö<code>Converter</code>´¦Àí.
+ * å¦åˆ™, æŠŠå¯¹è±¡ä¼ é€’ç»™ä¸‹ä¸€ä¸ª<code>Converter</code>å¤„ç†.
  * </li>
  * </ul>
  *

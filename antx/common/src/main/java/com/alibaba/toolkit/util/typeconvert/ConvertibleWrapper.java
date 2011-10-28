@@ -18,7 +18,7 @@
 package com.alibaba.toolkit.util.typeconvert;
 
 /**
- * ½«¶ÔÏó±ä³É<code>Convertible</code>µÄ°ü×°Æ÷.
+ * å°†å¯¹è±¡å˜æˆ<code>Convertible</code>çš„åŒ…è£…å™¨.
  *
  * @version $Id: ConvertibleWrapper.java,v 1.1 2003/07/03 07:26:36 baobao Exp $
  * @author Michael Zhou
@@ -27,29 +27,29 @@ public abstract class ConvertibleWrapper implements Convertible {
     private Object wrappedObject;
 
     /**
-     * ´´½¨°ü×°Æ÷.
+     * åˆ›å»ºåŒ…è£…å™¨.
      *
-     * @param wrappedObject  ±»°ü×°µÄ¶ÔÏó
+     * @param wrappedObject  è¢«åŒ…è£…çš„å¯¹è±¡
      */
     public ConvertibleWrapper(Object wrappedObject) {
         this.wrappedObject = wrappedObject;
     }
 
     /**
-     * È¡µÃ±»°ü×°µÄ¶ÔÏó.
+     * å–å¾—è¢«åŒ…è£…çš„å¯¹è±¡.
      *
-     * @return ±»°ü×°µÄ¶ÔÏó
+     * @return è¢«åŒ…è£…çš„å¯¹è±¡
      */
     public Object getWrappedObject() {
         return wrappedObject;
     }
 
     /**
-     * È¡µÃ<code>Converter</code>.
+     * å–å¾—<code>Converter</code>.
      *
-     * @param targetType  Ä¿±êÀàĞÍ
+     * @param targetType  ç›®æ ‡ç±»å‹
      *
-     * @return ×ª»»Æ÷<code>Converter</code>
+     * @return è½¬æ¢å™¨<code>Converter</code>
      */
     public Converter getConverter(Class targetType) {
         return new Converter() {
@@ -63,24 +63,24 @@ public abstract class ConvertibleWrapper implements Convertible {
     }
 
     /**
-     * Ô¤×ª»».
+     * é¢„è½¬æ¢.
      *
-     * @param wrappedObject ±»°ü×°µÄ¶ÔÏó
-     * @param targetType    Ä¿±êÀàĞÍ
+     * @param wrappedObject è¢«åŒ…è£…çš„å¯¹è±¡
+     * @param targetType    ç›®æ ‡ç±»å‹
      *
-     * @return Ô¤×ª»»ºóµÄ¶ÔÏó
+     * @return é¢„è½¬æ¢åçš„å¯¹è±¡
      */
     protected Object preConvert(Object wrappedObject, Class targetType) {
         return wrappedObject;
     }
 
     /**
-     * ºó×ª»».
+     * åè½¬æ¢.
      *
-     * @param targetType     Ä¿±êÀàĞÍ
-     * @param convertedValue ×ª»»µÄ½á¹û
+     * @param targetType     ç›®æ ‡ç±»å‹
+     * @param convertedValue è½¬æ¢çš„ç»“æœ
      *
-     * @return ¾­¹ı´¦ÀíµÄ×ª»»½á¹û
+     * @return ç»è¿‡å¤„ç†çš„è½¬æ¢ç»“æœ
      */
     protected Object postConvert(Class targetType, Object convertedValue) {
         return convertedValue;

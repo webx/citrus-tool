@@ -20,7 +20,7 @@ package com.alibaba.antx.config.descriptor;
 import com.alibaba.antx.config.ConfigException;
 
 /**
- * ´ú±íÒ»¸öconfig validatorµÄÒì³£
+ * ä»£è¡¨ä¸€ä¸ªconfig validatorçš„å¼‚å¸¸
  * 
  * @author Michael Zhou
  */
@@ -28,35 +28,35 @@ public class ConfigValidatorException extends ConfigException {
     private static final long serialVersionUID = -2992328279981424971L;
 
     /**
-     * ´´½¨Ò»¸öÒì³£¡£
+     * åˆ›å»ºä¸€ä¸ªå¼‚å¸¸ã€‚
      */
     public ConfigValidatorException() {
         super();
     }
 
     /**
-     * ´´½¨Ò»¸öÒì³£¡£
+     * åˆ›å»ºä¸€ä¸ªå¼‚å¸¸ã€‚
      * 
-     * @param message Òì³£ĞÅÏ¢
+     * @param message å¼‚å¸¸ä¿¡æ¯
      */
     public ConfigValidatorException(String message) {
         super(message);
     }
 
     /**
-     * ´´½¨Ò»¸öÒì³£¡£
+     * åˆ›å»ºä¸€ä¸ªå¼‚å¸¸ã€‚
      * 
-     * @param message Òì³£ĞÅÏ¢
-     * @param cause Òì³£Ô­Òò
+     * @param message å¼‚å¸¸ä¿¡æ¯
+     * @param cause å¼‚å¸¸åŸå› 
      */
     public ConfigValidatorException(String message, Throwable cause) {
         super(message, cause);
     }
 
     /**
-     * ´´½¨Ò»¸öÒì³£¡£
+     * åˆ›å»ºä¸€ä¸ªå¼‚å¸¸ã€‚
      * 
-     * @param cause Òì³£Ô­Òò
+     * @param cause å¼‚å¸¸åŸå› 
      */
     public ConfigValidatorException(Throwable cause) {
         super(cause);

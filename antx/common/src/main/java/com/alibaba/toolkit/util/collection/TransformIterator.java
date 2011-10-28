@@ -20,7 +20,7 @@ package com.alibaba.toolkit.util.collection;
 import java.util.Iterator;
 
 /**
- * ½«Ò»¸ö<code>Iterator</code>ÖĞµÄÖµ×ª»»³ÉÁíÒ»¸öÖµµÄ¹ıÂËÆ÷.
+ * å°†ä¸€ä¸ª<code>Iterator</code>ä¸­çš„å€¼è½¬æ¢æˆå¦ä¸€ä¸ªå€¼çš„è¿‡æ»¤å™¨.
  *
  * @version $Id: TransformIterator.java,v 1.1 2003/07/03 07:26:16 baobao Exp $
  * @author Michael Zhou
@@ -29,10 +29,10 @@ public class TransformIterator extends FilterIterator {
     private Transformer transformer;
 
     /**
-     * ´´½¨Ò»¸ö¹ıÂËÆ÷.
+     * åˆ›å»ºä¸€ä¸ªè¿‡æ»¤å™¨.
      *
-     * @param iterator    ±»¹ıÂËµÄ<code>Iterator</code>
-     * @param transformer ×ª»»Æ÷
+     * @param iterator    è¢«è¿‡æ»¤çš„<code>Iterator</code>
+     * @param transformer è½¬æ¢å™¨
      */
     public TransformIterator(Iterator iterator, Transformer transformer) {
         super(iterator);
@@ -40,29 +40,29 @@ public class TransformIterator extends FilterIterator {
     }
 
     /**
-     * È¡µÃ×ª»»Æ÷.
+     * å–å¾—è½¬æ¢å™¨.
      *
-     * @return ×ª»»Æ÷¶ÔÏó
+     * @return è½¬æ¢å™¨å¯¹è±¡
      */
     public Transformer getTransformer() {
         return transformer;
     }
 
     /**
-     * È¡µÃÏÂÒ»¸ö¶ÔÏó.
+     * å–å¾—ä¸‹ä¸€ä¸ªå¯¹è±¡.
      *
-     * @return ÏÂÒ»¸ö¾­¹ı×ª»»µÄ¶ÔÏó
+     * @return ä¸‹ä¸€ä¸ªç»è¿‡è½¬æ¢çš„å¯¹è±¡
      */
     public Object next() {
         return transform(super.next());
     }
 
     /**
-     * ×ª»»¶ÔÏó.
+     * è½¬æ¢å¯¹è±¡.
      *
-     * @param input ÊäÈë¶ÔÏó
+     * @param input è¾“å…¥å¯¹è±¡
      *
-     * @return ×ª»»ºóµÄ¶ÔÏó
+     * @return è½¬æ¢åçš„å¯¹è±¡
      */
     private Object transform(Object input) {
         Transformer transformer = getTransformer();

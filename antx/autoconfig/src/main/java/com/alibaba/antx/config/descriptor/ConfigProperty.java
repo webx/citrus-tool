@@ -84,7 +84,7 @@ public class ConfigProperty {
     }
 
     public void afterPropertiesSet() {
-        // RequiredValidator是一个特殊的validator，默认情况下required=true
+        // RequiredValidator鏄竴涓壒娈婄殑validator锛岄粯璁ゆ儏鍐典笅required=true
         if (required) {
             addValidator(new RequiredValidator());
         }

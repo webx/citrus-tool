@@ -22,23 +22,23 @@ import java.util.Map;
 
 /**
  * <p>
- * ÓĞĞòµÄ<code>java.util.Map</code>.
+ * æœ‰åºçš„<code>java.util.Map</code>.
  * </p>
  *
  * <p>
- * ³ıÁËÓµÓĞ<code>java.util.Map</code>µÄËùÓĞÌØĞÔÒÔÍâ, <code>ListMap</code>ÖĞµÄ Ïî(<code>Map.Entry</code>)ÊÇÓĞĞòµÄ.
- * Ò²¾ÍÊÇËµ, Ëü¼ÈÄÜÒÔ¼üÖµ(key)À´·ÃÎÊ, Ò²¿ÉÒÔÓÃË÷Òı(index)À´·ÃÎÊ. ÀıÈç,
+ * é™¤äº†æ‹¥æœ‰<code>java.util.Map</code>çš„æ‰€æœ‰ç‰¹æ€§ä»¥å¤–, <code>ListMap</code>ä¸­çš„ é¡¹(<code>Map.Entry</code>)æ˜¯æœ‰åºçš„.
+ * ä¹Ÿå°±æ˜¯è¯´, å®ƒæ—¢èƒ½ä»¥é”®å€¼(key)æ¥è®¿é—®, ä¹Ÿå¯ä»¥ç”¨ç´¢å¼•(index)æ¥è®¿é—®. ä¾‹å¦‚,
  * </p>
  *
  * <p>
- * Í¨¹ıkey·ÃÎÊ:
+ * é€šè¿‡keyè®¿é—®:
  * </p>
  * <pre>
  * Object value1 = listMap.get("key1");
  * </pre>
  *
  * <p>
- * Í¨¹ıÕûÊıindex, È¡µÃkeyºÍvalue:
+ * é€šè¿‡æ•´æ•°index, å–å¾—keyå’Œvalue:
  * </p>
  * <pre>
  * Object value2 = listMap.get(2);
@@ -46,17 +46,17 @@ import java.util.Map;
  * </pre>
  *
  * <p>
- * Í¨¹ıÕûÊıindex, É¾³ıÒ»Ïî, ²¢·µ»Ø±»É¾³ıµÄÏî:
+ * é€šè¿‡æ•´æ•°index, åˆ é™¤ä¸€é¡¹, å¹¶è¿”å›è¢«åˆ é™¤çš„é¡¹:
  * </p>
  * <pre>
  * Map.Entry removedEntry = listMap.remove(3);
  * </pre>
  *
  * <p>
- * ´ËÍâ, Ëü»¹Ìá¹©ÁËÈı¸ö·½·¨: <code>keyList()</code>, <code>valueList()</code>ºÍ<code>entryList()</code>,
- * ÓÃÀ´È¡µÃkey, valueºÍentryµÄ<code>List</code>. Ïà¶ÔÓÚ<code>Map.keySet()</code>, <code>Map.values()</code>
- * ÒÔ¼°<code>Map.entrySet()</code>, ºóÕßÖ»Ìá¹©ÁËÈ¡µÃÎŞĞòµÄkeyºÍentryµÄ<code>Set</code>,
- * ÒÔ¼°È¡µÃvalueµÄ<code>Collection</code>µÄ·½·¨.
+ * æ­¤å¤–, å®ƒè¿˜æä¾›äº†ä¸‰ä¸ªæ–¹æ³•: <code>keyList()</code>, <code>valueList()</code>å’Œ<code>entryList()</code>,
+ * ç”¨æ¥å–å¾—key, valueå’Œentryçš„<code>List</code>. ç›¸å¯¹äº<code>Map.keySet()</code>, <code>Map.values()</code>
+ * ä»¥åŠ<code>Map.entrySet()</code>, åè€…åªæä¾›äº†å–å¾—æ— åºçš„keyå’Œentryçš„<code>Set</code>,
+ * ä»¥åŠå–å¾—valueçš„<code>Collection</code>çš„æ–¹æ³•.
  * </p>
  *
  * @version $Id: ListMap.java,v 1.1 2003/07/03 07:26:16 baobao Exp $
@@ -64,50 +64,50 @@ import java.util.Map;
  */
 public interface ListMap extends Map {
     /**
-     * ·µ»ØÖ¸¶¨index´¦µÄvalue.  Èç¹ûindex³¬³ö·¶Î§, ÔòÖÀ³ö<code>IndexOutOfBoundsException</code>.
+     * è¿”å›æŒ‡å®šindexå¤„çš„value.  å¦‚æœindexè¶…å‡ºèŒƒå›´, åˆ™æ·å‡º<code>IndexOutOfBoundsException</code>.
      *
-     * @param index Òª·µ»ØµÄvalueµÄË÷ÒıÖµ.
+     * @param index è¦è¿”å›çš„valueçš„ç´¢å¼•å€¼.
      *
-     * @return Ö¸¶¨index´¦µÄvalue¶ÔÏó
+     * @return æŒ‡å®šindexå¤„çš„valueå¯¹è±¡
      */
     Object get(int index);
 
     /**
-     * ·µ»ØÖ¸¶¨index´¦µÄkey. Èç¹ûindex³¬³ö·¶Î§, Ôò·µ»Ø<code>IndexOutOfBoundsException</code>.
+     * è¿”å›æŒ‡å®šindexå¤„çš„key. å¦‚æœindexè¶…å‡ºèŒƒå›´, åˆ™è¿”å›<code>IndexOutOfBoundsException</code>.
      *
-     * @param index Òª·µ»ØµÄkeyµÄË÷ÒıÖµ.
+     * @param index è¦è¿”å›çš„keyçš„ç´¢å¼•å€¼.
      *
-     * @return Ö¸¶¨index´¦µÄkey¶ÔÏó
+     * @return æŒ‡å®šindexå¤„çš„keyå¯¹è±¡
      */
     Object getKey(int index);
 
     /**
-     * É¾³ıÖ¸¶¨index´¦µÄÏî. Èç¹ûindex³¬³ö·¶Î§, Ôò·µ»Ø<code>IndexOutOfBoundsException</code>.
+     * åˆ é™¤æŒ‡å®šindexå¤„çš„é¡¹. å¦‚æœindexè¶…å‡ºèŒƒå›´, åˆ™è¿”å›<code>IndexOutOfBoundsException</code>.
      *
-     * @param index ÒªÉ¾³ıµÄÏîµÄË÷ÒıÖµ.
+     * @param index è¦åˆ é™¤çš„é¡¹çš„ç´¢å¼•å€¼.
      *
-     * @return ±»É¾³ıµÄ<code>Map.Entry</code>Ïî.
+     * @return è¢«åˆ é™¤çš„<code>Map.Entry</code>é¡¹.
      */
     Map.Entry remove(int index);
 
     /**
-     * ·µ»ØËùÓĞkeyµÄ<code>List</code>.
+     * è¿”å›æ‰€æœ‰keyçš„<code>List</code>.
      *
-     * @return ËùÓĞkeyµÄ<code>List</code>.
+     * @return æ‰€æœ‰keyçš„<code>List</code>.
      */
     List keyList();
 
     /**
-     * ·µ»ØËùÓĞvalueµÄ<code>List</code>.
+     * è¿”å›æ‰€æœ‰valueçš„<code>List</code>.
      *
-     * @return ËùÓĞvalueµÄ<code>List</code>.
+     * @return æ‰€æœ‰valueçš„<code>List</code>.
      */
     List valueList();
 
     /**
-     * ·µ»ØËùÓĞentryµÄ<code>List</code>.
+     * è¿”å›æ‰€æœ‰entryçš„<code>List</code>.
      *
-     * @return ËùÓĞentryµÄ<code>List</code>.
+     * @return æ‰€æœ‰entryçš„<code>List</code>.
      */
     List entryList();
 }

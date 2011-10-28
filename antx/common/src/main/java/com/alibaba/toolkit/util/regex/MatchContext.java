@@ -30,7 +30,7 @@ import org.apache.oro.text.regex.Perl5Substitution;
 import org.apache.oro.text.regex.Substitution;
 
 /**
- * ´ú±íÒ»¸öÆ¥ÅäµÄcontext.  Ò»¸öcontextÖĞ±£´æÁËÒ»´Î»ò¶à´ÎÆ¥Åä¹ı³ÌÖĞ¿ÉÖØ¸´Ê¹ÓÃµÄ¶ÔÏó, ÒÔ¼°×î½üÒ»´ÎÆ¥ÅäµÄ½á¹û.
+ * ä»£è¡¨ä¸€ä¸ªåŒ¹é…çš„context.  ä¸€ä¸ªcontextä¸­ä¿å­˜äº†ä¸€æ¬¡æˆ–å¤šæ¬¡åŒ¹é…è¿‡ç¨‹ä¸­å¯é‡å¤ä½¿ç”¨çš„å¯¹è±¡, ä»¥åŠæœ€è¿‘ä¸€æ¬¡åŒ¹é…çš„ç»“æœ.
  *
  * @version $Id: MatchContext.java,v 1.1 2003/07/03 07:26:34 baobao Exp $
  * @author Michael Zhou
@@ -42,18 +42,18 @@ public class MatchContext {
     private MatchItem           lastMatchItem;
 
     /**
-     * ´´½¨Ò»¸öĞÂµÄcontext.
+     * åˆ›å»ºä¸€ä¸ªæ–°çš„context.
      *
-     * @param input ÒªÆ¥ÅäµÄ×Ö·û´®
+     * @param input è¦åŒ¹é…çš„å­—ç¬¦ä¸²
      */
     public MatchContext(String input) {
         init(input);
     }
 
     /**
-     * ´´½¨Ò»¸öĞÂµÄcontext.
+     * åˆ›å»ºä¸€ä¸ªæ–°çš„context.
      *
-     * @param input ÒªÆ¥ÅäµÄ×Ö·û´®
+     * @param input è¦åŒ¹é…çš„å­—ç¬¦ä¸²
      */
     public void init(String input) {
         if (this.matcher == null) {
@@ -68,36 +68,36 @@ public class MatchContext {
     }
 
     /**
-     * È¡µÃÓÃÓÚÆ¥ÅäµÄpatterns.
+     * å–å¾—ç”¨äºåŒ¹é…çš„patterns.
      *
-     * @return ËùÓĞpatterns
+     * @return æ‰€æœ‰patterns
      */
     public Collection getPatterns() {
         return Collections.EMPTY_LIST;
     }
 
     /**
-     * È¡µÃÓÃÓÚ¹ıÂËÆ¥ÅäÏîµÄÌõ¼ş, Ä¬ÈÏ·µ»Ø<code>null</code>.
+     * å–å¾—ç”¨äºè¿‡æ»¤åŒ¹é…é¡¹çš„æ¡ä»¶, é»˜è®¤è¿”å›<code>null</code>.
      *
-     * @return ¹ıÂËÆ¥ÅäÏîµÄÌõ¼ş
+     * @return è¿‡æ»¤åŒ¹é…é¡¹çš„æ¡ä»¶
      */
     public Predicate getPredicate() {
         return null;
     }
 
     /**
-     * È¡µÃÆ¥ÅäµÄÊäÈëÖµ.
+     * å–å¾—åŒ¹é…çš„è¾“å…¥å€¼.
      *
-     * @return Æ¥ÅäµÄÊäÈëÖµ
+     * @return åŒ¹é…çš„è¾“å…¥å€¼
      */
     public PatternMatcherInput getInput() {
         return input;
     }
 
     /**
-     * È¡µÃ²¢¸´Î»Æ¥ÅäµÄÊäÈëÖµ. Ã¿´ÎÆ¥Åä¶¯×÷Íê³Éºó, ±ØĞëµ÷ÓÃ´Ë·½·¨²Å¿É½øĞĞµÚ¶ş´ÎÆ¥Åä.
+     * å–å¾—å¹¶å¤ä½åŒ¹é…çš„è¾“å…¥å€¼. æ¯æ¬¡åŒ¹é…åŠ¨ä½œå®Œæˆå, å¿…é¡»è°ƒç”¨æ­¤æ–¹æ³•æ‰å¯è¿›è¡Œç¬¬äºŒæ¬¡åŒ¹é….
      *
-     * @return input Æ¥ÅäµÄÊäÈëÖµ
+     * @return input åŒ¹é…çš„è¾“å…¥å€¼
      */
     public PatternMatcherInput getInputReset() {
         input.setCurrentOffset(input.getBeginOffset());
@@ -105,38 +105,38 @@ public class MatchContext {
     }
 
     /**
-     * È¡µÃpatternÆ¥ÅäÆ÷.
+     * å–å¾—patternåŒ¹é…å™¨.
      *
-     * @return patternÆ¥ÅäÆ÷
+     * @return patternåŒ¹é…å™¨
      */
     public PatternMatcher getMatcher() {
         return matcher;
     }
 
     /**
-     * ÉèÖÃ×î½üÒ»´ÎÆ¥ÅäµÄ½á¹û.
+     * è®¾ç½®æœ€è¿‘ä¸€æ¬¡åŒ¹é…çš„ç»“æœ.
      *
-     * @param item ×î½üÒ»´ÎÆ¥ÅäµÄ½á¹û
+     * @param item æœ€è¿‘ä¸€æ¬¡åŒ¹é…çš„ç»“æœ
      */
     public void setLastMatchItem(MatchItem item) {
         this.lastMatchItem = item;
     }
 
     /**
-     * È¡µÃ×î½üÒ»´ÎÆ¥ÅäµÄ½á¹û.
+     * å–å¾—æœ€è¿‘ä¸€æ¬¡åŒ¹é…çš„ç»“æœ.
      *
-     * @return ×î½üÒ»´ÎÆ¥ÅäµÄ½á¹û
+     * @return æœ€è¿‘ä¸€æ¬¡åŒ¹é…çš„ç»“æœ
      */
     public MatchItem getLastMatchItem() {
         return lastMatchItem;
     }
 
     /**
-     * È¡µÃÌæ»»¶ÔÏó.
+     * å–å¾—æ›¿æ¢å¯¹è±¡.
      *
-     * @param substitution Ìæ»»×Ö·û´®
+     * @param substitution æ›¿æ¢å­—ç¬¦ä¸²
      *
-     * @return Ìæ»»¶ÔÏó
+     * @return æ›¿æ¢å¯¹è±¡
      */
     public Substitution getSubstitution(String substitution) {
         this.substitution = createSubstitution(this.substitution, substitution);
@@ -145,21 +145,21 @@ public class MatchContext {
     }
 
     /**
-     * ´´½¨ÕıÔò±í´ïÊ½µÄÆ¥ÅäÆ÷, Ä¬ÈÏÎª<code>Perl5Matcher</code>, ×ÓÀà¿ÉÒÔ¸Ä±äÕâ¸öÊµÏÖ.
+     * åˆ›å»ºæ­£åˆ™è¡¨è¾¾å¼çš„åŒ¹é…å™¨, é»˜è®¤ä¸º<code>Perl5Matcher</code>, å­ç±»å¯ä»¥æ”¹å˜è¿™ä¸ªå®ç°.
      *
-     * @return ÕıÔò±í´ïÊ½µÄÆ¥ÅäÆ÷
+     * @return æ­£åˆ™è¡¨è¾¾å¼çš„åŒ¹é…å™¨
      */
     protected PatternMatcher createPatternMatcher() {
         return new Perl5Matcher();
     }
 
     /**
-     * ´´½¨Ìæ»»Æ÷, Ä¬ÈÏÎª<code>Perl5Substitution</code>, ×ÓÀà¿ÉÒÔ¸Ä±äÕâ¸öÊµÏÖ.
+     * åˆ›å»ºæ›¿æ¢å™¨, é»˜è®¤ä¸º<code>Perl5Substitution</code>, å­ç±»å¯ä»¥æ”¹å˜è¿™ä¸ªå®ç°.
      *
-     * @param reuse         ¿ÉÖØÓÃµÄÌæ»»Æ÷
-     * @param substitution  Ìæ»»×Ö·û´®
+     * @param reuse         å¯é‡ç”¨çš„æ›¿æ¢å™¨
+     * @param substitution  æ›¿æ¢å­—ç¬¦ä¸²
      *
-     * @return Ìæ»»Æ÷
+     * @return æ›¿æ¢å™¨
      */
     protected Substitution createSubstitution(Substitution reuse, String substitution) {
         if (reuse == null) {
@@ -171,12 +171,12 @@ public class MatchContext {
     }
 
     /**
-     * ´´½¨Æ¥Åä½á¹û, Ä¬ÈÏÎª<code>MatchItem</code>, ×ÓÀà¿ÉÒÔ¸Ä±äÕâ¸öÊµÏÖ.
+     * åˆ›å»ºåŒ¹é…ç»“æœ, é»˜è®¤ä¸º<code>MatchItem</code>, å­ç±»å¯ä»¥æ”¹å˜è¿™ä¸ªå®ç°.
      *
-     * @param pattern  ÓÃÓÚÆ¥ÅäµÄpattern
-     * @param result   ÕıÔò±í´ïÊ½µÄÆ¥Åä½á¹û
+     * @param pattern  ç”¨äºåŒ¹é…çš„pattern
+     * @param result   æ­£åˆ™è¡¨è¾¾å¼çš„åŒ¹é…ç»“æœ
      *
-     * @return Æ¥Åä½á¹ûÏî
+     * @return åŒ¹é…ç»“æœé¡¹
      */
     protected MatchItem createMatchItem(MatchPattern pattern, MatchResult result) {
         return new MatchItem(this, pattern, result);

@@ -32,7 +32,7 @@ import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 
 /**
- * ºÍ×Ö·û´®ÓĞ¹ØµÄĞ¡¹¤¾ß.
+ * å’Œå­—ç¬¦ä¸²æœ‰å…³çš„å°å·¥å…·.
  *
  * @version $Id: StringUtil.java,v 1.1 2003/07/03 07:26:15 baobao Exp $
  * @author Michael Zhou
@@ -43,21 +43,21 @@ public class StringUtil {
             new OutputStreamWriter(DUMMY_OUTPUT_STREAM).getEncoding();
 
     /* ============================================================================ */
-    /* ÒÔÏÂÊÇÓĞ¹Øresource bundleµÄ·½·¨                                              */
+    /* ä»¥ä¸‹æ˜¯æœ‰å…³resource bundleçš„æ–¹æ³•                                              */
     /* ============================================================================ */
 
     /**
-     * Ê¹ÓÃ<code>MessageFormat</code>¸ñÊ½»¯×Ö·û´®.
+     * ä½¿ç”¨<code>MessageFormat</code>æ ¼å¼åŒ–å­—ç¬¦ä¸².
      *
      * @param bundle  resource bundle
-     * @param key     Òª²éÕÒµÄ¼ü
-     * @param params  ²ÎÊı±í
+     * @param key     è¦æŸ¥æ‰¾çš„é”®
+     * @param params  å‚æ•°è¡¨
      *
-     * @return key¶ÔÓ¦µÄ×Ö·û´®
+     * @return keyå¯¹åº”çš„å­—ç¬¦ä¸²
      *
-     * @throws NullPointerException      resource keyÎª<code>null</code>»òresource
-     *         bundleÎª<code>null</code>
-     * @throws MissingResourceException  Ö¸¶¨resource keyÎ´ÕÒµ½
+     * @throws NullPointerException      resource keyä¸º<code>null</code>æˆ–resource
+     *         bundleä¸º<code>null</code>
+     * @throws MissingResourceException  æŒ‡å®šresource keyæœªæ‰¾åˆ°
      */
     public static String getMessage(ResourceBundle bundle, Object key, Object[] params) {
         String pattern = bundle.getString(key.toString());
@@ -70,17 +70,17 @@ public class StringUtil {
     }
 
     /**
-     * Ê¹ÓÃ<code>MessageFormat</code>¸ñÊ½»¯×Ö·û´®.
+     * ä½¿ç”¨<code>MessageFormat</code>æ ¼å¼åŒ–å­—ç¬¦ä¸².
      *
      * @param bundle  resource bundle
-     * @param key     Òª²éÕÒµÄ¼ü
-     * @param param1  ²ÎÊı1
+     * @param key     è¦æŸ¥æ‰¾çš„é”®
+     * @param param1  å‚æ•°1
      *
-     * @return key¶ÔÓ¦µÄ×Ö·û´®
+     * @return keyå¯¹åº”çš„å­—ç¬¦ä¸²
      *
-     * @throws NullPointerException      resource keyÎª<code>null</code>»òresource
-     *         bundleÎª<code>null</code>
-     * @throws MissingResourceException  Ö¸¶¨resource keyÎ´ÕÒµ½
+     * @throws NullPointerException      resource keyä¸º<code>null</code>æˆ–resource
+     *         bundleä¸º<code>null</code>
+     * @throws MissingResourceException  æŒ‡å®šresource keyæœªæ‰¾åˆ°
      */
     public static String getMessage(ResourceBundle bundle, Object key, Object param1) {
         return getMessage(bundle, key, new Object[] {
@@ -89,18 +89,18 @@ public class StringUtil {
     }
 
     /**
-     * Ê¹ÓÃ<code>MessageFormat</code>¸ñÊ½»¯×Ö·û´®.
+     * ä½¿ç”¨<code>MessageFormat</code>æ ¼å¼åŒ–å­—ç¬¦ä¸².
      *
      * @param bundle  resource bundle
-     * @param key     Òª²éÕÒµÄ¼ü
-     * @param param1  ²ÎÊı1
-     * @param param2  ²ÎÊı2
+     * @param key     è¦æŸ¥æ‰¾çš„é”®
+     * @param param1  å‚æ•°1
+     * @param param2  å‚æ•°2
      *
-     * @return key¶ÔÓ¦µÄ×Ö·û´®
+     * @return keyå¯¹åº”çš„å­—ç¬¦ä¸²
      *
-     * @throws NullPointerException      resource keyÎª<code>null</code>»òresource
-     *         bundleÎª<code>null</code>
-     * @throws MissingResourceException  Ö¸¶¨resource keyÎ´ÕÒµ½
+     * @throws NullPointerException      resource keyä¸º<code>null</code>æˆ–resource
+     *         bundleä¸º<code>null</code>
+     * @throws MissingResourceException  æŒ‡å®šresource keyæœªæ‰¾åˆ°
      */
     public static String getMessage(ResourceBundle bundle, Object key, Object param1, Object param2) {
         return getMessage(bundle, key, new Object[] {
@@ -110,19 +110,19 @@ public class StringUtil {
     }
 
     /**
-     * Ê¹ÓÃ<code>MessageFormat</code>¸ñÊ½»¯×Ö·û´®.
+     * ä½¿ç”¨<code>MessageFormat</code>æ ¼å¼åŒ–å­—ç¬¦ä¸².
      *
      * @param bundle  resource bundle
-     * @param key     Òª²éÕÒµÄ¼ü
-     * @param param1  ²ÎÊı1
-     * @param param2  ²ÎÊı2
-     * @param param3  ²ÎÊı3
+     * @param key     è¦æŸ¥æ‰¾çš„é”®
+     * @param param1  å‚æ•°1
+     * @param param2  å‚æ•°2
+     * @param param3  å‚æ•°3
      *
-     * @return key¶ÔÓ¦µÄ×Ö·û´®
+     * @return keyå¯¹åº”çš„å­—ç¬¦ä¸²
      *
-     * @throws NullPointerException      resource keyÎª<code>null</code>»òresource
-     *         bundleÎª<code>null</code>
-     * @throws MissingResourceException  Ö¸¶¨resource keyÎ´ÕÒµ½
+     * @throws NullPointerException      resource keyä¸º<code>null</code>æˆ–resource
+     *         bundleä¸º<code>null</code>
+     * @throws MissingResourceException  æŒ‡å®šresource keyæœªæ‰¾åˆ°
      */
     public static String getMessage(ResourceBundle bundle, Object key, Object param1, Object param2,
                                     Object param3) {
@@ -134,20 +134,20 @@ public class StringUtil {
     }
 
     /**
-     * Ê¹ÓÃ<code>MessageFormat</code>¸ñÊ½»¯×Ö·û´®.
+     * ä½¿ç”¨<code>MessageFormat</code>æ ¼å¼åŒ–å­—ç¬¦ä¸².
      *
      * @param bundle  resource bundle
-     * @param key     Òª²éÕÒµÄ¼ü
-     * @param param1  ²ÎÊı1
-     * @param param2  ²ÎÊı2
-     * @param param3  ²ÎÊı3
-     * @param param4  ²ÎÊı4
+     * @param key     è¦æŸ¥æ‰¾çš„é”®
+     * @param param1  å‚æ•°1
+     * @param param2  å‚æ•°2
+     * @param param3  å‚æ•°3
+     * @param param4  å‚æ•°4
      *
-     * @return key¶ÔÓ¦µÄ×Ö·û´®
+     * @return keyå¯¹åº”çš„å­—ç¬¦ä¸²
      *
-     * @throws NullPointerException      resource keyÎª<code>null</code>»òresource
-     *         bundleÎª<code>null</code>
-     * @throws MissingResourceException  Ö¸¶¨resource keyÎ´ÕÒµ½
+     * @throws NullPointerException      resource keyä¸º<code>null</code>æˆ–resource
+     *         bundleä¸º<code>null</code>
+     * @throws MissingResourceException  æŒ‡å®šresource keyæœªæ‰¾åˆ°
      */
     public static String getMessage(ResourceBundle bundle, Object key, Object param1, Object param2,
                                     Object param3, Object param4) {
@@ -161,21 +161,21 @@ public class StringUtil {
     }
 
     /**
-     * Ê¹ÓÃ<code>MessageFormat</code>¸ñÊ½»¯×Ö·û´®.
+     * ä½¿ç”¨<code>MessageFormat</code>æ ¼å¼åŒ–å­—ç¬¦ä¸².
      *
      * @param bundle  resource bundle
-     * @param key     Òª²éÕÒµÄ¼ü
-     * @param param1  ²ÎÊı1
-     * @param param2  ²ÎÊı2
-     * @param param3  ²ÎÊı3
-     * @param param4  ²ÎÊı4
-     * @param param5  ²ÎÊı5
+     * @param key     è¦æŸ¥æ‰¾çš„é”®
+     * @param param1  å‚æ•°1
+     * @param param2  å‚æ•°2
+     * @param param3  å‚æ•°3
+     * @param param4  å‚æ•°4
+     * @param param5  å‚æ•°5
      *
-     * @return key¶ÔÓ¦µÄ×Ö·û´®
+     * @return keyå¯¹åº”çš„å­—ç¬¦ä¸²
      *
-     * @throws NullPointerException      resource keyÎª<code>null</code>»òresource
-     *         bundleÎª<code>null</code>
-     * @throws MissingResourceException  Ö¸¶¨resource keyÎ´ÕÒµ½
+     * @throws NullPointerException      resource keyä¸º<code>null</code>æˆ–resource
+     *         bundleä¸º<code>null</code>
+     * @throws MissingResourceException  æŒ‡å®šresource keyæœªæ‰¾åˆ°
      */
     public static String getMessage(ResourceBundle bundle, Object key, Object param1, Object param2,
                                     Object param3, Object param4, Object param5) {
@@ -190,33 +190,33 @@ public class StringUtil {
     }
 
     /**
-     * ¼ì²é×Ö·û´®ÊÇ·ñÎª<code>null</code>»ò¿Õ×Ö·û´®.
+     * æ£€æŸ¥å­—ç¬¦ä¸²æ˜¯å¦ä¸º<code>null</code>æˆ–ç©ºå­—ç¬¦ä¸².
      *
-     * @param str Òª¼ì²éµÄ×Ö·û´®
+     * @param str è¦æ£€æŸ¥çš„å­—ç¬¦ä¸²
      *
-     * @return Èç¹ûÎª¿Õ, Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœä¸ºç©º, åˆ™è¿”å›<code>true</code>
      */
     public static boolean isEmpty(String str) {
         return (str == null) || (str.length() == 0);
     }
 
     /**
-     * È¡µÃÏµÍ³×Ö·û¼¯Ãû³Æ.
+     * å–å¾—ç³»ç»Ÿå­—ç¬¦é›†åç§°.
      *
-     * @return ÏµÍ³×Ö·û¼¯Ãû³Æ
+     * @return ç³»ç»Ÿå­—ç¬¦é›†åç§°
      */
     public static String getSystemCharset() {
         return SYSTEM_CHARSET;
     }
 
     /**
-     * È¡µÃÕı¹æµÄ×Ö·û¼¯Ãû³Æ, Èç¹ûÖ¸¶¨×Ö·û¼¯²»´æÔÚ, ÔòÅ×³ö<code>UnsupportedEncodingException</code>.
+     * å–å¾—æ­£è§„çš„å­—ç¬¦é›†åç§°, å¦‚æœæŒ‡å®šå­—ç¬¦é›†ä¸å­˜åœ¨, åˆ™æŠ›å‡º<code>UnsupportedEncodingException</code>.
      *
-     * @param charset ×Ö·û¼¯Ãû³Æ
+     * @param charset å­—ç¬¦é›†åç§°
      *
-     * @return Õı¹æµÄ×Ö·û¼¯Ãû³Æ
+     * @return æ­£è§„çš„å­—ç¬¦é›†åç§°
      *
-     * @throws UnsupportedEncodingException Èç¹ûÖ¸¶¨×Ö·û¼¯²»´æÔÚ
+     * @throws UnsupportedEncodingException å¦‚æœæŒ‡å®šå­—ç¬¦é›†ä¸å­˜åœ¨
      */
     public static String getCanonicalCharset(String charset)
             throws UnsupportedEncodingException {
@@ -224,11 +224,11 @@ public class StringUtil {
     }
 
     /**
-     * È¡µÃÕı¹æµÄ×Ö·û¼¯Ãû³Æ, Èç¹ûÖ¸¶¨×Ö·û¼¯²»´æÔÚ, Ôò·µ»Ø<code>null</code>.
+     * å–å¾—æ­£è§„çš„å­—ç¬¦é›†åç§°, å¦‚æœæŒ‡å®šå­—ç¬¦é›†ä¸å­˜åœ¨, åˆ™è¿”å›<code>null</code>.
      *
-     * @param charset ×Ö·û¼¯Ãû³Æ
+     * @param charset å­—ç¬¦é›†åç§°
      *
-     * @return Õı¹æµÄ×Ö·û¼¯Ãû³Æ, Èç¹ûÖ¸¶¨×Ö·û¼¯²»´æÔÚ, Ôò·µ»Ø<code>null</code>
+     * @return æ­£è§„çš„å­—ç¬¦é›†åç§°, å¦‚æœæŒ‡å®šå­—ç¬¦é›†ä¸å­˜åœ¨, åˆ™è¿”å›<code>null</code>
      */
     public static String getCanonicalCharsetQuiet(String charset) {
         try {
@@ -239,23 +239,23 @@ public class StringUtil {
     }
 
     /**
-     * Õ¹¿ª×Ö·û´®, ½«"$£û"ºÍ"£ı"ÖĞµÄ±äÁ¿×ª»»³É<code>System.getProperties()</code>ÖĞµÄÖµ.
+     * å±•å¼€å­—ç¬¦ä¸², å°†"$ï½›"å’Œ"ï½"ä¸­çš„å˜é‡è½¬æ¢æˆ<code>System.getProperties()</code>ä¸­çš„å€¼.
      *
-     * @param value       Òª×ª»»µÄÖµ
+     * @param value       è¦è½¬æ¢çš„å€¼
      *
-     * @return Õ¹¿ªºóµÄÖµ
+     * @return å±•å¼€åçš„å€¼
      */
     public static String expendProperty(String value) {
         return expendProperty(value, System.getProperties());
     }
 
     /**
-     * Õ¹¿ª×Ö·û´®, ½«"$£û"ºÍ"£ı"ÖĞµÄ±äÁ¿×ª»»³ÉÖ¸¶¨propertiesÖĞµÄÖµ.
+     * å±•å¼€å­—ç¬¦ä¸², å°†"$ï½›"å’Œ"ï½"ä¸­çš„å˜é‡è½¬æ¢æˆæŒ‡å®špropertiesä¸­çš„å€¼.
      *
-     * @param value       Òª×ª»»µÄÖµ
-     * @param properties  ¿ÉÓÃµÄ±äÁ¿
+     * @param value       è¦è½¬æ¢çš„å€¼
+     * @param properties  å¯ç”¨çš„å˜é‡
      *
-     * @return Õ¹¿ªºóµÄÖµ
+     * @return å±•å¼€åçš„å€¼
      */
     public static String expendProperty(String value, Map properties) {
         if (value == null) {
@@ -320,13 +320,13 @@ public class StringUtil {
     // add by roy
 
     /**
-     * ¸ù¾İ·Ö¸î·û·Ö¸î×Ö·û´®¡£ Return List,after split Split a String by a splitter(such as ",","hai",...)
+     * æ ¹æ®åˆ†å‰²ç¬¦åˆ†å‰²å­—ç¬¦ä¸²ã€‚ Return List,after split Split a String by a splitter(such as ",","hai",...)
      *
-     * @param sStr       ½«Òª±»·Ö¸îµÄ×Ö·û´®¡£
-     * @param sSplitter  ·Ö¸î·û¡£
+     * @param sStr       å°†è¦è¢«åˆ†å‰²çš„å­—ç¬¦ä¸²ã€‚
+     * @param sSplitter  åˆ†å‰²ç¬¦ã€‚
      *
-     * @return Ò»¸öº¬ÓĞ·Ö¸îºÃµÄ×Ö·û´®µÄList¡£Èç¹û·Ö¸îÊ§°Ü½«·µ»Ønull,Èç¹û×Ö·û´®ÖĞÃ»ÓĞ°üº¬Ö¸¶¨µÄ·Ö¸î·û£¬
-     *         ½«·µ»ØÖ»ÓĞÒ»¸öÔªËØµÄ×Ö·û´®Êı×é£¬Õâ¸öÔªËØ¾ÍÊÇ¸Ã×Ö·û´®±¾Éí¡£Èç¹ûÕâ¸ö×Ö·û´®Ö»º¬ÓĞ·Ö¸î·û£¬½«·µ»Ønull¡£
+     * @return ä¸€ä¸ªå«æœ‰åˆ†å‰²å¥½çš„å­—ç¬¦ä¸²çš„Listã€‚å¦‚æœåˆ†å‰²å¤±è´¥å°†è¿”å›null,å¦‚æœå­—ç¬¦ä¸²ä¸­æ²¡æœ‰åŒ…å«æŒ‡å®šçš„åˆ†å‰²ç¬¦ï¼Œ
+     *         å°†è¿”å›åªæœ‰ä¸€ä¸ªå…ƒç´ çš„å­—ç¬¦ä¸²æ•°ç»„ï¼Œè¿™ä¸ªå…ƒç´ å°±æ˜¯è¯¥å­—ç¬¦ä¸²æœ¬èº«ã€‚å¦‚æœè¿™ä¸ªå­—ç¬¦ä¸²åªå«æœ‰åˆ†å‰²ç¬¦ï¼Œå°†è¿”å›nullã€‚
      */
     public static List splitStr(String sStr, String sSplitter) {
         if ((sStr == null) || (sStr.length() <= 0) || (sSplitter == null)
@@ -346,12 +346,12 @@ public class StringUtil {
 
     // add by roy
     /**
-     * ¼ìÑéÒ»¸öStringÊÇ·ñÊÇÒ»¸öÊı×Ö£¨ÀıÈç£º7897897->true,789t67 -> false£©¡£
-     * ×¢Òâ£ºÈç¹ûÊÇÒ»¸ö¸ºÊı£¬½«»á·µ»Øfalse. Return true if the string represents a number
+     * æ£€éªŒä¸€ä¸ªStringæ˜¯å¦æ˜¯ä¸€ä¸ªæ•°å­—ï¼ˆä¾‹å¦‚ï¼š7897897->true,789t67 -> falseï¼‰ã€‚
+     * æ³¨æ„ï¼šå¦‚æœæ˜¯ä¸€ä¸ªè´Ÿæ•°ï¼Œå°†ä¼šè¿”å›false. Return true if the string represents a number
      *
-     * @param str  ÄãÏëĞ£ÑéµÄ×Ö·û´®¡£
+     * @param str  ä½ æƒ³æ ¡éªŒçš„å­—ç¬¦ä¸²ã€‚
      *
-     * @return Èç¹ûÊÇÒ»¸ö±ê×¼µÄÊı×Ö£¬½«·µ»Øtrue£¬·ñÔò·µ»Øfalse¡£
+     * @return å¦‚æœæ˜¯ä¸€ä¸ªæ ‡å‡†çš„æ•°å­—ï¼Œå°†è¿”å›trueï¼Œå¦åˆ™è¿”å›falseã€‚
      */
     public static boolean isNum(String str) {
         if ((str == null) || (str.length() <= 0)) {

@@ -679,13 +679,13 @@ public final class SelectorUtil {
     }
 
     /**
-     * ²é¿´Ö¸¶¨Ãû³ÆÊÇ·ñ·ûºÏpatterns¡£
+     * æŸ¥çœ‹æŒ‡å®šåç§°æ˜¯å¦ç¬¦åˆpatternsã€‚
      *
-     * @param name ÒªÆ¥ÅäµÄÃû³Æ
+     * @param name è¦åŒ¹é…çš„åç§°
      * @param includes include patterns
      * @param excludes exclude patterns
      *
-     * @return Èç¹û·ûºÏpatterns£¬Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœç¬¦åˆpatternsï¼Œåˆ™è¿”å›<code>true</code>
      */
     public static boolean matchPath(String name, String[] includes, String[] excludes) {
         boolean match = (includes.length == 0);
@@ -710,13 +710,13 @@ public final class SelectorUtil {
     }
 
     /**
-     * ²é¿´Ö¸¶¨Ãû³ÆÊÇ·ñ·ûºÏpatternsµÄÇ°×º¡£
+     * æŸ¥çœ‹æŒ‡å®šåç§°æ˜¯å¦ç¬¦åˆpatternsçš„å‰ç¼€ã€‚
      *
-     * @param name ÒªÆ¥ÅäµÄÃû³Æ
+     * @param name è¦åŒ¹é…çš„åç§°
      * @param includes include patterns
      * @param excludes exclude patterns
      *
-     * @return Èç¹û·ûºÏpatterns£¬Ôò·µ»Ø<code>true</code>
+     * @return å¦‚æœç¬¦åˆpatternsï¼Œåˆ™è¿”å›<code>true</code>
      */
     public static boolean matchPathPrefix(String name, String[] includes, String[] excludes) {
         boolean match = (includes.length == 0);

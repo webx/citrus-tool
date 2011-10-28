@@ -30,7 +30,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * ´ú±íÒ»¸öÀàµÄĞÅÏ¢, °üÀ¨¸¸Àà, ½Ó¿Ú, Êı×éµÄÎ¬ÊıµÈ.
+ * ä»£è¡¨ä¸€ä¸ªç±»çš„ä¿¡æ¯, åŒ…æ‹¬çˆ¶ç±», æ¥å£, æ•°ç»„çš„ç»´æ•°ç­‰.
  *
  * @version $Id: TypeInfo.java,v 1.1 2003/07/03 07:26:36 baobao Exp $
  * @author Michael Zhou
@@ -44,11 +44,11 @@ public class TypeInfo {
     private List       interfaces   = new ArrayList(2);
 
     /**
-     * È¡µÃÖ¸¶¨ÀàµÄ<code>TypeInfo</code>.
+     * å–å¾—æŒ‡å®šç±»çš„<code>TypeInfo</code>.
      *
-     * @param type Ö¸¶¨Àà.
+     * @param type æŒ‡å®šç±».
      *
-     * @return <code>TypeInfo</code>¶ÔÏó.
+     * @return <code>TypeInfo</code>å¯¹è±¡.
      */
     public static TypeInfo getTypeInfo(Class type) {
         if (type == null) {
@@ -69,14 +69,14 @@ public class TypeInfo {
     }
 
     /**
-     * ´´½¨<code>TypeInfo</code>.
+     * åˆ›å»º<code>TypeInfo</code>.
      *
-     * @param type ´´½¨Ö¸¶¨ÀàµÄ<code>TypeInfo</code>
+     * @param type åˆ›å»ºæŒ‡å®šç±»çš„<code>TypeInfo</code>
      */
     private TypeInfo(Class type) {
         this.type = type;
 
-        // Èç¹ûÊÇarray, ÉèÖÃcomponentTypeºÍdimension
+        // å¦‚æœæ˜¯array, è®¾ç½®componentTypeå’Œdimension
         if (type.isArray()) {
             this.componentType = type;
 
@@ -86,11 +86,11 @@ public class TypeInfo {
             } while (componentType.isArray());
         }
 
-        // È¡µÃËùÓĞsuperclass
+        // å–å¾—æ‰€æœ‰superclass
         if (dimension > 0) {
             Class superComponentType = componentType.getSuperclass();
 
-            // Èç¹ûÊÇprimitive, interface, ÔòÉèÖÃÆä»ùÀàÎªObject.
+            // å¦‚æœæ˜¯primitive, interface, åˆ™è®¾ç½®å…¶åŸºç±»ä¸ºObject.
             if ((superComponentType == null) && !Object.class.equals(componentType)) {
                 superComponentType = Object.class;
             }
@@ -114,7 +114,7 @@ public class TypeInfo {
             }
         }
 
-        // È¡µÃËùÓĞinterface
+        // å–å¾—æ‰€æœ‰interface
         if (dimension == 0) {
             Class[] typeInterfaces = type.getInterfaces();
             Set     set = new ArrayHashSet();
@@ -137,57 +137,57 @@ public class TypeInfo {
     }
 
     /**
-     * È¡µÃ<code>TypeInfo</code>Ëù´ú±íµÄjavaÀà.
+     * å–å¾—<code>TypeInfo</code>æ‰€ä»£è¡¨çš„javaç±».
      *
-     * @return <code>TypeInfo</code>Ëù´ú±íµÄjavaÀà
+     * @return <code>TypeInfo</code>æ‰€ä»£è¡¨çš„javaç±»
      */
     public Class getType() {
         return type;
     }
 
     /**
-     * È¡µÃÊı×éÔªËØµÄÀàĞÍ.
+     * å–å¾—æ•°ç»„å…ƒç´ çš„ç±»å‹.
      *
-     * @return Èç¹ûÊÇÊı×é, Ôò·µ»ØÊı×éÔªËØµÄÀàĞÍ, ·ñÔò·µ»Ø<code>null</code>
+     * @return å¦‚æœæ˜¯æ•°ç»„, åˆ™è¿”å›æ•°ç»„å…ƒç´ çš„ç±»å‹, å¦åˆ™è¿”å›<code>null</code>
      */
     public Class getComponentType() {
         return componentType;
     }
 
     /**
-     * È¡µÃÊı×éµÄÎ¬Êı.
+     * å–å¾—æ•°ç»„çš„ç»´æ•°.
      *
-     * @return Êı×éµÄÎ¬Êı. Èç¹û²»ÊÇÊı×é, Ôò·µ»Ø<code>0</code>
+     * @return æ•°ç»„çš„ç»´æ•°. å¦‚æœä¸æ˜¯æ•°ç»„, åˆ™è¿”å›<code>0</code>
      */
     public int getDimension() {
         return dimension;
     }
 
     /**
-     * È¡µÃËùÓĞµÄ¸¸Àà.
+     * å–å¾—æ‰€æœ‰çš„çˆ¶ç±».
      *
-     * @return ËùÓĞµÄ¸¸Àà
+     * @return æ‰€æœ‰çš„çˆ¶ç±»
      */
     public List getSuperclasses() {
         return Collections.unmodifiableList(superclasses);
     }
 
     /**
-     * È¡µÃËùÓĞµÄ½Ó¿Ú.
+     * å–å¾—æ‰€æœ‰çš„æ¥å£.
      *
-     * @return ËùÓĞµÄ½Ó¿Ú
+     * @return æ‰€æœ‰çš„æ¥å£
      */
     public List getInterfaces() {
         return Collections.unmodifiableList(interfaces);
     }
 
     /**
-     * È¡µÃÖ¸¶¨Î¬ÊıµÄ<code>Array</code>Àà.
+     * å–å¾—æŒ‡å®šç»´æ•°çš„<code>Array</code>ç±».
      *
-     * @param componentType  Êı×éµÄ»ùÀà
-     * @param dimension      Î¬Êı
+     * @param componentType  æ•°ç»„çš„åŸºç±»
+     * @param dimension      ç»´æ•°
      *
-     * @return Èç¹ûÎ¬ÊıÎª0, Ôò·µ»Ø»ùÀà±¾Éí, ·ñÔò·µ»ØÊı×éÀà
+     * @return å¦‚æœç»´æ•°ä¸º0, åˆ™è¿”å›åŸºç±»æœ¬èº«, å¦åˆ™è¿”å›æ•°ç»„ç±»
      */
     public static Class getArrayClass(Class componentType, int dimension) {
         if (dimension == 0) {

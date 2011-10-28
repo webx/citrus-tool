@@ -27,7 +27,7 @@ import com.alibaba.antx.util.cli.ParseException;
 import com.alibaba.antx.util.cli.PosixParser;
 
 /**
- * AntxconfigÃüÁîĞĞ½âÎöÆ÷¡£
+ * Antxconfigå‘½ä»¤è¡Œè§£æå™¨ã€‚
  * 
  * @author Michael Zhou
  */
@@ -55,46 +55,46 @@ public class CLIManager {
 
         options = new Options();
 
-        options.addOption(builder.withLongOpt("help").withDescription("ÏÔÊ¾°ïÖúĞÅÏ¢").create(OPT_HELP));
+        options.addOption(builder.withLongOpt("help").withDescription("æ˜¾ç¤ºå¸®åŠ©ä¿¡æ¯").create(OPT_HELP));
 
         options.addOption(builder.withLongOpt("include-descriptors").hasArg().withDescription(
-                "°üº¬ÄÄĞ©ÅäÖÃÃèÊöÎÄ¼ş£¬ÀıÈç£ºconf/auto-config.xml£¬¿ÉÊ¹ÓÃ*¡¢**¡¢?Í¨Åä·û£¬ÈçÓĞ¶àÏî£¬ÓÃ¶ººÅ·Ö¸ô").create(OPT_INCLUDE_DESCRIPTORS));
+                "åŒ…å«å“ªäº›é…ç½®æè¿°æ–‡ä»¶ï¼Œä¾‹å¦‚ï¼šconf/auto-config.xmlï¼Œå¯ä½¿ç”¨*ã€**ã€?é€šé…ç¬¦ï¼Œå¦‚æœ‰å¤šé¡¹ï¼Œç”¨é€—å·åˆ†éš”").create(OPT_INCLUDE_DESCRIPTORS));
 
         options.addOption(builder.withLongOpt("exclude-descriptors").hasArg().withDescription(
-                "ÅÅ³ıÄÄĞ©ÅäÖÃÃèÊöÎÄ¼ş£¬¿ÉÊ¹ÓÃ*¡¢**¡¢?Í¨Åä·û£¬ÈçÓĞ¶àÏî£¬ÓÃ¶ººÅ·Ö¸ô").create(OPT_EXCLUDE_DESCRIPTORS));
+                "æ’é™¤å“ªäº›é…ç½®æè¿°æ–‡ä»¶ï¼Œå¯ä½¿ç”¨*ã€**ã€?é€šé…ç¬¦ï¼Œå¦‚æœ‰å¤šé¡¹ï¼Œç”¨é€—å·åˆ†éš”").create(OPT_EXCLUDE_DESCRIPTORS));
 
         options.addOption(builder.withLongOpt("include-packages").hasArg().withDescription(
-                "°üº¬ÄÄĞ©´ò°üÎÄ¼ş£¬ÀıÈç£ºtarget/*.war£¬¿ÉÊ¹ÓÃ*¡¢**¡¢?Í¨Åä·û£¬ÈçÓĞ¶àÏî£¬ÓÃ¶ººÅ·Ö¸ô").create(OPT_INCLUDE_PACKAGES));
+                "åŒ…å«å“ªäº›æ‰“åŒ…æ–‡ä»¶ï¼Œä¾‹å¦‚ï¼štarget/*.warï¼Œå¯ä½¿ç”¨*ã€**ã€?é€šé…ç¬¦ï¼Œå¦‚æœ‰å¤šé¡¹ï¼Œç”¨é€—å·åˆ†éš”").create(OPT_INCLUDE_PACKAGES));
 
         options.addOption(builder.withLongOpt("exclude-packages").hasArg().withDescription(
-                "ÅÅ³ıÄÄĞ©´ò°üÎÄ¼ş£¬¿ÉÊ¹ÓÃ*¡¢**¡¢?Í¨Åä·û£¬ÈçÓĞ¶àÏî£¬ÓÃ¶ººÅ·Ö¸ô").create(OPT_EXCLUDE_PACKAGES));
+                "æ’é™¤å“ªäº›æ‰“åŒ…æ–‡ä»¶ï¼Œå¯ä½¿ç”¨*ã€**ã€?é€šé…ç¬¦ï¼Œå¦‚æœ‰å¤šé¡¹ï¼Œç”¨é€—å·åˆ†éš”").create(OPT_EXCLUDE_PACKAGES));
 
         options.addOption(builder.withLongOpt("interactive").hasOptionalArg().withDescription(
-                "½»»¥Ä£Ê½£ºauto|on|off£¬Ä¬ÈÏÎªauto£¬ÎŞ²ÎÊı±íÊ¾on").create(OPT_INTERACTIVE_MODE));
+                "äº¤äº’æ¨¡å¼ï¼šauto|on|offï¼Œé»˜è®¤ä¸ºautoï¼Œæ— å‚æ•°è¡¨ç¤ºon").create(OPT_INTERACTIVE_MODE));
 
-        options.addOption(builder.withLongOpt("non-interactive").withDescription("·Ç½»»¥Ä£Ê½£¬Ïàµ±ÓÚ--interactive=off").create(
+        options.addOption(builder.withLongOpt("non-interactive").withDescription("éäº¤äº’æ¨¡å¼ï¼Œç›¸å½“äº--interactive=off").create(
                 OPT_NON_INTERACTIVE_MODE));
 
-        options.addOption(builder.withLongOpt("gui").withDescription("Í¼ĞÎÓÃ»§½çÃæ£¨½»»¥Ä£Ê½£©").create(OPT_GUI_MODE));
+        options.addOption(builder.withLongOpt("gui").withDescription("å›¾å½¢ç”¨æˆ·ç•Œé¢ï¼ˆäº¤äº’æ¨¡å¼ï¼‰").create(OPT_GUI_MODE));
 
-        options.addOption(builder.withLongOpt("text").withDescription("ÎÄ±¾ÓÃ»§½çÃæ£¨½»»¥Ä£Ê½£©").create(OPT_TEXT_MODE));
+        options.addOption(builder.withLongOpt("text").withDescription("æ–‡æœ¬ç”¨æˆ·ç•Œé¢ï¼ˆäº¤äº’æ¨¡å¼ï¼‰").create(OPT_TEXT_MODE));
 
-        options.addOption(builder.withLongOpt("verbose").withDescription("ÏÔÊ¾¸ü¶àĞÅÏ¢").create(OPT_VERBOSE));
+        options.addOption(builder.withLongOpt("verbose").withDescription("æ˜¾ç¤ºæ›´å¤šä¿¡æ¯").create(OPT_VERBOSE));
 
-        options.addOption(builder.withLongOpt("charset").hasArg().withDescription("ÊäÈë/Êä³ö±àÂë×Ö·û¼¯").create(OPT_CHARSET));
+        options.addOption(builder.withLongOpt("charset").hasArg().withDescription("è¾“å…¥/è¾“å‡ºç¼–ç å­—ç¬¦é›†").create(OPT_CHARSET));
 
-        options.addOption(builder.withLongOpt("userprop").hasArg().withDescription("ÓÃ»§ÊôĞÔÎÄ¼ş")
+        options.addOption(builder.withLongOpt("userprop").hasArg().withDescription("ç”¨æˆ·å±æ€§æ–‡ä»¶")
                 .create(OPT_USER_PROPERTIES));
 
-        options.addOption(builder.withLongOpt("shared-props").hasArg().withDescription("¹²ÏíµÄÊôĞÔÎÄ¼şURLÁĞ±í£¬ÒÔ¶ººÅ·Ö¸ô").create(
+        options.addOption(builder.withLongOpt("shared-props").hasArg().withDescription("å…±äº«çš„å±æ€§æ–‡ä»¶URLåˆ—è¡¨ï¼Œä»¥é€—å·åˆ†éš”").create(
                 OPT_SHARED_PROPERTIES));
 
-        options.addOption(builder.withLongOpt("shared-props-name").hasArg().withDescription("¹²ÏíµÄÊôĞÔÎÄ¼şµÄÃû³Æ").create(
+        options.addOption(builder.withLongOpt("shared-props-name").hasArg().withDescription("å…±äº«çš„å±æ€§æ–‡ä»¶çš„åç§°").create(
                 OPT_SHARED_PROPERTIES_NAME));
 
-        options.addOption(builder.withLongOpt("output").hasArg().withDescription("Êä³öÎÄ¼şÃû»òÄ¿Â¼Ãû").create(OPT_OUTPUT_FILES));
+        options.addOption(builder.withLongOpt("output").hasArg().withDescription("è¾“å‡ºæ–‡ä»¶åæˆ–ç›®å½•å").create(OPT_OUTPUT_FILES));
 
-        options.addOption(builder.withLongOpt("type").hasArg().withDescription("ÎÄ¼şÀàĞÍ£¬ÀıÈç£ºwar, jar, earµÈ").create(
+        options.addOption(builder.withLongOpt("type").hasArg().withDescription("æ–‡ä»¶ç±»å‹ï¼Œä¾‹å¦‚ï¼šwar, jar, earç­‰").create(
                 OPT_TYPE));
     }
 
@@ -113,9 +113,9 @@ public class CLIManager {
     public void help(PrintWriter out) {
         HelpFormatter formatter = new HelpFormatter();
 
-        formatter.defaultSyntaxPrefix = "Ê¹ÓÃ·½·¨£º";
+        formatter.defaultSyntaxPrefix = "ä½¿ç”¨æ–¹æ³•ï¼š";
 
-        formatter.printHelp(out, HelpFormatter.DEFAULT_WIDTH, "antxconfig [¿ÉÑ¡²ÎÊı] [Ä¿Â¼Ãû|°üÎÄ¼şÃû]\n", "¿ÉÑ¡²ÎÊı£º", options,
+        formatter.printHelp(out, HelpFormatter.DEFAULT_WIDTH, "antxconfig [å¯é€‰å‚æ•°] [ç›®å½•å|åŒ…æ–‡ä»¶å]\n", "å¯é€‰å‚æ•°ï¼š", options,
                 HelpFormatter.DEFAULT_LEFT_PAD, HelpFormatter.DEFAULT_DESC_PAD, "\n");
     }
 }

@@ -44,7 +44,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 /**
- * ½«earÎÄ¼şÕ¹¿ªµÄtag¡£
+ * å°†earæ–‡ä»¶å±•å¼€çš„tagã€‚
  *
  * @author Michael Zhou
  */
@@ -116,18 +116,18 @@ public class Expander {
     }
 
     /**
-     * ÉèÖÃ¸²¸ÇÑ¡Ïî¡£
+     * è®¾ç½®è¦†ç›–é€‰é¡¹ã€‚
      *
-     * @param overwrite Èç¹ûÄ¿±êÄ¿Â¼ÖĞµÄÎÄ¼ş±ÈzipÎÄ¼şÖĞµÄÏîÒªĞÂ£¬ÊÇ·ñ¸²¸ÇÖ®
+     * @param overwrite å¦‚æœç›®æ ‡ç›®å½•ä¸­çš„æ–‡ä»¶æ¯”zipæ–‡ä»¶ä¸­çš„é¡¹è¦æ–°ï¼Œæ˜¯å¦è¦†ç›–ä¹‹
      */
     public void setOverwrite(boolean overwrite) {
         this.overwrite = overwrite;
     }
 
     /**
-     * ÉèÖÃÊÇ·ñ±£³Ö¶àÓàµÄÎÄ¼ş¡£
+     * è®¾ç½®æ˜¯å¦ä¿æŒå¤šä½™çš„æ–‡ä»¶ã€‚
      *
-     * @param keepRedundantFiles Èç¹ûÄ¿±êÄ¿Â¼ÖĞÓĞ¶àÓàµÄÎÄ¼ş£¬ÊÇ·ñ±£³Ö¶ø²»É¾³ı
+     * @param keepRedundantFiles å¦‚æœç›®æ ‡ç›®å½•ä¸­æœ‰å¤šä½™çš„æ–‡ä»¶ï¼Œæ˜¯å¦ä¿æŒè€Œä¸åˆ é™¤
      */
     public void setKeepRedundantFiles(boolean keepRedundantFiles) {
         this.keepRedundantFiles = keepRedundantFiles;
@@ -173,17 +173,17 @@ public class Expander {
     }
 
     /**
-     * Ö´ĞĞÕ¹¿ª²Ù×÷¡£
+     * æ‰§è¡Œå±•å¼€æ“ä½œã€‚
      */
     public void expand() {
         init();
 
         log.info("Expanding: " + srcfile + "\n       To: " + destdir.getAbsolutePath());
 
-        // Çå³ıÎÄ¼şÁĞ±í
+        // æ¸…é™¤æ–‡ä»¶åˆ—è¡¨
         expandedFiles = new HashSet();
 
-        // ¿ªÊ¼Õ¹¿ª
+        // å¼€å§‹å±•å¼€
         InputStream istream = null;
 
         try {
@@ -207,15 +207,15 @@ public class Expander {
     }
 
     /**
-     * É¾³ı¶àÓàµÄÎÄ¼ş¡£
+     * åˆ é™¤å¤šä½™çš„æ–‡ä»¶ã€‚
      *
-     * @param todir Õ¹¿ªµ½´ËÄ¿Â¼
-     * @param zipStream Ñ¹ËõÁ÷
-     * @param zipEntry zip½áµã
-     * @param url µİ¹éÕ¹¿ªµÄurlÇ°×º
-     * @param output XMLÊä³ö
+     * @param todir å±•å¼€åˆ°æ­¤ç›®å½•
+     * @param zipStream å‹ç¼©æµ
+     * @param zipEntry zipç»“ç‚¹
+     * @param url é€’å½’å±•å¼€çš„urlå‰ç¼€
+     * @param output XMLè¾“å‡º
      *
-     * @throws IOException ¶ÁĞ´ÎÄ¼şÊ§°Ü£¬»òZip¸ñÊ½´íÎó
+     * @throws IOException è¯»å†™æ–‡ä»¶å¤±è´¥ï¼Œæˆ–Zipæ ¼å¼é”™è¯¯
      */
     protected void removeRedundantFiles(File fileOrDir) throws IOException {
         if (isKeepRedundantFiles()) {
@@ -226,7 +226,7 @@ public class Expander {
             return;
         }
 
-        // Èç¹ûÊÇÎÄ¼ş£¬²¢ÇÒÔÚexpandedFilesÖĞ²»´æÔÚ¸ÃÎÄ¼ş£¬ÔòÉ¾³ıÖ®
+        // å¦‚æœæ˜¯æ–‡ä»¶ï¼Œå¹¶ä¸”åœ¨expandedFilesä¸­ä¸å­˜åœ¨è¯¥æ–‡ä»¶ï¼Œåˆ™åˆ é™¤ä¹‹
         if (!fileOrDir.isDirectory()) {
             if (!expandedFiles.contains(fileOrDir.getCanonicalPath())) {
                 log.info("- " + getPathRelativeToDestdir(fileOrDir) + " - "
@@ -237,14 +237,14 @@ public class Expander {
             return;
         }
 
-        // Éî¶ÈÓÅÏÈµØÉ¾³ıÄ¿Â¼ÖĞµÄÎÄ¼şºÍ×ÓÄ¿Â¼
+        // æ·±åº¦ä¼˜å…ˆåœ°åˆ é™¤ç›®å½•ä¸­çš„æ–‡ä»¶å’Œå­ç›®å½•
         File[] files = fileOrDir.listFiles();
 
         for (int i = 0; i < files.length; i++) {
             removeRedundantFiles(files[i]);
         }
 
-        // Èç¹ûÄ¿Â¼Îª¿Õ£¬²¢ÇÒÔÚexpandedFilesÖĞ²»´æÔÚ¸ÃÄ¿Â¼£¬ÔòÉ¾³ıÄ¿Â¼±¾Éí
+        // å¦‚æœç›®å½•ä¸ºç©ºï¼Œå¹¶ä¸”åœ¨expandedFilesä¸­ä¸å­˜åœ¨è¯¥ç›®å½•ï¼Œåˆ™åˆ é™¤ç›®å½•æœ¬èº«
         if (!expandedFiles.contains(fileOrDir.getCanonicalPath()) && fileOrDir.delete()) {
             log.info("- " + getPathRelativeToDestdir(fileOrDir) + " - success");
         }
@@ -267,16 +267,16 @@ public class Expander {
     }
 
     /**
-     * ´¦Àí²»Í¬ÀàĞÍµÄjar°üµÄ½Ó¿Ú¡£
+     * å¤„ç†ä¸åŒç±»å‹çš„jaråŒ…çš„æ¥å£ã€‚
      */
     private abstract class ExpanderHandler {
         /**
-         * Õ¹¿ªearÎÄ¼şµ½Ö¸¶¨Ä¿Â¼
+         * å±•å¼€earæ–‡ä»¶åˆ°æŒ‡å®šç›®å½•
          *
-         * @param istream ÊäÈëÁ÷
-         * @param todir Õ¹¿ªÄ¿Â¼
+         * @param istream è¾“å…¥æµ
+         * @param todir å±•å¼€ç›®å½•
          *
-         * @throws IOException ¶ÁĞ´ÎÄ¼şÊ§°Ü£¬»òZip¸ñÊ½´íÎó
+         * @throws IOException è¯»å†™æ–‡ä»¶å¤±è´¥ï¼Œæˆ–Zipæ ¼å¼é”™è¯¯
          */
         protected void expand(InputStream istream, File todir)
                 throws IOException {
@@ -301,14 +301,14 @@ public class Expander {
         }
 
         /**
-         * Õ¹¿ªÒ»¸öÎÄ¼ş¡£
+         * å±•å¼€ä¸€ä¸ªæ–‡ä»¶ã€‚
          *
-         * @param todir Õ¹¿ªµ½´ËÄ¿Â¼
-         * @param zipStream Ñ¹ËõÁ÷
-         * @param zipEntry zip½áµã
-         * @param url µİ¹éÕ¹¿ªµÄurlÇ°×º
+         * @param todir å±•å¼€åˆ°æ­¤ç›®å½•
+         * @param zipStream å‹ç¼©æµ
+         * @param zipEntry zipç»“ç‚¹
+         * @param url é€’å½’å±•å¼€çš„urlå‰ç¼€
          *
-         * @throws IOException ¶ÁĞ´ÎÄ¼şÊ§°Ü£¬»òZip¸ñÊ½´íÎó
+         * @throws IOException è¯»å†™æ–‡ä»¶å¤±è´¥ï¼Œæˆ–Zipæ ¼å¼é”™è¯¯
          */
         protected void extractFile(File todir, InputStream zipStream, ZipEntry zipEntry, String url)
                 throws IOException {
@@ -318,7 +318,7 @@ public class Expander {
             File    targetFile  = FileUtil.getFile(todir, entryName);
             boolean expandFile  = false;
 
-            // ÅĞ¶ÏÊÇ·ñĞèÒª½øÒ»²½Õ¹¿ª
+            // åˆ¤æ–­æ˜¯å¦éœ€è¦è¿›ä¸€æ­¥å±•å¼€
             if (!isDirectory && (url == null)) {
                 expandFile = needToExpand(zipEntry.getName());
             }
@@ -338,7 +338,7 @@ public class Expander {
 
                 dir.mkdirs();
 
-                // Èç¹ûÊÇwar»òrarÎÄ¼ş£¬ÔòÕ¹¿ªµ½Í¬ÃûµÄÄ¿Â¼ÖĞ
+                // å¦‚æœæ˜¯waræˆ–raræ–‡ä»¶ï¼Œåˆ™å±•å¼€åˆ°åŒåçš„ç›®å½•ä¸­
                 if (expandFile) {
                     log.info("X " + getPathRelativeToDestdir(targetFile));
 
@@ -397,7 +397,7 @@ public class Expander {
         }
 
         /**
-         * ÅĞ¶ÏÊÇ·ñĞèÒª½øÒ»²½Õ¹¿ª¡£
+         * åˆ¤æ–­æ˜¯å¦éœ€è¦è¿›ä¸€æ­¥å±•å¼€ã€‚
          */
         protected boolean needToExpand(String name) {
             if (expandWar && name.endsWith(".war")) {

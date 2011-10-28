@@ -50,7 +50,7 @@ public class ConfigGenerator {
     }
 
     /**
-     * Ìí¼ÓÒ»¸ödescriptor£¬µ«±ØĞëÔÚinit·½·¨±»µ÷ÓÃÇ°¡£
+     * æ·»åŠ ä¸€ä¸ªdescriptorï¼Œä½†å¿…é¡»åœ¨initæ–¹æ³•è¢«è°ƒç”¨å‰ã€‚
      */
     public ConfigDescriptor addConfigDescriptor(ConfigResource descriptorResource) {
         URL descriptorURL = descriptorResource.getURL();
@@ -77,7 +77,7 @@ public class ConfigGenerator {
     }
 
     /**
-     * Ìí¼ÓÒ»¸ödescriptor£¬µ«±ØĞëÔÚinit·½·¨±»µ÷ÓÃÇ°¡£
+     * æ·»åŠ ä¸€ä¸ªdescriptorï¼Œä½†å¿…é¡»åœ¨initæ–¹æ³•è¢«è°ƒç”¨å‰ã€‚
      */
     public ConfigDescriptor addConfigDescriptor(ConfigResource descriptorResource, InputStream istream) {
         if (initialized) {
@@ -93,7 +93,7 @@ public class ConfigGenerator {
     }
 
     /**
-     * ÔÚËùÓĞµÄdescriptor¶¼±»¼ÓÈë½øÀ´ÒÔºó£¬ĞèÒªÖ´ĞĞ¸Ã·½·¨½øĞĞ³õÊ¼»¯¡£
+     * åœ¨æ‰€æœ‰çš„descriptoréƒ½è¢«åŠ å…¥è¿›æ¥ä»¥åï¼Œéœ€è¦æ‰§è¡Œè¯¥æ–¹æ³•è¿›è¡Œåˆå§‹åŒ–ã€‚
      */
     public void init() {
         if (initialized) {
@@ -108,7 +108,7 @@ public class ConfigGenerator {
             for (int j = 0; j < descriptor.getGenerates().length; j++) {
                 ConfigGenerate generate = descriptor.getGenerates()[j];
 
-                // ÉèÖÃtemplate/destfile
+                // è®¾ç½®template/destfile
                 String template = generate.getTemplate();
                 String destFile = generate.getDestfile();
 
@@ -130,7 +130,7 @@ public class ConfigGenerator {
                 generate.setTemplate(template);
                 generate.setDestfile(destFile);
 
-                // ·ÀÖ¹destfileÖØ¸´
+                // é˜²æ­¢destfileé‡å¤
                 if (generateDestFiles.containsKey(destFile)) {
                     ConfigGenerate originalGenerate = (ConfigGenerate) generateDestFiles.get(destFile);
 
@@ -147,11 +147,11 @@ public class ConfigGenerator {
 
                 generateDestFiles.put(destFile, generate);
 
-                // µ«templateÊÇ¿ÉÒÔÖØ¸´µÄ£¬Ò»¸ötemplate¿ÉÉú³É¶à¸öÎÄ¼ş
+                // ä½†templateæ˜¯å¯ä»¥é‡å¤çš„ï¼Œä¸€ä¸ªtemplateå¯ç”Ÿæˆå¤šä¸ªæ–‡ä»¶
                 addToTemplateList(generateTemplateFiles, template, generate);
 
-                // Çé¿ö1. template=WEB-INF/web.xml£¬destFile=WEB-INF/web.xml
-                // Çé¿ö2. template=WEB-INF/web.xml.vm£¬destFile=WEB-INF/web.xml
+                // æƒ…å†µ1. template=WEB-INF/web.xmlï¼ŒdestFile=WEB-INF/web.xml
+                // æƒ…å†µ2. template=WEB-INF/web.xml.vmï¼ŒdestFile=WEB-INF/web.xml
                 addToTemplateList(generateTemplateFilesIncludingMetaInfos, template, generate);
 
                 if (!template.startsWith(basename)) {

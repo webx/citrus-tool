@@ -21,7 +21,7 @@ import org.apache.oro.text.regex.MatchResult;
 import org.apache.oro.text.regex.PatternMatcherInput;
 
 /**
- * ´ú±íÒ»¸öÆ¥Åä½á¹û, Í¨¹ıÕâ¸ö½á¹û, ¿ÉÒÔ×ö½øÒ»²½µÄ²Ù×÷, ÈçÌæ»», È¡µÃÆ¥Åä×Ö·û´®µÈ.
+ * ä»£è¡¨ä¸€ä¸ªåŒ¹é…ç»“æœ, é€šè¿‡è¿™ä¸ªç»“æœ, å¯ä»¥åšè¿›ä¸€æ­¥çš„æ“ä½œ, å¦‚æ›¿æ¢, å–å¾—åŒ¹é…å­—ç¬¦ä¸²ç­‰.
  *
  * @version $Id: MatchItem.java,v 1.1 2003/07/03 07:26:34 baobao Exp $
  * @author Michael Zhou
@@ -35,10 +35,10 @@ public class MatchItem implements MatchResult {
     private MatchResult     result;
 
     /**
-     * ´´½¨Ò»¸öÆ¥Åä½á¹û.
+     * åˆ›å»ºä¸€ä¸ªåŒ¹é…ç»“æœ.
      *
-     * @param context ²úÉúÕâ¸öÆ¥Åä½á¹ûµÄcontext
-     * @param pattern ²úÉúÕâ¸öÆ¥Åä½á¹ûµÄpattern
+     * @param context äº§ç”Ÿè¿™ä¸ªåŒ¹é…ç»“æœçš„context
+     * @param pattern äº§ç”Ÿè¿™ä¸ªåŒ¹é…ç»“æœçš„pattern
      */
     public MatchItem(MatchContext context, MatchPattern pattern) {
         this.context = context;
@@ -46,11 +46,11 @@ public class MatchItem implements MatchResult {
     }
 
     /**
-     * ´´½¨Ò»¸öÆ¥Åä½á¹û.
+     * åˆ›å»ºä¸€ä¸ªåŒ¹é…ç»“æœ.
      *
-     * @param context      ²úÉúÕâ¸öÆ¥Åä½á¹ûµÄcontext
-     * @param pattern      ²úÉúÕâ¸öÆ¥Åä½á¹ûµÄpattern
-     * @param result       ÕıÔò±í´ïÊ½µÄÆ¥Åä½á¹û
+     * @param context      äº§ç”Ÿè¿™ä¸ªåŒ¹é…ç»“æœçš„context
+     * @param pattern      äº§ç”Ÿè¿™ä¸ªåŒ¹é…ç»“æœçš„pattern
+     * @param result       æ­£åˆ™è¡¨è¾¾å¼çš„åŒ¹é…ç»“æœ
      */
     public MatchItem(MatchContext context, MatchPattern pattern, MatchResult result) {
         this(context, pattern);
@@ -58,36 +58,36 @@ public class MatchItem implements MatchResult {
     }
 
     /**
-     * È¡µÃ²úÉúÕâ¸öÆ¥Åä½á¹ûµÄcontext.
+     * å–å¾—äº§ç”Ÿè¿™ä¸ªåŒ¹é…ç»“æœçš„context.
      *
-     * @return ²úÉúÕâ¸öÆ¥Åä½á¹ûµÄcontext
+     * @return äº§ç”Ÿè¿™ä¸ªåŒ¹é…ç»“æœçš„context
      */
     public MatchContext getMatchContext() {
         return this.context;
     }
 
     /**
-     * È¡µÃ²úÉúÕâ¸öÆ¥Åä½á¹ûµÄpattern.
+     * å–å¾—äº§ç”Ÿè¿™ä¸ªåŒ¹é…ç»“æœçš„pattern.
      *
-     * @return ²úÉúÕâ¸öÆ¥Åä½á¹ûµÄpattern
+     * @return äº§ç”Ÿè¿™ä¸ªåŒ¹é…ç»“æœçš„pattern
      */
     public MatchPattern getMatchPattern() {
         return this.pattern;
     }
 
     /**
-     * È¡µÃÍêÕûµÄÊäÈëÖµ×Ö·û´®.
+     * å–å¾—å®Œæ•´çš„è¾“å…¥å€¼å­—ç¬¦ä¸².
      *
-     * @return ÍêÕûµÄÊäÈëÖµ×Ö·û´®
+     * @return å®Œæ•´çš„è¾“å…¥å€¼å­—ç¬¦ä¸²
      */
     public String getInput() {
         return (String) this.context.getInput().getInput();
     }
 
     /**
-     * ÊµÏÖ<code>MatchResult</code>½Ó¿Ú, È¡µÃÆ¥Åä³¤¶È.
+     * å®ç°<code>MatchResult</code>æ¥å£, å–å¾—åŒ¹é…é•¿åº¦.
      *
-     * @return Æ¥ÅäµÄ³¤¶È
+     * @return åŒ¹é…çš„é•¿åº¦
      */
     public int length() {
         return (result == null) ? 0
@@ -95,9 +95,9 @@ public class MatchItem implements MatchResult {
     }
 
     /**
-     * ÊµÏÖ<code>MatchResult</code>½Ó¿Ú, È¡µÃgroupµÄ×ÜÊı.
+     * å®ç°<code>MatchResult</code>æ¥å£, å–å¾—groupçš„æ€»æ•°.
      *
-     * @return groupµÄ×ÜÊı, °üÀ¨group0, Ò²¾ÍÊÇÕû¸öÆ¥Åä
+     * @return groupçš„æ€»æ•°, åŒ…æ‹¬group0, ä¹Ÿå°±æ˜¯æ•´ä¸ªåŒ¹é…
      */
     public int groups() {
         return (result == null) ? 0
@@ -105,11 +105,11 @@ public class MatchItem implements MatchResult {
     }
 
     /**
-     * ÊµÏÖ<code>MatchResult</code>½Ó¿Ú, È¡µÃÖ¸¶¨groupµÄ×Ó´®.
+     * å®ç°<code>MatchResult</code>æ¥å£, å–å¾—æŒ‡å®šgroupçš„å­ä¸².
      *
-     * @param group  groupºÅ, 0´ú±íÕû¸öÆ¥Åä
+     * @param group  groupå·, 0ä»£è¡¨æ•´ä¸ªåŒ¹é…
      *
-     * @return Ö¸¶¨groupµÄ×Ó´®
+     * @return æŒ‡å®šgroupçš„å­ä¸²
      */
     public String group(int group) {
         return (result == null) ? null
@@ -117,11 +117,11 @@ public class MatchItem implements MatchResult {
     }
 
     /**
-     * ÊµÏÖ<code>MatchResult</code>½Ó¿Ú, È¡µÃÖ¸¶¨groupÏà¶ÔÓÚÕû¸öÆ¥ÅäµÄÎ»ÒÆÁ¿.
+     * å®ç°<code>MatchResult</code>æ¥å£, å–å¾—æŒ‡å®šgroupç›¸å¯¹äºæ•´ä¸ªåŒ¹é…çš„ä½ç§»é‡.
      *
-     * @param group groupºÅ, 0´ú±íÕû¸öÆ¥Åä
+     * @param group groupå·, 0ä»£è¡¨æ•´ä¸ªåŒ¹é…
      *
-     * @return Ö¸¶¨groupÏà¶ÔÓÚÕû¸öÆ¥ÅäµÄÎ»ÒÆÁ¿, ×¢ÒâÈç¹û±»Æ¥ÅäµÄ×Ö·û´®³¤¶ÈÎª0, ÇÒÎ»ÓÚ×Ö·û´®µÄÄ©Î², ÔòÎ»ÒÆÁ¿µÈÓÚ×Ö·û´®µÄ³¤¶È.
+     * @return æŒ‡å®šgroupç›¸å¯¹äºæ•´ä¸ªåŒ¹é…çš„ä½ç§»é‡, æ³¨æ„å¦‚æœè¢«åŒ¹é…çš„å­—ç¬¦ä¸²é•¿åº¦ä¸º0, ä¸”ä½äºå­—ç¬¦ä¸²çš„æœ«å°¾, åˆ™ä½ç§»é‡ç­‰äºå­—ç¬¦ä¸²çš„é•¿åº¦.
      */
     public int begin(int group) {
         return (result == null) ? (-1)
@@ -129,11 +129,11 @@ public class MatchItem implements MatchResult {
     }
 
     /**
-     * ÊµÏÖ<code>MatchResult</code>½Ó¿Ú, È¡µÃÖ¸¶¨groupÄ©Î²Ïà¶ÔÓÚÕû¸öÆ¥ÅäµÄÎ»ÒÆÁ¿.
+     * å®ç°<code>MatchResult</code>æ¥å£, å–å¾—æŒ‡å®šgroupæœ«å°¾ç›¸å¯¹äºæ•´ä¸ªåŒ¹é…çš„ä½ç§»é‡.
      *
-     * @param group groupºÅ, 0´ú±íÕû¸öÆ¥Åä
+     * @param group groupå·, 0ä»£è¡¨æ•´ä¸ªåŒ¹é…
      *
-     * @return Ö¸¶¨groupÄ©Î²Ïà¶ÔÓÚÕû¸öÆ¥ÅäµÄÎ»ÒÆÁ¿, Èç¹ûÖ¸¶¨group²»´æÔÚ»òÎ´Æ¥Åä, Ôò·µ»Ø-1, ±»Æ¥ÅäµÄ×Ö·û´®³¤¶ÈÎª0, Ôò·µ»ØÆğÊ¼Î»ÒÆÁ¿
+     * @return æŒ‡å®šgroupæœ«å°¾ç›¸å¯¹äºæ•´ä¸ªåŒ¹é…çš„ä½ç§»é‡, å¦‚æœæŒ‡å®šgroupä¸å­˜åœ¨æˆ–æœªåŒ¹é…, åˆ™è¿”å›-1, è¢«åŒ¹é…çš„å­—ç¬¦ä¸²é•¿åº¦ä¸º0, åˆ™è¿”å›èµ·å§‹ä½ç§»é‡
      */
     public int end(int group) {
         return (result == null) ? (-1)
@@ -141,11 +141,11 @@ public class MatchItem implements MatchResult {
     }
 
     /**
-     * ÊµÏÖ<code>MatchResult</code>½Ó¿Ú, È¡µÃÖ¸¶¨groupÏà¶ÔÓÚÕû¸ö×Ö·û´®µÄÎ»ÒÆÁ¿.
+     * å®ç°<code>MatchResult</code>æ¥å£, å–å¾—æŒ‡å®šgroupç›¸å¯¹äºæ•´ä¸ªå­—ç¬¦ä¸²çš„ä½ç§»é‡.
      *
-     * @param group groupºÅ, 0´ú±íÕû¸öÆ¥Åä
+     * @param group groupå·, 0ä»£è¡¨æ•´ä¸ªåŒ¹é…
      *
-     * @return Ö¸¶¨groupÏà¶ÔÓÚÕû¸ö×Ö·û´®µÄÎ»ÒÆÁ¿, Èç¹ûÖ¸¶¨group²»´æÔÚ»òÎ´Æ¥Åä, Ôò·µ»Ø-1
+     * @return æŒ‡å®šgroupç›¸å¯¹äºæ•´ä¸ªå­—ç¬¦ä¸²çš„ä½ç§»é‡, å¦‚æœæŒ‡å®šgroupä¸å­˜åœ¨æˆ–æœªåŒ¹é…, åˆ™è¿”å›-1
      */
     public int beginOffset(int group) {
         return (result == null) ? (-1)
@@ -153,11 +153,11 @@ public class MatchItem implements MatchResult {
     }
 
     /**
-     * ÊµÏÖ<code>MatchResult</code>½Ó¿Ú, È¡µÃÖ¸¶¨groupÄ©Î²Ïà¶ÔÓÚÕû¸ö×Ö·û´®µÄÎ»ÒÆÁ¿.
+     * å®ç°<code>MatchResult</code>æ¥å£, å–å¾—æŒ‡å®šgroupæœ«å°¾ç›¸å¯¹äºæ•´ä¸ªå­—ç¬¦ä¸²çš„ä½ç§»é‡.
      *
-     * @param group groupºÅ, 0´ú±íÕû¸öÆ¥Åä
+     * @param group groupå·, 0ä»£è¡¨æ•´ä¸ªåŒ¹é…
      *
-     * @return Ö¸¶¨groupÄ©Î²Ïà¶ÔÓÚÕû¸ö×Ö·û´®µÄÎ»ÒÆÁ¿, Èç¹ûÖ¸¶¨group²»´æÔÚ»òÎ´Æ¥Åä, Ôò·µ»Ø-1, ±»Æ¥ÅäµÄ×Ö·û´®³¤¶ÈÎª0, Ôò·µ»ØÆğÊ¼Î»ÒÆÁ¿
+     * @return æŒ‡å®šgroupæœ«å°¾ç›¸å¯¹äºæ•´ä¸ªå­—ç¬¦ä¸²çš„ä½ç§»é‡, å¦‚æœæŒ‡å®šgroupä¸å­˜åœ¨æˆ–æœªåŒ¹é…, åˆ™è¿”å›-1, è¢«åŒ¹é…çš„å­—ç¬¦ä¸²é•¿åº¦ä¸º0, åˆ™è¿”å›èµ·å§‹ä½ç§»é‡
      */
     public int endOffset(int group) {
         return (result == null) ? (-1)
@@ -165,9 +165,9 @@ public class MatchItem implements MatchResult {
     }
 
     /**
-     * ÊµÏÖ<code>MatchResult</code>½Ó¿Ú, È¡µÃÕû¸öÆ¥ÅäµÄ×Ö·û´®, Ïàµ±ÓÚ<code>group(0)</code>.
+     * å®ç°<code>MatchResult</code>æ¥å£, å–å¾—æ•´ä¸ªåŒ¹é…çš„å­—ç¬¦ä¸², ç›¸å½“äº<code>group(0)</code>.
      *
-     * @return Õû¸öÆ¥ÅäµÄ×Ö·û´®
+     * @return æ•´ä¸ªåŒ¹é…çš„å­—ç¬¦ä¸²
      */
     public String toString() {
         return (result == null) ? ""
@@ -175,9 +175,9 @@ public class MatchItem implements MatchResult {
     }
 
     /**
-     * ½«Æ¥Åä×Ö·û´®Ç°µÄ×Ó´®, ¼Óµ½Ö¸¶¨<code>StringBuffer</code>ÖĞ.
+     * å°†åŒ¹é…å­—ç¬¦ä¸²å‰çš„å­ä¸², åŠ åˆ°æŒ‡å®š<code>StringBuffer</code>ä¸­.
      *
-     * @param buffer  ÒªÌí¼ÓµÄ<code>StringBuffer</code>
+     * @param buffer  è¦æ·»åŠ çš„<code>StringBuffer</code>
      */
     public void appendPreMatch(StringBuffer buffer) {
         PatternMatcherInput input       = context.getInput();
@@ -188,9 +188,9 @@ public class MatchItem implements MatchResult {
     }
 
     /**
-     * ½«Æ¥Åä×Ö·û´®ºóµÄ×Ó´®, ¼Óµ½Ö¸¶¨<code>StringBuffer</code>ÖĞ.
+     * å°†åŒ¹é…å­—ç¬¦ä¸²åçš„å­ä¸², åŠ åˆ°æŒ‡å®š<code>StringBuffer</code>ä¸­.
      *
-     * @param buffer  ÒªÌí¼ÓµÄ<code>StringBuffer</code>
+     * @param buffer  è¦æ·»åŠ çš„<code>StringBuffer</code>
      */
     public void appendPostMatch(StringBuffer buffer) {
         PatternMatcherInput input       = context.getInput();
@@ -201,9 +201,9 @@ public class MatchItem implements MatchResult {
     }
 
     /**
-     * ½«Æ¥Åä×Ö·û´®, ¼Óµ½Ö¸¶¨<code>StringBuffer</code>ÖĞ.
+     * å°†åŒ¹é…å­—ç¬¦ä¸², åŠ åˆ°æŒ‡å®š<code>StringBuffer</code>ä¸­.
      *
-     * @param buffer  ÒªÌí¼ÓµÄ<code>StringBuffer</code>
+     * @param buffer  è¦æ·»åŠ çš„<code>StringBuffer</code>
      */
     public void appendMatch(StringBuffer buffer) {
         PatternMatcherInput input       = context.getInput();
@@ -214,10 +214,10 @@ public class MatchItem implements MatchResult {
     }
 
     /**
-     * ½«Ìæ»»×Ö·û´®¼ÓÈëµ½Ö¸¶¨<code>StringBuffer</code>ÖĞ.
+     * å°†æ›¿æ¢å­—ç¬¦ä¸²åŠ å…¥åˆ°æŒ‡å®š<code>StringBuffer</code>ä¸­.
      *
-     * @param buffer        ÒªÌí¼ÓµÄ<code>StringBuffer</code>
-     * @param substitution  Ìæ»»±í´ïÊ½
+     * @param buffer        è¦æ·»åŠ çš„<code>StringBuffer</code>
+     * @param substitution  æ›¿æ¢è¡¨è¾¾å¼
      */
     public void appendSubstitution(StringBuffer buffer, String substitution) {
         context.getSubstitution(substitution)
@@ -226,24 +226,24 @@ public class MatchItem implements MatchResult {
     }
 
     /**
-     * Ìæ»»Æ¥ÅäµÄ×Ö·û´®.
+     * æ›¿æ¢åŒ¹é…çš„å­—ç¬¦ä¸².
      *
-     * @param substitution Ìæ»»×Ö·û´®
+     * @param substitution æ›¿æ¢å­—ç¬¦ä¸²
      *
-     * @return ±»Ìæ»»µÄ×Ö·û´®
+     * @return è¢«æ›¿æ¢çš„å­—ç¬¦ä¸²
      */
     public String substitute(String substitution) {
         return substitute(substitution, SUBSTITUTION_ONLY);
     }
 
     /**
-     * Ìæ»»Æ¥ÅäµÄ×Ö·û´®.
+     * æ›¿æ¢åŒ¹é…çš„å­—ç¬¦ä¸².
      *
-     * @param substitution Ìæ»»×Ö·û´®
-     * @param options      Ìæ»»Ñ¡Ïî, ¿ÉÒÔÎª<code>SUBSTITUTION_ONLY</code>,
-     *        <code>SUBSTITUTION_WITH_PREMATCH</code>»ò<code>SUBSTITUTION_WITH_POSTMATCH</code>»òËüÃÇµÄ×éºÏ
+     * @param substitution æ›¿æ¢å­—ç¬¦ä¸²
+     * @param options      æ›¿æ¢é€‰é¡¹, å¯ä»¥ä¸º<code>SUBSTITUTION_ONLY</code>,
+     *        <code>SUBSTITUTION_WITH_PREMATCH</code>æˆ–<code>SUBSTITUTION_WITH_POSTMATCH</code>æˆ–å®ƒä»¬çš„ç»„åˆ
      *
-     * @return ±»Ìæ»»µÄ×Ö·û´®
+     * @return è¢«æ›¿æ¢çš„å­—ç¬¦ä¸²
      */
     public String substitute(String substitution, int options) {
         StringBuffer buffer = new StringBuffer();

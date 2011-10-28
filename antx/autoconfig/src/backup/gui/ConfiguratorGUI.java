@@ -34,7 +34,7 @@ import com.alibaba.antx.config.gui.resource.Resources;
 import com.alibaba.antx.util.PatternSet;
 
 /**
- * ´ú±íGUIÔËĞĞÊ±Êı¾İ¡£
+ * ä»£è¡¨GUIè¿è¡Œæ—¶æ•°æ®ã€‚
  * 
  * @author Michael Zhou
  */

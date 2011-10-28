@@ -40,6 +40,6 @@ public class EmailValidator extends RegexpValidator {
 
     @Override
     protected String getDefaultMessage() {
-        return "参数值必须是合法的e-mail地址";
+        return "鍙傛暟鍊煎繀椤绘槸鍚堟硶鐨別-mail鍦板潃";
     }
 }

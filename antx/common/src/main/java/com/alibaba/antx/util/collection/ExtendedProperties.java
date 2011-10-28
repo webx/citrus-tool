@@ -30,7 +30,7 @@ import com.alibaba.antx.util.StringUtil;
 import com.alibaba.antx.util.i18n.LocaleInfo;
 
 /**
- * À©Õ¹<code>Properties</code>Àà, Ö§³Ö´Ó<code>Reader</code>ÖĞ¶ÁÈ¡unicode×Ö·û¡£
+ * æ‰©å±•<code>Properties</code>ç±», æ”¯æŒä»<code>Reader</code>ä¸­è¯»å–unicodeå­—ç¬¦ã€‚
  * 
  * @author Michael Zhou
  */
@@ -41,21 +41,21 @@ public class ExtendedProperties extends Properties {
     private static final String WHITE_SPACE_CHARS           = " \t\r\n\f";
 
     /**
-     * ´ÓÖ¸¶¨µÄpropertiesÎÄ¼şÖĞ£¬ÒÔÄ¬ÈÏµÄ±àÂë×Ö·û¼¯¶ÁÈ¡ÊôĞÔºÍÖµ¡£
+     * ä»æŒ‡å®šçš„propertiesæ–‡ä»¶ä¸­ï¼Œä»¥é»˜è®¤çš„ç¼–ç å­—ç¬¦é›†è¯»å–å±æ€§å’Œå€¼ã€‚
      * 
-     * @param resource propertiesÎÄ¼ş
-     * @throws IOException ¶ÁÎÄ¼şÊ§°Ü»òÎÄ¼ş¸ñÊ½´íÎó
+     * @param resource propertiesæ–‡ä»¶
+     * @throws IOException è¯»æ–‡ä»¶å¤±è´¥æˆ–æ–‡ä»¶æ ¼å¼é”™è¯¯
      */
     public synchronized void load(URL resource) throws IOException {
         load(resource, null);
     }
 
     /**
-     * ´ÓÖ¸¶¨µÄpropertiesÎÄ¼şÖĞ£¬ÒÔÖ¸¶¨µÄ±àÂë×Ö·û¼¯¶ÁÈ¡ÊôĞÔºÍÖµ¡£
+     * ä»æŒ‡å®šçš„propertiesæ–‡ä»¶ä¸­ï¼Œä»¥æŒ‡å®šçš„ç¼–ç å­—ç¬¦é›†è¯»å–å±æ€§å’Œå€¼ã€‚
      * 
-     * @param resource propertiesÎÄ¼ş
-     * @param charset ±àÂë×Ö·û¼¯
-     * @throws IOException ¶ÁÎÄ¼şÊ§°Ü»òÎÄ¼ş¸ñÊ½´íÎó
+     * @param resource propertiesæ–‡ä»¶
+     * @param charset ç¼–ç å­—ç¬¦é›†
+     * @throws IOException è¯»æ–‡ä»¶å¤±è´¥æˆ–æ–‡ä»¶æ ¼å¼é”™è¯¯
      */
     public synchronized void load(URL resource, String charset) throws IOException {
         charset = getCharset(charset);
@@ -81,20 +81,20 @@ public class ExtendedProperties extends Properties {
     }
 
     /**
-     * ´ÓÖ¸¶¨µÄÊäÈëÁ÷ÖĞ£¬ÒÔÄ¬ÈÏµÄ±àÂë×Ö·û¼¯¶ÁÈ¡ÊôĞÔºÍÖµ¡£
+     * ä»æŒ‡å®šçš„è¾“å…¥æµä¸­ï¼Œä»¥é»˜è®¤çš„ç¼–ç å­—ç¬¦é›†è¯»å–å±æ€§å’Œå€¼ã€‚
      * 
-     * @param istream ÊäÈë×Ö·ûÁ÷
-     * @throws IOException ¶ÁÎÄ¼şÊ§°Ü»òÎÄ¼ş¸ñÊ½´íÎó
+     * @param istream è¾“å…¥å­—ç¬¦æµ
+     * @throws IOException è¯»æ–‡ä»¶å¤±è´¥æˆ–æ–‡ä»¶æ ¼å¼é”™è¯¯
      */
     public void load(InputStream istream) throws IOException {
         load(istream, null, null);
     }
 
     /**
-     * ´ÓÖ¸¶¨µÄÊäÈëÁ÷ÖĞ£¬ÒÔÖ¸¶¨µÄ±àÂë×Ö·û¼¯¶ÁÈ¡ÊôĞÔºÍÖµ¡£
+     * ä»æŒ‡å®šçš„è¾“å…¥æµä¸­ï¼Œä»¥æŒ‡å®šçš„ç¼–ç å­—ç¬¦é›†è¯»å–å±æ€§å’Œå€¼ã€‚
      * 
-     * @param istream ÊäÈë×Ö·ûÁ÷
-     * @throws IOException ¶ÁÎÄ¼şÊ§°Ü»òÎÄ¼ş¸ñÊ½´íÎó
+     * @param istream è¾“å…¥å­—ç¬¦æµ
+     * @throws IOException è¯»æ–‡ä»¶å¤±è´¥æˆ–æ–‡ä»¶æ ¼å¼é”™è¯¯
      */
     public synchronized void load(InputStream istream, String charset, String url) throws IOException {
         if (charset == null) {
@@ -117,17 +117,17 @@ public class ExtendedProperties extends Properties {
     }
 
     /**
-     * ´ÓÖ¸¶¨µÄÊäÈëÁ÷ÖĞ£¬ÒÔÄ¬ÈÏµÄ±àÂë×Ö·û¼¯¶ÁÈ¡ÊôĞÔºÍÖµ¡£
+     * ä»æŒ‡å®šçš„è¾“å…¥æµä¸­ï¼Œä»¥é»˜è®¤çš„ç¼–ç å­—ç¬¦é›†è¯»å–å±æ€§å’Œå€¼ã€‚
      * 
-     * @param reader ÊäÈë×Ö·ûÁ÷
-     * @throws IOException ¶ÁÎÄ¼şÊ§°Ü»òÎÄ¼ş¸ñÊ½´íÎó
+     * @param reader è¾“å…¥å­—ç¬¦æµ
+     * @throws IOException è¯»æ–‡ä»¶å¤±è´¥æˆ–æ–‡ä»¶æ ¼å¼é”™è¯¯
      */
     private synchronized void load(Reader reader, String url) throws IOException {
         BufferedReader in = (reader instanceof BufferedReader) ? (BufferedReader) reader : new BufferedReader(reader);
         int lineNumber = 0;
 
         while (true) {
-            // È¡µÃÏÂÒ»ĞĞ
+            // å–å¾—ä¸‹ä¸€è¡Œ
             String line = in.readLine();
 
             lineNumber++;
@@ -136,11 +136,11 @@ public class ExtendedProperties extends Properties {
                 return;
             }
 
-            // È¥µôĞĞÊ×Î²µÄ¿Õ°×
+            // å»æ‰è¡Œé¦–å°¾çš„ç©ºç™½
             line = line.trim();
 
             if (line.length() > 0) {
-                // Èç¹û¸ÃĞĞÒÔ¡°\¡±½áÎ²£¬Ôò¿´×÷ÊÇÉÏÒ»ĞĞµÄ¼ÌĞø
+                // å¦‚æœè¯¥è¡Œä»¥â€œ\â€ç»“å°¾ï¼Œåˆ™çœ‹ä½œæ˜¯ä¸Šä¸€è¡Œçš„ç»§ç»­
                 char firstChar = line.charAt(0);
 
                 if ((firstChar != '#') && (firstChar != '!')) {
@@ -153,7 +153,7 @@ public class ExtendedProperties extends Properties {
 
                         String loppedLine = line.substring(0, line.length() - 1);
 
-                        // È¥µôĞÂĞĞÉÏµÄ¿Õ¸ñ
+                        // å»æ‰æ–°è¡Œä¸Šçš„ç©ºæ ¼
                         int startIndex = 0;
 
                         for (startIndex = 0; startIndex < nextLine.length(); startIndex++) {
@@ -166,7 +166,7 @@ public class ExtendedProperties extends Properties {
                         line = new String(loppedLine + nextLine);
                     }
 
-                    // ÕÒµ½keyµÄ¿ªÊ¼´¦
+                    // æ‰¾åˆ°keyçš„å¼€å§‹å¤„
                     int len = line.length();
                     int keyStart;
 
@@ -176,12 +176,12 @@ public class ExtendedProperties extends Properties {
                         }
                     }
 
-                    // ºöÂÔ¿ÕĞĞ
+                    // å¿½ç•¥ç©ºè¡Œ
                     if (keyStart == len) {
                         continue;
                     }
 
-                    // ²éÕÒkeyºÍvalueµÄ·Ö½ç·û
+                    // æŸ¥æ‰¾keyå’Œvalueçš„åˆ†ç•Œç¬¦
                     int separatorIndex;
 
                     for (separatorIndex = keyStart; separatorIndex < len; separatorIndex++) {
@@ -194,7 +194,7 @@ public class ExtendedProperties extends Properties {
                         }
                     }
 
-                    // Ìø¹ıkeyºóÃæµÄ¿Õ°×£¨Èç¹ûÓĞµÄ»°£©
+                    // è·³è¿‡keyåé¢çš„ç©ºç™½ï¼ˆå¦‚æœæœ‰çš„è¯ï¼‰
                     int valueIndex;
 
                     for (valueIndex = separatorIndex; valueIndex < len; valueIndex++) {
@@ -203,14 +203,14 @@ public class ExtendedProperties extends Properties {
                         }
                     }
 
-                    // Ìø¹ıÒ»¸ö·Ç¿Õ°×µÄkey-value·Ö½ç·û
+                    // è·³è¿‡ä¸€ä¸ªéç©ºç™½çš„key-valueåˆ†ç•Œç¬¦
                     if (valueIndex < len) {
                         if (STRICT_KEY_VALUE_SEPARATORS.indexOf(line.charAt(valueIndex)) != -1) {
                             valueIndex++;
                         }
                     }
 
-                    // Ìø¹ı·Ö½ç·ûºóÃæµÄ¿Õ°×
+                    // è·³è¿‡åˆ†ç•Œç¬¦åé¢çš„ç©ºç™½
                     while (valueIndex < len) {
                         if (WHITE_SPACE_CHARS.indexOf(line.charAt(valueIndex)) == -1) {
                             break;
@@ -222,7 +222,7 @@ public class ExtendedProperties extends Properties {
                     String key = line.substring(keyStart, separatorIndex);
                     String value = (separatorIndex < len) ? line.substring(valueIndex, len) : "";
 
-                    // ×ª»»keyºÍvalue
+                    // è½¬æ¢keyå’Œvalue
                     key = loadConvert(key, url, lineNumber);
                     value = loadConvert(value, url, lineNumber);
 
@@ -233,10 +233,10 @@ public class ExtendedProperties extends Properties {
     }
 
     /**
-     * ÅĞ¶Ï¸ÃĞĞÊÇ·ñºÍÏÂÒ»ĞĞÊÇÁ¬ĞøµÄĞĞ¡£
+     * åˆ¤æ–­è¯¥è¡Œæ˜¯å¦å’Œä¸‹ä¸€è¡Œæ˜¯è¿ç»­çš„è¡Œã€‚
      * 
-     * @param line Ö¸¶¨ĞĞ
-     * @return Èç¹ûÊÇºÍÏÂÒ»ĞĞÏàÁ¬µÄ£¬Ôò·µ»Ø<code>true</code>
+     * @param line æŒ‡å®šè¡Œ
+     * @return å¦‚æœæ˜¯å’Œä¸‹ä¸€è¡Œç›¸è¿çš„ï¼Œåˆ™è¿”å›<code>true</code>
      */
     private boolean isContinueLine(String line) {
         int slashCount = 0;
@@ -250,10 +250,10 @@ public class ExtendedProperties extends Properties {
     }
 
     /**
-     * ½«&#92;uxxxx×ª»»³Éunicode×Ö·û£¬½«ÌØÊâ·ûºÅ×ª»»³ÉÆäÔ­À´µÄ¸ñÊ½¡£
+     * å°†&#92;uxxxxè½¬æ¢æˆunicodeå­—ç¬¦ï¼Œå°†ç‰¹æ®Šç¬¦å·è½¬æ¢æˆå…¶åŸæ¥çš„æ ¼å¼ã€‚
      * 
-     * @param str Òª×ª»»µÄ×Ö·û´®
-     * @return ×ª»»ºóµÄ×Ö·û´®
+     * @param str è¦è½¬æ¢çš„å­—ç¬¦ä¸²
+     * @return è½¬æ¢åçš„å­—ç¬¦ä¸²
      */
     private String loadConvert(String str, String url, int lineNumber) {
         char ch;

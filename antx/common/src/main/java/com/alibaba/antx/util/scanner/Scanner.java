@@ -22,41 +22,41 @@ import java.io.InputStream;
 import java.net.URL;
 
 /**
- * É¨ÃèÆ÷¡£
+ * æ‰«æå™¨ã€‚
  *
  * @author Michael Zhou
  */
 public interface Scanner {
     /**
-     * È¡µÃµ±Ç°É¨ÃèµÄbase URL¡£
+     * å–å¾—å½“å‰æ‰«æçš„base URLã€‚
      *
-     * @return µ±Ç°É¨ÃèµÄbase URL
+     * @return å½“å‰æ‰«æçš„base URL
      */
     URL getBaseURL();
 
     /**
-     * È¡µÃµ±Ç°ÕıÔÚÉ¨ÃèµÄÎÄ¼şÂ·¾¶¡£
+     * å–å¾—å½“å‰æ­£åœ¨æ‰«æçš„æ–‡ä»¶è·¯å¾„ã€‚
      *
-     * @return ÎÄ¼şÂ·¾¶
+     * @return æ–‡ä»¶è·¯å¾„
      */
     String getPath();
 
     /**
-     * È¡µÃµ±Ç°ÕıÔÚÉ¨ÃèµÄÎÄ¼şµÄURL¡£
+     * å–å¾—å½“å‰æ­£åœ¨æ‰«æçš„æ–‡ä»¶çš„URLã€‚
      *
      * @return URL
      */
     URL getURL();
 
     /**
-     * È¡µÃµ±Ç°ÕıÔÚÉ¨ÃèµÄÎÄ¼şµÄÊäÈëÁ÷¡£
+     * å–å¾—å½“å‰æ­£åœ¨æ‰«æçš„æ–‡ä»¶çš„è¾“å…¥æµã€‚
      *
-     * @return ÊäÈëÁ÷
+     * @return è¾“å…¥æµ
      */
     InputStream getInputStream();
 
     /**
-     * Ö´ĞĞÉ¨Ãè¡£
+     * æ‰§è¡Œæ‰«æã€‚
      */
     void scan();
 }
