@@ -43,10 +43,22 @@
         </developer>
     </developers>
     <properties>
-        <java.version>1.5</java.version>
+        <java.version>1.6</java.version>
         <java.encoding>UTF-8</java.encoding>
         <project.build.sourceEncoding>${java.encoding}</project.build.sourceEncoding>
+        <gpg.skip>true</gpg.skip>
     </properties>
+    <profiles>
+        <profile>
+            <id>deployment</id>
+            <properties>
+                <!-- 开发时使用较高的Java版本，以避免eclipse的警告，但编译时采用保守的Java 1.5格式。 -->
+                <java.version>1.5</java.version>
+                <!-- 确保生成GPG签名。 -->
+                <gpg.skip>false</gpg.skip>
+            </properties>
+        </profile>
+    </profiles>
     <modules>
         <module>antx</module>
         <module>maven/util</module>

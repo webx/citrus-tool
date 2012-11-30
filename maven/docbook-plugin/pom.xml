@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <parent>
         <groupId>com.alibaba.citrus.tool</groupId>
         <artifactId>citrus-tool-parent</artifactId>
@@ -13,6 +13,11 @@
     <name>Docbook-XSL Transformers</name>
     <modelVersion>4.0.0</modelVersion>
     <properties>
+        <!--
+          - 由于docbkx-builder plugin的bug，导致所生成的java类有可能无法用UTF-8来读取，
+          - 所以用8859-1编码来回避问题。需要注意的是，这样程序中不能出现非英文字符串。好在现在没有这种情况。
+         -->
+        <java.encoding>ISO-8859-1</java.encoding>
         <excluded.properties>
             VERSION,PreviousReleaseRevision,PreviousRelease,sf-relid,VersionFileURL,Revision,Tag,DistroTitle,DistroName
         </excluded.properties>
@@ -42,7 +47,7 @@
         <dependency>
             <groupId>net.sf.docbook</groupId>
             <artifactId>docbook-xsl</artifactId>
-            <version>1.76.1</version>
+            <version>1.77.1</version>
             <classifier>ns-resources</classifier>
             <type>zip</type>
         </dependency>
@@ -121,7 +126,9 @@
                             <superClassName>com.agilejava.docbkx.maven.AbstractManpagesMojo</superClassName>
                             <className>DocbookManpagesMojo</className>
                             <useStandardOutput>false</useStandardOutput>
-                            <excludedProperties>${excluded.properties},root.filename,base.dir,man.output.in.separate.dir,man.output.subdirs.enabled,man.output.base.dir</excludedProperties>
+                            <excludedProperties>
+                                ${excluded.properties},root.filename,base.dir,man.output.in.separate.dir,man.output.subdirs.enabled,man.output.base.dir
+                            </excludedProperties>
                         </configuration>
                     </execution>
                     <execution>
@@ -158,7 +165,8 @@
                             <stylesheetPath>eclipse/eclipse.xsl</stylesheetPath>
                             <superClassName>com.agilejava.docbkx.maven.AbstractEclipseMojo</superClassName>
                             <className>DocbookEclipseMojo</className>
-                            <excludedProperties>${excluded.properties},root.filename,base.dir,manifest.in.base.dir</excludedProperties>
+                            <excludedProperties>${excluded.properties},root.filename,base.dir,manifest.in.base.dir
+                            </excludedProperties>
                         </configuration>
                     </execution>
                     <execution>
@@ -183,7 +191,9 @@
                             <type>epub</type>
                             <superClassName>com.agilejava.docbkx.maven.AbstractEpubMojo</superClassName>
                             <className>DocbookEpubMojo</className>
-                            <excludedProperties>${excluded.properties},root.filename,base.dir,epub.oebps.dir,epub.metainf.dir,manifest.in.base.dir,epub.opf.filename</excludedProperties>
+                            <excludedProperties>
+                                ${excluded.properties},root.filename,base.dir,epub.oebps.dir,epub.metainf.dir,manifest.in.base.dir,epub.opf.filename
+                            </excludedProperties>
                             <useStandardOutput>false</useStandardOutput>
                         </configuration>
                     </execution>
