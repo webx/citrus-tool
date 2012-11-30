@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <groupId>com.alibaba.citrus.tool</groupId>
+        <artifactId>citrus-tool-parent</artifactId>
+        <version>1.0</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>idea-webx-plugin-deps</artifactId>
+    <name>Intellij IDEA Tools Dependencies</name>
+    <version>1.0</version>
+    <properties>
+        <webx-version>3.1.2</webx-version>
+    </properties>
+    <dependencies>
+        <!--
+          - 由于Intellij IDEA plugin module没有办法同时是maven module，为了让idea plugin能依赖maven repository中的项目，
+          - 特创建此特殊空项目，用来在idea project中引入所需要的依赖（需要在idea libraries中被设置成export），
+          - 然后让plugin module整体依赖这个module。
+         -->
+        <dependency>
+            <groupId>com.alibaba.citrus</groupId>
+            <artifactId>citrus-webx-all</artifactId>
+            <version>${webx-version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>cglib</groupId>
+                    <artifactId>cglib-nodep</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+</project>
