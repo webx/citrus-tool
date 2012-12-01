@@ -55,7 +55,7 @@ import org.xml.sax.SAXException;
 /**
  * An <code>EntityResolver</code> that will inject a couple of additional
  * general internal entities into the DTD resolved by underlying resolver.
- * 
+ *
  * @author Wilfred Springer
  */
 @SuppressWarnings("rawtypes")
@@ -63,14 +63,10 @@ public class InjectingEntityResolver implements EntityResolver {
 
     private final static String TYPE_ENTITY = "____type";
 
-    /**
-     * The <code>EntityResolver</code> wrapped by this implementation.
-     */
+    /** The <code>EntityResolver</code> wrapped by this implementation. */
     private EntityResolver resolver;
 
-    /**
-     * The entities to be injected. (Instances of {@link Entity}.)
-     */
+    /** The entities to be injected. (Instances of {@link Entity}.) */
     private List entities;
 
     /**
@@ -85,9 +81,7 @@ public class InjectingEntityResolver implements EntityResolver {
      */
     private String type;
 
-    /**
-     * The Maven logger to be used for logging.
-     */
+    /** The Maven logger to be used for logging. */
     private Log log;
 
     public InjectingEntityResolver(List entities, EntityResolver resolver, String type, Log log) {
@@ -105,7 +99,7 @@ public class InjectingEntityResolver implements EntityResolver {
      * including a reference to the <code>InputSource</code> that was originally
      * requested. TODO Figure out if this works with all parsers. There might be
      * a couple of cases in which we would need to perform some additional work.
-     * 
+     *
      * @param publicId The public identifier of the entity.
      * @param systemId The system identifier of the entity.
      * @return An <code>InputSource</code> producing the data required.
@@ -143,9 +137,7 @@ public class InjectingEntityResolver implements EntityResolver {
         }
     }
 
-    /**
-     * Forces the object to inject the entities.
-     */
+    /** Forces the object to inject the entities. */
     public void forceInjection() {
         this.injected = false;
     }
@@ -273,7 +265,5 @@ public class InjectingEntityResolver implements EntityResolver {
         @Override
         public void setSystemId(String systemId) {
         }
-
     }
-
 }

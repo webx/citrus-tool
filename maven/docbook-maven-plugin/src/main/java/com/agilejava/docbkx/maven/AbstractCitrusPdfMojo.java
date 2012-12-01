@@ -21,9 +21,8 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.util.Locale;
 
-import org.apache.maven.plugin.MojoExecutionException;
-
 import com.alibaba.maven.plugin.docbook.WordBreaker;
+import org.apache.maven.plugin.MojoExecutionException;
 
 public abstract class AbstractCitrusPdfMojo extends AbstractPdfMojo {
     /**
@@ -31,7 +30,7 @@ public abstract class AbstractCitrusPdfMojo extends AbstractPdfMojo {
      * <code>character-by-character</code>分词方法，只支持<code>word-by-word</code>
      * 的问题。对于中文fo文件，如果不设置该参数（<code>forceBreakingWords == zh_CN</code>
      * ），那么可能出现英文字母错误使用中文字体的问题。
-     * 
+     *
      * @parameter
      */
     private String forceBreakingWords;
@@ -39,7 +38,7 @@ public abstract class AbstractCitrusPdfMojo extends AbstractPdfMojo {
     /**
      * The fonts that should be taken into account. (Without this parameter, the
      * PDF document will only be able to reference the default fonts.)
-     * 
+     *
      * @parameter
      */
     private Font[] fonts;

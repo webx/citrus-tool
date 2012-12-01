@@ -26,7 +26,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Locale;
 import java.util.Map;
-
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.OutputKeys;
@@ -43,14 +42,14 @@ import org.xml.sax.helpers.DefaultHandler;
 
 /**
  * 解析XML，在words中间插入隐藏的空白（<code>U+200B</code>）。
- * 
+ *
  * @author Michael Zhou
  */
 public class WordBreaker {
     private final Locale locale;
-    private final File dir;
-    private final File srcfile;
-    private final File destfile;
+    private final File   dir;
+    private final File   srcfile;
+    private final File   destfile;
 
     public WordBreaker(File srcfile, Locale locale) {
         this.locale = locale;
