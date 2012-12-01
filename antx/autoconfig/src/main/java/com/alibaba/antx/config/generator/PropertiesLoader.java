@@ -34,8 +34,8 @@ import com.alibaba.antx.util.collection.ExtendedProperties;
 public abstract class PropertiesLoader {
     /**
      * 装入属性文件。
-     * 
-     * @param propsFile 属性文件
+     *
+     * @param propsFile    属性文件
      * @param propsCharset 装入属性文件时使用的编码字符集
      * @return 属性文件的内容
      */
@@ -45,8 +45,8 @@ public abstract class PropertiesLoader {
 
     /**
      * 装入属性文件。
-     * 
-     * @param propsFile 属性文件
+     *
+     * @param propsFile    属性文件
      * @param propsCharset 装入属性文件时使用的编码字符集
      * @return 属性文件的内容
      */
@@ -71,8 +71,8 @@ public abstract class PropertiesLoader {
 
     /**
      * 装入属性文件。
-     * 
-     * @param propsFile 属性文件
+     *
+     * @param propsFile    属性文件
      * @param propsCharset 装入属性文件时使用的编码字符集
      * @return 属性文件的内容
      */
@@ -92,12 +92,12 @@ public abstract class PropertiesLoader {
 
     /**
      * 将属性从源属性表中合并到目标属性表，如果有重名的，则覆盖之。
-     * 
+     *
      * @param dest 目标属性表
-     * @param src 源属性表
+     * @param src  源属性表
      */
     public static void mergeProperties(Map dest, Map src) {
-        for (Iterator i = src.entrySet().iterator(); i.hasNext();) {
+        for (Iterator i = src.entrySet().iterator(); i.hasNext(); ) {
             Map.Entry entry = (Map.Entry) i.next();
             String name = (String) entry.getKey();
             Object value = entry.getValue();
@@ -115,9 +115,7 @@ public abstract class PropertiesLoader {
         }
     }
 
-    /**
-     * 取值并计算。
-     */
+    /** 取值并计算。 */
     public static Object evaluate(String name, final Map props) {
         return new ReferenceExpression(name).evaluate(new ExpressionContext() {
             public Object get(String key) {

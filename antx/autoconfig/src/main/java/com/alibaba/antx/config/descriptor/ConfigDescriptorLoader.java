@@ -22,24 +22,23 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.alibaba.antx.config.ConfigException;
+import com.alibaba.antx.config.ConfigResource;
 import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.plugins.PluginCreateRule;
 import org.apache.commons.digester.plugins.PluginDeclarationRule;
 import org.apache.commons.digester.plugins.PluginRules;
 
-import com.alibaba.antx.config.ConfigException;
-import com.alibaba.antx.config.ConfigResource;
-
 /**
  * 装入一个config descriptor的工具类。
- * 
+ *
  * @author Michael Zhou
  */
 public class ConfigDescriptorLoader {
     /**
      * 从指定输入流装入配置文件。
-     * 
-     * @param url 配置文件的URL
+     *
+     * @param url  配置文件的URL
      * @param name descriptor的名字（路径）
      * @return config descriptor
      */
@@ -55,18 +54,14 @@ public class ConfigDescriptorLoader {
         }
     }
 
-    /**
-     * 取得validator的列表。
-     */
+    /** 取得validator的列表。 */
     public synchronized Map loadValidatorClasses() {
         Digester digester = loadValidatorPlugins();
 
         return (Map) digester.pop();
     }
 
-    /**
-     * 创建读取descriptor的digester。
-     */
+    /** 创建读取descriptor的digester。 */
     protected Digester getDigester() {
         Digester digester = loadValidatorPlugins();
 
@@ -102,9 +97,7 @@ public class ConfigDescriptorLoader {
         return digester;
     }
 
-    /**
-     * 读取validators.xml中的validator定义。
-     */
+    /** 读取validators.xml中的validator定义。 */
     private Digester loadValidatorPlugins() {
         Digester digester = new Digester();
 

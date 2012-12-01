@@ -28,8 +28,8 @@ import com.alibaba.antx.config.entry.ConfigEntry;
 import com.alibaba.antx.config.props.PropertiesSet;
 
 public class ConfigWizardLoader {
-    private final ConfigSettings settings;
-    private final List configEntries;
+    private final ConfigSettings   settings;
+    private final List             configEntries;
     private final ConfigDescriptor inlineDescriptor;
 
     public ConfigWizardLoader(ConfigSettings settings, List configEntries) {
@@ -87,14 +87,14 @@ public class ConfigWizardLoader {
 
     /**
      * 取得所有的descriptors。
-     * 
+     *
      * @return 所有descriptors的数组
      */
     private ConfigDescriptor[] getAllDescriptors() {
         if (configEntries != null) {
             List descriptors = new ArrayList();
 
-            for (Iterator i = configEntries.iterator(); i.hasNext();) {
+            for (Iterator i = configEntries.iterator(); i.hasNext(); ) {
                 ConfigEntry entry = (ConfigEntry) i.next();
 
                 addConfigEntryRecursive(entry, descriptors);
@@ -110,8 +110,8 @@ public class ConfigWizardLoader {
 
     /**
      * 将entry及所有子entry中的descriptors加入列表中。
-     * 
-     * @param entry config entry
+     *
+     * @param entry       config entry
      * @param descriptors descriptors列表
      */
     private void addConfigEntryRecursive(ConfigEntry entry, List descriptors) {

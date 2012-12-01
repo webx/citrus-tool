@@ -20,11 +20,10 @@ package com.alibaba.antx.config.descriptor.validator;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.alibaba.antx.config.descriptor.ConfigValidator;
 import com.alibaba.antx.util.StringUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class HostExistValidator extends ConfigValidator {
     private static final Logger log = LoggerFactory.getLogger(HostExistValidator.class);

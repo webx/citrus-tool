@@ -21,8 +21,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class BooleanValidator extends ChoiceValidator {
-    private static final Logger log = LoggerFactory.getLogger(BooleanValidator.class);
-    private final String[] choices = { "true", "false" };
+    private static final Logger   log     = LoggerFactory.getLogger(BooleanValidator.class);
+    private final        String[] choices = { "true", "false" };
 
     @Override
     public Logger getLogger() {

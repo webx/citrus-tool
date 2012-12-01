@@ -22,15 +22,14 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
 
+import com.alibaba.antx.config.descriptor.ConfigValidator;
+import com.alibaba.antx.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.alibaba.antx.config.descriptor.ConfigValidator;
-import com.alibaba.antx.util.StringUtil;
-
 public class UrlValidator extends ConfigValidator {
-    private static final Logger log = LoggerFactory.getLogger(UrlValidator.class);
-    private boolean checkHostExist = true;
+    private static final Logger  log            = LoggerFactory.getLogger(UrlValidator.class);
+    private              boolean checkHostExist = true;
     private String[] protocols;
     private boolean endsWithSlash = true;
     private String message;

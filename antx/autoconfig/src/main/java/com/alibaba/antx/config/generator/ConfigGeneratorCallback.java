@@ -23,20 +23,14 @@ import com.alibaba.antx.config.descriptor.ConfigDescriptor;
 import com.alibaba.antx.config.descriptor.ConfigGenerate;
 
 public interface ConfigGeneratorCallback {
-    /**
-     * 切换到下一个目标文件，并设置相应的输入/输出流。
-     */
+    /** 切换到下一个目标文件，并设置相应的输入/输出流。 */
     String nextEntry(String template, ConfigGenerate generate);
 
     void nextEntry(ConfigDescriptor descriptor, InputStream is, String dest);
 
-    /**
-     * 切换到日志文件，并设置相应的输入/输出流。
-     */
+    /** 切换到日志文件，并设置相应的输入/输出流。 */
     void logEntry(ConfigDescriptor descriptor, String logfileName);
 
-    /**
-     * 关闭一个目标或日志文件。
-     */
+    /** 关闭一个目标或日志文件。 */
     void closeEntry();
 }

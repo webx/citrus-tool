@@ -20,13 +20,6 @@ package com.alibaba.antx.config.resource.http;
 import java.net.URI;
 import java.util.Set;
 
-import org.apache.commons.httpclient.Credentials;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.UsernamePasswordCredentials;
-import org.apache.commons.httpclient.auth.AuthScheme;
-import org.apache.commons.httpclient.auth.CredentialsNotAvailableException;
-import org.apache.commons.httpclient.auth.CredentialsProvider;
-
 import com.alibaba.antx.config.resource.AuthenticationHandler.UsernamePassword;
 import com.alibaba.antx.config.resource.Resource;
 import com.alibaba.antx.config.resource.ResourceDriver;
@@ -34,6 +27,12 @@ import com.alibaba.antx.config.resource.ResourceURI;
 import com.alibaba.antx.config.resource.Session;
 import com.alibaba.antx.config.resource.util.ResourceContext;
 import com.alibaba.antx.config.resource.util.ResourceKey;
+import org.apache.commons.httpclient.Credentials;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.UsernamePasswordCredentials;
+import org.apache.commons.httpclient.auth.AuthScheme;
+import org.apache.commons.httpclient.auth.CredentialsNotAvailableException;
+import org.apache.commons.httpclient.auth.CredentialsProvider;
 
 public class HttpSession extends Session {
     private final HttpClient client;
@@ -59,7 +58,7 @@ public class HttpSession extends Session {
                 message += "  uri: " + uri + "\n";
 
                 UsernamePassword up = getResourceManager().getAuthenticationHandler().authenticate(message, uri,
-                        username, visitedURIs.contains(key));
+                                                                                                   username, visitedURIs.contains(key));
 
                 visitedURIs.add(key);
 

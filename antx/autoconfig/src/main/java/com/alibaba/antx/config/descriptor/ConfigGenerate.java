@@ -19,11 +19,11 @@ package com.alibaba.antx.config.descriptor;
 
 public class ConfigGenerate {
     private ConfigDescriptor descriptor;
-    private String templateBase;
-    private String template;
-    private String destfile;
-    private String charset;
-    private String outputCharset;
+    private String           templateBase;
+    private String           template;
+    private String           destfile;
+    private String           charset;
+    private String           outputCharset;
 
     public ConfigDescriptor getConfigDescriptor() {
         return descriptor;

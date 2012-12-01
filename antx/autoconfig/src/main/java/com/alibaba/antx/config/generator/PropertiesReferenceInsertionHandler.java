@@ -23,23 +23,22 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.velocity.app.event.ReferenceInsertionEventHandler;
-import org.apache.velocity.context.Context;
-import org.apache.velocity.util.ContextAware;
-
 import com.alibaba.antx.config.ConfigConstant;
 import com.alibaba.antx.config.descriptor.ConfigDescriptor;
 import com.alibaba.antx.config.descriptor.ConfigGroup;
 import com.alibaba.antx.config.descriptor.ConfigProperty;
 import com.alibaba.antx.util.StringUtil;
+import org.apache.velocity.app.event.ReferenceInsertionEventHandler;
+import org.apache.velocity.context.Context;
+import org.apache.velocity.util.ContextAware;
 
 public class PropertiesReferenceInsertionHandler implements ReferenceInsertionEventHandler, ContextAware {
     private static final Pattern referencePattern = Pattern
             .compile("\\s*\\$\\s*\\!?\\s*(\\{\\s*(.*?)\\s*\\}|(.*?))\\s*");
 
-    private Context context;
+    private Context              context;
     private Map<String, Boolean> definedProperties;
-    private Map<String, String> props;
+    private Map<String, String>  props;
 
     public PropertiesReferenceInsertionHandler(ConfigDescriptor configDescriptor, Map props) {
         this.props = props;

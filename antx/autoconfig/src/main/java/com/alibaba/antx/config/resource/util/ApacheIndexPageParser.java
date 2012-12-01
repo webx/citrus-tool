@@ -23,10 +23,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.alibaba.antx.config.resource.Resource;
 import org.dom4j.Document;
 import org.dom4j.Node;
-
-import com.alibaba.antx.config.resource.Resource;
 
 public class ApacheIndexPageParser extends TextBasedPageParser {
     public ApacheIndexPageParser() {
@@ -48,7 +47,7 @@ public class ApacheIndexPageParser extends TextBasedPageParser {
                         .selectNodes("//pre/img[starts-with(@alt,'[') and ends-with(@alt,']')]/following::a/@href");
                 List items = new ArrayList(nodes.size());
 
-                for (Iterator i = nodes.iterator(); i.hasNext();) {
+                for (Iterator i = nodes.iterator(); i.hasNext(); ) {
                     Node node = (Node) i.next();
                     String name = node.getText();
 

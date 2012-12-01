@@ -30,8 +30,8 @@ package org.w3c.tidy;
  * Derived from <a href="http://www.w3.org/People/Raggett/tidy">
  * HTML Tidy Release 4 Aug 2000</a>
  *
- * @author  Dave Raggett <dsr@w3.org>
- * @author  Andy Quick <ac.quick@sympatico.ca> (translation to Java)
+ * @author Dave Raggett <dsr@w3.org>
+ * @author Andy Quick <ac.quick@sympatico.ca> (translation to Java)
  * @version 1.0, 1999/05/22
  * @version 1.0.1, 1999/05/29
  * @version 1.1, 1999/06/18 Java Bean
@@ -54,8 +54,8 @@ public class StreamInImpl extends StreamIn {
 
     /* Mapping for Windows Western character set (128-159) to Unicode */
     private static int[] Win2Unicode = { 0x20AC, 0x0000, 0x201A, 0x0192, 0x201E, 0x2026, 0x2020, 0x2021, 0x02C6,
-            0x2030, 0x0160, 0x2039, 0x0152, 0x0000, 0x017D, 0x0000, 0x0000, 0x2018, 0x2019, 0x201C, 0x201D, 0x2022,
-            0x2013, 0x2014, 0x02DC, 0x2122, 0x0161, 0x203A, 0x0153, 0x0000, 0x017E, 0x0178 };
+                                         0x2030, 0x0160, 0x2039, 0x0152, 0x0000, 0x017D, 0x0000, 0x0000, 0x2018, 0x2019, 0x201C, 0x201D, 0x2022,
+                                         0x2013, 0x2014, 0x02DC, 0x2122, 0x0161, 0x203A, 0x0153, 0x0000, 0x017E, 0x0178 };
 
     /*
      * John Love-Jensen contributed this table for mapping MacRoman character
@@ -64,7 +64,7 @@ public class StreamInImpl extends StreamIn {
 
     private static int[] Mac2Unicode = {
 
-    0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007, 0x0008, 0x0009, 0x000A, 0x000B, 0x000C, 0x000D,
+            0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007, 0x0008, 0x0009, 0x000A, 0x000B, 0x000C, 0x000D,
             0x000E, 0x000F,
 
             0x0010, 0x0011, 0x0012, 0x0013, 0x0014, 0x0015, 0x0016, 0x0017, 0x0018, 0x0019, 0x001A, 0x001B, 0x001C,
@@ -152,8 +152,7 @@ public class StreamInImpl extends StreamIn {
              */
 
             if (this.encoding == Configuration.ISO2022) {
-                if (c == 0x1b) /* ESC */
-                {
+                if (c == 0x1b) /* ESC */ {
                     this.state = FSM_ESC;
                     return c;
                 }
@@ -199,24 +198,19 @@ public class StreamInImpl extends StreamIn {
 
             /* deal with UTF-8 encoded char */
 
-            if ((c & 0xE0) == 0xC0) /* 110X XXXX two bytes */
-            {
+            if ((c & 0xE0) == 0xC0) /* 110X XXXX two bytes */ {
                 n = c & 31;
                 count = 1;
-            } else if ((c & 0xF0) == 0xE0) /* 1110 XXXX three bytes */
-            {
+            } else if ((c & 0xF0) == 0xE0) /* 1110 XXXX three bytes */ {
                 n = c & 15;
                 count = 2;
-            } else if ((c & 0xF8) == 0xF0) /* 1111 0XXX four bytes */
-            {
+            } else if ((c & 0xF8) == 0xF0) /* 1111 0XXX four bytes */ {
                 n = c & 7;
                 count = 3;
-            } else if ((c & 0xFC) == 0xF8) /* 1111 10XX five bytes */
-            {
+            } else if ((c & 0xFC) == 0xF8) /* 1111 10XX five bytes */ {
                 n = c & 3;
                 count = 4;
-            } else if ((c & 0xFE) == 0xFC) /* 1111 110X six bytes */
-            {
+            } else if ((c & 0xFE) == 0xFC) /* 1111 110X six bytes */ {
                 n = c & 1;
                 count = 5;
             } else {
@@ -269,7 +263,7 @@ public class StreamInImpl extends StreamIn {
             return ' ';
         }
 
-        for (;;) {
+        for (; ; ) {
             c = readCharFromStream();
 
             if (c < 0) {
@@ -356,5 +350,4 @@ public class StreamInImpl extends StreamIn {
     public boolean isEndOfStream() {
         return this.endOfStream;
     }
-
 }

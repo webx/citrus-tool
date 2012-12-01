@@ -23,11 +23,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.alibaba.antx.config.resource.Resource;
 import org.dom4j.Document;
 import org.dom4j.DocumentType;
 import org.dom4j.Node;
-
-import com.alibaba.antx.config.resource.Resource;
 
 public class SvnIndexPageParser extends TextBasedPageParser {
     public List parse(Resource resource) {
@@ -60,7 +59,7 @@ public class SvnIndexPageParser extends TextBasedPageParser {
 
                 items = new ArrayList();
 
-                for (Iterator i = nodes.iterator(); i.hasNext();) {
+                for (Iterator i = nodes.iterator(); i.hasNext(); ) {
                     Node node = (Node) i.next();
                     String name = node.getText();
 
@@ -82,7 +81,7 @@ public class SvnIndexPageParser extends TextBasedPageParser {
     }
 
     private void addNodes(List items, List listOfNodes, boolean directory) {
-        for (Iterator i = listOfNodes.iterator(); i.hasNext();) {
+        for (Iterator i = listOfNodes.iterator(); i.hasNext(); ) {
             Node node = (Node) i.next();
 
             items.add(new Item(node.getText(), directory));

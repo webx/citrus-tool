@@ -31,7 +31,7 @@ import com.alibaba.antx.config.resource.ResourceURI;
 
 /**
  * 代表一个props文件。
- * 
+ *
  * @author Michael Zhou
  */
 public class PropertiesFile extends PropertiesResource {

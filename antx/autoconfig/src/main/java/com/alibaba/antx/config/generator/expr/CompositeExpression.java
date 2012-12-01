@@ -22,17 +22,17 @@ import java.util.List;
 
 /**
  * 代表一个组合的表达式。
- * 
+ *
  * @author Michael Zhou
  */
 public class CompositeExpression implements Expression {
-    private String expr;
+    private String       expr;
     private Expression[] expressions;
 
     /**
      * 创建一个组合的表达式。
-     * 
-     * @param expr 表达式字符串
+     *
+     * @param expr        表达式字符串
      * @param expressions 表达式列表
      */
     public CompositeExpression(String expr, List expressions) {
@@ -42,7 +42,7 @@ public class CompositeExpression implements Expression {
 
     /**
      * 取得表达式字符串表示。
-     * 
+     *
      * @return 表达式字符串表示
      */
     public String getExpressionText() {
@@ -51,7 +51,7 @@ public class CompositeExpression implements Expression {
 
     /**
      * 在指定的上下文中计算表达式。
-     * 
+     *
      * @param context 上下文
      * @return 表达式的计算结果
      */
@@ -77,7 +77,7 @@ public class CompositeExpression implements Expression {
      * <li>如果表达式包含“<code>${...}</code>”，但在此之外还有别的字符，则创建
      * <code>CompositeExpression</code>。</li>
      * </ul>
-     * 
+     *
      * @param expr 表达式字符串
      * @return 表达式
      */
@@ -109,7 +109,8 @@ public class CompositeExpression implements Expression {
         StringBuffer chars = new StringBuffer();
         StringBuffer exprBuff = new StringBuffer();
 
-        MAIN: while (i < length) {
+        MAIN:
+        while (i < length) {
             ch = expr.charAt(i);
 
             switch (ch) {
@@ -142,7 +143,8 @@ public class CompositeExpression implements Expression {
                                                     exprBuff.append(ch);
                                                     ++i;
 
-                                                    DOUBLE_QUOTE: while (i < length) {
+                                                    DOUBLE_QUOTE:
+                                                    while (i < length) {
                                                         ch = expr.charAt(i);
 
                                                         boolean escape = false;
@@ -176,7 +178,8 @@ public class CompositeExpression implements Expression {
                                                     exprBuff.append(ch);
                                                     ++i;
 
-                                                    SINGLE_QUOTE: while (i < length) {
+                                                    SINGLE_QUOTE:
+                                                    while (i < length) {
                                                         ch = expr.charAt(i);
 
                                                         boolean escape = false;

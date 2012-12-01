@@ -32,12 +32,12 @@ import com.alibaba.antx.config.resource.http.HttpResourceDriver;
 import com.alibaba.antx.config.resource.ssh.SshResourceDriver;
 
 public class ResourceManager {
-    private final Map drivers = new HashMap();
-    private final Map sessions = Collections.synchronizedMap(new HashMap()); // driver -> session
-    private AuthenticationHandler authHandlerDefault = new DefaultAuthenticationHandler(this);
+    private final Map                   drivers            = new HashMap();
+    private final Map                   sessions           = Collections.synchronizedMap(new HashMap()); // driver -> session
+    private       AuthenticationHandler authHandlerDefault = new DefaultAuthenticationHandler(this);
     private AuthenticationHandler authHandler;
-    private PrintWriter out;
-    private BufferedReader in;
+    private PrintWriter           out;
+    private BufferedReader        in;
 
     public ResourceManager() {
         registerDefaultDrivers();
@@ -87,7 +87,7 @@ public class ResourceManager {
 
     public void close() {
         synchronized (sessions) {
-            for (Iterator i = sessions.values().iterator(); i.hasNext();) {
+            for (Iterator i = sessions.values().iterator(); i.hasNext(); ) {
                 Session session = (Session) i.next();
 
                 i.remove();
@@ -111,7 +111,6 @@ public class ResourceManager {
 
     public void setOut(PrintWriter out) {
         this.out = out;
-
     }
 
     public BufferedReader getIn() {

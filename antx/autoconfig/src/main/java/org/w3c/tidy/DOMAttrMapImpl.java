@@ -29,16 +29,9 @@ import org.w3c.dom.DOMException;
  * for the copyright notice. Derived from <a
  * href="http://www.w3.org/People/Raggett/tidy"> HTML Tidy Release 4 Aug
  * 2000</a>
- * 
+ *
  * @author Dave Raggett <dsr@w3.org>
  * @author Andy Quick <ac.quick@sympatico.ca> (translation to Java)
- * @version 1.4, 1999/09/04 DOM support
- * @version 1.5, 1999/10/23 Tidy Release 27 Sep 1999
- * @version 1.6, 1999/11/01 Tidy Release 22 Oct 1999
- * @version 1.7, 1999/12/06 Tidy Release 30 Nov 1999
- * @version 1.8, 2000/01/22 Tidy Release 13 Jan 2000
- * @version 1.9, 2000/06/03 Tidy Release 30 Apr 2000
- * @version 1.10, 2000/07/22 Tidy Release 8 Jul 2000
  * @version 1.11, 2000/08/16 Tidy Release 4 Aug 2000
  */
 
@@ -50,9 +43,7 @@ public class DOMAttrMapImpl implements org.w3c.dom.NamedNodeMap {
         this.first = first;
     }
 
-    /**
-     * @see org.w3c.dom.NamedNodeMap#getNamedItem
-     */
+    /** @see org.w3c.dom.NamedNodeMap#getNamedItem */
     public org.w3c.dom.Node getNamedItem(String name) {
         AttVal att = this.first;
         while (att != null) {
@@ -68,25 +59,19 @@ public class DOMAttrMapImpl implements org.w3c.dom.NamedNodeMap {
         }
     }
 
-    /**
-     * @see org.w3c.dom.NamedNodeMap#setNamedItem
-     */
+    /** @see org.w3c.dom.NamedNodeMap#setNamedItem */
     public org.w3c.dom.Node setNamedItem(org.w3c.dom.Node arg) throws DOMException {
         // NOT SUPPORTED
         return null;
     }
 
-    /**
-     * @see org.w3c.dom.NamedNodeMap#removeNamedItem
-     */
+    /** @see org.w3c.dom.NamedNodeMap#removeNamedItem */
     public org.w3c.dom.Node removeNamedItem(String name) throws DOMException {
         // NOT SUPPORTED
         return null;
     }
 
-    /**
-     * @see org.w3c.dom.NamedNodeMap#item
-     */
+    /** @see org.w3c.dom.NamedNodeMap#item */
     public org.w3c.dom.Node item(int index) {
         int i = 0;
         AttVal att = this.first;
@@ -104,9 +89,7 @@ public class DOMAttrMapImpl implements org.w3c.dom.NamedNodeMap {
         }
     }
 
-    /**
-     * @see org.w3c.dom.NamedNodeMap#getLength
-     */
+    /** @see org.w3c.dom.NamedNodeMap#getLength */
     public int getLength() {
         int len = 0;
         AttVal att = this.first;
@@ -117,17 +100,15 @@ public class DOMAttrMapImpl implements org.w3c.dom.NamedNodeMap {
         return len;
     }
 
-    /**
-     * DOM2 - not implemented.
-     */
+    /** DOM2 - not implemented. */
     public org.w3c.dom.Node getNamedItemNS(String namespaceURI, String localName) {
         return null;
     }
 
     /**
      * DOM2 - not implemented.
-     * 
-     * @exception org.w3c.dom.DOMException
+     *
+     * @throws org.w3c.dom.DOMException
      */
     public org.w3c.dom.Node setNamedItemNS(org.w3c.dom.Node arg) throws org.w3c.dom.DOMException {
         return null;
@@ -135,11 +116,10 @@ public class DOMAttrMapImpl implements org.w3c.dom.NamedNodeMap {
 
     /**
      * DOM2 - not implemented.
-     * 
-     * @exception org.w3c.dom.DOMException
+     *
+     * @throws org.w3c.dom.DOMException
      */
     public org.w3c.dom.Node removeNamedItemNS(String namespaceURI, String localName) throws org.w3c.dom.DOMException {
         return null;
     }
-
 }

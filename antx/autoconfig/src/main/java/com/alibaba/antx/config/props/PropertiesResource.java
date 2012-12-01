@@ -27,11 +27,11 @@ import com.alibaba.antx.util.i18n.LocaleInfo;
 
 public abstract class PropertiesResource {
     protected final ResourceManager manager;
-    private boolean allowNonExistence;
-    private boolean loaded;
-    private Resource resource;
-    private URI uri;
-    private String charset;
+    private         boolean         allowNonExistence;
+    private         boolean         loaded;
+    private         Resource        resource;
+    private         URI             uri;
+    private         String          charset;
 
     public PropertiesResource(ResourceManager manager) {
         this(manager, false);

@@ -31,8 +31,8 @@ package org.w3c.tidy;
  * Derived from <a href="http://www.w3.org/People/Raggett/tidy">
  * HTML Tidy Release 4 Aug 2000</a>
  *
- * @author  Dave Raggett <dsr@w3.org>
- * @author  Andy Quick <ac.quick@sympatico.ca> (translation to Java)
+ * @author Dave Raggett <dsr@w3.org>
+ * @author Andy Quick <ac.quick@sympatico.ca> (translation to Java)
  * @version 1.4, 1999/09/04 DOM support
  * @version 1.5, 1999/10/23 Tidy Release 27 Sep 1999
  * @version 1.6, 1999/11/01 Tidy Release 22 Oct 1999
@@ -44,26 +44,24 @@ package org.w3c.tidy;
  */
 
 /**
- * <p>
+ * <p/>
  * The items in the <code>NodeList</code> are accessible via an integral index,
  * starting from 0.
  */
 public class DOMNodeListByTagNameImpl implements org.w3c.dom.NodeList {
 
-    private Node first = null;
-    private String tagName = "*";
-    private int currIndex = 0;
-    private int maxIndex = 0;
-    private Node currNode = null;
+    private Node   first     = null;
+    private String tagName   = "*";
+    private int    currIndex = 0;
+    private int    maxIndex  = 0;
+    private Node   currNode  = null;
 
     protected DOMNodeListByTagNameImpl(Node first, String tagName) {
         this.first = first;
         this.tagName = tagName;
     }
 
-    /**
-     * @see org.w3c.dom.NodeList#item
-     */
+    /** @see org.w3c.dom.NodeList#item */
     public org.w3c.dom.Node item(int index) {
         currIndex = 0;
         maxIndex = index;
@@ -76,9 +74,7 @@ public class DOMNodeListByTagNameImpl implements org.w3c.dom.NodeList {
         }
     }
 
-    /**
-     * @see org.w3c.dom.NodeList#getLength
-     */
+    /** @see org.w3c.dom.NodeList#getLength */
     public int getLength() {
         currIndex = 0;
         maxIndex = Integer.MAX_VALUE;
@@ -107,5 +103,4 @@ public class DOMNodeListByTagNameImpl implements org.w3c.dom.NodeList {
             node = node.next;
         }
     }
-
 }

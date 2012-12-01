@@ -31,8 +31,8 @@ package org.w3c.tidy;
  * Derived from <a href="http://www.w3.org/People/Raggett/tidy">
  * HTML Tidy Release 4 Aug 2000</a>
  *
- * @author  Dave Raggett <dsr@w3.org>
- * @author  Andy Quick <ac.quick@sympatico.ca> (translation to Java)
+ * @author Dave Raggett <dsr@w3.org>
+ * @author Andy Quick <ac.quick@sympatico.ca> (translation to Java)
  * @version 1.0, 1999/05/22
  * @version 1.0.1, 1999/05/29
  * @version 1.1, 1999/06/18 Java Bean
@@ -160,5 +160,4 @@ public class OutImpl extends Out {
     }
 
     private static final byte[] nlBytes = System.getProperty("line.separator").getBytes();
-
 };

@@ -32,16 +32,9 @@ import org.w3c.dom.UserDataHandler;
  * for the copyright notice. Derived from <a
  * href="http://www.w3.org/People/Raggett/tidy"> HTML Tidy Release 4 Aug
  * 2000</a>
- * 
+ *
  * @author Dave Raggett <dsr@w3.org>
  * @author Andy Quick <ac.quick@sympatico.ca> (translation to Java)
- * @version 1.4, 1999/09/04 DOM Support
- * @version 1.5, 1999/10/23 Tidy Release 27 Sep 1999
- * @version 1.6, 1999/11/01 Tidy Release 22 Oct 1999
- * @version 1.7, 1999/12/06 Tidy Release 30 Nov 1999
- * @version 1.8, 2000/01/22 Tidy Release 13 Jan 2000
- * @version 1.9, 2000/06/03 Tidy Release 30 Apr 2000
- * @version 1.10, 2000/07/22 Tidy Release 8 Jul 2000
  * @version 1.11, 2000/08/16 Tidy Release 4 Aug 2000
  */
 
@@ -53,24 +46,18 @@ public class DOMElementImpl extends DOMNodeImpl implements org.w3c.dom.Element {
 
     /* --------------------- DOM ---------------------------- */
 
-    /**
-     * @see org.w3c.dom.Node#getNodeType
-     */
+    /** @see org.w3c.dom.Node#getNodeType */
     @Override
     public short getNodeType() {
         return org.w3c.dom.Node.ELEMENT_NODE;
     }
 
-    /**
-     * @see org.w3c.dom.Element#getTagName
-     */
+    /** @see org.w3c.dom.Element#getTagName */
     public String getTagName() {
         return super.getNodeName();
     }
 
-    /**
-     * @see org.w3c.dom.Element#getAttribute
-     */
+    /** @see org.w3c.dom.Element#getAttribute */
     public String getAttribute(String name) {
         if (this.adaptee == null) {
             return null;
@@ -90,9 +77,7 @@ public class DOMElementImpl extends DOMNodeImpl implements org.w3c.dom.Element {
         }
     }
 
-    /**
-     * @see org.w3c.dom.Element#setAttribute
-     */
+    /** @see org.w3c.dom.Element#setAttribute */
     public void setAttribute(String name, String value) throws DOMException {
         if (this.adaptee == null) {
             return;
@@ -119,9 +104,7 @@ public class DOMElementImpl extends DOMNodeImpl implements org.w3c.dom.Element {
         }
     }
 
-    /**
-     * @see org.w3c.dom.Element#removeAttribute
-     */
+    /** @see org.w3c.dom.Element#removeAttribute */
     public void removeAttribute(String name) throws DOMException {
         if (this.adaptee == null) {
             return;
@@ -145,9 +128,7 @@ public class DOMElementImpl extends DOMNodeImpl implements org.w3c.dom.Element {
         }
     }
 
-    /**
-     * @see org.w3c.dom.Element#getAttributeNode
-     */
+    /** @see org.w3c.dom.Element#getAttributeNode */
     public org.w3c.dom.Attr getAttributeNode(String name) {
         if (this.adaptee == null) {
             return null;
@@ -167,9 +148,7 @@ public class DOMElementImpl extends DOMNodeImpl implements org.w3c.dom.Element {
         }
     }
 
-    /**
-     * @see org.w3c.dom.Element#setAttributeNode
-     */
+    /** @see org.w3c.dom.Element#setAttributeNode */
     public org.w3c.dom.Attr setAttributeNode(org.w3c.dom.Attr newAttr) throws DOMException {
         if (newAttr == null) {
             return null;
@@ -203,9 +182,7 @@ public class DOMElementImpl extends DOMNodeImpl implements org.w3c.dom.Element {
         return result;
     }
 
-    /**
-     * @see org.w3c.dom.Element#removeAttributeNode
-     */
+    /** @see org.w3c.dom.Element#removeAttributeNode */
     public org.w3c.dom.Attr removeAttributeNode(org.w3c.dom.Attr oldAttr) throws DOMException {
         if (oldAttr == null) {
             return null;
@@ -234,77 +211,64 @@ public class DOMElementImpl extends DOMNodeImpl implements org.w3c.dom.Element {
         return result;
     }
 
-    /**
-     * @see org.w3c.dom.Element#getElementsByTagName
-     */
+    /** @see org.w3c.dom.Element#getElementsByTagName */
     public org.w3c.dom.NodeList getElementsByTagName(String name) {
         return new DOMNodeListByTagNameImpl(this.adaptee, name);
     }
 
-    /**
-     * @see org.w3c.dom.Element#normalize
-     */
+    /** @see org.w3c.dom.Element#normalize */
     @Override
     public void normalize() {
         // NOT SUPPORTED
     }
 
-    /**
-     * DOM2 - not implemented.
-     */
+    /** DOM2 - not implemented. */
     public String getAttributeNS(String namespaceURI, String localName) {
         return null;
     }
 
     /**
      * DOM2 - not implemented.
-     * 
-     * @exception org.w3c.dom.DOMException
+     *
+     * @throws org.w3c.dom.DOMException
      */
-    public void setAttributeNS(String namespaceURI, String qualifiedName, String value) throws org.w3c.dom.DOMException {
+    public void setAttributeNS(String namespaceURI, String qualifiedName, String value)
+            throws org.w3c.dom.DOMException {
     }
 
     /**
      * DOM2 - not implemented.
-     * 
-     * @exception org.w3c.dom.DOMException
+     *
+     * @throws org.w3c.dom.DOMException
      */
     public void removeAttributeNS(String namespaceURI, String localName) throws org.w3c.dom.DOMException {
     }
 
-    /**
-     * DOM2 - not implemented.
-     */
+    /** DOM2 - not implemented. */
     public org.w3c.dom.Attr getAttributeNodeNS(String namespaceURI, String localName) {
         return null;
     }
 
     /**
      * DOM2 - not implemented.
-     * 
-     * @exception org.w3c.dom.DOMException
+     *
+     * @throws org.w3c.dom.DOMException
      */
     public org.w3c.dom.Attr setAttributeNodeNS(org.w3c.dom.Attr newAttr) throws org.w3c.dom.DOMException {
         return null;
     }
 
-    /**
-     * DOM2 - not implemented.
-     */
+    /** DOM2 - not implemented. */
     public org.w3c.dom.NodeList getElementsByTagNameNS(String namespaceURI, String localName) {
         return null;
     }
 
-    /**
-     * DOM2 - not implemented.
-     */
+    /** DOM2 - not implemented. */
     public boolean hasAttribute(String name) {
         return false;
     }
 
-    /**
-     * DOM2 - not implemented.
-     */
+    /** DOM2 - not implemented. */
     public boolean hasAttributeNS(String namespaceURI, String localName) {
         return false;
     }
@@ -380,5 +344,4 @@ public class DOMElementImpl extends DOMNodeImpl implements org.w3c.dom.Element {
     public Object setUserData(String key, Object data, UserDataHandler handler) {
         return null;
     }
-
 }

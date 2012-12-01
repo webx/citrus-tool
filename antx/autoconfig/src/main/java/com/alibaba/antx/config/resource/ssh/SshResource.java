@@ -37,7 +37,7 @@ import com.jcraft.jsch.SftpException;
 
 public class SshResource extends Resource {
     private final ChannelSftp channel;
-    private final SftpATTRS attrs;
+    private final SftpATTRS   attrs;
 
     public SshResource(Session session, ChannelSftp channel, ResourceURI uri, SftpATTRS attrs) {
         super(session, uri);
@@ -117,7 +117,7 @@ public class SshResource extends Resource {
 
         List result = new ArrayList(entries.size());
 
-        for (Iterator i = entries.iterator(); i.hasNext();) {
+        for (Iterator i = entries.iterator(); i.hasNext(); ) {
             LsEntry entry = (LsEntry) i.next();
             String name = entry.getFilename();
 

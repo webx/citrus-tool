@@ -29,21 +29,9 @@ import java.util.Hashtable;
  * Tidy.java for the copyright notice. Derived from <a
  * href="http://www.w3.org/People/Raggett/tidy"> HTML Tidy Release 4 Aug
  * 2000</a>
- * 
+ *
  * @author Dave Raggett <dsr@w3.org>
  * @author Andy Quick <ac.quick@sympatico.ca> (translation to Java)
- * @version 1.0, 1999/05/22
- * @version 1.0.1, 1999/05/29
- * @version 1.1, 1999/06/18 Java Bean
- * @version 1.2, 1999/07/10 Tidy Release 7 Jul 1999
- * @version 1.3, 1999/07/30 Tidy Release 26 Jul 1999
- * @version 1.4, 1999/09/04 DOM support
- * @version 1.5, 1999/10/23 Tidy Release 27 Sep 1999
- * @version 1.6, 1999/11/01 Tidy Release 22 Oct 1999
- * @version 1.7, 1999/12/06 Tidy Release 30 Nov 1999
- * @version 1.8, 2000/01/22 Tidy Release 13 Jan 2000
- * @version 1.9, 2000/06/03 Tidy Release 30 Apr 2000
- * @version 1.10, 2000/07/22 Tidy Release 8 Jul 2000
  * @version 1.11, 2000/08/16 Tidy Release 4 Aug 2000
  */
 
@@ -114,7 +102,7 @@ public class AttributeTable {
 
     private static Attribute[] attrs = {
 
-    new Attribute("abbr", Dict.VERS_HTML40, null), new Attribute("accept-charset", Dict.VERS_HTML40, null),
+            new Attribute("abbr", Dict.VERS_HTML40, null), new Attribute("accept-charset", Dict.VERS_HTML40, null),
             new Attribute("accept", Dict.VERS_ALL, null), new Attribute("accesskey", Dict.VERS_HTML40, null),
             new Attribute("action", Dict.VERS_ALL, AttrCheckImpl.getCheckUrl()),
             new Attribute("add_date", Dict.VERS_NETSCAPE, null), /* A */
@@ -427,27 +415,26 @@ public class AttributeTable {
             new Attribute("wrap", Dict.VERS_NETSCAPE, null), /* textarea */
             new Attribute("xml:lang", Dict.VERS_XML, null), /* XML language */
             new Attribute("xmlns", Dict.VERS_ALL, null), /* name space */
-
     };
 
-    public static Attribute attrHref = null;
-    public static Attribute attrSrc = null;
-    public static Attribute attrId = null;
-    public static Attribute attrName = null;
-    public static Attribute attrSummary = null;
-    public static Attribute attrAlt = null;
+    public static Attribute attrHref     = null;
+    public static Attribute attrSrc      = null;
+    public static Attribute attrId       = null;
+    public static Attribute attrName     = null;
+    public static Attribute attrSummary  = null;
+    public static Attribute attrAlt      = null;
     public static Attribute attrLongdesc = null;
-    public static Attribute attrUsemap = null;
-    public static Attribute attrIsmap = null;
+    public static Attribute attrUsemap   = null;
+    public static Attribute attrIsmap    = null;
     public static Attribute attrLanguage = null;
-    public static Attribute attrType = null;
-    public static Attribute attrTitle = null;
-    public static Attribute attrXmlns = null;
-    public static Attribute attrValue = null;
-    public static Attribute attrContent = null;
-    public static Attribute attrDatafld = null;
-    public static Attribute attrWidth = null;
-    public static Attribute attrHeight = null;
+    public static Attribute attrType     = null;
+    public static Attribute attrTitle    = null;
+    public static Attribute attrXmlns    = null;
+    public static Attribute attrValue    = null;
+    public static Attribute attrContent  = null;
+    public static Attribute attrDatafld  = null;
+    public static Attribute attrWidth    = null;
+    public static Attribute attrHeight   = null;
 
     public static AttributeTable getDefaultAttributeTable() {
         if (defaultAttributeTable == null) {
@@ -483,5 +470,4 @@ public class AttributeTable {
         }
         return defaultAttributeTable;
     }
-
 }

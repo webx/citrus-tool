@@ -24,7 +24,7 @@ import java.util.List;
 import com.alibaba.antx.config.ConfigException;
 
 public abstract class Resource implements Comparable {
-    private final Session session;
+    private final Session     session;
     private final ResourceURI uri;
 
     public Resource(Session session, ResourceURI uri) {
@@ -60,9 +60,7 @@ public abstract class Resource implements Comparable {
 
     public abstract List list();
 
-    /**
-     * 目录排在文件前面，然后按文件名排序。
-     */
+    /** 目录排在文件前面，然后按文件名排序。 */
     public int compareTo(Object other) {
         if (other instanceof Resource) {
             Resource otherResource = (Resource) other;

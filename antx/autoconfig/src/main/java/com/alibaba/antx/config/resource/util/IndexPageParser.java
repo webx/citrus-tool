@@ -25,7 +25,7 @@ public interface IndexPageParser {
     List parse(Resource resource);
 
     class Item {
-        private final String name;
+        private final String  name;
         private final boolean directory;
 
         public Item(String name, boolean directory) {

@@ -21,22 +21,20 @@ import com.alibaba.antx.config.ConfigException;
 
 /**
  * 代表一个auto config命令行的异常
- * 
+ *
  * @author Michael Zhou
  */
 public class CLIException extends ConfigException {
     private static final long serialVersionUID = -8586160707907380813L;
 
-    /**
-     * 创建一个异常。
-     */
+    /** 创建一个异常。 */
     public CLIException() {
         super();
     }
 
     /**
      * 创建一个异常。
-     * 
+     *
      * @param message 异常信息
      */
     public CLIException(String message) {
@@ -45,9 +43,9 @@ public class CLIException extends ConfigException {
 
     /**
      * 创建一个异常。
-     * 
+     *
      * @param message 异常信息
-     * @param cause 异常原因
+     * @param cause   异常原因
      */
     public CLIException(String message, Throwable cause) {
         super(message, cause);
@@ -55,7 +53,7 @@ public class CLIException extends ConfigException {
 
     /**
      * 创建一个异常。
-     * 
+     *
      * @param cause 异常原因
      */
     public CLIException(Throwable cause) {

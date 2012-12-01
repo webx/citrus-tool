@@ -17,6 +17,9 @@
 
 package com.alibaba.antx.config.descriptor.validator;
 
+import com.alibaba.antx.config.descriptor.ConfigValidator;
+import com.alibaba.antx.config.descriptor.ConfigValidatorException;
+import com.alibaba.antx.util.StringUtil;
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.PatternMatcher;
@@ -24,10 +27,6 @@ import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.alibaba.antx.config.descriptor.ConfigValidator;
-import com.alibaba.antx.config.descriptor.ConfigValidatorException;
-import com.alibaba.antx.util.StringUtil;
 
 public class RegexpValidator extends ConfigValidator {
     private static final Logger log = LoggerFactory.getLogger(RegexpValidator.class);
@@ -83,14 +82,14 @@ public class RegexpValidator extends ConfigValidator {
 
         try {
             pattern = new Perl5Compiler().compile(getRegexp(), Perl5Compiler.READ_ONLY_MASK
-                    | Perl5Compiler.SINGLELINE_MASK);
+                                                               | Perl5Compiler.SINGLELINE_MASK);
         } catch (MalformedPatternException e) {
             throw new ConfigValidatorException(e);
         }
 
         if (!getMode().endsWith("contain") && !getMode().endsWith("exact") && !getMode().endsWith("prefix")) {
             throw new ConfigValidatorException("Invalid regexp mode: " + getMode()
-                    + ", should be contain, exact or prefix.");
+                                               + ", should be contain, exact or prefix.");
         }
 
         // 匹配

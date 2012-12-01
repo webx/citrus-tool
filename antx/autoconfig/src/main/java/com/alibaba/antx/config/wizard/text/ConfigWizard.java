@@ -47,36 +47,36 @@ import com.alibaba.antx.util.i18n.LocaleInfo;
 
 /**
  * 基于文本的交互地配置属性文件的工具类。
- * 
+ *
  * @author Michael Zhou
  */
 public class ConfigWizard {
-    private static final int PREVIOUS = -1;
-    private static final int NEXT = -2;
-    private static final int QUIT = -3;
+    private static final int PREVIOUS  = -1;
+    private static final int NEXT      = -2;
+    private static final int QUIT      = -3;
     private static final int MAX_ALIGN = 40;
 
     // wizard参数
-    private ConfigGroup[] groups;
-    private PropertiesSet propSet;
-    private String confirmMessage;
+    private ConfigGroup[]  groups;
+    private PropertiesSet  propSet;
+    private String         confirmMessage;
     private BufferedReader in;
-    private PrintWriter out;
-    private PrintWriter fileWriter;
+    private PrintWriter    out;
+    private PrintWriter    fileWriter;
 
     // Wizard状态变量
-    private int step;
-    private ConfigGroup group;
+    private int              step;
+    private ConfigGroup      group;
     private ConfigProperty[] props;
-    private ConfigProperty validatorProperty;
-    private String validatorMessage;
-    private int validatorIndex;
+    private ConfigProperty   validatorProperty;
+    private String           validatorMessage;
+    private int              validatorIndex;
 
     /**
      * 创建一个wizard。
-     * 
+     *
      * @param descriptors 所有描述文件
-     * @param props 属性文件
+     * @param props       属性文件
      */
     public ConfigWizard(ConfigDescriptor[] descriptors, PropertiesSet propSet, String charset) {
         this.propSet = propSet;
@@ -108,7 +108,7 @@ public class ConfigWizard {
 
     /**
      * 设置确认信息。
-     * 
+     *
      * @param message 确认信息
      */
     public void setConfirmMessage(String confirmMessage) {
@@ -117,7 +117,7 @@ public class ConfigWizard {
 
     /**
      * 验证属性文件是否满足所有descriptor的需要。
-     * 
+     *
      * @return 如果满足要求，则返回true
      */
     public boolean validate() {
@@ -157,9 +157,7 @@ public class ConfigWizard {
         return propSet.getMergedProperties();
     }
 
-    /**
-     * 填充默认值。
-     */
+    /** 填充默认值。 */
     private void fillDefaultValues() {
         int savedStep = step;
 
@@ -181,9 +179,7 @@ public class ConfigWizard {
         setStep(savedStep);
     }
 
-    /**
-     * 执行wizard。
-     */
+    /** 执行wizard。 */
     public void start() {
         boolean continueWizard = true;
 
@@ -301,20 +297,20 @@ public class ConfigWizard {
         if (group.getConfigDescriptor().getDescription() != null) {
             buffer.append(
                     formatLines(group.getConfigDescriptor().getDescription(), 60, LocaleInfo.getDefault().getLocale(),
-                            "│Description │ ", "│            │   ")).append("\n");
+                                "│Description │ ", "│            │   ")).append("\n");
 
             buffer.append("│┈┈┈┈┈┈│┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈\n");
         }
 
         buffer.append(
                 formatLines(group.getConfigDescriptor().getURL().toString(), 60, LocaleInfo.getDefault().getLocale(),
-                        "│Descriptor  │ ", "│            │   ")).append("\n");
+                            "│Descriptor  │ ", "│            │   ")).append("\n");
 
         buffer.append("│┈┈┈┈┈┈│┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈\n");
 
         buffer.append(
                 formatLines(getURI(), 60, LocaleInfo.getDefault().getLocale(), "│Properties  │ ", "│            │   "))
-                .append("\n");
+              .append("\n");
 
         buffer.append("│            │").append("\n");
         buffer.append("└──────┴┈┈┈┈┈┈┈┈┈┈┈").append("\n");
@@ -347,7 +343,7 @@ public class ConfigWizard {
         for (ConfigProperty prop : props) {
             String value = getPropertyValue(prop, true);
             int length = Math.max(prop.getName().length(), maxLength)
-                    + (value == null ? 0 : "  = ".length() + value.length());
+                         + (value == null ? 0 : "  = ".length() + value.length());
 
             if (length > maxLengthValue && length < MAX_ALIGN * 2) {
                 maxLengthValue = length;
@@ -408,7 +404,7 @@ public class ConfigWizard {
             // 显示property描述
             if (prop.getDescription() != null) {
                 int length = value == null ? prop.getName().length() : Math.max(prop.getName().length(), maxLength)
-                        + "  = ".length() + value.length();
+                                                                       + "  = ".length() + value.length();
 
                 for (int j = 0; j < maxLengthValue - length; j++) {
                     buffer.append(' ');
@@ -614,7 +610,7 @@ public class ConfigWizard {
                 // 找出最长的名称
                 int maxLength = -1;
 
-                for (Iterator j = keys.iterator(); j.hasNext();) {
+                for (Iterator j = keys.iterator(); j.hasNext(); ) {
                     String key = (String) j.next();
                     int length = key.length();
 
@@ -624,7 +620,7 @@ public class ConfigWizard {
                 }
 
                 // 输出property项
-                for (Iterator j = keys.iterator(); j.hasNext();) {
+                for (Iterator j = keys.iterator(); j.hasNext(); ) {
                     String key = (String) j.next();
                     String value = (String) modifiedProperties.get(key);
 
@@ -664,7 +660,7 @@ public class ConfigWizard {
 
     /**
      * 对所有properties的key排序并分组。
-     * 
+     *
      * @param level 分组的级别
      * @return 分组列表
      */
@@ -677,7 +673,7 @@ public class ConfigWizard {
         List group = null;
         String prefix = null;
 
-        for (Iterator i = keys.iterator(); i.hasNext();) {
+        for (Iterator i = keys.iterator(); i.hasNext(); ) {
             String key = (String) i.next();
             String[] parts = StringUtil.split(key, ".");
             StringBuffer buffer = new StringBuffer();
@@ -730,8 +726,8 @@ public class ConfigWizard {
 
     /**
      * 取得property的值，不计算表达式。
-     * 
-     * @param prop 属性
+     *
+     * @param prop         属性
      * @param defaultValue 是否使用默认值
      */
     private String getPropertyValue(ConfigProperty prop, boolean defaultValue) {
@@ -764,8 +760,8 @@ public class ConfigWizard {
 
     /**
      * 计算property的值。
-     * 
-     * @param prop 属性
+     *
+     * @param prop         属性
      * @param defaultValue 是否使用默认值
      */
     private String evaluatePropertyValue(ConfigProperty prop, boolean defaultValue) {
@@ -789,7 +785,7 @@ public class ConfigWizard {
                 public Object get(String key) {
                     // 避免无限递归
                     if (ref.equals(key)
-                            || StringUtil.getValidIdentifier(ref).equals(StringUtil.getValidIdentifier(key))) {
+                        || StringUtil.getValidIdentifier(ref).equals(StringUtil.getValidIdentifier(key))) {
                         return null;
                     } else {
                         return getValues().get(key);
@@ -821,7 +817,7 @@ public class ConfigWizard {
 
     /**
      * 设置当前步数。
-     * 
+     *
      * @param step 当前步数
      */
     private void setStep(int step) {
@@ -845,12 +841,12 @@ public class ConfigWizard {
 
     /**
      * 格式化字符串，如果字符串超过指定长度，则自动折行。
-     * 
-     * @param text 要格式化的字符串
+     *
+     * @param text      要格式化的字符串
      * @param maxLength 行的长度
-     * @param locale 国家地区
-     * @param prefix1 首行前缀
-     * @param prefix2 第二行及后面行的前缀
+     * @param locale    国家地区
+     * @param prefix1   首行前缀
+     * @param prefix2   第二行及后面行的前缀
      * @return 格式化后的字符串
      */
     private String formatLines(String text, int maxLength, Locale locale, String prefix1, String prefix) {

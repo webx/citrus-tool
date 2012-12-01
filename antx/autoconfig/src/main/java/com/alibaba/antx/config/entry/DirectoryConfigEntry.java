@@ -32,13 +32,13 @@ import com.alibaba.antx.util.scanner.ScannerException;
 
 /**
  * 代表一个目录类型的配置项信息。
- * 
+ *
  * @author Michael Zhou
  */
 public class DirectoryConfigEntry extends ConfigEntry {
     /**
      * 创建一个结点。
-     * 
+     *
      * @param resource 指定结点的资源
      * @param settings antxconfig的设置
      */
@@ -46,9 +46,7 @@ public class DirectoryConfigEntry extends ConfigEntry {
         super(resource, outputFile, settings);
     }
 
-    /**
-     * 扫描结点。
-     */
+    /** 扫描结点。 */
     @Override
     protected void scan(InputStream istream) {
         Handler handler = new Handler();
@@ -65,9 +63,7 @@ public class DirectoryConfigEntry extends ConfigEntry {
         getGenerator().init();
     }
 
-    /**
-     * 生成配置文件。
-     */
+    /** 生成配置文件。 */
     @Override
     protected boolean generate(InputStream istream, OutputStream ostream) {
         getConfigSettings().debug("Processing files in " + getConfigEntryResource().getURL());
@@ -95,7 +91,7 @@ public class DirectoryConfigEntry extends ConfigEntry {
 
     /**
      * 转换成字符串。
-     * 
+     *
      * @return 字符串表示
      */
     @Override

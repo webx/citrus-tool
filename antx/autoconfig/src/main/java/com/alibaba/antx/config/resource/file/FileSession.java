@@ -36,5 +36,4 @@ public class FileSession extends Session {
     public Resource getResource(ResourceURI uri) {
         return new FileResource(this, uri);
     }
-
 }

@@ -42,21 +42,21 @@ import com.alibaba.antx.util.StringUtil;
 
 public class ConfigRuntimeImpl implements ConfigRuntime {
     private BufferedReader in;
-    private PrintWriter out;
-    private PrintWriter err;
-    private String charset;
-    private String mode;
-    private String interactiveMode;
-    private String type;
-    private PatternSet descriptorPatterns;
-    private PatternSet packagePatterns;
-    private String[] dests;
-    private String[] outputs;
-    private File[] destFiles;
-    private File[] outputFiles;
-    private PropertiesSet props;
-    private boolean verbose;
-    private File tempdir;
+    private PrintWriter    out;
+    private PrintWriter    err;
+    private String         charset;
+    private String         mode;
+    private String         interactiveMode;
+    private String         type;
+    private PatternSet     descriptorPatterns;
+    private PatternSet     packagePatterns;
+    private String[]       dests;
+    private String[]       outputs;
+    private File[]         destFiles;
+    private File[]         outputFiles;
+    private PropertiesSet  props;
+    private boolean        verbose;
+    private File           tempdir;
     private ConfigEntryFactory configEntryFactory = new ConfigEntryFactoryImpl(this);
 
     public ConfigRuntimeImpl() {
@@ -167,7 +167,7 @@ public class ConfigRuntimeImpl implements ConfigRuntime {
 
     public void setInteractiveMode(String mode) {
         if (ConfigConstant.INTERACTIVE_AUTO.equals(mode) || ConfigConstant.INTERACTIVE_ON.equals(mode)
-                || ConfigConstant.INTERACTIVE_OFF.equals(mode)) {
+            || ConfigConstant.INTERACTIVE_OFF.equals(mode)) {
             this.interactiveMode = mode;
         }
     }
@@ -326,7 +326,7 @@ public class ConfigRuntimeImpl implements ConfigRuntime {
             // 生成配置文件
             boolean allSuccess = true;
 
-            for (Iterator i = entries.iterator(); i.hasNext();) {
+            for (Iterator i = entries.iterator(); i.hasNext(); ) {
                 ConfigEntry entry = (ConfigEntry) i.next();
 
                 allSuccess &= entry.generate();

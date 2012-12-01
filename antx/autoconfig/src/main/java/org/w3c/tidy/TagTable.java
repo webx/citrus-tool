@@ -31,8 +31,8 @@ package org.w3c.tidy;
  * Derived from <a href="http://www.w3.org/People/Raggett/tidy">
  * HTML Tidy Release 4 Aug 2000</a>
  *
- * @author  Dave Raggett <dsr@w3.org>
- * @author  Andy Quick <ac.quick@sympatico.ca> (translation to Java)
+ * @author Dave Raggett <dsr@w3.org>
+ * @author Andy Quick <ac.quick@sympatico.ca> (translation to Java)
  * @version 1.0, 1999/05/22
  * @version 1.0.1, 1999/05/29
  * @version 1.1, 1999/06/18 Java Bean
@@ -180,26 +180,26 @@ public class TagTable {
     private static Dict[] tags = {
 
             new Dict("html", (short) (Dict.VERS_ALL | Dict.VERS_FRAMES), Dict.CM_HTML | Dict.CM_OPT | Dict.CM_OMITST,
-                    ParserImpl.getParseHTML(), CheckAttribsImpl.getCheckHTML()),
+                     ParserImpl.getParseHTML(), CheckAttribsImpl.getCheckHTML()),
 
             new Dict("head", (short) (Dict.VERS_ALL | Dict.VERS_FRAMES), Dict.CM_HTML | Dict.CM_OPT | Dict.CM_OMITST,
-                    ParserImpl.getParseHead(), null),
+                     ParserImpl.getParseHead(), null),
 
             new Dict("title", (short) (Dict.VERS_ALL | Dict.VERS_FRAMES), Dict.CM_HEAD, ParserImpl.getParseTitle(),
-                    null),
+                     null),
             new Dict("base", (short) (Dict.VERS_ALL | Dict.VERS_FRAMES), Dict.CM_HEAD | Dict.CM_EMPTY, null, null),
             new Dict("link", (short) (Dict.VERS_ALL | Dict.VERS_FRAMES), Dict.CM_HEAD | Dict.CM_EMPTY, null,
-                    CheckAttribsImpl.getCheckLINK()),
+                     CheckAttribsImpl.getCheckLINK()),
             new Dict("meta", (short) (Dict.VERS_ALL | Dict.VERS_FRAMES), Dict.CM_HEAD | Dict.CM_EMPTY, null, null),
             new Dict("style", (short) (Dict.VERS_FROM32 | Dict.VERS_FRAMES), Dict.CM_HEAD, ParserImpl.getParseScript(),
-                    CheckAttribsImpl.getCheckSTYLE()),
+                     CheckAttribsImpl.getCheckSTYLE()),
             new Dict("script", (short) (Dict.VERS_FROM32 | Dict.VERS_FRAMES), Dict.CM_HEAD | Dict.CM_MIXED
-                    | Dict.CM_BLOCK | Dict.CM_INLINE, ParserImpl.getParseScript(), CheckAttribsImpl.getCheckSCRIPT()),
+                                                                              | Dict.CM_BLOCK | Dict.CM_INLINE, ParserImpl.getParseScript(), CheckAttribsImpl.getCheckSCRIPT()),
             new Dict("server", Dict.VERS_NETSCAPE, Dict.CM_HEAD | Dict.CM_MIXED | Dict.CM_BLOCK | Dict.CM_INLINE,
-                    ParserImpl.getParseScript(), null),
+                     ParserImpl.getParseScript(), null),
 
             new Dict("body", Dict.VERS_ALL, Dict.CM_HTML | Dict.CM_OPT | Dict.CM_OMITST, ParserImpl.getParseBody(),
-                    null),
+                     null),
             new Dict("frameset", Dict.VERS_FRAMES, Dict.CM_HTML | Dict.CM_FRAMES, ParserImpl.getParseFrameSet(), null),
 
             new Dict("p", Dict.VERS_ALL, Dict.CM_BLOCK | Dict.CM_OPT, ParserImpl.getParseInline(), null),
@@ -224,7 +224,7 @@ public class TagTable {
             new Dict("isindex", Dict.VERS_LOOSE, Dict.CM_BLOCK | Dict.CM_EMPTY, null, null),
             new Dict("fieldset", Dict.VERS_HTML40, Dict.CM_BLOCK, ParserImpl.getParseBlock(), null),
             new Dict("table", Dict.VERS_FROM32, Dict.CM_BLOCK, ParserImpl.getParseTableTag(),
-                    CheckAttribsImpl.getCheckTABLE()),
+                     CheckAttribsImpl.getCheckTABLE()),
             new Dict("hr", Dict.VERS_ALL, Dict.CM_BLOCK | Dict.CM_EMPTY, null, CheckAttribsImpl.getCheckHR()),
             new Dict("div", Dict.VERS_FROM32, Dict.CM_BLOCK, ParserImpl.getParseBlock(), null),
             new Dict("multicol", Dict.VERS_NETSCAPE, Dict.CM_BLOCK, ParserImpl.getParseBlock(), null),
@@ -232,48 +232,48 @@ public class TagTable {
             new Dict("layer", Dict.VERS_NETSCAPE, Dict.CM_BLOCK, ParserImpl.getParseBlock(), null),
             new Dict("ilayer", Dict.VERS_NETSCAPE, Dict.CM_INLINE, ParserImpl.getParseInline(), null),
             new Dict("nolayer", Dict.VERS_NETSCAPE, Dict.CM_BLOCK | Dict.CM_INLINE | Dict.CM_MIXED,
-                    ParserImpl.getParseBlock(), null),
+                     ParserImpl.getParseBlock(), null),
             new Dict("align", Dict.VERS_NETSCAPE, Dict.CM_BLOCK, ParserImpl.getParseBlock(), null),
             new Dict("center", Dict.VERS_LOOSE, Dict.CM_BLOCK, ParserImpl.getParseBlock(), null),
             new Dict("ins", Dict.VERS_HTML40, Dict.CM_INLINE | Dict.CM_BLOCK | Dict.CM_MIXED,
-                    ParserImpl.getParseInline(), null),
+                     ParserImpl.getParseInline(), null),
             new Dict("del", Dict.VERS_HTML40, Dict.CM_INLINE | Dict.CM_BLOCK | Dict.CM_MIXED,
-                    ParserImpl.getParseInline(), null),
+                     ParserImpl.getParseInline(), null),
 
             new Dict("li", Dict.VERS_ALL, Dict.CM_LIST | Dict.CM_OPT | Dict.CM_NO_INDENT, ParserImpl.getParseBlock(),
-                    null),
+                     null),
             new Dict("dt", Dict.VERS_ALL, Dict.CM_DEFLIST | Dict.CM_OPT | Dict.CM_NO_INDENT,
-                    ParserImpl.getParseInline(), null),
+                     ParserImpl.getParseInline(), null),
             new Dict("dd", Dict.VERS_ALL, Dict.CM_DEFLIST | Dict.CM_OPT | Dict.CM_NO_INDENT,
-                    ParserImpl.getParseBlock(), null),
+                     ParserImpl.getParseBlock(), null),
 
             new Dict("caption", Dict.VERS_FROM32, Dict.CM_TABLE, ParserImpl.getParseInline(),
-                    CheckAttribsImpl.getCheckCaption()),
+                     CheckAttribsImpl.getCheckCaption()),
             new Dict("colgroup", Dict.VERS_HTML40, Dict.CM_TABLE | Dict.CM_OPT, ParserImpl.getParseColGroup(), null),
             new Dict("col", Dict.VERS_HTML40, Dict.CM_TABLE | Dict.CM_EMPTY, null, null),
             new Dict("thead", Dict.VERS_HTML40, Dict.CM_TABLE | Dict.CM_ROWGRP | Dict.CM_OPT,
-                    ParserImpl.getParseRowGroup(), null),
+                     ParserImpl.getParseRowGroup(), null),
             new Dict("tfoot", Dict.VERS_HTML40, Dict.CM_TABLE | Dict.CM_ROWGRP | Dict.CM_OPT,
-                    ParserImpl.getParseRowGroup(), null),
+                     ParserImpl.getParseRowGroup(), null),
             new Dict("tbody", Dict.VERS_HTML40, Dict.CM_TABLE | Dict.CM_ROWGRP | Dict.CM_OPT,
-                    ParserImpl.getParseRowGroup(), null),
+                     ParserImpl.getParseRowGroup(), null),
             new Dict("tr", Dict.VERS_FROM32, Dict.CM_TABLE | Dict.CM_OPT, ParserImpl.getParseRow(), null),
             new Dict("td", Dict.VERS_FROM32, Dict.CM_ROW | Dict.CM_OPT | Dict.CM_NO_INDENT, ParserImpl.getParseBlock(),
-                    CheckAttribsImpl.getCheckTableCell()),
+                     CheckAttribsImpl.getCheckTableCell()),
             new Dict("th", Dict.VERS_FROM32, Dict.CM_ROW | Dict.CM_OPT | Dict.CM_NO_INDENT, ParserImpl.getParseBlock(),
-                    CheckAttribsImpl.getCheckTableCell()),
+                     CheckAttribsImpl.getCheckTableCell()),
 
             new Dict("q", Dict.VERS_HTML40, Dict.CM_INLINE, ParserImpl.getParseInline(), null),
             new Dict("a", Dict.VERS_ALL, Dict.CM_INLINE, ParserImpl.getParseInline(), CheckAttribsImpl.getCheckAnchor()),
             new Dict("br", Dict.VERS_ALL, Dict.CM_INLINE | Dict.CM_EMPTY, null, null),
             new Dict("img", Dict.VERS_ALL, Dict.CM_INLINE | Dict.CM_IMG | Dict.CM_EMPTY, null,
-                    CheckAttribsImpl.getCheckIMG()),
+                     CheckAttribsImpl.getCheckIMG()),
             new Dict("object", Dict.VERS_HTML40, Dict.CM_OBJECT | Dict.CM_HEAD | Dict.CM_IMG | Dict.CM_INLINE
-                    | Dict.CM_PARAM, ParserImpl.getParseBlock(), null),
+                                                 | Dict.CM_PARAM, ParserImpl.getParseBlock(), null),
             new Dict("applet", Dict.VERS_LOOSE, Dict.CM_OBJECT | Dict.CM_IMG | Dict.CM_INLINE | Dict.CM_PARAM,
-                    ParserImpl.getParseBlock(), null),
+                     ParserImpl.getParseBlock(), null),
             new Dict("servlet", Dict.VERS_SUN, Dict.CM_OBJECT | Dict.CM_IMG | Dict.CM_INLINE | Dict.CM_PARAM,
-                    ParserImpl.getParseBlock(), null),
+                     ParserImpl.getParseBlock(), null),
             new Dict("param", Dict.VERS_FROM32, Dict.CM_INLINE | Dict.CM_EMPTY, null, null),
             new Dict("embed", Dict.VERS_NETSCAPE, Dict.CM_INLINE | Dict.CM_IMG | Dict.CM_EMPTY, null, null),
             new Dict("noembed", Dict.VERS_NETSCAPE, Dict.CM_INLINE, ParserImpl.getParseInline(), null),
@@ -281,7 +281,7 @@ public class TagTable {
             new Dict("frame", Dict.VERS_FRAMES, Dict.CM_FRAMES | Dict.CM_EMPTY, null, null),
             new Dict("noframes", Dict.VERS_IFRAMES, Dict.CM_BLOCK | Dict.CM_FRAMES, ParserImpl.getParseNoFrames(), null),
             new Dict("noscript", (short) (Dict.VERS_FRAMES | Dict.VERS_HTML40), Dict.CM_BLOCK | Dict.CM_INLINE
-                    | Dict.CM_MIXED, ParserImpl.getParseBlock(), null),
+                                                                                | Dict.CM_MIXED, ParserImpl.getParseBlock(), null),
             new Dict("b", Dict.VERS_ALL, Dict.CM_INLINE, ParserImpl.getParseInline(), null),
             new Dict("i", Dict.VERS_ALL, Dict.CM_INLINE, ParserImpl.getParseInline(), null),
             new Dict("u", Dict.VERS_LOOSE, Dict.CM_INLINE, ParserImpl.getParseInline(), null),
@@ -312,10 +312,10 @@ public class TagTable {
             new Dict("spacer", Dict.VERS_NETSCAPE, Dict.CM_INLINE | Dict.CM_EMPTY, null, null),
             new Dict("keygen", Dict.VERS_NETSCAPE, Dict.CM_INLINE | Dict.CM_EMPTY, null, null),
             new Dict("nolayer", Dict.VERS_NETSCAPE, Dict.CM_BLOCK | Dict.CM_INLINE | Dict.CM_MIXED,
-                    ParserImpl.getParseBlock(), null),
+                     ParserImpl.getParseBlock(), null),
             new Dict("ilayer", Dict.VERS_NETSCAPE, Dict.CM_INLINE, ParserImpl.getParseInline(), null),
             new Dict("map", Dict.VERS_FROM32, Dict.CM_INLINE, ParserImpl.getParseBlock(),
-                    CheckAttribsImpl.getCheckMap()),
+                     CheckAttribsImpl.getCheckMap()),
             new Dict("area", Dict.VERS_ALL, Dict.CM_BLOCK | Dict.CM_EMPTY, null, CheckAttribsImpl.getCheckAREA()),
             new Dict("input", Dict.VERS_ALL, Dict.CM_INLINE | Dict.CM_IMG | Dict.CM_EMPTY, null, null),
             new Dict("select", Dict.VERS_ALL, Dict.CM_INLINE | Dict.CM_FIELD, ParserImpl.getParseSelect(), null),
@@ -328,89 +328,88 @@ public class TagTable {
             new Dict("basefont", Dict.VERS_LOOSE, Dict.CM_INLINE | Dict.CM_EMPTY, null, null),
             new Dict("font", Dict.VERS_LOOSE, Dict.CM_INLINE, ParserImpl.getParseInline(), null),
             new Dict("bdo", Dict.VERS_HTML40, Dict.CM_INLINE, ParserImpl.getParseInline(), null),
-
     };
 
     /* create dummy entry for all xml tags */
     public Dict xmlTags = new Dict(null, Dict.VERS_ALL, Dict.CM_BLOCK, null, null);
 
-    public Dict tagHtml = null;
-    public Dict tagHead = null;
-    public Dict tagBody = null;
-    public Dict tagFrameset = null;
-    public Dict tagFrame = null;
-    public Dict tagNoframes = null;
-    public Dict tagMeta = null;
-    public Dict tagTitle = null;
-    public Dict tagBase = null;
-    public Dict tagHr = null;
-    public Dict tagPre = null;
-    public Dict tagListing = null;
-    public Dict tagH1 = null;
-    public Dict tagH2 = null;
-    public Dict tagP = null;
-    public Dict tagUl = null;
-    public Dict tagOl = null;
-    public Dict tagDir = null;
-    public Dict tagLi = null;
-    public Dict tagDt = null;
-    public Dict tagDd = null;
-    public Dict tagDl = null;
-    public Dict tagTd = null;
-    public Dict tagTh = null;
-    public Dict tagTr = null;
-    public Dict tagCol = null;
-    public Dict tagBr = null;
-    public Dict tagA = null;
-    public Dict tagLink = null;
-    public Dict tagB = null;
-    public Dict tagI = null;
-    public Dict tagStrong = null;
-    public Dict tagEm = null;
-    public Dict tagBig = null;
-    public Dict tagSmall = null;
-    public Dict tagParam = null;
-    public Dict tagOption = null;
-    public Dict tagOptgroup = null;
-    public Dict tagImg = null;
-    public Dict tagMap = null;
-    public Dict tagArea = null;
-    public Dict tagNobr = null;
-    public Dict tagWbr = null;
-    public Dict tagFont = null;
-    public Dict tagSpacer = null;
-    public Dict tagLayer = null;
-    public Dict tagCenter = null;
-    public Dict tagStyle = null;
-    public Dict tagScript = null;
-    public Dict tagNoscript = null;
-    public Dict tagTable = null;
-    public Dict tagCaption = null;
-    public Dict tagForm = null;
-    public Dict tagTextarea = null;
+    public Dict tagHtml       = null;
+    public Dict tagHead       = null;
+    public Dict tagBody       = null;
+    public Dict tagFrameset   = null;
+    public Dict tagFrame      = null;
+    public Dict tagNoframes   = null;
+    public Dict tagMeta       = null;
+    public Dict tagTitle      = null;
+    public Dict tagBase       = null;
+    public Dict tagHr         = null;
+    public Dict tagPre        = null;
+    public Dict tagListing    = null;
+    public Dict tagH1         = null;
+    public Dict tagH2         = null;
+    public Dict tagP          = null;
+    public Dict tagUl         = null;
+    public Dict tagOl         = null;
+    public Dict tagDir        = null;
+    public Dict tagLi         = null;
+    public Dict tagDt         = null;
+    public Dict tagDd         = null;
+    public Dict tagDl         = null;
+    public Dict tagTd         = null;
+    public Dict tagTh         = null;
+    public Dict tagTr         = null;
+    public Dict tagCol        = null;
+    public Dict tagBr         = null;
+    public Dict tagA          = null;
+    public Dict tagLink       = null;
+    public Dict tagB          = null;
+    public Dict tagI          = null;
+    public Dict tagStrong     = null;
+    public Dict tagEm         = null;
+    public Dict tagBig        = null;
+    public Dict tagSmall      = null;
+    public Dict tagParam      = null;
+    public Dict tagOption     = null;
+    public Dict tagOptgroup   = null;
+    public Dict tagImg        = null;
+    public Dict tagMap        = null;
+    public Dict tagArea       = null;
+    public Dict tagNobr       = null;
+    public Dict tagWbr        = null;
+    public Dict tagFont       = null;
+    public Dict tagSpacer     = null;
+    public Dict tagLayer      = null;
+    public Dict tagCenter     = null;
+    public Dict tagStyle      = null;
+    public Dict tagScript     = null;
+    public Dict tagNoscript   = null;
+    public Dict tagTable      = null;
+    public Dict tagCaption    = null;
+    public Dict tagForm       = null;
+    public Dict tagTextarea   = null;
     public Dict tagBlockquote = null;
-    public Dict tagApplet = null;
-    public Dict tagObject = null;
-    public Dict tagDiv = null;
-    public Dict tagSpan = null;
+    public Dict tagApplet     = null;
+    public Dict tagObject     = null;
+    public Dict tagDiv        = null;
+    public Dict tagSpan       = null;
 
     public void defineInlineTag(String name) {
         install(new Dict(name, Dict.VERS_PROPRIETARY, Dict.CM_INLINE | Dict.CM_NO_INDENT | Dict.CM_NEW,
-                ParserImpl.getParseBlock(), null));
+                         ParserImpl.getParseBlock(), null));
     }
 
     public void defineBlockTag(String name) {
         install(new Dict(name, Dict.VERS_PROPRIETARY, Dict.CM_BLOCK | Dict.CM_NO_INDENT | Dict.CM_NEW,
-                ParserImpl.getParseBlock(), null));
+                         ParserImpl.getParseBlock(), null));
     }
 
     public void defineEmptyTag(String name) {
         install(new Dict(name, Dict.VERS_PROPRIETARY, Dict.CM_EMPTY | Dict.CM_NO_INDENT | Dict.CM_NEW,
-                ParserImpl.getParseBlock(), null));
+                         ParserImpl.getParseBlock(), null));
     }
 
     public void definePreTag(String name) {
         install(new Dict(name, Dict.VERS_PROPRIETARY, Dict.CM_BLOCK | Dict.CM_NO_INDENT | Dict.CM_NEW,
-                ParserImpl.getParsePre(), null));
+                         ParserImpl.getParsePre(), null));
     }
 }

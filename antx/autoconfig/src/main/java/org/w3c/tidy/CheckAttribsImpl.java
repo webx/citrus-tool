@@ -27,21 +27,9 @@ package org.w3c.tidy;
  * University See Tidy.java for the copyright notice. Derived from <a
  * href="http://www.w3.org/People/Raggett/tidy"> HTML Tidy Release 4 Aug
  * 2000</a>
- * 
+ *
  * @author Dave Raggett <dsr@w3.org>
  * @author Andy Quick <ac.quick@sympatico.ca> (translation to Java)
- * @version 1.0, 1999/05/22
- * @version 1.0.1, 1999/05/29
- * @version 1.1, 1999/06/18 Java Bean
- * @version 1.2, 1999/07/10 Tidy Release 7 Jul 1999
- * @version 1.3, 1999/07/30 Tidy Release 26 Jul 1999
- * @version 1.4, 1999/09/04 DOM support
- * @version 1.5, 1999/10/23 Tidy Release 27 Sep 1999
- * @version 1.6, 1999/11/01 Tidy Release 22 Oct 1999
- * @version 1.7, 1999/12/06 Tidy Release 30 Nov 1999
- * @version 1.8, 2000/01/22 Tidy Release 13 Jan 2000
- * @version 1.9, 2000/06/03 Tidy Release 30 Apr 2000
- * @version 1.10, 2000/07/22 Tidy Release 8 Jul 2000
  * @version 1.11, 2000/08/16 Tidy Release 4 Aug 2000
  */
 
@@ -63,8 +51,9 @@ public class CheckAttribsImpl {
                 }
             }
         }
+    }
 
-    };
+    ;
 
     public static class CheckSCRIPT implements CheckAttribs {
 
@@ -95,8 +84,9 @@ public class CheckAttribsImpl {
                 }
             }
         }
+    }
 
-    };
+    ;
 
     public static class CheckTABLE implements CheckAttribs {
 
@@ -131,8 +121,9 @@ public class CheckAttribsImpl {
                 }
             }
         }
+    }
 
-    };
+    ;
 
     public static class CheckCaption implements CheckAttribs {
 
@@ -159,8 +150,9 @@ public class CheckAttribsImpl {
                 }
             }
         }
+    }
 
-    };
+    ;
 
     public static class CheckHR implements CheckAttribs {
 
@@ -169,7 +161,9 @@ public class CheckAttribsImpl {
                 Report.attrError(lexer, node, "src", Report.PROPRIETARY_ATTR_VALUE);
             }
         }
-    };
+    }
+
+    ;
 
     public static class CheckIMG implements CheckAttribs {
 
@@ -218,8 +212,9 @@ public class CheckAttribsImpl {
                 Report.attrError(lexer, node, "ismap", Report.MISSING_IMAGEMAP);
             }
         }
+    }
 
-    };
+    ;
 
     public static class CheckAREA implements CheckAttribs {
 
@@ -249,8 +244,9 @@ public class CheckAttribsImpl {
                 Report.attrError(lexer, node, "href", Report.MISSING_ATTRIBUTE);
             }
         }
+    }
 
-    };
+    ;
 
     public static class CheckAnchor implements CheckAttribs {
 
@@ -259,7 +255,9 @@ public class CheckAttribsImpl {
 
             lexer.fixId(node);
         }
-    };
+    }
+
+    ;
 
     public static class CheckMap implements CheckAttribs {
 
@@ -368,17 +366,16 @@ public class CheckAttribsImpl {
         return _checkHR;
     }
 
-    private static CheckAttribs _checkHTML = new CheckHTML();
-    private static CheckAttribs _checkSCRIPT = new CheckSCRIPT();
-    private static CheckAttribs _checkTABLE = new CheckTABLE();
-    private static CheckAttribs _checkCaption = new CheckCaption();
-    private static CheckAttribs _checkIMG = new CheckIMG();
-    private static CheckAttribs _checkAREA = new CheckAREA();
-    private static CheckAttribs _checkAnchor = new CheckAnchor();
-    private static CheckAttribs _checkMap = new CheckMap();
-    private static CheckAttribs _checkStyle = new CheckSTYLE();
+    private static CheckAttribs _checkHTML      = new CheckHTML();
+    private static CheckAttribs _checkSCRIPT    = new CheckSCRIPT();
+    private static CheckAttribs _checkTABLE     = new CheckTABLE();
+    private static CheckAttribs _checkCaption   = new CheckCaption();
+    private static CheckAttribs _checkIMG       = new CheckIMG();
+    private static CheckAttribs _checkAREA      = new CheckAREA();
+    private static CheckAttribs _checkAnchor    = new CheckAnchor();
+    private static CheckAttribs _checkMap       = new CheckMap();
+    private static CheckAttribs _checkStyle     = new CheckSTYLE();
     private static CheckAttribs _checkTableCell = new CheckTableCell();
-    private static CheckAttribs _checkLINK = new CheckLINK();
-    private static CheckAttribs _checkHR = new CheckHR();
-
+    private static CheckAttribs _checkLINK      = new CheckLINK();
+    private static CheckAttribs _checkHR        = new CheckHR();
 }

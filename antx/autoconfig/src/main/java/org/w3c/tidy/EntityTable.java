@@ -31,8 +31,8 @@ package org.w3c.tidy;
  * Derived from <a href="http://www.w3.org/People/Raggett/tidy">
  * HTML Tidy Release 4 Aug 2000</a>
  *
- * @author  Dave Raggett <dsr@w3.org>
- * @author  Andy Quick <ac.quick@sympatico.ca> (translation to Java)
+ * @author Dave Raggett <dsr@w3.org>
+ * @author Andy Quick <ac.quick@sympatico.ca> (translation to Java)
  * @version 1.0, 1999/05/22
  * @version 1.0.1, 1999/05/29
  * @version 1.1, 1999/06/18 Java Bean
@@ -129,7 +129,7 @@ public class EntityTable {
 
     private static Entity[] entities = {
 
-    new Entity("nbsp", 160), new Entity("iexcl", 161), new Entity("cent", 162), new Entity("pound", 163),
+            new Entity("nbsp", 160), new Entity("iexcl", 161), new Entity("cent", 162), new Entity("pound", 163),
             new Entity("curren", 164), new Entity("yen", 165), new Entity("brvbar", 166), new Entity("sect", 167),
             new Entity("uml", 168), new Entity("copy", 169), new Entity("ordf", 170), new Entity("laquo", 171),
             new Entity("not", 172), new Entity("shy", 173), new Entity("reg", 174), new Entity("macr", 175),
@@ -193,7 +193,6 @@ public class EntityTable {
             new Entity("ldquo", 8220), new Entity("rdquo", 8221), new Entity("bdquo", 8222),
             new Entity("dagger", 8224), new Entity("Dagger", 8225), new Entity("permil", 8240),
             new Entity("lsaquo", 8249), new Entity("rsaquo", 8250), new Entity("euro", 8364)
-
     };
 
     public static EntityTable getDefaultEntityTable() {
@@ -205,5 +204,4 @@ public class EntityTable {
         }
         return defaultEntityTable;
     }
-
 }

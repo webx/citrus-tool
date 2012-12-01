@@ -28,15 +28,15 @@ import com.alibaba.antx.config.ConfigResource;
 
 /**
  * 代表一个auto-config描述文件的内容。
- * 
+ *
  * @author Michael Zhou
  */
 public class ConfigDescriptor {
     private ConfigResource resource;
-    private String description;
-    private List groups = new LinkedList();
+    private String         description;
+    private List groups    = new LinkedList();
     private List generates = new LinkedList();
-    private Map context = new HashMap();
+    private Map  context   = new HashMap();
 
     public ConfigDescriptor(ConfigResource descriptorResource) {
         this.resource = descriptorResource;

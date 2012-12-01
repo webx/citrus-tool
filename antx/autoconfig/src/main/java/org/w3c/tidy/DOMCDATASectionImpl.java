@@ -27,7 +27,7 @@ package org.w3c.tidy;
  * Tidy.java for the copyright notice. Derived from <a
  * href="http://www.w3.org/People/Raggett/tidy"> HTML Tidy Release 4 Aug
  * 2000</a>
- * 
+ *
  * @author Dave Raggett <dsr@w3.org>
  * @author Andy Quick <ac.quick@sympatico.ca> (translation to Java)
  * @author Gary L Peskin <garyp@firstech.com>
@@ -42,17 +42,13 @@ public class DOMCDATASectionImpl extends DOMTextImpl implements org.w3c.dom.CDAT
 
     /* --------------------- DOM ---------------------------- */
 
-    /**
-     * @see org.w3c.dom.Node#getNodeName
-     */
+    /** @see org.w3c.dom.Node#getNodeName */
     @Override
     public String getNodeName() {
         return "#cdata-section";
     }
 
-    /**
-     * @see org.w3c.dom.Node#getNodeType
-     */
+    /** @see org.w3c.dom.Node#getNodeType */
     @Override
     public short getNodeType() {
         return org.w3c.dom.Node.CDATA_SECTION_NODE;

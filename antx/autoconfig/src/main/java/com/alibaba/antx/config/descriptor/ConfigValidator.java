@@ -17,18 +17,17 @@
 
 package com.alibaba.antx.config.descriptor;
 
-import org.slf4j.Logger;
-
 import com.alibaba.antx.util.StringUtil;
+import org.slf4j.Logger;
 
 /**
  * 属性验证器。
- * 
+ *
  * @author Michael Zhou
  */
 public abstract class ConfigValidator {
     private ConfigProperty property;
-    private String message;
+    private String         message;
 
     public ConfigDescriptor getConfigDescriptor() {
         return getConfigProperty().getConfigDescriptor();

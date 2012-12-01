@@ -30,8 +30,8 @@ package org.w3c.tidy;
  * Derived from <a href="http://www.w3.org/People/Raggett/tidy">
  * HTML Tidy Release 4 Aug 2000</a>
  *
- * @author  Dave Raggett <dsr@w3.org>
- * @author  Andy Quick <ac.quick@sympatico.ca> (translation to Java)
+ * @author Dave Raggett <dsr@w3.org>
+ * @author Andy Quick <ac.quick@sympatico.ca> (translation to Java)
  * @version 1.3, 1999/07/30 Tidy Release 26 Jul 1999
  * @version 1.4, 1999/09/04 DOM support
  * @version 1.5, 1999/10/23 Tidy Release 27 Sep 1999
@@ -43,7 +43,7 @@ package org.w3c.tidy;
  * @version 1.11, 2000/08/16 Tidy Release 4 Aug 2000
  */
 
-import java.awt.Image;
+import java.awt.*;
 import java.beans.SimpleBeanInfo;
 
 public class TidyBeanInfo extends SimpleBeanInfo {
@@ -52,5 +52,4 @@ public class TidyBeanInfo extends SimpleBeanInfo {
     public Image getIcon(int kind) {
         return loadImage("tidy.gif");
     }
-
 }

@@ -21,11 +21,6 @@ import java.io.File;
 import java.util.Map;
 import java.util.regex.Matcher;
 
-import org.apache.oro.text.regex.MalformedPatternException;
-import org.apache.oro.text.regex.Pattern;
-import org.apache.oro.text.regex.PatternMatcher;
-import org.apache.oro.text.regex.Perl5Matcher;
-
 import com.alibaba.antx.config.ConfigException;
 import com.alibaba.antx.config.ConfigResource;
 import com.alibaba.antx.config.ConfigSettings;
@@ -33,6 +28,10 @@ import com.alibaba.antx.util.NumberUtil;
 import com.alibaba.antx.util.PatternSet;
 import com.alibaba.antx.util.StringUtil;
 import com.alibaba.toolkit.util.regex.PathNameCompiler;
+import org.apache.oro.text.regex.MalformedPatternException;
+import org.apache.oro.text.regex.Pattern;
+import org.apache.oro.text.regex.PatternMatcher;
+import org.apache.oro.text.regex.Perl5Matcher;
 
 public class ConfigEntryFactoryImpl implements ConfigEntryFactory {
     private ConfigSettings settings;
@@ -86,7 +85,7 @@ public class ConfigEntryFactoryImpl implements ConfigEntryFactory {
 
     /**
      * 设置公共context。
-     * 
+     *
      * @param context context
      */
     protected void populateCommonContext(Map context) {
@@ -96,7 +95,7 @@ public class ConfigEntryFactoryImpl implements ConfigEntryFactory {
 
     /**
      * 设置基于war的context，根据descriptor name取得component name。
-     * 
+     *
      * @param context context
      */
     protected void populateWarContext(Map context, String name) {
@@ -117,9 +116,7 @@ public class ConfigEntryFactoryImpl implements ConfigEntryFactory {
         context.put("component", componentName);
     }
 
-    /**
-     * 创建基于war的entry。
-     */
+    /** 创建基于war的entry。 */
     private ConfigEntry createWarEntry(ConfigResource resource, File outputFile) {
         File file = resource.getFile();
         ConfigEntry entry;
@@ -149,9 +146,7 @@ public class ConfigEntryFactoryImpl implements ConfigEntryFactory {
         return entry;
     }
 
-    /**
-     * 创建基于普通jar的entry。
-     */
+    /** 创建基于普通jar的entry。 */
     private ConfigEntry createGenericJarEntry(ConfigResource resource, File outputFile) {
         File file = resource.getFile();
         ConfigEntry entry;
@@ -179,9 +174,7 @@ public class ConfigEntryFactoryImpl implements ConfigEntryFactory {
         return entry;
     }
 
-    /**
-     * 创建基于普通目录的entry。
-     */
+    /** 创建基于普通目录的entry。 */
     private ConfigEntry createGenericDirectoryEntry(ConfigResource resource, File outputFile) {
         ConfigEntry entry = new DirectoryConfigEntry(resource, outputFile, settings) {
             @Override
@@ -195,7 +188,7 @@ public class ConfigEntryFactoryImpl implements ConfigEntryFactory {
 
         // 如果是对目录操作，且未指定package patterns，则默认不搜索目录下的packages文件
         entry.setPackagePatterns(new PatternSet(settings.getPackagePatterns(), new PatternSet(null, "**"))
-                .addDefaultExcludes());
+                                         .addDefaultExcludes());
 
         return entry;
     }

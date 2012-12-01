@@ -33,8 +33,8 @@ package org.w3c.tidy;
  * Derived from <a href="http://www.w3.org/People/Raggett/tidy">
  * HTML Tidy Release 4 Aug 2000</a>
  *
- * @author  Dave Raggett <dsr@w3.org>
- * @author  Andy Quick <ac.quick@sympatico.ca> (translation to Java)
+ * @author Dave Raggett <dsr@w3.org>
+ * @author Andy Quick <ac.quick@sympatico.ca> (translation to Java)
  * @version 1.0, 1999/05/22
  * @version 1.0.1, 1999/05/29
  * @version 1.1, 1999/06/18 Java Bean
@@ -69,81 +69,81 @@ public class Report {
 
     /* error codes for entities */
 
-    public static final short MISSING_SEMICOLON = 1;
-    public static final short UNKNOWN_ENTITY = 2;
+    public static final short MISSING_SEMICOLON   = 1;
+    public static final short UNKNOWN_ENTITY      = 2;
     public static final short UNESCAPED_AMPERSAND = 3;
 
     /* error codes for element messages */
 
-    public static final short MISSING_ENDTAG_FOR = 1;
-    public static final short MISSING_ENDTAG_BEFORE = 2;
-    public static final short DISCARDING_UNEXPECTED = 3;
-    public static final short NESTED_EMPHASIS = 4;
-    public static final short NON_MATCHING_ENDTAG = 5;
-    public static final short TAG_NOT_ALLOWED_IN = 6;
-    public static final short MISSING_STARTTAG = 7;
-    public static final short UNEXPECTED_ENDTAG = 8;
-    public static final short USING_BR_INPLACE_OF = 9;
-    public static final short INSERTING_TAG = 10;
+    public static final short MISSING_ENDTAG_FOR      = 1;
+    public static final short MISSING_ENDTAG_BEFORE   = 2;
+    public static final short DISCARDING_UNEXPECTED   = 3;
+    public static final short NESTED_EMPHASIS         = 4;
+    public static final short NON_MATCHING_ENDTAG     = 5;
+    public static final short TAG_NOT_ALLOWED_IN      = 6;
+    public static final short MISSING_STARTTAG        = 7;
+    public static final short UNEXPECTED_ENDTAG       = 8;
+    public static final short USING_BR_INPLACE_OF     = 9;
+    public static final short INSERTING_TAG           = 10;
     public static final short SUSPECTED_MISSING_QUOTE = 11;
-    public static final short MISSING_TITLE_ELEMENT = 12;
-    public static final short DUPLICATE_FRAMESET = 13;
-    public static final short CANT_BE_NESTED = 14;
-    public static final short OBSOLETE_ELEMENT = 15;
-    public static final short PROPRIETARY_ELEMENT = 16;
-    public static final short UNKNOWN_ELEMENT = 17;
-    public static final short TRIM_EMPTY_ELEMENT = 18;
-    public static final short COERCE_TO_ENDTAG = 19;
-    public static final short ILLEGAL_NESTING = 20;
-    public static final short NOFRAMES_CONTENT = 21;
-    public static final short CONTENT_AFTER_BODY = 22;
-    public static final short INCONSISTENT_VERSION = 23;
-    public static final short MALFORMED_COMMENT = 24;
-    public static final short BAD_COMMENT_CHARS = 25;
-    public static final short BAD_XML_COMMENT = 26;
-    public static final short BAD_CDATA_CONTENT = 27;
-    public static final short INCONSISTENT_NAMESPACE = 28;
-    public static final short DOCTYPE_AFTER_TAGS = 29;
-    public static final short MALFORMED_DOCTYPE = 30;
-    public static final short UNEXPECTED_END_OF_FILE = 31;
-    public static final short DTYPE_NOT_UPPER_CASE = 32;
-    public static final short TOO_MANY_ELEMENTS = 33;
+    public static final short MISSING_TITLE_ELEMENT   = 12;
+    public static final short DUPLICATE_FRAMESET      = 13;
+    public static final short CANT_BE_NESTED          = 14;
+    public static final short OBSOLETE_ELEMENT        = 15;
+    public static final short PROPRIETARY_ELEMENT     = 16;
+    public static final short UNKNOWN_ELEMENT         = 17;
+    public static final short TRIM_EMPTY_ELEMENT      = 18;
+    public static final short COERCE_TO_ENDTAG        = 19;
+    public static final short ILLEGAL_NESTING         = 20;
+    public static final short NOFRAMES_CONTENT        = 21;
+    public static final short CONTENT_AFTER_BODY      = 22;
+    public static final short INCONSISTENT_VERSION    = 23;
+    public static final short MALFORMED_COMMENT       = 24;
+    public static final short BAD_COMMENT_CHARS       = 25;
+    public static final short BAD_XML_COMMENT         = 26;
+    public static final short BAD_CDATA_CONTENT       = 27;
+    public static final short INCONSISTENT_NAMESPACE  = 28;
+    public static final short DOCTYPE_AFTER_TAGS      = 29;
+    public static final short MALFORMED_DOCTYPE       = 30;
+    public static final short UNEXPECTED_END_OF_FILE  = 31;
+    public static final short DTYPE_NOT_UPPER_CASE    = 32;
+    public static final short TOO_MANY_ELEMENTS       = 33;
 
     /* error codes used for attribute messages */
 
-    public static final short UNKNOWN_ATTRIBUTE = 1;
-    public static final short MISSING_ATTRIBUTE = 2;
-    public static final short MISSING_ATTR_VALUE = 3;
-    public static final short BAD_ATTRIBUTE_VALUE = 4;
-    public static final short UNEXPECTED_GT = 5;
+    public static final short UNKNOWN_ATTRIBUTE      = 1;
+    public static final short MISSING_ATTRIBUTE      = 2;
+    public static final short MISSING_ATTR_VALUE     = 3;
+    public static final short BAD_ATTRIBUTE_VALUE    = 4;
+    public static final short UNEXPECTED_GT          = 5;
     public static final short PROPRIETARY_ATTR_VALUE = 6;
-    public static final short REPEATED_ATTRIBUTE = 7;
-    public static final short MISSING_IMAGEMAP = 8;
-    public static final short XML_ATTRIBUTE_VALUE = 9;
-    public static final short UNEXPECTED_QUOTEMARK = 10;
-    public static final short ID_NAME_MISMATCH = 11;
+    public static final short REPEATED_ATTRIBUTE     = 7;
+    public static final short MISSING_IMAGEMAP       = 8;
+    public static final short XML_ATTRIBUTE_VALUE    = 9;
+    public static final short UNEXPECTED_QUOTEMARK   = 10;
+    public static final short ID_NAME_MISMATCH       = 11;
 
     /* accessibility flaws */
 
     public static final short MISSING_IMAGE_ALT = 1;
-    public static final short MISSING_LINK_ALT = 2;
-    public static final short MISSING_SUMMARY = 4;
+    public static final short MISSING_LINK_ALT  = 2;
+    public static final short MISSING_SUMMARY   = 4;
     public static final short MISSING_IMAGE_MAP = 8;
-    public static final short USING_FRAMES = 16;
-    public static final short USING_NOFRAMES = 32;
+    public static final short USING_FRAMES      = 16;
+    public static final short USING_NOFRAMES    = 32;
 
     /* presentation flaws */
 
     public static final short USING_SPACER = 1;
-    public static final short USING_LAYER = 2;
-    public static final short USING_NOBR = 4;
-    public static final short USING_FONT = 8;
-    public static final short USING_BODY = 16;
+    public static final short USING_LAYER  = 2;
+    public static final short USING_NOBR   = 4;
+    public static final short USING_FONT   = 8;
+    public static final short USING_BODY   = 16;
 
     /* character encoding errors */
     public static final short WINDOWS_CHARS = 1;
-    public static final short NON_ASCII = 2;
-    public static final short FOUND_UTF16 = 4;
+    public static final short NON_ASCII     = 2;
+    public static final short FOUND_UTF16   = 4;
 
     private static short optionerrors;
 
@@ -217,14 +217,13 @@ public class Report {
                 tidyPrint(
                         lexer.errout,
                         MessageFormat.format(res.getString("emacs_format"), new Object[] { currentFile,
-                                new Integer(lexer.lines), new Integer(lexer.columns) }));
+                                                                                           new Integer(lexer.lines), new Integer(lexer.columns) }));
                 tidyPrint(lexer.errout, " ");
-            } else /* traditional format */
-            {
+            } else /* traditional format */ {
                 tidyPrint(
                         lexer.errout,
                         MessageFormat.format(res.getString("line_column"), new Object[] { new Integer(lexer.lines),
-                                new Integer(lexer.columns) }));
+                                                                                          new Integer(lexer.columns) }));
             }
         } catch (MissingResourceException e) {
             lexer.errout.println(e.toString());
@@ -241,7 +240,7 @@ public class Report {
                 lexer.badChars |= WINDOWS_CHARS;
                 try {
                     tidyPrint(lexer.errout,
-                            MessageFormat.format(res.getString("illegal_char"), new Object[] { new Integer(c) }));
+                              MessageFormat.format(res.getString("illegal_char"), new Object[] { new Integer(c) }));
                 } catch (MissingResourceException e) {
                     lexer.errout.println(e.toString());
                 }
@@ -260,14 +259,14 @@ public class Report {
             if (code == MISSING_SEMICOLON) {
                 try {
                     tidyPrint(lexer.errout,
-                            MessageFormat.format(res.getString("missing_semicolon"), new Object[] { entity }));
+                              MessageFormat.format(res.getString("missing_semicolon"), new Object[] { entity }));
                 } catch (MissingResourceException e) {
                     lexer.errout.println(e.toString());
                 }
             } else if (code == UNKNOWN_ENTITY) {
                 try {
                     tidyPrint(lexer.errout,
-                            MessageFormat.format(res.getString("unknown_entity"), new Object[] { entity }));
+                              MessageFormat.format(res.getString("unknown_entity"), new Object[] { entity }));
                 } catch (MissingResourceException e) {
                     lexer.errout.println(e.toString());
                 }
@@ -303,7 +302,7 @@ public class Report {
             if (code == UNKNOWN_ATTRIBUTE) {
                 try {
                     tidyPrint(lexer.errout,
-                            MessageFormat.format(res.getString("unknown_attribute"), new Object[] { attr }));
+                              MessageFormat.format(res.getString("unknown_attribute"), new Object[] { attr }));
                 } catch (MissingResourceException e) {
                     lexer.errout.println(e.toString());
                 }
@@ -312,7 +311,7 @@ public class Report {
                     tidyPrint(lexer.errout, res.getString("warning"));
                     tag(lexer, node);
                     tidyPrint(lexer.errout,
-                            MessageFormat.format(res.getString("missing_attribute"), new Object[] { attr }));
+                              MessageFormat.format(res.getString("missing_attribute"), new Object[] { attr }));
                 } catch (MissingResourceException e) {
                     lexer.errout.println(e.toString());
                 }
@@ -321,7 +320,7 @@ public class Report {
                     tidyPrint(lexer.errout, res.getString("warning"));
                     tag(lexer, node);
                     tidyPrint(lexer.errout,
-                            MessageFormat.format(res.getString("missing_attr_value"), new Object[] { attr }));
+                              MessageFormat.format(res.getString("missing_attr_value"), new Object[] { attr }));
                 } catch (MissingResourceException e) {
                     lexer.errout.println(e.toString());
                 }
@@ -339,7 +338,7 @@ public class Report {
                     tidyPrint(lexer.errout, res.getString("warning"));
                     tag(lexer, node);
                     tidyPrint(lexer.errout,
-                            MessageFormat.format(res.getString("bad_attribute_value"), new Object[] { attr }));
+                              MessageFormat.format(res.getString("bad_attribute_value"), new Object[] { attr }));
                 } catch (MissingResourceException e) {
                     lexer.errout.println(e.toString());
                 }
@@ -348,7 +347,7 @@ public class Report {
                     tidyPrint(lexer.errout, res.getString("warning"));
                     tag(lexer, node);
                     tidyPrint(lexer.errout,
-                            MessageFormat.format(res.getString("xml_attribute_value"), new Object[] { attr }));
+                              MessageFormat.format(res.getString("xml_attribute_value"), new Object[] { attr }));
                 } catch (MissingResourceException e) {
                     lexer.errout.println(e.toString());
                 }
@@ -383,7 +382,7 @@ public class Report {
                     tidyPrint(lexer.errout, res.getString("warning"));
                     tag(lexer, node);
                     tidyPrint(lexer.errout,
-                            MessageFormat.format(res.getString("proprietary_attr_value"), new Object[] { attr }));
+                              MessageFormat.format(res.getString("proprietary_attr_value"), new Object[] { attr }));
                 } catch (MissingResourceException e) {
                     lexer.errout.println(e.toString());
                 }
@@ -442,14 +441,14 @@ public class Report {
             if (code == MISSING_ENDTAG_FOR) {
                 try {
                     tidyPrint(lexer.errout,
-                            MessageFormat.format(res.getString("missing_endtag_for"), new Object[] { element.element }));
+                              MessageFormat.format(res.getString("missing_endtag_for"), new Object[] { element.element }));
                 } catch (MissingResourceException e) {
                     lexer.errout.println(e.toString());
                 }
             } else if (code == MISSING_ENDTAG_BEFORE) {
                 try {
                     tidyPrint(lexer.errout, MessageFormat.format(res.getString("missing_endtag_before"),
-                            new Object[] { element.element }));
+                                                                 new Object[] { element.element }));
                 } catch (MissingResourceException e) {
                     lexer.errout.println(e.toString());
                 }
@@ -471,7 +470,7 @@ public class Report {
             } else if (code == COERCE_TO_ENDTAG) {
                 try {
                     tidyPrint(lexer.errout,
-                            MessageFormat.format(res.getString("coerce_to_endtag"), new Object[] { element.element }));
+                              MessageFormat.format(res.getString("coerce_to_endtag"), new Object[] { element.element }));
                 } catch (MissingResourceException e) {
                     lexer.errout.println(e.toString());
                 }
@@ -484,7 +483,7 @@ public class Report {
                 tag(lexer, node);
                 try {
                     tidyPrint(lexer.errout, MessageFormat.format(res.getString("non_matching_endtag_2"),
-                            new Object[] { element.element }));
+                                                                 new Object[] { element.element }));
                 } catch (MissingResourceException e) {
                     lexer.errout.println(e.toString());
                 }
@@ -497,7 +496,7 @@ public class Report {
                 tag(lexer, node);
                 try {
                     tidyPrint(lexer.errout,
-                            MessageFormat.format(res.getString("tag_not_allowed_in"), new Object[] { element.element }));
+                              MessageFormat.format(res.getString("tag_not_allowed_in"), new Object[] { element.element }));
                 } catch (MissingResourceException e) {
                     lexer.errout.println(e.toString());
                 }
@@ -510,17 +509,17 @@ public class Report {
             } else if (code == MISSING_STARTTAG) {
                 try {
                     tidyPrint(lexer.errout,
-                            MessageFormat.format(res.getString("missing_starttag"), new Object[] { node.element }));
+                              MessageFormat.format(res.getString("missing_starttag"), new Object[] { node.element }));
                 } catch (MissingResourceException e) {
                     lexer.errout.println(e.toString());
                 }
             } else if (code == UNEXPECTED_ENDTAG) {
                 try {
                     tidyPrint(lexer.errout,
-                            MessageFormat.format(res.getString("unexpected_endtag"), new Object[] { node.element }));
+                              MessageFormat.format(res.getString("unexpected_endtag"), new Object[] { node.element }));
                     if (element != null) {
                         tidyPrint(lexer.errout, MessageFormat.format(res.getString("unexpected_endtag_suffix"),
-                                new Object[] { element.element }));
+                                                                     new Object[] { element.element }));
                     }
                 } catch (MissingResourceException e) {
                     lexer.errout.println(e.toString());
@@ -528,10 +527,10 @@ public class Report {
             } else if (code == TOO_MANY_ELEMENTS) {
                 try {
                     tidyPrint(lexer.errout,
-                            MessageFormat.format(res.getString("too_many_elements"), new Object[] { node.element }));
+                              MessageFormat.format(res.getString("too_many_elements"), new Object[] { node.element }));
                     if (element != null) {
                         tidyPrint(lexer.errout, MessageFormat.format(res.getString("too_many_elements_suffix"),
-                                new Object[] { element.element }));
+                                                                     new Object[] { element.element }));
                     }
                 } catch (MissingResourceException e) {
                     lexer.errout.println(e.toString());
@@ -546,7 +545,7 @@ public class Report {
             } else if (code == INSERTING_TAG) {
                 try {
                     tidyPrint(lexer.errout,
-                            MessageFormat.format(res.getString("inserting_tag"), new Object[] { node.element }));
+                              MessageFormat.format(res.getString("inserting_tag"), new Object[] { node.element }));
                 } catch (MissingResourceException e) {
                     lexer.errout.println(e.toString());
                 }
@@ -589,7 +588,6 @@ public class Report {
                     } else {
                         tidyPrint(lexer.errout, res.getString("replacing_element"));
                     }
-
                 } catch (MissingResourceException e) {
                     lexer.errout.println(e.toString());
                 }
@@ -743,10 +741,10 @@ public class Report {
         } else if (code == UNEXPECTED_ENDTAG) {
             try {
                 tidyPrint(lexer.errout,
-                        MessageFormat.format(res.getString("unexpected_endtag"), new Object[] { node.element }));
+                          MessageFormat.format(res.getString("unexpected_endtag"), new Object[] { node.element }));
                 if (element != null) {
                     tidyPrint(lexer.errout, MessageFormat.format(res.getString("unexpected_endtag_suffix"),
-                            new Object[] { element.element }));
+                                                                 new Object[] { element.element }));
                 }
             } catch (MissingResourceException e) {
                 lexer.errout.println(e.toString());
@@ -825,7 +823,7 @@ public class Report {
 
             try {
                 tidyPrint(lexer.errout,
-                        MessageFormat.format(res.getString("badaccess_summary"), new Object[] { ACCESS_URL }));
+                          MessageFormat.format(res.getString("badaccess_summary"), new Object[] { ACCESS_URL }));
             } catch (MissingResourceException e) {
                 lexer.errout.println(e.toString());
             }
@@ -910,7 +908,7 @@ public class Report {
     public static void reportNumberOfSlides(PrintWriter errout, int count) {
         try {
             tidyPrintln(errout,
-                    MessageFormat.format(res.getString("slides_found"), new Object[] { new Integer(count) }));
+                        MessageFormat.format(res.getString("slides_found"), new Object[] { new Integer(count) }));
         } catch (MissingResourceException e) {
             errout.println(e.toString());
         }
@@ -966,7 +964,7 @@ public class Report {
             tidyPrintln(
                     errout,
                     MessageFormat.format(res.getString("report_version"), new Object[] { filename,
-                            vers != null ? vers : "HTML proprietary" }));
+                                                                                         vers != null ? vers : "HTML proprietary" }));
         } catch (MissingResourceException e) {
             errout.println(e.toString());
         }
@@ -1004,5 +1002,4 @@ public class Report {
             errout.println(e.toString());
         }
     }
-
 }

@@ -25,14 +25,14 @@ import java.net.URLDecoder;
 
 /**
  * 代表一个ConfigEntry所代表的资源，可以是URL、File等。
- * 
+ *
  * @author Michael Zhou
  */
 public final class ConfigResource {
     private final ConfigResource baseResource;
-    private final File file;
-    private final URL url;
-    private final String name;
+    private final File           file;
+    private final URL            url;
+    private final String         name;
 
     public ConfigResource(File file) {
         this(file, null, null, true);
@@ -145,7 +145,7 @@ public final class ConfigResource {
 
     /**
      * 取得URL的文件名。
-     * 
+     *
      * @param url URL
      * @return URL所表示的的文件名
      */

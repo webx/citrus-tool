@@ -28,7 +28,7 @@ public class ResourceKey implements Serializable {
     private final String scheme;
     private final String user;
     private final String host;
-    private final int port;
+    private final int    port;
 
     public ResourceKey(String uri) {
         this(new ResourceURI(URI.create(uri)));
@@ -36,7 +36,7 @@ public class ResourceKey implements Serializable {
 
     public ResourceKey(ResourceURI uri) {
         this(uri.getURI().getScheme(), ResourceUtil.getUsername(uri.getURI()), uri.getURI().getHost(), uri.getURI()
-                .getPort());
+                                                                                                          .getPort());
     }
 
     public ResourceKey(String scheme, String user, String host, int port) {

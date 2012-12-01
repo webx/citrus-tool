@@ -48,7 +48,6 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
@@ -66,7 +65,7 @@ import org.apache.commons.logging.LogFactory;
  * reasons, unless it is a concious decision and you are perfectly aware of
  * security implications of accepting self-signed certificates
  * </p>
- * 
+ *
  * @author <a href="mailto:adrian.sutton@ephox.com">Adrian Sutton</a>
  * @author <a href="mailto:oleg@ural.ru">Oleg Kalnichevski</a>
  *         <p>
@@ -82,9 +81,7 @@ public class EasyX509TrustManager implements X509TrustManager {
     /** Log object for this class. */
     private static final Log LOG = LogFactory.getLog(EasyX509TrustManager.class);
 
-    /**
-     * Constructor for EasyX509TrustManager.
-     */
+    /** Constructor for EasyX509TrustManager. */
     public EasyX509TrustManager(KeyStore keystore) throws NoSuchAlgorithmException, KeyStoreException {
         super();
         TrustManagerFactory factory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
@@ -122,9 +119,7 @@ public class EasyX509TrustManager implements X509TrustManager {
         }
     }
 
-    /**
-     * @see javax.net.ssl.X509TrustManager#getAcceptedIssuers()
-     */
+    /** @see javax.net.ssl.X509TrustManager#getAcceptedIssuers() */
     public X509Certificate[] getAcceptedIssuers() {
         return this.standardTrustManager.getAcceptedIssuers();
     }

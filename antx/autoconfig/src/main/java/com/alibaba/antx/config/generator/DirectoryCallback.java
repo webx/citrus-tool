@@ -34,14 +34,14 @@ import com.alibaba.antx.util.StreamUtil;
 
 /**
  * 在目录中生成文件的callback。
- * 
+ *
  * @author Michael Zhou
  */
 public class DirectoryCallback implements ConfigGeneratorCallback {
     private final ConfigGenerator generator;
-    private File destfileBase;
-    private InputStream istream;
-    private OutputStream ostream;
+    private       File            destfileBase;
+    private       InputStream     istream;
+    private       OutputStream    ostream;
 
     public DirectoryCallback(ConfigGenerator generator) {
         this.generator = generator;
@@ -73,7 +73,7 @@ public class DirectoryCallback implements ConfigGeneratorCallback {
         if (!templateFile.exists()) {
             if (!templateFileInPlace.exists()) {
                 throw new ConfigException("Could not find template file: " + templateFileInPlace.getAbsolutePath()
-                        + " for descriptor: " + descriptor.getURL());
+                                          + " for descriptor: " + descriptor.getURL());
             }
 
             if (templateFileInPlace.getAbsolutePath().equals(destFile.getAbsolutePath())) {
@@ -81,7 +81,7 @@ public class DirectoryCallback implements ConfigGeneratorCallback {
 
                 try {
                     StreamUtil.io(new FileInputStream(templateFileInPlace), new FileOutputStream(templateFile), true,
-                            true);
+                                  true);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }

@@ -31,6 +31,12 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import com.alibaba.antx.config.ConfigException;
+import com.alibaba.antx.config.generator.PropertiesLoader;
+import com.alibaba.antx.config.generator.expr.Expression;
+import com.alibaba.antx.config.resource.ResourceManager;
+import com.alibaba.antx.config.resource.ResourceURI;
+import com.alibaba.antx.util.StringUtil;
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.MatchResult;
 import org.apache.oro.text.regex.Pattern;
@@ -40,30 +46,23 @@ import org.apache.oro.text.regex.Perl5Matcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.alibaba.antx.config.ConfigException;
-import com.alibaba.antx.config.generator.PropertiesLoader;
-import com.alibaba.antx.config.generator.expr.Expression;
-import com.alibaba.antx.config.resource.ResourceManager;
-import com.alibaba.antx.config.resource.ResourceURI;
-import com.alibaba.antx.util.StringUtil;
-
 /**
  * 代表一组props文件的组合。
- * 
+ *
  * @author Michael Zhou
  */
 public class PropertiesSet {
     private static final Logger log = LoggerFactory.getLogger(PropertiesSet.class);
-    private final ResourceManager manager;
-    private final SystemProperties systemProps;
-    private boolean inited;
-    private PropertiesResource[] sharedPropertiesFiles;
-    private PropertiesFile[] sharedPropertiesFilesExpanded;
-    private PropertiesFile userPropertiesFile;
-    private Map namedPropertiesFiles; // Map: name => List of shared properties file names
-    private String sharedName;
-    private Map mergedProps;
-    private Set mergedKeys;
+    private final ResourceManager      manager;
+    private final SystemProperties     systemProps;
+    private       boolean              inited;
+    private       PropertiesResource[] sharedPropertiesFiles;
+    private       PropertiesFile[]     sharedPropertiesFilesExpanded;
+    private       PropertiesFile       userPropertiesFile;
+    private       Map                  namedPropertiesFiles; // Map: name => List of shared properties file names
+    private       String               sharedName;
+    private       Map                  mergedProps;
+    private       Set                  mergedKeys;
 
     public PropertiesSet() {
         this(null, null);
@@ -228,15 +227,13 @@ public class PropertiesSet {
     static {
         try {
             ANTX_PROPERTIES_PATTERN = new Perl5Compiler().compile("antx\\.properties\\.(\\w+)(\\.(\\d+))?",
-                    Perl5Compiler.READ_ONLY_MASK);
+                                                                  Perl5Compiler.READ_ONLY_MASK);
         } catch (MalformedPatternException e) {
             throw new ConfigException(e);
         }
     }
 
-    /**
-     * 判断property name是否覆盖shared properties中的值。
-     */
+    /** 判断property name是否覆盖shared properties中的值。 */
     public boolean isShared(String name) {
         for (int i = sharedPropertiesFilesExpanded.length - 1; i >= 0; i--) {
             PropertiesFile sharedFile = sharedPropertiesFilesExpanded[i];
@@ -249,13 +246,11 @@ public class PropertiesSet {
         return false;
     }
 
-    /**
-     * 将mergedProperties中的值，除去在sharedProperperties中和systemProperties中的值。
-     */
+    /** 将mergedProperties中的值，除去在sharedProperperties中和systemProperties中的值。 */
     public Map getModifiedProperties() {
         Map modifiedProperties = new HashMap();
 
-        for (Iterator i = getMergedKeys().iterator(); i.hasNext();) {
+        for (Iterator i = getMergedKeys().iterator(); i.hasNext(); ) {
             String key = (String) i.next();
             String value = toString(getMergedProperties().get(key));
             PatternMatcher matcher = new Perl5Matcher();
@@ -293,7 +288,7 @@ public class PropertiesSet {
         }
 
         // 插入antx.properties.*
-        for (Iterator i = namedPropertiesFiles.entrySet().iterator(); i.hasNext();) {
+        for (Iterator i = namedPropertiesFiles.entrySet().iterator(); i.hasNext(); ) {
             Map.Entry entry = (Map.Entry) i.next();
             String name = (String) entry.getKey();
             List fileList = (List) entry.getValue();
@@ -363,11 +358,9 @@ public class PropertiesSet {
         checkOverlap(reload);
     }
 
-    /**
-     * 检查shared properties中的被覆盖的值。
-     */
+    /** 检查shared properties中的被覆盖的值。 */
     private void checkOverlap(boolean reload) {
-        for (Iterator i = getMergedKeys().iterator(); i.hasNext();) {
+        for (Iterator i = getMergedKeys().iterator(); i.hasNext(); ) {
             String key = (String) i.next();
             PatternMatcher matcher = new Perl5Matcher();
 
@@ -402,10 +395,10 @@ public class PropertiesSet {
                         message.append("用户properties文件中的值“").append(key).append("”覆盖了").append("共享properties文件中的值：\n");
                     } else {
                         message.append("“").append(key).append("”出现在").append(definedInFiles.size())
-                                .append("个共享properties文件中（最终值将以第一个为准）：\n");
+                               .append("个共享properties文件中（最终值将以第一个为准）：\n");
                     }
 
-                    for (Iterator k = definedInFiles.iterator(); k.hasNext();) {
+                    for (Iterator k = definedInFiles.iterator(); k.hasNext(); ) {
                         PropertiesFile f = (PropertiesFile) k.next();
 
                         message.append("  - ").append(f.getURI());
@@ -422,7 +415,7 @@ public class PropertiesSet {
     private Map getNamedSharedPropertiesFiles(Map props) {
         Map names = new TreeMap();
 
-        for (Iterator i = props.keySet().iterator(); i.hasNext();) {
+        for (Iterator i = props.keySet().iterator(); i.hasNext(); ) {
             String key = (String) i.next();
             PatternMatcher matcher = new Perl5Matcher();
 
@@ -451,7 +444,7 @@ public class PropertiesSet {
             }
         }
 
-        for (Iterator i = names.entrySet().iterator(); i.hasNext();) {
+        for (Iterator i = names.entrySet().iterator(); i.hasNext(); ) {
             Map.Entry entry = (Map.Entry) i.next();
             List files = new ArrayList(((Map) entry.getValue()).values());
 
@@ -472,7 +465,7 @@ public class PropertiesSet {
         } else if (resource instanceof PropertiesFileSet) {
             PropertiesFileSet files = (PropertiesFileSet) resource;
 
-            for (Iterator i = files.getPropertiesFiles().iterator(); i.hasNext();) {
+            for (Iterator i = files.getPropertiesFiles().iterator(); i.hasNext(); ) {
                 PropertiesResource pr = (PropertiesResource) i.next();
 
                 loadResource(pr, mergedProperties, mergedKeys, expandedFiles);

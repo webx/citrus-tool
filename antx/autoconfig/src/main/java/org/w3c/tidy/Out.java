@@ -31,8 +31,8 @@ package org.w3c.tidy;
  * Derived from <a href="http://www.w3.org/People/Raggett/tidy">
  * HTML Tidy Release 4 Aug 2000</a>
  *
- * @author  Dave Raggett <dsr@w3.org>
- * @author  Andy Quick <ac.quick@sympatico.ca> (translation to Java)
+ * @author Dave Raggett <dsr@w3.org>
+ * @author Andy Quick <ac.quick@sympatico.ca> (translation to Java)
  * @version 1.0, 1999/05/22
  * @version 1.0.1, 1999/05/29
  * @version 1.1, 1999/06/18 Java Bean
@@ -51,8 +51,8 @@ package org.w3c.tidy;
 import java.io.OutputStream;
 
 public abstract class Out {
-    public int encoding;
-    public int state; /* for ISO 2022 */
+    public int          encoding;
+    public int          state; /* for ISO 2022 */
     public OutputStream out;
 
     public abstract void outc(int c);
@@ -60,5 +60,4 @@ public abstract class Out {
     public abstract void outc(byte c);
 
     public abstract void newline();
-
 };

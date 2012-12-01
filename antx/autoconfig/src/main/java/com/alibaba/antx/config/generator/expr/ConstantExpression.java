@@ -19,7 +19,7 @@ package com.alibaba.antx.config.generator.expr;
 
 /**
  * 代表一个常量表达式，该表达式的值不依赖于context。
- * 
+ *
  * @author Michael Zhou
  */
 public class ConstantExpression implements Expression {

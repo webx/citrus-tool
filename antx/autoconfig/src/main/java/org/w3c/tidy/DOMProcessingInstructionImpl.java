@@ -29,13 +29,9 @@ import org.w3c.dom.DOMException;
  * See Tidy.java for the copyright notice. Derived from <a
  * href="http://www.w3.org/People/Raggett/tidy"> HTML Tidy Release 4 Aug
  * 2000</a>
- * 
+ *
  * @author Dave Raggett <dsr@w3.org>
  * @author Andy Quick <ac.quick@sympatico.ca> (translation to Java)
- * @version 1.7, 1999/12/06 Tidy Release 30 Nov 1999
- * @version 1.8, 2000/01/22 Tidy Release 13 Jan 2000
- * @version 1.9, 2000/06/03 Tidy Release 30 Apr 2000
- * @version 1.10, 2000/07/22 Tidy Release 8 Jul 2000
  * @version 1.11, 2000/08/16 Tidy Release 4 Aug 2000
  */
 
@@ -47,35 +43,26 @@ public class DOMProcessingInstructionImpl extends DOMNodeImpl implements org.w3c
 
     /* --------------------- DOM ---------------------------- */
 
-    /**
-     * @see org.w3c.dom.Node#getNodeType
-     */
+    /** @see org.w3c.dom.Node#getNodeType */
     @Override
     public short getNodeType() {
         return org.w3c.dom.Node.PROCESSING_INSTRUCTION_NODE;
     }
 
-    /**
-     * @see org.w3c.dom.ProcessingInstruction#getTarget
-     */
+    /** @see org.w3c.dom.ProcessingInstruction#getTarget */
     public String getTarget() {
         // TODO
         return null;
     }
 
-    /**
-     * @see org.w3c.dom.ProcessingInstruction#getData
-     */
+    /** @see org.w3c.dom.ProcessingInstruction#getData */
     public String getData() {
         return getNodeValue();
     }
 
-    /**
-     * @see org.w3c.dom.ProcessingInstruction#setData
-     */
+    /** @see org.w3c.dom.ProcessingInstruction#setData */
     public void setData(String data) throws DOMException {
         // NOT SUPPORTED
         throw new DOMExceptionImpl(DOMException.NO_MODIFICATION_ALLOWED_ERR, "Not supported");
     }
-
 }

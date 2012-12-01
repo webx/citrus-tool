@@ -24,10 +24,6 @@ import java.io.OutputStream;
 import java.util.List;
 import java.util.ListIterator;
 
-import org.apache.commons.httpclient.Header;
-import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.methods.GetMethod;
-
 import com.alibaba.antx.config.ConfigException;
 import com.alibaba.antx.config.resource.Resource;
 import com.alibaba.antx.config.resource.ResourceNotFoundException;
@@ -37,6 +33,9 @@ import com.alibaba.antx.config.resource.util.IndexPageParser;
 import com.alibaba.antx.config.resource.util.ResourceContext;
 import com.alibaba.antx.config.resource.util.ResourceKey;
 import com.alibaba.antx.config.resource.util.SvnIndexPageParser;
+import org.apache.commons.httpclient.Header;
+import org.apache.commons.httpclient.HttpStatus;
+import org.apache.commons.httpclient.methods.GetMethod;
 
 public class HttpResource extends Resource {
     private byte[] content;
@@ -134,7 +133,7 @@ public class HttpResource extends Resource {
         if (isDirectory()) {
             String overridingCharset = getURI().getOption("charset");
             IndexPageParser[] parsers = new IndexPageParser[] { new SvnIndexPageParser(),
-                    new ApacheIndexPageParser(overridingCharset) };
+                                                                new ApacheIndexPageParser(overridingCharset) };
             List items = null;
 
             for (IndexPageParser parser : parsers) {
@@ -146,10 +145,10 @@ public class HttpResource extends Resource {
             }
 
             if (items != null) {
-                for (ListIterator i = items.listIterator(); i.hasNext();) {
+                for (ListIterator i = items.listIterator(); i.hasNext(); ) {
                     IndexPageParser.Item item = (IndexPageParser.Item) i.next();
                     Resource resource = new HttpResource((HttpSession) getSession(), getURI().getSubURI(item.getName(),
-                            item.isDirectory()));
+                                                                                                        item.isDirectory()));
 
                     i.set(resource);
                 }

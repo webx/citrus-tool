@@ -39,10 +39,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.velocity.app.event.EventCartridge;
-import org.apache.velocity.context.AbstractContext;
-import org.apache.velocity.context.Context;
-
 import com.alibaba.antx.config.ConfigException;
 import com.alibaba.antx.config.descriptor.ConfigDescriptor;
 import com.alibaba.antx.config.descriptor.ConfigGenerate;
@@ -50,19 +46,20 @@ import com.alibaba.antx.config.props.PropertiesSet;
 import com.alibaba.antx.util.StreamUtil;
 import com.alibaba.antx.util.StringUtil;
 import com.alibaba.antx.util.i18n.LocaleInfo;
+import org.apache.velocity.app.event.EventCartridge;
+import org.apache.velocity.context.AbstractContext;
+import org.apache.velocity.context.Context;
 
-/**
- * 代表一组运行时状态。
- */
+/** 代表一组运行时状态。 */
 public class ConfigGeneratorSession {
-    protected final ConfigGenerator generator;
-    protected final Map props;
-    private final Map<String, Object[]> descriptorLogs;
-    private final Set<String> processedDestfiles;
-    private final Map<String, LazyGenerateItem> lazyGenerateItems;
-    private ConfigGenerate currentGenerate;
-    private InputStream currentInputStream;
-    private OutputStream currentOutputStream;
+    protected final ConfigGenerator               generator;
+    protected final Map                           props;
+    private final   Map<String, Object[]>         descriptorLogs;
+    private final   Set<String>                   processedDestfiles;
+    private final   Map<String, LazyGenerateItem> lazyGenerateItems;
+    private         ConfigGenerate                currentGenerate;
+    private         InputStream                   currentInputStream;
+    private         OutputStream                  currentOutputStream;
 
     protected ConfigGeneratorSession(ConfigGenerator generator, PropertiesSet propSet) {
         this.generator = generator;
@@ -92,23 +89,17 @@ public class ConfigGeneratorSession {
         }
     }
 
-    /**
-     * 设置当前输入流。
-     */
+    /** 设置当前输入流。 */
     public void setInputStream(InputStream istream) {
         this.currentInputStream = istream;
     }
 
-    /**
-     * 设置当前输出流。
-     */
+    /** 设置当前输出流。 */
     public void setOutputStream(OutputStream ostream) {
         this.currentOutputStream = ostream;
     }
 
-    /**
-     * 取得velocity context。
-     */
+    /** 取得velocity context。 */
     public Context getVelocityContext() {
         if (currentGenerate == null) {
             throw new IllegalStateException("Have not call nextEntry method yet");
@@ -118,7 +109,7 @@ public class ConfigGeneratorSession {
 
         EventCartridge eventCartridge = new EventCartridge();
         eventCartridge.addEventHandler(new PropertiesReferenceInsertionHandler(currentGenerate.getConfigDescriptor(),
-                props));
+                                                                               props));
 
         Context context = new AbstractContext() {
             @Override
@@ -159,9 +150,7 @@ public class ConfigGeneratorSession {
         return context;
     }
 
-    /**
-     * 将所有template生成相应的文件，并生成日志。
-     */
+    /** 将所有template生成相应的文件，并生成日志。 */
     public boolean generate(ConfigGeneratorCallback callback) {
         boolean allSuccess = true;
 
@@ -174,9 +163,7 @@ public class ConfigGeneratorSession {
         return allSuccess;
     }
 
-    /**
-     * 根据指定的template，生成相应的文件。
-     */
+    /** 根据指定的template，生成相应的文件。 */
     public boolean generate(String template, ConfigGeneratorCallback callback) {
         List<ConfigGenerate> generates = generator.generateTemplateFilesIncludingMetaInfos.get(template);
 
@@ -250,13 +237,13 @@ public class ConfigGeneratorSession {
             };
 
             descriptorLog.println("Generating " + template + " [" + charset + "] => " + generate.getDestfile() + " ["
-                    + outputCharset + "]");
+                                  + outputCharset + "]");
 
             generator.logger.info("<" + generate.getConfigDescriptor().getBaseURL() + ">\n    Generating " + template
-                    + " [" + charset + "] => " + generate.getDestfile() + " [" + outputCharset + "]\n");
+                                  + " [" + charset + "] => " + generate.getDestfile() + " [" + outputCharset + "]\n");
 
             return VelocityTemplateEngine.getInstance().render(getVelocityContext(), reader, writer, template,
-                    generate.getConfigDescriptor().getName(), generate.getConfigDescriptor().getBaseURL());
+                                                               generate.getConfigDescriptor().getName(), generate.getConfigDescriptor().getBaseURL());
         } catch (Exception e) {
             if (e instanceof RuntimeException) {
                 throw (RuntimeException) e;
@@ -275,9 +262,7 @@ public class ConfigGeneratorSession {
 
     private final static Pattern encodingPattern = Pattern.compile("encoding\\s*=\\s*[\\\"|']([^\\\"|']+)[\\\"|']");
 
-    /**
-     * 从输入流中猜测charset。
-     */
+    /** 从输入流中猜测charset。 */
     private String guessCharsetEncoding(BufferedInputStream istream) {
         String str;
 
@@ -322,7 +307,7 @@ public class ConfigGeneratorSession {
 
                 try {
                     writer = new BufferedWriter(new OutputStreamWriter(currentOutputStream, LocaleInfo.getDefault()
-                            .getCharset())) {
+                                                                                                      .getCharset())) {
                         @Override
                         public void close() throws IOException {
                             // 避免关闭
@@ -330,7 +315,7 @@ public class ConfigGeneratorSession {
                     };
 
                     generator.logger.info("<" + descriptor.getBaseURL() + ">\n    Generating log file: " + logfile
-                            + "\n");
+                                          + "\n");
 
                     writer.write(logContent);
                 } catch (IOException e) {
@@ -355,7 +340,7 @@ public class ConfigGeneratorSession {
 
     public void addLazyGenerateItem(String name, byte[] bytes) {
         lazyGenerateItems.put(name,
-                new LazyGenerateItem(name, generator.generateTemplateFilesIncludingMetaInfos.get(name), bytes));
+                              new LazyGenerateItem(name, generator.generateTemplateFilesIncludingMetaInfos.get(name), bytes));
     }
 
     public boolean generateLazyItems(ConfigGeneratorCallback callback) {
@@ -373,7 +358,7 @@ public class ConfigGeneratorSession {
                         currentGenerate = generate;
 
                         callback.nextEntry(generate.getConfigDescriptor(), item.getTemplateContentStream(),
-                                generate.getTemplateBase() + name);
+                                           generate.getTemplateBase() + name);
 
                         if (currentInputStream == null || currentOutputStream == null) {
                             throw new IllegalStateException("InputStream/OutputStream has not been set");
@@ -397,7 +382,7 @@ public class ConfigGeneratorSession {
                         currentGenerate = generate;
 
                         callback.nextEntry(generate.getConfigDescriptor(), item.getTemplateContentStream(),
-                                generate.getDestfile());
+                                           generate.getDestfile());
 
                         if (currentInputStream == null || currentOutputStream == null) {
                             throw new IllegalStateException("InputStream/OutputStream has not been set");
@@ -420,9 +405,7 @@ public class ConfigGeneratorSession {
         return allSuccess;
     }
 
-    /**
-     * 查看有没有遗漏没有生成的template。
-     */
+    /** 查看有没有遗漏没有生成的template。 */
     public void checkNonprocessedTemplates() {
         for (String destfile : generator.generateDestFiles.keySet()) {
             if (!processedDestfiles.contains(destfile)) {
@@ -430,14 +413,12 @@ public class ConfigGeneratorSession {
                 String template = generate.getTemplate();
 
                 throw new ConfigException("Could not find template file: " + template + " for descriptor: "
-                        + generate.getConfigDescriptor().getURL());
+                                          + generate.getConfigDescriptor().getURL());
             }
         }
     }
 
-    /**
-     * 关闭session，善后工作。
-     */
+    /** 关闭session，善后工作。 */
     public void close() {
     }
 }

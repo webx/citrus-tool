@@ -21,7 +21,7 @@ import com.alibaba.antx.util.StringUtil;
 
 /**
  * 代表一个引用表达式，该表达式的值引用context中的其它表达式。
- * 
+ *
  * @author Michael Zhou
  */
 public class ReferenceExpression implements Expression {
@@ -49,7 +49,7 @@ public class ReferenceExpression implements Expression {
                 public Object get(String key) {
                     // 避免无限递归
                     if (ref.equals(key)
-                            || StringUtil.getValidIdentifier(ref).equals(StringUtil.getValidIdentifier(key))) {
+                        || StringUtil.getValidIdentifier(ref).equals(StringUtil.getValidIdentifier(key))) {
                         return null;
                     } else {
                         return context.get(key);

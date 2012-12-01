@@ -22,8 +22,8 @@ import java.util.List;
 
 public class ConfigGroup {
     private ConfigDescriptor descriptor;
-    private String name;
-    private String description;
+    private String           name;
+    private String           description;
     private List properties = new ArrayList();
 
     public ConfigDescriptor getConfigDescriptor() {

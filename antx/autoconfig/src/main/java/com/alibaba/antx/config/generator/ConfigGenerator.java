@@ -39,9 +39,9 @@ import com.alibaba.antx.util.StringUtil;
 public class ConfigGenerator {
     final ConfigLogger logger;
     private List<ConfigDescriptor> configDescriptors = new LinkedList<ConfigDescriptor>();
-    Map<String, List<ConfigGenerate>> generateTemplateFiles = new HashMap<String, List<ConfigGenerate>>();
+    Map<String, List<ConfigGenerate>> generateTemplateFiles                   = new HashMap<String, List<ConfigGenerate>>();
     Map<String, List<ConfigGenerate>> generateTemplateFilesIncludingMetaInfos = new HashMap<String, List<ConfigGenerate>>();
-    Map<String, ConfigGenerate> generateDestFiles = new HashMap<String, ConfigGenerate>();
+    Map<String, ConfigGenerate>       generateDestFiles                       = new HashMap<String, ConfigGenerate>();
     private ConfigGeneratorSession session;
     private boolean initialized = false;
 
@@ -49,9 +49,7 @@ public class ConfigGenerator {
         this.logger = logger;
     }
 
-    /**
-     * 添加一个descriptor，但必须在init方法被调用前。
-     */
+    /** 添加一个descriptor，但必须在init方法被调用前。 */
     public ConfigDescriptor addConfigDescriptor(ConfigResource descriptorResource) {
         URL descriptorURL = descriptorResource.getURL();
         InputStream istream = null;
@@ -76,9 +74,7 @@ public class ConfigGenerator {
         }
     }
 
-    /**
-     * 添加一个descriptor，但必须在init方法被调用前。
-     */
+    /** 添加一个descriptor，但必须在init方法被调用前。 */
     public ConfigDescriptor addConfigDescriptor(ConfigResource descriptorResource, InputStream istream) {
         if (initialized) {
             throw new IllegalStateException("Cannot add config descriptors after initialization");
@@ -92,9 +88,7 @@ public class ConfigGenerator {
         return descriptor;
     }
 
-    /**
-     * 在所有的descriptor都被加入进来以后，需要执行该方法进行初始化。
-     */
+    /** 在所有的descriptor都被加入进来以后，需要执行该方法进行初始化。 */
     public void init() {
         if (initialized) {
             return;
@@ -138,7 +132,7 @@ public class ConfigGenerator {
                         logger.info("Duplicated destfile " + destFile + "\n  in " + descriptor.getURL());
                     } else {
                         logger.info("Duplicated destfile " + destFile + "\n  in  " + descriptor.getURL() + "\n  and "
-                                + originalGenerate.getConfigDescriptor().getURL());
+                                    + originalGenerate.getConfigDescriptor().getURL());
                     }
 
                     descriptor.removeGenerate(generate);

@@ -29,11 +29,11 @@ import com.alibaba.citrus.logconfig.LogConfigurator;
 
 /**
  * Antxconfig的命令行主程序。
- * 
+ *
  * @author Michael Zhou
  */
 public class Main {
-    private static CommandLine cli;
+    private static CommandLine   cli;
     private static ConfigRuntime runtime;
 
     public static void main(String[] args) {
@@ -120,9 +120,9 @@ public class Main {
         }
 
         runtimeImpl.setDescriptorPatterns(cli.getOptionValue(CLIManager.OPT_INCLUDE_DESCRIPTORS),
-                cli.getOptionValue(CLIManager.OPT_EXCLUDE_DESCRIPTORS));
+                                          cli.getOptionValue(CLIManager.OPT_EXCLUDE_DESCRIPTORS));
         runtimeImpl.setPackagePatterns(cli.getOptionValue(CLIManager.OPT_INCLUDE_PACKAGES),
-                cli.getOptionValue(CLIManager.OPT_EXCLUDE_PACKAGES));
+                                       cli.getOptionValue(CLIManager.OPT_EXCLUDE_PACKAGES));
 
         runtimeImpl.setType(cli.getOptionValue(CLIManager.OPT_TYPE));
         runtimeImpl.setDests(cli.getArgs());

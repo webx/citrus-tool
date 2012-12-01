@@ -28,9 +28,9 @@ import java.util.zip.InflaterInputStream;
 import com.alibaba.antx.config.descriptor.ConfigGenerate;
 
 public class LazyGenerateItem {
-    private final String templateName;
+    private final String               templateName;
     private final List<ConfigGenerate> generates;
-    private final byte[] savedTemplateContent;
+    private final byte[]               savedTemplateContent;
 
     public LazyGenerateItem(String templateName, List<ConfigGenerate> generates, byte[] savedTemplateContent) {
         this.templateName = templateName;

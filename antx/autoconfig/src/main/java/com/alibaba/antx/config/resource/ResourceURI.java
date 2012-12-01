@@ -26,11 +26,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-import org.apache.oro.text.perl.Perl5Util;
-
 import com.alibaba.antx.config.ConfigException;
 import com.alibaba.antx.util.FileUtil;
 import com.alibaba.antx.util.StringUtil;
+import org.apache.oro.text.perl.Perl5Util;
 
 public class ResourceURI {
     private final static Perl5Util util = new Perl5Util();
@@ -73,7 +72,7 @@ public class ResourceURI {
         StringBuffer newQuery = new StringBuffer();
 
         if (!StringUtil.isEmpty(query)) {
-            for (StringTokenizer tokenizer = new StringTokenizer(query, "&"); tokenizer.hasMoreElements();) {
+            for (StringTokenizer tokenizer = new StringTokenizer(query, "&"); tokenizer.hasMoreElements(); ) {
                 String token = StringUtil.trimWhitespace(tokenizer.nextToken());
 
                 if (StringUtil.isEmpty(token)) {
@@ -189,7 +188,7 @@ public class ResourceURI {
 
         try {
             suburi = new URI(uri.getScheme(), uri.getUserInfo(), uri.getHost(), uri.getPort(), subpath, uri.getQuery(),
-                    uri.getFragment()).normalize();
+                             uri.getFragment()).normalize();
         } catch (URISyntaxException e) {
             throw new ConfigException(e);
         }
@@ -209,7 +208,7 @@ public class ResourceURI {
 
         try {
             superuri = new URI(uri.getScheme(), uri.getUserInfo(), uri.getHost(), uri.getPort(), superpath,
-                    uri.getQuery(), uri.getFragment()).normalize();
+                               uri.getQuery(), uri.getFragment()).normalize();
         } catch (URISyntaxException e) {
             throw new ConfigException(e);
         }

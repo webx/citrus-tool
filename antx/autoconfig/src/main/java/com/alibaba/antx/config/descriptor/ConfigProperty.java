@@ -24,10 +24,10 @@ import com.alibaba.antx.config.descriptor.validator.RequiredValidator;
 
 public class ConfigProperty {
     private ConfigGroup group;
-    private String name;
-    private String defaultValue;
-    private String description;
-    private boolean required = true;
+    private String      name;
+    private String      defaultValue;
+    private String      description;
+    private boolean               required   = true;
     private List<ConfigValidator> validators = new LinkedList<ConfigValidator>();
 
     public ConfigDescriptor getConfigDescriptor() {

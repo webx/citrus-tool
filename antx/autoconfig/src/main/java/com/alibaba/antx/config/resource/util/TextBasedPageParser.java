@@ -19,13 +19,12 @@ package com.alibaba.antx.config.resource.util;
 
 import java.io.PrintWriter;
 
+import com.alibaba.antx.config.resource.Resource;
+import com.alibaba.antx.util.ByteArrayOutputStream;
 import org.dom4j.Document;
 import org.dom4j.io.DOMReader;
 import org.dom4j.io.SAXReader;
 import org.w3c.tidy.Tidy;
-
-import com.alibaba.antx.config.resource.Resource;
-import com.alibaba.antx.util.ByteArrayOutputStream;
 
 public abstract class TextBasedPageParser implements IndexPageParser {
     private String overridingCharset;
@@ -41,9 +40,7 @@ public abstract class TextBasedPageParser implements IndexPageParser {
         this.overridingCharset = charset;
     }
 
-    /**
-     * 取得xml文档。
-     */
+    /** 取得xml文档。 */
     protected Document getXmlDocument(Resource resource) {
         String contentType = resource.getContentType();
 
@@ -57,9 +54,7 @@ public abstract class TextBasedPageParser implements IndexPageParser {
         return null;
     }
 
-    /**
-     * 取得html文档。
-     */
+    /** 取得html文档。 */
     protected Document getHtmlDocument(Resource resource) {
         String contentType = resource.getContentType();
 
@@ -90,9 +85,7 @@ public abstract class TextBasedPageParser implements IndexPageParser {
         }
     }
 
-    /**
-     * 根据名字取得item。
-     */
+    /** 根据名字取得item。 */
     protected Item getItem(String name) {
         if (name == null) {
             return null;
@@ -105,7 +98,7 @@ public abstract class TextBasedPageParser implements IndexPageParser {
         }
 
         if (name.length() == 0 || name.indexOf("/") >= 0 || name.startsWith("?") || name.equals(".")
-                || name.equals("..")) {
+            || name.equals("..")) {
             return null;
         }
 

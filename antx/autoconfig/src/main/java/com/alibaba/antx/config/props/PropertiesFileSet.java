@@ -29,7 +29,7 @@ import com.alibaba.antx.config.resource.ResourceURI;
 
 /**
  * 代表一组props文件。
- * 
+ *
  * @author Michael Zhou
  */
 public class PropertiesFileSet extends PropertiesResource {
@@ -59,7 +59,7 @@ public class PropertiesFileSet extends PropertiesResource {
     protected void onLoad() {
         List subresources = getResource().list();
 
-        for (Iterator i = subresources.iterator(); i.hasNext();) {
+        for (Iterator i = subresources.iterator(); i.hasNext(); ) {
             Resource subres = (Resource) i.next();
 
             if (!subres.isDirectory()) {

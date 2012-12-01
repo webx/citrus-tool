@@ -28,19 +28,16 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Properties;
 
-import org.apache.commons.codec.binary.Base64;
-
 import com.alibaba.antx.config.ConfigException;
 import com.alibaba.antx.config.resource.util.ResourceUtil;
 import com.alibaba.antx.util.PasswordField;
 import com.alibaba.antx.util.StringUtil;
+import org.apache.commons.codec.binary.Base64;
 
-/**
- * 默认的基于控制台的AuthenticationHandler。
- */
+/** 默认的基于控制台的AuthenticationHandler。 */
 public class DefaultAuthenticationHandler implements AuthenticationHandler {
     private final ResourceManager resourceManager;
-    private final File passwordFile;
+    private final File            passwordFile;
 
     public DefaultAuthenticationHandler(ResourceManager resourceManager) {
         this.resourceManager = resourceManager;

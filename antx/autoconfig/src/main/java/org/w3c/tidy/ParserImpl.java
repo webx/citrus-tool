@@ -27,21 +27,9 @@ package org.w3c.tidy;
  * See Tidy.java for the copyright notice. Derived from <a
  * href="http://www.w3.org/People/Raggett/tidy"> HTML Tidy Release 4 Aug
  * 2000</a>
- * 
+ *
  * @author Dave Raggett <dsr@w3.org>
  * @author Andy Quick <ac.quick@sympatico.ca> (translation to Java)
- * @version 1.0, 1999/05/22
- * @version 1.0.1, 1999/05/29
- * @version 1.1, 1999/06/18 Java Bean
- * @version 1.2, 1999/07/10 Tidy Release 7 Jul 1999
- * @version 1.3, 1999/07/30 Tidy Release 26 Jul 1999
- * @version 1.4, 1999/09/04 DOM support
- * @version 1.5, 1999/10/23 Tidy Release 27 Sep 1999
- * @version 1.6, 1999/11/01 Tidy Release 22 Oct 1999
- * @version 1.7, 1999/12/06 Tidy Release 30 Nov 1999
- * @version 1.8, 2000/01/22 Tidy Release 13 Jan 2000
- * @version 1.9, 2000/06/03 Tidy Release 30 Apr 2000
- * @version 1.10, 2000/07/22 Tidy Release 8 Jul 2000
  * @version 1.11, 2000/08/16 Tidy Release 4 Aug 2000
  */
 
@@ -113,7 +101,7 @@ public class ParserImpl {
             lexer.seenBodyEndTag = 0;
             TagTable tt = lexer.configuration.tt;
 
-            for (;;) {
+            for (; ; ) {
                 node = lexer.getToken(Lexer.IgnoreWhitespace);
 
                 if (node == null) {
@@ -144,7 +132,7 @@ public class ParserImpl {
             Node.insertNodeAtEnd(html, head);
             getParseHead().parse(lexer, head, mode);
 
-            for (;;) {
+            for (; ; ) {
                 node = lexer.getToken(Lexer.IgnoreWhitespace);
 
                 if (node == null) {
@@ -275,8 +263,9 @@ public class ParserImpl {
             Node.insertNodeAtEnd(html, node);
             parseTag(lexer, node, mode);
         }
+    }
 
-    };
+    ;
 
     public static class ParseHead implements Parser {
 
@@ -353,8 +342,9 @@ public class ParserImpl {
                 Node.insertNodeAtEnd(head, lexer.inferredTag("title"));
             }
         }
+    }
 
-    };
+    ;
 
     public static class ParseTitle implements Parser {
 
@@ -406,8 +396,9 @@ public class ParserImpl {
 
             Report.warning(lexer, title, node, Report.MISSING_ENDTAG_FOR);
         }
+    }
 
-    };
+    ;
 
     public static class ParseScript implements Parser {
 
@@ -427,8 +418,9 @@ public class ParserImpl {
                 Node.insertNodeAtEnd(script, node);
             }
         }
+    }
 
-    };
+    ;
 
     public static class ParseBody implements Parser {
 
@@ -489,7 +481,7 @@ public class ParserImpl {
                 iswhitenode = false;
 
                 if (node.type == Node.TextNode && node.end <= node.start + 1
-                        && node.textarray[node.start] == (byte) ' ') {
+                    && node.textarray[node.start] == (byte) ' ') {
                     iswhitenode = true;
                 }
 
@@ -655,8 +647,9 @@ public class ParserImpl {
                 Report.warning(lexer, body, node, Report.DISCARDING_UNEXPECTED);
             }
         }
+    }
 
-    };
+    ;
 
     public static class ParseFrameSet implements Parser {
 
@@ -716,8 +709,9 @@ public class ParserImpl {
 
             Report.warning(lexer, frameset, node, Report.MISSING_ENDTAG_FOR);
         }
+    }
 
-    };
+    ;
 
     public static class ParseInline implements Parser {
 
@@ -824,9 +818,9 @@ public class ParserImpl {
                 /* otherwise emphasis nesting is probably unintentional */
                 /* big and small have cumulative effect to leave them alone */
                 if (node.type == Node.StartTag && node.tag == element.tag && lexer.isPushed(node) && !node.implicit
-                        && !element.implicit && node.tag != null && (node.tag.model & Dict.CM_INLINE) != 0
-                        && node.tag != tt.tagA && node.tag != tt.tagFont && node.tag != tt.tagBig
-                        && node.tag != tt.tagSmall) {
+                    && !element.implicit && node.tag != null && (node.tag.model & Dict.CM_INLINE) != 0
+                    && node.tag != tt.tagA && node.tag != tt.tagFont && node.tag != tt.tagBig
+                    && node.tag != tt.tagSmall) {
                     if (element.content != null && node.attributes == null) {
                         Report.warning(lexer, element, node, Report.COERCE_TO_ENDTAG);
                         node.type = Node.EndTag;
@@ -874,9 +868,9 @@ public class ParserImpl {
 
                 /* within <dt> or <pre> map <p> to <br> */
                 if (node.tag == tt.tagP
-                        && node.type == Node.StartTag
-                        && ((mode & Lexer.Preformatted) != 0 || element.tag == tt.tagDt || element
-                                .isDescendantOf(tt.tagDt))) {
+                    && node.type == Node.StartTag
+                    && ((mode & Lexer.Preformatted) != 0 || element.tag == tt.tagDt || element
+                        .isDescendantOf(tt.tagDt))) {
                     node.tag = tt.tagBr;
                     node.element = "br";
                     Node.trimSpaces(lexer, element);
@@ -908,7 +902,7 @@ public class ParserImpl {
                             continue;
                         }
                     } else if ((node.tag.model & Dict.CM_INLINE) != 0 && node.tag != tt.tagA
-                            && !((node.tag.model & Dict.CM_OBJECT) != 0) && (element.tag.model & Dict.CM_INLINE) != 0) {
+                               && !((node.tag.model & Dict.CM_OBJECT) != 0) && (element.tag.model & Dict.CM_INLINE) != 0) {
                         /* allow any inline end tag to end current element */
                         lexer.popInline(element);
 
@@ -936,8 +930,7 @@ public class ParserImpl {
                     } /*
                        * special case </tr> etc. for stuff moved in front of
                        * table
-                       */
-                    else if (lexer.exiled && node.tag.model != 0 && (node.tag.model & Dict.CM_TABLE) != 0) {
+                       */ else if (lexer.exiled && node.tag.model != 0 && (node.tag.model & Dict.CM_TABLE) != 0) {
                         lexer.ungetToken();
                         Node.trimSpaces(lexer, element);
                         Node.trimEmptyElement(lexer, element);
@@ -1170,7 +1163,9 @@ public class ParserImpl {
 
             Node.trimEmptyElement(lexer, element);
         }
-    };
+    }
+
+    ;
 
     public static class ParseList implements Parser {
 
@@ -1272,8 +1267,9 @@ public class ParserImpl {
             Report.warning(lexer, list, node, Report.MISSING_ENDTAG_FOR);
             Node.trimEmptyElement(lexer, list);
         }
+    }
 
-    };
+    ;
 
     public static class ParseDefList implements Parser {
 
@@ -1340,8 +1336,7 @@ public class ParserImpl {
                 if (node.tag == tt.tagCenter) {
                     if (list.content != null) {
                         Node.insertNodeAfterElement(list, node);
-                    } else /* trim empty dl list */
-                    {
+                    } else /* trim empty dl list */ {
                         Node.insertNodeBeforeElement(list, node);
                         Node.discardElement(list);
                     }
@@ -1387,8 +1382,9 @@ public class ParserImpl {
             Report.warning(lexer, list, node, Report.MISSING_ENDTAG_FOR);
             Node.trimEmptyElement(lexer, list);
         }
+    }
 
-    };
+    ;
 
     public static class ParsePre implements Parser {
 
@@ -1550,17 +1546,17 @@ public class ParserImpl {
             Report.warning(lexer, pre, node, Report.MISSING_ENDTAG_FOR);
             Node.trimEmptyElement(lexer, pre);
         }
+    }
 
-    };
+    ;
 
     public static class ParseBlock implements Parser {
 
         public void parse(Lexer lexer, Node element, short mode)
-        /*
-         * element is node created by the lexer upon seeing the start tag, or by
-         * the parser when the start tag is inferred
-         */
-        {
+            /*
+            * element is node created by the lexer upon seeing the start tag, or by
+            * the parser when the start tag is inferred
+            */ {
             Node node, parent;
             boolean checkstack;
             int istackbase = 0;
@@ -1602,7 +1598,7 @@ public class ParserImpl {
                 }
                 /* end tag for this element */
                 if (node.type == Node.EndTag && node.tag != null
-                        && (node.tag == element.tag || element.was == node.tag)) {
+                    && (node.tag == element.tag || element.was == node.tag)) {
 
                     if ((element.tag.model & Dict.CM_OBJECT) != 0) {
                         /* pop inline stack */
@@ -1681,7 +1677,7 @@ public class ParserImpl {
                     boolean iswhitenode = false;
 
                     if (node.type == Node.TextNode && node.end <= node.start + 1
-                            && lexer.lexbuf[node.start] == (byte) ' ') {
+                        && lexer.lexbuf[node.start] == (byte) ' ') {
                         iswhitenode = true;
                     }
 
@@ -1720,7 +1716,7 @@ public class ParserImpl {
                 /* allow PARAM elements? */
                 if (node.tag == tt.tagParam) {
                     if ((element.tag.model & Dict.CM_PARAM) != 0
-                            && (node.type == Node.StartTag || node.type == Node.StartEndTag)) {
+                        && (node.type == Node.StartTag || node.type == Node.StartEndTag)) {
                         Node.insertNodeAtEnd(element, node);
                         continue;
                     }
@@ -1805,8 +1801,7 @@ public class ParserImpl {
                             Node.trimEmptyElement(lexer, element);
                             return;
                         }
-                    } else /* things like list items */
-                    {
+                    } else /* things like list items */ {
                         if (!((element.tag.model & Dict.CM_OPT) != 0) && !element.implicit) {
                             Report.warning(lexer, element, node, Report.MISSING_ENDTAG_BEFORE);
                         }
@@ -1820,7 +1815,7 @@ public class ParserImpl {
 
                         if ((node.tag.model & Dict.CM_LIST) != 0) {
                             if (element.parent != null && element.parent.tag != null
-                                    && element.parent.tag.parser == getParseList()) {
+                                && element.parent.tag.parser == getParseList()) {
                                 Node.trimSpaces(lexer, element);
                                 Node.trimEmptyElement(lexer, element);
                                 return;
@@ -1847,7 +1842,6 @@ public class ParserImpl {
                             Node.trimSpaces(lexer, element);
                             Node.trimEmptyElement(lexer, element);
                             return;
-
                         } else {
                             Node.trimSpaces(lexer, element);
                             Node.trimEmptyElement(lexer, element);
@@ -1914,8 +1908,9 @@ public class ParserImpl {
             Node.trimSpaces(lexer, element);
             Node.trimEmptyElement(lexer, element);
         }
+    }
 
-    };
+    ;
 
     public static class ParseTableTag implements Parser {
 
@@ -2032,8 +2027,9 @@ public class ParserImpl {
             Node.trimEmptyElement(lexer, table);
             lexer.istackbase = istackbase;
         }
+    }
 
-    };
+    ;
 
     public static class ParseColGroup implements Parser {
 
@@ -2106,8 +2102,9 @@ public class ParserImpl {
                 parseTag(lexer, node, Lexer.IgnoreWhitespace);
             }
         }
+    }
 
-    };
+    ;
 
     public static class ParseRowGroup implements Parser {
 
@@ -2236,8 +2233,9 @@ public class ParserImpl {
 
             Node.trimEmptyElement(lexer, rowgroup);
         }
+    }
 
-    };
+    ;
 
     public static class ParseRow implements Parser {
 
@@ -2370,8 +2368,9 @@ public class ParserImpl {
 
             Node.trimEmptyElement(lexer, row);
         }
+    }
 
-    };
+    ;
 
     public static class ParseNoFrames implements Parser {
 
@@ -2438,8 +2437,9 @@ public class ParserImpl {
 
             Report.warning(lexer, noframes, node, Report.MISSING_ENDTAG_FOR);
         }
+    }
 
-    };
+    ;
 
     public static class ParseSelect implements Parser {
 
@@ -2466,7 +2466,7 @@ public class ParserImpl {
                 }
 
                 if (node.type == Node.StartTag
-                        && (node.tag == tt.tagOption || node.tag == tt.tagOptgroup || node.tag == tt.tagScript)) {
+                    && (node.tag == tt.tagOption || node.tag == tt.tagOptgroup || node.tag == tt.tagScript)) {
                     Node.insertNodeAtEnd(field, node);
                     parseTag(lexer, node, Lexer.IgnoreWhitespace);
                     continue;
@@ -2478,8 +2478,9 @@ public class ParserImpl {
 
             Report.warning(lexer, field, node, Report.MISSING_ENDTAG_FOR);
         }
+    }
 
-    };
+    ;
 
     public static class ParseText implements Parser {
 
@@ -2542,8 +2543,9 @@ public class ParserImpl {
                 Report.warning(lexer, field, node, Report.MISSING_ENDTAG_FOR);
             }
         }
+    }
 
-    };
+    ;
 
     public static class ParseOptGroup implements Parser {
 
@@ -2583,8 +2585,9 @@ public class ParserImpl {
                 Report.warning(lexer, field, node, Report.DISCARDING_UNEXPECTED);
             }
         }
+    }
 
-    };
+    ;
 
     public static Parser getParseHTML() {
         return _parseHTML;
@@ -2662,24 +2665,24 @@ public class ParserImpl {
         return _parseOptGroup;
     }
 
-    private static Parser _parseHTML = new ParseHTML();
-    private static Parser _parseHead = new ParseHead();
-    private static Parser _parseTitle = new ParseTitle();
-    private static Parser _parseScript = new ParseScript();
-    private static Parser _parseBody = new ParseBody();
+    private static Parser _parseHTML     = new ParseHTML();
+    private static Parser _parseHead     = new ParseHead();
+    private static Parser _parseTitle    = new ParseTitle();
+    private static Parser _parseScript   = new ParseScript();
+    private static Parser _parseBody     = new ParseBody();
     private static Parser _parseFrameSet = new ParseFrameSet();
-    private static Parser _parseInline = new ParseInline();
-    private static Parser _parseList = new ParseList();
-    private static Parser _parseDefList = new ParseDefList();
-    private static Parser _parsePre = new ParsePre();
-    private static Parser _parseBlock = new ParseBlock();
+    private static Parser _parseInline   = new ParseInline();
+    private static Parser _parseList     = new ParseList();
+    private static Parser _parseDefList  = new ParseDefList();
+    private static Parser _parsePre      = new ParsePre();
+    private static Parser _parseBlock    = new ParseBlock();
     private static Parser _parseTableTag = new ParseTableTag();
     private static Parser _parseColGroup = new ParseColGroup();
     private static Parser _parseRowGroup = new ParseRowGroup();
-    private static Parser _parseRow = new ParseRow();
+    private static Parser _parseRow      = new ParseRow();
     private static Parser _parseNoFrames = new ParseNoFrames();
-    private static Parser _parseSelect = new ParseSelect();
-    private static Parser _parseText = new ParseText();
+    private static Parser _parseSelect   = new ParseSelect();
+    private static Parser _parseText     = new ParseText();
     private static Parser _parseOptGroup = new ParseOptGroup();
 
     /*
@@ -2741,16 +2744,16 @@ public class ParserImpl {
      * value, returns <code>false</code>. If an <code>xml:space</code> attribute
      * was <em>not</em> found, then the following element names result in a
      * return value of <code>true:
-     *  pre, script, style,</code> and <code>xsl:text</code>. Finally, if a
+     * pre, script, style,</code> and <code>xsl:text</code>. Finally, if a
      * <code>TagTable</code> was passed in and the element appears as the "pre"
      * element in the <code>TagTable</code>, then <code>true</code> will be
      * returned. Otherwise, <code>false</code> is returned.
-     * 
+     *
      * @param element The <code>Node</code> to test to see if whitespace should
-     *            be preserved.
-     * @param tt The <code>TagTable</code> to test for the
-     *            <code>getNodePre()</code> function. This may be
-     *            <code>null</code>, in which case this test is bypassed.
+     *                be preserved.
+     * @param tt      The <code>TagTable</code> to test for the
+     *                <code>getNodePre()</code> function. This may be
+     *                <code>null</code>, in which case this test is bypassed.
      * @return <code>true</code> or <code>false</code>, as explained above.
      */
 
@@ -2770,7 +2773,7 @@ public class ParserImpl {
 
         /* kludge for html docs without explicit xml:space attribute */
         if (Lexer.wstrcasecmp(element.element, "pre") == 0 || Lexer.wstrcasecmp(element.element, "script") == 0
-                || Lexer.wstrcasecmp(element.element, "style") == 0) {
+            || Lexer.wstrcasecmp(element.element, "style") == 0) {
             return true;
         }
 
@@ -2902,7 +2905,6 @@ public class ParserImpl {
                 Node.insertNodeAtEnd(document, node);
                 parseXMLElement(lexer, node, Lexer.IgnoreWhitespace);
             }
-
         }
 
         if (false) { //#if 0
@@ -2936,12 +2938,11 @@ public class ParserImpl {
 
         for (attr = node.attributes; attr != null; attr = attr.next) {
             if ((Lexer.wstrcasecmp(attr.attribute, "language") == 0 || Lexer.wstrcasecmp(attr.attribute, "type") == 0)
-                    && Lexer.wsubstr(attr.value, "javascript")) {
+                && Lexer.wsubstr(attr.value, "javascript")) {
                 result = true;
             }
         }
 
         return result;
     }
-
 }

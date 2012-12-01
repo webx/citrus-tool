@@ -41,7 +41,7 @@ import com.jcraft.jsch.UserInfo;
 
 public class SshSession extends Session {
     private final JSch jsch;
-    private final Map channels;
+    private final Map  channels;
 
     public SshSession(SshResourceDriver driver) {
         super(driver);
@@ -114,7 +114,7 @@ public class SshSession extends Session {
                             message = "\nAuthentication required: \n" + uri + "\n";
 
                             up = getResourceManager().getAuthenticationHandler().authenticate(message, uri, username,
-                                    visitedURIs.contains(key));
+                                                                                              visitedURIs.contains(key));
 
                             visitedURIs.add(key);
 
@@ -160,7 +160,7 @@ public class SshSession extends Session {
     @Override
     public void close() {
         synchronized (channels) {
-            for (Iterator i = channels.values().iterator(); i.hasNext();) {
+            for (Iterator i = channels.values().iterator(); i.hasNext(); ) {
                 ChannelSftp channel = (ChannelSftp) i.next();
 
                 i.remove();

@@ -30,16 +30,9 @@ import org.w3c.dom.UserDataHandler;
  * the copyright notice. Derived from <a
  * href="http://www.w3.org/People/Raggett/tidy"> HTML Tidy Release 4 Aug
  * 2000</a>
- * 
+ *
  * @author Dave Raggett <dsr@w3.org>
  * @author Andy Quick <ac.quick@sympatico.ca> (translation to Java)
- * @version 1.4, 1999/09/04 DOM Support
- * @version 1.5, 1999/10/23 Tidy Release 27 Sep 1999
- * @version 1.6, 1999/11/01 Tidy Release 22 Oct 1999
- * @version 1.7, 1999/12/06 Tidy Release 30 Nov 1999
- * @version 1.8, 2000/01/22 Tidy Release 13 Jan 2000
- * @version 1.9, 2000/06/03 Tidy Release 30 Apr 2000
- * @version 1.10, 2000/07/22 Tidy Release 8 Jul 2000
  * @version 1.11, 2000/08/16 Tidy Release 4 Aug 2000
  */
 
@@ -53,13 +46,11 @@ public class DOMNodeImpl implements org.w3c.dom.Node {
 
     /* --------------------- DOM ---------------------------- */
 
-    /**
-     * @see org.w3c.dom.Node#getNodeValue
-     */
+    /** @see org.w3c.dom.Node#getNodeValue */
     public String getNodeValue() throws DOMException {
         String value = ""; //BAK 10/10/2000 replaced null
         if (adaptee.type == Node.TextNode || adaptee.type == Node.CDATATag || adaptee.type == Node.CommentTag
-                || adaptee.type == Node.ProcInsTag) {
+            || adaptee.type == Node.ProcInsTag) {
 
             if (adaptee.textarray != null && adaptee.start < adaptee.end) {
                 value = Lexer.getString(adaptee.textarray, adaptee.start, adaptee.end - adaptee.start);
@@ -68,12 +59,10 @@ public class DOMNodeImpl implements org.w3c.dom.Node {
         return value;
     }
 
-    /**
-     * @see org.w3c.dom.Node#setNodeValue
-     */
+    /** @see org.w3c.dom.Node#setNodeValue */
     public void setNodeValue(String nodeValue) throws DOMException {
         if (adaptee.type == Node.TextNode || adaptee.type == Node.CDATATag || adaptee.type == Node.CommentTag
-                || adaptee.type == Node.ProcInsTag) {
+            || adaptee.type == Node.ProcInsTag) {
             byte[] textarray = Lexer.getBytes(nodeValue);
             adaptee.textarray = textarray;
             adaptee.start = 0;
@@ -81,16 +70,12 @@ public class DOMNodeImpl implements org.w3c.dom.Node {
         }
     }
 
-    /**
-     * @see org.w3c.dom.Node#getNodeName
-     */
+    /** @see org.w3c.dom.Node#getNodeName */
     public String getNodeName() {
         return adaptee.element;
     }
 
-    /**
-     * @see org.w3c.dom.Node#getNodeType
-     */
+    /** @see org.w3c.dom.Node#getNodeType */
     public short getNodeType() {
         short result = -1;
         switch (adaptee.type) {
@@ -120,9 +105,7 @@ public class DOMNodeImpl implements org.w3c.dom.Node {
         return result;
     }
 
-    /**
-     * @see org.w3c.dom.Node#getParentNode
-     */
+    /** @see org.w3c.dom.Node#getParentNode */
     public org.w3c.dom.Node getParentNode() {
         if (adaptee.parent != null) {
             return adaptee.parent.getAdapter();
@@ -131,16 +114,12 @@ public class DOMNodeImpl implements org.w3c.dom.Node {
         }
     }
 
-    /**
-     * @see org.w3c.dom.Node#getChildNodes
-     */
+    /** @see org.w3c.dom.Node#getChildNodes */
     public org.w3c.dom.NodeList getChildNodes() {
         return new DOMNodeListImpl(adaptee);
     }
 
-    /**
-     * @see org.w3c.dom.Node#getFirstChild
-     */
+    /** @see org.w3c.dom.Node#getFirstChild */
     public org.w3c.dom.Node getFirstChild() {
         if (adaptee.content != null) {
             return adaptee.content.getAdapter();
@@ -149,9 +128,7 @@ public class DOMNodeImpl implements org.w3c.dom.Node {
         }
     }
 
-    /**
-     * @see org.w3c.dom.Node#getLastChild
-     */
+    /** @see org.w3c.dom.Node#getLastChild */
     public org.w3c.dom.Node getLastChild() {
         if (adaptee.last != null) {
             return adaptee.last.getAdapter();
@@ -160,9 +137,7 @@ public class DOMNodeImpl implements org.w3c.dom.Node {
         }
     }
 
-    /**
-     * @see org.w3c.dom.Node#getPreviousSibling
-     */
+    /** @see org.w3c.dom.Node#getPreviousSibling */
     public org.w3c.dom.Node getPreviousSibling() {
         if (adaptee.prev != null) {
             return adaptee.prev.getAdapter();
@@ -171,9 +146,7 @@ public class DOMNodeImpl implements org.w3c.dom.Node {
         }
     }
 
-    /**
-     * @see org.w3c.dom.Node#getNextSibling
-     */
+    /** @see org.w3c.dom.Node#getNextSibling */
     public org.w3c.dom.Node getNextSibling() {
         if (adaptee.next != null) {
             return adaptee.next.getAdapter();
@@ -182,16 +155,12 @@ public class DOMNodeImpl implements org.w3c.dom.Node {
         }
     }
 
-    /**
-     * @see org.w3c.dom.Node#getAttributes
-     */
+    /** @see org.w3c.dom.Node#getAttributes */
     public org.w3c.dom.NamedNodeMap getAttributes() {
         return new DOMAttrMapImpl(adaptee.attributes);
     }
 
-    /**
-     * @see org.w3c.dom.Node#getOwnerDocument
-     */
+    /** @see org.w3c.dom.Node#getOwnerDocument */
     public org.w3c.dom.Document getOwnerDocument() {
         Node node;
 
@@ -211,9 +180,7 @@ public class DOMNodeImpl implements org.w3c.dom.Node {
         }
     }
 
-    /**
-     * @see org.w3c.dom.Node#insertBefore
-     */
+    /** @see org.w3c.dom.Node#insertBefore */
     public org.w3c.dom.Node insertBefore(org.w3c.dom.Node newChild, org.w3c.dom.Node refChild) throws DOMException {
         // TODO - handle newChild already in tree
 
@@ -228,14 +195,14 @@ public class DOMNodeImpl implements org.w3c.dom.Node {
         if (this.adaptee.type == Node.RootNode) {
             if (newCh.adaptee.type != Node.DocTypeTag && newCh.adaptee.type != Node.ProcInsTag) {
                 throw new DOMExceptionImpl(DOMException.HIERARCHY_REQUEST_ERR,
-                        "newChild cannot be a child of this node");
+                                           "newChild cannot be a child of this node");
             }
         } else if (this.adaptee.type == Node.StartTag) {
             if (newCh.adaptee.type != Node.StartTag && newCh.adaptee.type != Node.StartEndTag
-                    && newCh.adaptee.type != Node.CommentTag && newCh.adaptee.type != Node.TextNode
-                    && newCh.adaptee.type != Node.CDATATag) {
+                && newCh.adaptee.type != Node.CommentTag && newCh.adaptee.type != Node.TextNode
+                && newCh.adaptee.type != Node.CDATATag) {
                 throw new DOMExceptionImpl(DOMException.HIERARCHY_REQUEST_ERR,
-                        "newChild cannot be a child of this node");
+                                           "newChild cannot be a child of this node");
             }
         }
         if (refChild == null) {
@@ -259,9 +226,7 @@ public class DOMNodeImpl implements org.w3c.dom.Node {
         return newChild;
     }
 
-    /**
-     * @see org.w3c.dom.Node#replaceChild
-     */
+    /** @see org.w3c.dom.Node#replaceChild */
     public org.w3c.dom.Node replaceChild(org.w3c.dom.Node newChild, org.w3c.dom.Node oldChild) throws DOMException {
         // TODO - handle newChild already in tree
 
@@ -276,14 +241,14 @@ public class DOMNodeImpl implements org.w3c.dom.Node {
         if (this.adaptee.type == Node.RootNode) {
             if (newCh.adaptee.type != Node.DocTypeTag && newCh.adaptee.type != Node.ProcInsTag) {
                 throw new DOMExceptionImpl(DOMException.HIERARCHY_REQUEST_ERR,
-                        "newChild cannot be a child of this node");
+                                           "newChild cannot be a child of this node");
             }
         } else if (this.adaptee.type == Node.StartTag) {
             if (newCh.adaptee.type != Node.StartTag && newCh.adaptee.type != Node.StartEndTag
-                    && newCh.adaptee.type != Node.CommentTag && newCh.adaptee.type != Node.TextNode
-                    && newCh.adaptee.type != Node.CDATATag) {
+                && newCh.adaptee.type != Node.CommentTag && newCh.adaptee.type != Node.TextNode
+                && newCh.adaptee.type != Node.CDATATag) {
                 throw new DOMExceptionImpl(DOMException.HIERARCHY_REQUEST_ERR,
-                        "newChild cannot be a child of this node");
+                                           "newChild cannot be a child of this node");
             }
         }
         if (oldChild == null) {
@@ -328,9 +293,7 @@ public class DOMNodeImpl implements org.w3c.dom.Node {
         return oldChild;
     }
 
-    /**
-     * @see org.w3c.dom.Node#removeChild
-     */
+    /** @see org.w3c.dom.Node#removeChild */
     public org.w3c.dom.Node removeChild(org.w3c.dom.Node oldChild) throws DOMException {
         if (oldChild == null) {
             return null;
@@ -355,9 +318,7 @@ public class DOMNodeImpl implements org.w3c.dom.Node {
         return oldChild;
     }
 
-    /**
-     * @see org.w3c.dom.Node#appendChild
-     */
+    /** @see org.w3c.dom.Node#appendChild */
     public org.w3c.dom.Node appendChild(org.w3c.dom.Node newChild) throws DOMException {
         // TODO - handle newChild already in tree
 
@@ -372,14 +333,14 @@ public class DOMNodeImpl implements org.w3c.dom.Node {
         if (this.adaptee.type == Node.RootNode) {
             if (newCh.adaptee.type != Node.DocTypeTag && newCh.adaptee.type != Node.ProcInsTag) {
                 throw new DOMExceptionImpl(DOMException.HIERARCHY_REQUEST_ERR,
-                        "newChild cannot be a child of this node");
+                                           "newChild cannot be a child of this node");
             }
         } else if (this.adaptee.type == Node.StartTag) {
             if (newCh.adaptee.type != Node.StartTag && newCh.adaptee.type != Node.StartEndTag
-                    && newCh.adaptee.type != Node.CommentTag && newCh.adaptee.type != Node.TextNode
-                    && newCh.adaptee.type != Node.CDATATag) {
+                && newCh.adaptee.type != Node.CommentTag && newCh.adaptee.type != Node.TextNode
+                && newCh.adaptee.type != Node.CDATATag) {
                 throw new DOMExceptionImpl(DOMException.HIERARCHY_REQUEST_ERR,
-                        "newChild cannot be a child of this node");
+                                           "newChild cannot be a child of this node");
             }
         }
         Node.insertNodeAtEnd(this.adaptee, newCh.adaptee);
@@ -391,65 +352,47 @@ public class DOMNodeImpl implements org.w3c.dom.Node {
         return newChild;
     }
 
-    /**
-     * @see org.w3c.dom.Node#hasChildNodes
-     */
+    /** @see org.w3c.dom.Node#hasChildNodes */
     public boolean hasChildNodes() {
         return adaptee.content != null;
     }
 
-    /**
-     * @see org.w3c.dom.Node#cloneNode
-     */
+    /** @see org.w3c.dom.Node#cloneNode */
     public org.w3c.dom.Node cloneNode(boolean deep) {
         Node node = adaptee.cloneNode(deep);
         node.parent = null;
         return node.getAdapter();
     }
 
-    /**
-     * DOM2 - not implemented.
-     */
+    /** DOM2 - not implemented. */
     public void normalize() {
     }
 
-    /**
-     * DOM2 - not implemented.
-     */
+    /** DOM2 - not implemented. */
     public boolean supports(String feature, String version) {
         return isSupported(feature, version);
     }
 
-    /**
-     * DOM2 - not implemented.
-     */
+    /** DOM2 - not implemented. */
     public String getNamespaceURI() {
         return null;
     }
 
-    /**
-     * DOM2 - not implemented.
-     */
+    /** DOM2 - not implemented. */
     public String getPrefix() {
         return null;
     }
 
-    /**
-     * DOM2 - not implemented.
-     */
+    /** DOM2 - not implemented. */
     public void setPrefix(String prefix) throws DOMException {
     }
 
-    /**
-     * DOM2 - not implemented.
-     */
+    /** DOM2 - not implemented. */
     public String getLocalName() {
         return null;
     }
 
-    /**
-     * DOM2 - not implemented.
-     */
+    /** DOM2 - not implemented. */
     public boolean isSupported(String feature, String version) {
         return false;
     }

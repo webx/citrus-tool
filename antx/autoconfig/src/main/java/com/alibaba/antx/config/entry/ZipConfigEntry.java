@@ -43,13 +43,13 @@ import com.alibaba.antx.util.scanner.ZipScanner;
 
 /**
  * 代表一个Jar文件类型的配置项信息。
- * 
+ *
  * @author Michael Zhou
  */
 public class ZipConfigEntry extends ConfigEntry {
     /**
      * 创建一个结点。
-     * 
+     *
      * @param resource 指定结点的资源
      * @param settings antxconfig的设置
      */
@@ -59,7 +59,7 @@ public class ZipConfigEntry extends ConfigEntry {
 
     /**
      * 扫描结点。
-     * 
+     *
      * @param istream zip文件的输入流
      */
     @Override
@@ -80,9 +80,7 @@ public class ZipConfigEntry extends ConfigEntry {
         getGenerator().init();
     }
 
-    /**
-     * 生成配置文件。
-     */
+    /** 生成配置文件。 */
     @Override
     protected boolean generate(InputStream istream, OutputStream ostream) {
         boolean needCloseOutputStream = false;
@@ -183,7 +181,7 @@ public class ZipConfigEntry extends ConfigEntry {
                         int retryTimes = 10;
                         boolean succ = false;
                         String message = String.format("Moving file %s to %s failed.", outputFile.getName(),
-                                destfile.getName());
+                                                       destfile.getName());
 
                         for (int i = 0; i < retryTimes; i++) {
                             destfile.delete();
@@ -312,7 +310,7 @@ public class ZipConfigEntry extends ConfigEntry {
 
     /**
      * 转换成字符串。
-     * 
+     *
      * @return 字符串表示
      */
     @Override
@@ -320,13 +318,11 @@ public class ZipConfigEntry extends ConfigEntry {
         return "ZipConfigEntry[" + getConfigEntryResource() + "]";
     }
 
-    /**
-     * 用来生成目标文件的callback。
-     */
+    /** 用来生成目标文件的callback。 */
     private final class ZipCallback implements ConfigGeneratorCallback {
-        private final byte[] bytes;
+        private final byte[]          bytes;
         private final ZipOutputStream zos;
-        private final Set dirs;
+        private final Set             dirs;
 
         private ZipCallback(ZipOutputStream zos, Set dirs) {
             this(null, zos, dirs);

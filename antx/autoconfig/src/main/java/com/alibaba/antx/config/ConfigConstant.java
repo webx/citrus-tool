@@ -21,7 +21,7 @@ import com.alibaba.antx.config.generator.VelocityTemplateEngine;
 
 /**
  * Config的常量。
- * 
+ *
  * @author Michael Zhou
  */
 public interface ConfigConstant {

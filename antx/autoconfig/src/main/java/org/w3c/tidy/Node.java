@@ -27,21 +27,9 @@ package org.w3c.tidy;
  * copyright notice. Derived from <a
  * href="http://www.w3.org/People/Raggett/tidy"> HTML Tidy Release 4 Aug
  * 2000</a>
- * 
+ *
  * @author Dave Raggett <dsr@w3.org>
  * @author Andy Quick <ac.quick@sympatico.ca> (translation to Java)
- * @version 1.0, 1999/05/22
- * @version 1.0.1, 1999/05/29
- * @version 1.1, 1999/06/18 Java Bean
- * @version 1.2, 1999/07/10 Tidy Release 7 Jul 1999
- * @version 1.3, 1999/07/30 Tidy Release 26 Jul 1999
- * @version 1.4, 1999/09/04 DOM support
- * @version 1.5, 1999/10/23 Tidy Release 27 Sep 1999
- * @version 1.6, 1999/11/01 Tidy Release 22 Oct 1999
- * @version 1.7, 1999/12/06 Tidy Release 30 Nov 1999
- * @version 1.8, 2000/01/22 Tidy Release 13 Jan 2000
- * @version 1.9, 2000/06/03 Tidy Release 30 Apr 2000
- * @version 1.10, 2000/07/22 Tidy Release 8 Jul 2000
  * @version 1.11, 2000/08/16 Tidy Release 4 Aug 2000
  */
 
@@ -55,28 +43,28 @@ package org.w3c.tidy;
 
 public class Node {
 
-    public static final short RootNode = 0;
-    public static final short DocTypeTag = 1;
-    public static final short CommentTag = 2;
-    public static final short ProcInsTag = 3;
-    public static final short TextNode = 4;
-    public static final short StartTag = 5;
-    public static final short EndTag = 6;
+    public static final short RootNode    = 0;
+    public static final short DocTypeTag  = 1;
+    public static final short CommentTag  = 2;
+    public static final short ProcInsTag  = 3;
+    public static final short TextNode    = 4;
+    public static final short StartTag    = 5;
+    public static final short EndTag      = 6;
     public static final short StartEndTag = 7;
-    public static final short CDATATag = 8;
-    public static final short SectionTag = 9;
-    public static final short AspTag = 10;
-    public static final short JsteTag = 11;
-    public static final short PhpTag = 12;
+    public static final short CDATATag    = 8;
+    public static final short SectionTag  = 9;
+    public static final short AspTag      = 10;
+    public static final short JsteTag     = 11;
+    public static final short PhpTag      = 12;
 
-    protected Node parent;
-    protected Node prev;
-    protected Node next;
-    protected Node last;
-    protected int start; /* start of span onto text array */
-    protected int end; /* end of span onto text array */
-    protected byte[] textarray; /* the text array */
-    protected short type; /*
+    protected Node    parent;
+    protected Node    prev;
+    protected Node    next;
+    protected Node    last;
+    protected int     start; /* start of span onto text array */
+    protected int     end; /* end of span onto text array */
+    protected byte[]  textarray; /* the text array */
+    protected short   type; /*
                            * TextNode, StartTag, EndTag etc.
                            */
     protected boolean closed; /*
@@ -86,11 +74,11 @@ public class Node {
     protected boolean linebreak; /*
                                   * true if followed by a line break
                                   */
-    protected Dict was; /* old tag when it was changed */
-    protected Dict tag; /* tag's dictionary definition */
-    protected String element; /* name (null for text nodes) */
-    protected AttVal attributes;
-    protected Node content;
+    protected Dict    was; /* old tag when it was changed */
+    protected Dict    tag; /* tag's dictionary definition */
+    protected String  element; /* name (null for text nodes) */
+    protected AttVal  attributes;
+    protected Node    content;
 
     public Node() {
         this(TextNode, null, 0, 0);
@@ -203,8 +191,7 @@ public class Node {
 
         if (this.attributes == null) {
             this.attributes = av;
-        } else /* append to end of attributes */
-        {
+        } else /* append to end of attributes */ {
             AttVal here = this.attributes;
 
             while (here.next != null) {
@@ -444,7 +431,7 @@ public class Node {
         //      31-Oct-00. 
         if (text.type == TextNode && text.textarray[text.start] == (byte) ' ' && text.start < text.end) {
             if ((element.tag.model & Dict.CM_INLINE) != 0 && !((element.tag.model & Dict.CM_FIELD) != 0)
-                    && element.parent.content != element) {
+                && element.parent.content != element) {
                 prev = element.prev;
 
                 if (prev != null && prev.type == TextNode) {
@@ -453,8 +440,7 @@ public class Node {
                     }
 
                     ++element.start;
-                } else /* create new node */
-                {
+                } else /* create new node */ {
                     node = lexer.newNode();
                     // Local fix for bug 228486 (GLP).  This handles the case
                     // where we need to create a preceeding text node but there are
@@ -639,7 +625,7 @@ public class Node {
 
     public static boolean insertMisc(Node element, Node node) {
         if (node.type == CommentTag || node.type == ProcInsTag || node.type == CDATATag || node.type == SectionTag
-                || node.type == AspTag || node.type == JsteTag || node.type == PhpTag) {
+            || node.type == AspTag || node.type == JsteTag || node.type == PhpTag) {
             insertNodeAtEnd(element, node);
             return true;
         }
@@ -755,7 +741,7 @@ public class Node {
     /* --------------------- DEBUG -------------------------- */
 
     private static final String[] nodeTypeString = { "RootNode", "DocTypeTag", "CommentTag", "ProcInsTag", "TextNode",
-            "StartTag", "EndTag", "StartEndTag", "SectionTag", "AspTag", "PhpTag" };
+                                                     "StartTag", "EndTag", "StartEndTag", "SectionTag", "AspTag", "PhpTag" };
 
     @Override
     public String toString() {
@@ -852,5 +838,4 @@ public class Node {
     }
 
     /* --------------------- END DOM ------------------------ */
-
 }
