@@ -19,7 +19,7 @@ package com.alibaba.antx.expand;
 
 /**
  * Config的常量。
- * 
+ *
  * @author Michael Zhou
  */
 public interface ExpanderConstant {

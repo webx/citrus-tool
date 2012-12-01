@@ -30,11 +30,11 @@ import com.alibaba.antx.util.StringUtil;
 
 public class ExpanderRuntimeImpl implements ExpanderRuntime {
     private final BufferedReader in;
-    private final PrintWriter out;
-    private final PrintWriter err;
-    private final String charset;
-    private boolean verbose;
-    private final Expander expander;
+    private final PrintWriter    out;
+    private final PrintWriter    err;
+    private final String         charset;
+    private       boolean        verbose;
+    private final Expander       expander;
 
     public ExpanderRuntimeImpl() {
         this(System.in, System.out, System.err, null);

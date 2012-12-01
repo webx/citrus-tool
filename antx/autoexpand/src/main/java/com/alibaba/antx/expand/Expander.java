@@ -33,28 +33,27 @@ import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import org.apache.commons.digester.Digester;
-import org.xml.sax.SAXException;
-
 import com.alibaba.antx.util.FileObject;
 import com.alibaba.antx.util.FileUtil;
 import com.alibaba.antx.util.ZipUtil;
+import org.apache.commons.digester.Digester;
+import org.xml.sax.SAXException;
 
 /**
  * 将ear文件展开的tag。
- * 
+ *
  * @author Michael Zhou
  */
 public class Expander {
     private final ExpanderLogger log;
-    private boolean expandWar = true;
-    private boolean expandRar = true;
-    private boolean expandEjbjar = false;
-    private boolean overwrite = false;
+    private boolean expandWar          = true;
+    private boolean expandRar          = true;
+    private boolean expandEjbjar       = false;
+    private boolean overwrite          = false;
     private boolean keepRedundantFiles = false;
     private File srcfile;
     private File destdir;
-    private Set expandedFiles;
+    private Set  expandedFiles;
 
     public Expander(ExpanderLogger log) {
         this.log = log;
@@ -114,7 +113,7 @@ public class Expander {
 
     /**
      * 设置覆盖选项。
-     * 
+     *
      * @param overwrite 如果目标目录中的文件比zip文件中的项要新，是否覆盖之
      */
     public void setOverwrite(boolean overwrite) {
@@ -123,7 +122,7 @@ public class Expander {
 
     /**
      * 设置是否保持多余的文件。
-     * 
+     *
      * @param keepRedundantFiles 如果目标目录中有多余的文件，是否保持而不删除
      */
     public void setKeepRedundantFiles(boolean keepRedundantFiles) {
@@ -169,9 +168,7 @@ public class Expander {
         }
     }
 
-    /**
-     * 执行展开操作。
-     */
+    /** 执行展开操作。 */
     public void expand() {
         init();
 
@@ -205,12 +202,12 @@ public class Expander {
 
     /**
      * 删除多余的文件。
-     * 
-     * @param todir 展开到此目录
+     *
+     * @param todir     展开到此目录
      * @param zipStream 压缩流
-     * @param zipEntry zip结点
-     * @param url 递归展开的url前缀
-     * @param output XML输出
+     * @param zipEntry  zip结点
+     * @param url       递归展开的url前缀
+     * @param output    XML输出
      * @throws IOException 读写文件失败，或Zip格式错误
      */
     protected void removeRedundantFiles(File fileOrDir) throws IOException {
@@ -226,7 +223,7 @@ public class Expander {
         if (!fileOrDir.isDirectory()) {
             if (!expandedFiles.contains(fileOrDir.getCanonicalPath())) {
                 log.info("- " + getPathRelativeToDestdir(fileOrDir) + " - "
-                        + (fileOrDir.delete() ? "deleted" : "can't delete"));
+                         + (fileOrDir.delete() ? "deleted" : "can't delete"));
             }
 
             return;
@@ -261,15 +258,13 @@ public class Expander {
         return new FileObject(destdir).newFileObject(file).getRelativePath();
     }
 
-    /**
-     * 处理不同类型的jar包的接口。
-     */
+    /** 处理不同类型的jar包的接口。 */
     private abstract class ExpanderHandler {
         /**
          * 展开ear文件到指定目录
-         * 
+         *
          * @param istream 输入流
-         * @param todir 展开目录
+         * @param todir   展开目录
          * @throws IOException 读写文件失败，或Zip格式错误
          */
         protected void expand(InputStream istream, File todir) throws IOException {
@@ -295,14 +290,15 @@ public class Expander {
 
         /**
          * 展开一个文件。
-         * 
-         * @param todir 展开到此目录
+         *
+         * @param todir     展开到此目录
          * @param zipStream 压缩流
-         * @param zipEntry zip结点
-         * @param url 递归展开的url前缀
+         * @param zipEntry  zip结点
+         * @param url       递归展开的url前缀
          * @throws IOException 读写文件失败，或Zip格式错误
          */
-        protected void extractFile(File todir, InputStream zipStream, ZipEntry zipEntry, String url) throws IOException {
+        protected void extractFile(File todir, InputStream zipStream, ZipEntry zipEntry, String url)
+                throws IOException {
             String entryName = zipEntry.getName();
             Date entryDate = new Date(zipEntry.getTime());
             boolean isDirectory = zipEntry.isDirectory();
@@ -385,9 +381,7 @@ public class Expander {
             targetFile.setLastModified(entryDate.getTime());
         }
 
-        /**
-         * 判断是否需要进一步展开。
-         */
+        /** 判断是否需要进一步展开。 */
         protected boolean needToExpand(String name) {
             if (expandWar && name.endsWith(".war")) {
                 return true;

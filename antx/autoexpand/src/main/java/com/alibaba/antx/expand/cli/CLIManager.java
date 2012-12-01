@@ -28,17 +28,17 @@ import com.alibaba.antx.util.cli.PosixParser;
 
 /**
  * Antxexpand命令行解析器。
- * 
+ *
  * @author Michael Zhou
  */
 public class CLIManager {
-    public static final String OPT_HELP = "h";
-    public static final String OPT_VERBOSE = "v";
-    public static final String OPT_CHARSET = "c";
-    public static final String OPT_EXPAND_WAR = "w";
-    public static final String OPT_EXPAND_RAR = "r";
-    public static final String OPT_EXPAND_EJB_JAR = "e";
-    public static final String OPT_OVERWRITE = "o";
+    public static final String OPT_HELP                 = "h";
+    public static final String OPT_VERBOSE              = "v";
+    public static final String OPT_CHARSET              = "c";
+    public static final String OPT_EXPAND_WAR           = "w";
+    public static final String OPT_EXPAND_RAR           = "r";
+    public static final String OPT_EXPAND_EJB_JAR       = "e";
+    public static final String OPT_OVERWRITE            = "o";
     public static final String OPT_KEEP_REDUNDANT_FILES = "k";
     private Options options;
 
@@ -54,19 +54,19 @@ public class CLIManager {
         options.addOption(builder.withLongOpt("charset").hasArg().withDescription("输入/输出编码字符集").create(OPT_CHARSET));
 
         options.addOption(builder.withLongOpt("expand-war").hasOptionalArg().withDescription("是否展开war（yes|no），默认为yes")
-                .create(OPT_EXPAND_WAR));
+                                 .create(OPT_EXPAND_WAR));
 
         options.addOption(builder.withLongOpt("expand-rar").hasOptionalArg().withDescription("是否展开rar（yes|no），默认为yes")
-                .create(OPT_EXPAND_RAR));
+                                 .create(OPT_EXPAND_RAR));
 
         options.addOption(builder.withLongOpt("expand-ejb-jar").hasOptionalArg()
-                .withDescription("是否展开ejb-jar（yes|no），默认为no").create(OPT_EXPAND_EJB_JAR));
+                                 .withDescription("是否展开ejb-jar（yes|no），默认为no").create(OPT_EXPAND_EJB_JAR));
 
         options.addOption(builder.withLongOpt("overwrite").hasOptionalArg()
-                .withDescription("如果目标目录中的文件比zip文件中的项要新，是否覆盖之，默认为no").create(OPT_OVERWRITE));
+                                 .withDescription("如果目标目录中的文件比zip文件中的项要新，是否覆盖之，默认为no").create(OPT_OVERWRITE));
 
         options.addOption(builder.withLongOpt("keep-redundant-files").hasOptionalArg()
-                .withDescription("如果目标目录中有多余的文件，是否保持而不删除，默认为no").create(OPT_KEEP_REDUNDANT_FILES));
+                                 .withDescription("如果目标目录中有多余的文件，是否保持而不删除，默认为no").create(OPT_KEEP_REDUNDANT_FILES));
     }
 
     public CommandLine parse(String[] args) {
@@ -87,6 +87,6 @@ public class CLIManager {
         formatter.defaultSyntaxPrefix = "使用方法：";
 
         formatter.printHelp(out, HelpFormatter.DEFAULT_WIDTH, "antxexpand [可选参数] 文件名 [目标目录]\n", "可选参数：", options,
-                HelpFormatter.DEFAULT_LEFT_PAD, HelpFormatter.DEFAULT_DESC_PAD, "\n");
+                            HelpFormatter.DEFAULT_LEFT_PAD, HelpFormatter.DEFAULT_DESC_PAD, "\n");
     }
 }

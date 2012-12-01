@@ -28,11 +28,11 @@ import com.alibaba.citrus.logconfig.LogConfigurator;
 
 /**
  * Antxexpand的命令行主程序。
- * 
+ *
  * @author Michael Zhou
  */
 public class Main {
-    private static CommandLine cli;
+    private static CommandLine     cli;
     private static ExpanderRuntime runtime;
 
     public static void main(String[] args) {
