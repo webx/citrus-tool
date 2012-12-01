@@ -19,26 +19,25 @@ package com.alibaba.maven.plugin.autoconfig;
 
 import java.io.File;
 
-import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
-
 import com.alibaba.antx.config.ConfigRuntimeImpl;
 import com.alibaba.antx.expand.ExpanderRuntimeImpl;
 import com.alibaba.antx.util.CharsetUtil;
 import com.alibaba.citrus.logconfig.LogConfigurator;
+import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
 
 /**
  * Maven plugin to invoke antx-autoconfig.
- * 
+ *
+ * @author Michael Zhou
  * @goal autoconfig
  * @phase package
- * @author Michael Zhou
  */
 public class AutoconfigMojo extends AbstractMojo {
     /**
      * Package file or exploded dir to config.
-     * 
+     *
      * @parameter expression="${project.artifact.file}"
      * @required
      */
@@ -46,57 +45,56 @@ public class AutoconfigMojo extends AbstractMojo {
 
     /**
      * exploding package to directory.
-     * 
-     * @parameter 
-     *            expression="${project.build.directory}/${project.build.finalName}"
+     *
+     * @parameter expression="${project.build.directory}/${project.build.finalName}"
      */
     private File explodedDirectory;
 
     /**
      * Whether or not to exploding package into directory.
-     * 
+     *
      * @parameter expression="${autoconfig.exploding}" default-value="false"
      */
     private boolean exploding;
 
     /**
      * Charset encoding of console.
-     * 
+     *
      * @parameter expression="${autoconfig.charset}"
      */
     private String charset;
 
     /**
      * Strict mode.
-     * 
+     *
      * @parameter expression="${autoconfig.strict}" default-value="true"
      */
     private boolean strict;
 
     /**
      * Interactive mode switch.
-     * 
+     *
      * @parameter expression="${autoconfig.interactive}"
      */
     private Boolean interactive;
 
     /**
      * Skipping autoconfig.
-     * 
+     *
      * @parameter expression="${autoconfig.skip}"
      */
     private boolean skip;
 
     /**
      * Package type: war, jar, ear, etc.
-     * 
+     *
      * @parameter expression="${autoconfig.type}"
      */
     private String type;
 
     /**
      * User properties file.
-     * 
+     *
      * @parameter expression="${autoconfig.userProperties}"
      */
     private File userProperties;
@@ -142,7 +140,7 @@ public class AutoconfigMojo extends AbstractMojo {
 
             getLog().info(
                     "Configuring " + dest.getAbsolutePath() + ", interactiveMode=" + interactiveMode + ", strict="
-                            + strict);
+                    + strict);
             getLog().info("-------------------------------------------------");
 
             try {
