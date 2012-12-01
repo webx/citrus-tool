@@ -62,9 +62,9 @@
     <modules>
         <module>antx</module>
         <module>maven/util</module>
-        <module>maven/springext-plugin</module>
-        <module>maven/docbook-plugin</module>
-        <module>idea/idea-webx-plugin-deps</module>
+        <module>maven/springext-maven-plugin</module>
+        <module>maven/docbook-maven-plugin</module>
+        <module>idea/webx-idea-plugin-deps</module>
     </modules>
     <build>
         <plugins>

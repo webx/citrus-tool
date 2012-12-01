@@ -7,7 +7,7 @@
         <version>1.1</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>maven-autoconfig-plugin</artifactId>
+    <artifactId>autoconfig-maven-plugin</artifactId>
     <packaging>maven-plugin</packaging>
     <name>Maven plugin for autoconfig</name>
     <modelVersion>4.0.0</modelVersion>
