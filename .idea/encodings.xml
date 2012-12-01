@@ -4,13 +4,12 @@
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/antx" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/antx/autoconfig" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/antx/autoconfig-maven-plugin" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/antx/autoexpand" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/antx/common" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/antx/maven-autoconfig-plugin" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/idea/idea-webx-plugin" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/idea/idea-webx-plugin-deps" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/maven/docbook-plugin" charset="ISO-8859-1" />
-    <file url="file://$PROJECT_DIR$/maven/springext-plugin" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/idea/webx-idea-plugin-deps" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/maven/docbook-maven-plugin" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/maven/springext-maven-plugin" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/maven/util" charset="UTF-8" />
   </component>
 </project>
