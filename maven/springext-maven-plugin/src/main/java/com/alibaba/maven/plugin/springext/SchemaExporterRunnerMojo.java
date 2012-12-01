@@ -27,22 +27,24 @@ import java.util.Locale;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.mortbay.jetty.Connector;
-import org.mortbay.jetty.Handler;
-import org.mortbay.jetty.NCSARequestLog;
-import org.mortbay.jetty.Server;
-import org.mortbay.jetty.handler.ContextHandlerCollection;
-import org.mortbay.jetty.handler.DefaultHandler;
-import org.mortbay.jetty.handler.HandlerCollection;
-import org.mortbay.jetty.handler.RequestLogHandler;
-import org.mortbay.jetty.nio.SelectChannelConnector;
-import org.mortbay.jetty.webapp.Configuration;
-import org.mortbay.jetty.webapp.WebAppClassLoader;
-import org.mortbay.jetty.webapp.WebAppContext;
+import org.eclipse.jetty.server.Connector;
+import org.eclipse.jetty.server.Handler;
+import org.eclipse.jetty.server.NCSARequestLog;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.ContextHandlerCollection;
+import org.eclipse.jetty.server.handler.DefaultHandler;
+import org.eclipse.jetty.server.handler.HandlerCollection;
+import org.eclipse.jetty.server.handler.RequestLogHandler;
+import org.eclipse.jetty.server.nio.SelectChannelConnector;
+import org.eclipse.jetty.util.resource.Resource;
+import org.eclipse.jetty.webapp.Configuration;
+import org.eclipse.jetty.webapp.WebAppClassLoader;
+import org.eclipse.jetty.webapp.WebAppContext;
+import org.eclipse.jetty.webapp.WebXmlConfiguration;
 
 /**
  * Start jetty server and run SchemaExporterServlet.
- * 
+ *
  * @author Michael Zhou
  * @goal run
  * @requiresDependencyResolution runtime
@@ -52,7 +54,7 @@ import org.mortbay.jetty.webapp.WebAppContext;
 public class SchemaExporterRunnerMojo extends AbstractSchemaExporterMojo {
     /**
      * The port for connector. Defaults to 8080.
-     * 
+     *
      * @parameter expression="${port}" default-value="8080"
      * @required
      */
@@ -60,7 +62,7 @@ public class SchemaExporterRunnerMojo extends AbstractSchemaExporterMojo {
 
     /**
      * The context path for the webapp. Defaults to "/schema".
-     * 
+     *
      * @parameter expression="${contextPath}" default-value="/"
      * @required
      */
@@ -68,7 +70,7 @@ public class SchemaExporterRunnerMojo extends AbstractSchemaExporterMojo {
 
     /**
      * The root directory to use for the webapp. Defaults to target/jetty/work.
-     * 
+     *
      * @parameter expression="${project.build.directory}/jetty/work"
      * @required
      */
@@ -77,7 +79,7 @@ public class SchemaExporterRunnerMojo extends AbstractSchemaExporterMojo {
     /**
      * The temporary directory to use for the webapp. Defaults to
      * target/jetty/temp.
-     * 
+     *
      * @parameter expression="${project.build.directory}/jetty/temp"
      * @required
      */
@@ -86,7 +88,7 @@ public class SchemaExporterRunnerMojo extends AbstractSchemaExporterMojo {
     /**
      * The location of the web.xml. If not set then it is assumed it is
      * META-INF/web-springext-helper.xml
-     * 
+     *
      * @parameter default-value="META-INF/web-springext-helper.xml"
      * @required
      */
@@ -101,8 +103,8 @@ public class SchemaExporterRunnerMojo extends AbstractSchemaExporterMojo {
 
             getLog().debug("Setting Connector: " + connector.getClass().getName() + " on port " + connector.getPort());
 
-            server.addConnector(connector);
-            server.addHandler(createHandler());
+            server.setConnectors(new Connector[] { connector });
+            server.setHandler(createHandler());
 
             server.start();
 
@@ -190,7 +192,6 @@ public class SchemaExporterRunnerMojo extends AbstractSchemaExporterMojo {
         getLog().info("Temp directory   = " + context.getTempDirectory());
         getLog().info("Web defaults     = " + context.getDefaultsDescriptor());
         getLog().info("Web descriptor   = " + context.getDescriptor());
-        getLog().info("Web overrides    = " + context.getOverrideDescriptor());
 
         return context;
     }
@@ -199,52 +200,61 @@ public class SchemaExporterRunnerMojo extends AbstractSchemaExporterMojo {
         return new Configuration[] { new MavenConfiguration() };
     }
 
-    private final class MavenConfiguration extends org.mortbay.jetty.annotations.Configuration {
+    private final class MavenConfiguration extends WebXmlConfiguration {
         private static final long serialVersionUID = -6818576369445258461L;
 
         public MavenConfiguration() throws ClassNotFoundException {
             super();
         }
 
-        public void configureClassLoader() throws Exception {
+        @Override
+        public void preConfigure(WebAppContext context) throws Exception {
+            configureClassLoader(context);
+            super.preConfigure(context);
+        }
+
+        private void configureClassLoader(WebAppContext context) throws Exception {
             List classPathFiles = createClassPath();
 
             if (classPathFiles != null) {
-                WebAppClassLoader cl = (WebAppClassLoader) getWebAppContext().getClassLoader();
+                WebAppClassLoader cl = (WebAppClassLoader) context.getClassLoader();
 
-                for (Iterator i = classPathFiles.iterator(); i.hasNext();) {
+                for (Iterator i = classPathFiles.iterator(); i.hasNext(); ) {
                     cl.addClassPath(((File) i.next()).getCanonicalPath());
                 }
-            } else {
-                super.configureClassLoader();
             }
 
             // knock out environmental maven and plexus classes from webAppContext
-            String[] existingServerClasses = getWebAppContext().getServerClasses();
+            String[] existingServerClasses = context.getServerClasses();
             String[] newServerClasses = new String[2 + (existingServerClasses == null ? 0
-                    : existingServerClasses.length)];
+                                                                                      : existingServerClasses.length)];
 
             newServerClasses[0] = "-org.apache.maven.";
             newServerClasses[1] = "-org.codehaus.plexus.";
 
             System.arraycopy(existingServerClasses, 0, newServerClasses, 2, existingServerClasses.length);
 
-            getWebAppContext().setServerClasses(newServerClasses);
+            context.setServerClasses(newServerClasses);
         }
 
-        protected URL findWebXml() throws IOException, MalformedURLException {
-            URL result = super.findWebXml();
+        @Override
+        protected Resource findWebXml(WebAppContext context) throws IOException, MalformedURLException {
+            Resource result = super.findWebXml(context);
 
             if (result == null) {
-                String descriptor = getWebAppContext().getDescriptor();
-                ClassLoader cl = getWebAppContext().getClassLoader();
+                String descriptor = context.getDescriptor();
+                ClassLoader cl = context.getClassLoader();
 
-                result = cl.getResource(descriptor);
+                URL url = cl.getResource(descriptor);
+
+                if (url != null) {
+                    result = Resource.newResource(url);
+                }
             }
 
             if (result == null) {
                 throw new IOException("Could not find SchemaExporter resources.\n" + "Please make sure this project ("
-                        + project.getId() + ") depends on \"citrus-common-springext\"");
+                                      + project.getId() + ") depends on \"citrus-common-springext\"");
             }
 
             return result;

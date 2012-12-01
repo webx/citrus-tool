@@ -29,7 +29,7 @@ import org.apache.maven.project.MavenProject;
 public abstract class AbstractSchemaExporterMojo extends AbstractMojo {
     /**
      * The maven project.
-     * 
+     *
      * @parameter expression="${executedProject}"
      * @required
      * @readonly
@@ -40,14 +40,14 @@ public abstract class AbstractSchemaExporterMojo extends AbstractMojo {
      * If true, the &lt;testOutputDirectory&gt; and the dependencies of
      * &lt;scope&gt;test&lt;scope&gt; will be put first on the runtime
      * classpath.
-     * 
+     *
      * @parameter expression="${useTestClasspath}" default-value="false"
      */
     private boolean useTestClasspath;
 
     /**
      * The directory containing generated classes.
-     * 
+     *
      * @parameter expression="${project.build.outputDirectory}"
      * @required
      */
@@ -55,7 +55,7 @@ public abstract class AbstractSchemaExporterMojo extends AbstractMojo {
 
     /**
      * The directory containing generated test classes.
-     * 
+     *
      * @parameter expression="${project.build.testOutputDirectory}"
      * @required
      */
@@ -76,7 +76,7 @@ public abstract class AbstractSchemaExporterMojo extends AbstractMojo {
 
         classPathFiles.addAll(getDependencyFiles());
 
-        for (Iterator i = classPathFiles.iterator(); i.hasNext();) {
+        for (Iterator i = classPathFiles.iterator(); i.hasNext(); ) {
             getLog().info("  added " + ((File) i.next()).getName());
         }
 
@@ -86,7 +86,7 @@ public abstract class AbstractSchemaExporterMojo extends AbstractMojo {
     private List getDependencyFiles() {
         List dependencyFiles = new ArrayList();
 
-        for (Iterator i = project.getArtifacts().iterator(); i.hasNext();) {
+        for (Iterator i = project.getArtifacts().iterator(); i.hasNext(); ) {
             Artifact artifact = (Artifact) i.next();
 
             if ("jar".equals(artifact.getType())) {

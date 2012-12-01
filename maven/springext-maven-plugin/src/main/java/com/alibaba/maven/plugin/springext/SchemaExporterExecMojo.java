@@ -29,13 +29,13 @@ import org.apache.maven.plugin.MojoFailureException;
 
 /**
  * Exports schema files to specified directory.
- * 
+ *
  * @author Michael Zhou
  * @goal export
  * @requiresDependencyResolution runtime
  * @execute phase="test-compile"
  * @description Runs SchemaExporter to save schema files within current maven
- *              project to specified directory.
+ * project to specified directory.
  */
 public class SchemaExporterExecMojo extends AbstractSchemaExporterMojo {
     private final static String mainClass = "com.alibaba.citrus.springext.export.SchemaExporterCLI";
@@ -43,9 +43,9 @@ public class SchemaExporterExecMojo extends AbstractSchemaExporterMojo {
     /**
      * The temporary directory to use for the webapp. Defaults to
      * target/schemas.
-     * 
+     *
      * @parameter expression="${destdir}"
-     *            default-value="${project.build.directory}/schemas"
+     * default-value="${project.build.directory}/schemas"
      * @required
      */
     private File destdir;
@@ -53,7 +53,7 @@ public class SchemaExporterExecMojo extends AbstractSchemaExporterMojo {
     /**
      * The URI prefix used to replace the absolute URI imported or included in
      * schemas.
-     * 
+     *
      * @parameter expression="${uriPrefix}"
      */
     private String uriPrefix;
