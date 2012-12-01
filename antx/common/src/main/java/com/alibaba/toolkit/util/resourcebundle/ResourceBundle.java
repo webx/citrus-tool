@@ -49,9 +49,9 @@ import com.alibaba.toolkit.util.StringUtil;
  * 则baseName_language1_country1_variant1以及baseName_language1_country1被忽略.
  * 如果全部locale元素均为空, 则只搜索baseName.
  * </p>
- * 
- * @version $Id: ResourceBundle.java,v 1.1 2003/07/03 07:26:35 baobao Exp $
+ *
  * @author Michael Zhou
+ * @version $Id: ResourceBundle.java,v 1.1 2003/07/03 07:26:35 baobao Exp $
  */
 public abstract class ResourceBundle extends java.util.ResourceBundle {
     /** 这个bundle的基本名. */
@@ -62,7 +62,7 @@ public abstract class ResourceBundle extends java.util.ResourceBundle {
 
     /**
      * 取得这个bundle的基本名.
-     * 
+     *
      * @return 基本名
      */
     public String getBaseName() {
@@ -71,7 +71,7 @@ public abstract class ResourceBundle extends java.util.ResourceBundle {
 
     /**
      * 取得这个bundle的真实locale, 而不是用户调用<code>getBundle</code>时提供的locale参数.
-     * 
+     *
      * @return 这个bundle的真实locale
      */
     @Override
@@ -81,7 +81,7 @@ public abstract class ResourceBundle extends java.util.ResourceBundle {
 
     /**
      * 取得用于格式化message字符串的<code>MessageBuilder</code>.
-     * 
+     *
      * @param key resource bundle key
      * @return <code>MessageBuilder</code>对象
      */
@@ -91,8 +91,8 @@ public abstract class ResourceBundle extends java.util.ResourceBundle {
 
     /**
      * 使用<code>MessageFormat</code>格式化字符串.
-     * 
-     * @param key 要查找的键
+     *
+     * @param key    要查找的键
      * @param params 参数表
      * @return key对应的字符串
      * @throws MissingResourceException 指定resource key未找到
@@ -104,7 +104,7 @@ public abstract class ResourceBundle extends java.util.ResourceBundle {
     /**
      * 从当前resource bundle或它的一个父bundle中, 取得和指定键对应的字符串. 如果不成功, 则掷出
      * <code>MissingResourceException</code>异常.
-     * 
+     *
      * @param key 要查找的键
      * @return key对应的字符串
      * @throws MissingResourceException 指定resource key未找到
@@ -116,7 +116,7 @@ public abstract class ResourceBundle extends java.util.ResourceBundle {
     /**
      * 从当前resource bundle或它的一个父bundle中, 取得和指定键对应的字符串. 如果不成功, 则掷出
      * <code>MissingResourceException</code>异常.
-     * 
+     *
      * @param key 要查找的键
      * @return key对应的字符串
      * @throws MissingResourceException 指定resource key未找到
@@ -128,7 +128,7 @@ public abstract class ResourceBundle extends java.util.ResourceBundle {
     /**
      * 从当前resource bundle或它的一个父bundle中, 取得和指定键对应的<code>Map</code>. 如果不成功, 则掷出
      * <code>MissingResourceException</code>异常.
-     * 
+     *
      * @param key 要查找的键
      * @return key对应的<code>Map</code>
      * @throws MissingResourceException 指定resource key未找到
@@ -140,7 +140,7 @@ public abstract class ResourceBundle extends java.util.ResourceBundle {
     /**
      * 从当前resource bundle或它的一个父bundle中, 取得和指定键对应的<code>List</code>. 如果不成功, 则掷出
      * <code>MissingResourceException</code>异常.
-     * 
+     *
      * @param key 要查找的键
      * @return key对应的<code>List</code>
      * @throws MissingResourceException 指定resource key未找到
@@ -152,7 +152,7 @@ public abstract class ResourceBundle extends java.util.ResourceBundle {
     /**
      * 从当前resource bundle或它的一个父bundle中, 取得和指定键对应的对象. 如果不成功, 则掷出
      * <code>MissingResourceException</code>异常.
-     * 
+     *
      * @param key 要查找的键
      * @return key对应的对象
      * @throws MissingResourceException 指定resource key未找到
@@ -163,7 +163,7 @@ public abstract class ResourceBundle extends java.util.ResourceBundle {
 
     /**
      * 设置这个bundle的基本名.
-     * 
+     *
      * @param baseName 基本名
      */
     protected final void setBaseName(String baseName) {
@@ -173,8 +173,8 @@ public abstract class ResourceBundle extends java.util.ResourceBundle {
     /**
      * 设置bundle的locale. 如果用户查找fr_FR, 但找到的是en_US,
      * 则这个bundle的locale将被设置成en_US而不是fr_FR.
-     * 
-     * @param baseName bundle基本名称
+     *
+     * @param baseName   bundle基本名称
      * @param bundleName bundle的名称, 包括locale的扩展
      */
     protected final void setLocale(String baseName, String bundleName) {
@@ -215,7 +215,7 @@ public abstract class ResourceBundle extends java.util.ResourceBundle {
 
     /**
      * 设置父bundle. 如果在当前bundle中找不到指定的对象, 就会到父bundle中去搜索.
-     * 
+     *
      * @param parent 父bundle
      */
     protected final void setParent(ResourceBundle parent) {
@@ -224,7 +224,7 @@ public abstract class ResourceBundle extends java.util.ResourceBundle {
 
     /**
      * 取得父bundle.
-     * 
+     *
      * @return 父bundle对象, 如果不存在, 则返回<code>null</code>
      */
     protected final java.util.ResourceBundle getParent() {

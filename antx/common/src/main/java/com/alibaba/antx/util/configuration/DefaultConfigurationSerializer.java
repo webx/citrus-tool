@@ -24,7 +24,6 @@ import java.io.OutputStream;
 import java.io.StringWriter;
 import java.net.URL;
 import java.util.Properties;
-
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Result;
 import javax.xml.transform.TransformerFactory;
@@ -40,7 +39,7 @@ import org.xml.sax.helpers.NamespaceSupport;
 /**
  * A ConfigurationSerializer serializes configurations via SAX2 compliant
  * parser.
- * 
+ *
  * @author <a href="mailto:dev@avalon.apache.org">Avalon Development Team</a>
  */
 public class DefaultConfigurationSerializer {
@@ -50,7 +49,7 @@ public class DefaultConfigurationSerializer {
     /**
      * Sets the Serializer's use of indentation. This will cause linefeeds to be
      * added after each element, but it does not add any indentation via spaces.
-     * 
+     *
      * @param indent a <code>boolean</code> value
      */
     public void setIndent(boolean indent) {
@@ -63,7 +62,7 @@ public class DefaultConfigurationSerializer {
 
     /**
      * Create a ContentHandler for an OutputStream
-     * 
+     *
      * @param result the result
      * @return contenthandler that goes to specified OutputStream
      */
@@ -84,7 +83,7 @@ public class DefaultConfigurationSerializer {
     /**
      * Get the SAXTransformerFactory so we can get a serializer without being
      * tied to one vendor.
-     * 
+     *
      * @return a <code>SAXTransformerFactory</code> value
      */
     protected SAXTransformerFactory getTransformerFactory() {
@@ -97,14 +96,14 @@ public class DefaultConfigurationSerializer {
 
     /**
      * Serialize the configuration to a ContentHandler
-     * 
+     *
      * @param handler a <code>ContentHandler</code> to serialize to
-     * @param source a <code>Configuration</code> value
-     * @throws SAXException if an error occurs
+     * @param source  a <code>Configuration</code> value
+     * @throws SAXException           if an error occurs
      * @throws ConfigurationException if an error occurs
      */
     public void serialize(final ContentHandler handler, final Configuration source) throws SAXException,
-            ConfigurationException {
+                                                                                           ConfigurationException {
         handler.startDocument();
         serializeElement(handler, new NamespaceSupport(), source);
         handler.endDocument();
@@ -112,11 +111,11 @@ public class DefaultConfigurationSerializer {
 
     /**
      * Serialize each Configuration element. This method is called recursively.
-     * 
-     * @param handler a <code>ContentHandler</code> to use
+     *
+     * @param handler          a <code>ContentHandler</code> to use
      * @param namespaceSupport a <code>NamespaceSupport</code> to use
-     * @param element a <code>Configuration</code> value
-     * @throws SAXException if an error occurs
+     * @param element          a <code>Configuration</code> value
+     * @throws SAXException           if an error occurs
      * @throws ConfigurationException if an error occurs
      */
     protected void serializeElement(final ContentHandler handler, final NamespaceSupport namespaceSupport,
@@ -129,10 +128,10 @@ public class DefaultConfigurationSerializer {
         if (null != attrNames) {
             for (String attrName : attrNames) {
                 attr.addAttribute("", // namespace URI
-                        attrName, // local name
-                        attrName, // qName
-                        "CDATA", // type
-                        element.getAttribute(attrName, "") // value
+                                  attrName, // local name
+                                  attrName, // qName
+                                  "CDATA", // type
+                                  element.getAttribute(attrName, "") // value
                 );
             }
         }
@@ -202,29 +201,29 @@ public class DefaultConfigurationSerializer {
 
     /**
      * Serialize the configuration object to a file using a filename.
-     * 
+     *
      * @param filename a <code>String</code> value
-     * @param source a <code>Configuration</code> value
-     * @throws SAXException if an error occurs
-     * @throws IOException if an error occurs
+     * @param source   a <code>Configuration</code> value
+     * @throws SAXException           if an error occurs
+     * @throws IOException            if an error occurs
      * @throws ConfigurationException if an error occurs
      */
     public void serializeToFile(final String filename, final Configuration source) throws SAXException, IOException,
-            ConfigurationException {
+                                                                                          ConfigurationException {
         serializeToFile(new File(filename), source);
     }
 
     /**
      * Serialize the configuration object to a file using a File object.
-     * 
-     * @param file a <code>File</code> value
+     *
+     * @param file   a <code>File</code> value
      * @param source a <code>Configuration</code> value
-     * @throws SAXException if an error occurs
-     * @throws IOException if an error occurs
+     * @throws SAXException           if an error occurs
+     * @throws IOException            if an error occurs
      * @throws ConfigurationException if an error occurs
      */
     public void serializeToFile(final File file, final Configuration source) throws SAXException, IOException,
-            ConfigurationException {
+                                                                                    ConfigurationException {
         OutputStream outputStream = null;
 
         try {
@@ -239,30 +238,31 @@ public class DefaultConfigurationSerializer {
 
     /**
      * Serialize the configuration object to an output stream.
-     * 
+     *
      * @param outputStream an <code>OutputStream</code> value
-     * @param source a <code>Configuration</code> value
-     * @throws SAXException if an error occurs
-     * @throws IOException if an error occurs
+     * @param source       a <code>Configuration</code> value
+     * @throws SAXException           if an error occurs
+     * @throws IOException            if an error occurs
      * @throws ConfigurationException if an error occurs
      */
     public void serialize(final OutputStream outputStream, final Configuration source) throws SAXException,
-            IOException, ConfigurationException {
+                                                                                              IOException,
+                                                                                              ConfigurationException {
         serialize(createContentHandler(new StreamResult(outputStream)), source);
     }
 
     /**
      * Serialize the configuration object to an output stream derived from an
      * URI. The URI must be resolveable by the <code>java.net.URL</code> object.
-     * 
-     * @param uri a <code>String</code> value
+     *
+     * @param uri    a <code>String</code> value
      * @param source a <code>Configuration</code> value
-     * @throws SAXException if an error occurs
-     * @throws IOException if an error occurs
+     * @throws SAXException           if an error occurs
+     * @throws IOException            if an error occurs
      * @throws ConfigurationException if an error occurs
      */
     public void serialize(final String uri, final Configuration source) throws SAXException, IOException,
-            ConfigurationException {
+                                                                               ConfigurationException {
         OutputStream outputStream = null;
 
         try {
@@ -277,10 +277,10 @@ public class DefaultConfigurationSerializer {
 
     /**
      * Serialize the configuration object to a string
-     * 
+     *
      * @param source a <code>Configuration</code> value
      * @return configuration serialized as a string.
-     * @throws SAXException if an error occurs
+     * @throws SAXException           if an error occurs
      * @throws ConfigurationException if an error occurs
      */
     public String serialize(final Configuration source) throws SAXException, ConfigurationException {

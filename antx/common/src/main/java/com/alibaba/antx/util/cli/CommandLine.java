@@ -37,7 +37,7 @@ import java.util.Map;
  * Additionally, any left-over or unrecognized arguments, are available for
  * further processing.
  * </p>
- * 
+ *
  * @author bob mcwhirter (bob @ werken.com)
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @author John Keyes (john at integralsource.com)
@@ -68,7 +68,7 @@ public class CommandLine {
      * <p>
      * Query to see if an option has been set.
      * </p>
-     * 
+     *
      * @param opt Short name of the option
      * @return true if set, false if not
      */
@@ -80,7 +80,7 @@ public class CommandLine {
      * <p>
      * Query to see if an option has been set.
      * </p>
-     * 
+     *
      * @param opt character name of the option
      * @return true if set, false if not
      */
@@ -92,7 +92,7 @@ public class CommandLine {
      * <p>
      * Return the <code>Object</code> type of this <code>Option</code>.
      * </p>
-     * 
+     *
      * @param opt the name of the option
      * @return the type of this <code>Option</code>
      */
@@ -107,7 +107,7 @@ public class CommandLine {
      * <p>
      * Return the <code>Object</code> type of this <code>Option</code>.
      * </p>
-     * 
+     *
      * @param opt the name of the option
      * @return the type of opt
      */
@@ -119,7 +119,7 @@ public class CommandLine {
      * <p>
      * Retrieve the argument, if any, of this option.
      * </p>
-     * 
+     *
      * @param opt the name of the option
      * @return SimpleValue of the argument if option is set, and has an
      *         argument, otherwise null.
@@ -133,7 +133,7 @@ public class CommandLine {
      * <p>
      * Retrieve the argument, if any, of this option.
      * </p>
-     * 
+     *
      * @param opt the character name of the option
      * @return SimpleValue of the argument if option is set, and has an
      *         argument, otherwise null.
@@ -146,7 +146,7 @@ public class CommandLine {
      * <p>
      * Retrieves the array of values, if any, of an option.
      * </p>
-     * 
+     *
      * @param opt string name of the option
      * @return Values of the argument if option is set, and has an argument,
      *         otherwise null.
@@ -163,14 +163,14 @@ public class CommandLine {
                 values.addAll(optt.getValuesList());
             }
         }
-        return values.size() == 0 ? null : (String[]) values.toArray(new String[] {});
+        return values.size() == 0 ? null : (String[]) values.toArray(new String[] { });
     }
 
     /**
      * <p>
      * Retrieves the array of values, if any, of an option.
      * </p>
-     * 
+     *
      * @param opt character name of the option
      * @return Values of the argument if option is set, and has an argument,
      *         otherwise null.
@@ -183,10 +183,10 @@ public class CommandLine {
      * <p>
      * Retrieve the argument, if any, of an option.
      * </p>
-     * 
-     * @param opt name of the option
+     *
+     * @param opt          name of the option
      * @param defaultValue is the default value to be returned if the option is
-     *            not specified
+     *                     not specified
      * @return SimpleValue of the argument if option is set, and has an
      *         argument, otherwise <code>defaultValue</code>.
      */
@@ -199,10 +199,10 @@ public class CommandLine {
      * <p>
      * Retrieve the argument, if any, of an option.
      * </p>
-     * 
-     * @param opt character name of the option
+     *
+     * @param opt          character name of the option
      * @param defaultValue is the default value to be returned if the option is
-     *            not specified
+     *                     not specified
      * @return SimpleValue of the argument if option is set, and has an
      *         argument, otherwise <code>defaultValue</code>.
      */
@@ -214,7 +214,7 @@ public class CommandLine {
      * <p>
      * Retrieve any left-over non-recognized options and arguments
      * </p>
-     * 
+     *
      * @return remaining items passed in but not parsed as an array
      */
     public String[] getArgs() {
@@ -227,7 +227,7 @@ public class CommandLine {
      * <p>
      * Retrieve any left-over non-recognized options and arguments
      * </p>
-     * 
+     *
      * @return remaining items passed in but not parsed as a <code>List</code>.
      */
     public List getArgList() {
@@ -239,7 +239,7 @@ public class CommandLine {
      * <p>
      * Dump state, suitable for debugging.
      * </p>
-     * 
+     *
      * @return Stringified form of this object
      */
     /*
@@ -253,7 +253,7 @@ public class CommandLine {
      * <p>
      * Add left-over unrecognized option/argument.
      * </p>
-     * 
+     *
      * @param arg the unrecognised option/argument.
      */
     public void addArg(String arg) {
@@ -264,7 +264,7 @@ public class CommandLine {
      * <p>
      * Add an option to the command line. The values of the option are stored.
      * </p>
-     * 
+     *
      * @param opt the processed option
      */
     public void addOption(Option opt) {
@@ -287,7 +287,7 @@ public class CommandLine {
      * <p>
      * Returns an iterator over the Option members of CommandLine.
      * </p>
-     * 
+     *
      * @return an <code>Iterator</code> over the processed {@link Option}
      *         members of this {@link CommandLine}
      */
@@ -299,7 +299,7 @@ public class CommandLine {
      * <p>
      * Returns an array of the processed {@link Option}s.
      * </p>
-     * 
+     *
      * @return an array of the processed {@link Option}s.
      */
     public Option[] getOptions() {
@@ -311,5 +311,4 @@ public class CommandLine {
         // return the array
         return (Option[]) processed.toArray(optionsArray);
     }
-
 }

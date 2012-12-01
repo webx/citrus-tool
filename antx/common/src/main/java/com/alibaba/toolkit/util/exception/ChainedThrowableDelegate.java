@@ -27,10 +27,10 @@ import java.sql.SQLException;
 
 /**
  * 可嵌套的异常代理, 简化可嵌套的异常的实现.
- * 
+ *
+ * @author Michael Zhou
  * @version $Id: ChainedThrowableDelegate.java,v 1.1 2003/07/03 07:26:22 baobao
  *          Exp $
- * @author Michael Zhou
  */
 public class ChainedThrowableDelegate implements ChainedThrowable {
     private static final long serialVersionUID = 6847759975589708959L;
@@ -40,8 +40,8 @@ public class ChainedThrowableDelegate implements ChainedThrowable {
 
     /** 常见的用来取得异常起因的方法名. */
     private static final String[] CAUSE_METHOD_NAMES = { "getNested", "getNestedException", "getNextException",
-            "getTargetException", "getException", "getSourceException", "getCausedByException", "getRootCause",
-            "getCause" };
+                                                         "getTargetException", "getException", "getSourceException", "getCausedByException", "getRootCause",
+                                                         "getCause" };
 
     /** 常见的用来取得异常起因的字段名. */
     private static final String[] CAUSE_FIELD_NAMES = { "detail" };
@@ -51,7 +51,7 @@ public class ChainedThrowableDelegate implements ChainedThrowable {
 
     /**
      * 创建一个<code>Throwable</code>代理.
-     * 
+     *
      * @param throwable 被代理的异常
      */
     public ChainedThrowableDelegate(Throwable throwable) {
@@ -60,14 +60,14 @@ public class ChainedThrowableDelegate implements ChainedThrowable {
 
     /**
      * 取得被代理的异常的起因.
-     * 
+     *
      * @return 异常的起因.
      */
     public Throwable getCause() {
         Throwable cause = getCauseByWellKnownTypes(delegatedThrowable);
 
         for (Class throwableClass = delegatedThrowable.getClass(); cause == null
-                && Throwable.class.isAssignableFrom(throwableClass); throwableClass = throwableClass.getSuperclass()) {
+                                                                   && Throwable.class.isAssignableFrom(throwableClass); throwableClass = throwableClass.getSuperclass()) {
             // 尝试常见的方法
             for (int i = 0; cause == null && i < CAUSE_METHOD_NAMES.length; i++) {
                 cause = getCauseByMethodName(delegatedThrowable, throwableClass, CAUSE_METHOD_NAMES[i]);
@@ -92,7 +92,7 @@ public class ChainedThrowableDelegate implements ChainedThrowable {
 
     /**
      * 取得常见<code>Throwable</code>类的异常起因.
-     * 
+     *
      * @param throwable 异常
      * @return 异常起因
      */
@@ -123,10 +123,10 @@ public class ChainedThrowableDelegate implements ChainedThrowable {
 
     /**
      * 通过常见的方法动态地取得异常起因.
-     * 
-     * @param throwable 异常
+     *
+     * @param throwable      异常
      * @param throwableClass 异常类
-     * @param methodName 方法名
+     * @param methodName     方法名
      * @return 异常起因或<code>NO_CAUSE</code>
      */
     protected Throwable getCauseByMethodName(Throwable throwable, Class throwableClass, String methodName) {
@@ -159,10 +159,10 @@ public class ChainedThrowableDelegate implements ChainedThrowable {
 
     /**
      * 通过常见的方法动态地取得异常起因.
-     * 
-     * @param throwable 异常
+     *
+     * @param throwable      异常
      * @param throwableClass 异常类
-     * @param fieldName 字段名
+     * @param fieldName      字段名
      * @return 异常起因或<code>NO_CAUSE</code>
      */
     protected Throwable getCauseByFieldName(Throwable throwable, Class throwableClass, String fieldName) {
@@ -192,16 +192,14 @@ public class ChainedThrowableDelegate implements ChainedThrowable {
         return null;
     }
 
-    /**
-     * 打印调用栈到标准错误.
-     */
+    /** 打印调用栈到标准错误. */
     public void printStackTrace() {
         ExceptionHelper.printStackTrace(this);
     }
 
     /**
      * 打印调用栈到指定输出流.
-     * 
+     *
      * @param stream 输出字节流.
      */
     public void printStackTrace(PrintStream stream) {
@@ -210,7 +208,7 @@ public class ChainedThrowableDelegate implements ChainedThrowable {
 
     /**
      * 打印调用栈到指定输出流.
-     * 
+     *
      * @param writer 输出字符流.
      */
     public void printStackTrace(PrintWriter writer) {
@@ -219,7 +217,7 @@ public class ChainedThrowableDelegate implements ChainedThrowable {
 
     /**
      * 打印异常的调用栈, 不包括起因异常的信息.
-     * 
+     *
      * @param writer 打印到输出流
      */
     public void printCurrentStackTrace(PrintWriter writer) {

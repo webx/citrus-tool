@@ -28,25 +28,25 @@ import com.alibaba.toolkit.util.exception.ErrorCode;
 
 /**
  * 表示<code>ResourceBundle</code>未找到, 或创建失败的异常.
- * 
+ *
+ * @author Michael Zhou
  * @version $Id: ResourceBundleException.java,v 1.1 2003/07/03 07:26:35 baobao
  *          Exp $
- * @author Michael Zhou
  */
 public class ResourceBundleException extends java.util.MissingResourceException implements ChainedThrowable, ErrorCode {
-    private static final long serialVersionUID = -2272722732501708511L;
-    private final ChainedThrowable delegate = new ChainedThrowableDelegate(this);
+    private static final long             serialVersionUID = -2272722732501708511L;
+    private final        ChainedThrowable delegate         = new ChainedThrowableDelegate(this);
     private Throwable cause;
-    private Enum errorCode;
+    private Enum      errorCode;
 
     /**
      * 构造一个异常, 指明引起这个异常的起因.
-     * 
-     * @param messageId 详细信息ID
-     * @param params 详细信息参数
-     * @param cause 异常的起因
+     *
+     * @param messageId  详细信息ID
+     * @param params     详细信息参数
+     * @param cause      异常的起因
      * @param bundleName bundle名称
-     * @param key resource key
+     * @param key        resource key
      */
     public ResourceBundleException(String messageId, Object[] params, Throwable cause, String bundleName, Object key) {
         super(MessageFormat.format(messageId, params == null ? new Object[0] : params), bundleName, String.valueOf(key));
@@ -55,7 +55,7 @@ public class ResourceBundleException extends java.util.MissingResourceException 
 
     /**
      * 取得bundle名.
-     * 
+     *
      * @return bundle名
      */
     public String getBundleName() {
@@ -64,7 +64,7 @@ public class ResourceBundleException extends java.util.MissingResourceException 
 
     /**
      * 取得引起这个异常的起因.
-     * 
+     *
      * @return 异常的起因.
      */
     @Override
@@ -74,16 +74,14 @@ public class ResourceBundleException extends java.util.MissingResourceException 
 
     /**
      * 取得错误码.
-     * 
+     *
      * @return 错误码
      */
     public Enum getErrorCode() {
         return errorCode;
     }
 
-    /**
-     * 打印调用栈到标准错误.
-     */
+    /** 打印调用栈到标准错误. */
     @Override
     public void printStackTrace() {
         delegate.printStackTrace();
@@ -91,7 +89,7 @@ public class ResourceBundleException extends java.util.MissingResourceException 
 
     /**
      * 打印调用栈到指定输出流.
-     * 
+     *
      * @param stream 输出字节流.
      */
     @Override
@@ -101,7 +99,7 @@ public class ResourceBundleException extends java.util.MissingResourceException 
 
     /**
      * 打印调用栈到指定输出流.
-     * 
+     *
      * @param writer 输出字符流.
      */
     @Override
@@ -111,7 +109,7 @@ public class ResourceBundleException extends java.util.MissingResourceException 
 
     /**
      * 打印异常的调用栈, 不包括起因异常的信息.
-     * 
+     *
      * @param writer 打印到输出流
      */
     public void printCurrentStackTrace(PrintWriter writer) {

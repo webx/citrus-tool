@@ -50,9 +50,7 @@ public class Option implements Cloneable {
     /** specifies whether the argument value of this Option is optional */
     private boolean optionalArg;
 
-    /**
-     * numberOfArgs specifies the number of argument values this option can have
-     */
+    /** numberOfArgs specifies the number of argument values this option can have */
     private int numberOfArgs = UNINITIALIZED;
 
     /** the type of this Option */
@@ -98,7 +96,7 @@ public class Option implements Cloneable {
      * <p>
      * Returns whether the specified character is a valid Option.
      * </p>
-     * 
+     *
      * @param c the option to validate
      * @return true if <code>c</code> is a letter, ' ', '?' or '', otherwise
      *         false.
@@ -111,7 +109,7 @@ public class Option implements Cloneable {
      * <p>
      * Returns whether the specified character is a valid character.
      * </p>
-     * 
+     *
      * @param c the character to validate
      * @return true if <code>c</code> is a letter.
      */
@@ -124,7 +122,7 @@ public class Option implements Cloneable {
      * Returns the id of this Option. This is only set when the Option shortOpt
      * is a single character. This is used for switch statements.
      * </p>
-     * 
+     *
      * @return the id of this Option
      */
     public int getId() {
@@ -133,9 +131,9 @@ public class Option implements Cloneable {
 
     /**
      * Creates an Option using the specified parameters.
-     * 
-     * @param opt short representation of the option
-     * @param hasArg specifies whether the Option takes an argument or not
+     *
+     * @param opt         short representation of the option
+     * @param hasArg      specifies whether the Option takes an argument or not
      * @param description describes the function of the option
      */
     public Option(String opt, String description) throws IllegalArgumentException {
@@ -144,9 +142,9 @@ public class Option implements Cloneable {
 
     /**
      * Creates an Option using the specified parameters.
-     * 
-     * @param opt short representation of the option
-     * @param hasArg specifies whether the Option takes an argument or not
+     *
+     * @param opt         short representation of the option
+     * @param hasArg      specifies whether the Option takes an argument or not
      * @param description describes the function of the option
      */
     public Option(String opt, boolean hasArg, String description) throws IllegalArgumentException {
@@ -157,10 +155,10 @@ public class Option implements Cloneable {
      * <p>
      * Creates an Option using the specified parameters.
      * </p>
-     * 
-     * @param opt short representation of the option
-     * @param longOpt the long representation of the option
-     * @param hasArg specifies whether the Option takes an argument or not
+     *
+     * @param opt         short representation of the option
+     * @param longOpt     the long representation of the option
+     * @param hasArg      specifies whether the Option takes an argument or not
      * @param description describes the function of the option
      */
     public Option(String opt, String longOpt, boolean hasArg, String description) throws IllegalArgumentException {
@@ -191,7 +189,7 @@ public class Option implements Cloneable {
      * </p>
      * <p>
      * </p>
-     * 
+     *
      * @return The name of this option
      */
     public String getOpt() {
@@ -202,7 +200,7 @@ public class Option implements Cloneable {
      * <p>
      * Retrieve the type of this Option.
      * </p>
-     * 
+     *
      * @return The type of this option
      */
     public Object getType() {
@@ -213,7 +211,7 @@ public class Option implements Cloneable {
      * <p>
      * Sets the type of this Option.
      * </p>
-     * 
+     *
      * @param type the type of this Option
      */
     public void setType(Object type) {
@@ -224,7 +222,7 @@ public class Option implements Cloneable {
      * <p>
      * Retrieve the long name of this Option.
      * </p>
-     * 
+     *
      * @return Long name of this option, or null, if there is no long name
      */
     public String getLongOpt() {
@@ -235,7 +233,7 @@ public class Option implements Cloneable {
      * <p>
      * Sets the long name of this Option.
      * </p>
-     * 
+     *
      * @param longOpt the long name of this Option
      */
     public void setLongOpt(String longOpt) {
@@ -246,17 +244,15 @@ public class Option implements Cloneable {
      * <p>
      * Sets whether this Option can have an optional argument.
      * </p>
-     * 
+     *
      * @param optionalArg specifies whether the Option can have an optional
-     *            argument.
+     *                    argument.
      */
     public void setOptionalArg(boolean optionalArg) {
         this.optionalArg = optionalArg;
     }
 
-    /**
-     * @return whether this Option can have an optional argument
-     */
+    /** @return whether this Option can have an optional argument */
     public boolean hasOptionalArg() {
         return this.optionalArg;
     }
@@ -265,7 +261,7 @@ public class Option implements Cloneable {
      * <p>
      * Query to see if this Option has a long name
      * </p>
-     * 
+     *
      * @return boolean flag indicating existence of a long name
      */
     public boolean hasLongOpt() {
@@ -276,7 +272,7 @@ public class Option implements Cloneable {
      * <p>
      * Query to see if this Option requires an argument
      * </p>
-     * 
+     *
      * @return boolean flag indicating if an argument is required
      */
     public boolean hasArg() {
@@ -287,7 +283,7 @@ public class Option implements Cloneable {
      * <p>
      * Retrieve the self-documenting description of this Option
      * </p>
-     * 
+     *
      * @return The string description of this option
      */
     public String getDescription() {
@@ -298,7 +294,7 @@ public class Option implements Cloneable {
      * <p>
      * Query to see if this Option requires an argument
      * </p>
-     * 
+     *
      * @return boolean flag indicating if an argument is required
      */
     public boolean isRequired() {
@@ -309,7 +305,7 @@ public class Option implements Cloneable {
      * <p>
      * Sets whether this Option is mandatory.
      * </p>
-     * 
+     *
      * @param required specifies whether this Option is mandatory
      */
     public void setRequired(boolean required) {
@@ -320,7 +316,7 @@ public class Option implements Cloneable {
      * <p>
      * Sets the display name for the argument value.
      * </p>
-     * 
+     *
      * @param argName the display name for the argument value.
      */
     public void setArgName(String argName) {
@@ -331,7 +327,7 @@ public class Option implements Cloneable {
      * <p>
      * Gets the display name for the argument value.
      * </p>
-     * 
+     *
      * @return the display name for the argument value.
      */
     public String getArgName() {
@@ -342,7 +338,7 @@ public class Option implements Cloneable {
      * <p>
      * Returns whether the display name for the argument value has been set.
      * </p>
-     * 
+     *
      * @return if the display name for the argument value has been set.
      */
     public boolean hasArgName() {
@@ -353,7 +349,7 @@ public class Option implements Cloneable {
      * <p>
      * Query to see if this Option can take many values
      * </p>
-     * 
+     *
      * @return boolean flag indicating if multiple values are allowed
      */
     public boolean hasArgs() {
@@ -364,7 +360,7 @@ public class Option implements Cloneable {
      * <p>
      * Sets the number of argument values this Option can take.
      * </p>
-     * 
+     *
      * @param num the number of argument values
      */
     public void setArgs(int num) {
@@ -376,7 +372,7 @@ public class Option implements Cloneable {
      * Sets the value separator. For example if the argument value was a Java
      * property, the value separator would be '='.
      * </p>
-     * 
+     *
      * @param sep The value separator.
      */
     public void setValueSeparator(char sep) {
@@ -387,7 +383,7 @@ public class Option implements Cloneable {
      * <p>
      * Returns the value separator character.
      * </p>
-     * 
+     *
      * @return the value separator character.
      */
     public char getValueSeparator() {
@@ -398,7 +394,7 @@ public class Option implements Cloneable {
      * <p>
      * Returns the number of argument values this Option can take.
      * </p>
-     * 
+     *
      * @return num the number of argument values
      */
     public int getArgs() {
@@ -409,7 +405,7 @@ public class Option implements Cloneable {
      * <p>
      * Dump state, suitable for debugging.
      * </p>
-     * 
+     *
      * @return Stringified form of this object
      */
     @Override
@@ -442,7 +438,7 @@ public class Option implements Cloneable {
      * <p>
      * Adds the specified value to this Option.
      * </p>
-     * 
+     *
      * @param value is a/the value of this Option
      */
     public boolean addValue(String value) {
@@ -519,7 +515,7 @@ public class Option implements Cloneable {
      *         no values
      */
     public String[] getValues() {
-        return this.values.size() == 0 ? null : (String[]) this.values.toArray(new String[] {});
+        return this.values.size() == 0 ? null : (String[]) this.values.toArray(new String[] { });
     }
 
     /**
@@ -530,9 +526,7 @@ public class Option implements Cloneable {
         return this.values;
     }
 
-    /**
-     * @return a copy of this Option
-     */
+    /** @return a copy of this Option */
     @Override
     public Object clone() {
         Option option = new Option(getOpt(), getDescription());

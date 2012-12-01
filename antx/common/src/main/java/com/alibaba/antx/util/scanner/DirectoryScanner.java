@@ -33,17 +33,17 @@ import com.alibaba.antx.util.FileUtil;
 
 /**
  * 文件扫描器。
- * 
+ *
  * @author Michael Zhou
  */
 public class DirectoryScanner extends AbstractScanner {
     private File basedir;
-    private URL baseURL;
+    private URL  baseURL;
     private boolean followSymlinks = true;
 
     /**
      * 创建一个文件目录扫描器。
-     * 
+     *
      * @param basedir 文件目录
      * @param handler 回调函数
      */
@@ -65,7 +65,7 @@ public class DirectoryScanner extends AbstractScanner {
 
     /**
      * 取得扫描的根目录。
-     * 
+     *
      * @return 正在扫描的根目录
      */
     public File getBasedir() {
@@ -74,7 +74,7 @@ public class DirectoryScanner extends AbstractScanner {
 
     /**
      * 取得扫描的根目录的URL。
-     * 
+     *
      * @return 正在扫描的根目录的URL
      */
     public URL getBaseURL() {
@@ -83,7 +83,7 @@ public class DirectoryScanner extends AbstractScanner {
 
     /**
      * 取得当前正在扫描的文件的URL。
-     * 
+     *
      * @return URL
      */
     public URL getURL() {
@@ -96,7 +96,7 @@ public class DirectoryScanner extends AbstractScanner {
 
     /**
      * 取得当前正在扫描的文件的输入流。
-     * 
+     *
      * @return 输入流
      */
     public InputStream getInputStream() {
@@ -109,7 +109,7 @@ public class DirectoryScanner extends AbstractScanner {
 
     /**
      * 是否扫描符号链接。
-     * 
+     *
      * @return 如果是，则返回<code>true</code>
      */
     public boolean isFollowSymlinks() {
@@ -118,16 +118,14 @@ public class DirectoryScanner extends AbstractScanner {
 
     /**
      * 设置是否扫描符号链接。
-     * 
+     *
      * @param followSymlinks 是否扫描符号链接
      */
     public void setFollowSymlinks(boolean followSymlinks) {
         this.followSymlinks = followSymlinks;
     }
 
-    /**
-     * 执行扫描。
-     */
+    /** 执行扫描。 */
     public void scan() {
         Set processed = new HashSet();
 
@@ -142,8 +140,8 @@ public class DirectoryScanner extends AbstractScanner {
 
     /**
      * 扫描指定目录。
-     * 
-     * @param dir 被扫描的目录
+     *
+     * @param dir       被扫描的目录
      * @param processed 已被扫描的绝对路径，用来防止因为符合链接错误导致的重复扫描
      */
     protected void scandir(File dir, Set processed) {

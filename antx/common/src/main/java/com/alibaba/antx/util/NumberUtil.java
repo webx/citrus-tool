@@ -23,7 +23,7 @@ import java.math.BigInteger;
 public class NumberUtil {
     /**
      * Convert a String to a Float
-     * 
+     *
      * @param val a String to convert
      * @return converted Float
      * @throws NumberFormatException if the value cannot be converted
@@ -34,7 +34,7 @@ public class NumberUtil {
 
     /**
      * Convert a String to a Double
-     * 
+     *
      * @param val a String to convert
      * @return converted Double
      * @throws NumberFormatException if the value cannot be converted
@@ -45,7 +45,7 @@ public class NumberUtil {
 
     /**
      * Convert a String to a Integer, handling hex and octal notations.
-     * 
+     *
      * @param val a String to convert
      * @return converted Integer
      * @throws NumberFormatException if the value cannot be converted
@@ -57,7 +57,7 @@ public class NumberUtil {
 
     /**
      * Convert a String to a Long
-     * 
+     *
      * @param val a String to convert
      * @return converted Long
      * @throws NumberFormatException if the value cannot be converted
@@ -68,7 +68,7 @@ public class NumberUtil {
 
     /**
      * Convert a String to a BigInteger
-     * 
+     *
      * @param val a String to convert
      * @return converted BigInteger
      * @throws NumberFormatException if the value cannot be converted
@@ -81,7 +81,7 @@ public class NumberUtil {
 
     /**
      * Convert a String to a BigDecimal
-     * 
+     *
      * @param val a String to convert
      * @return converted BigDecimal
      * @throws NumberFormatException if the value cannot be converted
@@ -110,7 +110,7 @@ public class NumberUtil {
      * hexadecimal integer. Values with leading 0's will not be interpreted as
      * octal.
      * </p>
-     * 
+     *
      * @param val String containing a number
      * @return Number created from the string
      * @throws NumberFormatException if the value cannot be converted
@@ -181,7 +181,7 @@ public class NumberUtil {
                 case 'L':
 
                     if (dec == null && exp == null && isDigits(numeric.substring(1))
-                            && (numeric.charAt(0) == '-' || Character.isDigit(numeric.charAt(0)))) {
+                        && (numeric.charAt(0) == '-' || Character.isDigit(numeric.charAt(0)))) {
                         try {
                             return createLong(numeric);
                         } catch (NumberFormatException nfe) {
@@ -281,7 +281,7 @@ public class NumberUtil {
     /**
      * Checks whether the String contains only digit characters. Null and blank
      * string will return false.
-     * 
+     *
      * @param str the string to check
      * @return boolean contains only unicode numeric
      */
@@ -301,7 +301,7 @@ public class NumberUtil {
 
     /**
      * Utility method for createNumber. Returns true if s is null
-     * 
+     *
      * @param s the String to check
      * @return if it is all zeros or null
      */

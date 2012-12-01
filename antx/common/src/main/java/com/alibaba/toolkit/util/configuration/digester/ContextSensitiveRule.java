@@ -23,19 +23,19 @@ import org.xml.sax.Attributes;
 
 /**
  * 上下文相关的规则的包装器.
- * 
+ *
+ * @author Michael Zhou
  * @version $Id: ContextSensitiveRule.java,v 1.1 2003/07/03 07:26:16 baobao Exp
  *          $
- * @author Michael Zhou
  */
 public class ContextSensitiveRule extends Rule {
-    protected Rule rule;
+    protected Rule   rule;
     protected String context;
 
     /**
      * 包装指定的规则, 和指定的上下文对应.
-     * 
-     * @param rule 规则
+     *
+     * @param rule    规则
      * @param context 上下文字符串
      */
     public ContextSensitiveRule(Rule rule, String context) {
@@ -45,7 +45,7 @@ public class ContextSensitiveRule extends Rule {
 
     /**
      * 判断当前上下文是否匹配.
-     * 
+     *
      * @param context 被匹配的上下文
      * @return 如果匹配, 则返回<code>true</code>
      */
@@ -55,7 +55,7 @@ public class ContextSensitiveRule extends Rule {
 
     /**
      * 取得digester.
-     * 
+     *
      * @return digester
      */
     @Override
@@ -65,7 +65,7 @@ public class ContextSensitiveRule extends Rule {
 
     /**
      * 设置digester.
-     * 
+     *
      * @param digester digester
      */
     @Override
@@ -75,7 +75,7 @@ public class ContextSensitiveRule extends Rule {
 
     /**
      * 取得名字空间.
-     * 
+     *
      * @return 名字空间
      */
     @Override
@@ -85,7 +85,7 @@ public class ContextSensitiveRule extends Rule {
 
     /**
      * 设置名字空间.
-     * 
+     *
      * @param namespaceURI 名字空间
      */
     @Override
@@ -95,9 +95,9 @@ public class ContextSensitiveRule extends Rule {
 
     /**
      * 匹配开始.
-     * 
-     * @param namespace 名字空间
-     * @param name XML元素local名
+     *
+     * @param namespace  名字空间
+     * @param name       XML元素local名
      * @param attributes XML属性
      * @throws Exception 如果失败
      */
@@ -108,10 +108,10 @@ public class ContextSensitiveRule extends Rule {
 
     /**
      * 匹配主体部分.
-     * 
+     *
      * @param namespace 名字空间
-     * @param name XML元素local名
-     * @param text XML元素值
+     * @param name      XML元素local名
+     * @param text      XML元素值
      * @throws Exception 如果失败
      */
     @Override
@@ -121,9 +121,9 @@ public class ContextSensitiveRule extends Rule {
 
     /**
      * 匹配结束.
-     * 
+     *
      * @param namespace 名字空间
-     * @param name XML元素local名
+     * @param name      XML元素local名
      * @throws Exception 如果失败
      */
     @Override
@@ -133,7 +133,7 @@ public class ContextSensitiveRule extends Rule {
 
     /**
      * 清除环境.
-     * 
+     *
      * @throws Exception 如果失败
      */
     @Override
@@ -143,7 +143,7 @@ public class ContextSensitiveRule extends Rule {
 
     /**
      * 取得规则的字符串表示.
-     * 
+     *
      * @return 规则的字符串表示
      */
     @Override

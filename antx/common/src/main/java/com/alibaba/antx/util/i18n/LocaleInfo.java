@@ -26,12 +26,12 @@ import com.alibaba.antx.util.StringUtil;
 
 /**
  * 代表一个locale信息的类。
- * 
+ *
  * @author Michael Zhou
  */
 public class LocaleInfo {
     private static final String DEFAULT_LOCALE = "china";
-    private static final Map LOCALE_MAP = new HashMap();
+    private static final Map    LOCALE_MAP     = new HashMap();
     private static LocaleInfo defaultLocaleInfo;
 
     static {
@@ -51,9 +51,9 @@ public class LocaleInfo {
 
     /**
      * 创建一个locale信息项。
-     * 
-     * @param name 地区名
-     * @param locale 区域
+     *
+     * @param name    地区名
+     * @param locale  区域
      * @param charset 字符集
      */
     public LocaleInfo(String name, Locale locale, String charset) {
@@ -64,7 +64,7 @@ public class LocaleInfo {
 
     /**
      * 取得字符集名称。
-     * 
+     *
      * @return 编码字符集名称
      */
     public String getCharset() {
@@ -73,7 +73,7 @@ public class LocaleInfo {
 
     /**
      * 取得区域。
-     * 
+     *
      * @return 区域
      */
     public Locale getLocale() {
@@ -82,7 +82,7 @@ public class LocaleInfo {
 
     /**
      * 取得地区名。
-     * 
+     *
      * @return 地区名
      */
     public String getName() {
@@ -91,7 +91,7 @@ public class LocaleInfo {
 
     /**
      * 取得指定名称的<code>ResourceBundle</code>。
-     * 
+     *
      * @param bundleName bundle名称
      * @return 指定名称的<code>ResourceBundle</code>。
      */
@@ -107,7 +107,7 @@ public class LocaleInfo {
 
     /**
      * 设置默认的locale。
-     * 
+     *
      * @param name locale名。
      * @throws UnsupportedLocaleException 如果指定名称的locale不存在
      */
@@ -123,7 +123,7 @@ public class LocaleInfo {
 
     /**
      * 取得默认的locale。
-     * 
+     *
      * @return 默认的locale
      */
     public static LocaleInfo getDefault() {
@@ -132,7 +132,7 @@ public class LocaleInfo {
 
     /**
      * 取得指定名称的locale。
-     * 
+     *
      * @param name locale名称
      * @return 指定名称的locale，如果不存在，则返回<code>null</code>。
      */

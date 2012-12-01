@@ -36,7 +36,7 @@ public class TypeHandler {
      * Returns the <code>Object</code> of type <code>obj</code> with the value
      * of <code>str</code>.
      * </p>
-     * 
+     *
      * @param str the command line value
      * @param obj the type of argument
      * @return The instance of <code>obj</code> initialised with the value of
@@ -51,8 +51,8 @@ public class TypeHandler {
      * Returns the <code>Object</code> of type <code>clazz</code> with the value
      * of <code>str</code>.
      * </p>
-     * 
-     * @param str the command line value
+     *
+     * @param str   the command line value
      * @param clazz the type of argument
      * @return The instance of <code>clazz</code> initialised with the value of
      *         <code>str</code>.
@@ -85,7 +85,7 @@ public class TypeHandler {
      * <p>
      * Create an Object from the classname and empty constructor.
      * </p>
-     * 
+     *
      * @param str the argument value
      * @return the initialised object, or null if it couldn't create the Object.
      */
@@ -118,7 +118,7 @@ public class TypeHandler {
      * <p>
      * Create a number from a String.
      * </p>
-     * 
+     *
      * @param str the value
      * @return the number represented by <code>str</code>, if <code>str</code> is
      *         not a number, null is returned.
@@ -138,7 +138,7 @@ public class TypeHandler {
      * <p>
      * Returns the class whose name is <code>str</code>.
      * </p>
-     * 
+     *
      * @param str the class name
      * @return The class if it is found, otherwise return null
      */
@@ -155,7 +155,7 @@ public class TypeHandler {
      * <p>
      * Returns the date represented by <code>str</code>.
      * </p>
-     * 
+     *
      * @param str the date string
      * @return The date if <code>str</code> is a valid date string, otherwise
      *         return null.
@@ -174,7 +174,7 @@ public class TypeHandler {
      * <p>
      * Returns the URL represented by <code>str</code>.
      * </p>
-     * 
+     *
      * @param str the URL string
      * @return The URL is <code>str</code> is well-formed, otherwise return null.
      */
@@ -191,7 +191,7 @@ public class TypeHandler {
      * <p>
      * Returns the File represented by <code>str</code>.
      * </p>
-     * 
+     *
      * @param str the File location
      * @return The file represented by <code>str</code>.
      */
@@ -203,7 +203,7 @@ public class TypeHandler {
      * <p>
      * Returns the File[] represented by <code>str</code>.
      * </p>
-     * 
+     *
      * @param str the paths to the files
      * @return The File[] represented by <code>str</code>.
      */

@@ -30,21 +30,21 @@ import com.alibaba.toolkit.util.collection.ArrayHashSet;
 
 /**
  * 代表一个类的信息, 包括父类, 接口, 数组的维数等.
- * 
- * @version $Id: TypeInfo.java,v 1.1 2003/07/03 07:26:36 baobao Exp $
+ *
  * @author Michael Zhou
+ * @version $Id: TypeInfo.java,v 1.1 2003/07/03 07:26:36 baobao Exp $
  */
 public class TypeInfo {
     private static Map typeMap = Collections.synchronizedMap(new HashMap());
     private Class type;
     private Class componentType;
-    private int dimension;
+    private int   dimension;
     private List superclasses = new ArrayList(2);
-    private List interfaces = new ArrayList(2);
+    private List interfaces   = new ArrayList(2);
 
     /**
      * 取得指定类的<code>TypeInfo</code>.
-     * 
+     *
      * @param type 指定类.
      * @return <code>TypeInfo</code>对象.
      */
@@ -68,7 +68,7 @@ public class TypeInfo {
 
     /**
      * 创建<code>TypeInfo</code>.
-     * 
+     *
      * @param type 创建指定类的<code>TypeInfo</code>
      */
     private TypeInfo(Class type) {
@@ -122,7 +122,7 @@ public class TypeInfo {
                 set.addAll(getTypeInfo(typeInterface).interfaces);
             }
 
-            for (Iterator i = superclasses.iterator(); i.hasNext();) {
+            for (Iterator i = superclasses.iterator(); i.hasNext(); ) {
                 Class typeInterface = (Class) i.next();
 
                 set.addAll(getTypeInfo(typeInterface).interfaces);
@@ -134,7 +134,7 @@ public class TypeInfo {
 
     /**
      * 取得<code>TypeInfo</code>所代表的java类.
-     * 
+     *
      * @return <code>TypeInfo</code>所代表的java类
      */
     public Class getType() {
@@ -143,7 +143,7 @@ public class TypeInfo {
 
     /**
      * 取得数组元素的类型.
-     * 
+     *
      * @return 如果是数组, 则返回数组元素的类型, 否则返回<code>null</code>
      */
     public Class getComponentType() {
@@ -152,7 +152,7 @@ public class TypeInfo {
 
     /**
      * 取得数组的维数.
-     * 
+     *
      * @return 数组的维数. 如果不是数组, 则返回<code>0</code>
      */
     public int getDimension() {
@@ -161,7 +161,7 @@ public class TypeInfo {
 
     /**
      * 取得所有的父类.
-     * 
+     *
      * @return 所有的父类
      */
     public List getSuperclasses() {
@@ -170,7 +170,7 @@ public class TypeInfo {
 
     /**
      * 取得所有的接口.
-     * 
+     *
      * @return 所有的接口
      */
     public List getInterfaces() {
@@ -179,9 +179,9 @@ public class TypeInfo {
 
     /**
      * 取得指定维数的<code>Array</code>类.
-     * 
+     *
      * @param componentType 数组的基类
-     * @param dimension 维数
+     * @param dimension     维数
      * @return 如果维数为0, 则返回基类本身, 否则返回数组类
      */
     public static Class getArrayClass(Class componentType, int dimension) {

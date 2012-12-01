@@ -43,15 +43,15 @@ import com.alibaba.toolkit.util.typeconvert.Converter;
  * <li>如果对象是字符串, 且不符合上述所有条件, 则抛出<code>ConvertFailedException</code>.</li>
  * <li>否则, 把对象传递给下一个<code>Converter</code>处理.</li>
  * </ul>
- * 
- * @version $Id: BooleanConverter.java,v 1.1 2003/07/03 07:26:37 baobao Exp $
+ *
  * @author Michael Zhou
+ * @version $Id: BooleanConverter.java,v 1.1 2003/07/03 07:26:37 baobao Exp $
  */
 public class BooleanConverter implements Converter {
     protected static final Boolean DEFAULT_VALUE = Boolean.FALSE;
-    protected static final Set TRUE_STRINGS = new HashSet(Arrays.asList(new String[] { "true", "on", "yes", "y" }));
-    protected static final Set FALSE_STRINGS = new HashSet(Arrays.asList(new String[] { "false", "null", "nul", "nil",
-            "off", "no", "n" }));
+    protected static final Set     TRUE_STRINGS  = new HashSet(Arrays.asList(new String[] { "true", "on", "yes", "y" }));
+    protected static final Set     FALSE_STRINGS = new HashSet(Arrays.asList(new String[] { "false", "null", "nul", "nil",
+                                                                                            "off", "no", "n" }));
 
     public Object convert(Object value, ConvertChain chain) {
         if (value == null) {

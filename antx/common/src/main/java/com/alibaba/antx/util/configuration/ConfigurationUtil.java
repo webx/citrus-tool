@@ -20,7 +20,6 @@ package com.alibaba.antx.util.configuration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -31,19 +30,17 @@ import org.w3c.dom.Text;
 
 /**
  * This class has a bunch of utility methods to work with configuration objects.
- * 
+ *
  * @author <a href="mailto:dev@avalon.apache.org">Avalon Development Team</a>
  */
 public class ConfigurationUtil {
-    /**
-     * Private constructor to block instantiation.
-     */
+    /** Private constructor to block instantiation. */
     private ConfigurationUtil() {
     }
 
     /**
      * Convert a configuration tree into a DOM Element tree.
-     * 
+     *
      * @param configuration the configuration object
      * @return the DOM Element
      */
@@ -63,19 +60,19 @@ public class ConfigurationUtil {
      * Test to see if two Configuration's can be considered the same. Name,
      * value, attributes and children are test. The <b>order</b> of children is
      * not taken into consideration for equality.
-     * 
+     *
      * @param c1 Configuration to test
      * @param c2 Configuration to test
      * @return true if the configurations can be considered equals
      */
     public static boolean equals(final Configuration c1, final Configuration c2) {
         return c1.getName().equals(c2.getName()) && areValuesEqual(c1, c2) && areAttributesEqual(c1, c2)
-                && areChildrenEqual(c1, c2);
+               && areChildrenEqual(c1, c2);
     }
 
     /**
      * Return true if the children of both configurations are equal.
-     * 
+     *
      * @param c1 configuration1
      * @param c2 configuration2
      * @return true if the children of both configurations are equal.
@@ -99,8 +96,8 @@ public class ConfigurationUtil {
 
     /**
      * Return true if find a matching child and remove child from list.
-     * 
-     * @param c the configuration
+     *
+     * @param c            the configuration
      * @param matchAgainst the list of items to match against
      * @return true if the found.
      */
@@ -119,7 +116,7 @@ public class ConfigurationUtil {
 
     /**
      * Return true if the attributes of both configurations are equal.
-     * 
+     *
      * @param c1 configuration1
      * @param c2 configuration2
      * @return true if the attributes of both configurations are equal.
@@ -146,7 +143,7 @@ public class ConfigurationUtil {
 
     /**
      * Return true if the values of two configurations are equal.
-     * 
+     *
      * @param c1 configuration1
      * @param c2 configuration2
      * @return true if the values of two configurations are equal.
@@ -160,8 +157,8 @@ public class ConfigurationUtil {
 
     /**
      * Create an DOM {@link Element} from a {@link Configuration} object.
-     * 
-     * @param document the DOM document
+     *
+     * @param document      the DOM document
      * @param configuration the configuration to convert
      * @return the DOM Element
      */

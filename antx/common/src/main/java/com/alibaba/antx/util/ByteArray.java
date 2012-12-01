@@ -24,13 +24,13 @@ import java.io.OutputStream;
 
 /**
  * 代表一个byte数组。
- * 
+ *
  * @author Michael Zhou
  */
 public class ByteArray {
     private final byte[] bytes;
-    private final int offset;
-    private final int length;
+    private final int    offset;
+    private final int    length;
 
     public ByteArray(byte[] bytes) {
         this(bytes, 0, Integer.MIN_VALUE);

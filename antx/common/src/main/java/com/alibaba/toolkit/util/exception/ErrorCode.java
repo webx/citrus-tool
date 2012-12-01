@@ -21,14 +21,14 @@ import com.alibaba.toolkit.util.enumeration.Enum;
 
 /**
  * 标志指定的异常支持错误码.
- * 
- * @version $Id: ErrorCode.java,v 1.1 2003/07/03 07:26:22 baobao Exp $
+ *
  * @author Michael Zhou
+ * @version $Id: ErrorCode.java,v 1.1 2003/07/03 07:26:22 baobao Exp $
  */
 public interface ErrorCode {
     /**
      * 取得错误码.
-     * 
+     *
      * @return 错误码
      */
     Enum getErrorCode();

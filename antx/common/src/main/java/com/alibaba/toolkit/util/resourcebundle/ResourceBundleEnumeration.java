@@ -25,21 +25,21 @@ import java.util.Set;
 /**
  * 将一个集合和一个<code>Enumeration</code>结合的<code>Enumeration</code>, 用来遍历resource
  * bundle及其父bundle中的所有内容.
- * 
+ *
+ * @author Michael Zhou
  * @version $Id: ResourceBundleEnumeration.java,v 1.1 2003/07/03 07:26:35 baobao
  *          Exp $
- * @author Michael Zhou
  */
 public class ResourceBundleEnumeration implements Enumeration {
-    private Set set;
-    private Iterator iterator;
+    private Set         set;
+    private Iterator    iterator;
     private Enumeration enumeration; // 可以为null
     private Object next = null;
 
     /**
      * 创建一个<code>Enumeration</code>.
-     * 
-     * @param set 集合
+     *
+     * @param set         集合
      * @param enumeration <code>Enumeration</code>对象, 可以为<code>null</code>
      */
     public ResourceBundleEnumeration(Set set, Enumeration enumeration) {
@@ -50,7 +50,7 @@ public class ResourceBundleEnumeration implements Enumeration {
 
     /**
      * 判断是否有下一个元素.
-     * 
+     *
      * @return 如果还有下一个元素, 则返回<code>true</code>
      */
     public boolean hasMoreElements() {
@@ -73,7 +73,7 @@ public class ResourceBundleEnumeration implements Enumeration {
 
     /**
      * 取得下一个元素.
-     * 
+     *
      * @return 下一个元素的值
      */
     public Object nextElement() {

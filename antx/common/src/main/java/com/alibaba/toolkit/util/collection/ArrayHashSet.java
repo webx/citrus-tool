@@ -37,9 +37,9 @@ import java.util.Set;
  * <li>不同于<code>HashMap</code>, 集合中元素的顺序是确定的</li>
  * <li>和<code>ArrayHashMap</code>一样, 没有进行任何<code>synchronized</code>操作</li>
  * </ul>
- * 
- * @version $Id: ArrayHashSet.java,v 1.1 2003/07/03 07:26:15 baobao Exp $
+ *
  * @author Michael Zhou
+ * @version $Id: ArrayHashSet.java,v 1.1 2003/07/03 07:26:15 baobao Exp $
  * @see ArrayHashMap
  */
 public class ArrayHashSet extends AbstractSet implements Set, Cloneable, Serializable {
@@ -79,16 +79,14 @@ public class ArrayHashSet extends AbstractSet implements Set, Cloneable, Seriali
      * ==
      */
 
-    /**
-     * 创建一个空的集合. 使用指定的默认的初始容量(16)和默认的负载系数(0.75).
-     */
+    /** 创建一个空的集合. 使用指定的默认的初始容量(16)和默认的负载系数(0.75). */
     public ArrayHashSet() {
         map = new ArrayHashMap();
     }
 
     /**
      * 创建一个空的集合. 使用指定的初始阈值和默认的负载系数(0.75).
-     * 
+     *
      * @param initialCapacity 初始容量.
      */
     public ArrayHashSet(int initialCapacity) {
@@ -97,9 +95,9 @@ public class ArrayHashSet extends AbstractSet implements Set, Cloneable, Seriali
 
     /**
      * 创建一个空的集合. 使用指定的初始容量和负载系数.
-     * 
+     *
      * @param initialCapacity 初始容量
-     * @param loadFactor 负载系数.
+     * @param loadFactor      负载系数.
      */
     public ArrayHashSet(int initialCapacity, float loadFactor) {
         map = new ArrayHashMap(initialCapacity, loadFactor);
@@ -107,7 +105,7 @@ public class ArrayHashSet extends AbstractSet implements Set, Cloneable, Seriali
 
     /**
      * 创建一个空的集合, 并复制指定的<code>Collection</code>的所有项到这个集合中. 使用默认的负载系数(0.75).
-     * 
+     *
      * @param collection 要复制的<code>Collection</code>
      */
     public ArrayHashSet(Collection collection) {
@@ -127,7 +125,7 @@ public class ArrayHashSet extends AbstractSet implements Set, Cloneable, Seriali
 
     /**
      * 返回集合中entry的个数.
-     * 
+     *
      * @return 集合中的entry数.
      */
     @Override
@@ -137,7 +135,7 @@ public class ArrayHashSet extends AbstractSet implements Set, Cloneable, Seriali
 
     /**
      * 判断是否为空的集合.
-     * 
+     *
      * @return 如果为空(<code>size() == 0</code>), 则返回<code>true</code>.
      */
     @Override
@@ -147,7 +145,7 @@ public class ArrayHashSet extends AbstractSet implements Set, Cloneable, Seriali
 
     /**
      * 如果集合中包含指定值, 则返回<code>true</code>.
-     * 
+     *
      * @param object 测试指定值是否存在.
      * @return 如果指定值存在, 则返回<code>true</code>.
      */
@@ -158,7 +156,7 @@ public class ArrayHashSet extends AbstractSet implements Set, Cloneable, Seriali
 
     /**
      * 将指定的值加入到集合中.
-     * 
+     *
      * @param object 要加入的值
      * @return 如果集合中已经存在此值, 则返回<code>false</code>. 否则返回<code>true</code>.
      */
@@ -169,7 +167,7 @@ public class ArrayHashSet extends AbstractSet implements Set, Cloneable, Seriali
 
     /**
      * 将指定值从集合中删除(如果该值存在的话).
-     * 
+     *
      * @param object 要被删除的值
      * @return 如果被删除的值原来不存在, 则返回<code>false</code>, 否则返回<code>true</code>
      */
@@ -178,9 +176,7 @@ public class ArrayHashSet extends AbstractSet implements Set, Cloneable, Seriali
         return map.remove(o) == PRESENT;
     }
 
-    /**
-     * 清除集合中的所有对象.
-     */
+    /** 清除集合中的所有对象. */
     @Override
     public void clear() {
         map.clear();
@@ -188,7 +184,7 @@ public class ArrayHashSet extends AbstractSet implements Set, Cloneable, Seriali
 
     /**
      * 取得集合中所有项的遍历器.
-     * 
+     *
      * @return 集合中所有项的遍历器
      */
     @Override
@@ -208,7 +204,7 @@ public class ArrayHashSet extends AbstractSet implements Set, Cloneable, Seriali
 
     /**
      * &quot;浅&quot;拷贝集合, 集合中的对象本身并不被复制.
-     * 
+     *
      * @return 被复制的集合.
      */
     @Override
@@ -239,10 +235,10 @@ public class ArrayHashSet extends AbstractSet implements Set, Cloneable, Seriali
 
     /**
      * 从输入流中重建集合(也就是反序列化).
-     * 
+     *
      * @param is 输入流
-     * @exception IOException 输入流异常
-     * @exception ClassNotFoundException 类未找到
+     * @throws IOException            输入流异常
+     * @throws ClassNotFoundException 类未找到
      */
     private synchronized void readObject(ObjectInputStream is) throws IOException, ClassNotFoundException {
         is.defaultReadObject();
@@ -263,9 +259,9 @@ public class ArrayHashSet extends AbstractSet implements Set, Cloneable, Seriali
 
     /**
      * 将集合的状态保存到输出流中(也就是序列化).
-     * 
+     *
      * @param os 输出流
-     * @exception IOException 输出流异常
+     * @throws IOException 输出流异常
      */
     private synchronized void writeObject(ObjectOutputStream os) throws IOException {
         os.defaultWriteObject();
@@ -275,7 +271,7 @@ public class ArrayHashSet extends AbstractSet implements Set, Cloneable, Seriali
 
         os.writeInt(map.size());
 
-        for (Iterator i = map.keySet().iterator(); i.hasNext();) {
+        for (Iterator i = map.keySet().iterator(); i.hasNext(); ) {
             os.writeObject(i.next());
         }
     }

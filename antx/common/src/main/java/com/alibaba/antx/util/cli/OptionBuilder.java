@@ -26,7 +26,7 @@ package com.alibaba.antx.util.cli;
  * href="http://c2.com/cgi-bin/wiki?BuilderPattern"
  * >http://c2.com/cgi-bin/wiki?BuilderPattern</a>.
  * </p>
- * 
+ *
  * @author John Keyes ( john at integralsource.com )
  * @since 1.0
  */
@@ -80,7 +80,7 @@ public class OptionBuilder {
      * <p>
      * The next Option created will have the following long option value.
      * </p>
-     * 
+     *
      * @param longopt the long option value
      * @return the OptionBuilder instance
      */
@@ -93,7 +93,7 @@ public class OptionBuilder {
      * <p>
      * The next Option created will require an argument value.
      * </p>
-     * 
+     *
      * @return the OptionBuilder instance
      */
     public OptionBuilder hasArg() {
@@ -106,7 +106,7 @@ public class OptionBuilder {
      * The next Option created will require an argument value if
      * <code>hasArg</code> is true.
      * </p>
-     * 
+     *
      * @param hasArg if true then the Option has an argument value
      * @return the OptionBuilder instance
      */
@@ -119,7 +119,7 @@ public class OptionBuilder {
      * <p>
      * The next Option created will have the specified argument value name.
      * </p>
-     * 
+     *
      * @param name the name for the argument value
      * @return the OptionBuilder instance
      */
@@ -132,7 +132,7 @@ public class OptionBuilder {
      * <p>
      * The next Option created will be required.
      * </p>
-     * 
+     *
      * @return the OptionBuilder instance
      */
     public OptionBuilder isRequired() {
@@ -146,14 +146,14 @@ public class OptionBuilder {
      * argument values.
      * </p>
      * <b>Example:</b>
-     * 
+     * <p/>
      * <pre>
      * Option opt = OptionBuilder.withValueSeparator(':').create('D');
      * CommandLine line = parser.parse(args);
      * String propertyName = opt.getValue(0);
      * String propertyValue = opt.getValue(1);
      * </pre>
-     * 
+     *
      * @return the OptionBuilder instance
      */
     public OptionBuilder withValueSeparator(char sep) {
@@ -167,14 +167,14 @@ public class OptionBuilder {
      * argument values.
      * </p>
      * <b>Example:</b>
-     * 
+     * <p/>
      * <pre>
      * Option opt = OptionBuilder.withValueSeparator().create('D');
      * CommandLine line = parser.parse(args);
      * String propertyName = opt.getValue(0);
      * String propertyValue = opt.getValue(1);
      * </pre>
-     * 
+     *
      * @return the OptionBuilder instance
      */
     public OptionBuilder withValueSeparator() {
@@ -187,7 +187,7 @@ public class OptionBuilder {
      * The next Option created will be required if <code>required</code> is
      * true.
      * </p>
-     * 
+     *
      * @param required if true then the Option is required
      * @return the OptionBuilder instance
      */
@@ -200,7 +200,7 @@ public class OptionBuilder {
      * <p>
      * The next Option created can have unlimited argument values.
      * </p>
-     * 
+     *
      * @return the OptionBuilder instance
      */
     public OptionBuilder hasArgs() {
@@ -212,7 +212,7 @@ public class OptionBuilder {
      * <p>
      * The next Option created can have <code>num</code> argument values.
      * </p>
-     * 
+     *
      * @param num the number of args that the option can have
      * @return the OptionBuilder instance
      */
@@ -225,7 +225,7 @@ public class OptionBuilder {
      * <p>
      * The next Option can have an optional argument.
      * </p>
-     * 
+     *
      * @return the OptionBuilder instance
      */
     public OptionBuilder hasOptionalArg() {
@@ -238,7 +238,7 @@ public class OptionBuilder {
      * <p>
      * The next Option can have an unlimited number of optional arguments.
      * </p>
-     * 
+     *
      * @return the OptionBuilder instance
      */
     public OptionBuilder hasOptionalArgs() {
@@ -251,9 +251,9 @@ public class OptionBuilder {
      * <p>
      * The next Option can have the specified number of optional arguments.
      * </p>
-     * 
+     *
      * @param numArgs - the maximum number of optional arguments the next Option
-     *            created can have.
+     *                created can have.
      * @return the OptionBuilder instance
      */
     public OptionBuilder hasOptionalArgs(int numArgs) {
@@ -267,7 +267,7 @@ public class OptionBuilder {
      * The next Option created will have a value that will be an instance of
      * <code>type</code>.
      * </p>
-     * 
+     *
      * @param type the type of the Options argument value
      * @return the OptionBuilder instance
      */
@@ -280,7 +280,7 @@ public class OptionBuilder {
      * <p>
      * The next Option created will have the specified description
      * </p>
-     * 
+     *
      * @param description a description of the Option's purpose
      * @return the OptionBuilder instance
      */
@@ -294,11 +294,11 @@ public class OptionBuilder {
      * Create an Option using the current settings and with the specified Option
      * <code>char</code>.
      * </p>
-     * 
+     *
      * @param opt the character representation of the Option
      * @return the Option instance
      * @throws IllegalArgumentException if <code>opt</code> is not a valid
-     *             character. See Option.
+     *                                  character. See Option.
      */
     public Option create(char opt) throws IllegalArgumentException {
         return create(String.valueOf(opt));
@@ -308,7 +308,7 @@ public class OptionBuilder {
      * <p>
      * Create an Option using the current settings
      * </p>
-     * 
+     *
      * @return the Option instance
      * @throws IllegalArgumentException if <code>longOpt</code> has not been set.
      */
@@ -325,11 +325,11 @@ public class OptionBuilder {
      * Create an Option using the current settings and with the specified Option
      * <code>char</code>.
      * </p>
-     * 
+     *
      * @param opt the <code>java.lang.String</code> representation of the Option
      * @return the Option instance
      * @throws IllegalArgumentException if <code>opt</code> is not a valid
-     *             character. See Option.
+     *                                  character. See Option.
      */
     public Option create(String opt) throws IllegalArgumentException {
         // create the option

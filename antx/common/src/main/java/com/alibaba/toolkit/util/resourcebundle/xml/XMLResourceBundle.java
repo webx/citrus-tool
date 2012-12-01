@@ -23,9 +23,6 @@ import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
 
-import org.dom4j.Document;
-import org.dom4j.Node;
-
 import com.alibaba.toolkit.util.ContextClassLoader;
 import com.alibaba.toolkit.util.collection.ArrayHashMap;
 import com.alibaba.toolkit.util.collection.ListMap;
@@ -34,32 +31,34 @@ import com.alibaba.toolkit.util.resourcebundle.ResourceBundle;
 import com.alibaba.toolkit.util.resourcebundle.ResourceBundleConstant;
 import com.alibaba.toolkit.util.resourcebundle.ResourceBundleCreateException;
 import com.alibaba.toolkit.util.resourcebundle.ResourceBundleEnumeration;
+import org.dom4j.Document;
+import org.dom4j.Node;
 
 /**
  * XML格式的<code>ResourceBundle</code>.
- * 
- * @version $Id: XMLResourceBundle.java,v 1.1 2003/07/03 07:26:35 baobao Exp $
+ *
  * @author Michael Zhou
+ * @version $Id: XMLResourceBundle.java,v 1.1 2003/07/03 07:26:35 baobao Exp $
  */
 public class XMLResourceBundle extends ResourceBundle {
     protected ListMap values = new ArrayHashMap();
 
     /**
      * 从XML文档中创建<code>ResourceBundle</code>.
-     * 
+     *
      * @param doc XML文档
      * @throws ResourceBundleCreateException 解析错误
      */
     public XMLResourceBundle(Document doc) throws ResourceBundleCreateException {
         // 解析group.
-        for (Iterator i = doc.selectNodes(ResourceBundleConstant.XPATH_GROUPS).iterator(); i.hasNext();) {
+        for (Iterator i = doc.selectNodes(ResourceBundleConstant.XPATH_GROUPS).iterator(); i.hasNext(); ) {
             Node groupNode = (Node) i.next();
 
             initGroup(groupNode);
         }
 
         // 解析没有group的resource.
-        for (Iterator i = doc.selectNodes(ResourceBundleConstant.XPATH_UNGROUPED_RESOURCES).iterator(); i.hasNext();) {
+        for (Iterator i = doc.selectNodes(ResourceBundleConstant.XPATH_UNGROUPED_RESOURCES).iterator(); i.hasNext(); ) {
             Node resourceNode = (Node) i.next();
 
             initResource(resourceNode, null);
@@ -68,7 +67,7 @@ public class XMLResourceBundle extends ResourceBundle {
 
     /**
      * 根据XML Node初始化一个resource项.
-     * 
+     *
      * @param groupNode 代表resource信息的XML Node
      * @throws ResourceBundleCreateException 解析错误
      */
@@ -85,7 +84,7 @@ public class XMLResourceBundle extends ResourceBundle {
             }
         }
 
-        for (Iterator i = groupNode.selectNodes(ResourceBundleConstant.XPATH_RESOURCES).iterator(); i.hasNext();) {
+        for (Iterator i = groupNode.selectNodes(ResourceBundleConstant.XPATH_RESOURCES).iterator(); i.hasNext(); ) {
             Node resourceNode = (Node) i.next();
 
             initResource(resourceNode, enumType);
@@ -94,9 +93,9 @@ public class XMLResourceBundle extends ResourceBundle {
 
     /**
      * 根据XML Node初始化一个resource项.
-     * 
+     *
      * @param resourceNode 代表resource信息的XML Node
-     * @param enumType <code>Enum</code>类
+     * @param enumType     <code>Enum</code>类
      * @throws ResourceBundleCreateException 解析错误
      */
     protected void initResource(Node resourceNode, Class enumType) throws ResourceBundleCreateException {
@@ -108,7 +107,7 @@ public class XMLResourceBundle extends ResourceBundle {
 
             if (enumObj == null) {
                 throw new ResourceBundleCreateException(ResourceBundleConstant.RB_ENUM_ID_NOT_FOUND, new Object[] { id,
-                        enumType.getName() }, null);
+                                                                                                                    enumType.getName() }, null);
             }
 
             id = enumObj.toString();
@@ -127,7 +126,7 @@ public class XMLResourceBundle extends ResourceBundle {
 
         if (values.containsKey(id)) {
             throw new ResourceBundleCreateException(ResourceBundleConstant.RB_DUPLICATED_RESOURCE_KEY,
-                    new Object[] { id }, null);
+                                                    new Object[] { id }, null);
         }
 
         values.put(id, value);
@@ -135,8 +134,8 @@ public class XMLResourceBundle extends ResourceBundle {
 
     /**
      * 根据XML Node创建message resource项.
-     * 
-     * @param id resource ID
+     *
+     * @param id           resource ID
      * @param resourceNode 代表resource信息的XML Node
      * @return resource的值
      * @throws ResourceBundleCreateException 解析错误
@@ -147,8 +146,8 @@ public class XMLResourceBundle extends ResourceBundle {
 
     /**
      * 根据XML Node创建map resource项.
-     * 
-     * @param id resource ID
+     *
+     * @param id           resource ID
      * @param resourceNode 代表resource信息的XML Node
      * @return resource的值
      * @throws ResourceBundleCreateException 解析错误
@@ -156,13 +155,13 @@ public class XMLResourceBundle extends ResourceBundle {
     protected Object getMapResource(String id, Node resourceNode) throws ResourceBundleCreateException {
         ListMap map = new ArrayHashMap();
 
-        for (Iterator i = resourceNode.selectNodes(ResourceBundleConstant.XPATH_RESOURCES).iterator(); i.hasNext();) {
+        for (Iterator i = resourceNode.selectNodes(ResourceBundleConstant.XPATH_RESOURCES).iterator(); i.hasNext(); ) {
             Node mapItemNode = (Node) i.next();
             Object mapKey = mapItemNode.selectObject(ResourceBundleConstant.XPATH_RESOURCE_ID);
 
             if (map.containsKey(id)) {
                 throw new ResourceBundleCreateException(ResourceBundleConstant.RB_DUPLICATED_MAP_RESOURCE_KEY,
-                        new Object[] { mapKey, id }, null);
+                                                        new Object[] { mapKey, id }, null);
             }
 
             String mapItemType = mapItemNode.getName();
@@ -184,8 +183,8 @@ public class XMLResourceBundle extends ResourceBundle {
 
     /**
      * 根据XML Node创建list resource项.
-     * 
-     * @param id resource ID
+     *
+     * @param id           resource ID
      * @param resourceNode 代表resource信息的XML Node
      * @return resource的值
      * @throws ResourceBundleCreateException 解析错误
@@ -193,7 +192,7 @@ public class XMLResourceBundle extends ResourceBundle {
     protected Object getListResource(String id, Node resourceNode) throws ResourceBundleCreateException {
         List list = new ArrayList();
 
-        for (Iterator i = resourceNode.selectNodes(ResourceBundleConstant.XPATH_RESOURCES).iterator(); i.hasNext();) {
+        for (Iterator i = resourceNode.selectNodes(ResourceBundleConstant.XPATH_RESOURCES).iterator(); i.hasNext(); ) {
             Node listItemNode = (Node) i.next();
             String listItemType = listItemNode.getName();
             Object value = null;
@@ -214,7 +213,7 @@ public class XMLResourceBundle extends ResourceBundle {
 
     /**
      * 根据指定的键, 从resource bundle中取得相应的对象. 如果返回<code>null</code>表示对应的对象不存在.
-     * 
+     *
      * @param key 要查找的键
      * @return key对应的对象, 或<code>null</code>表示不存在该对象
      */
@@ -225,7 +224,7 @@ public class XMLResourceBundle extends ResourceBundle {
 
     /**
      * 取得所有keys.
-     * 
+     *
      * @return 所有keys
      */
     @Override

@@ -21,7 +21,7 @@ import java.io.InputStream;
 
 /**
  * 通过<code>ByteArray</code>减少内存拷贝次数的<code>ByteArrayOutputStream</code>实现。
- * 
+ *
  * @author Michael Zhou
  */
 public class ByteArrayOutputStream extends java.io.ByteArrayOutputStream {

@@ -21,8 +21,8 @@ import java.util.ArrayList;
 
 /**
  * The class GnuParser provides an implementation of the
- * {@link Parser#flatten(Options,String[],boolean) flatten} method.
- * 
+ * {@link Parser#flatten(Options, String[], boolean) flatten} method.
+ *
  * @author John Keyes (john at integralsource.com)
  * @see Parser
  */
@@ -126,6 +126,6 @@ public class GnuParser extends Parser {
             }
         }
 
-        return (String[]) tokens.toArray(new String[] {});
+        return (String[]) tokens.toArray(new String[] { });
     }
 }

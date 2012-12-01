@@ -26,9 +26,9 @@ import com.alibaba.toolkit.util.typeconvert.Converter;
  * <li>如果<code>targetType</code>是<code>Object</code>类型, 则直接返回.</li>
  * <li>否则, 把对象传递给下一个<code>Converter</code>处理.</li>
  * </ul>
- * 
- * @version $Id: ObjectConverter.java,v 1.1 2003/07/03 07:26:41 baobao Exp $
+ *
  * @author Michael Zhou
+ * @version $Id: ObjectConverter.java,v 1.1 2003/07/03 07:26:41 baobao Exp $
  */
 public class ObjectConverter implements Converter {
     public Object convert(Object value, ConvertChain chain) {

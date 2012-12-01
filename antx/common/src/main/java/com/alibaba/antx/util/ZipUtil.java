@@ -36,7 +36,7 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * 和Zip文件相关的工具类。
- * 
+ *
  * @author Michael Zhou
  */
 public class ZipUtil {
@@ -44,9 +44,9 @@ public class ZipUtil {
 
     /**
      * 取得jar URL。
-     * 
+     *
      * @param jarfileURL 代表jar文件的URL
-     * @param path 资源在jar文件中的路径
+     * @param path       资源在jar文件中的路径
      * @return jar URL
      */
     public static URL getJarURL(URL jarfileURL, String path) throws MalformedURLException {
@@ -65,10 +65,10 @@ public class ZipUtil {
 
     /**
      * 扫描zip文件，取得符合要求的所有文件。
-     * 
+     *
      * @param zipfileURL zip文件的URL
-     * @param includes 包含文件
-     * @param excludes 不包含文件
+     * @param includes   包含文件
+     * @param excludes   不包含文件
      * @return 所有文件的URL
      */
     public static URL[] getFilesInZipFile(URL zipfileURL, String[] includes, String[] excludes) throws IOException {
@@ -84,10 +84,10 @@ public class ZipUtil {
 
     /**
      * 扫描zip文件，取得符合要求的所有文件。
-     * 
+     *
      * @param zipfileURL zip文件的URL
-     * @param includes 包含文件
-     * @param excludes 不包含文件
+     * @param includes   包含文件
+     * @param excludes   不包含文件
      * @return 所有文件路径
      */
     public static String[] getFileNamesInZipFile(URL zipfileURL, String[] includes, String[] excludes)
@@ -105,9 +105,9 @@ public class ZipUtil {
 
     /**
      * 展开zip文件到指定目录
-     * 
-     * @param zipfile Zip文件
-     * @param todir 展开目录
+     *
+     * @param zipfile   Zip文件
+     * @param todir     展开目录
      * @param overwrite 是否覆盖
      * @throws IOException 读写文件失败，或Zip格式错误
      */
@@ -129,9 +129,9 @@ public class ZipUtil {
 
     /**
      * 展开zip文件到指定目录
-     * 
-     * @param istream 输入流
-     * @param todir 展开目录
+     *
+     * @param istream   输入流
+     * @param todir     展开目录
      * @param overwrite 是否覆盖
      * @throws IOException 读写文件失败，或Zip格式错误
      */
@@ -164,10 +164,10 @@ public class ZipUtil {
 
     /**
      * 展开一个文件。
-     * 
-     * @param todir 展开到此目录
+     *
+     * @param todir     展开到此目录
      * @param zipStream 压缩流
-     * @param zipEntry zip结点
+     * @param zipEntry  zip结点
      * @param overwrite 如果文件或目录已存在，是否覆盖
      * @throws IOException 读写文件失败，或Zip格式错误
      */

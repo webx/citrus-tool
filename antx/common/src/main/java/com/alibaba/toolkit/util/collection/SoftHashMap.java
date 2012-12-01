@@ -63,7 +63,7 @@ import java.util.Set;
  * corresponding value. If the <code>fill</code> method returns such a value
  * then the cache will be updated and the new value will be returned. Thus, for
  * example, a simple URL-content cache can be constructed as follows:
- * 
+ * <p/>
  * <pre>
  * public class URLCache extends SoftCache {
  *     protected Object fill(Object key) {
@@ -71,7 +71,7 @@ import java.util.Set;
  *     }
  * }
  * </pre>
- * 
+ * <p/>
  * </p>
  * <p>
  * The behavior of the <code>SoftCache</code> class depends in part upon the
@@ -95,12 +95,12 @@ import java.util.Set;
  * key set, the value set, and the entry set to yield successively smaller
  * numbers of elements.
  * </p>
- * 
- * @version 1.4, 00/02/02
+ *
  * @author Mark Reinhold
- * @since JDK1.2
+ * @version 1.4, 00/02/02
  * @see java.util.HashMap
  * @see java.lang.ref.SoftReference
+ * @since JDK1.2
  */
 public class SoftHashMap extends AbstractMap {
     /*
@@ -115,7 +115,7 @@ public class SoftHashMap extends AbstractMap {
      */
     private static class ValueCell extends SoftReference {
         private static Object INVALID_KEY = new Object();
-        private static int dropped = 0;
+        private static int    dropped     = 0;
         private Object key;
 
         private ValueCell(Object key, Object value, ReferenceQueue queue) {
@@ -206,11 +206,11 @@ public class SoftHashMap extends AbstractMap {
     /**
      * Construct a new, empty <code>SoftCache</code> with the given initial
      * capacity and the given load factor.
-     * 
+     *
      * @param initialCapacity The initial capacity of the cache
-     * @param loadFactor A number between 0.0 and 1.0
+     * @param loadFactor      A number between 0.0 and 1.0
      * @throws IllegalArgumentException If the initial capacity is less than or
-     *             equal to zero, or if the load factor is less than zero
+     *                                  equal to zero, or if the load factor is less than zero
      */
     public SoftHashMap(int initialCapacity, float loadFactor) {
         hash = new HashMap(initialCapacity, loadFactor);
@@ -219,10 +219,10 @@ public class SoftHashMap extends AbstractMap {
     /**
      * Construct a new, empty <code>SoftCache</code> with the given initial
      * capacity and the default load factor.
-     * 
+     *
      * @param initialCapacity The initial capacity of the cache
      * @throws IllegalArgumentException If the initial capacity is less than or
-     *             equal to zero
+     *                                  equal to zero
      */
     public SoftHashMap(int initialCapacity) {
         hash = new HashMap(initialCapacity);
@@ -247,9 +247,7 @@ public class SoftHashMap extends AbstractMap {
         return entrySet().size();
     }
 
-    /**
-     * Return <code>true</code> if this cache contains no key-value mappings.
-     */
+    /** Return <code>true</code> if this cache contains no key-value mappings. */
     @Override
     public boolean isEmpty() {
         return entrySet().isEmpty();
@@ -259,7 +257,7 @@ public class SoftHashMap extends AbstractMap {
      * Return <code>true</code> if this cache contains a mapping for the
      * specified key. If there is no mapping for the key, this method will not
      * attempt to construct one by invoking the <code>fill</code> method.
-     * 
+     *
      * @param key The key whose presence in the cache is to be tested
      */
     @Override
@@ -286,7 +284,7 @@ public class SoftHashMap extends AbstractMap {
      * <code>null</code> for every <code>key</code> value. A subclass may
      * override this method to provide more useful behavior.
      * </p>
-     * 
+     *
      * @param key The key for which a value is to be computed
      * @return A value for <code>key</code>, or <code>null</code> if one could
      *         not be computed
@@ -307,7 +305,7 @@ public class SoftHashMap extends AbstractMap {
      * mutator and may cause <code>ConcurrentModificationException</code>s to be
      * thrown if invoked while an iterator is in use.
      * </p>
-     * 
+     *
      * @param key The key whose associated value, if any, is to be returned
      * @see #fill
      */
@@ -334,10 +332,10 @@ public class SoftHashMap extends AbstractMap {
      * <code>value</code>. If the cache previously contained a mapping for
      * <code>key</code> then that mapping is replaced and the old value is
      * returned.
-     * 
-     * @param key The key that is to be mapped to the given <code>value</code>
+     *
+     * @param key   The key that is to be mapped to the given <code>value</code>
      * @param value The value to which the given <code>key</code> is to be
-     *            mapped
+     *              mapped
      * @return The previous value to which this key was mapped, or
      *         <code>null</code> if if there was no mapping for the key
      */
@@ -353,7 +351,7 @@ public class SoftHashMap extends AbstractMap {
     /**
      * Remove the mapping for the given <code>key</code> from this cache, if
      * present.
-     * 
+     *
      * @param key The key whose mapping is to be removed
      * @return The value to which this key was mapped, or <code>null</code> if
      *         there was no mapping for the key
@@ -364,9 +362,7 @@ public class SoftHashMap extends AbstractMap {
         return ValueCell.strip(hash.remove(key), true);
     }
 
-    /**
-     * Remove all mappings from this cache.
-     */
+    /** Remove all mappings from this cache. */
     @Override
     public void clear() {
         processQueue();
@@ -384,7 +380,7 @@ public class SoftHashMap extends AbstractMap {
      */
     private class Entry implements Map.Entry {
         private Map.Entry ent;
-        private Object value;/*
+        private Object    value;/*
                               * Strong reference to value, to prevent the GC
                               * from flushing the value while this Entry exists
                               */
@@ -496,7 +492,7 @@ public class SoftHashMap extends AbstractMap {
                 Map.Entry e = (Map.Entry) o;
 
                 return hashEntries.remove(new DefaultMapEntry(e.getKey(), ValueCell.create(e.getKey(), e.getValue(),
-                        queue)));
+                                                                                           queue)));
             } else {
                 return false;
             }
@@ -505,9 +501,7 @@ public class SoftHashMap extends AbstractMap {
 
     private Set entrySet = null;
 
-    /**
-     * Return a <code>Set</code> view of the mappings in this cache.
-     */
+    /** Return a <code>Set</code> view of the mappings in this cache. */
     @Override
     public Set entrySet() {
         if (entrySet == null) {

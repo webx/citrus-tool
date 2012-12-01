@@ -22,7 +22,7 @@ import com.alibaba.toolkit.util.exception.ChainedException;
 /**
  * Thrown when a <code>Configurable</code> component cannot be configured
  * properly, or if a value cannot be retrieved properly.
- * 
+ *
  * @author <a href="mailto:dev@avalon.apache.org">Avalon Development Team</a>
  */
 public class ConfigurationException extends ChainedException {
@@ -34,7 +34,7 @@ public class ConfigurationException extends ChainedException {
 
     /**
      * Construct a new <code>ConfigurationException</code> instance.
-     * 
+     *
      * @param message The detail message for this exception.
      */
     public ConfigurationException(final String message) {
@@ -43,8 +43,8 @@ public class ConfigurationException extends ChainedException {
 
     /**
      * Construct a new <code>ConfigurationException</code> instance.
-     * 
-     * @param message The detail message for this exception.
+     *
+     * @param message   The detail message for this exception.
      * @param throwable the root cause of the exception
      */
     public ConfigurationException(final String message, final Throwable throwable) {

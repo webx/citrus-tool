@@ -29,18 +29,18 @@ import java.util.Map;
  * <li>如果两个<code>Map.Entry</code>相同(<code>e1.equals(e2) == true</code>), 则它们的
  * <code>hashCode()</code>也相等</li>
  * </ul>
- * 
- * @version $Id: DefaultMapEntry.java,v 1.1 2003/07/03 07:26:16 baobao Exp $
+ *
  * @author Michael Zhou
+ * @version $Id: DefaultMapEntry.java,v 1.1 2003/07/03 07:26:16 baobao Exp $
  */
 public class DefaultMapEntry implements Map.Entry {
     private final Object key;
-    private Object value;
+    private       Object value;
 
     /**
      * 创建一个<code>Map.Entry</code>.
-     * 
-     * @param key <code>Map.Entry</code>的key
+     *
+     * @param key   <code>Map.Entry</code>的key
      * @param value <code>Map.Entry</code>的value
      */
     public DefaultMapEntry(Object key, Object value) {
@@ -50,7 +50,7 @@ public class DefaultMapEntry implements Map.Entry {
 
     /**
      * 取得key.
-     * 
+     *
      * @return <code>Map.Entry</code>的key
      */
     public Object getKey() {
@@ -59,7 +59,7 @@ public class DefaultMapEntry implements Map.Entry {
 
     /**
      * 取得value.
-     * 
+     *
      * @return <code>Map.Entry</code>的value
      */
     public Object getValue() {
@@ -68,7 +68,7 @@ public class DefaultMapEntry implements Map.Entry {
 
     /**
      * 设置value的值.
-     * 
+     *
      * @param value 新的value值
      * @return 老的value值
      */
@@ -82,7 +82,7 @@ public class DefaultMapEntry implements Map.Entry {
 
     /**
      * 判断两个对象是否相同.
-     * 
+     *
      * @param o 要比较的对象
      * @return 如果相同, 则返回<code>true</code>
      */
@@ -119,7 +119,7 @@ public class DefaultMapEntry implements Map.Entry {
     /**
      * 取得<code>Map.Entry</code>的hash值. 如果两个<code>Map.Entry</code>相同,
      * 则它们的hash值也相同.
-     * 
+     *
      * @return hash值
      */
     @Override
@@ -129,7 +129,7 @@ public class DefaultMapEntry implements Map.Entry {
 
     /**
      * 将<code>Map.Entry</code>转换成字符串.
-     * 
+     *
      * @return 字符串形式的<code>Map.Entry</code>
      */
     @Override

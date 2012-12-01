@@ -31,7 +31,7 @@ import org.xml.sax.helpers.NamespaceSupport;
 /**
  * A SAXConfigurationHandler helps build Configurations out of sax events,
  * including namespace information.
- * 
+ *
  * @author <a href="mailto:dev@avalon.apache.org">Avalon Development Team</a>
  */
 public class NamespacedSAXConfigurationHandler extends SAXConfigurationHandler {
@@ -39,10 +39,10 @@ public class NamespacedSAXConfigurationHandler extends SAXConfigurationHandler {
      * Likely number of nested configuration items. If more is encountered the
      * lists will grow automatically.
      */
-    private static final int EXPECTED_DEPTH = 5;
-    private final ArrayList m_elements = new ArrayList(EXPECTED_DEPTH);
-    private final ArrayList m_prefixes = new ArrayList(EXPECTED_DEPTH);
-    private final ArrayList m_values = new ArrayList(EXPECTED_DEPTH);
+    private static final int       EXPECTED_DEPTH = 5;
+    private final        ArrayList m_elements     = new ArrayList(EXPECTED_DEPTH);
+    private final        ArrayList m_prefixes     = new ArrayList(EXPECTED_DEPTH);
+    private final        ArrayList m_values       = new ArrayList(EXPECTED_DEPTH);
 
     /**
      * Contains true at index n if space in the configuration with depth n is to
@@ -50,12 +50,12 @@ public class NamespacedSAXConfigurationHandler extends SAXConfigurationHandler {
      */
     private final BitSet m_preserveSpace = new BitSet();
     private Configuration m_configuration;
-    private Locator m_locator;
+    private Locator       m_locator;
     private NamespaceSupport m_namespaceSupport = new NamespaceSupport();
 
     /**
      * Get the configuration object that was built.
-     * 
+     *
      * @return a <code>Configuration</code> object
      */
     @Override
@@ -63,9 +63,7 @@ public class NamespacedSAXConfigurationHandler extends SAXConfigurationHandler {
         return m_configuration;
     }
 
-    /**
-     * Clears all data from this configuration handler.
-     */
+    /** Clears all data from this configuration handler. */
     @Override
     public void clear() {
         m_elements.clear();
@@ -83,7 +81,7 @@ public class NamespacedSAXConfigurationHandler extends SAXConfigurationHandler {
 
     /**
      * Set the document <code>Locator</code> to use.
-     * 
+     *
      * @param locator a <code>Locator</code> value
      */
     @Override
@@ -93,7 +91,7 @@ public class NamespacedSAXConfigurationHandler extends SAXConfigurationHandler {
 
     /**
      * Handling hook for starting the document parsing.
-     * 
+     *
      * @throws SAXException if an error occurs
      */
     @Override
@@ -104,7 +102,7 @@ public class NamespacedSAXConfigurationHandler extends SAXConfigurationHandler {
 
     /**
      * Handling hook for ending the document parsing.
-     * 
+     *
      * @throws SAXException if an error occurs
      */
     @Override
@@ -115,10 +113,10 @@ public class NamespacedSAXConfigurationHandler extends SAXConfigurationHandler {
 
     /**
      * Handling hook for character data.
-     * 
-     * @param ch a <code>char[]</code> of data
+     *
+     * @param ch    a <code>char[]</code> of data
      * @param start offset in the character array from which to start reading
-     * @param end length of character data
+     * @param end   length of character data
      * @throws SAXException if an error occurs
      */
     @Override
@@ -135,14 +133,15 @@ public class NamespacedSAXConfigurationHandler extends SAXConfigurationHandler {
 
     /**
      * Handling hook for finishing parsing of an element.
-     * 
+     *
      * @param namespaceURI a <code>String</code> value
-     * @param localName a <code>String</code> value
-     * @param rawName a <code>String</code> value
+     * @param localName    a <code>String</code> value
+     * @param rawName      a <code>String</code> value
      * @throws SAXException if an error occurs
      */
     @Override
-    public void endElement(final String namespaceURI, final String localName, final String rawName) throws SAXException {
+    public void endElement(final String namespaceURI, final String localName, final String rawName)
+            throws SAXException {
         final int depth = m_elements.size() - 1;
         final DefaultConfiguration finishedConfiguration = (DefaultConfiguration) m_elements.remove(depth);
         final String accumulatedValue = ((StringBuffer) m_values.remove(depth)).toString();
@@ -174,7 +173,7 @@ public class NamespacedSAXConfigurationHandler extends SAXConfigurationHandler {
 
             if (trimmedValue.length() > 0) {
                 throw new SAXException("Not allowed to define mixed content in the " + "element "
-                        + finishedConfiguration.getName() + " at " + finishedConfiguration.getLocation());
+                                       + finishedConfiguration.getName() + " at " + finishedConfiguration.getLocation());
             }
         }
 
@@ -188,10 +187,10 @@ public class NamespacedSAXConfigurationHandler extends SAXConfigurationHandler {
     /**
      * Create a new <code>DefaultConfiguration</code> with the specified local
      * name, namespace, and location.
-     * 
-     * @param localName a <code>String</code> value
+     *
+     * @param localName    a <code>String</code> value
      * @param namespaceURI a <code>String</code> value
-     * @param location a <code>String</code> value
+     * @param location     a <code>String</code> value
      * @return a <code>DefaultConfiguration</code> value
      */
     protected DefaultConfiguration createConfiguration(final String localName, final String namespaceURI,
@@ -207,11 +206,11 @@ public class NamespacedSAXConfigurationHandler extends SAXConfigurationHandler {
 
     /**
      * Handling hook for starting parsing of an element.
-     * 
+     *
      * @param namespaceURI a <code>String</code> value
-     * @param localName a <code>String</code> value
-     * @param rawName a <code>String</code> value
-     * @param attributes an <code>Attributes</code> value
+     * @param localName    a <code>String</code> value
+     * @param rawName      a <code>String</code> value
+     * @param attributes   an <code>Attributes</code> value
      * @throws SAXException if an error occurs
      */
     @Override
@@ -249,7 +248,7 @@ public class NamespacedSAXConfigurationHandler extends SAXConfigurationHandler {
                 preserveSpace = attributes.getValue(i).equals("preserve");
             } else {
                 componentAttr.addAttribute(attributes.getURI(i), attributes.getLocalName(i), attributes.getQName(i),
-                        attributes.getType(i), attributes.getValue(i));
+                                           attributes.getType(i), attributes.getValue(i));
             }
         }
 
@@ -273,7 +272,7 @@ public class NamespacedSAXConfigurationHandler extends SAXConfigurationHandler {
 
     /**
      * This just throws an exception on a parse error.
-     * 
+     *
      * @param exception the parse error
      * @throws SAXException if an error occurs
      */
@@ -284,7 +283,7 @@ public class NamespacedSAXConfigurationHandler extends SAXConfigurationHandler {
 
     /**
      * This just throws an exception on a parse error.
-     * 
+     *
      * @param exception the parse error
      * @throws SAXException if an error occurs
      */
@@ -295,7 +294,7 @@ public class NamespacedSAXConfigurationHandler extends SAXConfigurationHandler {
 
     /**
      * This just throws an exception on a parse error.
-     * 
+     *
      * @param exception the parse error
      * @throws SAXException if an error occurs
      */
@@ -306,9 +305,9 @@ public class NamespacedSAXConfigurationHandler extends SAXConfigurationHandler {
 
     /**
      * Handling hook for starting prefix mapping.
-     * 
+     *
      * @param prefix a <code>String</code> value
-     * @param uri a <code>String</code> value
+     * @param uri    a <code>String</code> value
      * @throws SAXException if an error occurs
      */
     @Override

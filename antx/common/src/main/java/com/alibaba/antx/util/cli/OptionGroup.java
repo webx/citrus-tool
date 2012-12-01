@@ -23,7 +23,7 @@ import java.util.Iterator;
 
 /**
  * A group of mutually exclusive options.
- * 
+ *
  * @author John Keyes ( john at integralsource.com )
  */
 public class OptionGroup {
@@ -38,7 +38,7 @@ public class OptionGroup {
 
     /**
      * add <code>opt</code> to this group
-     * 
+     *
      * @param opt the option to add to this group
      * @return this option group with opt added
      */
@@ -58,9 +58,7 @@ public class OptionGroup {
         return optionMap.keySet();
     }
 
-    /**
-     * @return the options in this group as a <code>Collection</code>
-     */
+    /** @return the options in this group as a <code>Collection</code> */
     public Collection getOptions() {
         // the values are the collection of options
         return optionMap.values();
@@ -68,10 +66,10 @@ public class OptionGroup {
 
     /**
      * set the selected option of this group to <code>name</code>.
-     * 
+     *
      * @param opt the option that is selected
      * @throws AlreadySelectedException if an option from this group has already
-     *             been selected.
+     *                                  been selected.
      */
     public void setSelected(Option opt) throws AlreadySelectedException {
         // if no option has already been selected or the 
@@ -81,27 +79,23 @@ public class OptionGroup {
             this.selected = opt.getOpt();
         } else {
             throw new AlreadySelectedException("an option from this group has " + "already been selected: '" + selected
-                    + "'");
+                                               + "'");
         }
     }
 
-    /**
-     * @return the selected option name
-     */
+    /** @return the selected option name */
     public String getSelected() {
         return selected;
     }
 
-    /**
-     * @param required specifies if this group is required
-     */
+    /** @param required specifies if this group is required */
     public void setRequired(boolean required) {
         this.required = required;
     }
 
     /**
      * Returns whether this option group is required.
-     * 
+     *
      * @return whether this option group is required
      */
     public boolean isRequired() {
@@ -112,7 +106,7 @@ public class OptionGroup {
      * <p>
      * Returns the stringified version of this OptionGroup.
      * </p>
-     * 
+     *
      * @return the stringified representation of this group
      */
     @Override

@@ -23,16 +23,16 @@ package com.alibaba.antx.util.configuration;
  * <code>Configurable</code> is that the instantiating entity must call the
  * <code>configure</code> method before it is valid. Note that this interface is
  * incompatible with Parameterizable.
- * 
+ *
  * @author <a href="mailto:dev@avalon.apache.org">Avalon Development Team</a>
  */
 public interface Configurable {
     /**
      * Pass the <code>Configuration</code> to the <code>Configurable</code>
      * class.
-     * 
+     *
      * @param configuration the class configurations. Must not be
-     *            <code>null</code>.
+     *                      <code>null</code>.
      * @throws ConfigurationException if an error occurs
      */
     void configure(Configuration configuration) throws ConfigurationException;

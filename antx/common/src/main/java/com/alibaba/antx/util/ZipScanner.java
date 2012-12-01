@@ -65,17 +65,13 @@ public class ZipScanner {
      */
     protected List dirsExcluded;
 
-    /**
-     * Whether or not the file system should be treated as a case sensitive one.
-     */
+    /** Whether or not the file system should be treated as a case sensitive one. */
     protected boolean isCaseSensitive = true;
 
     /** Whether or not everything tested so far has been included. */
     protected boolean everythingIncluded = true;
 
-    /**
-     * Sole constructor.
-     */
+    /** Sole constructor. */
     public ZipScanner() {
     }
 
@@ -87,10 +83,10 @@ public class ZipScanner {
      * live with false positives. For example, <code>pattern=\a</code> and
      * <code>str=b</code> will yield <code>true</code>.
      * </p>
-     * 
+     *
      * @param pattern The pattern to match against. Must not be
-     *            <code>null</code>.
-     * @param str The path to match, as a String. Must not be <code>null</code>.
+     *                <code>null</code>.
+     * @param str     The path to match, as a String. Must not be <code>null</code>.
      * @return whether or not a given path matches the start of a given pattern
      *         up to the first "".
      */
@@ -106,12 +102,12 @@ public class ZipScanner {
      * live with false positives. For example, <code>pattern=\a</code> and
      * <code>str=b</code> will yield <code>true</code>.
      * </p>
-     * 
-     * @param pattern The pattern to match against. Must not be
-     *            <code>null</code>.
-     * @param str The path to match, as a String. Must not be <code>null</code>.
+     *
+     * @param pattern         The pattern to match against. Must not be
+     *                        <code>null</code>.
+     * @param str             The path to match, as a String. Must not be <code>null</code>.
      * @param isCaseSensitive Whether or not matching should be performed case
-     *            sensitively.
+     *                        sensitively.
      * @return whether or not a given path matches the start of a given pattern
      *         up to the first "".
      */
@@ -121,10 +117,10 @@ public class ZipScanner {
 
     /**
      * Tests whether or not a given path matches a given pattern.
-     * 
+     *
      * @param pattern The pattern to match against. Must not be
-     *            <code>null</code>.
-     * @param str The path to match, as a String. Must not be <code>null</code>.
+     *                <code>null</code>.
+     * @param str     The path to match, as a String. Must not be <code>null</code>.
      * @return <code>true</code> if the pattern matches against the string, or
      *         <code>false</code> otherwise.
      */
@@ -134,12 +130,12 @@ public class ZipScanner {
 
     /**
      * Tests whether or not a given path matches a given pattern.
-     * 
-     * @param pattern The pattern to match against. Must not be
-     *            <code>null</code>.
-     * @param str The path to match, as a String. Must not be <code>null</code>.
+     *
+     * @param pattern         The pattern to match against. Must not be
+     *                        <code>null</code>.
+     * @param str             The path to match, as a String. Must not be <code>null</code>.
      * @param isCaseSensitive Whether or not matching should be performed case
-     *            sensitively.
+     *                        sensitively.
      * @return <code>true</code> if the pattern matches against the string, or
      *         <code>false</code> otherwise.
      */
@@ -152,11 +148,11 @@ public class ZipScanner {
      * contain two special characters:<br>
      * '' means zero or more characters<br>
      * '?' means one and only one character
-     * 
+     *
      * @param pattern The pattern to match against. Must not be
-     *            <code>null</code>.
-     * @param str The string which must be matched against the pattern. Must not
-     *            be <code>null</code>.
+     *                <code>null</code>.
+     * @param str     The string which must be matched against the pattern. Must not
+     *                be <code>null</code>.
      * @return <code>true</code> if the string matches against the pattern, or
      *         <code>false</code> otherwise.
      */
@@ -169,13 +165,13 @@ public class ZipScanner {
      * contain two special characters:<br>
      * '' means zero or more characters<br>
      * '?' means one and only one character
-     * 
-     * @param pattern The pattern to match against. Must not be
-     *            <code>null</code>.
-     * @param str The string which must be matched against the pattern. Must not
-     *            be <code>null</code>.
+     *
+     * @param pattern         The pattern to match against. Must not be
+     *                        <code>null</code>.
+     * @param str             The string which must be matched against the pattern. Must not
+     *                        be <code>null</code>.
      * @param isCaseSensitive Whether or not matching should be performed case
-     *            sensitively.
+     *                        sensitively.
      * @return <code>true</code> if the string matches against the pattern, or
      *         <code>false</code> otherwise.
      */
@@ -188,7 +184,7 @@ public class ZipScanner {
      * scanned recursively. All '/' and '\' characters are replaced by
      * <code>File.separatorChar</code>, so the separator used need not match
      * <code>File.separatorChar</code>.
-     * 
+     *
      * @param basedir The base directory to scan. Must not be <code>null</code>.
      */
     public void setZipURL(String zipURL) throws MalformedURLException {
@@ -198,9 +194,9 @@ public class ZipScanner {
     /**
      * Sets the base directory to be scanned. This is the directory which is
      * scanned recursively.
-     * 
+     *
      * @param basedir The base directory for scanning. Should not be
-     *            <code>null</code>.
+     *                <code>null</code>.
      */
     public void setSrc(URL zipURL) {
         this.zipURL = zipURL;
@@ -209,7 +205,7 @@ public class ZipScanner {
     /**
      * Returns the base directory to be scanned. This is the directory which is
      * scanned recursively.
-     * 
+     *
      * @return the base directory to be scanned
      */
     public URL getZipURL() {
@@ -218,9 +214,9 @@ public class ZipScanner {
 
     /**
      * Sets whether or not the file system should be regarded as case sensitive.
-     * 
+     *
      * @param isCaseSensitive whether or not the file system should be regarded
-     *            as a case sensitive one
+     *                        as a case sensitive one
      */
     public void setCaseSensitive(boolean isCaseSensitive) {
         this.isCaseSensitive = isCaseSensitive;
@@ -233,11 +229,11 @@ public class ZipScanner {
      * <p>
      * When a pattern ends with a '/' or '\', "" is appended.
      * </p>
-     * 
+     *
      * @param includes A list of include patterns. May be <code>null</code>,
-     *            indicating that all files should be included. If a non-
-     *            <code>null</code> list is given, all elements must be non-
-     *            <code>null</code>.
+     *                 indicating that all files should be included. If a non-
+     *                 <code>null</code> list is given, all elements must be non-
+     *                 <code>null</code>.
      */
     public void setIncludes(String[] includes) {
         if (includes == null) {
@@ -266,11 +262,11 @@ public class ZipScanner {
      * <p>
      * When a pattern ends with a '/' or '\', "" is appended.
      * </p>
-     * 
+     *
      * @param excludes A list of exclude patterns. May be <code>null</code>,
-     *            indicating that no files should be excluded. If a non-
-     *            <code>null</code> list is given, all elements must be non-
-     *            <code>null</code>.
+     *                 indicating that no files should be excluded. If a non-
+     *                 <code>null</code> list is given, all elements must be non-
+     *                 <code>null</code>.
      */
     public void setExcludes(String[] excludes) {
         if (excludes == null) {
@@ -295,7 +291,7 @@ public class ZipScanner {
     /**
      * Returns whether or not the scanner has included all the files or
      * directories it has come across so far.
-     * 
+     *
      * @return <code>true</code> if all files and directories which have been
      *         found so far have been included.
      */
@@ -307,10 +303,10 @@ public class ZipScanner {
      * Scans the base directory for files which match at least one include
      * pattern and don't match any exclude patterns. If there are selectors then
      * the files must pass muster there, as well.
-     * 
-     * @exception IllegalStateException if the base directory was set
-     *                incorrectly (i.e. if it is <code>null</code>, doesn't
-     *                exist, or isn't a directory).
+     *
+     * @throws IllegalStateException if the base directory was set
+     *                               incorrectly (i.e. if it is <code>null</code>, doesn't
+     *                               exist, or isn't a directory).
      */
     public void scan() throws IllegalStateException, IOException {
         if (zipURL == null) {
@@ -352,12 +348,12 @@ public class ZipScanner {
      * directories are placed in their respective collections, based on the
      * matching of includes, excludes, and the selectors. When a directory is
      * found, it is scanned recursively.
-     * 
-     * @param dir The directory to scan. Must not be <code>null</code>.
+     *
+     * @param dir   The directory to scan. Must not be <code>null</code>.
      * @param vpath The path relative to the base directory (needed to prevent
-     *            problems with an absolute path when using dir). Must not be
-     *            <code>null</code>.
-     * @param fast Whether or not this call is part of a fast scan.
+     *              problems with an absolute path when using dir). Must not be
+     *              <code>null</code>.
+     * @param fast  Whether or not this call is part of a fast scan.
      * @see #filesIncluded
      * @see #filesNotIncluded
      * @see #filesExcluded
@@ -433,7 +429,7 @@ public class ZipScanner {
 
     /**
      * Tests whether or not a name matches against at least one include pattern.
-     * 
+     *
      * @param name The name to match. Must not be <code>null</code>.
      * @return <code>true</code> when the name matches against at least one
      *         include pattern, or <code>false</code> otherwise.
@@ -450,7 +446,7 @@ public class ZipScanner {
 
     /**
      * Tests whether or not a name matches against at least one exclude pattern.
-     * 
+     *
      * @param name The name to match. Must not be <code>null</code>.
      * @return <code>true</code> when the name matches against at least one
      *         exclude pattern, or <code>false</code> otherwise.
@@ -469,7 +465,7 @@ public class ZipScanner {
      * Returns the names of the files which matched at least one of the include
      * patterns and none of the exclude patterns. The names are relative to the
      * base directory.
-     * 
+     *
      * @return the names of the files which matched at least one of the include
      *         patterns and none of the exclude patterns.
      */
@@ -481,7 +477,7 @@ public class ZipScanner {
      * Returns the names of the files which matched none of the include
      * patterns. The names are relative to the base directory. This involves
      * performing a slow scan if one has not already been completed.
-     * 
+     *
      * @return the names of the files which matched none of the include
      *         patterns.
      * @see #slowScan
@@ -495,7 +491,7 @@ public class ZipScanner {
      * patterns and at least one of the exclude patterns. The names are relative
      * to the base directory. This involves performing a slow scan if one has
      * not already been completed.
-     * 
+     *
      * @return the names of the files which matched at least one of the include
      *         patterns and at at least one of the exclude patterns.
      * @see #slowScan
@@ -508,7 +504,7 @@ public class ZipScanner {
      * Returns the names of the directories which matched at least one of the
      * include patterns and none of the exclude patterns. The names are relative
      * to the base directory.
-     * 
+     *
      * @return the names of the directories which matched at least one of the
      *         include patterns and none of the exclude patterns.
      */
@@ -520,7 +516,7 @@ public class ZipScanner {
      * Returns the names of the directories which matched none of the include
      * patterns. The names are relative to the base directory. This involves
      * performing a slow scan if one has not already been completed.
-     * 
+     *
      * @return the names of the directories which matched none of the include
      *         patterns.
      * @see #slowScan
@@ -534,7 +530,7 @@ public class ZipScanner {
      * include patterns and at least one of the exclude patterns. The names are
      * relative to the base directory. This involves performing a slow scan if
      * one has not already been completed.
-     * 
+     *
      * @return the names of the directories which matched at least one of the
      *         include patterns and at least one of the exclude patterns.
      * @see #slowScan
@@ -543,9 +539,7 @@ public class ZipScanner {
         return (String[]) dirsExcluded.toArray(new String[dirsExcluded.size()]);
     }
 
-    /**
-     * Adds default exclusions to the current exclusions set.
-     */
+    /** Adds default exclusions to the current exclusions set. */
     public void addDefaultExcludes() {
         int excludesLength = excludes == null ? 0 : excludes.length;
         String[] newExcludes;

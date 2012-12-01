@@ -29,30 +29,30 @@ import com.alibaba.toolkit.util.StringUtil;
  * 通过资源束创建消息的工具类, 支持所有原子类型, 方便使用.
  * <p>
  * 使用方法:
- * 
+ * <p/>
  * <pre>
  * String message = new MessageBuilder(bundle, key).append(param1).append(param2).toString();
  * </pre>
- * 
+ * <p/>
  * </p>
  * <p>
  * 在构造此类时, 可以提供一个<code>quiet</code>参数. 如果此参数为<code>true</code>, 并且resource
  * bundle找不到, 则不会抛出<code>MissingResourceException</code>, 而是返回一个默认的字符串.
  * </p>
- * 
- * @version $Id: MessageBuilder.java,v 1.1 2003/07/03 07:26:35 baobao Exp $
+ *
  * @author Michael Zhou
+ * @version $Id: MessageBuilder.java,v 1.1 2003/07/03 07:26:35 baobao Exp $
  */
 public class MessageBuilder {
     protected final List params = new ArrayList(5);
     protected final ResourceBundle bundle;
-    protected final Object key;
+    protected final Object         key;
 
     /**
      * 创建一个<code>MessageBuilder</code>.
-     * 
+     *
      * @param bundleName 资源束
-     * @param key 键值
+     * @param key        键值
      * @throws MissingResourceException 指定bundle未找到, 或创建bundle错误
      */
     public MessageBuilder(String bundleName, Object key) {
@@ -61,9 +61,9 @@ public class MessageBuilder {
 
     /**
      * 创建一个<code>MessageBuilder</code>.
-     * 
+     *
      * @param bundle 资源束
-     * @param key 键值
+     * @param key    键值
      */
     public MessageBuilder(ResourceBundle bundle, Object key) {
         this.bundle = bundle;
@@ -72,7 +72,7 @@ public class MessageBuilder {
 
     /**
      * 增加一个参数.
-     * 
+     *
      * @param param 参数
      * @return <code>MessageBuilder</code>自身
      */
@@ -83,7 +83,7 @@ public class MessageBuilder {
 
     /**
      * 增加一个参数.
-     * 
+     *
      * @param param 参数
      * @return <code>MessageBuilder</code>自身
      */
@@ -94,7 +94,7 @@ public class MessageBuilder {
 
     /**
      * 增加一个参数.
-     * 
+     *
      * @param param 参数
      * @return <code>MessageBuilder</code>自身
      */
@@ -105,7 +105,7 @@ public class MessageBuilder {
 
     /**
      * 增加一个参数.
-     * 
+     *
      * @param param 参数
      * @return <code>MessageBuilder</code>自身
      */
@@ -116,7 +116,7 @@ public class MessageBuilder {
 
     /**
      * 增加一个参数.
-     * 
+     *
      * @param param 参数
      * @return <code>MessageBuilder</code>自身
      */
@@ -127,7 +127,7 @@ public class MessageBuilder {
 
     /**
      * 增加一个参数.
-     * 
+     *
      * @param param 参数
      * @return <code>MessageBuilder</code>自身
      */
@@ -138,7 +138,7 @@ public class MessageBuilder {
 
     /**
      * 增加一个参数.
-     * 
+     *
      * @param param 参数
      * @return <code>MessageBuilder</code>自身
      */
@@ -149,7 +149,7 @@ public class MessageBuilder {
 
     /**
      * 增加多个参数.
-     * 
+     *
      * @param params 参数表
      * @return <code>MessageBuilder</code>自身
      */
@@ -163,7 +163,7 @@ public class MessageBuilder {
 
     /**
      * 取得消息字符串.
-     * 
+     *
      * @return 消息字符串
      */
     @Override
@@ -173,7 +173,7 @@ public class MessageBuilder {
 
     /**
      * 从资源束中取得消息字符串.
-     * 
+     *
      * @return 消息字符串
      * @throws MissingResourceException 指定resource key未找到
      */

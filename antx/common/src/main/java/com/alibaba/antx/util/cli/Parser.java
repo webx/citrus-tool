@@ -26,7 +26,7 @@ import java.util.ListIterator;
  * <p>
  * <code>Parser</code> creates {@link CommandLine}s.
  * </p>
- * 
+ *
  * @author John Keyes (john at integralsource.com)
  * @see Parser
  */
@@ -45,11 +45,11 @@ public abstract class Parser implements CommandLineParser {
      * Subclasses must implement this method to reduce the
      * <code>arguments</code> that have been passed to the parse method.
      * </p>
-     * 
-     * @param opts The Options to parse the arguments by.
-     * @param args The arguments that have to be flattened.
+     *
+     * @param opts            The Options to parse the arguments by.
+     * @param args            The arguments that have to be flattened.
      * @param stopAtNonOption specifies whether to stop flattening when a non
-     *            option has been encountered
+     *                        option has been encountered
      * @return a String array of the flattened arguments
      */
     protected abstract String[] flatten(Options opts, String[] arguments, boolean stopAtNonOption);
@@ -59,8 +59,8 @@ public abstract class Parser implements CommandLineParser {
      * Parses the specified <code>arguments</code> based on the specifed
      * {@link Options}.
      * </p>
-     * 
-     * @param options the <code>Options</code>
+     *
+     * @param options   the <code>Options</code>
      * @param arguments the <code>arguments</code>
      * @return the <code>CommandLine</code>
      * @throws ParseException if an error occurs when parsing the arguments.
@@ -74,12 +74,12 @@ public abstract class Parser implements CommandLineParser {
      * Parses the specified <code>arguments</code> based on the specifed
      * {@link Options}.
      * </p>
-     * 
-     * @param options the <code>Options</code>
-     * @param arguments the <code>arguments</code>
+     *
+     * @param options         the <code>Options</code>
+     * @param arguments       the <code>arguments</code>
      * @param stopAtNonOption specifies whether to stop interpreting the
-     *            arguments when a non option has been encountered and to add
-     *            them to the CommandLines args list.
+     *                        arguments when a non option has been encountered and to add
+     *                        them to the CommandLines args list.
      * @return the <code>CommandLine</code>
      * @throws ParseException if an error occurs when parsing the arguments.
      */

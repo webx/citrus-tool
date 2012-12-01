@@ -21,21 +21,21 @@ import org.xml.sax.Locator;
 
 /**
  * 配置项在配置文件中的位置.
- * 
+ *
  * @author Michael Zhou
  */
 public class Location implements Locator {
     private final String publicId;
     private final String systemId;
-    private final int lineNumber;
-    private final int columnNumber;
+    private final int    lineNumber;
+    private final int    columnNumber;
 
     /** 代表空的location. */
     public static final Location EMPTY_LOCATION = new Location(null, null, -1, -1);
 
     /**
      * 创建位置信息.
-     * 
+     *
      * @param locator XML文件中的位置信息
      */
     public Location(Locator locator) {
@@ -44,10 +44,10 @@ public class Location implements Locator {
 
     /**
      * 创建位置信息.
-     * 
-     * @param publicId public ID
-     * @param systemId system ID, 也就是文件路径或URL
-     * @param lineNumber 行号
+     *
+     * @param publicId     public ID
+     * @param systemId     system ID, 也就是文件路径或URL
+     * @param lineNumber   行号
      * @param columnNumber 列号
      */
     public Location(String publicId, String systemId, int lineNumber, int columnNumber) {
@@ -83,7 +83,7 @@ public class Location implements Locator {
 
     /**
      * 取得public ID.
-     * 
+     *
      * @return public ID, 如果不存在, 则返回<code>null</code>
      */
     public String getPublicId() {
@@ -92,7 +92,7 @@ public class Location implements Locator {
 
     /**
      * 取得system ID.
-     * 
+     *
      * @return system ID, 如果不存在, 则返回<code>null</code>
      */
     public String getSystemId() {
@@ -101,7 +101,7 @@ public class Location implements Locator {
 
     /**
      * 取得行号.
-     * 
+     *
      * @return 行号, 如果不存在, 则返回<code>-1</code>
      */
     public int getLineNumber() {
@@ -110,7 +110,7 @@ public class Location implements Locator {
 
     /**
      * 取得列号.
-     * 
+     *
      * @return 列号, 如果不存在, 则返回<code>-1</code>
      */
     public int getColumnNumber() {
@@ -119,7 +119,7 @@ public class Location implements Locator {
 
     /**
      * 转换成字符串表示.
-     * 
+     *
      * @return 字符串表示
      */
     @Override

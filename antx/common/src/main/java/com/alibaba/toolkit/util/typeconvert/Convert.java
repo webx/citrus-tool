@@ -19,16 +19,16 @@ package com.alibaba.toolkit.util.typeconvert;
 
 /**
  * 转换对象类型的工具类, 支持所有primitive类型和数组的转换.
- * 
- * @version $Id: Convert.java,v 1.1 2003/07/03 07:26:36 baobao Exp $
+ *
  * @author Michael Zhou
+ * @version $Id: Convert.java,v 1.1 2003/07/03 07:26:36 baobao Exp $
  */
 public class Convert {
     private static final ConvertManager defaultConvertManager = new ConvertManager();
 
     /**
      * 将指定值转换成<code>boolean</code>类型.
-     * 
+     *
      * @param value 要转换的值
      * @return 转换后的值
      */
@@ -38,8 +38,8 @@ public class Convert {
 
     /**
      * 将指定值转换成<code>boolean</code>类型.
-     * 
-     * @param value 要转换的值
+     *
+     * @param value        要转换的值
      * @param defaultValue 默认值
      * @return 转换后的值
      */
@@ -49,7 +49,7 @@ public class Convert {
 
     /**
      * 将指定值转换成<code>byte</code>类型.
-     * 
+     *
      * @param value 要转换的值
      * @return 转换后的值
      */
@@ -59,8 +59,8 @@ public class Convert {
 
     /**
      * 将指定值转换成<code>byte</code>类型.
-     * 
-     * @param value 要转换的值
+     *
+     * @param value        要转换的值
      * @param defaultValue 默认值
      * @return 转换后的值
      */
@@ -70,7 +70,7 @@ public class Convert {
 
     /**
      * 将指定值转换成<code>char</code>类型.
-     * 
+     *
      * @param value 要转换的值
      * @return 转换后的值
      */
@@ -80,8 +80,8 @@ public class Convert {
 
     /**
      * 将指定值转换成<code>char</code>类型.
-     * 
-     * @param value 要转换的值
+     *
+     * @param value        要转换的值
      * @param defaultValue 默认值
      * @return 转换后的值
      */
@@ -91,7 +91,7 @@ public class Convert {
 
     /**
      * 将指定值转换成<code>double</code>类型.
-     * 
+     *
      * @param value 要转换的值
      * @return 转换后的值
      */
@@ -101,8 +101,8 @@ public class Convert {
 
     /**
      * 将指定值转换成<code>double</code>类型.
-     * 
-     * @param value 要转换的值
+     *
+     * @param value        要转换的值
      * @param defaultValue 默认值
      * @return 转换后的值
      */
@@ -112,7 +112,7 @@ public class Convert {
 
     /**
      * 将指定值转换成<code>float</code>类型.
-     * 
+     *
      * @param value 要转换的值
      * @return 转换后的值
      */
@@ -122,8 +122,8 @@ public class Convert {
 
     /**
      * 将指定值转换成<code>float</code>类型.
-     * 
-     * @param value 要转换的值
+     *
+     * @param value        要转换的值
      * @param defaultValue 默认值
      * @return 转换后的值
      */
@@ -133,7 +133,7 @@ public class Convert {
 
     /**
      * 将指定值转换成<code>int</code>类型.
-     * 
+     *
      * @param value 要转换的值
      * @return 转换后的值
      */
@@ -143,8 +143,8 @@ public class Convert {
 
     /**
      * 将指定值转换成<code>int</code>类型.
-     * 
-     * @param value 要转换的值
+     *
+     * @param value        要转换的值
      * @param defaultValue 默认值
      * @return 转换后的值
      */
@@ -154,7 +154,7 @@ public class Convert {
 
     /**
      * 将指定值转换成<code>long</code>类型.
-     * 
+     *
      * @param value 要转换的值
      * @return 转换后的值
      */
@@ -164,8 +164,8 @@ public class Convert {
 
     /**
      * 将指定值转换成<code>long</code>类型.
-     * 
-     * @param value 要转换的值
+     *
+     * @param value        要转换的值
      * @param defaultValue 默认值
      * @return 转换后的值
      */
@@ -175,7 +175,7 @@ public class Convert {
 
     /**
      * 将指定值转换成<code>short</code>类型.
-     * 
+     *
      * @param value 要转换的值
      * @return 转换后的值
      */
@@ -185,8 +185,8 @@ public class Convert {
 
     /**
      * 将指定值转换成<code>short</code>类型.
-     * 
-     * @param value 要转换的值
+     *
+     * @param value        要转换的值
      * @param defaultValue 默认值
      * @return 转换后的值
      */
@@ -196,7 +196,7 @@ public class Convert {
 
     /**
      * 将指定值转换成<code>String</code>类型.
-     * 
+     *
      * @param value 要转换的值
      * @return 转换后的值
      */
@@ -206,8 +206,8 @@ public class Convert {
 
     /**
      * 将指定值转换成<code>String</code>类型.
-     * 
-     * @param value 要转换的值
+     *
+     * @param value        要转换的值
      * @param defaultValue 默认值
      * @return 转换后的值
      */
@@ -217,9 +217,9 @@ public class Convert {
 
     /**
      * 将指定值转换成指定类型.
-     * 
+     *
      * @param targetType 要转换的目标类型
-     * @param value 要转换的值
+     * @param value      要转换的值
      * @return 转换后的值
      */
     public static Object asType(Object targetType, Object value) {
@@ -228,9 +228,9 @@ public class Convert {
 
     /**
      * 将指定值转换成指定类型.
-     * 
-     * @param targetType 要转换的目标类型
-     * @param value 要转换的值
+     *
+     * @param targetType   要转换的目标类型
+     * @param value        要转换的值
      * @param defaultValue 默认值
      * @return 转换后的值
      */

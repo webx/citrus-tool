@@ -28,13 +28,13 @@ import org.xml.sax.helpers.AttributesImpl;
 
 /**
  * 代表一个简单的XML writer，不支持名字空间。
- * 
+ *
  * @author Michael Zhou
  */
 public class SimpleXMLWriter extends XMLWriter {
     /**
      * 创建一个XML writer。
-     * 
+     *
      * @param file XML文件
      * @throws IOException 文件打开失败
      */
@@ -44,7 +44,7 @@ public class SimpleXMLWriter extends XMLWriter {
 
     /**
      * 开始一个XML element。
-     * 
+     *
      * @param elementName element名
      * @throws SAXException SAX异常
      */
@@ -54,10 +54,10 @@ public class SimpleXMLWriter extends XMLWriter {
 
     /**
      * 开始一个XML element。
-     * 
+     *
      * @param elementName element名
-     * @param attrName 属性名
-     * @param attrValue 属性值
+     * @param attrName    属性名
+     * @param attrValue   属性值
      * @throws SAXException SAX异常
      */
     public void startElement(String elementName, String attrName, String attrValue) throws SAXException {
@@ -74,12 +74,12 @@ public class SimpleXMLWriter extends XMLWriter {
 
     /**
      * 开始一个XML element。
-     * 
+     *
      * @param elementName element名
-     * @param attrName1 属性名
-     * @param attrValue1 属性值
-     * @param attrName2 属性名
-     * @param attrValue2 属性值
+     * @param attrName1   属性名
+     * @param attrValue1  属性值
+     * @param attrName2   属性名
+     * @param attrValue2  属性值
      * @throws SAXException SAX异常
      */
     public void startElement(String elementName, String attrName1, String attrValue1, String attrName2,
@@ -102,9 +102,9 @@ public class SimpleXMLWriter extends XMLWriter {
 
     /**
      * 创建一个XML element。
-     * 
+     *
      * @param elementName element名
-     * @param bodyText element值
+     * @param bodyText    element值
      * @throws SAXException SAX异常
      */
     public void processElement(String elementName, String bodyText) throws SAXException {
@@ -119,7 +119,7 @@ public class SimpleXMLWriter extends XMLWriter {
 
     /**
      * 结束一个XML element。
-     * 
+     *
      * @param elementName element名
      * @throws SAXException SAX异常
      */

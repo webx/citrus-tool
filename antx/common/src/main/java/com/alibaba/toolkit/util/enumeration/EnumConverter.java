@@ -31,9 +31,9 @@ import com.alibaba.toolkit.util.typeconvert.Converter;
  * <li>如果有默认值, 则抛出带默认值的<code>ConvertFailedException</code></li>
  * <li>否则, 把对象传递给下一个<code>Converter</code>处理.</li>
  * </ul>
- * 
- * @version $Id: EnumConverter.java,v 1.1 2003/07/03 07:26:20 baobao Exp $
+ *
  * @author Michael Zhou
+ * @version $Id: EnumConverter.java,v 1.1 2003/07/03 07:26:20 baobao Exp $
  */
 public class EnumConverter implements Converter {
     public Object convert(Object value, ConvertChain chain) {
@@ -55,7 +55,7 @@ public class EnumConverter implements Converter {
 
         try {
             Object enumValue = chain.getConvertManager().asTypeWithoutDefaultValue(Enum.getUnderlyingClass(targetType),
-                    value);
+                                                                                   value);
 
             enumObj = Enum.getEnumByValue(targetType, enumValue);
         } catch (ConvertFailedException e) {

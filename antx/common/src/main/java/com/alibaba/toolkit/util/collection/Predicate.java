@@ -20,14 +20,14 @@ package com.alibaba.toolkit.util.collection;
 /**
  * "断言"接口, 基于指定的输入对象, 返回<code>true</code>或<code>false</code>. 这个接口被用于过滤器,
  * 指定过滤的条件.
- * 
- * @version $Id: Predicate.java,v 1.1 2003/07/03 07:26:16 baobao Exp $
+ *
  * @author Michael Zhou
+ * @version $Id: Predicate.java,v 1.1 2003/07/03 07:26:16 baobao Exp $
  */
 public interface Predicate {
     /**
      * 根据指定的输入对象, 返回<code>true</code>或<code>false</code>.
-     * 
+     *
      * @param input 输入对象
      * @return <code>true</code>或<code>false</code>
      */

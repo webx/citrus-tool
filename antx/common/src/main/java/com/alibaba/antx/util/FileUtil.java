@@ -31,7 +31,7 @@ import com.alibaba.antx.util.scanner.ScannerException;
 
 /**
  * 和操作文件有关的工具类。
- * 
+ *
  * @author Michael Zhou
  */
 public class FileUtil {
@@ -63,7 +63,7 @@ public class FileUtil {
 
     /**
      * 取得用户home目录。
-     * 
+     *
      * @return 用户home目录
      */
     public static File getUserHome() {
@@ -72,7 +72,7 @@ public class FileUtil {
 
     /**
      * 取得用户当前目录。
-     * 
+     *
      * @return 用户当前目录
      */
     public static File getUserCurrentDir() {
@@ -82,9 +82,9 @@ public class FileUtil {
     /**
      * 从指定路径创建<code>File</code>。如果<code>path</code>为相对路径，则相对于指定
      * <code>basedir</code>。
-     * 
+     *
      * @param basedir 相对路径的根目录
-     * @param path 绝对路径或相对路径
+     * @param path    绝对路径或相对路径
      * @return 文件对象
      */
     public static File getFile(String basedir, String path) {
@@ -94,9 +94,9 @@ public class FileUtil {
     /**
      * 从指定路径创建<code>File</code>。如果<code>path</code>为相对路径，则相对于指定
      * <code>basedir</code>。
-     * 
+     *
      * @param basedir 相对路径的根目录
-     * @param path 绝对路径或相对路径
+     * @param path    绝对路径或相对路径
      * @return 文件对象
      */
     public static File getFile(File basedir, String path) {
@@ -111,8 +111,8 @@ public class FileUtil {
 
     /**
      * 从指定路径开始查找文件，一直找到根目录为止。
-     * 
-     * @param dir 从这个目录开始找
+     *
+     * @param dir      从这个目录开始找
      * @param filename 要查找的文件名
      * @return 找到的文件，如果未找到，则返回<code>null</code>
      */
@@ -122,8 +122,8 @@ public class FileUtil {
 
     /**
      * 从指定路径开始查找文件，一直找到根目录为止。
-     * 
-     * @param dir 从这个目录开始找
+     *
+     * @param dir      从这个目录开始找
      * @param filename 要查找的文件名
      * @return 找到的文件，如果未找到，则返回<code>null</code>
      */
@@ -139,7 +139,7 @@ public class FileUtil {
 
     /**
      * 取得正规的文件。
-     * 
+     *
      * @param filename 文件名
      * @return 正规的文件，如果文件名为空，则返回<code>null</code>
      */
@@ -157,8 +157,8 @@ public class FileUtil {
 
     /**
      * 判断指定资源ID是否存在于jar文件或目录中。
-     * 
-     * @param base 目录或jar文件
+     *
+     * @param base       目录或jar文件
      * @param resourceId 资源ID
      * @return 如果存在，则返回<code>true</code>
      */
@@ -173,7 +173,7 @@ public class FileUtil {
 
                 try {
                     String[] files = ZipUtil.getFileNamesInZipFile(base.toURI().toURL(), new String[] { resourceId },
-                            null);
+                                                                   null);
 
                     available = files != null && files.length > 0;
                 } catch (IOException e) {
@@ -186,8 +186,8 @@ public class FileUtil {
 
     /**
      * 扫描目录，取得符合要求的所有文件。
-     * 
-     * @param dir 目录
+     *
+     * @param dir      目录
      * @param includes 包含文件
      * @param excludes 不包含文件
      * @return 所有文件
@@ -205,8 +205,8 @@ public class FileUtil {
 
     /**
      * 扫描目录，取得符合要求的所有文件。
-     * 
-     * @param dir 目录
+     *
+     * @param dir      目录
      * @param includes 包含文件
      * @param excludes 不包含文件
      * @return 所有文件
@@ -375,12 +375,12 @@ public class FileUtil {
      * ==========================================================================
      * ==
      */
-    private static final char COLON_CHAR = ':';
-    private static final String UNC_PREFIX = "//";
-    private static final String SLASH = "/";
-    private static final String BACKSLASH = "\\";
-    private static final char SLASH_CHAR = '/';
-    private static final char BACKSLASH_CHAR = '\\';
+    private static final char   COLON_CHAR     = ':';
+    private static final String UNC_PREFIX     = "//";
+    private static final String SLASH          = "/";
+    private static final String BACKSLASH      = "\\";
+    private static final char   SLASH_CHAR     = '/';
+    private static final char   BACKSLASH_CHAR = '\\';
 
     /** 当前目录记号："." */
     public static final String CURRENT_DIR = ".";
@@ -399,6 +399,7 @@ public class FileUtil {
      * ==========================================================================
      * ==
      */
+
     /**
      * 规格化路径。
      * <p>
@@ -413,7 +414,7 @@ public class FileUtil {
      * <li>对于绝对路径，如果".."上朔的路径超过了根目录，则看作非法路径，返回<code>null</code>。</li>
      * </ol>
      * </p>
-     * 
+     *
      * @param path 要规格化的路径
      * @return 规格化后的路径，如果路径非法，则返回<code>null</code>
      */
@@ -450,7 +451,7 @@ public class FileUtil {
      * <li>Windows驱动器名被转换成大写，如"c:"转换成"C:"。</li>
      * </ol>
      * </p>
-     * 
+     *
      * @param path 要规格化的路径
      * @return 规格化后的路径，如果路径非法，则返回<code>null</code>
      */
@@ -472,7 +473,7 @@ public class FileUtil {
      * 并对其后的路径部分适用上述所有规则。</li>
      * <li>Windows驱动器名被转换成大写，如"c:"转换成"C:"。</li>
      * </ol>
-     * 
+     *
      * @param path 要规格化的路径
      * @return 规格化后的路径，如果路径非法，则返回<code>null</code>
      */
@@ -494,7 +495,7 @@ public class FileUtil {
      * <li>对于绝对路径，如果".."上朔的路径超过了根目录，则看作非法路径，返回<code>null</code>。</li>
      * </ol>
      * </p>
-     * 
+     *
      * @param path 要规格化的路径
      * @return 规格化后的路径，如果路径非法，则返回<code>null</code>
      */
@@ -516,8 +517,8 @@ public class FileUtil {
      * 并对其后的路径部分适用上述所有规则。</li>
      * <li>Windows驱动器名被转换成大写，如"c:"转换成"C:"。</li>
      * </ol>
-     * 
-     * @param path 要规格化的路径
+     *
+     * @param path      要规格化的路径
      * @param isWindows 是否是windows路径，如果为<code>true</code>，则支持驱动器名和UNC路径
      * @return 规格化后的路径，如果路径非法，则返回<code>null</code>
      */
@@ -614,8 +615,8 @@ public class FileUtil {
 
     /**
      * 取得和系统相关的文件名前缀。对于Windows系统，可能是驱动器名或UNC路径前缀"//hostname"。如果不存在前缀，则返回空字符串。
-     * 
-     * @param path 绝对路径
+     *
+     * @param path      绝对路径
      * @param isWindows 是否为windows系统
      * @return 和系统相关的文件名前缀，如果路径非法，例如："//"，则返回<code>null</code>
      */
@@ -656,14 +657,15 @@ public class FileUtil {
      * ==========================================================================
      * ==
      */
+
     /**
      * 如果指定路径已经是绝对路径，则规格化后直接返回之，否则取得基于指定basedir的规格化路径。
      * <p>
      * 该方法自动判定操作系统的类型，如果是windows系统，则支持UNC路径和驱动器名。
      * </p>
-     * 
+     *
      * @param basedir 根目录，如果<code>path</code>为相对路径，表示基于此目录
-     * @param path 要检查的路径
+     * @param path    要检查的路径
      * @return 规格化的路径，如果<code>path</code>非法，或<code>basedir</code>为
      *         <code>null</code>，则返回<code>null</code>
      */
@@ -673,9 +675,9 @@ public class FileUtil {
 
     /**
      * 如果指定路径已经是绝对路径，则规格化后直接返回之，否则取得基于指定basedir的规格化路径。
-     * 
+     *
      * @param basedir 根目录，如果<code>path</code>为相对路径，表示基于此目录
-     * @param path 要检查的路径
+     * @param path    要检查的路径
      * @return 规格化的路径，如果<code>path</code>非法，或<code>basedir</code>为
      *         <code>null</code>，则返回<code>null</code>
      */
@@ -685,9 +687,9 @@ public class FileUtil {
 
     /**
      * 如果指定路径已经是绝对路径，则规格化后直接返回之，否则取得基于指定basedir的规格化路径。
-     * 
+     *
      * @param basedir 根目录，如果<code>path</code>为相对路径，表示基于此目录
-     * @param path 要检查的路径
+     * @param path    要检查的路径
      * @return 规格化的路径，如果<code>path</code>非法，或<code>basedir</code>为
      *         <code>null</code>，则返回<code>null</code>
      */
@@ -697,9 +699,9 @@ public class FileUtil {
 
     /**
      * 如果指定路径已经是绝对路径，则规格化后直接返回之，否则取得基于指定basedir的规格化路径。
-     * 
-     * @param basedir 根目录，如果<code>path</code>为相对路径，表示基于此目录
-     * @param path 要检查的路径
+     *
+     * @param basedir   根目录，如果<code>path</code>为相对路径，表示基于此目录
+     * @param path      要检查的路径
      * @param isWindows 是否是windows路径，如果为<code>true</code>，则支持驱动器名和UNC路径
      * @return 规格化的路径，如果<code>path</code>非法，或<code>basedir</code>为
      *         <code>null</code>，则返回<code>null</code>
@@ -762,14 +764,15 @@ public class FileUtil {
      * ==========================================================================
      * ==
      */
+
     /**
      * 取得相对于指定根目录的相对路径。
      * <p>
      * 该方法自动判定操作系统的类型，如果是windows系统，则支持UNC路径和驱动器名。
      * </p>
-     * 
+     *
      * @param basedir 根目录
-     * @param path 要计算的路径
+     * @param path    要计算的路径
      * @return 如果<code>path</code>和<code>basedir</code>是兼容的，则返回相对于
      *         <code>basedir</code>的相对路径，否则返回<code>path</code>本身。如果
      *         <code>basedir</code>不是绝对路径，或者路径非法，则返回<code>null</code>
@@ -780,9 +783,9 @@ public class FileUtil {
 
     /**
      * 取得相对于指定根目录的相对路径。
-     * 
+     *
      * @param basedir 根目录
-     * @param path 要计算的路径
+     * @param path    要计算的路径
      * @return 如果<code>path</code>和<code>basedir</code>是兼容的，则返回相对于
      *         <code>basedir</code>的相对路径，否则返回<code>path</code>本身。如果
      *         <code>basedir</code>不是绝对路径，或者路径非法，则返回<code>null</code>
@@ -793,9 +796,9 @@ public class FileUtil {
 
     /**
      * 取得相对于指定根目录的相对路径。
-     * 
+     *
      * @param basedir 根目录
-     * @param path 要计算的路径
+     * @param path    要计算的路径
      * @return 如果<code>path</code>和<code>basedir</code>是兼容的，则返回相对于
      *         <code>basedir</code>的相对路径，否则返回<code>path</code>本身。如果
      *         <code>basedir</code>不是绝对路径，或者路径非法，则返回<code>null</code>
@@ -806,9 +809,9 @@ public class FileUtil {
 
     /**
      * 取得相对于指定根目录的相对路径。
-     * 
-     * @param basedir 根目录
-     * @param path 要计算的路径
+     *
+     * @param basedir   根目录
+     * @param path      要计算的路径
      * @param isWindows 是否是windows路径，如果为<code>true</code>，则支持驱动器名和UNC路径
      * @return 如果<code>path</code>和<code>basedir</code>是兼容的，则返回相对于
      *         <code>basedir</code>的相对路径，否则返回<code>path</code>本身。如果

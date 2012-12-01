@@ -31,12 +31,12 @@ import java.util.Vector;
  * <p>
  * This is a Singleton.
  * </p>
- * 
+ *
  * @since 1.5
  */
 public final class SelectorUtil {
-    private static final String FILE_SEP = "/";
-    private static final char FILE_SEP_CHAR = '/';
+    private static final String FILE_SEP      = "/";
+    private static final char   FILE_SEP_CHAR = '/';
 
     /**
      * Tests whether or not a given path matches the start of a given pattern up
@@ -46,10 +46,10 @@ public final class SelectorUtil {
      * live with false positives. For example, <code>pattern=\a</code> and
      * <code>str=b</code> will yield <code>true</code>.
      * </p>
-     * 
+     *
      * @param pattern The pattern to match against. Must not be
-     *            <code>null</code>.
-     * @param str The path to match, as a String. Must not be <code>null</code>.
+     *                <code>null</code>.
+     * @param str     The path to match, as a String. Must not be <code>null</code>.
      * @return whether or not a given path matches the start of a given pattern
      *         up to the first "".
      */
@@ -65,12 +65,12 @@ public final class SelectorUtil {
      * live with false positives. For example, <code>pattern=\a</code> and
      * <code>str=b</code> will yield <code>true</code>.
      * </p>
-     * 
-     * @param pattern The pattern to match against. Must not be
-     *            <code>null</code>.
-     * @param str The path to match, as a String. Must not be <code>null</code>.
+     *
+     * @param pattern         The pattern to match against. Must not be
+     *                        <code>null</code>.
+     * @param str             The path to match, as a String. Must not be <code>null</code>.
      * @param isCaseSensitive Whether or not matching should be performed case
-     *            sensitively.
+     *                        sensitively.
      * @return whether or not a given path matches the start of a given pattern
      *         up to the first "".
      */
@@ -122,10 +122,10 @@ public final class SelectorUtil {
 
     /**
      * Tests whether or not a given path matches a given pattern.
-     * 
+     *
      * @param pattern The pattern to match against. Must not be
-     *            <code>null</code>.
-     * @param str The path to match, as a String. Must not be <code>null</code>.
+     *                <code>null</code>.
+     * @param str     The path to match, as a String. Must not be <code>null</code>.
      * @return <code>true</code> if the pattern matches against the string, or
      *         <code>false</code> otherwise.
      */
@@ -135,12 +135,12 @@ public final class SelectorUtil {
 
     /**
      * Tests whether or not a given path matches a given pattern.
-     * 
-     * @param pattern The pattern to match against. Must not be
-     *            <code>null</code>.
-     * @param str The path to match, as a String. Must not be <code>null</code>.
+     *
+     * @param pattern         The pattern to match against. Must not be
+     *                        <code>null</code>.
+     * @param str             The path to match, as a String. Must not be <code>null</code>.
      * @param isCaseSensitive Whether or not matching should be performed case
-     *            sensitively.
+     *                        sensitively.
      * @return <code>true</code> if the pattern matches against the string, or
      *         <code>false</code> otherwise.
      */
@@ -252,7 +252,8 @@ public final class SelectorUtil {
             int strLength = strIdxEnd - strIdxStart + 1;
             int foundIdx = -1;
 
-            strLoop: for (int i = 0; i <= strLength - patLength; i++) {
+            strLoop:
+            for (int i = 0; i <= strLength - patLength; i++) {
                 for (int j = 0; j < patLength; j++) {
                     String subPat = patDirs[patIdxStart + j + 1];
                     String subStr = strDirs[strIdxStart + i + j];
@@ -292,11 +293,11 @@ public final class SelectorUtil {
      * contain two special characters:<br>
      * '' means zero or more characters<br>
      * '?' means one and only one character
-     * 
+     *
      * @param pattern The pattern to match against. Must not be
-     *            <code>null</code>.
-     * @param str The string which must be matched against the pattern. Must not
-     *            be <code>null</code>.
+     *                <code>null</code>.
+     * @param str     The string which must be matched against the pattern. Must not
+     *                be <code>null</code>.
      * @return <code>true</code> if the string matches against the pattern, or
      *         <code>false</code> otherwise.
      */
@@ -309,13 +310,13 @@ public final class SelectorUtil {
      * contain two special characters:<br>
      * '' means zero or more characters<br>
      * '?' means one and only one character
-     * 
-     * @param pattern The pattern to match against. Must not be
-     *            <code>null</code>.
-     * @param str The string which must be matched against the pattern. Must not
-     *            be <code>null</code>.
+     *
+     * @param pattern         The pattern to match against. Must not be
+     *                        <code>null</code>.
+     * @param str             The string which must be matched against the pattern. Must not
+     *                        be <code>null</code>.
      * @param isCaseSensitive Whether or not matching should be performed case
-     *            sensitively.
+     *                        sensitively.
      * @return <code>true</code> if the string matches against the pattern, or
      *         <code>false</code> otherwise.
      */
@@ -444,7 +445,8 @@ public final class SelectorUtil {
             int strLength = strIdxEnd - strIdxStart + 1;
             int foundIdx = -1;
 
-            strLoop: for (int i = 0; i <= strLength - patLength; i++) {
+            strLoop:
+            for (int i = 0; i <= strLength - patLength; i++) {
                 for (int j = 0; j < patLength; j++) {
                     ch = patArr[patIdxStart + j + 1];
 
@@ -454,7 +456,7 @@ public final class SelectorUtil {
                         }
 
                         if (!isCaseSensitive
-                                && Character.toUpperCase(ch) != Character.toUpperCase(strArr[strIdxStart + i + j])) {
+                            && Character.toUpperCase(ch) != Character.toUpperCase(strArr[strIdxStart + i + j])) {
                             continue strLoop;
                         }
                     }
@@ -486,7 +488,7 @@ public final class SelectorUtil {
     /**
      * Breaks a path up into a Vector of path elements, tokenizing on
      * <code>FILE_SEP</code>.
-     * 
+     *
      * @param path Path to tokenize. Must not be <code>null</code>.
      * @return a Vector of path elements from the tokenized path
      */
@@ -496,8 +498,8 @@ public final class SelectorUtil {
 
     /**
      * Breaks a path up into a Vector of path elements, tokenizing on
-     * 
-     * @param path Path to tokenize. Must not be <code>null</code>.
+     *
+     * @param path      Path to tokenize. Must not be <code>null</code>.
      * @param separator the separator against which to tokenize.
      * @return a Vector of path elements from the tokenized path
      * @since Ant 1.6
@@ -513,9 +515,7 @@ public final class SelectorUtil {
         return ret;
     }
 
-    /**
-     * Same as {@link #tokenizePath tokenizePath} but hopefully faster.
-     */
+    /** Same as {@link #tokenizePath tokenizePath} but hopefully faster. */
     private static String[] tokenizePathAsArray(String path) {
         char sep = FILE_SEP_CHAR;
         int start = 0;
@@ -568,11 +568,11 @@ public final class SelectorUtil {
      * likewise returns true. Otherwise, target is newer than src and is not out
      * of date, thus the method returns false. It also returns false if the src
      * file doesn't even exist, since how could the target then be out of date.
-     * 
-     * @param src the original file
-     * @param target the file being compared against
+     *
+     * @param src         the original file
+     * @param target      the file being compared against
      * @param granularity the amount in seconds of slack we will give in
-     *            determining out of dateness
+     *                    determining out of dateness
      * @return whether the target is out of date
      */
     public static boolean isOutOfDate(File src, File target, int granularity) {
@@ -597,11 +597,11 @@ public final class SelectorUtil {
      * likewise returns true. Otherwise, target is newer than src and is not out
      * of date, thus the method returns false. It also returns false if the src
      * file doesn't even exist, since how could the target then be out of date.
-     * 
-     * @param src the original resource
-     * @param target the resource being compared against
+     *
+     * @param src         the original resource
+     * @param target      the resource being compared against
      * @param granularity the amount in seconds of slack we will give in
-     *            determining out of dateness
+     *                    determining out of dateness
      * @return whether the target is out of date
      */
     public static boolean isOutOfDate(Resource src, Resource target, int granularity) {
@@ -624,7 +624,7 @@ public final class SelectorUtil {
      * "Flattens" a string by removing all whitespace (space, tab, linefeed,
      * carriage return, and formfeed). This uses StringTokenizer and the default
      * set of tokens as documented in the single arguement constructor.
-     * 
+     *
      * @param input a String to remove all whitespace.
      * @return a String that has had all whitespace removed.
      */
@@ -644,7 +644,7 @@ public final class SelectorUtil {
 
     /**
      * Tests if a string contains stars or question marks
-     * 
+     *
      * @param input a String which one wants to test for containing wildcard
      * @return true if the string contains at least a star or a question mark
      */
@@ -654,7 +654,7 @@ public final class SelectorUtil {
 
     /**
      * removes from a pattern all tokens to the right containing wildcards
-     * 
+     *
      * @param input the input string
      * @return the leftmost part of the pattern without wildcards
      */
@@ -679,8 +679,8 @@ public final class SelectorUtil {
 
     /**
      * 查看指定名称是否符合patterns。
-     * 
-     * @param name 要匹配的名称
+     *
+     * @param name     要匹配的名称
      * @param includes include patterns
      * @param excludes exclude patterns
      * @return 如果符合patterns，则返回<code>true</code>
@@ -709,8 +709,8 @@ public final class SelectorUtil {
 
     /**
      * 查看指定名称是否符合patterns的前缀。
-     * 
-     * @param name 要匹配的名称
+     *
+     * @param name     要匹配的名称
      * @param includes include patterns
      * @param excludes exclude patterns
      * @return 如果符合patterns，则返回<code>true</code>
@@ -720,7 +720,7 @@ public final class SelectorUtil {
 
         for (String include : includes) {
             if (matchPatternStart(include, name) && isMorePowerfulThanExcludes(name, excludes)
-                    && isDeeper(include, name)) {
+                && isDeeper(include, name)) {
                 match = true;
                 break;
             }
@@ -745,9 +745,9 @@ public final class SelectorUtil {
     /**
      * Verify that a pattern specifies files deeper than the level of the
      * specified file.
-     * 
+     *
      * @param pattern the pattern to check.
-     * @param name the name to check.
+     * @param name    the name to check.
      * @return whether the pattern is deeper than the name.
      * @since Ant 1.6.3
      */
@@ -766,8 +766,8 @@ public final class SelectorUtil {
      * that is to say how many file separators have been matched before the
      * first or the end of the pattern. IMPORTANT : this function should return
      * false "with care".
-     * 
-     * @param name the relative path to test.
+     *
+     * @param name           the relative path to test.
      * @param includepattern one include pattern.
      * @return true if there is no exclude pattern more powerful than this
      *         include pattern.

@@ -55,7 +55,7 @@ public class PatternOptionBuilder {
      * <p>
      * Retrieve the class that <code>ch</code> represents.
      * </p>
-     * 
+     *
      * @param ch the specified character
      * @return The class that <code>ch</code> represents
      */
@@ -88,13 +88,13 @@ public class PatternOptionBuilder {
      * Returns whether <code>ch</code> is a value code, i.e. whether it
      * represents a class in a pattern.
      * </p>
-     * 
+     *
      * @param ch the specified character
      * @return true if <code>ch</code> is a value code, otherwise false.
      */
     public static boolean isValueCode(char ch) {
         if (ch != '@' && ch != ':' && ch != '%' && ch != '+' && ch != '#' && ch != '<' && ch != '>' && ch != '*'
-                && ch != '/') {
+            && ch != '/') {
             return false;
         }
 
@@ -105,7 +105,7 @@ public class PatternOptionBuilder {
      * <p>
      * Returns the {@link Options} instance represented by <code>pattern</code>.
      * </p>
-     * 
+     *
      * @param pattern the pattern string
      * @return The {@link Options} instance
      */
@@ -128,7 +128,7 @@ public class PatternOptionBuilder {
                 if (opt != ' ') {
                     // we have a previous one to deal with
                     options.addOption(new OptionBuilder().hasArg(type != null).isRequired(required).withType(type)
-                            .create(opt));
+                                                         .create(opt));
                     required = false;
                     type = null;
                     opt = ' ';

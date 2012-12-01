@@ -28,9 +28,9 @@ import com.alibaba.toolkit.util.collection.Predicate;
 
 /**
  * 最佳匹配策略, 总是试图匹配最长的一项. 如果有多项具有相同的匹配长度, 则返回第一个匹配项.
- * 
- * @version $Id: BestMatchStrategy.java,v 1.1 2003/07/03 07:26:34 baobao Exp $
+ *
  * @author Michael Zhou
+ * @version $Id: BestMatchStrategy.java,v 1.1 2003/07/03 07:26:34 baobao Exp $
  */
 public class BestMatchStrategy implements MatchStrategy {
     /** 按匹配长度从大到小排序的比较器. */
@@ -43,7 +43,7 @@ public class BestMatchStrategy implements MatchStrategy {
     /**
      * 试图匹配指定的输入值. 如果成功, 则返回<code>true</code>. 调用者可以通过
      * <code>context.getMatchItem()</code>来取得匹配项.
-     * 
+     *
      * @param context 匹配上下文
      * @return 如果匹配成功, 则返回<code>true</code>
      */
@@ -58,7 +58,7 @@ public class BestMatchStrategy implements MatchStrategy {
         Collection patterns = context.getPatterns();
         List matchItemList = new ArrayList(patterns.size());
 
-        for (Iterator i = patterns.iterator(); i.hasNext();) {
+        for (Iterator i = patterns.iterator(); i.hasNext(); ) {
             MatchPattern pattern = (MatchPattern) i.next();
 
             if (pattern.matches(context)) {
@@ -75,7 +75,7 @@ public class BestMatchStrategy implements MatchStrategy {
         Collections.sort(matchItemList, MATCH_LENGTH_COMPARATOR);
 
         // 通过指定的predicate过滤所有匹配项
-        for (Iterator i = matchItemList.iterator(); i.hasNext();) {
+        for (Iterator i = matchItemList.iterator(); i.hasNext(); ) {
             MatchItem item = (MatchItem) i.next();
 
             if (predicate.evaluate(item)) {
@@ -89,7 +89,7 @@ public class BestMatchStrategy implements MatchStrategy {
 
     /**
      * 试图匹配指定的输入值, 不判断predicate, 具有较高的效率.
-     * 
+     *
      * @param context 匹配上下文
      * @return 如果匹配成功, 则返回<code>true</code>
      */
@@ -97,7 +97,7 @@ public class BestMatchStrategy implements MatchStrategy {
         MatchItem bestMatchItem = null;
         int bestMatchLength = -1;
 
-        for (Iterator i = context.getPatterns().iterator(); i.hasNext();) {
+        for (Iterator i = context.getPatterns().iterator(); i.hasNext(); ) {
             MatchPattern pattern = (MatchPattern) i.next();
 
             if (pattern.matches(context)) {

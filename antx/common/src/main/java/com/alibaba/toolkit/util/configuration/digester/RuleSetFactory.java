@@ -23,14 +23,14 @@ import org.xml.sax.Attributes;
 
 /**
  * 取得上下文相关的<code>RuleSet</code>的工厂.
- * 
- * @version $Id: RuleSetFactory.java,v 1.1 2003/07/03 07:26:16 baobao Exp $
+ *
  * @author Michael Zhou
+ * @version $Id: RuleSetFactory.java,v 1.1 2003/07/03 07:26:16 baobao Exp $
  */
 public interface RuleSetFactory {
     /**
      * 取得<code>RuleSet</code>.
-     * 
+     *
      * @param attributes XML属性
      * @return <code>RuleSet</code>
      * @throws Exception 如果失败
@@ -39,14 +39,14 @@ public interface RuleSetFactory {
 
     /**
      * 设置digester.
-     * 
+     *
      * @param digester 当前digester
      */
     void setDigester(Digester digester);
 
     /**
      * 取得当前digester.
-     * 
+     *
      * @return 当前digester
      */
     Digester getDigester();

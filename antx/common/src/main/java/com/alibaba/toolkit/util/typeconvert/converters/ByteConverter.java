@@ -31,9 +31,9 @@ import com.alibaba.toolkit.util.typeconvert.Converter;
  * <li>如果对象是字符串, 则试着把它转换成字节. 如果不成功, 则抛出<code>ConvertFailedException</code>.</li>
  * <li>否则, 把对象传递给下一个<code>Converter</code>处理.</li>
  * </ul>
- * 
- * @version $Id: ByteConverter.java,v 1.1 2003/07/03 07:26:37 baobao Exp $
+ *
  * @author Michael Zhou
+ * @version $Id: ByteConverter.java,v 1.1 2003/07/03 07:26:37 baobao Exp $
  */
 public class ByteConverter implements Converter {
     protected static final Byte DEFAULT_VALUE = new Byte((byte) 0);

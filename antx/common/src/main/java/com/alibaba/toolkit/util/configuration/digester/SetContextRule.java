@@ -22,18 +22,18 @@ import org.xml.sax.Attributes;
 
 /**
  * 在被匹配元素开始时, 设置上下文, 在元素结束时, 清除最近的上下文.
- * 
- * @version $Id: SetContextRule.java,v 1.2 2003/08/07 08:08:59 zyh Exp $
+ *
  * @author Michael Zhou
+ * @version $Id: SetContextRule.java,v 1.2 2003/08/07 08:08:59 zyh Exp $
  */
 public class SetContextRule extends Rule {
-    protected String attributeName;
-    protected Class contextFactoryClass;
+    protected String         attributeName;
+    protected Class          contextFactoryClass;
     protected ContextFactory contextFactory;
 
     /**
      * 使用指定attribute的值作为当前context的值.
-     * 
+     *
      * @param attributeName XML属性名
      */
     public SetContextRule(String attributeName) {
@@ -42,7 +42,7 @@ public class SetContextRule extends Rule {
 
     /**
      * 使用指定类作为取得context的工厂.
-     * 
+     *
      * @param contextFactoryClass 工厂类
      */
     public SetContextRule(Class contextFactoryClass) {
@@ -51,7 +51,7 @@ public class SetContextRule extends Rule {
 
     /**
      * 使用指定context工厂取得当前context的值.
-     * 
+     *
      * @param contextFactory 工厂对象
      */
     public SetContextRule(ContextFactory contextFactory) {
@@ -60,7 +60,7 @@ public class SetContextRule extends Rule {
 
     /**
      * 开始处理, 压入新的context.
-     * 
+     *
      * @param attributes XML属性值
      * @throws Exception 如果失败
      */
@@ -89,7 +89,7 @@ public class SetContextRule extends Rule {
 
     /**
      * 结束处理, 弹出最近的context
-     * 
+     *
      * @throws Exception 如果失败
      */
     @Override
@@ -106,7 +106,7 @@ public class SetContextRule extends Rule {
 
     /**
      * 取得rule的字符串表示.
-     * 
+     *
      * @return 字符串表示
      */
     @Override
@@ -127,7 +127,7 @@ public class SetContextRule extends Rule {
 
     /**
      * 取得工厂.
-     * 
+     *
      * @return 取得当前context的工厂
      * @throws Exception 如果失败
      */

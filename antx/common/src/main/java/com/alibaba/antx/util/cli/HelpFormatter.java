@@ -27,25 +27,25 @@ import java.util.List;
 
 /**
  * A formatter of help messages for the current command line options
- * 
+ *
  * @author Slawek Zachcial
  * @author John Keyes (john at integralsource.com)
  */
 public class HelpFormatter {
     // --------------------------------------------------------------- Constants
-    public static final int DEFAULT_WIDTH = 74;
-    public static final int DEFAULT_LEFT_PAD = 1;
-    public static final int DEFAULT_DESC_PAD = 3;
-    public static final String DEFAULT_SYNTAX_PREFIX = "usage: ";
-    public static final String DEFAULT_OPT_PREFIX = "-";
+    public static final int    DEFAULT_WIDTH           = 74;
+    public static final int    DEFAULT_LEFT_PAD        = 1;
+    public static final int    DEFAULT_DESC_PAD        = 3;
+    public static final String DEFAULT_SYNTAX_PREFIX   = "usage: ";
+    public static final String DEFAULT_OPT_PREFIX      = "-";
     public static final String DEFAULT_LONG_OPT_PREFIX = "--";
-    public static final String DEFAULT_ARG_NAME = "arg";
+    public static final String DEFAULT_ARG_NAME        = "arg";
 
     // ------------------------------------------------------------------ Static
     // -------------------------------------------------------------- Attributes
-    public int defaultWidth;
-    public int defaultLeftPad;
-    public int defaultDescPad;
+    public int    defaultWidth;
+    public int    defaultLeftPad;
+    public int    defaultDescPad;
     public String defaultSyntaxPrefix;
     public String defaultNewLine;
     public String defaultOptPrefix;
@@ -125,9 +125,9 @@ public class HelpFormatter {
      * <p>
      * Prints the usage statement for the specified application.
      * </p>
-     * 
-     * @param pw The PrintWriter to print the usage statement
-     * @param width ??
+     *
+     * @param pw      The PrintWriter to print the usage statement
+     * @param width   ??
      * @param appName The application name
      * @param options The command line Options
      */
@@ -142,7 +142,7 @@ public class HelpFormatter {
         Option option;
 
         // iterate over the options
-        for (Iterator i = options.getOptions().iterator(); i.hasNext();) {
+        for (Iterator i = options.getOptions().iterator(); i.hasNext(); ) {
             // get the next Option
             option = (Option) i.next();
 
@@ -161,7 +161,7 @@ public class HelpFormatter {
                 buff.append("[");
 
                 // for each option in the OptionGroup
-                for (Iterator iter = names.iterator(); iter.hasNext();) {
+                for (Iterator iter = names.iterator(); iter.hasNext(); ) {
                     buff.append(iter.next());
 
                     if (iter.hasNext()) {
@@ -246,7 +246,7 @@ public class HelpFormatter {
 
         Collections.sort(optList, new OptionComparator());
 
-        for (Iterator i = optList.iterator(); i.hasNext();) {
+        for (Iterator i = optList.iterator(); i.hasNext(); ) {
             option = (Option) i.next();
             optBuf = new StringBuffer(8);
 
@@ -274,7 +274,7 @@ public class HelpFormatter {
 
         int x = 0;
 
-        for (Iterator i = optList.iterator(); i.hasNext();) {
+        for (Iterator i = optList.iterator(); i.hasNext(); ) {
             option = (Option) i.next();
             optBuf = new StringBuffer(prefixList.get(x++).toString());
 
@@ -327,11 +327,11 @@ public class HelpFormatter {
      * text in <code>sb</code> with the column width <code>width</code>. The
      * wrap point is the last postion before startPos+width having a whitespace
      * character (space, \n, \r).
-     * 
-     * @param sb text to be analyzed
-     * @param width width of the wrapped text
+     *
+     * @param sb       text to be analyzed
+     * @param width    width of the wrapped text
      * @param startPos position from which to start the lookup whitespace
-     *            character
+     *                 character
      * @return postion on which the text must be wrapped or -1 if the wrap
      *         position is at the end of the text
      */
@@ -340,7 +340,7 @@ public class HelpFormatter {
 
         // the line ends before the max wrap pos or a new line char found
         if ((pos = text.indexOf('\n', startPos)) != -1 && pos <= width || (pos = text.indexOf('\t', startPos)) != -1
-                && pos <= width) {
+                                                                          && pos <= width) {
             return pos;
         } else if (startPos + width >= text.length()) {
             return -1;

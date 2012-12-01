@@ -30,14 +30,14 @@ import java.util.SortedSet;
 
 /**
  * 这个类是<code>java.util.Collections</code>类的扩展, 包括了对<code>ListMap</code>接口的支持.
- * 
- * @version $Id: Collections.java,v 1.1 2003/07/03 07:26:15 baobao Exp $
+ *
  * @author Michael Zhou
+ * @version $Id: Collections.java,v 1.1 2003/07/03 07:26:15 baobao Exp $
  */
 public class Collections {
     /**
      * 取得一个线程安全的<code>Collection</code>对象.
-     * 
+     *
      * @param collection 被包装的<code>Collection</code>对象
      * @return 线程安全的<code>Collection</code>对象
      */
@@ -47,9 +47,9 @@ public class Collections {
 
     /**
      * 取得一个线程安全的<code>Collection</code>对象.
-     * 
+     *
      * @param collection 被包装的<code>Collection</code>对象
-     * @param syncRoot 同步对象
+     * @param syncRoot   同步对象
      * @return 线程安全的<code>Collection</code>对象
      */
     public static Collection synchronizedCollection(Collection collection, Object syncRoot) {
@@ -58,7 +58,7 @@ public class Collections {
 
     /**
      * 取得一个线程安全的<code>Set</code>对象.
-     * 
+     *
      * @param set 被包装的<code>Set</code>对象
      * @return 线程安全的<code>Set</code>对象
      */
@@ -68,8 +68,8 @@ public class Collections {
 
     /**
      * 取得一个线程安全的<code>Set</code>对象.
-     * 
-     * @param set 被包装的<code>Set</code>对象
+     *
+     * @param set      被包装的<code>Set</code>对象
      * @param syncRoot 同步对象
      * @return 线程安全的<code>Set</code>对象
      */
@@ -79,7 +79,7 @@ public class Collections {
 
     /**
      * 取得一个线程安全的<code>SortedSet</code>对象.
-     * 
+     *
      * @param set 被包装的<code>SortedSet</code>对象
      * @return 线程安全的<code>SortedSet</code>对象
      */
@@ -89,8 +89,8 @@ public class Collections {
 
     /**
      * 取得一个线程安全的<code>SortedSet</code>对象.
-     * 
-     * @param set 被包装的<code>SortedSet</code>对象
+     *
+     * @param set      被包装的<code>SortedSet</code>对象
      * @param syncRoot 同步对象
      * @return 线程安全的<code>SortedSet</code>对象
      */
@@ -100,7 +100,7 @@ public class Collections {
 
     /**
      * 取得一个线程安全的<code>List</code>对象.
-     * 
+     *
      * @param list 被包装的<code>List</code>对象
      * @return 线程安全的<code>List</code>对象
      */
@@ -110,8 +110,8 @@ public class Collections {
 
     /**
      * 取得一个线程安全的<code>List</code>对象.
-     * 
-     * @param list 被包装的<code>List</code>对象
+     *
+     * @param list     被包装的<code>List</code>对象
      * @param syncRoot 同步对象
      * @return 线程安全的<code>List</code>对象
      */
@@ -121,7 +121,7 @@ public class Collections {
 
     /**
      * 取得一个线程安全的<code>Map</code>对象.
-     * 
+     *
      * @param map 被包装的<code>Map</code>对象
      * @return 线程安全的<code>Map</code>对象
      */
@@ -131,8 +131,8 @@ public class Collections {
 
     /**
      * 取得一个线程安全的<code>Map</code>对象.
-     * 
-     * @param map 被包装的<code>Map</code>对象
+     *
+     * @param map      被包装的<code>Map</code>对象
      * @param syncRoot 同步对象
      * @return 线程安全的<code>Map</code>对象
      */
@@ -142,7 +142,7 @@ public class Collections {
 
     /**
      * 取得一个线程安全的<code>SortedMap</code>对象.
-     * 
+     *
      * @param map 被包装的<code>SortedMap</code>对象
      * @return 线程安全的<code>SortedMap</code>对象
      */
@@ -152,8 +152,8 @@ public class Collections {
 
     /**
      * 取得一个线程安全的<code>SortedMap</code>对象.
-     * 
-     * @param map 被包装的<code>SortedMap</code>对象
+     *
+     * @param map      被包装的<code>SortedMap</code>对象
      * @param syncRoot 同步对象
      * @return 线程安全的<code>SortedMap</code>对象
      */
@@ -163,7 +163,7 @@ public class Collections {
 
     /**
      * 取得一个线程安全的<code>ListMap</code>对象.
-     * 
+     *
      * @param map 被包装的<code>ListMap</code>对象
      * @return 线程安全的<code>ListMap</code>对象
      */
@@ -173,8 +173,8 @@ public class Collections {
 
     /**
      * 取得一个线程安全的<code>ListMap</code>对象.
-     * 
-     * @param map 被包装的<code>ListMap</code>对象
+     *
+     * @param map      被包装的<code>ListMap</code>对象
      * @param syncRoot 同步对象
      * @return 线程安全的<code>ListMap</code>对象
      */
@@ -183,13 +183,11 @@ public class Collections {
     }
 }
 
-/**
- * 线程安全的<code>Collection</code>的包装器.
- */
+/** 线程安全的<code>Collection</code>的包装器. */
 class SynchronizedCollection implements Collection, Serializable {
     private static final long serialVersionUID = 3053995032091335093L;
     protected Collection collection;
-    protected Object syncRoot;
+    protected Object     syncRoot;
 
     SynchronizedCollection(Collection collection) {
         this(collection, null);
@@ -289,9 +287,7 @@ class SynchronizedCollection implements Collection, Serializable {
     }
 }
 
-/**
- * 线程安全的<code>Set</code>的包装器.
- */
+/** 线程安全的<code>Set</code>的包装器. */
 class SynchronizedSet extends SynchronizedCollection implements Set {
     private static final long serialVersionUID = -1688591608929270671L;
 
@@ -318,9 +314,7 @@ class SynchronizedSet extends SynchronizedCollection implements Set {
     }
 }
 
-/**
- * 线程安全的<code>SortedSet</code>的包装器.
- */
+/** 线程安全的<code>SortedSet</code>的包装器. */
 class SynchronizedSortedSet extends SynchronizedSet implements SortedSet {
     private static final long serialVersionUID = -4254250562122002613L;
 
@@ -369,9 +363,7 @@ class SynchronizedSortedSet extends SynchronizedSet implements SortedSet {
     }
 }
 
-/**
- * 线程安全的<code>List</code>的包装器.
- */
+/** 线程安全的<code>List</code>的包装器. */
 class SynchronizedList extends SynchronizedCollection implements List {
     private static final long serialVersionUID = -7754090372962971524L;
 
@@ -454,12 +446,10 @@ class SynchronizedList extends SynchronizedCollection implements List {
     }
 }
 
-/**
- * 线程安全的<code>Map</code>的包装器.
- */
+/** 线程安全的<code>Map</code>的包装器. */
 class SynchronizedMap implements Map, Serializable {
     private static final long serialVersionUID = 1978198479659022715L;
-    protected Map map;
+    protected Map    map;
     protected Object syncRoot;
 
     SynchronizedMap(Map map) {
@@ -530,9 +520,9 @@ class SynchronizedMap implements Map, Serializable {
         }
     }
 
-    private transient Set keySet = null;
-    private transient Set entrySet = null;
-    private transient Collection values = null;
+    private transient Set        keySet   = null;
+    private transient Set        entrySet = null;
+    private transient Collection values   = null;
 
     public Set keySet() {
         synchronized (syncRoot) {
@@ -586,9 +576,7 @@ class SynchronizedMap implements Map, Serializable {
     }
 }
 
-/**
- * 线程安全的<code>SortedMap</code>的包装器.
- */
+/** 线程安全的<code>SortedMap</code>的包装器. */
 class SynchronizedSortedMap extends SynchronizedMap implements SortedMap {
     private static final long serialVersionUID = -4739449073617952001L;
 
@@ -637,9 +625,7 @@ class SynchronizedSortedMap extends SynchronizedMap implements SortedMap {
     }
 }
 
-/**
- * 线程安全的<code>Collection</code>的包装器.
- */
+/** 线程安全的<code>Collection</code>的包装器. */
 class SynchronizedListMap extends SynchronizedMap implements ListMap {
     private static final long serialVersionUID = -8069282343682823184L;
 

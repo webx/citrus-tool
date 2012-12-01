@@ -27,18 +27,18 @@ import com.alibaba.toolkit.util.typeconvert.Convertible;
 
 /**
  * 代表一个或多个<code>Flags</code>构成的位集.
- * 
- * @version $Id: FlagSet.java,v 1.1 2003/07/03 07:26:20 baobao Exp $
+ *
  * @author Michael Zhou
+ * @version $Id: FlagSet.java,v 1.1 2003/07/03 07:26:20 baobao Exp $
  */
 public abstract class FlagSet implements Flags, Cloneable, Comparable, Serializable, Convertible {
     private static final long serialVersionUID = -5507969553098965333L;
-    private final Class enumClass;
+    private final       Class   enumClass;
     protected transient boolean immutable;
 
     /**
      * 创建一个位集.
-     * 
+     *
      * @param enumClass 位集所代表的内部枚举类
      */
     public FlagSet(Class enumClass) {
@@ -57,7 +57,7 @@ public abstract class FlagSet implements Flags, Cloneable, Comparable, Serializa
 
     /**
      * 取得内部枚举类型.
-     * 
+     *
      * @return 内部枚举类型
      */
     public Class getEnumClass() {
@@ -66,7 +66,7 @@ public abstract class FlagSet implements Flags, Cloneable, Comparable, Serializa
 
     /**
      * 取得位集的值的类型.
-     * 
+     *
      * @return 位集的值的类型
      */
     public Class getUnderlyingClass() {
@@ -75,21 +75,21 @@ public abstract class FlagSet implements Flags, Cloneable, Comparable, Serializa
 
     /**
      * 设置位集的值, 值的类型由<code>getUnderlyingClass()</code>确定.
-     * 
+     *
      * @param value 位集的值
      */
     public abstract void setValue(Object value);
 
     /**
      * 取得位集的值, 值的类型由<code>getUnderlyingClass()</code>确定.
-     * 
+     *
      * @return 位集的值
      */
     public abstract Object getValue();
 
     /**
      * 实现<code>Number</code>类, 取得<code>byte</code>值.
-     * 
+     *
      * @return <code>byte</code>值
      */
     public byte byteValue() {
@@ -98,7 +98,7 @@ public abstract class FlagSet implements Flags, Cloneable, Comparable, Serializa
 
     /**
      * 实现<code>Number</code>类, 取得<code>short</code>值.
-     * 
+     *
      * @return <code>short</code>值
      */
     public short shortValue() {
@@ -112,7 +112,7 @@ public abstract class FlagSet implements Flags, Cloneable, Comparable, Serializa
      * <li>如果<code>targetType</code>是字符串, 则返回<code>FlagSet.toString()</code>.</li>
      * <li>否则将位集的值传递到转换链中.</li>
      * </ul>
-     * 
+     *
      * @param targetType 目标类型
      * @return 将当前位集转换成指定<code>targetType</code>的<code>Converter</code>
      */
@@ -133,7 +133,7 @@ public abstract class FlagSet implements Flags, Cloneable, Comparable, Serializa
 
     /**
      * 复制位集对象.
-     * 
+     *
      * @return 复制品
      */
     @Override
@@ -144,7 +144,7 @@ public abstract class FlagSet implements Flags, Cloneable, Comparable, Serializa
             flagSet = (FlagSet) super.clone();
         } catch (CloneNotSupportedException e) {
             throw new InternalError(MessageFormat.format(EnumConstants.CLONE_NOT_SUPPORTED, new Object[] { getClass()
-                    .getName() }));
+                                                                                                                   .getName() }));
         }
 
         flagSet.immutable = false;
@@ -153,7 +153,7 @@ public abstract class FlagSet implements Flags, Cloneable, Comparable, Serializa
 
     /**
      * 和另一个位集比较大小, 就是按位集的值比较.
-     * 
+     *
      * @param other 要比较的位集
      * @return 如果等于<code>0</code>, 表示值相等, 大于<code>0</code>表示当前的位集的值比
      *         <code>otherFlags</code>大, 小于<code>0</code>表示当前的位集的值比
@@ -169,7 +169,7 @@ public abstract class FlagSet implements Flags, Cloneable, Comparable, Serializa
 
         if (!enumClass.equals(otherFlagSet.enumClass)) {
             throw new IllegalArgumentException(MessageFormat.format(EnumConstants.COMPARE_UNDERLYING_CLASS_MISMATCH,
-                    new Object[] { enumClass.getName(), otherFlagSet.enumClass.getName() }));
+                                                                    new Object[] { enumClass.getName(), otherFlagSet.enumClass.getName() }));
         }
 
         return ((Comparable) getValue()).compareTo(otherFlagSet.getValue());
@@ -177,7 +177,7 @@ public abstract class FlagSet implements Flags, Cloneable, Comparable, Serializa
 
     /**
      * 比较两个位集是否相等, 即: 类型相同, 内部类相同, 并且值相同.
-     * 
+     *
      * @param obj 要比较的对象
      * @return 如果相等, 则返回<code>true</code>
      */
@@ -196,7 +196,7 @@ public abstract class FlagSet implements Flags, Cloneable, Comparable, Serializa
 
     /**
      * 取得位集的hash值. 如果两个位集相同, 则它们的hash值一定相同.
-     * 
+     *
      * @return hash值
      */
     @Override
@@ -206,7 +206,7 @@ public abstract class FlagSet implements Flags, Cloneable, Comparable, Serializa
 
     /**
      * 取得位集的字符串表示.
-     * 
+     *
      * @return 位集的字符串表示
      */
     @Override
@@ -214,7 +214,7 @@ public abstract class FlagSet implements Flags, Cloneable, Comparable, Serializa
         StringBuffer buffer = new StringBuffer("{");
         String sep = "";
 
-        for (Iterator i = Enum.iterator(enumClass); i.hasNext();) {
+        for (Iterator i = Enum.iterator(enumClass); i.hasNext(); ) {
             Flags flags = (Flags) i.next();
 
             if (test(flags)) {
@@ -230,7 +230,7 @@ public abstract class FlagSet implements Flags, Cloneable, Comparable, Serializa
 
     /**
      * 设置成不可变的位集.
-     * 
+     *
      * @return 位集本身
      */
     public Flags setImmutable() {
@@ -240,14 +240,14 @@ public abstract class FlagSet implements Flags, Cloneable, Comparable, Serializa
 
     /**
      * 清除当前位集的全部位.
-     * 
+     *
      * @return 当前位集
      */
     public abstract Flags clear();
 
     /**
      * 清除当前位集的指定位, 等效于<code>andNot</code>操作.
-     * 
+     *
      * @param flags 标志位
      * @return 当前位集
      */
@@ -258,7 +258,7 @@ public abstract class FlagSet implements Flags, Cloneable, Comparable, Serializa
 
     /**
      * 设置当前位集的指定位, 等效于<code>or</code>操作.
-     * 
+     *
      * @param flags 标志位
      * @return 当前位集
      */
@@ -269,7 +269,7 @@ public abstract class FlagSet implements Flags, Cloneable, Comparable, Serializa
 
     /**
      * 测试当前位集的指定位, 等效于<code>and(flags) != 0</code>.
-     * 
+     *
      * @param flags 标志位
      * @return 如果指定位被置位, 则返回<code>true</code>
      */
@@ -277,7 +277,7 @@ public abstract class FlagSet implements Flags, Cloneable, Comparable, Serializa
 
     /**
      * 如果是不可变位集, 则创建一个新的位集, 否则返回本身.
-     * 
+     *
      * @return 位集本身或复制品
      */
     protected FlagSet getFlagSetForModification() {
@@ -288,9 +288,7 @@ public abstract class FlagSet implements Flags, Cloneable, Comparable, Serializa
         }
     }
 
-    /**
-     * 如果是不可变的位集, 则掷出<code>UnsupportedOperationException</code>.
-     */
+    /** 如果是不可变的位集, 则掷出<code>UnsupportedOperationException</code>. */
     protected void checkImmutable() {
         if (immutable) {
             throw new UnsupportedOperationException(EnumConstants.FLAG_SET_IS_IMMUTABLE);
@@ -299,7 +297,7 @@ public abstract class FlagSet implements Flags, Cloneable, Comparable, Serializa
 
     /**
      * 确保<code>flags</code>非空, 并且是<code>Enum</code>或<code>FlagSet</code>类.
-     * 
+     *
      * @param flags 要判断的对象
      */
     protected void checkFlags(Flags flags) {

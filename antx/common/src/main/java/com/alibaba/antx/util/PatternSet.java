@@ -25,7 +25,7 @@ import com.alibaba.toolkit.util.collection.ArrayHashSet;
 
 /**
  * 代表includes、excludes的pattern集合。
- * 
+ *
  * @author Michael Zhou
  */
 public class PatternSet {
@@ -62,9 +62,7 @@ public class PatternSet {
         this.excludes = patterns.excludes;
     }
 
-    /**
-     * 将所有pattern规格化成：无/前缀/后缀，以/分隔。
-     */
+    /** 将所有pattern规格化成：无/前缀/后缀，以/分隔。 */
     private static String[] normalizePatterns(String[] patterns) {
         if (patterns == null) {
             return new String[0];
@@ -104,9 +102,7 @@ public class PatternSet {
         return (String[]) patternList.toArray(new String[patternList.size()]);
     }
 
-    /**
-     * 排除指定的文件。
-     */
+    /** 排除指定的文件。 */
     public PatternSet addExcludes(String[] addedExcludes) {
         Set excludeSet = new ArrayHashSet();
 
@@ -123,37 +119,27 @@ public class PatternSet {
         return this;
     }
 
-    /**
-     * 排除默认的文件。
-     */
+    /** 排除默认的文件。 */
     public PatternSet addDefaultExcludes() {
         return addExcludes(FileUtil.DEFAULT_EXCLUDES);
     }
 
-    /**
-     * 取得include patterns
-     */
+    /** 取得include patterns */
     public String[] getIncludes() {
         return includes;
     }
 
-    /**
-     * 取得exclude patterns
-     */
+    /** 取得exclude patterns */
     public String[] getExcludes() {
         return excludes;
     }
 
-    /**
-     * 是否为空。
-     */
+    /** 是否为空。 */
     public boolean isEmpty() {
         return includes.length == 0 && excludes.length == 0;
     }
 
-    /**
-     * 是否包含所有。
-     */
+    /** 是否包含所有。 */
     public boolean isIncludeAll() {
         if (isExcludeAll()) {
             return false;
@@ -162,16 +148,12 @@ public class PatternSet {
         return includes.length == 1 && "**".equals(includes[0]) && excludes.length == 0;
     }
 
-    /**
-     * 是否排除所有。
-     */
+    /** 是否排除所有。 */
     public boolean isExcludeAll() {
         return excludes.length == 1 && "**".equals(excludes[0]);
     }
 
-    /**
-     * 转换成字符串形式。
-     */
+    /** 转换成字符串形式。 */
     @Override
     public String toString() {
         StringBuffer buffer = new StringBuffer();

@@ -60,9 +60,9 @@ import com.alibaba.toolkit.util.collection.ArrayHashSet;
  * 注意, <code>Thread.getContextClassLoader()</code>是在JDK1.2之后才有的, 对于低版本的JDK,
  * <code>ClassFinder</code>的效果和直接调用<code>ClassLoader</code>完全相同.
  * </p>
- * 
- * @version $Id: ContextClassLoader.java,v 1.1 2003/07/03 07:26:15 baobao Exp $
+ *
  * @author Michael Zhou
+ * @version $Id: ContextClassLoader.java,v 1.1 2003/07/03 07:26:15 baobao Exp $
  */
 public class ContextClassLoader {
     /**
@@ -88,7 +88,7 @@ public class ContextClassLoader {
      * <li>在装入自己的<code>ClassLoader</code>中查找.</li>
      * <li>通过<code>ClassLoader.getSystemResource</code>方法查找.</li>
      * </ol>
-     * 
+     *
      * @param resourceName 要查找的资源名, 就是以&quot;/&quot;分隔的标识符字符串
      * @return resource的URL数组, 如果没找到, 则返回空数组. 数组中保证不包含重复的URL.
      */
@@ -120,10 +120,10 @@ public class ContextClassLoader {
 
     /**
      * 在指定class loader中查找指定名称的resource, 把所有找到的resource的URL放入指定的集合中.
-     * 
-     * @param urlSet 存放resource URL的集合
-     * @param resourceName 资源名
-     * @param classLoader 类装入器
+     *
+     * @param urlSet         存放resource URL的集合
+     * @param resourceName   资源名
+     * @param classLoader    类装入器
      * @param sysClassLoader 是否用system class loader装载资源
      * @return 如果找到, 则返回<code>true</code>
      */
@@ -159,7 +159,7 @@ public class ContextClassLoader {
      * <li>在装入自己的<code>ClassLoader</code>中查找.</li>
      * <li>通过<code>ClassLoader.getSystemResource</code>方法查找.</li>
      * </ol>
-     * 
+     *
      * @param resourceName 要查找的资源名, 就是以&quot;/&quot;分隔的标识符字符串
      * @return resource的URL
      */
@@ -197,7 +197,7 @@ public class ContextClassLoader {
     /**
      * 从<code>ClassLoader</code>取得resource的输入流. 相当于
      * <code>getResource(resourceName).openStream()</code>.
-     * 
+     *
      * @param resourceName 要查找的资源名, 就是以"/"分隔的标识符字符串
      * @return resource的输入流
      */
@@ -218,7 +218,7 @@ public class ContextClassLoader {
     /**
      * 从当前线程的<code>ClassLoader</code>装入类. 对于JDK1.2以下, 则相当于
      * <code>Class.forName</code>.
-     * 
+     *
      * @param className 要装入的类名
      * @return 已装入的类
      * @throws ClassNotFoundException 如果类没找到
@@ -230,9 +230,9 @@ public class ContextClassLoader {
     /**
      * 从指定的<code>ClassLoader</code>中装入类. 如果未指定<code>ClassLoader</code>, 则从当前线程的
      * <code>ClassLoader</code>中装入.
-     * 
-     * @param className 要装入的类名
-     * @param initialize 是否要初始化类
+     *
+     * @param className   要装入的类名
+     * @param initialize  是否要初始化类
      * @param classLoader 从指定的<code>ClassLoader</code>中装入类
      * @return 已装入的类
      * @throws ClassNotFoundException 如果类没找到
@@ -248,7 +248,7 @@ public class ContextClassLoader {
 
     /**
      * 取得当前线程的<code>ClassLoader</code>. 这个功能需要JDK1.2或更高版本的JDK的支持.
-     * 
+     *
      * @return 如果JDK是1.2以前版本, 返回null. 否则返回当前线程的<code>ClassLoader</code>.
      */
     public static ClassLoader getClassLoader() {

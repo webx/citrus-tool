@@ -33,9 +33,9 @@ import com.alibaba.toolkit.util.typeconvert.Converter;
  * 则抛出<code>ConvertFailedException</code>.</li>
  * <li>否则, 把对象传递给下一个<code>Converter</code>处理.</li>
  * </ul>
- * 
- * @version $Id: SqlDateConverter.java,v 1.1 2003/07/03 07:26:41 baobao Exp $
+ *
  * @author Michael Zhou
+ * @version $Id: SqlDateConverter.java,v 1.1 2003/07/03 07:26:41 baobao Exp $
  */
 public class SqlDateConverter implements Converter {
     protected static final Date DEFAULT_VALUE = null;

@@ -23,8 +23,8 @@ import java.util.Iterator;
 
 /**
  * The class PosixParser provides an implementation of the
- * {@link Parser#flatten(Options,String[],boolean) flatten} method.
- * 
+ * {@link Parser#flatten(Options, String[], boolean) flatten} method.
+ *
  * @author John Keyes (john at integralsource.com)
  * @see Parser
  */
@@ -57,7 +57,7 @@ public class PosixParser extends Parser {
     /**
      * <p>
      * An implementation of {@link Parser}'s abstract
-     * {@link Parser#flatten(Options,String[],boolean) flatten} method.
+     * {@link Parser#flatten(Options, String[], boolean) flatten} method.
      * </p>
      * <p>
      * The following are the rules used by this flatten method.
@@ -87,11 +87,11 @@ public class PosixParser extends Parser {
      * tokens.</li>
      * </ol>
      * </p>
-     * 
-     * @param options The command line {@link Options}
-     * @param arguments The command line arguments to be parsed
+     *
+     * @param options         The command line {@link Options}
+     * @param arguments       The command line arguments to be parsed
      * @param stopAtNonOption Specifies whether to stop flattening when an non
-     *            option is found.
+     *                        option is found.
      * @return The flattened <code>arguments</code> String array.
      */
     @Override
@@ -142,14 +142,14 @@ public class PosixParser extends Parser {
             gobble(iter);
         }
 
-        return (String[]) tokens.toArray(new String[] {});
+        return (String[]) tokens.toArray(new String[] { });
     }
 
     /**
      * <p>
      * Adds the remaining tokens to the processed tokens list.
      * </p>
-     * 
+     *
      * @param iter An iterator over the remaining tokens
      */
     private void gobble(Iterator iter) {
@@ -175,7 +175,7 @@ public class PosixParser extends Parser {
      * the current <code>value</code> to the processed tokens list. The add all
      * the remaining <code>argument</code> values to the processed tokens list.
      * </p>
-     * 
+     *
      * @param value The current token
      */
     private void process(String value) {
@@ -198,7 +198,7 @@ public class PosixParser extends Parser {
      * If it is a hyphen then add the hyphen directly to the processed tokens
      * list.
      * </p>
-     * 
+     *
      * @param hyphen The hyphen token
      */
     private void processSingleHyphen(String hyphen) {
@@ -215,10 +215,10 @@ public class PosixParser extends Parser {
      * set then ignore the current token and add the remaining tokens to the
      * processed tokens list directly.
      * </p>
-     * 
-     * @param token The current option token
+     *
+     * @param token           The current option token
      * @param stopAtNonOption Specifies whether flattening should halt at the
-     *            first non option.
+     *                        first non option.
      */
     private void processOptionToken(String token, boolean stopAtNonOption) {
         if (this.options.hasOption(token)) {

@@ -31,18 +31,18 @@ import com.alibaba.antx.util.i18n.LocaleInfo;
 
 /**
  * 扩展<code>Properties</code>类, 支持从<code>Reader</code>中读取unicode字符。
- * 
+ *
  * @author Michael Zhou
  */
 public class ExtendedProperties extends Properties {
-    private static final long serialVersionUID = 3258126960071555380L;
-    private static final String KEY_VALUE_SEPARATORS = "= \t\r\n\f";
+    private static final long   serialVersionUID            = 3258126960071555380L;
+    private static final String KEY_VALUE_SEPARATORS        = "= \t\r\n\f";
     private static final String STRICT_KEY_VALUE_SEPARATORS = "=";
-    private static final String WHITE_SPACE_CHARS = " \t\r\n\f";
+    private static final String WHITE_SPACE_CHARS           = " \t\r\n\f";
 
     /**
      * 从指定的properties文件中，以默认的编码字符集读取属性和值。
-     * 
+     *
      * @param resource properties文件
      * @throws IOException 读文件失败或文件格式错误
      */
@@ -52,9 +52,9 @@ public class ExtendedProperties extends Properties {
 
     /**
      * 从指定的properties文件中，以指定的编码字符集读取属性和值。
-     * 
+     *
      * @param resource properties文件
-     * @param charset 编码字符集
+     * @param charset  编码字符集
      * @throws IOException 读文件失败或文件格式错误
      */
     public synchronized void load(URL resource, String charset) throws IOException {
@@ -82,7 +82,7 @@ public class ExtendedProperties extends Properties {
 
     /**
      * 从指定的输入流中，以默认的编码字符集读取属性和值。
-     * 
+     *
      * @param istream 输入字符流
      * @throws IOException 读文件失败或文件格式错误
      */
@@ -93,7 +93,7 @@ public class ExtendedProperties extends Properties {
 
     /**
      * 从指定的输入流中，以指定的编码字符集读取属性和值。
-     * 
+     *
      * @param istream 输入字符流
      * @throws IOException 读文件失败或文件格式错误
      */
@@ -119,7 +119,7 @@ public class ExtendedProperties extends Properties {
 
     /**
      * 从指定的输入流中，以默认的编码字符集读取属性和值。
-     * 
+     *
      * @param reader 输入字符流
      * @throws IOException 读文件失败或文件格式错误
      */
@@ -235,7 +235,7 @@ public class ExtendedProperties extends Properties {
 
     /**
      * 判断该行是否和下一行是连续的行。
-     * 
+     *
      * @param line 指定行
      * @return 如果是和下一行相连的，则返回<code>true</code>
      */
@@ -252,7 +252,7 @@ public class ExtendedProperties extends Properties {
 
     /**
      * 将&#92;uxxxx转换成unicode字符，将特殊符号转换成其原来的格式。
-     * 
+     *
      * @param str 要转换的字符串
      * @return 转换后的字符串
      */
@@ -265,7 +265,7 @@ public class ExtendedProperties extends Properties {
             url = "<unknown source>";
         }
 
-        for (int x = 0; x < len;) {
+        for (int x = 0; x < len; ) {
             ch = str.charAt(x++);
 
             if (ch == '\\') {
@@ -312,7 +312,7 @@ public class ExtendedProperties extends Properties {
 
                             default:
                                 throw new IllegalArgumentException("Malformed \\uxxxx encoding at " + url + ", line "
-                                        + lineNumber);
+                                                                   + lineNumber);
                         }
                     }
 

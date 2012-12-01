@@ -22,17 +22,17 @@ import java.util.Iterator;
 
 /**
  * 将<code>Enumeration</code>转换成<code>Iterator</code>的适配器.
- * 
- * @version $Id: EnumerationIterator.java,v 1.1 2003/07/03 07:26:16 baobao Exp $
+ *
  * @author Michael Zhou
+ * @version $Id: EnumerationIterator.java,v 1.1 2003/07/03 07:26:16 baobao Exp $
  */
 public class EnumerationIterator implements Iterator {
     private Enumeration enumeration;
-    private Object lastReturned;
+    private Object      lastReturned;
 
     /**
      * 创建一个<code>EnumerationIterator</code>.
-     * 
+     *
      * @param enumeration 被适配的<code>Enumeration</code>
      */
     public EnumerationIterator(Enumeration enumeration) {
@@ -41,7 +41,7 @@ public class EnumerationIterator implements Iterator {
 
     /**
      * 取得被适配的<code>Enumeration</code>.
-     * 
+     *
      * @return 被适配的<code>Enumeration</code>
      */
     public Enumeration getEnumeration() {
@@ -50,7 +50,7 @@ public class EnumerationIterator implements Iterator {
 
     /**
      * 是否有下一个元素.
-     * 
+     *
      * @return 如果有下一个元素, 则返回<code>true</code>
      */
     public boolean hasNext() {
@@ -59,16 +59,14 @@ public class EnumerationIterator implements Iterator {
 
     /**
      * 取得下一个元素.
-     * 
+     *
      * @return 下一个元素
      */
     public Object next() {
         return lastReturned = enumeration.nextElement();
     }
 
-    /**
-     * 删除最近返回的元素, 不支持.
-     */
+    /** 删除最近返回的元素, 不支持. */
     public void remove() {
         throw new UnsupportedOperationException("remove() method is not supported");
     }

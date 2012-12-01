@@ -41,9 +41,9 @@ import com.alibaba.toolkit.util.typeconvert.Converter;
  * <li>如果对象为<code>Iterator</code>或<code>Enumeration</code>, 则遍历之, 对于每个元素, 执行转换.</li>
  * <li>否则, 把对象传递给下一个<code>Converter</code>处理.</li>
  * </ul>
- * 
- * @version $Id: ObjectArrayConverter.java,v 1.1 2003/07/03 07:26:41 baobao Exp $
+ *
  * @author Michael Zhou
+ * @version $Id: ObjectArrayConverter.java,v 1.1 2003/07/03 07:26:41 baobao Exp $
  */
 public class ObjectArrayConverter implements Converter {
     public Object convert(Object value, ConvertChain chain) {

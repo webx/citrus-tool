@@ -26,10 +26,10 @@ import org.apache.oro.text.regex.Perl5Compiler;
 
 /**
  * 将一种格式的pattern转换成Perl5标准的正则表达式的编译器.
- * 
+ *
+ * @author Michael Zhou
  * @version $Id: Perl5CompilerWrapper.java,v 1.1 2003/07/03 07:26:34 baobao Exp
  *          $
- * @author Michael Zhou
  */
 public abstract class Perl5CompilerWrapper implements PatternCompiler {
     /** 默认的位标志 */
@@ -55,7 +55,7 @@ public abstract class Perl5CompilerWrapper implements PatternCompiler {
 
     /**
      * 将pattern编译成perl5正则表达式.
-     * 
+     *
      * @param pattern 要编译的pattern
      * @return Perl5正则表达式
      * @throws MalformedPatternException 如果pattern格式不正确
@@ -66,7 +66,7 @@ public abstract class Perl5CompilerWrapper implements PatternCompiler {
 
     /**
      * 将pattern编译成perl5正则表达式.
-     * 
+     *
      * @param pattern 要编译的pattern
      * @param options 位标志
      * @return Perl5正则表达式
@@ -78,7 +78,7 @@ public abstract class Perl5CompilerWrapper implements PatternCompiler {
 
     /**
      * 将pattern编译成perl5正则表达式.
-     * 
+     *
      * @param pattern 要编译的pattern
      * @return Perl5正则表达式
      * @throws MalformedPatternException 如果pattern格式不正确
@@ -89,7 +89,7 @@ public abstract class Perl5CompilerWrapper implements PatternCompiler {
 
     /**
      * 将pattern编译成perl5正则表达式.
-     * 
+     *
      * @param pattern 要编译的pattern
      * @param options 位标志
      * @return Perl5正则表达式
@@ -111,7 +111,7 @@ public abstract class Perl5CompilerWrapper implements PatternCompiler {
 
     /**
      * 将pattern编译成perl5正则表达式字符串.
-     * 
+     *
      * @param pattern 要编译的pattern
      * @param options 位标志
      * @return Perl5正则表达式
@@ -121,7 +121,7 @@ public abstract class Perl5CompilerWrapper implements PatternCompiler {
 
     /**
      * 判断指定字符是否是perl5正则表达式保留的字符
-     * 
+     *
      * @param ch 字符
      * @return 如果是保留字符, 则返回<code>true</code>
      */
@@ -131,13 +131,13 @@ public abstract class Perl5CompilerWrapper implements PatternCompiler {
 
     /**
      * 取得错误信息.
-     * 
+     *
      * @param pattern 当前处理的pattern
-     * @param index 当前处理的pattern的index
+     * @param index   当前处理的pattern的index
      * @return 错误信息
      */
     protected String getDefaultErrorMessage(char[] pattern, int index) {
         return MessageFormat.format(ERROR_UNEXPECTED_CHAR, new Object[] { new Character(pattern[index]),
-                new String(pattern, 0, index) });
+                                                                          new String(pattern, 0, index) });
     }
 }

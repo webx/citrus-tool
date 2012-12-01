@@ -51,18 +51,16 @@ import com.alibaba.toolkit.util.typeconvert.converters.StringConverter;
 
 /**
  * <code>Converter</code>的管理器.
- * 
- * @version $Id: ConvertManager.java,v 1.1 2003/07/03 07:26:36 baobao Exp $
+ *
  * @author Michael Zhou
+ * @version $Id: ConvertManager.java,v 1.1 2003/07/03 07:26:36 baobao Exp $
  */
 public class ConvertManager {
     private static final Object NO_DEFAULT_VALUE = new Object();
-    private Map registry = Collections.synchronizedMap(new HashMap());
-    private Map aliases = Collections.synchronizedMap(new HashMap());
+    private              Map    registry         = Collections.synchronizedMap(new HashMap());
+    private              Map    aliases          = Collections.synchronizedMap(new HashMap());
 
-    /**
-     * 创建一个转换器.
-     */
+    /** 创建一个转换器. */
     public ConvertManager() {
         register(BigDecimal.class, new BigDecimalConverter());
         register(BigInteger.class, new BigIntegerConverter());
@@ -90,8 +88,8 @@ public class ConvertManager {
 
     /**
      * 登录一个转换器.
-     * 
-     * @param type 转换器的目标类型
+     *
+     * @param type      转换器的目标类型
      * @param converter 转换器对象
      */
     public void register(Class type, Converter converter) {
@@ -128,9 +126,9 @@ public class ConvertManager {
 
     /**
      * 登记别名.
-     * 
+     *
      * @param alias 别名
-     * @param type 目标类型
+     * @param type  目标类型
      */
     public void registerAlias(String alias, Class type) {
         synchronized (aliases) {
@@ -142,8 +140,8 @@ public class ConvertManager {
 
     /**
      * 内部过程: 登记一个转换器. 不检查primitive类型, 不同步.
-     * 
-     * @param type 转换器的目标类型
+     *
+     * @param type      转换器的目标类型
      * @param converter 转换器对象
      */
     private void internalRegister(Class type, Converter converter) {
@@ -162,7 +160,7 @@ public class ConvertManager {
 
     /**
      * 将指定值转换成<code>boolean</code>类型.
-     * 
+     *
      * @param value 要转换的值
      * @return 转换后的值
      */
@@ -172,8 +170,8 @@ public class ConvertManager {
 
     /**
      * 将指定值转换成<code>boolean</code>类型.
-     * 
-     * @param value 要转换的值
+     *
+     * @param value        要转换的值
      * @param defaultValue 默认值
      * @return 转换后的值
      */
@@ -183,7 +181,7 @@ public class ConvertManager {
 
     /**
      * 将指定值转换成<code>byte</code>类型.
-     * 
+     *
      * @param value 要转换的值
      * @return 转换后的值
      */
@@ -193,8 +191,8 @@ public class ConvertManager {
 
     /**
      * 将指定值转换成<code>byte</code>类型.
-     * 
-     * @param value 要转换的值
+     *
+     * @param value        要转换的值
      * @param defaultValue 默认值
      * @return 转换后的值
      */
@@ -204,7 +202,7 @@ public class ConvertManager {
 
     /**
      * 将指定值转换成<code>char</code>类型.
-     * 
+     *
      * @param value 要转换的值
      * @return 转换后的值
      */
@@ -214,8 +212,8 @@ public class ConvertManager {
 
     /**
      * 将指定值转换成<code>char</code>类型.
-     * 
-     * @param value 要转换的值
+     *
+     * @param value        要转换的值
      * @param defaultValue 默认值
      * @return 转换后的值
      */
@@ -225,7 +223,7 @@ public class ConvertManager {
 
     /**
      * 将指定值转换成<code>double</code>类型.
-     * 
+     *
      * @param value 要转换的值
      * @return 转换后的值
      */
@@ -235,8 +233,8 @@ public class ConvertManager {
 
     /**
      * 将指定值转换成<code>double</code>类型.
-     * 
-     * @param value 要转换的值
+     *
+     * @param value        要转换的值
      * @param defaultValue 默认值
      * @return 转换后的值
      */
@@ -246,7 +244,7 @@ public class ConvertManager {
 
     /**
      * 将指定值转换成<code>float</code>类型.
-     * 
+     *
      * @param value 要转换的值
      * @return 转换后的值
      */
@@ -256,8 +254,8 @@ public class ConvertManager {
 
     /**
      * 将指定值转换成<code>float</code>类型.
-     * 
-     * @param value 要转换的值
+     *
+     * @param value        要转换的值
      * @param defaultValue 默认值
      * @return 转换后的值
      */
@@ -267,7 +265,7 @@ public class ConvertManager {
 
     /**
      * 将指定值转换成<code>int</code>类型.
-     * 
+     *
      * @param value 要转换的值
      * @return 转换后的值
      */
@@ -277,8 +275,8 @@ public class ConvertManager {
 
     /**
      * 将指定值转换成<code>int</code>类型.
-     * 
-     * @param value 要转换的值
+     *
+     * @param value        要转换的值
      * @param defaultValue 默认值
      * @return 转换后的值
      */
@@ -288,7 +286,7 @@ public class ConvertManager {
 
     /**
      * 将指定值转换成<code>long</code>类型.
-     * 
+     *
      * @param value 要转换的值
      * @return 转换后的值
      */
@@ -298,8 +296,8 @@ public class ConvertManager {
 
     /**
      * 将指定值转换成<code>long</code>类型.
-     * 
-     * @param value 要转换的值
+     *
+     * @param value        要转换的值
      * @param defaultValue 默认值
      * @return 转换后的值
      */
@@ -309,7 +307,7 @@ public class ConvertManager {
 
     /**
      * 将指定值转换成<code>short</code>类型.
-     * 
+     *
      * @param value 要转换的值
      * @return 转换后的值
      */
@@ -319,8 +317,8 @@ public class ConvertManager {
 
     /**
      * 将指定值转换成<code>short</code>类型.
-     * 
-     * @param value 要转换的值
+     *
+     * @param value        要转换的值
      * @param defaultValue 默认值
      * @return 转换后的值
      */
@@ -330,7 +328,7 @@ public class ConvertManager {
 
     /**
      * 将指定值转换成<code>String</code>类型.
-     * 
+     *
      * @param value 要转换的值
      * @return 转换后的值
      */
@@ -340,8 +338,8 @@ public class ConvertManager {
 
     /**
      * 将指定值转换成<code>String</code>类型.
-     * 
-     * @param value 要转换的值
+     *
+     * @param value        要转换的值
      * @param defaultValue 默认值
      * @return 转换后的值
      */
@@ -351,9 +349,9 @@ public class ConvertManager {
 
     /**
      * 将指定值转换成指定类型.
-     * 
+     *
      * @param targetType 要转换的目标类型
-     * @param value 要转换的值
+     * @param value      要转换的值
      * @return 转换后的值
      */
     public Object asType(Object targetType, Object value) {
@@ -362,9 +360,9 @@ public class ConvertManager {
 
     /**
      * 将指定值转换成指定类型.
-     * 
-     * @param targetType 要转换的目标类型
-     * @param value 要转换的值
+     *
+     * @param targetType   要转换的目标类型
+     * @param value        要转换的值
      * @param defaultValue 默认值
      * @return 转换后的值
      */
@@ -382,9 +380,9 @@ public class ConvertManager {
 
     /**
      * 将指定值转换成指定类型. 即使转换失败, 也不会返回默认值, 而抛出一个异常.
-     * 
+     *
      * @param targetType 要转换的目标类型
-     * @param value 要转换的值
+     * @param value      要转换的值
      * @return 转换后的值
      */
     public Object asTypeWithoutDefaultValue(Object targetType, Object value) {
@@ -393,7 +391,7 @@ public class ConvertManager {
 
     /**
      * 取得target type类对象.
-     * 
+     *
      * @param targetType target type类或别名
      * @return target type类对象
      */
@@ -418,24 +416,24 @@ public class ConvertManager {
      * targetType的基类(不包括Object类)对应的转换器, targetType的接口对应的转换器, Object类所对应的转换器.
      */
     private class ChainImpl implements ConvertChain {
-        private static final int STATE_START = 0;
+        private static final int STATE_START       = 0;
         private static final int STATE_TARGET_TYPE = STATE_START + 1;
-        private static final int STATE_BASE_TYPE = STATE_TARGET_TYPE + 1;
-        private static final int STATE_INTERFACE = STATE_BASE_TYPE + 1;
-        private static final int STATE_OBJECT = STATE_INTERFACE + 1;
-        private static final int STATE_END = STATE_OBJECT + 1;
+        private static final int STATE_BASE_TYPE   = STATE_TARGET_TYPE + 1;
+        private static final int STATE_INTERFACE   = STATE_BASE_TYPE + 1;
+        private static final int STATE_OBJECT      = STATE_INTERFACE + 1;
+        private static final int STATE_END         = STATE_OBJECT + 1;
         private final ConvertManager manager;
-        private final TypeInfo targetTypeInfo;
+        private final TypeInfo       targetTypeInfo;
         private int state = STATE_START;
         private Convertible previousConvertibleValue;
-        private Iterator converterIterator;
-        private Iterator superclassIterator;
-        private Iterator interfaceIterator;
+        private Iterator    converterIterator;
+        private Iterator    superclassIterator;
+        private Iterator    interfaceIterator;
 
         /**
          * 创建转换链.
-         * 
-         * @param manager 创建此链的<code>ConvertManager</code>
+         *
+         * @param manager    创建此链的<code>ConvertManager</code>
          * @param targetType 转换的目标类型
          */
         ChainImpl(ConvertManager manager, Class targetType) {
@@ -445,7 +443,7 @@ public class ConvertManager {
 
         /**
          * 取得创建此链的<code>ConvertManager</code>.
-         * 
+         *
          * @return 创建此链的<code>ConvertManager</code>
          */
         public ConvertManager getConvertManager() {
@@ -454,7 +452,7 @@ public class ConvertManager {
 
         /**
          * 取得转换的目标类型.
-         * 
+         *
          * @return 目标类型
          */
         public Class getTargetType() {
@@ -463,7 +461,7 @@ public class ConvertManager {
 
         /**
          * 将控制交给链中的下一个转换器, 转换指定的值到指定的类型.
-         * 
+         *
          * @param value 要转换的值
          * @return 转换后的值
          */
@@ -544,7 +542,7 @@ public class ConvertManager {
 
         /**
          * 取得指定类型的所有转换器.
-         * 
+         *
          * @param type 要查找转换器的类型
          * @return 转换器的<code>Iterator</code>, 如果不存在, 则返回<code>null</code>
          */
@@ -560,7 +558,7 @@ public class ConvertManager {
 
         /**
          * 取得targetType基类(不包括Object类)的转换器.
-         * 
+         *
          * @return 基类的转换器的<code>Iterator</code>, 如果不存在, 则返回<code>null</code>
          */
         private Iterator getSuperclassConverterIterator() {
@@ -583,7 +581,7 @@ public class ConvertManager {
 
         /**
          * 取得targetType接口的转换器.
-         * 
+         *
          * @return 接口的转换器的<code>Iterator</code>, 如果不存在, 则返回<code>null</code>
          */
         private Iterator getInterfaceConverterIterator() {
@@ -602,7 +600,7 @@ public class ConvertManager {
 
         /**
          * 检查iterator是否存在下一个元素.
-         * 
+         *
          * @param iterator 要检查的iterator
          * @return 如果iterator为<code>null</code>, 或iterator已经走到底, 则返回
          *         <code>false</code>

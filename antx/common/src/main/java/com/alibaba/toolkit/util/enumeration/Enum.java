@@ -38,20 +38,20 @@ import com.alibaba.toolkit.util.typeconvert.Convertible;
 
 /**
  * 类型安全的枚举类型.
- * 
- * @version $Id: Enum.java,v 1.1 2003/07/03 07:26:20 baobao Exp $
+ *
  * @author Michael Zhou
+ * @version $Id: Enum.java,v 1.1 2003/07/03 07:26:20 baobao Exp $
  */
 public abstract class Enum implements IntegralNumber, Comparable, Serializable, Convertible {
     private static final long serialVersionUID = -3420208858441821772L;
-    private static final Map entries = new WeakHashMap();
+    private static final Map  entries          = new WeakHashMap();
     private final String name;
     private final Object value;
 
     /**
      * 创建一个枚举量. 该枚举量被赋予一个自动产生的值. 这个值取决于<code>Enum</code>的类型, 一般是递增的. 如果
      * <code>Enum</code>类实现了<code>Flags</code>接口, 则这个值是倍增的(左移).
-     * 
+     *
      * @param name 枚举量的名称
      */
     protected Enum(String name) {
@@ -60,8 +60,8 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
     /**
      * 创建一个枚举量, 并赋予指定的值.
-     * 
-     * @param name 枚举量的名称
+     *
+     * @param name  枚举量的名称
      * @param value 枚举量的值, 这个值不能为<code>null</code>
      */
     protected Enum(String name, Object value) {
@@ -70,9 +70,9 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
     /**
      * 创建一个枚举量.
-     * 
-     * @param name 枚举量的名称
-     * @param value 枚举量的值
+     *
+     * @param name      枚举量的名称
+     * @param value     枚举量的值
      * @param withValue 如果是<code>true</code>, 则该枚举量被赋予指定的值, 否则该枚举量将被赋予一个自动产生的值
      */
     private Enum(String name, Object value, boolean withValue) {
@@ -125,7 +125,7 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
     /**
      * 取得<code>Enum</code>值的类型.
-     * 
+     *
      * @param enumClass 枚举类型
      * @return <code>Enum</code>值的类型
      */
@@ -135,9 +135,9 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
     /**
      * 判断指定名称的枚举量是否被定义.
-     * 
+     *
      * @param enumClass 枚举类型
-     * @param name 枚举量的名称
+     * @param name      枚举量的名称
      * @return 如果存在, 则返回<code>true</code>
      */
     public static boolean isNameDefined(Class enumClass, String name) {
@@ -146,9 +146,9 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
     /**
      * 判断指定值的枚举量是否被定义.
-     * 
+     *
      * @param enumClass 枚举类型
-     * @param value 枚举量的值
+     * @param value     枚举量的值
      * @return 如果存在, 则返回<code>true</code>
      */
     public static boolean isValueDefined(Class enumClass, Object value) {
@@ -157,9 +157,9 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
     /**
      * 取得指定名称的枚举量.
-     * 
+     *
      * @param enumClass 枚举类型
-     * @param name 枚举量的名称
+     * @param name      枚举量的名称
      * @return 枚举量, 如果不存在, 则返回<code>null</code>
      */
     public static Enum getEnumByName(Class enumClass, String name) {
@@ -168,9 +168,9 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
     /**
      * 取得指定值的枚举量.
-     * 
+     *
      * @param enumClass 枚举类型
-     * @param value 枚举量的值
+     * @param value     枚举量的值
      * @return 枚举量, 如果不存在, 则返回<code>null</code>
      */
     public static Enum getEnumByValue(Class enumClass, Object value) {
@@ -179,7 +179,7 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
     /**
      * 取得指定类型的所有枚举量的<code>Map</code>, 此<code>Map</code>是有序的.
-     * 
+     *
      * @param enumClass 枚举类型
      * @return 指定类型的所有枚举量的<code>Map</code>
      */
@@ -189,7 +189,7 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
     /**
      * 取得指定类型的所有枚举量的<code>Iterator</code>.
-     * 
+     *
      * @param enumClass 枚举类型
      * @return 指定类型的所有枚举量的<code>Iterator</code>
      */
@@ -199,21 +199,21 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
     /**
      * 创建和指定枚举类对应的空位集.
-     * 
+     *
      * @param enumClass 枚举类
      * @return 空位集
      */
     public static FlagSet createFlagSet(Class enumClass) {
         if (!Flags.class.isAssignableFrom(enumClass)) {
             throw new UnsupportedOperationException(MessageFormat.format(EnumConstants.ENUM_IS_NOT_A_FLAG,
-                    new Object[] { enumClass.getName() }));
+                                                                         new Object[] { enumClass.getName() }));
         }
 
         EnumType enumType = getEnumType(enumClass);
 
         if (enumType.flagSetClassExists && enumType.flagSetClass == null) {
             enumType.flagSetClass = findStaticInnerClass(enumClass, EnumConstants.FLAG_SET_INNER_CLASS_NAME,
-                    FlagSet.class);
+                                                         FlagSet.class);
 
             if (enumType.flagSetClass == null) {
                 enumType.flagSetClassExists = false;
@@ -229,12 +229,12 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
         }
 
         throw new UnsupportedOperationException(MessageFormat.format(EnumConstants.CREATE_FLAG_SET_IS_UNSUPPORTED,
-                new Object[] { enumClass.getName() }));
+                                                                     new Object[] { enumClass.getName() }));
     }
 
     /**
      * 创建全集.
-     * 
+     *
      * @param enumClass 枚举类型
      * @return 当前枚举类型的全集
      */
@@ -251,7 +251,7 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
     /**
      * 取得指定类的<code>ClassLoader</code>对应的entry表.
-     * 
+     *
      * @param enumClass <code>Enum</code>类
      * @return entry表
      */
@@ -272,7 +272,7 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
     /**
      * 取得<code>Enum</code>类的<code>EnumType</code>
-     * 
+     *
      * @param enumClass <code>Enum</code>类
      * @return <code>Enum</code>类对应的<code>EnumType</code>对象
      */
@@ -283,7 +283,7 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
         if (!Enum.class.isAssignableFrom(enumClass)) {
             throw new IllegalArgumentException(MessageFormat.format(EnumConstants.CLASS_IS_NOT_ENUM,
-                    new Object[] { enumClass.getName() }));
+                                                                    new Object[] { enumClass.getName() }));
         }
 
         Map entryMap = getEnumEntryMap(enumClass);
@@ -291,7 +291,7 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
         if (enumType == null) {
             Method createEnumTypeMethod = findStaticMethod(enumClass, EnumConstants.CREATE_ENUM_TYPE_METHOD_NAME,
-                    new Class[0]);
+                                                           new Class[0]);
 
             if (createEnumTypeMethod != null) {
                 try {
@@ -310,7 +310,7 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
         if (enumType == null) {
             throw new UnsupportedOperationException(MessageFormat.format(EnumConstants.FAILED_CREATING_ENUM_TYPE,
-                    new Object[] { enumClass.getName() }));
+                                                                         new Object[] { enumClass.getName() }));
         }
 
         return enumType;
@@ -318,8 +318,8 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
     /**
      * 查找方法.
-     * 
-     * @param enumClass 枚举类型
+     *
+     * @param enumClass  枚举类型
      * @param methodName 方法名
      * @param paramTypes 参数类型表
      * @return 方法对象, 或<code>null</code>表示未找到
@@ -344,10 +344,10 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
     /**
      * 查找内部类.
-     * 
-     * @param enumClass 枚举类型
+     *
+     * @param enumClass      枚举类型
      * @param innerClassName 方法名
-     * @param superClass 父类
+     * @param superClass     父类
      * @return 内部类对象, 或<code>null</code>表示未找到
      */
     private static Class findStaticInnerClass(Class enumClass, String innerClassName, Class superClass) {
@@ -375,7 +375,7 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
     /**
      * 取得枚举量的名称.
-     * 
+     *
      * @return 枚举量的名称
      */
     public String getName() {
@@ -384,7 +384,7 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
     /**
      * 取得枚举量的值.
-     * 
+     *
      * @return 枚举量的值
      */
     public Object getValue() {
@@ -393,7 +393,7 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
     /**
      * 实现<code>Number</code>类, 取得<code>byte</code>值.
-     * 
+     *
      * @return <code>byte</code>值
      */
     public byte byteValue() {
@@ -402,7 +402,7 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
     /**
      * 实现<code>Number</code>类, 取得<code>short</code>值.
-     * 
+     *
      * @return <code>short</code>值
      */
     public short shortValue() {
@@ -416,7 +416,7 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
      * <li>如果<code>targetType</code>是字符串, 则返回枚举量的名称.</li>
      * <li>否则将枚举量的值传递到转换链中.</li>
      * </ul>
-     * 
+     *
      * @param targetType 目标类型
      * @return 将当前<code>Enum</code>转换成指定<code>targetType</code>的
      *         <code>Converter</code>
@@ -438,7 +438,7 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
     /**
      * 取得和当前枚举量的值相同的位集.
-     * 
+     *
      * @return 新的位集
      */
     public FlagSet createFlagSet() {
@@ -453,7 +453,7 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
     /**
      * 设置成不可变的位集.
-     * 
+     *
      * @return 位集本身
      */
     public Flags setImmutable() {
@@ -462,7 +462,7 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
     /**
      * 对当前位集执行逻辑与操作.
-     * 
+     *
      * @param flags 标志位
      * @return 当前位集
      */
@@ -472,7 +472,7 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
     /**
      * 对当前位集执行逻辑非操作.
-     * 
+     *
      * @param flags 标志位
      * @return 当前位集
      */
@@ -482,7 +482,7 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
     /**
      * 对当前位集执行逻辑或操作.
-     * 
+     *
      * @param flags 标志位
      * @return 当前位集
      */
@@ -492,7 +492,7 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
     /**
      * 对当前位集执行逻辑异或操作.
-     * 
+     *
      * @param flags 标志位
      * @return 当前位集
      */
@@ -502,7 +502,7 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
     /**
      * 清除当前位集的全部位.
-     * 
+     *
      * @return 当前位集
      */
     public Flags clear() {
@@ -511,7 +511,7 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
     /**
      * 清除当前位集的指定位, 等效于<code>andNot</code>操作.
-     * 
+     *
      * @param flags 标志位
      * @return 当前位集
      */
@@ -521,7 +521,7 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
     /**
      * 设置当前位集的指定位, 等效于<code>or</code>操作.
-     * 
+     *
      * @param flags 标志位
      * @return 当前位集
      */
@@ -531,7 +531,7 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
     /**
      * 测试当前位集的指定位, 等效于<code>and(flags) != 0</code>.
-     * 
+     *
      * @param flags 标志位
      * @return 如果指定位被置位, 则返回<code>true</code>
      */
@@ -541,7 +541,7 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
     /**
      * 测试当前位集的指定位, 等效于<code>and(flags) == flags</code>.
-     * 
+     *
      * @param flags 标志位
      * @return 如果指定位被置位, 则返回<code>true</code>
      */
@@ -551,7 +551,7 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
     /**
      * 和另一个枚举量比较大小, 就是按枚举量的值比较.
-     * 
+     *
      * @param otherEnum 要比较的枚举量
      * @return 如果等于<code>0</code>, 表示值相等, 大于<code>0</code>表示当前的枚举量的值比
      *         <code>otherEnum</code>大, 小于<code>0</code>表示当前的枚举量的值比
@@ -568,7 +568,7 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
     /**
      * 比较两个枚举量是否相等, 即: 类型相同, 并且值相同(但名字可以不同).
-     * 
+     *
      * @param obj 要比较的对象
      * @return 如果相等, 则返回<code>true</code>
      */
@@ -587,7 +587,7 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
     /**
      * 取得枚举量的hash值. 如果两个枚举量相同, 则它们的hash值一定相同.
-     * 
+     *
      * @return hash值
      */
     @Override
@@ -597,7 +597,7 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
     /**
      * 将枚举量转换成字符串, 也就是枚举量的名称.
-     * 
+     *
      * @return 枚举量的名称
      */
     @Override
@@ -607,7 +607,7 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
     /**
      * 被"反序列化"过程调用, 确保返回枚举量的singleton.
-     * 
+     *
      * @return 枚举量的singleton
      * @throws ObjectStreamException 如果反序列化出错
      */
@@ -621,21 +621,19 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
         return enumObj;
     }
 
-    /**
-     * 代表一个枚举类型的额外信息.
-     */
+    /** 代表一个枚举类型的额外信息. */
     protected abstract static class EnumType {
         private Object value;
-        final ListMap nameMap = new ArrayHashMap();
+        final ListMap nameMap  = new ArrayHashMap();
         final ListMap valueMap = new ArrayHashMap();
         boolean flagSetClassExists = true;
-        Class flagSetClass;
+        Class   flagSetClass;
         FlagSet fullSet;
 
         /**
          * 设置指定值为当前值.
-         * 
-         * @param value 当前值
+         *
+         * @param value    当前值
          * @param flagMode 是否为位模式
          * @return 当前值
          */
@@ -644,7 +642,7 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
             if (flagMode && !isPowerOfTwo(value)) {
                 throw new IllegalArgumentException(MessageFormat.format(EnumConstants.VALUE_IS_NOT_POWER_OF_TWO,
-                        new Object[] { value }));
+                                                                        new Object[] { value }));
             }
 
             return value;
@@ -652,7 +650,7 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
         /**
          * 取得下一个值.
-         * 
+         *
          * @param flagMode 是否为位模式
          * @return 当前值
          */
@@ -668,15 +666,15 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
         /**
          * 取得<code>Enum</code>值的类型.
-         * 
+         *
          * @return <code>Enum</code>值的类型
          */
         protected abstract Class getUnderlyingClass();
 
         /**
          * 取得指定值的下一个值.
-         * 
-         * @param value 指定值
+         *
+         * @param value    指定值
          * @param flagMode 是否为位模式
          * @return 如果<code>value</code>为<code>null</code>, 则返回默认的初始值, 否则返回下一个值
          */
@@ -684,7 +682,7 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
         /**
          * 判断是否为<code>0</code>.
-         * 
+         *
          * @param value 要判断的值
          * @return 如果是, 则返回<code>true</code>
          */
@@ -692,7 +690,7 @@ public abstract class Enum implements IntegralNumber, Comparable, Serializable, 
 
         /**
          * 判断是否为二的整数次幂.
-         * 
+         *
          * @param value 要判断的值
          * @return 如果是, 则返回<code>true</code>
          */

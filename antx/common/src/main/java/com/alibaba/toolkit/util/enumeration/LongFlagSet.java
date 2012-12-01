@@ -21,9 +21,9 @@ import java.text.MessageFormat;
 
 /**
  * 代表长整数类型的<code>FlagSet</code>.
- * 
- * @version $Id: LongFlagSet.java,v 1.1 2003/07/03 07:26:21 baobao Exp $
+ *
  * @author Michael Zhou
+ * @version $Id: LongFlagSet.java,v 1.1 2003/07/03 07:26:21 baobao Exp $
  */
 public abstract class LongFlagSet extends FlagSet {
     private static final long serialVersionUID = -7159161922846089638L;
@@ -31,7 +31,7 @@ public abstract class LongFlagSet extends FlagSet {
 
     /**
      * 创建一个长整数位集.
-     * 
+     *
      * @param enumClass 位集所代表的内部枚举类
      */
     public LongFlagSet(Class enumClass) {
@@ -45,7 +45,7 @@ public abstract class LongFlagSet extends FlagSet {
 
     /**
      * 设置位集的值, 值的类型由<code>getUnderlyingClass()</code>确定.
-     * 
+     *
      * @param value 位集的值
      */
     @Override
@@ -61,7 +61,7 @@ public abstract class LongFlagSet extends FlagSet {
 
     /**
      * 取得位集的值, 值的类型由<code>getUnderlyingClass()</code>确定.
-     * 
+     *
      * @return 位集的值
      */
     @Override
@@ -71,7 +71,7 @@ public abstract class LongFlagSet extends FlagSet {
 
     /**
      * 清除当前位集的全部位.
-     * 
+     *
      * @return 当前位集
      */
     @Override
@@ -83,7 +83,7 @@ public abstract class LongFlagSet extends FlagSet {
 
     /**
      * 测试当前位集的指定位, 等效于<code>and(flags) != 0</code>.
-     * 
+     *
      * @param flags 标志位
      * @return 如果指定位被置位, 则返回<code>true</code>
      */
@@ -94,7 +94,7 @@ public abstract class LongFlagSet extends FlagSet {
 
     /**
      * 测试当前位集的指定位, 等效于<code>and(flags) == flags</code>.
-     * 
+     *
      * @param flags 标志位
      * @return 如果指定位被置位, 则返回<code>true</code>
      */
@@ -106,7 +106,7 @@ public abstract class LongFlagSet extends FlagSet {
 
     /**
      * 对当前位集执行逻辑与操作.
-     * 
+     *
      * @param flags 标志位
      * @return 当前位集
      */
@@ -119,7 +119,7 @@ public abstract class LongFlagSet extends FlagSet {
 
     /**
      * 对当前位集执行逻辑非操作.
-     * 
+     *
      * @param flags 标志位
      * @return 当前位集
      */
@@ -132,7 +132,7 @@ public abstract class LongFlagSet extends FlagSet {
 
     /**
      * 对当前位集执行逻辑或操作.
-     * 
+     *
      * @param flags 标志位
      * @return 当前位集
      */
@@ -145,7 +145,7 @@ public abstract class LongFlagSet extends FlagSet {
 
     /**
      * 对当前位集执行逻辑异或操作.
-     * 
+     *
      * @param flags 标志位
      * @return 当前位集
      */
@@ -158,7 +158,7 @@ public abstract class LongFlagSet extends FlagSet {
 
     /**
      * 取得位集的值.
-     * 
+     *
      * @param flags 位集
      * @return 位集的值
      */
@@ -169,7 +169,7 @@ public abstract class LongFlagSet extends FlagSet {
 
     /**
      * 实现<code>Number</code>类, 取得整数值.
-     * 
+     *
      * @return 整数值
      */
     public int intValue() {
@@ -178,7 +178,7 @@ public abstract class LongFlagSet extends FlagSet {
 
     /**
      * 实现<code>Number</code>类, 取得长整数值.
-     * 
+     *
      * @return 长整数值
      */
     public long longValue() {
@@ -187,7 +187,7 @@ public abstract class LongFlagSet extends FlagSet {
 
     /**
      * 实现<code>Number</code>类, 取得<code>double</code>值.
-     * 
+     *
      * @return <code>double</code>值
      */
     public double doubleValue() {
@@ -196,7 +196,7 @@ public abstract class LongFlagSet extends FlagSet {
 
     /**
      * 实现<code>Number</code>类, 取得<code>float</code>值.
-     * 
+     *
      * @return <code>float</code>值
      */
     public float floatValue() {
@@ -205,7 +205,7 @@ public abstract class LongFlagSet extends FlagSet {
 
     /**
      * 实现<code>IntegralNumber</code>类, 转换成十六进制整数字符串.
-     * 
+     *
      * @return 十六进制整数字符串
      */
     public String toHexString() {
@@ -214,7 +214,7 @@ public abstract class LongFlagSet extends FlagSet {
 
     /**
      * 实现<code>IntegralNumber</code>类, 转换成八进制整数字符串.
-     * 
+     *
      * @return 八进制整数字符串
      */
     public String toOctalString() {
@@ -223,7 +223,7 @@ public abstract class LongFlagSet extends FlagSet {
 
     /**
      * 实现<code>IntegralNumber</code>类, 转换成二进制整数字符串.
-     * 
+     *
      * @return 二进制整数字符串
      */
     public String toBinaryString() {

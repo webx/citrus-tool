@@ -36,9 +36,9 @@ import com.alibaba.toolkit.util.typeconvert.Converter;
  * <code>ConvertFailedException</code>.</li>
  * <li>否则, 把对象传递给下一个<code>Converter</code>处理.</li>
  * </ul>
- * 
- * @version $Id: BigDecimalConverter.java,v 1.1 2003/07/03 07:26:36 baobao Exp $
+ *
  * @author Michael Zhou
+ * @version $Id: BigDecimalConverter.java,v 1.1 2003/07/03 07:26:36 baobao Exp $
  */
 public class BigDecimalConverter implements Converter {
     protected static final BigDecimal DEFAULT_VALUE = new BigDecimal(BigInteger.ZERO);

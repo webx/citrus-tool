@@ -19,8 +19,8 @@ package com.alibaba.antx.util.cli;
 
 /**
  * The class BasicParser provides a very simple implementation of the
- * {@link Parser#flatten(Options,String[],boolean) flatten} method.
- * 
+ * {@link Parser#flatten(Options, String[], boolean) flatten} method.
+ *
  * @author John Keyes (john at integralsource.com)
  * @see Parser
  */
@@ -28,17 +28,17 @@ public class BasicParser extends Parser {
     /**
      * <p>
      * A simple implementation of {@link Parser}'s abstract
-     * {@link Parser#flatten(Options,String[],boolean) flatten} method.
+     * {@link Parser#flatten(Options, String[], boolean) flatten} method.
      * </p>
      * <p>
      * <b>Note:</b><code>options</code> and <code>stopAtNonOption</code> are not
      * used in this <code>flatten</code> method.
      * </p>
-     * 
-     * @param options The command line {@link Options}
-     * @param arguments The command line arguments to be parsed
+     *
+     * @param options         The command line {@link Options}
+     * @param arguments       The command line arguments to be parsed
      * @param stopAtNonOption Specifies whether to stop flattening when an non
-     *            option is found.
+     *                        option is found.
      * @return The <code>arguments</code> String array.
      */
     @Override

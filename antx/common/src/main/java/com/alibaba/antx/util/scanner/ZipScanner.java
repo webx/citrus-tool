@@ -30,17 +30,17 @@ import com.alibaba.antx.util.ZipUtil;
 
 /**
  * Zip文件扫描器。
- * 
+ *
  * @author Michael Zhou
  */
 public class ZipScanner extends AbstractScanner {
-    private URL zipURL;
+    private URL            zipURL;
     private ZipInputStream zis;
-    private ZipEntry zipEntry;
+    private ZipEntry       zipEntry;
 
     /**
      * 创建一个zip文件扫描器。
-     * 
+     *
      * @param zipfile zip文件
      * @param handler 回调函数
      */
@@ -60,8 +60,8 @@ public class ZipScanner extends AbstractScanner {
 
     /**
      * 创建一个zip文件扫描器。
-     * 
-     * @param zipURL zip文件的URL
+     *
+     * @param zipURL  zip文件的URL
      * @param handler 回调函数
      */
     public ZipScanner(URL zipURL, ScannerHandler handler) {
@@ -72,7 +72,7 @@ public class ZipScanner extends AbstractScanner {
 
     /**
      * 取得扫描的zip文件的URL。
-     * 
+     *
      * @return 正在扫描的zip文件的URL
      */
     public URL getBaseURL() {
@@ -81,7 +81,7 @@ public class ZipScanner extends AbstractScanner {
 
     /**
      * 取得当前正在扫描的文件的URL。
-     * 
+     *
      * @return URL
      */
     public URL getURL() {
@@ -94,7 +94,7 @@ public class ZipScanner extends AbstractScanner {
 
     /**
      * 取得当前正在扫描的文件的输入流。
-     * 
+     *
      * @return 输入流
      */
     public InputStream getInputStream() {
@@ -108,7 +108,7 @@ public class ZipScanner extends AbstractScanner {
 
     /**
      * 设置zip文件的输入流。
-     * 
+     *
      * @param istream zip文件的输入流
      */
     public void setInputStream(InputStream istream) {
@@ -119,16 +119,14 @@ public class ZipScanner extends AbstractScanner {
 
     /**
      * 取得当前正在处理的zip entry。
-     * 
+     *
      * @return zip entry
      */
     public ZipEntry getZipEntry() {
         return zipEntry;
     }
 
-    /**
-     * 执行扫描。
-     */
+    /** 执行扫描。 */
     public void scan() {
         getScannerHandler().setScanner(this);
         getScannerHandler().startScanning();
@@ -158,9 +156,7 @@ public class ZipScanner extends AbstractScanner {
         getScannerHandler().endScanning();
     }
 
-    /**
-     * 执行扫描。
-     */
+    /** 执行扫描。 */
     protected void doScan() {
         try {
             while ((zipEntry = zis.getNextEntry()) != null) {

@@ -32,9 +32,9 @@ import com.alibaba.toolkit.util.typeconvert.Converter;
  * </li>
  * <li>否则, 把对象传递给下一个<code>Converter</code>处理.</li>
  * </ul>
- * 
- * @version $Id: CharacterConverter.java,v 1.1 2003/07/03 07:26:37 baobao Exp $
+ *
  * @author Michael Zhou
+ * @version $Id: CharacterConverter.java,v 1.1 2003/07/03 07:26:37 baobao Exp $
  */
 public class CharacterConverter implements Converter {
     protected static final Character DEFAULT_VALUE = new Character('\0');

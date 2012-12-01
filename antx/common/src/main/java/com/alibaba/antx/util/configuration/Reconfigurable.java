@@ -19,13 +19,13 @@ package com.alibaba.antx.util.configuration;
 
 /**
  * Extends <code>Configurable</code> to allow reconfiguration at runtime.
- * 
+ *
  * @author <a href="mailto:dev@avalon.apache.org">Avalon Development Team</a>
  */
 public interface Reconfigurable extends Configurable {
     /**
      * Describe <code>reconfigure</code> method here.
-     * 
+     *
      * @param configuration a <code>Configuration</code> value
      * @throws ConfigurationException if an error occurs
      */

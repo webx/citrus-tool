@@ -17,20 +17,13 @@
 
 package com.alibaba.antx.util;
 
-import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Method;
-
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
-import javax.swing.WindowConstants;
+import javax.swing.*;
 
 public class PasswordField {
     public String getPassword(PrintWriter out, String oneLinePrompt) throws IOException {
@@ -72,7 +65,7 @@ public class PasswordField {
             messages[lines.length] = passwordField;
 
             final JOptionPane pane = new JOptionPane(messages, JOptionPane.QUESTION_MESSAGE,
-                    JOptionPane.OK_CANCEL_OPTION);
+                                                     JOptionPane.OK_CANCEL_OPTION);
 
             final JDialog dialog = new JDialog((Frame) null, "Password required", true);
 
@@ -193,7 +186,7 @@ public class PasswordField {
     class MaskingThread extends Thread {
         private boolean stop = false;
         private final PrintWriter out;
-        private final String oneLinePrompt;
+        private final String      oneLinePrompt;
 
         public MaskingThread(PrintWriter out, String oneLinePrompt) {
             super("password-masking");

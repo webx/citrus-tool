@@ -32,41 +32,41 @@ import org.apache.oro.text.regex.MalformedPatternException;
  * <li>"＊＊"的前后只能是<em>类名分隔符</em>.</li>
  * </ul>
  * 转换后的正则表达式, 对每一个通配符建立<em>引用变量</em>, 依次为<code>$1</code>, <code>$2</code>, ...
- * 
- * @version $Id: ClassNameCompiler.java,v 1.1 2003/07/03 07:26:34 baobao Exp $
+ *
  * @author Michael Zhou
+ * @version $Id: ClassNameCompiler.java,v 1.1 2003/07/03 07:26:34 baobao Exp $
  */
 public class ClassNameCompiler extends Perl5CompilerWrapper {
     /** 强制从头匹配 */
     public static final int MATCH_PREFIX = 0x1;
 
     // 私有常量
-    private static final char DOT = '.';
-    private static final char UNDERSCORE = '_';
-    private static final char DOLLAR = '$';
-    private static final char STAR = '*';
-    private static final char QUESTION = '?';
-    private static final String REGEX_MATCH_PREFIX = "^";
-    private static final String REGEX_WORD_BOUNDARY = "\\b";
-    private static final String REGEX_DOT = "\\.";
-    private static final String REGEX_DOT_NO_DUP = "\\.(?!\\.)";
-    private static final String REGEX_CLASS_NAME_CHAR = "[\\w\\$]";
+    private static final char   DOT                          = '.';
+    private static final char   UNDERSCORE                   = '_';
+    private static final char   DOLLAR                       = '$';
+    private static final char   STAR                         = '*';
+    private static final char   QUESTION                     = '?';
+    private static final String REGEX_MATCH_PREFIX           = "^";
+    private static final String REGEX_WORD_BOUNDARY          = "\\b";
+    private static final String REGEX_DOT                    = "\\.";
+    private static final String REGEX_DOT_NO_DUP             = "\\.(?!\\.)";
+    private static final String REGEX_CLASS_NAME_CHAR        = "[\\w\\$]";
     private static final String REGEX_CLASS_NAME_SINGLE_CHAR = "(" + REGEX_CLASS_NAME_CHAR + ")";
-    private static final String REGEX_CLASS_NAME = "(" + REGEX_CLASS_NAME_CHAR + "*)";
-    private static final String REGEX_CLASS_NAME_FULL = "(" + REGEX_CLASS_NAME_CHAR + "+(?:" + REGEX_DOT_NO_DUP
-            + REGEX_CLASS_NAME_CHAR + "*)*(?=" + REGEX_DOT + "|$)|)" + REGEX_DOT + "?";
+    private static final String REGEX_CLASS_NAME             = "(" + REGEX_CLASS_NAME_CHAR + "*)";
+    private static final String REGEX_CLASS_NAME_FULL        = "(" + REGEX_CLASS_NAME_CHAR + "+(?:" + REGEX_DOT_NO_DUP
+                                                               + REGEX_CLASS_NAME_CHAR + "*)*(?=" + REGEX_DOT + "|$)|)" + REGEX_DOT + "?";
 
     // 上一个token的状态
-    private static final int LAST_TOKEN_START = 0;
-    private static final int LAST_TOKEN_DOT = 1;
-    private static final int LAST_TOKEN_CLASS_NAME = 2;
-    private static final int LAST_TOKEN_STAR = 3;
+    private static final int LAST_TOKEN_START       = 0;
+    private static final int LAST_TOKEN_DOT         = 1;
+    private static final int LAST_TOKEN_CLASS_NAME  = 2;
+    private static final int LAST_TOKEN_STAR        = 3;
     private static final int LAST_TOKEN_DOUBLE_STAR = 4;
-    private static final int LAST_TOKEN_QUESTION = 5;
+    private static final int LAST_TOKEN_QUESTION    = 5;
 
     /**
      * 将包含通配符的类名, 编译成perl5正则表达式.
-     * 
+     *
      * @param pattern 要编译的类名
      * @param options 位标志
      * @return Perl5正则表达式字符串

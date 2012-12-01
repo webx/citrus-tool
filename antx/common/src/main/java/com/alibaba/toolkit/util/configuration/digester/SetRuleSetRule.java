@@ -23,17 +23,17 @@ import org.xml.sax.Attributes;
 
 /**
  * 设置上下文相关的<code>RuleSet</code>的规则.
- * 
- * @version $Id: SetRuleSetRule.java,v 1.2 2003/08/07 08:08:59 zyh Exp $
+ *
  * @author Michael Zhou
+ * @version $Id: SetRuleSetRule.java,v 1.2 2003/08/07 08:08:59 zyh Exp $
  */
 public class SetRuleSetRule extends Rule {
-    private Class ruleSetFactoryClass;
+    private Class          ruleSetFactoryClass;
     private RuleSetFactory ruleSetFactory;
 
     /**
      * 使用指定类作为取得<code>RuleSet</code>的工厂.
-     * 
+     *
      * @param ruleSetFactoryClass 工厂类
      */
     public SetRuleSetRule(Class ruleSetFactoryClass) {
@@ -42,7 +42,7 @@ public class SetRuleSetRule extends Rule {
 
     /**
      * 使用指定<code>RuleSet</code>工厂.
-     * 
+     *
      * @param ruleSetFactory 工厂对象
      */
     public SetRuleSetRule(RuleSetFactory ruleSetFactory) {
@@ -51,7 +51,7 @@ public class SetRuleSetRule extends Rule {
 
     /**
      * 开始处理, 创建上下文相关的<code>RuleSet</code>.
-     * 
+     *
      * @param attributes XML属性值
      * @throws Exception 如果失败
      */
@@ -76,7 +76,7 @@ public class SetRuleSetRule extends Rule {
 
     /**
      * 取得rule的字符串表示.
-     * 
+     *
      * @return 字符串表示
      */
     @Override
@@ -95,7 +95,7 @@ public class SetRuleSetRule extends Rule {
 
     /**
      * 取得工厂.
-     * 
+     *
      * @return 取得<code>RuleSet</code>的工厂
      * @throws Exception 如果失败
      */

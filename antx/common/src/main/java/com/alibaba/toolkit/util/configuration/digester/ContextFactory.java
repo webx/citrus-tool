@@ -22,14 +22,14 @@ import org.xml.sax.Attributes;
 
 /**
  * 取得context的工厂.
- * 
- * @version $Id: ContextFactory.java,v 1.1 2003/07/03 07:26:16 baobao Exp $
+ *
  * @author Michael Zhou
+ * @version $Id: ContextFactory.java,v 1.1 2003/07/03 07:26:16 baobao Exp $
  */
 public interface ContextFactory {
     /**
      * 取得context.
-     * 
+     *
      * @param attributes XML属性
      * @return context字符串
      * @throws Exception 如果失败
@@ -38,14 +38,14 @@ public interface ContextFactory {
 
     /**
      * 设置digester.
-     * 
+     *
      * @param digester 当前digester
      */
     void setDigester(Digester digester);
 
     /**
      * 取得当前digester.
-     * 
+     *
      * @return 当前digester
      */
     Digester getDigester();

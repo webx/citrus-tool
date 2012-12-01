@@ -32,9 +32,9 @@ import org.apache.oro.text.regex.MalformedPatternException;
  * <li>"＊＊"的前后只能是<em>路径分隔符</em>.</li>
  * </ul>
  * 转换后的正则表达式, 对每一个通配符建立<em>引用变量</em>, 依次为<code>$1</code>, <code>$2</code>, ...
- * 
- * @version $Id: PathNameCompiler.java,v 1.1 2003/07/03 07:26:34 baobao Exp $
+ *
  * @author Michael Zhou
+ * @version $Id: PathNameCompiler.java,v 1.1 2003/07/03 07:26:34 baobao Exp $
  */
 public class PathNameCompiler extends Perl5CompilerWrapper {
     /** 强制使用绝对路径 */
@@ -47,33 +47,33 @@ public class PathNameCompiler extends Perl5CompilerWrapper {
     public static final int FORCE_MATCH_PREFIX = 0x4;
 
     // 私有常量
-    private static final char SLASH = '/';
-    private static final char UNDERSCORE = '_';
-    private static final char DASH = '-';
-    private static final char DOT = '.';
-    private static final char STAR = '*';
-    private static final char QUESTION = '?';
-    private static final String REGEX_MATCH_PREFIX = "^";
-    private static final String REGEX_WORD_BOUNDARY = "\\b";
-    private static final String REGEX_SLASH = "\\/";
-    private static final String REGEX_SLASH_NO_DUP = "\\/(?!\\/)";
-    private static final String REGEX_FILE_NAME_CHAR = "[\\w\\-\\.]";
+    private static final char   SLASH                       = '/';
+    private static final char   UNDERSCORE                  = '_';
+    private static final char   DASH                        = '-';
+    private static final char   DOT                         = '.';
+    private static final char   STAR                        = '*';
+    private static final char   QUESTION                    = '?';
+    private static final String REGEX_MATCH_PREFIX          = "^";
+    private static final String REGEX_WORD_BOUNDARY         = "\\b";
+    private static final String REGEX_SLASH                 = "\\/";
+    private static final String REGEX_SLASH_NO_DUP          = "\\/(?!\\/)";
+    private static final String REGEX_FILE_NAME_CHAR        = "[\\w\\-\\.]";
     private static final String REGEX_FILE_NAME_SINGLE_CHAR = "(" + REGEX_FILE_NAME_CHAR + ")";
-    private static final String REGEX_FILE_NAME = "(" + REGEX_FILE_NAME_CHAR + "*)";
-    private static final String REGEX_FILE_PATH = "(" + REGEX_FILE_NAME_CHAR + "+(?:" + REGEX_SLASH_NO_DUP
-            + REGEX_FILE_NAME_CHAR + "*)*(?=" + REGEX_SLASH + "|$)|)" + REGEX_SLASH + "?";
+    private static final String REGEX_FILE_NAME             = "(" + REGEX_FILE_NAME_CHAR + "*)";
+    private static final String REGEX_FILE_PATH             = "(" + REGEX_FILE_NAME_CHAR + "+(?:" + REGEX_SLASH_NO_DUP
+                                                              + REGEX_FILE_NAME_CHAR + "*)*(?=" + REGEX_SLASH + "|$)|)" + REGEX_SLASH + "?";
 
     // 上一个token的状态
-    private static final int LAST_TOKEN_START = 0;
-    private static final int LAST_TOKEN_SLASH = 1;
-    private static final int LAST_TOKEN_FILE_NAME = 2;
-    private static final int LAST_TOKEN_STAR = 3;
+    private static final int LAST_TOKEN_START       = 0;
+    private static final int LAST_TOKEN_SLASH       = 1;
+    private static final int LAST_TOKEN_FILE_NAME   = 2;
+    private static final int LAST_TOKEN_STAR        = 3;
     private static final int LAST_TOKEN_DOUBLE_STAR = 4;
-    private static final int LAST_TOKEN_QUESTION = 5;
+    private static final int LAST_TOKEN_QUESTION    = 5;
 
     /**
      * 将包含通配符的路径表达式, 编译成perl5正则表达式.
-     * 
+     *
      * @param pattern 要编译的路径
      * @param options 位标志
      * @return Perl5正则表达式字符串

@@ -48,9 +48,9 @@ import java.util.Set;
  * <li>支持值为<code>null</code>的key和value</li>
  * <li>没有进行任何<code>synchronized</code>操作, 因而不是线程安全的. 但可以通过以下操作实现线程安全:</li>
  * </ul>
- * 
+ * <p/>
  * <pre style="margin-left:48.0">
- *  Map m = Collections.synchronizedMap(new DefaultHashMap(...));
+ * Map m = Collections.synchronizedMap(new DefaultHashMap(...));
  * </pre>
  * <ul>
  * <li>不保证hash表中的entry的顺序</li>
@@ -59,9 +59,9 @@ import java.util.Set;
  * <code>Iterator.remove</code>和<code>Iterator.add</code>方法时, 会掷出
  * <code>ConcurrentModificationException</code>. 这样确保不会出现不确定的情况.</li>
  * </ul>
- * 
- * @version $Id: DefaultHashMap.java,v 1.1 2003/07/03 07:26:16 baobao Exp $
+ *
  * @author Michael Zhou
+ * @version $Id: DefaultHashMap.java,v 1.1 2003/07/03 07:26:16 baobao Exp $
  */
 public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Serializable {
     /*
@@ -102,14 +102,14 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
     /**
      * 阈值. 当hash表中的entry数超过它时, 自动扩容(<code>resize</code>). 其值等于
      * <code>capacity&times;loadFactor</code>.
-     * 
+     *
      * @serial 自动序列化字段
      */
     protected int threshold;
 
     /**
      * 负载系数.
-     * 
+     *
      * @serial 自动序列化字段
      */
     protected final float loadFactor;
@@ -140,16 +140,14 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
      * ==
      */
 
-    /**
-     * 创建一个空的hash表. 使用指定的默认的初始容量(16)和默认的负载系数(0.75).
-     */
+    /** 创建一个空的hash表. 使用指定的默认的初始容量(16)和默认的负载系数(0.75). */
     public DefaultHashMap() {
         this(DEFAULT_INITIAL_CAPACITY, DEFAULT_LOAD_FACTOR);
     }
 
     /**
      * 创建一个空的hash表. 使用指定的初始阈值和默认的负载系数(0.75).
-     * 
+     *
      * @param initialCapacity 初始容量.
      */
     public DefaultHashMap(int initialCapacity) {
@@ -158,9 +156,9 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
     /**
      * 创建一个空的hash表. 使用指定的初始容量和负载系数.
-     * 
+     *
      * @param initialCapacity 初始容量
-     * @param loadFactor 负载系数.
+     * @param loadFactor      负载系数.
      */
     public DefaultHashMap(int initialCapacity, float loadFactor) {
         if (initialCapacity < 0) {
@@ -191,7 +189,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
     /**
      * 复制指定<code>Map</code>内容相同的<code>HashMap</code>. 使用默认的负载系数(0.75).
-     * 
+     *
      * @param map 要复制的<code>Map</code>
      */
     public DefaultHashMap(Map map) {
@@ -211,7 +209,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
     /**
      * 返回hash表中entry的个数.
-     * 
+     *
      * @return hash表中的entry数.
      */
     @Override
@@ -221,7 +219,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
     /**
      * 判断是否为空的hash表.
-     * 
+     *
      * @return 如果为空(<code>size() == 0</code>), 则返回<code>true</code>.
      */
     @Override
@@ -233,7 +231,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
      * 返回指定key对应的value. 如果hash表中没有value对应key, 则返回<code>null</code>. 但是返回
      * <code>null</code>并不总是代表没有value对应指定的key, 也有可能是指 value值本身为<code>null</code>
      * . 可以通过方法<code>containsKey</code>来区分这两 种情况.
-     * 
+     *
      * @param key 指定key所对应的value将被返回.
      * @return 指定key对应的value, 如果没有value对应此key, 则返回<code>null</code>.
      */
@@ -246,7 +244,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
     /**
      * 如果hash表中包含指定key的entry, 则返回<code>true</code>.
-     * 
+     *
      * @param key 测试指定的key是否存在.
      * @return 如果key对应的entry存在, 则返回<code>true</code>.
      */
@@ -259,8 +257,8 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
     /**
      * 将指定的value和key关联. 如果已经有value和此key相关联, 则取代之, 并 返回被取代的value.
-     * 
-     * @param key 要关联的key
+     *
+     * @param key   要关联的key
      * @param value 要和key关联的value
      * @return 如果已经存在和此key相关联的value, 则返回此value. 否则返回<code>null</code>. 返回
      *         <code>null</code>也可能是因为被取代的这个value值为<code>null</code>.
@@ -292,7 +290,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
     /**
      * 将<code>Map</code>中的所有项都加入到当前的<code>Map</code>中. 如果有相同的key, 则替换之.
-     * 
+     *
      * @param map 要加入的<code>Map</code>
      */
     @Override
@@ -320,7 +318,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
             resize(capacity);
         }
 
-        for (Iterator i = map.entrySet().iterator(); i.hasNext();) {
+        for (Iterator i = map.entrySet().iterator(); i.hasNext(); ) {
             Map.Entry entry = (Map.Entry) i.next();
 
             put(entry.getKey(), entry.getValue());
@@ -329,7 +327,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
     /**
      * 将指定key的entry从hash表中删除(如果该entry存在的话).
-     * 
+     *
      * @param key 要被删除的entry的key
      * @return 被删除的entry的value. 如果entry不存在, 则返回<code>null</code>. 但是返回
      *         <code>null</code>并不总是代表没有value对应指定的key, 也有可能是指 value值本身为
@@ -342,9 +340,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
         return entry == null ? null : entry.getValue();
     }
 
-    /**
-     * 清除hash表中的所有entry.
-     */
+    /** 清除hash表中的所有entry. */
     @Override
     public void clear() {
         modCount++;
@@ -354,7 +350,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
     /**
      * 判断hash表中是否有一个或多个entry具有指定的value.
-     * 
+     *
      * @param value 要测试的value
      * @return 如果有一个或多个entry具有指定的value, 则返回<code>true</code>
      */
@@ -379,7 +375,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
      * <code>Iterator.remove</code>, <code>Set.remove</code>,
      * <code>removeAll</code>, <code>retainAll</code>, 和<code>clear</code>.
      * 但集合不支持<code>add</code>或<code>addAll</code>操作.
-     * 
+     *
      * @return key的集合视图
      */
     @Override
@@ -395,7 +391,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
      * <code>Iterator.remove</code>, <code>Collection.remove</code>,
      * <code>removeAll</code>, <code>retainAll</code>, 和<code>clear</code>.
      * 但集合不支持<code>add</code>或<code>addAll</code>操作.
-     * 
+     *
      * @return value的集合视图
      */
     @Override
@@ -411,7 +407,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
      * <code>Iterator.remove</code>, <code>Set.remove</code>,
      * <code>removeAll</code>, <code>retainAll</code>, 和<code>clear</code>.
      * 但集合不支持<code>add</code>或<code>addAll</code>操作.
-     * 
+     *
      * @return entry的集合视图
      */
     @Override
@@ -431,9 +427,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
      * ==
      */
 
-    /**
-     * <code>Map.Entry</code>的实现.
-     */
+    /** <code>Map.Entry</code>的实现. */
     protected static class Entry extends DefaultMapEntry {
         /** key的hash值. */
         protected final int hash;
@@ -443,7 +437,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
         /**
          * 创建一个新的entry.
-         * 
+         *
          * @param h key的hash值
          * @param k entry的key
          * @param v entry的value
@@ -455,22 +449,16 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
             hash = h;
         }
 
-        /**
-         * 当<code>put(key, value)</code>方法被调用时, 如果entry已经存在将被覆盖时, 此方法被调用.
-         */
+        /** 当<code>put(key, value)</code>方法被调用时, 如果entry已经存在将被覆盖时, 此方法被调用. */
         protected void onAccess() {
         }
 
-        /**
-         * 当entry将被删除时, 此方法被调用.
-         */
+        /** 当entry将被删除时, 此方法被调用. */
         protected void onRemove() {
         }
     }
 
-    /**
-     * 遍历器.
-     */
+    /** 遍历器. */
     private abstract class HashIterator implements Iterator {
         /** 当前entry. */
         private Entry current;
@@ -484,9 +472,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
         /** 当前位置索引. */
         private int index;
 
-        /**
-         * 创建一个遍历器.
-         */
+        /** 创建一个遍历器. */
         protected HashIterator() {
             expectedModCount = modCount;
 
@@ -507,16 +493,14 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
         /**
          * 返回遍历器中是否还有下一个entry.
-         * 
+         *
          * @return 如果遍历器中还有下一个entry, 返回<code>true</code>
          */
         public boolean hasNext() {
             return next != null;
         }
 
-        /**
-         * 删除一个当前entry. 执行前必须先执行<code>next()</code>方法.
-         */
+        /** 删除一个当前entry. 执行前必须先执行<code>next()</code>方法. */
         public void remove() {
             if (current == null) {
                 throw new IllegalStateException();
@@ -533,7 +517,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
         /**
          * 取得下一个entry.
-         * 
+         *
          * @return 下一个entry
          */
         protected Entry nextEntry() {
@@ -559,9 +543,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
             return current = entry;
         }
 
-        /**
-         * 检查是否同时被修改.
-         */
+        /** 检查是否同时被修改. */
         private void checkForComodification() {
             if (modCount != expectedModCount) {
                 throw new ConcurrentModificationException();
@@ -569,13 +551,11 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
         }
     }
 
-    /**
-     * 取得hash表的key的遍历器.
-     */
+    /** 取得hash表的key的遍历器. */
     private class KeyIterator extends HashIterator {
         /**
          * 取得下一个key.
-         * 
+         *
          * @return 下一个key
          */
         public Object next() {
@@ -583,13 +563,11 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
         }
     }
 
-    /**
-     * 取得hash表的value的遍历器.
-     */
+    /** 取得hash表的value的遍历器. */
     private class ValueIterator extends HashIterator {
         /**
          * 取得下一个value.
-         * 
+         *
          * @return 下一个value
          */
         public Object next() {
@@ -597,13 +575,11 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
         }
     }
 
-    /**
-     * 取得hash表的entry的遍历器.
-     */
+    /** 取得hash表的entry的遍历器. */
     private class EntryIterator extends HashIterator {
         /**
          * 取得下一个entry.
-         * 
+         *
          * @return 下一个entry
          */
         public Object next() {
@@ -611,13 +587,11 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
         }
     }
 
-    /**
-     * key的集合视图.
-     */
+    /** key的集合视图. */
     private class KeySet extends AbstractSet {
         /**
          * 取得key的遍历器.
-         * 
+         *
          * @return key的遍历器
          */
         @Override
@@ -627,7 +601,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
         /**
          * 取得集合的大小, 就是hash表中entry的数量.
-         * 
+         *
          * @return hash表中entry的数量
          */
         @Override
@@ -637,7 +611,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
         /**
          * 判断key中是否包含指定对象.
-         * 
+         *
          * @param o 要查找的对象
          * @return 如果key中包含指定的对象, 则返回<code>true</code>
          */
@@ -648,7 +622,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
         /**
          * 从hash表中删除key为指定对象的entry.
-         * 
+         *
          * @param o 指定的key
          * @return 如果删除成功, 则返回<code>true</code>
          */
@@ -657,22 +631,18 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
             return DefaultHashMap.this.removeEntryForKey(o) != null;
         }
 
-        /**
-         * 清除所有entry.
-         */
+        /** 清除所有entry. */
         @Override
         public void clear() {
             DefaultHashMap.this.clear();
         }
     }
 
-    /**
-     * value的集合视图.
-     */
+    /** value的集合视图. */
     private class Values extends AbstractCollection {
         /**
          * 取得value的遍历器.
-         * 
+         *
          * @return value的遍历器
          */
         @Override
@@ -682,7 +652,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
         /**
          * 取得集合的大小, 就是hash表中entry的数量.
-         * 
+         *
          * @return hash表中entry的数量
          */
         @Override
@@ -692,7 +662,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
         /**
          * 判断value中是否包含指定对象.
-         * 
+         *
          * @param o 要查找的对象
          * @return 如果value中包含指定的对象, 则返回<code>true</code>
          */
@@ -701,22 +671,18 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
             return containsValue(o);
         }
 
-        /**
-         * 清除所有entry.
-         */
+        /** 清除所有entry. */
         @Override
         public void clear() {
             DefaultHashMap.this.clear();
         }
     }
 
-    /**
-     * entry的集合视图.
-     */
+    /** entry的集合视图. */
     private class EntrySet extends AbstractSet {
         /**
          * 取得entry的遍历器.
-         * 
+         *
          * @return entry的遍历器
          */
         @Override
@@ -726,7 +692,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
         /**
          * 判断entry集合中是否包含指定对象.
-         * 
+         *
          * @param o 要查找的对象
          * @return 如果entry中是否包含指定对象, 则返回<code>true</code>
          */
@@ -744,7 +710,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
         /**
          * 从hash表中删除指定entry.
-         * 
+         *
          * @param o 要删除的entry
          * @return 如果删除成功, 则返回<code>true</code>
          */
@@ -755,7 +721,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
         /**
          * 取得集合的大小, 就是hash表中entry的数量.
-         * 
+         *
          * @return hash表中entry的数量
          */
         @Override
@@ -763,9 +729,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
             return size;
         }
 
-        /**
-         * 清除所有entry.
-         */
+        /** 清除所有entry. */
         @Override
         public void clear() {
             DefaultHashMap.this.clear();
@@ -787,10 +751,10 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
     /**
      * 从输入流中重建hash表(也就是反序列化).
-     * 
+     *
      * @param is 输入流
-     * @exception IOException 输入流异常
-     * @exception ClassNotFoundException 类未找到
+     * @throws IOException            输入流异常
+     * @throws ClassNotFoundException 类未找到
      */
     private void readObject(java.io.ObjectInputStream is) throws IOException, ClassNotFoundException {
         // 读入threshold, loadfactor, 和其它隐藏的对象.
@@ -818,9 +782,9 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
     /**
      * 将hash表的状态保存到输出流中(也就是&quot;序列化&quot;).
-     * 
+     *
      * @param os 输出流
-     * @exception IOException 输出流异常
+     * @throws IOException 输出流异常
      */
     private void writeObject(java.io.ObjectOutputStream os) throws IOException {
         // 输出threshold, loadfactor, 和其它隐藏的对象.
@@ -833,7 +797,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
         os.writeInt(size);
 
         // 输出所有entry.
-        for (Iterator i = entrySet().iterator(); i.hasNext();) {
+        for (Iterator i = entrySet().iterator(); i.hasNext(); ) {
             Map.Entry entry = (Map.Entry) i.next();
 
             os.writeObject(entry.getKey());
@@ -853,7 +817,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
     /**
      * &quot;浅&quot;拷贝hash表, key和value本身并不被复制.
-     * 
+     *
      * @return 被复制的hash表.
      */
     @Override
@@ -895,7 +859,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
     /**
      * 返回指定key对应的entry. 如果不存在, 则返回null.
-     * 
+     *
      * @param key 返回指定key对应的entry
      * @return 指定key对应的entry
      */
@@ -916,8 +880,8 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
      * 加入一个entry到hash表中, 但不会对hash表进行<code>resize()</code>操作. 子类可以覆盖此方法, 以改变
      * <code>put</code>, <code>new HashMap(Map)</code>, <code>clone</code>, 和
      * <code>readObject</code>方法的行为.
-     * 
-     * @param key hash表的key
+     *
+     * @param key   hash表的key
      * @param value hash表的value
      */
     protected void addEntry(Object key, Object value) {
@@ -931,8 +895,8 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
     /**
      * 此方法被构造函数或&quot;伪构造函数&quot;(clone, readObject)调用, 功能同put方法,
      * 但不会调用resize或改变modCount计数.
-     * 
-     * @param key 要关联的key
+     *
+     * @param key   要关联的key
      * @param value 要和key关联的value
      */
     private void putForCreate(Object key, Object value) {
@@ -947,11 +911,11 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
     /**
      * 一次put多个entry.
-     * 
+     *
      * @param map 指定map的所有entry都被放入hash表中
      */
     private void putAllForCreate(Map map) {
-        for (Iterator i = map.entrySet().iterator(); i.hasNext();) {
+        for (Iterator i = map.entrySet().iterator(); i.hasNext(); ) {
             Map.Entry entry = (Map.Entry) i.next();
 
             putForCreate(entry.getKey(), entry.getValue());
@@ -960,7 +924,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
     /**
      * 删除指定key对应的entry, 并返回被删除的entry.
-     * 
+     *
      * @param key 要删除的entry的key
      * @return 被删除的entry, 如果entry不存在, 则返回<code>null</code>
      */
@@ -997,7 +961,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
     /**
      * 删除指定的entry. 这个方法用于<code>EntrySet.remove</code>.
-     * 
+     *
      * @param o 要删除的entry
      * @return 被删除的entry
      */
@@ -1040,7 +1004,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
     /**
      * 子类覆盖此方法, 用来创建key的遍历器.
-     * 
+     *
      * @return hash表的key的遍历器
      */
     protected Iterator newKeyIterator() {
@@ -1049,7 +1013,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
     /**
      * 子类覆盖此方法, 用来创建value的遍历器.
-     * 
+     *
      * @return hash表的key的遍历器
      */
     protected Iterator newValueIterator() {
@@ -1058,7 +1022,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
     /**
      * 子类覆盖此方法, 用来创建entry的遍历器.
-     * 
+     *
      * @return hash表的key的遍历器
      */
     protected Iterator newEntryIterator() {
@@ -1067,7 +1031,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
     /**
      * 返回对象的hash值.
-     * 
+     *
      * @param obj 取得指定对象的hash值
      * @return 指定对象的hash值
      */
@@ -1079,7 +1043,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
     /**
      * 比较两个对象.
-     * 
+     *
      * @param x 第一个对象
      * @param y 第二个对象
      * @return 如果相同, 则返回<code>true</code>
@@ -1090,8 +1054,8 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
     /**
      * 返回索引值, 根据指定的hash值和数组的长度.
-     * 
-     * @param hash hash值
+     *
+     * @param hash   hash值
      * @param length 数组的长度, 必然是2的整数次幂
      * @return hash值在数组中的序号
      */
@@ -1101,7 +1065,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
     /**
      * 对map进行扩容. 此方法在entry数超过阈值时被调用.
-     * 
+     *
      * @param newCapacity 新的容量(必须为2的整数次幂).
      */
     protected void resize(int newCapacity) {
@@ -1121,7 +1085,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
     /**
      * 将所有entry从当前表中移到新表中(扩容).
-     * 
+     *
      * @param newTable 新表
      */
     protected void transfer(Entry[] newTable) {
@@ -1148,7 +1112,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
     /**
      * 取得hash表的容量.
-     * 
+     *
      * @return hash表的容量
      */
     protected int getCapacity() {
@@ -1157,7 +1121,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
     /**
      * 取得hash表的负载系数.
-     * 
+     *
      * @return hash表的负载系数
      */
     protected float getLoadFactor() {
@@ -1166,7 +1130,7 @@ public class DefaultHashMap extends AbstractMap implements Map, Cloneable, Seria
 
     /**
      * 取得hash表的阈值.
-     * 
+     *
      * @return hash表的阈值
      */
     protected int getThreshold() {

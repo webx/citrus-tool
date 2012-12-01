@@ -22,16 +22,16 @@ import java.math.BigInteger;
 
 /**
  * 类型安全的枚举类型, 代表一个超长整数.
- * 
- * @version $Id: BigIntegerEnum.java,v 1.1 2003/07/03 07:26:20 baobao Exp $
+ *
  * @author Michael Zhou
+ * @version $Id: BigIntegerEnum.java,v 1.1 2003/07/03 07:26:20 baobao Exp $
  */
 public abstract class BigIntegerEnum extends Enum {
     static final long serialVersionUID = 3407019802348379119L;
 
     /**
      * 创建一个枚举量.
-     * 
+     *
      * @param name 枚举量的名称
      */
     protected BigIntegerEnum(String name) {
@@ -40,8 +40,8 @@ public abstract class BigIntegerEnum extends Enum {
 
     /**
      * 创建一个枚举量.
-     * 
-     * @param name 枚举量的名称
+     *
+     * @param name  枚举量的名称
      * @param value 枚举量的超长整数值
      */
     protected BigIntegerEnum(String name, int value) {
@@ -50,8 +50,8 @@ public abstract class BigIntegerEnum extends Enum {
 
     /**
      * 创建一个枚举量.
-     * 
-     * @param name 枚举量的名称
+     *
+     * @param name  枚举量的名称
      * @param value 枚举量的超长整数值
      */
     protected BigIntegerEnum(String name, long value) {
@@ -60,8 +60,8 @@ public abstract class BigIntegerEnum extends Enum {
 
     /**
      * 创建一个枚举量.
-     * 
-     * @param name 枚举量的名称
+     *
+     * @param name  枚举量的名称
      * @param value 枚举量的超长整数值
      */
     protected BigIntegerEnum(String name, String value) {
@@ -70,8 +70,8 @@ public abstract class BigIntegerEnum extends Enum {
 
     /**
      * 创建一个枚举量.
-     * 
-     * @param name 枚举量的名称
+     *
+     * @param name  枚举量的名称
      * @param value 枚举量的超长整数值
      */
     protected BigIntegerEnum(String name, BigInteger value) {
@@ -80,8 +80,8 @@ public abstract class BigIntegerEnum extends Enum {
 
     /**
      * 创建一个枚举量.
-     * 
-     * @param name 枚举量的名称
+     *
+     * @param name  枚举量的名称
      * @param value 枚举量的超长整数值
      */
     protected BigIntegerEnum(String name, BigDecimal value) {
@@ -90,7 +90,7 @@ public abstract class BigIntegerEnum extends Enum {
 
     /**
      * 创建一个枚举类型的<code>EnumType</code>.
-     * 
+     *
      * @return 枚举类型的<code>EnumType</code>
      */
     protected static Object createEnumType() {
@@ -134,7 +134,7 @@ public abstract class BigIntegerEnum extends Enum {
 
     /**
      * 实现<code>Number</code>类, 取得整数值.
-     * 
+     *
      * @return 整数值
      */
     public int intValue() {
@@ -143,7 +143,7 @@ public abstract class BigIntegerEnum extends Enum {
 
     /**
      * 实现<code>Number</code>类, 取得长整数值.
-     * 
+     *
      * @return 长整数值
      */
     public long longValue() {
@@ -152,7 +152,7 @@ public abstract class BigIntegerEnum extends Enum {
 
     /**
      * 实现<code>Number</code>类, 取得<code>double</code>值.
-     * 
+     *
      * @return <code>double</code>值
      */
     public double doubleValue() {
@@ -161,7 +161,7 @@ public abstract class BigIntegerEnum extends Enum {
 
     /**
      * 实现<code>Number</code>类, 取得<code>float</code>值.
-     * 
+     *
      * @return <code>float</code>值
      */
     public float floatValue() {
@@ -170,7 +170,7 @@ public abstract class BigIntegerEnum extends Enum {
 
     /**
      * 实现<code>IntegralNumber</code>类, 转换成十六进制整数字符串.
-     * 
+     *
      * @return 十六进制整数字符串
      */
     public String toHexString() {
@@ -179,7 +179,7 @@ public abstract class BigIntegerEnum extends Enum {
 
     /**
      * 实现<code>IntegralNumber</code>类, 转换成八进制整数字符串.
-     * 
+     *
      * @return 八进制整数字符串
      */
     public String toOctalString() {
@@ -188,7 +188,7 @@ public abstract class BigIntegerEnum extends Enum {
 
     /**
      * 实现<code>IntegralNumber</code>类, 转换成二进制整数字符串.
-     * 
+     *
      * @return 二进制整数字符串
      */
     public String toBinaryString() {

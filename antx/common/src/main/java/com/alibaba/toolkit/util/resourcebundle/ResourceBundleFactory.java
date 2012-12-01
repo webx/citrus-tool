@@ -32,16 +32,16 @@ import com.alibaba.toolkit.util.resourcebundle.xml.XMLResourceBundleFactory;
 
 /**
  * 创建<code>ResourceBundle</code>的实例的工厂.
- * 
+ *
+ * @author Michael Zhou
  * @version $Id: ResourceBundleFactory.java,v 1.1 2003/07/03 07:26:35 baobao Exp
  *          $
- * @author Michael Zhou
  */
 public abstract class ResourceBundleFactory {
     /**
      * 使用指定的bundle基本名, 默认的locale, 默认的factory中取得resource bundle.
      * 默认的factory是从线程的context class loader中取得资源文件, 并以XML的格式解释资源文件.
-     * 
+     *
      * @param baseName bundle的基本名
      * @return resource bundle
      * @throws MissingResourceException 指定bundle未找到, 或创建bundle错误
@@ -53,9 +53,9 @@ public abstract class ResourceBundleFactory {
     /**
      * 使用指定的bundle基本名, 指定的locale, 默认的factory中取得resource bundle.
      * 默认的factory是从线程的context class loader中取得资源文件, 并以XML的格式解释资源文件.
-     * 
+     *
      * @param baseName bundle的基本名
-     * @param locale 区域设置
+     * @param locale   区域设置
      * @return resource bundle
      * @throws MissingResourceException 指定bundle未找到, 或创建bundle错误
      */
@@ -66,9 +66,9 @@ public abstract class ResourceBundleFactory {
     /**
      * 使用指定的bundle基本名, 指定的locale, 默认的factory中取得resource bundle.
      * 默认的factory是从指定的class loader中取得资源文件, 并以XML的格式解释资源文件.
-     * 
-     * @param baseName bundle的基本名
-     * @param locale 区域设置
+     *
+     * @param baseName    bundle的基本名
+     * @param locale      区域设置
      * @param classLoader class loader
      * @return resource bundle
      * @throws MissingResourceException 指定bundle未找到, 或创建bundle错误
@@ -80,10 +80,10 @@ public abstract class ResourceBundleFactory {
     /**
      * 使用指定的bundle基本名, 指定的locale, 指定的loader, 默认的factory中取得resource bundle.
      * 默认的factory是从指定的loader中取得资源文件, 并以XML的格式解释资源文件.
-     * 
+     *
      * @param baseName bundle的基本名
-     * @param locale 区域设置
-     * @param loader bundle的装入器
+     * @param locale   区域设置
+     * @param loader   bundle的装入器
      * @return resource bundle
      * @throws MissingResourceException 指定bundle未找到, 或创建bundle错误
      */
@@ -93,10 +93,10 @@ public abstract class ResourceBundleFactory {
 
     /**
      * 使用指定的bundle基本名, 指定的locale, 指定的factory中取得resource bundle.
-     * 
+     *
      * @param baseName bundle的基本名
-     * @param locale 区域设置
-     * @param factory bundle工厂
+     * @param locale   区域设置
+     * @param factory  bundle工厂
      * @return resource bundle
      * @throws MissingResourceException 指定bundle未找到, 或创建bundle错误
      */
@@ -114,19 +114,19 @@ public abstract class ResourceBundleFactory {
 
     /**
      * 创建<code>ResourceBundle</code>的实例.
-     * 
+     *
      * @param bundleName 要创建的bundle名称
      * @return 新创建的<code>ResourceBundle</code>实例, 如果指定bundle不存在, 则返回
      *         <code>null</code>
      * @throws ResourceBundleCreateException 指定bundle文件存在, 但创建bundle实例失败,
-     *             例如文件格式错误
+     *                                       例如文件格式错误
      */
     public abstract ResourceBundle createBundle(String bundleName) throws ResourceBundleCreateException;
 
     /**
      * 判断两个<code>ResourceBundleFactory</code>是否等效. 这将作为
      * <code>ResourceBundle</code>的cache的依据.
-     * 
+     *
      * @param obj 要比较的另一个对象
      * @return 如果等效, 则返回<code>true</code>
      */
@@ -135,15 +135,13 @@ public abstract class ResourceBundleFactory {
 
     /**
      * 取得hash值. 等效的<code>ResourceBundleFactory</code>应该具有相同的hash值.
-     * 
+     *
      * @return hash值
      */
     @Override
     public abstract int hashCode();
 
-    /**
-     * 查找和创建bundle的类.
-     */
+    /** 查找和创建bundle的类. */
     private static final class Helper {
         /**
          * 将(factory, bundleName, defaultLocale)映射到bundle对象的cache. 当内存不足时,
@@ -153,10 +151,10 @@ public abstract class ResourceBundleFactory {
 
         /**
          * 使用指定的bundle基本名, 指定的locale, 指定的factory中取得resource bundle.
-         * 
+         *
          * @param baseName bundle的基本名
-         * @param locale 区域设置
-         * @param factory bundle工厂
+         * @param locale   区域设置
+         * @param factory  bundle工厂
          * @return resource bundle
          * @throws MissingResourceException 指定bundle未找到, 或创建bundle错误
          */
@@ -306,13 +304,13 @@ public abstract class ResourceBundleFactory {
         /**
          * 在cache中查找bundle, 或从factory中装入bundle. 如果此方法返回<code>null</code>,
          * 则调用者必须自己定义bundle, 并调用<code>cache.put</code>方法.
-         * 
-         * @param factory bundle工厂
-         * @param bundleName bundle名称
+         *
+         * @param factory       bundle工厂
+         * @param bundleName    bundle名称
          * @param defaultLocale 系统默认的locale
-         * @param baseName bundle基本名
-         * @param parent 父bundle, 对于根bundle, 为<code>null</code>
-         * @param NOT_FOUND 标记"未找到"状态的对象
+         * @param baseName      bundle基本名
+         * @param parent        父bundle, 对于根bundle, 为<code>null</code>
+         * @param NOT_FOUND     标记"未找到"状态的对象
          * @return resource bundle, 或者<code>null</code>表示bundle未找到
          * @throws ResourceBundleCreateException bundle被找到, 但构造不成功
          */
@@ -354,9 +352,9 @@ public abstract class ResourceBundleFactory {
 
         /**
          * 取得备选的bundle名.
-         * 
+         *
          * @param baseName bundle的基本名
-         * @param locale 区域设置
+         * @param locale   区域设置
          * @return 所有备选的bundle名
          */
         private static List calculateBundleNames(String baseName, Locale locale) {
@@ -409,11 +407,11 @@ public abstract class ResourceBundleFactory {
 
         /**
          * 掷出"resource bundle未找到"的异常.
-         * 
-         * @param missing 指定bundle未找到, 还是创建bundle错误
+         *
+         * @param missing  指定bundle未找到, 还是创建bundle错误
          * @param baseName 未找到的bundle基本名
-         * @param locale 未找到的bundle的区域设置
-         * @param cause 异常起因
+         * @param locale   未找到的bundle的区域设置
+         * @param cause    异常起因
          */
         private static void throwResourceBundleException(boolean missing, String baseName, Locale locale,
                                                          Throwable cause) {
@@ -424,14 +422,12 @@ public abstract class ResourceBundleFactory {
                         baseName, locale }, cause, bundleName, "");
             } else {
                 throw new ResourceBundleException(ResourceBundleConstant.RB_FAILED_LOADING_RESOURCE_BUNDLE,
-                        new Object[] { baseName, locale }, cause, bundleName, "");
+                                                  new Object[] { baseName, locale }, cause, bundleName, "");
             }
         }
     }
 
-    /**
-     * 将(factory, bundleName, defaultLocale)映射到bundle对象的cache类.
-     */
+    /** 将(factory, bundleName, defaultLocale)映射到bundle对象的cache类. */
     private static final class Cache extends SoftHashMap {
         /** 静态的key, 用来在cache中查找bundle. 使用静态量可以减少GC的负担. 使用cacheKey必须对整个cache进行同步. */
         private static final CacheKey cacheKey = new CacheKey();
@@ -441,20 +437,18 @@ public abstract class ResourceBundleFactory {
          * 使用此hash表必须对整个cache进行同步.
          */
         private final Map underConstruction = new HashMap(ResourceBundleConstant.MAX_BUNDLES_SEARCHED,
-                ResourceBundleConstant.CACHE_LOAD_FACTOR);
+                                                          ResourceBundleConstant.CACHE_LOAD_FACTOR);
 
-        /**
-         * 构造一个cache.
-         */
+        /** 构造一个cache. */
         public Cache() {
             super(ResourceBundleConstant.INITIAL_CACHE_SIZE, ResourceBundleConstant.CACHE_LOAD_FACTOR);
         }
 
         /**
          * 在cache中查找bundle.
-         * 
-         * @param factory bundle工厂
-         * @param bundleName bundle名称
+         *
+         * @param factory       bundle工厂
+         * @param bundleName    bundle名称
          * @param defaultLocale 系统locale
          * @return 被cache的bundle. 如果未找到, 则返回<code>null</code>
          */
@@ -471,9 +465,9 @@ public abstract class ResourceBundleFactory {
          * 在cache中查找bundle, 如果bundle不存在, 并且有另一个线程正在构造此bundle, 则等待之. 如果此方法返回
          * <code>null</code>, 则调用者必须负责调用<code>put</code>或
          * <code>cleanUpConstructionList</code>方法, 否则别的线程可能等待它, 而造成死锁.
-         * 
-         * @param factory bundle工厂
-         * @param bundleName bundle名称
+         *
+         * @param factory       bundle工厂
+         * @param bundleName    bundle名称
          * @param defaultLocale 系统locale
          * @return 被cache的bundle. 如果未找到, 则返回<code>null</code>
          */
@@ -530,11 +524,11 @@ public abstract class ResourceBundleFactory {
 
         /**
          * 将bundle放入cache, 并唤醒所有等待的线程.
-         * 
-         * @param factory bundle工厂
-         * @param bundleName bundle名称
+         *
+         * @param factory       bundle工厂
+         * @param bundleName    bundle名称
          * @param defaultLocale 系统locale
-         * @param bundle 将被cache的bundle对象
+         * @param bundle        将被cache的bundle对象
          */
         public synchronized void put(ResourceBundleFactory factory, String bundleName, Locale defaultLocale,
                                      Object bundle) {
@@ -550,9 +544,7 @@ public abstract class ResourceBundleFactory {
             notifyAll();
         }
 
-        /**
-         * 从"正在构造bundle"的线程表中清除当前线程. 如果装入bundle失败, 则需要调用此方法.
-         */
+        /** 从"正在构造bundle"的线程表中清除当前线程. 如果装入bundle失败, 则需要调用此方法. */
         public synchronized void cleanUpConstructionList() {
             final Collection entries = underConstruction.values();
             final Thread thisThread = Thread.currentThread();
@@ -565,20 +557,18 @@ public abstract class ResourceBundleFactory {
         }
     }
 
-    /**
-     * 和bundle对应的cache key, 由bundle工厂, bundle名称, 系统locale几个字段组成.
-     */
+    /** 和bundle对应的cache key, 由bundle工厂, bundle名称, 系统locale几个字段组成. */
     private static final class CacheKey implements Cloneable {
         private SoftReference factoryRef;
-        private String bundleName;
-        private Locale defaultLocale;
-        private int hashCode;
+        private String        bundleName;
+        private Locale        defaultLocale;
+        private int           hashCode;
 
         /**
          * 设置cache key.
-         * 
-         * @param factory bundle工厂
-         * @param bundleName bundle名称
+         *
+         * @param factory       bundle工厂
+         * @param bundleName    bundle名称
          * @param defaultLocale 系统locale
          */
         public void set(ResourceBundleFactory factory, String bundleName, Locale defaultLocale) {
@@ -598,16 +588,14 @@ public abstract class ResourceBundleFactory {
             }
         }
 
-        /**
-         * 清除cache key.
-         */
+        /** 清除cache key. */
         public void clear() {
             set(null, "", null);
         }
 
         /**
          * 检查两个key是否匹配.
-         * 
+         *
          * @param other 另一个cache key
          * @return 如果匹配, 则返回<code>true</code>
          */
@@ -650,7 +638,7 @@ public abstract class ResourceBundleFactory {
 
         /**
          * 比较两个对象是否相等.
-         * 
+         *
          * @param o1 对象1
          * @param o2 对象2
          * @return 如果相等, 则返回<code>true</code>
@@ -661,7 +649,7 @@ public abstract class ResourceBundleFactory {
 
         /**
          * 取得hash值, 如果两个对象等效, 则hash值也相等.
-         * 
+         *
          * @return hash值
          */
         @Override
@@ -671,7 +659,7 @@ public abstract class ResourceBundleFactory {
 
         /**
          * 复制对象.
-         * 
+         *
          * @return cache key的复本
          */
         @Override
@@ -680,20 +668,20 @@ public abstract class ResourceBundleFactory {
                 return super.clone();
             } catch (CloneNotSupportedException e) {
                 throw new InternalError(MessageFormat.format(ResourceBundleConstant.RB_CLONE_NOT_SUPPORTED,
-                        new Object[] { CacheKey.class.getName() }));
+                                                             new Object[] { CacheKey.class.getName() }));
             }
         }
 
         /**
          * 取得字符串值表示.
-         * 
+         *
          * @return 字符串表示
          */
         @Override
         public String toString() {
             return new StringBuffer("CacheKey[factory=").append(factoryRef == null ? "null" : factoryRef.get())
-                    .append(", bundleName=").append(bundleName).append(", defaultLocale=").append(defaultLocale)
-                    .append("]").toString();
+                                                        .append(", bundleName=").append(bundleName).append(", defaultLocale=").append(defaultLocale)
+                                                        .append("]").toString();
         }
     }
 }
