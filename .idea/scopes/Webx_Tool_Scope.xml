@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Webx Tool Scope" pattern="!src[antx-autoconfig]:org.w3c.tidy..*" />
+</component>

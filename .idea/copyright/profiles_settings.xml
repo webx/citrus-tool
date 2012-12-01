@@ -1,7 +1,7 @@
 <component name="CopyrightManager">
   <settings default="">
     <module2copyright>
-      <element module="Project Files" copyright="Webx License" />
+      <element module="Webx Tool Scope" copyright="Webx License" />
     </module2copyright>
     <LanguageOptions name="ActionScript">
       <option name="fileTypeOverride" value="1" />
