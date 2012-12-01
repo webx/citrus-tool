@@ -5,16 +5,15 @@
     <parent>
         <groupId>com.alibaba.citrus.tool</groupId>
         <artifactId>citrus-tool-parent</artifactId>
-        <version>1.0</version>
+        <version>1.1</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>antx-parent</artifactId>
     <packaging>pom</packaging>
     <name>Antx Parent Project</name>
-    <version>1.0.10</version>
     <properties>
-        <antx.version>1.0.10</antx.version>
+        <antx.version>1.1</antx.version>
     </properties>
     <modules>
         <module>maven-autoconfig-plugin</module>
