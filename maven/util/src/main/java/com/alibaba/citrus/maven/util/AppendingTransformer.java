@@ -34,7 +34,7 @@ import org.codehaus.plexus.util.SelectorUtils;
 
 /**
  * 合并同名的资源，合并时以换行分隔。支持用通配符匹配资源。
- * 
+ * <p/>
  * <pre>
  * &lt;plugin&gt;
  *     &lt;artifactId&gt;maven-shade-plugin&lt;/artifactId&gt;
@@ -56,7 +56,7 @@ import org.codehaus.plexus.util.SelectorUtils;
  *     &lt;/configuration&gt;
  * &lt;/plugin&gt;
  * </pre>
- * 
+ *
  * @author Michael Zhou
  */
 public class AppendingTransformer implements ResourceTransformer {
@@ -98,7 +98,7 @@ public class AppendingTransformer implements ResourceTransformer {
     }
 
     public void modifyOutputStream(JarOutputStream jos) throws IOException {
-        for (Iterator i = data.entrySet().iterator(); i.hasNext();) {
+        for (Iterator i = data.entrySet().iterator(); i.hasNext(); ) {
             Map.Entry entry = (Map.Entry) i.next();
             String resource = (String) entry.getKey();
             ByteArrayOutputStream resourceData = (ByteArrayOutputStream) entry.getValue();
