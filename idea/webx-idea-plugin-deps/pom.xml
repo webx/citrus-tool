@@ -22,7 +22,7 @@
          -->
         <dependency>
             <groupId>com.alibaba.citrus</groupId>
-            <artifactId>citrus-webx-all</artifactId>
+            <artifactId>citrus-springext-all</artifactId>
             <version>${webx-version}</version>
             <exclusions>
                 <exclusion>
