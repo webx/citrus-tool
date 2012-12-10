@@ -73,7 +73,7 @@ public class ContextClassLoader {
 
     static {
         try {
-            GET_CONTEXT_CLASS_LOADER_METHOD = Thread.class.getMethod("getContextClassLoader", null);
+            GET_CONTEXT_CLASS_LOADER_METHOD = Thread.class.getMethod("getContextClassLoader", (Class[]) null);
         } catch (NoSuchMethodException e) {
             // JDK 1.2以下.
         }
@@ -254,7 +254,7 @@ public class ContextClassLoader {
     public static ClassLoader getClassLoader() {
         if (GET_CONTEXT_CLASS_LOADER_METHOD != null) {
             try {
-                return (ClassLoader) GET_CONTEXT_CLASS_LOADER_METHOD.invoke(Thread.currentThread(), null);
+                return (ClassLoader) GET_CONTEXT_CLASS_LOADER_METHOD.invoke(Thread.currentThread(), (Object[]) null);
             } catch (Throwable e) {
                 return null;
             }
