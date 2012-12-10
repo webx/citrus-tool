@@ -20,7 +20,7 @@ package org.slf4j.impl;
 import org.slf4j.ILoggerFactory;
 import org.slf4j.Logger;
 
-public class IntellijLoggerFactory implements ILoggerFactory {
+class IntellijLoggerFactory implements ILoggerFactory {
     public Logger getLogger(String name) {
         String category = isClassName(name) ? "#" + name : name;
         return new IntellijLoggerAdapter(com.intellij.openapi.diagnostic.Logger.getInstance(category), name);

@@ -24,8 +24,8 @@ import org.slf4j.helpers.MarkerIgnoringBase;
 import org.slf4j.helpers.MessageFormatter;
 import org.slf4j.spi.LocationAwareLogger;
 
-public final class IntellijLoggerAdapter extends MarkerIgnoringBase implements LocationAwareLogger {
-    final transient Logger logger;
+final class IntellijLoggerAdapter extends MarkerIgnoringBase implements LocationAwareLogger {
+    private final transient Logger logger;
 
     IntellijLoggerAdapter(Logger logger, String name) {
         this.logger = logger;
