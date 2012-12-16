@@ -1,4 +1,4 @@
-package com.alibaba.intellij.plugin.webx.schema;
+package com.alibaba.intellij.plugin.webx.xml.schema;
 
 import static com.alibaba.citrus.util.CollectionUtil.*;
 

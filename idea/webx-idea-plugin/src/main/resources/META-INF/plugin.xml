@@ -21,6 +21,6 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <dom.fileDescription implementation="com.alibaba.intellij.plugin.webx.util.SpringDomFileDescription" />
-        <xml.schemaProvider implementation="com.alibaba.intellij.plugin.webx.schema.SpringExtSchemaProvider" />
+        <xml.schemaProvider implementation="com.alibaba.intellij.plugin.webx.xml.schema.SpringExtSchemaProvider" />
     </extensions>
 </idea-plugin>
