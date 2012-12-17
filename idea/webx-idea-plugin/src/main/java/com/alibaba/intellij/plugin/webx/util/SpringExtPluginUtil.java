@@ -18,10 +18,16 @@
 package com.alibaba.intellij.plugin.webx.util;
 
 import com.alibaba.intellij.plugin.webx.model.spring.Beans;
+import com.intellij.openapi.module.Module;
+import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.psi.PsiDirectory;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiFile;
 import com.intellij.psi.xml.XmlFile;
 import com.intellij.util.xml.DomManager;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class SpringExtPluginUtil {
     public static boolean isSpringConfigurationFile(@NotNull XmlFile file) {
@@ -38,5 +44,51 @@ public class SpringExtPluginUtil {
         String extension = virtualFile.getExtension();
 
         return extension != null && extension.equals("xsd");
+    }
+
+    @Nullable
+    public static Module findModule(@Nullable PsiElement psiElement) {
+        if (psiElement == null) {
+            return null;
+        }
+
+        return findModule(null, psiElement.getContainingFile());
+    }
+
+    @Nullable
+    public static Module findModule(@Nullable PsiFile psiFile) {
+        return findModule(null, psiFile);
+    }
+
+    @Nullable
+    public static Module findModule(@Nullable Module module, @Nullable PsiFile psiFile) {
+        if (module != null) {
+            return module;
+        }
+
+        if (psiFile == null) {
+            return null;
+        }
+
+        module = SpringExtSchemaXmlFileSet.getContainingModule(psiFile);
+
+        if (module != null) {
+            return module;
+        }
+
+        // 从文件或父文件中查找
+        module = ModuleUtil.findModuleForPsiElement(psiFile);
+
+        if (module != null) {
+            return module;
+        }
+
+        PsiDirectory directory = psiFile.getParent();
+
+        if (directory != null) {
+            module = ModuleUtil.findModuleForPsiElement(directory);
+        }
+
+        return module;
     }
 }
