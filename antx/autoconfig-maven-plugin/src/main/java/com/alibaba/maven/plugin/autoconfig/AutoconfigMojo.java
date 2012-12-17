@@ -99,6 +99,22 @@ public class AutoconfigMojo extends AbstractMojo {
      */
     private File userProperties;
 
+    /**
+     * Includes/excludes descriptor files, e.g. conf/auto-config.xml.
+     * Wildcards such as "*", "**", "?" are allowed.
+     *
+     * @parameter
+     */
+    private Patterns descriptors;
+
+    /**
+     * Includes/excludes package files, e.g. target/*.war.
+     * Wildcards such as "*", "**", "?" are allowed.
+     *
+     * @parameter
+     */
+    private Patterns packages;
+
     public void execute() throws MojoExecutionException, MojoFailureException {
         if (skip) {
             return;
@@ -134,6 +150,14 @@ public class AutoconfigMojo extends AbstractMojo {
             runtimeImpl.setDests(new String[] { dest.getAbsolutePath() });
             runtimeImpl.setType(type);
 
+            if (descriptors != null) {
+                runtimeImpl.setDescriptorPatterns(descriptors.getIncludes(), descriptors.getExcludes());
+            }
+
+            if (packages != null) {
+                runtimeImpl.setPackagePatterns(packages.getIncludes(), packages.getExcludes());
+            }
+
             if (userProperties != null) {
                 runtimeImpl.setUserPropertiesFile(userProperties.getAbsolutePath(), null);
             }
@@ -167,5 +191,26 @@ public class AutoconfigMojo extends AbstractMojo {
         expander.getExpander().setDestdir(destdir.getAbsolutePath());
 
         expander.start();
+    }
+
+    public static class Patterns {
+        private String[] includes;
+        private String[] excludes;
+
+        public String[] getIncludes() {
+            return includes;
+        }
+
+        public void setIncludes(String[] includes) {
+            this.includes = includes;
+        }
+
+        public String[] getExcludes() {
+            return excludes;
+        }
+
+        public void setExcludes(String[] excludes) {
+            this.excludes = excludes;
+        }
     }
 }
