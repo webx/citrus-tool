@@ -20,7 +20,12 @@
     </actions>
 
     <extensions defaultExtensionNs="com.intellij">
-        <dom.fileDescription implementation="com.alibaba.intellij.plugin.webx.util.SpringDomFileDescription" />
-        <xml.schemaProvider implementation="com.alibaba.intellij.plugin.webx.xml.schema.SpringExtSchemaProvider" />
+
+        <dom.fileDescription
+                implementation="com.alibaba.intellij.plugin.webx.util.SpringDomFileDescription" />
+
+        <xml.schemaProvider
+                implementation="com.alibaba.intellij.plugin.webx.extension.SpringExtSchemaProvider" />
+
     </extensions>
 </idea-plugin>
