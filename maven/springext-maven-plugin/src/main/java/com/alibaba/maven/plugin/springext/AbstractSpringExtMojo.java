@@ -31,7 +31,6 @@ import org.apache.maven.project.MavenProject;
 /**
  * @aggregator
  * @requiresDependencyResolution test
- * @execute phase="test-compile"
  */
 public abstract class AbstractSpringExtMojo extends AbstractMojo {
     /**
