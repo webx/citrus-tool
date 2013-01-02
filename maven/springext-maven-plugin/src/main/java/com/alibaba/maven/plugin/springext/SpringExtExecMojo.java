@@ -32,12 +32,10 @@ import org.apache.maven.plugin.MojoFailureException;
  *
  * @author Michael Zhou
  * @goal export
- * @requiresDependencyResolution runtime
- * @execute phase="test-compile"
  * @description Runs SchemaExporter to save schema files within current maven
  * project to specified directory.
  */
-public class SchemaExporterExecMojo extends AbstractSchemaExporterMojo {
+public class SpringExtExecMojo extends AbstractSpringExtMojo {
     private final static String mainClass = "com.alibaba.citrus.springext.export.SchemaExporterCLI";
 
     /**

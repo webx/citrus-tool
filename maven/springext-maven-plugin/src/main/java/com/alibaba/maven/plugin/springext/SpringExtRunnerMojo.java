@@ -47,11 +47,9 @@ import org.eclipse.jetty.webapp.WebXmlConfiguration;
  *
  * @author Michael Zhou
  * @goal run
- * @requiresDependencyResolution runtime
- * @execute phase="test-compile"
  * @description Runs SchemaExporterServlet directly from a maven project
  */
-public class SchemaExporterRunnerMojo extends AbstractSchemaExporterMojo {
+public class SpringExtRunnerMojo extends AbstractSpringExtMojo {
     /**
      * The port for connector. Defaults to 8080.
      *
@@ -254,7 +252,7 @@ public class SchemaExporterRunnerMojo extends AbstractSchemaExporterMojo {
 
             if (result == null) {
                 throw new IOException("Could not find SchemaExporter resources.\n" + "Please make sure this project ("
-                                      + project.getId() + ") depends on \"citrus-common-springext\"");
+                                      + project.getId() + ") depends on \"com.alibaba.citrus:citrus-webx-all\"");
             }
 
             return result;
