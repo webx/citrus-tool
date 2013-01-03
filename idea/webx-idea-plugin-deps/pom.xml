@@ -12,7 +12,7 @@
     <artifactId>webx-idea-plugin-deps</artifactId>
     <name>Intellij IDEA Tools Dependencies</name>
     <properties>
-        <webx-version>3.1.2</webx-version>
+        <webx-version>3.2.0</webx-version>
     </properties>
     <dependencies>
         <!--
