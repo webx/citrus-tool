@@ -58,7 +58,7 @@ public class SpringExtSchemaProvider extends XmlSchemaProvider {
         }
 
         if (log.isDebugEnabled()) {
-            log.debug(String.format("Loading %s within %s in module %s%n", url, baseFile.getName(), module.getName()));
+            log.debug(String.format("Loading %s within %s in module %s", url, baseFile.getName(), module.getName()));
         }
 
         SpringExtSchemaXmlFileSet schemas = SpringExtSchemaXmlFileSet.getInstance(module);
@@ -68,7 +68,7 @@ public class SpringExtSchemaProvider extends XmlSchemaProvider {
                                          : schemas.getSchemaXmlFile(schema, module);
 
         if (xmlFile != null && log.isDebugEnabled()) {
-            log.debug(String.format("  - returns %s (%x)%n", xmlFile, xmlFile.hashCode()));
+            log.debug(String.format("  - returns %s (%x)", xmlFile, xmlFile.hashCode()));
         }
 
         return xmlFile;

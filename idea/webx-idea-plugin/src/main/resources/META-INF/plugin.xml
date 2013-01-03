@@ -1,28 +1,22 @@
 <idea-plugin version="2">
-    <name>Plugin name here</name>
-    <description>short description of the plugin</description>
+    <name>SpringExt Support</name>
+    <description>SpringExt/Webx Support</description>
     <version>1.0</version>
-    <vendor>YourCompany</vendor>
+    <vendor>Alibaba.com</vendor>
 
     <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Build+Number+Ranges for description -->
-    <idea-version since-build="107.105" />
+    <idea-version since-build="123.94" />
 
     <application-components>
-        <!-- Add your application components here -->
     </application-components>
 
     <project-components>
-        <!-- Add your project components here -->
     </project-components>
 
     <actions>
-        <!-- Add your actions here -->
     </actions>
 
     <extensions defaultExtensionNs="com.intellij">
-
-        <dom.fileDescription
-                implementation="com.alibaba.intellij.plugin.webx.util.SpringDomFileDescription" />
 
         <xml.schemaProvider
                 implementation="com.alibaba.intellij.plugin.webx.extension.SpringExtSchemaProvider" />

@@ -17,7 +17,6 @@
 
 package com.alibaba.intellij.plugin.webx.util;
 
-import com.alibaba.intellij.plugin.webx.model.spring.Beans;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.openapi.vfs.VirtualFile;
@@ -25,13 +24,12 @@ import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.xml.XmlFile;
-import com.intellij.util.xml.DomManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class SpringExtPluginUtil {
     public static boolean isSpringConfigurationFile(@NotNull XmlFile file) {
-        return DomManager.getDomManager(file.getProject()).getFileElement(file, Beans.class) != null;
+        return SpringExtConstant.BEANS_NAMESPACE_URI.equals(file.getRootTag().getNamespace()) && "beans".equals(file.getRootTag().getLocalName());
     }
 
     public static boolean isXsdFile(@NotNull XmlFile file) {
