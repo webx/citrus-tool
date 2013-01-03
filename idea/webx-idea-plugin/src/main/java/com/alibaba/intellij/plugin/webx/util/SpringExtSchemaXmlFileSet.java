@@ -47,6 +47,7 @@ import com.intellij.psi.util.CachedValue;
 import com.intellij.psi.util.CachedValueProvider;
 import com.intellij.psi.util.CachedValuesManager;
 import com.intellij.psi.xml.XmlFile;
+import com.intellij.testFramework.LightVirtualFile;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -111,6 +112,12 @@ public class SpringExtSchemaXmlFileSet extends SpringExtSchemaSet {
         if (xmlFile == null) {
             xmlFile = (XmlFile) PsiFileFactory.getInstance(module.getProject())
                                               .createFileFromText(schema.getName(), StdLanguages.XML, schema.getText());
+
+            VirtualFile vfile = xmlFile.getVirtualFile();
+
+            if (vfile instanceof LightVirtualFile) {
+                ((LightVirtualFile) vfile).setWritable(false); // set as read only file
+            }
 
             // 将module对象和内存中的XmlFile绑定，否则当系统试图读取这个file所include/import的另一个file时，会找不到module。
             xmlFile.putUserData(MODULE_KEY, module);
