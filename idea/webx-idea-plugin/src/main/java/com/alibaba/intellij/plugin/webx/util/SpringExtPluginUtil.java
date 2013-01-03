@@ -17,6 +17,7 @@
 
 package com.alibaba.intellij.plugin.webx.util;
 
+import com.alibaba.intellij.plugin.webx.SpringExtConstant;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.openapi.vfs.VirtualFile;
