@@ -21,5 +21,8 @@
         <xml.schemaProvider
                 implementation="com.alibaba.intellij.plugin.webx.extension.SpringExtSchemaProvider" />
 
+        <gotoDeclarationHandler
+                implementation="com.alibaba.intellij.plugin.webx.extension.SpringExtGotoDeclarationHandler" />
+
     </extensions>
 </idea-plugin>

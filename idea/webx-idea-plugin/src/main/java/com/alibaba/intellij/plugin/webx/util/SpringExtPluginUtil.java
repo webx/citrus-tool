@@ -17,13 +17,19 @@
 
 package com.alibaba.intellij.plugin.webx.util;
 
+import com.alibaba.citrus.springext.ResourceResolver.Resource;
+import com.alibaba.citrus.springext.Schema;
+import com.alibaba.citrus.springext.SourceInfo;
 import com.alibaba.intellij.plugin.webx.SpringExtConstant;
+import com.alibaba.intellij.plugin.webx.util.SpringExtSchemaXmlFileSet.VirtualFileResource;
+import com.intellij.codeInsight.navigation.actions.GotoDeclarationAction;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
+import com.intellij.psi.PsiManager;
 import com.intellij.psi.xml.XmlFile;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -89,5 +95,43 @@ public class SpringExtPluginUtil {
         }
 
         return module;
+    }
+
+    public static boolean isCalledBy(@NotNull Class<?> clazz, @Nullable String methodName) {
+        String className = clazz.getName();
+
+        for (StackTraceElement e : Thread.currentThread().getStackTrace()) {
+            if (className.equals(e.getClassName()) && (methodName == null || methodName.equals(e.getMethodName()))) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    @Nullable
+    public static PsiFile getSourceFile(@NotNull Schema schema, @NotNull Module module) {
+        if (schema instanceof SourceInfo<?>) {
+            return getSourceFile((SourceInfo<?>) schema, module);
+        }
+
+        return null;
+    }
+
+    @Nullable
+    public static PsiFile getSourceFile(@NotNull SourceInfo<?> sourceInfo, @NotNull Module module) {
+        Resource resource = sourceInfo.getSource();
+        VirtualFile virtualFile = null;
+        PsiFile psiFile = null;
+
+        if (resource instanceof VirtualFileResource) {
+            virtualFile = ((VirtualFileResource) resource).getVirtualFile();
+        }
+
+        if (virtualFile != null) {
+            psiFile = PsiManager.getInstance(module.getProject()).findFile(virtualFile);
+        }
+
+        return psiFile;
     }
 }

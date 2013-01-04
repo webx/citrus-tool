@@ -19,6 +19,7 @@ package com.alibaba.intellij.plugin.webx.util;
 
 import static com.alibaba.citrus.springext.support.SchemaUtil.*;
 import static com.alibaba.citrus.util.CollectionUtil.*;
+import static com.alibaba.intellij.plugin.webx.util.SpringExtPluginUtil.getSourceFile;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,7 +28,9 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.alibaba.citrus.springext.ResourceResolver;
+import com.alibaba.citrus.springext.ResourceResolver.Resource;
 import com.alibaba.citrus.springext.Schema;
+import com.alibaba.citrus.springext.SourceInfo;
 import com.alibaba.citrus.springext.impl.SpringExtSchemaSet;
 import com.intellij.lang.StdLanguages;
 import com.intellij.openapi.diagnostic.Logger;
@@ -41,7 +44,9 @@ import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiFileFactory;
+import com.intellij.psi.PsiManager;
 import com.intellij.psi.PsiPackage;
+import com.intellij.psi.impl.source.PsiFileImpl;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.util.CachedValue;
 import com.intellij.psi.util.CachedValueProvider;
@@ -117,6 +122,12 @@ public class SpringExtSchemaXmlFileSet extends SpringExtSchemaSet {
 
             if (vfile instanceof LightVirtualFile) {
                 ((LightVirtualFile) vfile).setWritable(false); // set as read only file
+            }
+
+            PsiFile originalFile = getSourceFile(schema, module);
+
+            if (originalFile != null) {
+                ((PsiFileImpl) xmlFile).setOriginalFile(originalFile);
             }
 
             // 将module对象和内存中的XmlFile绑定，否则当系统试图读取这个file所include/import的另一个file时，会找不到module。
@@ -219,17 +230,7 @@ public class SpringExtSchemaXmlFileSet extends SpringExtSchemaSet {
                         final VirtualFile virtualFile = psiFile.getVirtualFile();
 
                         if (virtualFile != null) {
-                            resources.add(new Resource() {
-                                @Override
-                                public String getName() {
-                                    return virtualFile.getPath();
-                                }
-
-                                @Override
-                                public InputStream getInputStream() throws IOException {
-                                    return virtualFile.getInputStream();
-                                }
-                            });
+                            resources.add(new VirtualFileResource(virtualFile));
                         } else {
                             log.warn("PsiFile was ignored, because it only exists in memory: " + psiFile);
                         }
@@ -252,6 +253,28 @@ public class SpringExtSchemaXmlFileSet extends SpringExtSchemaSet {
         @NotNull
         private String getFileName(@NotNull String location) {
             return location.substring(location.lastIndexOf("/") + 1);
+        }
+    }
+
+    public static class VirtualFileResource extends Resource {
+        private final VirtualFile virtualFile;
+
+        public VirtualFileResource(@NotNull VirtualFile virtualFile) {
+            this.virtualFile = virtualFile;
+        }
+
+        public VirtualFile getVirtualFile() {
+            return virtualFile;
+        }
+
+        @Override
+        public String getName() {
+            return virtualFile.getPath();
+        }
+
+        @Override
+        public InputStream getInputStream() throws IOException {
+            return virtualFile.getInputStream();
         }
     }
 }
