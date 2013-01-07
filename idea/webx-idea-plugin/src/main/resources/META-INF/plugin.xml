@@ -11,6 +11,9 @@
     </application-components>
 
     <project-components>
+        <component>
+            <implementation-class>com.alibaba.intellij.plugin.webx.extension.SpringExtFileMonitor</implementation-class>
+        </component>
     </project-components>
 
     <actions>

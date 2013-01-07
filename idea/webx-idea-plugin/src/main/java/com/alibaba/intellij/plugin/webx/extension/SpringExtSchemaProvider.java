@@ -62,7 +62,7 @@ public class SpringExtSchemaProvider extends XmlSchemaProvider {
         }
 
         SpringExtSchemaXmlFileSet schemas = SpringExtSchemaXmlFileSet.getInstance(module);
-        Schema schema = schemas.findSchemaByUrl(url);
+        Schema schema = schemas.findSchemaByUrl(url, baseFile);
 
         XmlFile xmlFile = schema == null ? null
                                          : schemas.getSchemaXmlFile(schema, module);

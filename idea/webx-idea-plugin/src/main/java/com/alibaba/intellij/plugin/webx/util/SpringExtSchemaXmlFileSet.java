@@ -24,6 +24,7 @@ import static com.alibaba.intellij.plugin.webx.util.SpringExtPluginUtil.getSourc
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -32,6 +33,7 @@ import com.alibaba.citrus.springext.ResourceResolver.Resource;
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.SourceInfo;
 import com.alibaba.citrus.springext.impl.SpringExtSchemaSet;
+import com.alibaba.intellij.plugin.webx.extension.SpringExtFileMonitor;
 import com.intellij.lang.StdLanguages;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.fileTypes.WildcardFileNameMatcher;
@@ -52,6 +54,7 @@ import com.intellij.psi.util.CachedValue;
 import com.intellij.psi.util.CachedValueProvider;
 import com.intellij.psi.util.CachedValuesManager;
 import com.intellij.psi.xml.XmlFile;
+import com.intellij.psi.xml.XmlTag;
 import com.intellij.testFramework.LightVirtualFile;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -77,6 +80,7 @@ public class SpringExtSchemaXmlFileSet extends SpringExtSchemaSet {
                 List<Object> dependencies = createLinkedList();
 
                 dependencies.add(ProjectRootManager.getInstance(project));
+                dependencies.add(SpringExtFileMonitor.getInstance(project));
 
                 SpringExtSchemaXmlFileSet schemas = new SpringExtSchemaXmlFileSet(new IntellijResourceResolver(module, dependencies));
 
@@ -92,8 +96,19 @@ public class SpringExtSchemaXmlFileSet extends SpringExtSchemaSet {
     }
 
     @Nullable
-    public Schema findSchemaByUrl(String url) {
+    public Schema findSchemaByUrl(String url, PsiFile baseFile) {
         Schema schema = null;
+
+        // 试着读取schemaLocation
+        if (baseFile instanceof XmlFile) {
+            String schemaLocation = ((XmlFile) baseFile).getRootTag().getAttributeValue("schemaLocation", "http://www.w3.org/2001/XMLSchema-instance");
+            Map<String, String> schemaLocationMap = parseSchemaLocation(schemaLocation);
+            String location = schemaLocationMap.get(url);
+
+            if (location != null) {
+                url = location;
+            }
+        }
 
         // Case 1: url represents a namespace url
         Set<Schema> namespaceSchemas = getNamespaceMappings().get(url);

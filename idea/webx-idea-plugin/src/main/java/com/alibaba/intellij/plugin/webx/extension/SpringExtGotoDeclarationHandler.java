@@ -35,6 +35,7 @@ import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
@@ -66,7 +67,8 @@ public class SpringExtGotoDeclarationHandler implements GotoDeclarationHandler {
         }
 
         SpringExtSchemaXmlFileSet schemas = SpringExtSchemaXmlFileSet.getInstance(module);
-        Schema schema = schemas.findSchemaByUrl(url);
+        PsiFile baseFile = PsiDocumentManager.getInstance(module.getProject()).getPsiFile(editor.getDocument());
+        Schema schema = schemas.findSchemaByUrl(url, baseFile);
 
         if (schema == null) {
             return null;
