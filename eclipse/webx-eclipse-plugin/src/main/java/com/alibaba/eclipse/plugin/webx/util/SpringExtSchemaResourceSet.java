@@ -7,6 +7,7 @@ import static com.alibaba.citrus.util.CollectionUtil.createConcurrentHashMap;
 import java.io.File;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentMap;
@@ -15,6 +16,7 @@ import java.util.concurrent.FutureTask;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.launching.JavaRuntime;
@@ -102,14 +104,20 @@ public class SpringExtSchemaResourceSet extends SpringExtSchemaSet {
 
     @Nullable
     private static IJavaProject getJavaProject(IProject project) {
+        IJavaProject javaProject = null;
+
         try {
             if (project.hasNature(JavaCore.NATURE_ID)) {
-                return JavaCore.create(project);
+                javaProject = (IJavaProject) project.getNature(JavaCore.NATURE_ID);
+            }
+
+            if (javaProject == null) {
+                javaProject = JavaCore.create(project);
             }
         } catch (CoreException ignored) {
         }
 
-        return null;
+        return javaProject;
     }
 
     private static SpringExtSchemaResourceSet computeSchemas(IJavaProject javaProject) {
@@ -141,5 +149,23 @@ public class SpringExtSchemaResourceSet extends SpringExtSchemaSet {
         }
 
         return new URLClassLoader(urls);
+    }
+
+    public static void resetForChangedElement(IJavaElement element) {
+        if (element instanceof IJavaProject) {
+            IProject project = ((IJavaProject) element).getProject();
+            projectCache.remove(project);
+        }
+
+        for (Iterator<IProject> i = projectCache.keySet().iterator(); i.hasNext();) {
+            IProject project = i.next();
+            IJavaProject javaProject = getJavaProject(project);
+
+            if (javaProject != null) {
+                if (javaProject.isOnClasspath(element)) {
+                    projectCache.remove(project);
+                }
+            }
+        }
     }
 }
