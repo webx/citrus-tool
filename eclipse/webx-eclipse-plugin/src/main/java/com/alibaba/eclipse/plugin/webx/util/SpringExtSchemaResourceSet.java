@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.impl.SpringExtSchemaSet;
+import com.alibaba.citrus.springext.support.ClasspathResourceResolver;
 
 public class SpringExtSchemaResourceSet extends SpringExtSchemaSet {
     private static final Logger log = LoggerFactory.getLogger(SpringExtSchemaResourceSet.class);
@@ -95,7 +96,8 @@ public class SpringExtSchemaResourceSet extends SpringExtSchemaSet {
     }
 
     public SpringExtSchemaResourceSet(ClassLoader classLoader) {
-        super(classLoader);
+        // 传递ResourceResolver而不是直接传ClassLoader，目的是避免创建类实例。
+        super(new ClasspathResourceResolver(classLoader));
     }
 
     @Nullable

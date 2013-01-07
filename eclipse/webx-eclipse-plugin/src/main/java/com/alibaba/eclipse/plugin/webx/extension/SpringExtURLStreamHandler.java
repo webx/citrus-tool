@@ -39,7 +39,7 @@ public class SpringExtURLStreamHandler extends AbstractURLStreamHandlerService {
                     }
                 }
 
-                throw new IOException("Unable to open a stream for URL: " + url);
+                throw new IOException("Unable to open stream for URL: " + url);
             }
         };
     }

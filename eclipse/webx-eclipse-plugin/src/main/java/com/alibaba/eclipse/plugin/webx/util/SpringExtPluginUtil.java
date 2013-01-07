@@ -17,6 +17,10 @@ import org.jetbrains.annotations.Nullable;
 import com.alibaba.citrus.springext.Schema;
 
 public class SpringExtPluginUtil {
+    public static boolean isSpringextURL(@NotNull URL url) {
+        return URL_PROTOCOL.equals(url.getProtocol());
+    }
+
     @NotNull
     public static String toSpringextURL(@NotNull IProject project, @NotNull Schema schema) {
         try {
@@ -55,10 +59,6 @@ public class SpringExtPluginUtil {
         }
 
         return null;
-    }
-
-    public static boolean isSpringextURL(@NotNull URL url) {
-        return URL_PROTOCOL.equals(url.getProtocol());
     }
 
     @Nullable
