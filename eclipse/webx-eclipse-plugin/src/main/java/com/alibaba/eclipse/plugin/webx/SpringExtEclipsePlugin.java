@@ -6,6 +6,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 import com.alibaba.citrus.logconfig.LogConfigurator;
+import com.alibaba.eclipse.plugin.webx.util.SpringExtSchemaResourceSet;
 
 public class SpringExtEclipsePlugin extends AbstractUIPlugin {
     public static final String PLUGIN_ID = "webx-eclipse-plugin"; //$NON-NLS-1$
@@ -25,6 +26,9 @@ public class SpringExtEclipsePlugin extends AbstractUIPlugin {
 
         // activate URL handler
         Platform.getBundle(org.eclipse.ecf.internal.filetransfer.Activator.PLUGIN_ID);
+
+        // register listener
+        SpringExtSchemaResourceSet.registerChangedListener();
     }
 
     public void stop(BundleContext context) throws Exception {

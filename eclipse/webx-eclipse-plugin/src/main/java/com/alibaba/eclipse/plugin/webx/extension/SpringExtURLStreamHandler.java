@@ -10,11 +10,15 @@ import java.net.URLConnection;
 
 import org.eclipse.core.resources.IProject;
 import org.osgi.service.url.AbstractURLStreamHandlerService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.eclipse.plugin.webx.util.SpringExtSchemaResourceSet;
 
 public class SpringExtURLStreamHandler extends AbstractURLStreamHandlerService {
+    private static final Logger log = LoggerFactory.getLogger(SpringExtURLStreamHandler.class);
+
     @Override
     public URLConnection openConnection(URL url) throws IOException {
         return new URLConnection(url) {
@@ -34,6 +38,10 @@ public class SpringExtURLStreamHandler extends AbstractURLStreamHandlerService {
                         Schema schema = schemas.getNamedMappings().get(schemaName);
 
                         if (schema != null) {
+                            if (log.isDebugEnabled()) {
+                                log.debug("Loading schema: {}", url);
+                            }
+
                             return schema.getInputStream();
                         }
                     }
