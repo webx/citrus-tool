@@ -32,6 +32,7 @@ import org.eclipse.jdt.core.IJavaElementDelta;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.launching.JavaRuntime;
+import org.eclipse.wst.internet.cache.internal.Cache;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +42,7 @@ import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.impl.SpringExtSchemaSet;
 import com.alibaba.citrus.springext.support.ClasspathResourceResolver;
 
+@SuppressWarnings("restriction")
 public class SpringExtSchemaResourceSet extends SpringExtSchemaSet {
     private static final Logger log = LoggerFactory.getLogger(SpringExtSchemaResourceSet.class);
     private static final ConcurrentMap<IProject, Future<SpringExtSchemaResourceSet>> projectCache = createConcurrentHashMap();
@@ -174,6 +176,10 @@ public class SpringExtSchemaResourceSet extends SpringExtSchemaSet {
         return (value & mask) != 0;
     }
 
+    private static void clearCache() {
+        Cache.getInstance().clear();
+    }
+
     /**
      * 观测classpath的改变。
      */
@@ -186,6 +192,8 @@ public class SpringExtSchemaResourceSet extends SpringExtSchemaSet {
         }
 
         private void visitDelta(IJavaElementDelta delta) {
+            boolean changed = false;
+
             if (delta != null) {
                 if (hasBits(delta.getFlags(), CLASSPATH_CHANGED_MASK)) {
                     IJavaElement element = delta.getElement();
@@ -194,6 +202,7 @@ public class SpringExtSchemaResourceSet extends SpringExtSchemaSet {
                     if (element instanceof IJavaProject) {
                         IProject project = ((IJavaProject) element).getProject();
                         projectCache.remove(project);
+                        changed = true;
                     }
 
                     // 间接的classpath改变
@@ -204,6 +213,7 @@ public class SpringExtSchemaResourceSet extends SpringExtSchemaSet {
                         if (javaProject != null) {
                             if (javaProject.isOnClasspath(element)) {
                                 i.remove();
+                                changed = true;
                             }
                         }
                     }
@@ -212,6 +222,10 @@ public class SpringExtSchemaResourceSet extends SpringExtSchemaSet {
                 for (IJavaElementDelta child : delta.getAffectedChildren()) {
                     visitDelta(child);
                 }
+            }
+
+            if (changed) {
+                clearCache();
             }
         }
     }
@@ -284,6 +298,8 @@ public class SpringExtSchemaResourceSet extends SpringExtSchemaSet {
                     }
                 }
             }
+
+            clearCache();
         }
     }
 }
