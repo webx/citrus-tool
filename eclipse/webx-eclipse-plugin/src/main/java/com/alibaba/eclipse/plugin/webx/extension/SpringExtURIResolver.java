@@ -31,6 +31,8 @@ public class SpringExtURIResolver implements URIResolverExtension, IElementChang
             project = getProjectFromURL(baseLocation);
         }
 
+        String result = null;
+
         if (project != null) {
             SpringExtSchemaResourceSet schemas = SpringExtSchemaResourceSet.getInstance(project);
 
@@ -38,12 +40,12 @@ public class SpringExtURIResolver implements URIResolverExtension, IElementChang
                 Schema schema = schemas.findSchemaByUrl(systemId == null ? publicId : systemId);
 
                 if (schema != null) {
-                    return toSpringextURL(project, schema);
+                    result = toSpringextURL(project, schema);
                 }
             }
         }
 
-        return null;
+        return result;
     }
 
     public void elementChanged(ElementChangedEvent event) {

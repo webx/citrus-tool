@@ -2,7 +2,7 @@
 <?eclipse version="3.4"?>
 <plugin>
       <extension point="org.eclipse.wst.common.uriresolver.resolverExtensions">
-            <resolverExtension
+            <resolverExtension priority="high" stage="prenormalization"
                   class="com.alibaba.eclipse.plugin.webx.extension.SpringExtURIResolver"/>
       </extension>
       <extension point="org.eclipse.ecf.filetransfer.urlStreamHandlerService">
