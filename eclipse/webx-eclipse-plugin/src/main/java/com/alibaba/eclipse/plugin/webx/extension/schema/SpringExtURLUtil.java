@@ -1,8 +1,7 @@
-package com.alibaba.eclipse.plugin.webx.util;
+package com.alibaba.eclipse.plugin.webx.extension.schema;
 
-import static com.alibaba.citrus.util.StringEscapeUtil.escapeURL;
-import static com.alibaba.citrus.util.StringEscapeUtil.unescapeURL;
-import static com.alibaba.eclipse.plugin.webx.SpringExtEclipsePlugin.URL_PROTOCOL;
+import static com.alibaba.citrus.util.StringEscapeUtil.*;
+import static com.alibaba.eclipse.plugin.webx.SpringExtEclipsePlugin.*;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
@@ -16,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 
 import com.alibaba.citrus.springext.Schema;
 
-public class SpringExtPluginUtil {
+public class SpringExtURLUtil {
     public static boolean isSpringextURL(@NotNull URL url) {
         return URL_PROTOCOL.equals(url.getProtocol());
     }
@@ -24,7 +23,7 @@ public class SpringExtPluginUtil {
     @NotNull
     public static String toSpringextURL(@NotNull IProject project, @NotNull Schema schema) {
         try {
-            return "springext://" + escapeURL(project.getName(), "UTF-8") + "/" + schema.getName();
+            return URL_PROTOCOL + "://" + escapeURL(project.getName(), "UTF-8") + "/" + schema.getName();
         } catch (UnsupportedEncodingException e) {
             throw new IllegalArgumentException("unbelievable", e);
         }

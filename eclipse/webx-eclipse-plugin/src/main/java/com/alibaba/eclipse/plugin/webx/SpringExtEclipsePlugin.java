@@ -6,7 +6,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 import com.alibaba.citrus.logconfig.LogConfigurator;
-import com.alibaba.eclipse.plugin.webx.util.SpringExtSchemaResourceSet;
+import com.alibaba.eclipse.plugin.webx.extension.schema.SpringExtSchemaResourceSet;
 
 public class SpringExtEclipsePlugin extends AbstractUIPlugin {
     public static final String PLUGIN_ID = "webx-eclipse-plugin"; //$NON-NLS-1$

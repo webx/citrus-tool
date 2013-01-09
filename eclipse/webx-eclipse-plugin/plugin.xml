@@ -3,11 +3,20 @@
 <plugin>
       <extension point="org.eclipse.wst.common.uriresolver.resolverExtensions">
             <resolverExtension priority="high" stage="prenormalization"
-                  class="com.alibaba.eclipse.plugin.webx.extension.SpringExtURIResolver"/>
+                  class="com.alibaba.eclipse.plugin.webx.extension.schema.SpringExtSchemaResolver"/>
       </extension>
       <extension point="org.eclipse.ecf.filetransfer.urlStreamHandlerService">
             <urlStreamHandlerService protocol="springext"
-                  serviceClass="com.alibaba.eclipse.plugin.webx.extension.SpringExtURLStreamHandler"
+                  serviceClass="com.alibaba.eclipse.plugin.webx.extension.schema.SpringExtURLStreamHandler"
             />
+      </extension>
+      	<extension
+		point="org.eclipse.ui.workbench.texteditor.hyperlinkDetectors">
+		<hyperlinkDetector
+			class="com.alibaba.eclipse.plugin.webx.extension.hyperlink.ContributionElementLinkDetector"
+			id="com.alibaba.eclipse.plugin.webx.extension.hyperlink.ContributionElementLinkDetector"
+			name="com.alibaba.eclipse.plugin.webx.extension.hyperlink.ContributionElementLinkDetector"
+			targetId="org.eclipse.core.runtime.xml">
+		</hyperlinkDetector>
       </extension>
 </plugin>

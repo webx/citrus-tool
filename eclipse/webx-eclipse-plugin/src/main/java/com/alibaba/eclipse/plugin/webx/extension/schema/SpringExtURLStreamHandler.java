@@ -1,7 +1,6 @@
-package com.alibaba.eclipse.plugin.webx.extension;
+package com.alibaba.eclipse.plugin.webx.extension.schema;
 
-import static com.alibaba.eclipse.plugin.webx.util.SpringExtPluginUtil.getProjectFromURL;
-import static com.alibaba.eclipse.plugin.webx.util.SpringExtPluginUtil.getSchemaNameFromURL;
+import static com.alibaba.eclipse.plugin.webx.extension.schema.SpringExtURLUtil.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,7 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.citrus.springext.Schema;
-import com.alibaba.eclipse.plugin.webx.util.SpringExtSchemaResourceSet;
 
 public class SpringExtURLStreamHandler extends AbstractURLStreamHandlerService {
     private static final Logger log = LoggerFactory.getLogger(SpringExtURLStreamHandler.class);

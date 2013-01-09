@@ -1,7 +1,7 @@
-package com.alibaba.eclipse.plugin.webx.extension;
+package com.alibaba.eclipse.plugin.webx.extension.schema;
 
 import static com.alibaba.citrus.util.StringUtil.*;
-import static com.alibaba.eclipse.plugin.webx.util.SpringExtPluginUtil.*;
+import static com.alibaba.eclipse.plugin.webx.extension.schema.SpringExtURLUtil.*;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -10,11 +10,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.citrus.springext.Schema;
-import com.alibaba.eclipse.plugin.webx.util.SpringExtSchemaResourceSet;
 
 @SuppressWarnings("restriction")
-public class SpringExtURIResolver implements URIResolverExtension {
-    private static final Logger log = LoggerFactory.getLogger(SpringExtURIResolver.class);
+public class SpringExtSchemaResolver implements URIResolverExtension {
+    private static final Logger log = LoggerFactory.getLogger(SpringExtSchemaResolver.class);
 
     public String resolve(IFile file, String baseLocation, String publicId, String systemId) {
         String result = null;
