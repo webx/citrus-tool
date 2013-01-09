@@ -1,5 +1,6 @@
 package com.alibaba.eclipse.plugin.webx.extension;
 
+import static com.alibaba.citrus.util.StringUtil.*;
 import static com.alibaba.eclipse.plugin.webx.util.SpringExtPluginUtil.*;
 
 import org.eclipse.core.resources.IFile;
@@ -17,7 +18,7 @@ public class SpringExtURIResolver implements URIResolverExtension {
 
     public String resolve(IFile file, String baseLocation, String publicId, String systemId) {
         String result = null;
-        String urlToResolve = systemId == null ? publicId : systemId;
+        String urlToResolve = isBlank(systemId) ? trimToNull(publicId) : trimToNull(systemId);
 
         if (urlToResolve != null) {
             IProject project = getProject(file, baseLocation);
