@@ -1,4 +1,4 @@
-package com.alibaba.eclipse.plugin.webx.extension.schema;
+package com.alibaba.eclipse.plugin.webx.util;
 
 import static com.alibaba.citrus.util.StringEscapeUtil.*;
 import static com.alibaba.eclipse.plugin.webx.SpringExtEclipsePlugin.*;
@@ -15,6 +15,11 @@ import org.jetbrains.annotations.Nullable;
 
 import com.alibaba.citrus.springext.Schema;
 
+/**
+ * 处理<code>springext://</code> URL协议。
+ * 
+ * @author Michael Zhou
+ */
 public class SpringExtURLUtil {
     public static boolean isSpringextURL(@NotNull URL url) {
         return URL_PROTOCOL.equals(url.getProtocol());

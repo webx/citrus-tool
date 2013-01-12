@@ -16,9 +16,12 @@ import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegion;
 import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegionList;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMAttr;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMElement;
+import org.eclipse.wst.xml.core.internal.provisional.document.IDOMText;
 import org.eclipse.wst.xml.core.internal.regions.DOMRegionContext;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Node;
+
+import com.alibaba.eclipse.plugin.webx.util.HyperlinkUtil;
 
 /**
  * 用于检测XML文档中的超链的基类。
@@ -38,44 +41,59 @@ public abstract class AbstractXMLHyperlinkDetector extends AbstractHyperlinkDete
         int currentOffset = region.getOffset();
         Node currentNode = HyperlinkUtil.getCurrentNode(document, currentOffset);
 
-        if (currentNode.getNodeType() == Node.ELEMENT_NODE) {
-            Detector detector = new Detector(document, currentNode, currentOffset);
+        switch (currentNode.getNodeType()) {
+            case Node.ELEMENT_NODE:
+                Detector detector = new Detector(document, currentNode, currentOffset);
 
-            results = detector.visitOpenTag();
+                results = detector.visitOpenTag();
 
-            if (isEmptyArray(results)) {
-                results = detector.visitCloseTag();
-            }
-
-            if (isEmptyArray(results)) {
-                Attr attr = HyperlinkUtil.getCurrentAttrNode(currentNode, currentOffset);
-
-                if (attr != null) {
-                    results = new Detector(document, attr, currentOffset).visitAttr();
+                if (isEmptyArray(results)) {
+                    results = detector.visitCloseTag();
                 }
-            }
+
+                if (isEmptyArray(results)) {
+                    Attr attr = HyperlinkUtil.getCurrentAttrNode(currentNode, currentOffset);
+
+                    if (attr != null) {
+                        results = new Detector(document, attr, currentOffset).visitAttr();
+                    }
+                }
+
+                break;
+
+            case Node.TEXT_NODE:
+                if (currentNode instanceof IDOMText) {
+                    IDOMText textNode = (IDOMText) currentNode;
+                    visitText(document, new Region(textNode.getStartOffset(), textNode.getLength()));
+                }
+
+                break;
         }
 
         return results;
     }
 
-    protected IHyperlink[] visitTagPrefix(IDocument document, Region region, String namespaceURI) {
+    protected IHyperlink[] visitTagPrefix(IDocument document, IRegion region, String namespaceURI) {
         return null;
     }
 
-    protected IHyperlink[] visitTagName(IDocument document, Region region) {
+    protected IHyperlink[] visitTagName(IDocument document, IRegion region) {
         return null;
     }
 
-    protected IHyperlink[] visitAttrPrefix(IDocument document, Region region, String namespaceURI) {
+    protected IHyperlink[] visitAttrPrefix(IDocument document, IRegion region, String namespaceURI) {
         return null;
     }
 
-    protected IHyperlink[] visitAttrName(IDocument document, Region region) {
+    protected IHyperlink[] visitAttrName(IDocument document, IRegion region) {
         return null;
     }
 
-    protected IHyperlink[] visitAttrValue(IDocument document, Region region) {
+    protected IHyperlink[] visitAttrValue(IDocument document, IRegion region) {
+        return null;
+    }
+
+    protected IHyperlink[] visitText(IDocument document, IRegion region) {
         return null;
     }
 

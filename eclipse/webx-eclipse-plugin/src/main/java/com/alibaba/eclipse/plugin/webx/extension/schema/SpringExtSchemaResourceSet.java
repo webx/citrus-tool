@@ -32,6 +32,7 @@ import org.eclipse.jdt.core.IJavaElementDelta;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.launching.JavaRuntime;
+import org.eclipse.jface.text.IDocument;
 import org.eclipse.wst.internet.cache.internal.Cache;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -41,11 +42,23 @@ import com.alibaba.citrus.springext.ContributionType;
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.impl.SpringExtSchemaSet;
 import com.alibaba.citrus.springext.support.ClasspathResourceResolver;
+import com.alibaba.eclipse.plugin.webx.util.PluginUtil;
 
 @SuppressWarnings("restriction")
 public class SpringExtSchemaResourceSet extends SpringExtSchemaSet {
     private static final Logger log = LoggerFactory.getLogger(SpringExtSchemaResourceSet.class);
     private static final ConcurrentMap<IProject, Future<SpringExtSchemaResourceSet>> projectCache = createConcurrentHashMap();
+
+    @Nullable
+    public static SpringExtSchemaResourceSet getInstance(IDocument document) {
+        IProject project = PluginUtil.getProjectFromDocument(document);
+
+        if (project != null) {
+            return getInstance(project);
+        } else {
+            return null;
+        }
+    }
 
     @Nullable
     public static SpringExtSchemaResourceSet getInstance(IProject project) {

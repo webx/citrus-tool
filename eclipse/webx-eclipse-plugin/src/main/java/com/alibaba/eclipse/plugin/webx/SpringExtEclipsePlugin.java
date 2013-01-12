@@ -16,6 +16,7 @@ public class SpringExtEclipsePlugin extends AbstractUIPlugin {
     public SpringExtEclipsePlugin() {
     }
 
+    @Override
     @SuppressWarnings("restriction")
     public void start(BundleContext context) throws Exception {
         super.start(context);
@@ -31,6 +32,7 @@ public class SpringExtEclipsePlugin extends AbstractUIPlugin {
         SpringExtSchemaResourceSet.registerChangedListener();
     }
 
+    @Override
     public void stop(BundleContext context) throws Exception {
         plugin = null;
         super.stop(context);

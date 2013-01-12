@@ -1,4 +1,4 @@
-package com.alibaba.eclipse.plugin.webx.extension.hyperlink;
+package com.alibaba.eclipse.plugin.webx.util;
 
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.wst.sse.core.StructuredModelManager;
