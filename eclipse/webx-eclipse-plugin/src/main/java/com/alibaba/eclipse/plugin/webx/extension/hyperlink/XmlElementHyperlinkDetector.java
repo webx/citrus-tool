@@ -13,6 +13,12 @@ import com.alibaba.citrus.springext.ContributionType;
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.eclipse.plugin.webx.extension.schema.SpringExtSchemaResourceSet;
 
+/**
+ * 在XML中，如果某个tag或attribute的名称、namespace代表某个configuration
+ * point，contribution，或spring pluggable schema，则打开它们。
+ * 
+ * @author Michael Zhou
+ */
 public class XmlElementHyperlinkDetector extends AbstractXMLHyperlinkDetector {
     @Override
     protected IHyperlink[] visitTagPrefix(IDocument document, IRegion region, String namespaceURI) {
