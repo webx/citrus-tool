@@ -3,21 +3,25 @@ package com.alibaba.eclipse.plugin.webx;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart;
 import org.osgi.framework.BundleContext;
 
 import com.alibaba.citrus.logconfig.LogConfigurator;
 import com.alibaba.eclipse.plugin.webx.extension.schema.SpringExtSchemaResourceSet;
 
+@SuppressWarnings("restriction")
 public class SpringExtEclipsePlugin extends AbstractUIPlugin {
     public static final String PLUGIN_ID = "webx-eclipse-plugin"; //$NON-NLS-1$
     public static final String URL_PROTOCOL = "springext";
+    public static final String URL_PREFIX = "http://localhost:8080/schema/";
+    public final static String XML_EDITOR_ID = XMLMultiPageEditorPart.class.getName();
+
     private static SpringExtEclipsePlugin plugin;
 
     public SpringExtEclipsePlugin() {
     }
 
     @Override
-    @SuppressWarnings("restriction")
     public void start(BundleContext context) throws Exception {
         super.start(context);
         plugin = this;

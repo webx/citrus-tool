@@ -2,6 +2,8 @@ package com.alibaba.eclipse.plugin.webx.util;
 
 import org.eclipse.core.filebuffers.FileBuffers;
 import org.eclipse.core.filebuffers.ITextFileBuffer;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -10,11 +12,14 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.wst.sse.core.StructuredModelManager;
 import org.eclipse.wst.sse.core.internal.provisional.IStructuredModel;
 import org.eclipse.wst.sse.core.utils.StringUtils;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("restriction")
 public class PluginUtil {
@@ -98,5 +103,71 @@ public class PluginUtil {
         }
 
         return null;
+    }
+
+    /**
+     * 找到target file所对应的source file。
+     */
+    public static IFile findSourceFile(@NotNull IFile targetFile) {
+        IJavaProject javaProject = getJavaProject(targetFile.getProject(), false);
+
+        if (javaProject != null) {
+            // 确保targetFile在output location
+            IPath targetPath = targetFile.getFullPath();
+            IPath outputLocation = null;
+
+            try {
+                outputLocation = javaProject.getOutputLocation();
+            } catch (JavaModelException ignored) {
+            }
+
+            if (outputLocation != null) {
+                // 取得相对路径
+                IPath path = targetPath.makeRelativeTo(outputLocation);
+
+                // 从每个source location中查找文件。
+                IPackageFragmentRoot[] roots = null;
+
+                try {
+                    roots = javaProject.getPackageFragmentRoots();
+                } catch (JavaModelException ignored) {
+                }
+
+                if (roots != null) {
+                    for (IPackageFragmentRoot root : roots) {
+                        if (root.getResource() instanceof IFolder) {
+                            IFolder folder = (IFolder) root.getResource();
+                            IFile sourceFile = folder.getFile(path);
+
+                            if (sourceFile != null && sourceFile.exists()) {
+                                return sourceFile;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return targetFile;
+    }
+
+    @Nullable
+    public static IJavaProject getJavaProject(IProject project, boolean create) {
+        IJavaProject javaProject = null;
+
+        if (project != null) {
+            try {
+                if (project.hasNature(JavaCore.NATURE_ID)) {
+                    javaProject = (IJavaProject) project.getNature(JavaCore.NATURE_ID);
+                }
+
+                if (javaProject == null && create) {
+                    javaProject = JavaCore.create(project);
+                }
+            } catch (CoreException ignored) {
+            }
+        }
+
+        return javaProject;
     }
 }

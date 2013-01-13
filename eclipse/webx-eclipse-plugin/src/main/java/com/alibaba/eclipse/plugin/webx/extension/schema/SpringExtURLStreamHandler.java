@@ -1,6 +1,6 @@
 package com.alibaba.eclipse.plugin.webx.extension.schema;
 
-import static com.alibaba.eclipse.plugin.webx.util.SpringExtURLUtil.*;
+import static com.alibaba.eclipse.plugin.webx.extension.schema.SpringExtURLUtil.*;
 
 import java.io.IOException;
 import java.io.InputStream;

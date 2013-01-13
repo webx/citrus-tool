@@ -4,6 +4,8 @@ import static com.alibaba.citrus.springext.support.SchemaUtil.*;
 import static com.alibaba.citrus.util.Assert.*;
 import static com.alibaba.citrus.util.CollectionUtil.*;
 import static com.alibaba.citrus.util.StringUtil.*;
+import static com.alibaba.eclipse.plugin.webx.SpringExtEclipsePlugin.*;
+import static com.alibaba.eclipse.plugin.webx.util.PluginUtil.*;
 import static org.eclipse.jdt.core.IJavaElementDelta.*;
 
 import java.io.File;
@@ -42,7 +44,6 @@ import com.alibaba.citrus.springext.ContributionType;
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.impl.SpringExtSchemaSet;
 import com.alibaba.citrus.springext.support.ClasspathResourceResolver;
-import com.alibaba.eclipse.plugin.webx.util.PluginUtil;
 
 @SuppressWarnings("restriction")
 public class SpringExtSchemaResourceSet extends SpringExtSchemaSet {
@@ -51,7 +52,7 @@ public class SpringExtSchemaResourceSet extends SpringExtSchemaSet {
 
     @Nullable
     public static SpringExtSchemaResourceSet getInstance(IDocument document) {
-        IProject project = PluginUtil.getProjectFromDocument(document);
+        IProject project = getProjectFromDocument(document);
 
         if (project != null) {
             return getInstance(project);
@@ -110,16 +111,18 @@ public class SpringExtSchemaResourceSet extends SpringExtSchemaSet {
     public Schema findSchemaByUrl(String url) {
         Schema schema = null;
 
-        // Case 1: url represents a namespace url
-        Set<Schema> namespaceSchemas = getNamespaceMappings().get(url);
+        if (url != null) {
+            // Case 1: url represents a namespace url
+            Set<Schema> namespaceSchemas = getNamespaceMappings().get(url);
 
-        if (namespaceSchemas != null && !namespaceSchemas.isEmpty()) {
-            schema = namespaceSchemas.iterator().next();
-        }
+            if (namespaceSchemas != null && !namespaceSchemas.isEmpty()) {
+                schema = namespaceSchemas.iterator().next();
+            }
 
-        // Case 2: url represents a schema location
-        if (schema == null) {
-            schema = findSchema(url); // by name
+            // Case 2: url represents a schema location
+            if (schema == null) {
+                schema = findSchema(url); // by name
+            }
         }
 
         return schema;
@@ -130,31 +133,13 @@ public class SpringExtSchemaResourceSet extends SpringExtSchemaSet {
         super(new ClasspathResourceResolver(classLoader));
     }
 
-    @Nullable
-    private static IJavaProject getJavaProject(IProject project, boolean create) {
-        IJavaProject javaProject = null;
-
-        try {
-            if (project.hasNature(JavaCore.NATURE_ID)) {
-                javaProject = (IJavaProject) project.getNature(JavaCore.NATURE_ID);
-            }
-
-            if (javaProject == null && create) {
-                javaProject = JavaCore.create(project);
-            }
-        } catch (CoreException ignored) {
-        }
-
-        return javaProject;
-    }
-
     private static SpringExtSchemaResourceSet computeSchemas(IJavaProject javaProject) {
         SpringExtSchemaResourceSet schemas;
         ClassLoader cl = createClassLoader(javaProject);
 
         if (cl != null) {
             schemas = new SpringExtSchemaResourceSet(cl);
-            schemas.transformAll(getAddPrefixTransformer(schemas, "http://localhost:8080/schema/"));
+            schemas.transformAll(getAddPrefixTransformer(schemas, URL_PREFIX));
             return schemas;
         }
 

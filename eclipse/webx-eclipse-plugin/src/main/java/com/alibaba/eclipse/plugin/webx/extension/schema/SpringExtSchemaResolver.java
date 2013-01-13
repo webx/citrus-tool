@@ -1,7 +1,7 @@
 package com.alibaba.eclipse.plugin.webx.extension.schema;
 
 import static com.alibaba.citrus.util.StringUtil.*;
-import static com.alibaba.eclipse.plugin.webx.util.SpringExtURLUtil.*;
+import static com.alibaba.eclipse.plugin.webx.extension.schema.SpringExtURLUtil.*;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
