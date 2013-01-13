@@ -1,6 +1,6 @@
-package com.alibaba.eclipse.plugin.webx.extension.hyperlink;
+package com.alibaba.eclipse.plugin.webx.extension.hyperlink.detector;
 
-import static com.alibaba.eclipse.plugin.webx.extension.hyperlink.HyperlinkUtil.*;
+import static com.alibaba.eclipse.plugin.webx.extension.hyperlink.detector.HyperlinkDetectorUtil.*;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -127,20 +127,14 @@ public class URLHyperlinkDetector extends AbstractHyperlinkDetector {
         }
 
         IRegion urlRegion = new Region(lineInfo.getOffset() + urlOffsetInLine, urlLength);
-        Schema schema = findSchema(document, urlString);
-
-        if (schema != null) {
-            return createHyperlinks(urlRegion, schema);
-        }
-
-        return null;
-    }
-
-    private Schema findSchema(IDocument document, String namespaceURI) {
         SpringExtSchemaResourceSet schemas = SpringExtSchemaResourceSet.getInstance(document);
 
         if (schemas != null) {
-            return schemas.findSchemaByUrl(namespaceURI);
+            Schema schema = schemas.findSchemaByUrl(urlString);
+
+            if (schema != null) {
+                return createHyperlinks(urlRegion, schema, schemas.getProject());
+            }
         }
 
         return null;

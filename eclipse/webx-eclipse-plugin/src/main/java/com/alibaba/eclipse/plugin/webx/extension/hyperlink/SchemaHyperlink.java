@@ -4,6 +4,7 @@ import static com.alibaba.eclipse.plugin.webx.SpringExtEclipsePlugin.*;
 
 import java.io.InputStream;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IStorage;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -33,10 +34,12 @@ public class SchemaHyperlink implements IHyperlink {
     private final static Logger log = LoggerFactory.getLogger(SchemaHyperlink.class);
     private final IRegion region;
     private final Schema schema;
+    private final IProject project;
 
-    public SchemaHyperlink(@NotNull IRegion region, @NotNull Schema schema) {
+    public SchemaHyperlink(@NotNull IRegion region, @NotNull Schema schema, @NotNull IProject project) {
         this.region = region;
         this.schema = schema;
+        this.project = project;
     }
 
     public IRegion getHyperlinkRegion() {
@@ -53,7 +56,7 @@ public class SchemaHyperlink implements IHyperlink {
 
     public void open() {
         if (schema != null) {
-            IEditorInput input = new SchemaStorageEditorInput(new SchemaStorage(schema));
+            IEditorInput input = new SchemaStorageEditorInput(new SchemaStorage(schema, project));
 
             try {
                 IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
@@ -66,9 +69,11 @@ public class SchemaHyperlink implements IHyperlink {
 
     private static class SchemaStorage implements IStorage {
         private final Schema schema;
+        private final IProject project;
 
-        private SchemaStorage(@NotNull Schema schema) {
+        private SchemaStorage(@NotNull Schema schema, @NotNull IProject project) {
             this.schema = schema;
+            this.project = project;
         }
 
         public InputStream getContents() throws CoreException {
@@ -76,7 +81,7 @@ public class SchemaHyperlink implements IHyperlink {
         }
 
         public IPath getFullPath() {
-            return new Path(schema.getName());
+            return new Path("/").append(project.getName()).append(schema.getName());
         }
 
         public String getName() {
@@ -106,7 +111,7 @@ public class SchemaHyperlink implements IHyperlink {
     private static class SchemaStorageEditorInput implements IStorageEditorInput {
         private final IStorage storage;
 
-        private SchemaStorageEditorInput(IStorage storage) {
+        private SchemaStorageEditorInput(SchemaStorage storage) {
             this.storage = storage;
         }
 
@@ -131,8 +136,7 @@ public class SchemaHyperlink implements IHyperlink {
         }
 
         public String getToolTipText() {
-            String path = storage.getFullPath() != null ? storage.getFullPath().toString() : storage.getName();
-            return URL_PREFIX + path;
+            return storage.getFullPath().toString();
         }
 
         @SuppressWarnings("rawtypes")

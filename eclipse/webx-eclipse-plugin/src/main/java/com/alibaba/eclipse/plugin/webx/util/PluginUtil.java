@@ -73,10 +73,10 @@ public class PluginUtil {
                     IPath basePath = new Path(baseFile);
                     IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
 
-                    for (int i = 0; i < projects.length; i++) {
+                    for (IProject project : projects) {
                         try {
-                            if (projects[i].isAccessible() && projects[i].hasNature(JavaCore.NATURE_ID)) {
-                                IJavaProject javaProject = JavaCore.create(projects[i]);
+                            if (project.isAccessible() && project.hasNature(JavaCore.NATURE_ID)) {
+                                IJavaProject javaProject = JavaCore.create(project);
 
                                 if (javaProject.exists()) {
                                     IPackageFragmentRoot root = javaProject.findPackageFragmentRoot(basePath);
@@ -98,8 +98,9 @@ public class PluginUtil {
                 }
             }
         } finally {
-            if (model != null)
+            if (model != null) {
                 model.releaseFromRead();
+            }
         }
 
         return null;

@@ -1,4 +1,4 @@
-package com.alibaba.eclipse.plugin.webx.extension.hyperlink;
+package com.alibaba.eclipse.plugin.webx.extension.hyperlink.detector;
 
 import static com.alibaba.citrus.util.ArrayUtil.*;
 import static com.alibaba.citrus.util.StringUtil.*;
@@ -152,7 +152,7 @@ public abstract class AbstractXMLHyperlinkDetector extends AbstractHyperlinkDete
      * @return Attr
      */
     private Attr getCurrentAttrNode(Node node, int offset) {
-        if ((node instanceof IndexedRegion) && ((IndexedRegion) node).contains(offset) && (node.hasAttributes())) {
+        if (node instanceof IndexedRegion && ((IndexedRegion) node).contains(offset) && node.hasAttributes()) {
             NamedNodeMap attrs = node.getAttributes();
 
             // go through each attribute in node and if attribute contains
@@ -323,7 +323,7 @@ public abstract class AbstractXMLHyperlinkDetector extends AbstractHyperlinkDete
 
         private boolean isCursorWithin(int startOffset, String content) {
             if (content != null) {
-                return currentOffset >= startOffset && currentOffset < (startOffset + content.length());
+                return currentOffset >= startOffset && currentOffset < startOffset + content.length();
             } else {
                 return false;
             }

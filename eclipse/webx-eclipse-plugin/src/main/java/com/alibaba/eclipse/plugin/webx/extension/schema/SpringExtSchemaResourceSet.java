@@ -49,6 +49,7 @@ import com.alibaba.citrus.springext.support.ClasspathResourceResolver;
 public class SpringExtSchemaResourceSet extends SpringExtSchemaSet {
     private static final Logger log = LoggerFactory.getLogger(SpringExtSchemaResourceSet.class);
     private static final ConcurrentMap<IProject, Future<SpringExtSchemaResourceSet>> projectCache = createConcurrentHashMap();
+    private final IProject project;
 
     @Nullable
     public static SpringExtSchemaResourceSet getInstance(IDocument document) {
@@ -128,9 +129,10 @@ public class SpringExtSchemaResourceSet extends SpringExtSchemaSet {
         return schema;
     }
 
-    public SpringExtSchemaResourceSet(ClassLoader classLoader) {
+    public SpringExtSchemaResourceSet(ClassLoader classLoader, IProject project) {
         // 传递ResourceResolver而不是直接传ClassLoader，目的是避免创建类实例。
         super(new ClasspathResourceResolver(classLoader));
+        this.project = project;
     }
 
     private static SpringExtSchemaResourceSet computeSchemas(IJavaProject javaProject) {
@@ -138,12 +140,16 @@ public class SpringExtSchemaResourceSet extends SpringExtSchemaSet {
         ClassLoader cl = createClassLoader(javaProject);
 
         if (cl != null) {
-            schemas = new SpringExtSchemaResourceSet(cl);
+            schemas = new SpringExtSchemaResourceSet(cl, javaProject.getProject());
             schemas.transformAll(getAddPrefixTransformer(schemas, URL_PREFIX));
             return schemas;
         }
 
         return null;
+    }
+
+    public IProject getProject() {
+        return project;
     }
 
     @Nullable

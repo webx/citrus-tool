@@ -12,16 +12,16 @@
 	</extension>
 	<extension point="org.eclipse.ui.workbench.texteditor.hyperlinkDetectors">
 		<hyperlinkDetector
-			class="com.alibaba.eclipse.plugin.webx.extension.hyperlink.XmlElementHyperlinkDetector"
-			id="com.alibaba.eclipse.plugin.webx.extension.hyperlink.XmlElementHyperlinkDetector"
-			name="com.alibaba.eclipse.plugin.webx.extension.hyperlink.XmlElementHyperlinkDetector"
+			class="com.alibaba.eclipse.plugin.webx.extension.hyperlink.detector.XmlElementHyperlinkDetector"
+			id="com.alibaba.eclipse.plugin.webx.extension.hyperlink.detector.XmlElementHyperlinkDetector"
+			name="com.alibaba.eclipse.plugin.webx.extension.hyperlink.detector.XmlElementHyperlinkDetector"
 			targetId="org.eclipse.core.runtime.xml"/>
 	</extension>
 	<extension point="org.eclipse.ui.workbench.texteditor.hyperlinkDetectors">
 		<hyperlinkDetector
-			class="com.alibaba.eclipse.plugin.webx.extension.hyperlink.URLHyperlinkDetector"
-			id="com.alibaba.eclipse.plugin.webx.extension.hyperlink.URLHyperlinkDetector"
-			name="com.alibaba.eclipse.plugin.webx.extension.hyperlink.URLHyperlinkDetector"
-			targetId="org.eclipse.core.runtime.xml"/>
+			class="com.alibaba.eclipse.plugin.webx.extension.hyperlink.detector.URLHyperlinkDetector"
+			id="com.alibaba.eclipse.plugin.webx.extension.hyperlink.detector.URLHyperlinkDetector"
+			name="com.alibaba.eclipse.plugin.webx.extension.hyperlink.detector.URLHyperlinkDetector"
+			targetId="org.eclipse.ui.DefaultTextEditor"/>
 	</extension>
 </plugin>

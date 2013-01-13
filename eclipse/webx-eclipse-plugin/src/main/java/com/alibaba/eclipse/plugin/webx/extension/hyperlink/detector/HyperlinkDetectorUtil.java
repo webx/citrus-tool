@@ -1,8 +1,9 @@
-package com.alibaba.eclipse.plugin.webx.extension.hyperlink;
+package com.alibaba.eclipse.plugin.webx.extension.hyperlink.detector;
 
 import java.io.IOException;
 import java.net.URL;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.hyperlink.IHyperlink;
@@ -19,30 +20,33 @@ import com.alibaba.citrus.springext.support.ContributionSchemaSourceInfo;
 import com.alibaba.citrus.springext.support.ContributionSourceInfo;
 import com.alibaba.citrus.springext.support.SpringPluggableSchemaSourceInfo;
 import com.alibaba.citrus.springext.support.SpringSchemasSourceInfo;
+import com.alibaba.eclipse.plugin.webx.extension.hyperlink.SchemaHyperlink;
+import com.alibaba.eclipse.plugin.webx.extension.hyperlink.URLHyperlink;
 
-public class HyperlinkUtil {
-    public static IHyperlink[] createHyperlinks(@NotNull IRegion region, @NotNull Schema schema) {
+public class HyperlinkDetectorUtil {
+    public static IHyperlink[] createHyperlinks(@NotNull IRegion region, @NotNull Schema schema,
+                                                @NotNull IProject project) {
         // configuration point
         ConfigurationPoint cp = getConfigurationPoint(schema);
 
         if (cp != null) {
-            return createConfigurationPointHyperlinks(region, schema, cp);
+            return createConfigurationPointHyperlinks(region, schema, cp, project);
         }
 
         // contribution
         Contribution contrib = getContribution(schema);
 
         if (contrib != null) {
-            return createContributionHyperlinks(region, schema, contrib);
+            return createContributionHyperlinks(region, schema, contrib, project);
         }
 
         // spring pluggable
         if (schema instanceof SpringPluggableSchemaSourceInfo) {
-            return createSpringPluggableHyperlinks(region, schema, (SpringPluggableSchemaSourceInfo) schema);
+            return createSpringPluggableHyperlinks(region, schema, (SpringPluggableSchemaSourceInfo) schema, project);
         }
 
         // default
-        return new IHyperlink[] { new SchemaHyperlink(region, schema) };
+        return new IHyperlink[] { new SchemaHyperlink(region, schema, project) };
     }
 
     /**
@@ -53,8 +57,8 @@ public class HyperlinkUtil {
      * </ul>
      */
     private static IHyperlink[] createConfigurationPointHyperlinks(IRegion region, final Schema schema,
-                                                                   final ConfigurationPoint cp) {
-        IHyperlink link1 = new SchemaHyperlink(region, schema) {
+                                                                   final ConfigurationPoint cp, IProject project) {
+        IHyperlink link1 = new SchemaHyperlink(region, schema, project) {
             @Override
             public String getHyperlinkText() {
                 return String.format("Open generated '%s' for Configuration Point '%s'", getSimpleName(schema),
@@ -67,7 +71,7 @@ public class HyperlinkUtil {
         IHyperlink link2 = null;
 
         if (definitionURL != null) {
-            link2 = new URLHyperlink(region, definitionURL) {
+            link2 = new URLHyperlink(region, definitionURL, project) {
                 @Override
                 public String getHyperlinkText() {
                     return String.format("Open def-file '%s' for Configuration Point '%s'", getSimpleName(url),
@@ -88,8 +92,8 @@ public class HyperlinkUtil {
      * </ul>
      */
     private static IHyperlink[] createContributionHyperlinks(IRegion region, final Schema schema,
-                                                             final Contribution contrib) {
-        IHyperlink link1 = new SchemaHyperlink(region, schema) {
+                                                             final Contribution contrib, IProject project) {
+        IHyperlink link1 = new SchemaHyperlink(region, schema, project) {
             @Override
             public String getHyperlinkText() {
                 return String.format("Open modified '%s' for Contribution '%s' - '%s'", getSimpleName(schema),
@@ -101,7 +105,7 @@ public class HyperlinkUtil {
         IHyperlink link2 = null;
 
         if (originalSourceURL != null) {
-            link2 = new URLHyperlink(region, originalSourceURL) {
+            link2 = new URLHyperlink(region, originalSourceURL, project) {
                 @Override
                 public String getHyperlinkText() {
                     return String.format("Open original '%s' for Contribution '%s' - '%s'", getSimpleName(url),
@@ -115,7 +119,7 @@ public class HyperlinkUtil {
         IHyperlink link3 = null;
 
         if (definitionURL != null) {
-            link3 = new URLHyperlink(region, definitionURL) {
+            link3 = new URLHyperlink(region, definitionURL, project) {
                 @Override
                 public String getHyperlinkText() {
                     return String.format("Open def-file '%s' for Contribution '%s' - '%s'", getSimpleName(url),
@@ -136,8 +140,9 @@ public class HyperlinkUtil {
      * </ul>
      */
     private static IHyperlink[] createSpringPluggableHyperlinks(IRegion region, final Schema schema,
-                                                                final SpringPluggableSchemaSourceInfo sourceInfo) {
-        IHyperlink link1 = new SchemaHyperlink(region, schema) {
+                                                                final SpringPluggableSchemaSourceInfo sourceInfo,
+                                                                IProject project) {
+        IHyperlink link1 = new SchemaHyperlink(region, schema, project) {
             @Override
             public String getHyperlinkText() {
                 return String.format("Open modified '%s' - '%s'", getSimpleName(schema), schema.getTargetNamespace());
@@ -148,7 +153,7 @@ public class HyperlinkUtil {
         IHyperlink link2 = null;
 
         if (originalSourceURL != null) {
-            link2 = new URLHyperlink(region, originalSourceURL) {
+            link2 = new URLHyperlink(region, originalSourceURL, project) {
                 @Override
                 public String getHyperlinkText() {
                     return String.format("Open original '%s' - '%s'", getSimpleName(url), schema.getTargetNamespace());
@@ -161,7 +166,7 @@ public class HyperlinkUtil {
         IHyperlink link3 = null;
 
         if (definitionURL != null) {
-            link3 = new URLHyperlink(region, definitionURL) {
+            link3 = new URLHyperlink(region, definitionURL, project) {
                 @Override
                 public String getHyperlinkText() {
                     return String

@@ -9,6 +9,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IStorage;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -48,11 +49,13 @@ public class URLHyperlink implements IHyperlink {
     private final IRegion region;
     protected final URL url;
     protected final IFile file;
+    protected final IProject project;
 
-    public URLHyperlink(@NotNull IRegion region, @NotNull URL url) {
+    public URLHyperlink(@NotNull IRegion region, @NotNull URL url, @NotNull IProject project) {
         this.region = region;
         this.url = url;
         this.file = toFile(url);
+        this.project = project;
     }
 
     private static IFile toFile(URL url) {
@@ -83,7 +86,7 @@ public class URLHyperlink implements IHyperlink {
     }
 
     public String getHyperlinkText() {
-        return String.format("Open '%s'", url.getPath());
+        return String.format("Open '%s'", url.toString());
     }
 
     public void open() {
@@ -93,7 +96,7 @@ public class URLHyperlink implements IHyperlink {
             if (file != null) {
                 input = new FileEditorInput(file);
             } else {
-                input = new StorageEditorInput(new URLStorage(url));
+                input = new StorageEditorInput(new URLStorage(url, project));
             }
 
             String descriptorId = null;
@@ -132,9 +135,11 @@ public class URLHyperlink implements IHyperlink {
 
     private static class URLStorage implements IStorage {
         private final URL url;
+        private final IProject project;
 
-        private URLStorage(URL url) {
+        private URLStorage(URL url, IProject project) {
             this.url = url;
+            this.project = project;
         }
 
         public InputStream getContents() throws CoreException {
@@ -147,7 +152,7 @@ public class URLHyperlink implements IHyperlink {
         }
 
         public IPath getFullPath() {
-            return new Path(url.toString());
+            return new Path("/").append(project.getName()).append(url.getPath());
         }
 
         public String getName() {
@@ -177,7 +182,7 @@ public class URLHyperlink implements IHyperlink {
     private static class StorageEditorInput implements IStorageEditorInput {
         private final IStorage storage;
 
-        private StorageEditorInput(IStorage storage) {
+        private StorageEditorInput(URLStorage storage) {
             this.storage = storage;
         }
 
