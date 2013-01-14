@@ -24,4 +24,11 @@
 			name="com.alibaba.eclipse.plugin.webx.extension.hyperlink.detector.URLHyperlinkDetector"
 			targetId="org.eclipse.ui.DefaultTextEditor"/>
 	</extension>
+	<extension point="org.eclipse.ui.workbench.texteditor.hyperlinkDetectors">
+		<hyperlinkDetector
+			class="com.alibaba.eclipse.plugin.webx.extension.hyperlink.detector.JavaHyperlinkDetector"
+			id="com.alibaba.eclipse.plugin.webx.extension.hyperlink.detector.JavaHyperlinkDetector"
+			name="com.alibaba.eclipse.plugin.webx.extension.hyperlink.detector.JavaHyperlinkDetector"
+			targetId="org.eclipse.ui.DefaultTextEditor"/>
+	</extension>
 </plugin>

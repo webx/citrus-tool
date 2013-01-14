@@ -32,14 +32,12 @@ public class URLHyperlinkDetector extends AbstractHyperlinkDetector {
 
         IDocument document = textViewer.getDocument();
 
-        int offset = region.getOffset();
-
-        String urlString = null;
-
         if (document == null) {
             return null;
         }
 
+        int offset = region.getOffset();
+        String urlString = null;
         IRegion lineInfo;
         String line;
 

@@ -145,7 +145,8 @@ public class HyperlinkDetectorUtil {
         IHyperlink link1 = new SchemaHyperlink(region, schema, project) {
             @Override
             public String getHyperlinkText() {
-                return String.format("Open modified '%s' - '%s'", getSimpleName(schema), schema.getTargetNamespace());
+                return String.format("Open modified '%s' - '%s'", getSimpleName(schema),
+                        schema.getTargetNamespace() == null ? "no namespace" : schema.getTargetNamespace());
             }
         };
 
@@ -156,7 +157,8 @@ public class HyperlinkDetectorUtil {
             link2 = new URLHyperlink(region, originalSourceURL, project) {
                 @Override
                 public String getHyperlinkText() {
-                    return String.format("Open original '%s' - '%s'", getSimpleName(url), schema.getTargetNamespace());
+                    return String.format("Open original '%s' - '%s'", getSimpleName(url),
+                            schema.getTargetNamespace() == null ? "no namespace" : schema.getTargetNamespace());
                 }
             };
         }
@@ -169,8 +171,8 @@ public class HyperlinkDetectorUtil {
             link3 = new URLHyperlink(region, definitionURL, project) {
                 @Override
                 public String getHyperlinkText() {
-                    return String
-                            .format("Open def-file '%s' for '%s'", getSimpleName(url), schema.getTargetNamespace());
+                    return String.format("Open def-file '%s' for '%s'", getSimpleName(url),
+                            schema.getTargetNamespace() == null ? "no namespace" : schema.getTargetNamespace());
                 }
             };
         }
