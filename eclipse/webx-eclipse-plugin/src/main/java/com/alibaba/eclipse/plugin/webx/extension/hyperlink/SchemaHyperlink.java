@@ -24,6 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.citrus.springext.Schema;
+import com.alibaba.eclipse.plugin.webx.util.ProjectAware;
 
 /**
  * 用来打开内存中的schema文件的超链接。
@@ -56,7 +57,7 @@ public class SchemaHyperlink implements IHyperlink {
 
     public void open() {
         if (schema != null) {
-            IEditorInput input = new SchemaStorageEditorInput(new SchemaStorage(schema, project));
+            IEditorInput input = new SchemaEditorInput(schema, project);
 
             try {
                 IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
@@ -69,11 +70,9 @@ public class SchemaHyperlink implements IHyperlink {
 
     private static class SchemaStorage implements IStorage {
         private final Schema schema;
-        private final IProject project;
 
-        private SchemaStorage(@NotNull Schema schema, @NotNull IProject project) {
+        private SchemaStorage(@NotNull Schema schema) {
             this.schema = schema;
-            this.project = project;
         }
 
         public InputStream getContents() throws CoreException {
@@ -81,7 +80,7 @@ public class SchemaHyperlink implements IHyperlink {
         }
 
         public IPath getFullPath() {
-            return new Path("/").append(project.getName()).append(schema.getName());
+            return new Path(URL_PREFIX).append(schema.getName());
         }
 
         public String getName() {
@@ -108,11 +107,17 @@ public class SchemaHyperlink implements IHyperlink {
         }
     }
 
-    private static class SchemaStorageEditorInput implements IStorageEditorInput {
+    private static class SchemaEditorInput implements IStorageEditorInput, ProjectAware {
         private final IStorage storage;
+        private final IProject project;
 
-        private SchemaStorageEditorInput(SchemaStorage storage) {
-            this.storage = storage;
+        private SchemaEditorInput(Schema schema, IProject project) {
+            this.storage = new SchemaStorage(schema);
+            this.project = project;
+        }
+
+        public IProject getProject() {
+            return project;
         }
 
         public IStorage getStorage() throws CoreException {
@@ -146,8 +151,8 @@ public class SchemaHyperlink implements IHyperlink {
 
         @Override
         public boolean equals(Object other) {
-            if (other instanceof SchemaStorageEditorInput) {
-                IStorage otherStorage = ((SchemaStorageEditorInput) other).storage;
+            if (other instanceof SchemaEditorInput) {
+                IStorage otherStorage = ((SchemaEditorInput) other).storage;
                 return storage.equals(otherStorage);
             }
 

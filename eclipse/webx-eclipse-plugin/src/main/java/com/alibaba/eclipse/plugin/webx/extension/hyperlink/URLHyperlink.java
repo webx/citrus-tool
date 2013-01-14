@@ -38,6 +38,7 @@ import org.slf4j.LoggerFactory;
 import com.alibaba.citrus.util.io.StreamUtil;
 import com.alibaba.eclipse.plugin.webx.SpringExtEclipsePlugin;
 import com.alibaba.eclipse.plugin.webx.util.PluginUtil;
+import com.alibaba.eclipse.plugin.webx.util.ProjectAware;
 
 /**
  * 在编辑器中打开URL。如果URL代表一个workspace file，则打开file。
@@ -96,7 +97,7 @@ public class URLHyperlink implements IHyperlink {
             if (file != null) {
                 input = new FileEditorInput(file);
             } else {
-                input = new StorageEditorInput(new URLStorage(url, project));
+                input = new URLEditorInput(url, project);
             }
 
             String descriptorId = null;
@@ -135,11 +136,9 @@ public class URLHyperlink implements IHyperlink {
 
     private static class URLStorage implements IStorage {
         private final URL url;
-        private final IProject project;
 
-        private URLStorage(URL url, IProject project) {
+        private URLStorage(URL url) {
             this.url = url;
-            this.project = project;
         }
 
         public InputStream getContents() throws CoreException {
@@ -152,7 +151,7 @@ public class URLHyperlink implements IHyperlink {
         }
 
         public IPath getFullPath() {
-            return new Path("/").append(project.getName()).append(url.getPath());
+            return new Path(url.toString());
         }
 
         public String getName() {
@@ -179,11 +178,17 @@ public class URLHyperlink implements IHyperlink {
         }
     }
 
-    private static class StorageEditorInput implements IStorageEditorInput {
+    private static class URLEditorInput implements IStorageEditorInput, ProjectAware {
         private final IStorage storage;
+        private final IProject project;
 
-        private StorageEditorInput(URLStorage storage) {
-            this.storage = storage;
+        private URLEditorInput(URL url, IProject project) {
+            this.storage = new URLStorage(url);
+            this.project = project;
+        }
+
+        public IProject getProject() {
+            return project;
         }
 
         public IStorage getStorage() throws CoreException {
@@ -217,8 +222,8 @@ public class URLHyperlink implements IHyperlink {
 
         @Override
         public boolean equals(Object other) {
-            if (other instanceof StorageEditorInput) {
-                IStorage otherStorage = ((StorageEditorInput) other).storage;
+            if (other instanceof URLEditorInput) {
+                IStorage otherStorage = ((URLEditorInput) other).storage;
                 return storage.equals(otherStorage);
             }
 

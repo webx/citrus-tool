@@ -15,6 +15,8 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IRegion;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.sse.core.StructuredModelManager;
 import org.eclipse.wst.sse.core.internal.provisional.IStructuredModel;
 import org.eclipse.wst.sse.core.utils.StringUtils;
@@ -93,7 +95,11 @@ public class PluginUtil {
                     IPath basePath = new Path(baseLocation);
 
                     if (basePath.segmentCount() > 1) {
-                        return ResourcesPlugin.getWorkspace().getRoot().getProject(basePath.segment(0));
+                        IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(basePath.segment(0));
+
+                        if (project != null && project.isAccessible()) {
+                            return project;
+                        }
                     }
                 }
             }
@@ -101,6 +107,14 @@ public class PluginUtil {
             if (model != null) {
                 model.releaseFromRead();
             }
+        }
+
+        // Try get project from editor input
+        IEditorInput input = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor()
+                .getEditorInput();
+
+        if (input instanceof ProjectAware) {
+            return ((ProjectAware) input).getProject();
         }
 
         return null;

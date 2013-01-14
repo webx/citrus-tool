@@ -80,7 +80,7 @@ public class URLHyperlinkDetector extends AbstractHyperlinkDetector {
 
             // Right to "://"
             StringTokenizer tokenizer = new StringTokenizer(line.substring(urlSeparatorOffset + 3),
-                    " \t\n\r\f<>\"\'", false); //$NON-NLS-1$
+                    " \t\n\r\f<>\"\';=", false); //$NON-NLS-1$
 
             if (!tokenizer.hasMoreTokens()) {
                 return null;
