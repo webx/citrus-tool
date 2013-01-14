@@ -11,7 +11,7 @@ import com.alibaba.citrus.springext.ConfigurationPoint;
 import com.alibaba.citrus.springext.Contribution;
 import com.alibaba.citrus.springext.ContributionType;
 import com.alibaba.citrus.springext.Schema;
-import com.alibaba.eclipse.plugin.webx.extension.schema.SpringExtSchemaResourceSet;
+import com.alibaba.eclipse.plugin.webx.extension.resolver.SpringExtSchemaResourceSet;
 
 /**
  * 在XML中，如果某个tag或attribute的名称、namespace代表某个configuration

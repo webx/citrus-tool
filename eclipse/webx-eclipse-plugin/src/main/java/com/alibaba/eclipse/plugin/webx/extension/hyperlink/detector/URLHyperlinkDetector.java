@@ -15,7 +15,7 @@ import org.eclipse.jface.text.hyperlink.AbstractHyperlinkDetector;
 import org.eclipse.jface.text.hyperlink.IHyperlink;
 
 import com.alibaba.citrus.springext.Schema;
-import com.alibaba.eclipse.plugin.webx.extension.schema.SpringExtSchemaResourceSet;
+import com.alibaba.eclipse.plugin.webx.extension.resolver.SpringExtSchemaResourceSet;
 
 /**
  * URL hyperlink detector.

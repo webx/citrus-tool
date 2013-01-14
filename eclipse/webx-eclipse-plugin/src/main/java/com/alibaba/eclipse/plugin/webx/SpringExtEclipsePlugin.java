@@ -7,7 +7,7 @@ import org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart;
 import org.osgi.framework.BundleContext;
 
 import com.alibaba.citrus.logconfig.LogConfigurator;
-import com.alibaba.eclipse.plugin.webx.extension.schema.SpringExtSchemaResourceSet;
+import com.alibaba.eclipse.plugin.webx.extension.resolver.SpringExtSchemaResourceSet;
 
 @SuppressWarnings("restriction")
 public class SpringExtEclipsePlugin extends AbstractUIPlugin {

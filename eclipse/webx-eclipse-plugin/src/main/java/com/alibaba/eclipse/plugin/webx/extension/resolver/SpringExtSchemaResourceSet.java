@@ -1,4 +1,4 @@
-package com.alibaba.eclipse.plugin.webx.extension.schema;
+package com.alibaba.eclipse.plugin.webx.extension.resolver;
 
 import static com.alibaba.citrus.springext.support.SchemaUtil.*;
 import static com.alibaba.citrus.util.Assert.*;
