@@ -1,8 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Webx-eclipse-plugin
-Bundle-SymbolicName: webx-eclipse-plugin;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Name: %pluginName
+Bundle-Vendor: %providerName
+Bundle-SymbolicName: com.alibaba.eclipse.plugin.webx;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Localization: plugin
 Bundle-Activator: com.alibaba.eclipse.plugin.webx.SpringExtEclipsePlugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -42,3 +44,4 @@ Bundle-ClassPath: .,
  lib/spring-web-3.1.2.RELEASE.jar,
  lib/logback-classic-1.0.6.jar,
  lib/logback-core-1.0.6.jar
+Eclipse-SourceReferences: scm:git:git://github.com/webx/citrus-tool.git;path="eclipse/webx-eclipse-plugin";
