@@ -8,13 +8,17 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IRegion;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.sse.core.StructuredModelManager;
@@ -22,6 +26,8 @@ import org.eclipse.wst.sse.core.internal.provisional.IStructuredModel;
 import org.eclipse.wst.sse.core.utils.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import com.alibaba.eclipse.plugin.webx.SpringExtEclipsePlugin;
 
 @SuppressWarnings("restriction")
 public class PluginUtil {
@@ -184,5 +190,23 @@ public class PluginUtil {
         }
 
         return javaProject;
+    }
+
+    public static void logAndDisplay(IStatus status) {
+        logAndDisplay(Display.getDefault().getActiveShell(), status);
+    }
+
+    public static void logAndDisplay(Shell shell, IStatus status) {
+        logAndDisplay(shell, "Error", status);
+    }
+
+    public static void logAndDisplay(Shell shell, String title, IStatus status) {
+        SpringExtEclipsePlugin.getDefault().getLog().log(status);
+
+        if (status.getSeverity() == IStatus.INFO) {
+            MessageDialog.openInformation(shell, title, status.getMessage());
+        } else {
+            MessageDialog.openError(shell, title, status.getMessage());
+        }
     }
 }
