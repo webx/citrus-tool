@@ -12,7 +12,11 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerLabel;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMDocument;
 
+import com.alibaba.citrus.springext.support.SpringExtSchemaSet.ConfigurationPointItem;
+import com.alibaba.citrus.springext.support.SpringExtSchemaSet.ContributionItem;
+import com.alibaba.citrus.springext.support.SpringExtSchemaSet.SpringPluggableItem;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.TreeItem;
+import com.alibaba.eclipse.plugin.webx.SpringExtEclipsePlugin;
 import com.alibaba.eclipse.plugin.webx.extension.resolver.SpringExtSchemaResourceSet;
 
 @SuppressWarnings("restriction")
@@ -73,7 +77,17 @@ public class NamespacesProvider extends LabelProvider implements ITreePathLabelP
     }
 
     public void updateLabel(ViewerLabel label, TreePath elementPath) {
-        label.setText(getTreeItem(elementPath).toString());
+        TreeItem item = getTreeItem(elementPath);
+
+        label.setText(item.toString());
+
+        if (item instanceof ContributionItem) {
+            label.setImage(SpringExtEclipsePlugin.getDefault().getImageRegistry().get("plug"));
+        } else if (item instanceof ConfigurationPointItem) {
+            label.setImage(SpringExtEclipsePlugin.getDefault().getImageRegistry().get("socket"));
+        } else if (item instanceof SpringPluggableItem) {
+            label.setImage(SpringExtEclipsePlugin.getDefault().getImageRegistry().get("spring"));
+        }
     }
 
     private TreeItem getTreeItem(TreePath parentPath) {

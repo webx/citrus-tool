@@ -1,7 +1,13 @@
 package com.alibaba.eclipse.plugin.webx;
 
+import java.net.URL;
+
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart;
 import org.osgi.framework.BundleContext;
@@ -48,5 +54,25 @@ public class SpringExtEclipsePlugin extends AbstractUIPlugin {
 
     public static ImageDescriptor getImageDescriptor(String path) {
         return imageDescriptorFromPlugin(PLUGIN_ID, path);
+    }
+
+    @Override
+    protected void initializeImageRegistry(ImageRegistry registry) {
+        registerImage(registry, "plug", "plug.png");
+        registerImage(registry, "socket", "socket.png");
+        registerImage(registry, "spring", "spring.gif");
+    }
+
+    private void registerImage(ImageRegistry registry, String key, String fileName) {
+        try {
+            IPath path = new Path("icons/" + fileName);
+            URL url = FileLocator.find(getBundle(), path, null);
+
+            if (url != null) {
+                ImageDescriptor desc = ImageDescriptor.createFromURL(url);
+                registry.put(key, desc);
+            }
+        } catch (Exception ignored) {
+        }
     }
 }
