@@ -22,7 +22,6 @@ import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.SourceInfo;
 import com.alibaba.intellij.plugin.webx.SpringExtConstant;
 import com.alibaba.intellij.plugin.webx.util.SpringExtSchemaXmlFileSet.VirtualFileResource;
-import com.intellij.codeInsight.navigation.actions.GotoDeclarationAction;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.openapi.vfs.VirtualFile;

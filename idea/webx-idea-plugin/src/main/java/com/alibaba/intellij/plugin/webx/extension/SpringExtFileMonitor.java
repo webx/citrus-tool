@@ -17,8 +17,6 @@
 
 package com.alibaba.intellij.plugin.webx.extension;
 
-import java.util.concurrent.atomic.AtomicLong;
-
 import com.alibaba.citrus.springext.ContributionType;
 import com.intellij.openapi.components.ProjectComponent;
 import com.intellij.openapi.project.Project;

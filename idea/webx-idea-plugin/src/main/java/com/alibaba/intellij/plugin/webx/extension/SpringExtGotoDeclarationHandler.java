@@ -17,30 +17,25 @@
 
 package com.alibaba.intellij.plugin.webx.extension;
 
-import static com.alibaba.citrus.util.CollectionUtil.createLinkedList;
-import static com.alibaba.citrus.util.StringUtil.trimToNull;
+import static com.alibaba.citrus.util.CollectionUtil.*;
+import static com.alibaba.citrus.util.StringUtil.*;
 import static com.alibaba.intellij.plugin.webx.util.SpringExtPluginUtil.*;
 
 import java.util.List;
 
-import com.alibaba.citrus.springext.ResourceResolver.Resource;
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.SourceInfo;
 import com.alibaba.intellij.plugin.webx.util.SpringExtSchemaXmlFileSet;
-import com.alibaba.intellij.plugin.webx.util.SpringExtSchemaXmlFileSet.VirtualFileResource;
 import com.intellij.codeInsight.TargetElementUtilBase;
 import com.intellij.codeInsight.navigation.actions.GotoDeclarationAction;
 import com.intellij.codeInsight.navigation.actions.GotoDeclarationHandler;
 import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.module.Module;
-import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiManager;
 import com.intellij.psi.PsiReference;
-import com.intellij.psi.xml.XmlFile;
 import org.jetbrains.annotations.Nullable;
 
 public class SpringExtGotoDeclarationHandler implements GotoDeclarationHandler {
