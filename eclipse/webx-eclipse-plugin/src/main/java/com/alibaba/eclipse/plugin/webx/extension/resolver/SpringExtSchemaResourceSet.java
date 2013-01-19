@@ -42,14 +42,45 @@ import org.slf4j.LoggerFactory;
 
 import com.alibaba.citrus.springext.ContributionType;
 import com.alibaba.citrus.springext.Schema;
-import com.alibaba.citrus.springext.impl.SpringExtSchemaSet;
 import com.alibaba.citrus.springext.support.ClasspathResourceResolver;
+import com.alibaba.citrus.springext.support.SpringExtSchemaSet;
 
 @SuppressWarnings("restriction")
 public class SpringExtSchemaResourceSet extends SpringExtSchemaSet {
     private static final Logger log = LoggerFactory.getLogger(SpringExtSchemaResourceSet.class);
     private static final ConcurrentMap<IProject, Future<SpringExtSchemaResourceSet>> projectCache = createConcurrentHashMap();
     private final IProject project;
+
+    public SpringExtSchemaResourceSet(ClassLoader classLoader, IProject project) {
+        // 传递ResourceResolver而不是直接传ClassLoader，目的是避免创建类实例。
+        super(new ClasspathResourceResolver(classLoader));
+        this.project = project;
+    }
+
+    public IProject getProject() {
+        return project;
+    }
+
+    @Nullable
+    public Schema findSchemaByUrl(String url) {
+        Schema schema = null;
+
+        if (url != null) {
+            // Case 1: url represents a namespace url
+            Set<Schema> namespaceSchemas = getNamespaceMappings().get(url);
+
+            if (namespaceSchemas != null && !namespaceSchemas.isEmpty()) {
+                schema = namespaceSchemas.iterator().next();
+            }
+
+            // Case 2: url represents a schema location
+            if (schema == null) {
+                schema = findSchema(url); // by name
+            }
+        }
+
+        return schema;
+    }
 
     @Nullable
     public static SpringExtSchemaResourceSet getInstance(IDocument document) {
@@ -108,33 +139,6 @@ public class SpringExtSchemaResourceSet extends SpringExtSchemaSet {
         return schemas;
     }
 
-    @Nullable
-    public Schema findSchemaByUrl(String url) {
-        Schema schema = null;
-
-        if (url != null) {
-            // Case 1: url represents a namespace url
-            Set<Schema> namespaceSchemas = getNamespaceMappings().get(url);
-
-            if (namespaceSchemas != null && !namespaceSchemas.isEmpty()) {
-                schema = namespaceSchemas.iterator().next();
-            }
-
-            // Case 2: url represents a schema location
-            if (schema == null) {
-                schema = findSchema(url); // by name
-            }
-        }
-
-        return schema;
-    }
-
-    public SpringExtSchemaResourceSet(ClassLoader classLoader, IProject project) {
-        // 传递ResourceResolver而不是直接传ClassLoader，目的是避免创建类实例。
-        super(new ClasspathResourceResolver(classLoader));
-        this.project = project;
-    }
-
     private static SpringExtSchemaResourceSet computeSchemas(IJavaProject javaProject) {
         SpringExtSchemaResourceSet schemas;
         ClassLoader cl = createClassLoader(javaProject);
@@ -146,10 +150,6 @@ public class SpringExtSchemaResourceSet extends SpringExtSchemaSet {
         }
 
         return null;
-    }
-
-    public IProject getProject() {
-        return project;
     }
 
     @Nullable
