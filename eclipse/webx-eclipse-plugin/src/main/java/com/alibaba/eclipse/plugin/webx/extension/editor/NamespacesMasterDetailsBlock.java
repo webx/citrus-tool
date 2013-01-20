@@ -1,8 +1,8 @@
 package com.alibaba.eclipse.plugin.webx.extension.editor;
 
+import org.eclipse.jface.viewers.CheckboxTreeViewer;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
-import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -43,7 +43,7 @@ public class NamespacesMasterDetailsBlock extends MasterDetailsBlock {
         client.setLayout(layout);
 
         // section/client/tree
-        Tree tree = toolkit.createTree(client, SWT.CHECK);
+        Tree tree = toolkit.createTree(client, SWT.CHECK | SWT.SINGLE | SWT.V_SCROLL | SWT.H_SCROLL | SWT.BORDER);
         GridData gd = new GridData(GridData.FILL_BOTH);
         gd.heightHint = 20;
         gd.widthHint = 100;
@@ -57,7 +57,7 @@ public class NamespacesMasterDetailsBlock extends MasterDetailsBlock {
         managedForm.addPart(sectionPart);
 
         // section/client/tree viewer
-        TreeViewer treeViewer = new TreeViewer(tree);
+        CheckboxTreeViewer treeViewer = new CheckboxTreeViewer(tree);
 
         treeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
             public void selectionChanged(SelectionChangedEvent event) {
@@ -65,10 +65,11 @@ public class NamespacesMasterDetailsBlock extends MasterDetailsBlock {
             }
         });
 
-        NamespacesProvider provider = new NamespacesProvider(page.getEditor().getSchemas());
+        NamespacesProvider provider = new NamespacesProvider(page.getEditor().getSchemas(), treeViewer);
 
         treeViewer.setContentProvider(provider);
         treeViewer.setLabelProvider(provider);
+        treeViewer.setCheckStateProvider(provider);
         treeViewer.setInput(page.getEditor().getDomDocument());
     }
 

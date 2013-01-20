@@ -4,6 +4,8 @@ import static com.alibaba.citrus.util.CollectionUtil.*;
 
 import java.util.LinkedList;
 
+import org.eclipse.jface.viewers.CheckboxTreeViewer;
+import org.eclipse.jface.viewers.ICheckStateProvider;
 import org.eclipse.jface.viewers.ITreePathContentProvider;
 import org.eclipse.jface.viewers.ITreePathLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -20,11 +22,14 @@ import com.alibaba.eclipse.plugin.webx.SpringExtEclipsePlugin;
 import com.alibaba.eclipse.plugin.webx.extension.resolver.SpringExtSchemaResourceSet;
 
 @SuppressWarnings("restriction")
-public class NamespacesProvider extends LabelProvider implements ITreePathLabelProvider, ITreePathContentProvider {
+public class NamespacesProvider extends LabelProvider implements ITreePathLabelProvider, ITreePathContentProvider,
+        ICheckStateProvider {
     private SpringExtSchemaResourceSet schemas;
+    private CheckboxTreeViewer viewer;
 
-    public NamespacesProvider(SpringExtSchemaResourceSet schemas) {
+    public NamespacesProvider(SpringExtSchemaResourceSet schemas, CheckboxTreeViewer viewer) {
         this.schemas = schemas;
+        this.viewer = viewer;
     }
 
     public Object[] getElements(Object inputElement) {
@@ -88,6 +93,16 @@ public class NamespacesProvider extends LabelProvider implements ITreePathLabelP
         } else if (item instanceof SpringPluggableItem) {
             label.setImage(SpringExtEclipsePlugin.getDefault().getImageRegistry().get("spring"));
         }
+
+        viewer.reveal(item);
+    }
+
+    public boolean isChecked(Object element) {
+        return false;
+    }
+
+    public boolean isGrayed(Object element) {
+        return element instanceof ContributionItem;
     }
 
     private TreeItem getTreeItem(TreePath parentPath) {
