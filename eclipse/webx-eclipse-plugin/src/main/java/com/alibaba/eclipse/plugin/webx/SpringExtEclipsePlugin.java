@@ -60,7 +60,7 @@ public class SpringExtEclipsePlugin extends AbstractUIPlugin {
     protected void initializeImageRegistry(ImageRegistry registry) {
         registerImage(registry, "plug", "plug.png");
         registerImage(registry, "socket", "socket.png");
-        registerImage(registry, "spring", "spring.gif");
+        registerImage(registry, "spring", "spring-lighter.png");
     }
 
     private void registerImage(ImageRegistry registry, String key, String fileName) {

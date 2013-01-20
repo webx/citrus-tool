@@ -40,7 +40,7 @@
 		<editor id="com.alibaba.eclipse.plugin.webx.extension.editor.SpringExtConfigurationFileEditor"
 			class="com.alibaba.eclipse.plugin.webx.extension.editor.SpringExtConfigurationFileEditor"
 			contributorClass="com.alibaba.eclipse.plugin.webx.extension.editor.SpringExtConfigurationFileEditorContributor"
-			default="true" icon="icons/springext-config.png" name="%configFileEditorName"
+			default="true" icon="icons/springext.png" name="%configFileEditorName"
 			symbolicFontName="org.eclipse.wst.sse.ui.textfont">
 			<contentTypeBinding contentTypeId="com.alibaba.eclipse.plugin.webx.configFile" />
 		</editor>

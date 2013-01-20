@@ -3,17 +3,21 @@ package com.alibaba.eclipse.plugin.webx.extension.editor;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Tree;
+import org.eclipse.ui.dialogs.FilteredTree;
+import org.eclipse.ui.dialogs.PatternFilter;
 import org.eclipse.ui.forms.DetailsPart;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.MasterDetailsBlock;
 import org.eclipse.ui.forms.SectionPart;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
+
+import com.alibaba.citrus.springext.support.SpringExtSchemaSet.ContributionItem;
 
 public class NamespacesMasterDetailsBlock extends MasterDetailsBlock {
     private final NamespacesPage page;
@@ -43,7 +47,9 @@ public class NamespacesMasterDetailsBlock extends MasterDetailsBlock {
         client.setLayout(layout);
 
         // section/client/tree
-        Tree tree = toolkit.createTree(client, SWT.CHECK | SWT.SINGLE | SWT.V_SCROLL | SWT.H_SCROLL | SWT.BORDER);
+        FilteredCheckboxTree tree = new FilteredCheckboxTree(toolkit, client, SWT.CHECK | SWT.SINGLE | SWT.V_SCROLL
+                | SWT.H_SCROLL | SWT.BORDER, new SchemaPatternfilter(), true);
+
         GridData gd = new GridData(GridData.FILL_BOTH);
         gd.heightHint = 20;
         gd.widthHint = 100;
@@ -57,7 +63,7 @@ public class NamespacesMasterDetailsBlock extends MasterDetailsBlock {
         managedForm.addPart(sectionPart);
 
         // section/client/tree viewer
-        CheckboxTreeViewer treeViewer = new CheckboxTreeViewer(tree);
+        CheckboxTreeViewer treeViewer = tree.getViewer();
 
         treeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
             public void selectionChanged(SelectionChangedEvent event) {
@@ -65,7 +71,7 @@ public class NamespacesMasterDetailsBlock extends MasterDetailsBlock {
             }
         });
 
-        NamespacesProvider provider = new NamespacesProvider(page.getEditor().getSchemas(), treeViewer);
+        NamespacesProvider provider = new NamespacesProvider(page.getEditor().getSchemas());
 
         treeViewer.setContentProvider(provider);
         treeViewer.setLabelProvider(provider);
@@ -79,5 +85,34 @@ public class NamespacesMasterDetailsBlock extends MasterDetailsBlock {
 
     @Override
     protected void createToolBarActions(IManagedForm managedForm) {
+    }
+
+    private static class SchemaPatternfilter extends PatternFilter {
+        public SchemaPatternfilter() {
+            setIncludeLeadingWildcard(true);
+        }
+
+        @Override
+        public boolean isElementSelectable(Object element) {
+            return element != null && !(element instanceof ContributionItem);
+        }
+    }
+
+    private static class FilteredCheckboxTree extends FilteredTree {
+        private FilteredCheckboxTree(FormToolkit toolkit, Composite parent, int treeStyle, PatternFilter filter,
+                                     boolean useNewLook) {
+            super(parent, treeStyle, filter, useNewLook);
+            toolkit.adapt(this, false, false);
+        }
+
+        @Override
+        public CheckboxTreeViewer getViewer() {
+            return (CheckboxTreeViewer) super.getViewer();
+        }
+
+        @Override
+        protected TreeViewer doCreateTreeViewer(Composite parent, int style) {
+            return new CheckboxTreeViewer(parent, style);
+        }
     }
 }
