@@ -1,6 +1,6 @@
 package com.alibaba.ide.plugin.eclipse.springext.extension.hyperlink.detector;
 
-import static com.alibaba.ide.plugin.eclipse.springext.util.PluginUtil.*;
+import static com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil.*;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

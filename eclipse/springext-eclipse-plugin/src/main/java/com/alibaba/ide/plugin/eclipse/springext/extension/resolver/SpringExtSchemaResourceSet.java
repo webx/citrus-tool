@@ -4,8 +4,8 @@ import static com.alibaba.citrus.springext.support.SchemaUtil.*;
 import static com.alibaba.citrus.util.Assert.*;
 import static com.alibaba.citrus.util.CollectionUtil.*;
 import static com.alibaba.citrus.util.StringUtil.*;
-import static com.alibaba.ide.plugin.eclipse.springext.SpringExtEclipsePlugin.*;
-import static com.alibaba.ide.plugin.eclipse.springext.util.PluginUtil.*;
+import static com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin.*;
+import static com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil.*;
 import static org.eclipse.jdt.core.IJavaElementDelta.*;
 
 import java.io.File;

@@ -17,7 +17,7 @@ import com.alibaba.citrus.springext.support.SpringExtSchemaSet.ConfigurationPoin
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.ContributionItem;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.SpringPluggableItem;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.TreeItem;
-import com.alibaba.ide.plugin.eclipse.springext.SpringExtEclipsePlugin;
+import com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin;
 import com.alibaba.ide.plugin.eclipse.springext.extension.resolver.SpringExtSchemaResourceSet;
 
 @SuppressWarnings("restriction")
@@ -67,11 +67,11 @@ public class NamespacesProvider extends LabelProvider implements ITreePathLabelP
         label.setText(item.toString());
 
         if (item instanceof ContributionItem) {
-            label.setImage(SpringExtEclipsePlugin.getDefault().getImageRegistry().get("plug"));
+            label.setImage(SpringExtPlugin.getDefault().getImageRegistry().get("plug"));
         } else if (item instanceof ConfigurationPointItem) {
-            label.setImage(SpringExtEclipsePlugin.getDefault().getImageRegistry().get("socket"));
+            label.setImage(SpringExtPlugin.getDefault().getImageRegistry().get("socket"));
         } else if (item instanceof SpringPluggableItem) {
-            label.setImage(SpringExtEclipsePlugin.getDefault().getImageRegistry().get("spring"));
+            label.setImage(SpringExtPlugin.getDefault().getImageRegistry().get("spring"));
         }
     }
 

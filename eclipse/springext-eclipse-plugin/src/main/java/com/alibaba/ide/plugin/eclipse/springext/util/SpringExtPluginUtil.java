@@ -27,10 +27,10 @@ import org.eclipse.wst.sse.core.utils.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import com.alibaba.ide.plugin.eclipse.springext.SpringExtEclipsePlugin;
+import com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin;
 
 @SuppressWarnings("restriction")
-public class PluginUtil {
+public class SpringExtPluginUtil {
     private static final String JAR_FILE_PROTOCOL = "jar:file:"; //$NON-NLS-1$
 
     /**
@@ -119,8 +119,8 @@ public class PluginUtil {
         IEditorInput input = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor()
                 .getEditorInput();
 
-        if (input instanceof ProjectAware) {
-            return ((ProjectAware) input).getProject();
+        if (input instanceof IProjectAware) {
+            return ((IProjectAware) input).getProject();
         }
 
         return null;
@@ -201,7 +201,7 @@ public class PluginUtil {
     }
 
     public static void logAndDisplay(Shell shell, String title, IStatus status) {
-        SpringExtEclipsePlugin.getDefault().getLog().log(status);
+        SpringExtPlugin.getDefault().getLog().log(status);
 
         if (status.getSeverity() == IStatus.INFO) {
             MessageDialog.openInformation(shell, title, status.getMessage());

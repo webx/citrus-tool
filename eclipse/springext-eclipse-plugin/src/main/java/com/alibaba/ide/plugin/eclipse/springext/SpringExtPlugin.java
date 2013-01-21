@@ -9,22 +9,16 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart;
 import org.osgi.framework.BundleContext;
 
 import com.alibaba.citrus.logconfig.LogConfigurator;
 import com.alibaba.ide.plugin.eclipse.springext.extension.resolver.SpringExtSchemaResourceSet;
 
 @SuppressWarnings("restriction")
-public class SpringExtEclipsePlugin extends AbstractUIPlugin {
-    public static final String PLUGIN_ID = "springext-eclipse-plugin"; //$NON-NLS-1$
-    public static final String URL_PROTOCOL = "springext";
-    public static final String URL_PREFIX = "http://localhost:8080/schema/";
-    public final static String XML_EDITOR_ID = XMLMultiPageEditorPart.class.getName();
+public class SpringExtPlugin extends AbstractUIPlugin implements SpringExtConstant {
+    private static SpringExtPlugin plugin;
 
-    private static SpringExtEclipsePlugin plugin;
-
-    public SpringExtEclipsePlugin() {
+    public SpringExtPlugin() {
     }
 
     @Override
@@ -48,7 +42,7 @@ public class SpringExtEclipsePlugin extends AbstractUIPlugin {
         super.stop(context);
     }
 
-    public static SpringExtEclipsePlugin getDefault() {
+    public static SpringExtPlugin getDefault() {
         return plugin;
     }
 

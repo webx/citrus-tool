@@ -5,7 +5,7 @@ Bundle-Vendor: %providerName
 Bundle-SymbolicName: com.alibaba.eclipse.plugin.webx;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Localization: plugin
-Bundle-Activator: com.alibaba.ide.plugin.eclipse.springext.SpringExtEclipsePlugin
+Bundle-Activator: com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.wst.xml.ui;bundle-version="1.1.301",

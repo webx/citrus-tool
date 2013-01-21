@@ -1,6 +1,6 @@
 package com.alibaba.ide.plugin.eclipse.springext.extension.editor;
 
-import static com.alibaba.ide.plugin.eclipse.springext.util.PluginUtil.*;
+import static com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil.*;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -19,7 +19,7 @@ import org.eclipse.wst.sse.ui.StructuredTextEditor;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMDocument;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMModel;
 
-import com.alibaba.ide.plugin.eclipse.springext.SpringExtEclipsePlugin;
+import com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin;
 import com.alibaba.ide.plugin.eclipse.springext.extension.resolver.SpringExtSchemaResourceSet;
 
 @SuppressWarnings("restriction")
@@ -64,7 +64,7 @@ public class SpringExtConfigurationFileEditor extends FormEditor implements ITex
             sourceEditor.setEditorPart(this);
             sourceEditor.getTextViewer().addTextListener(this);
         } catch (PartInitException e) {
-            logAndDisplay(new Status(IStatus.ERROR, SpringExtEclipsePlugin.PLUGIN_ID,
+            logAndDisplay(new Status(IStatus.ERROR, SpringExtPlugin.PLUGIN_ID,
                     "Could not open editor for source file: " + sourceEditor.getTitle(), e));
         }
     }
@@ -78,7 +78,7 @@ public class SpringExtConfigurationFileEditor extends FormEditor implements ITex
             int index = addPage(namespacesPage);
             setPageText(index, "Namespaces");
         } catch (PartInitException e) {
-            logAndDisplay(new Status(IStatus.ERROR, SpringExtEclipsePlugin.PLUGIN_ID, "Could not add tab to editor "
+            logAndDisplay(new Status(IStatus.ERROR, SpringExtPlugin.PLUGIN_ID, "Could not add tab to editor "
                     + sourceEditor.getTitle(), e));
         }
     }
@@ -129,7 +129,7 @@ public class SpringExtConfigurationFileEditor extends FormEditor implements ITex
             try {
                 structModel = StructuredModelManager.getModelManager().getModelForEdit(file);
             } catch (Exception e) {
-                logAndDisplay(new Status(IStatus.ERROR, SpringExtEclipsePlugin.PLUGIN_ID,
+                logAndDisplay(new Status(IStatus.ERROR, SpringExtPlugin.PLUGIN_ID,
                         "Could not load model for source file: " + sourceEditor.getTitle(), e));
             }
         }

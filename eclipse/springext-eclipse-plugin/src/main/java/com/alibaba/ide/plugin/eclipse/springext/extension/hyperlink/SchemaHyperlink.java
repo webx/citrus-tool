@@ -1,6 +1,6 @@
 package com.alibaba.ide.plugin.eclipse.springext.extension.hyperlink;
 
-import static com.alibaba.ide.plugin.eclipse.springext.SpringExtEclipsePlugin.*;
+import static com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin.*;
 
 import java.io.InputStream;
 
@@ -24,7 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.citrus.springext.Schema;
-import com.alibaba.ide.plugin.eclipse.springext.util.ProjectAware;
+import com.alibaba.ide.plugin.eclipse.springext.util.IProjectAware;
 
 /**
  * 用来打开内存中的schema文件的超链接。
@@ -107,7 +107,7 @@ public class SchemaHyperlink implements IHyperlink {
         }
     }
 
-    private static class SchemaEditorInput implements IStorageEditorInput, ProjectAware {
+    private static class SchemaEditorInput implements IStorageEditorInput, IProjectAware {
         private final IStorage storage;
         private final IProject project;
 
