@@ -1,4 +1,4 @@
-package com.alibaba.ide.plugin.eclipse.springext.extension.editor;
+package com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace;
 
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
 import org.eclipse.jface.viewers.ISelectionChangedListener;

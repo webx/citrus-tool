@@ -1,16 +1,13 @@
-package com.alibaba.ide.plugin.eclipse.springext.extension.editor;
+package com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace;
 
 import static com.alibaba.citrus.util.ArrayUtil.*;
 
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ITreeSelection;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.IDetailsPage;
 import org.eclipse.ui.forms.IFormPart;
 import org.eclipse.ui.forms.IManagedForm;
@@ -123,10 +120,9 @@ public class SpringPluggableItemDetailsPage implements IDetailsPage {
     private void update() {
         if (item instanceof SpringPluggableItem) {
             SpringPluggableItem sitem = (SpringPluggableItem) item;
-            
+
             namespaceText.setText(sitem.getNamespace(), false, true);
-            
-            
+
         }
     }
 }

@@ -1,8 +1,10 @@
-package com.alibaba.ide.plugin.eclipse.springext.extension.editor;
+package com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace;
 
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.FormPage;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
+
+import com.alibaba.ide.plugin.eclipse.springext.extension.editor.SpringExtConfigurationFileEditor;
 
 public class NamespacesPage extends FormPage {
     public final static String PAGE_ID = NamespacesPage.class.getName();
