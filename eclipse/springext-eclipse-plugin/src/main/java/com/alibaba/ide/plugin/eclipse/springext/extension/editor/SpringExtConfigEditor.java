@@ -24,8 +24,8 @@ import com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.Names
 import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
 
 @SuppressWarnings("restriction")
-public class SpringExtConfigurationFileEditor extends FormEditor implements ITextListener {
-    public final static String EDITOR_ID = SpringExtConfigurationFileEditor.class.getName();
+public class SpringExtConfigEditor extends FormEditor implements ITextListener {
+    public final static String EDITOR_ID = SpringExtConfigEditor.class.getName();
 
     // editor & form pages
     private StructuredTextEditor sourceEditor;

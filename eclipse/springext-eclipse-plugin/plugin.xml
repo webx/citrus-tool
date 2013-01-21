@@ -37,9 +37,9 @@
 			priority="high" />
 	</extension>
 	<extension point="org.eclipse.ui.editors">
-		<editor id="com.alibaba.ide.plugin.eclipse.springext.extension.editor.SpringExtConfigurationFileEditor"
-			class="com.alibaba.ide.plugin.eclipse.springext.extension.editor.SpringExtConfigurationFileEditor"
-			contributorClass="com.alibaba.ide.plugin.eclipse.springext.extension.editor.SpringExtConfigurationFileEditorContributor"
+		<editor id="com.alibaba.ide.plugin.eclipse.springext.extension.editor.SpringExtConfigEditor"
+			class="com.alibaba.ide.plugin.eclipse.springext.extension.editor.SpringExtConfigEditor"
+			contributorClass="com.alibaba.ide.plugin.eclipse.springext.extension.editor.SpringExtConfigEditorContributor"
 			default="true" icon="icons/springext.png" name="%configFileEditorName"
 			symbolicFontName="org.eclipse.wst.sse.ui.textfont">
 			<contentTypeBinding contentTypeId="com.alibaba.ide.plugin.eclipse.springext.configFile" />

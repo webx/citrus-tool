@@ -4,20 +4,20 @@ import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.FormPage;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 
-import com.alibaba.ide.plugin.eclipse.springext.extension.editor.SpringExtConfigurationFileEditor;
+import com.alibaba.ide.plugin.eclipse.springext.extension.editor.SpringExtConfigEditor;
 
 public class NamespacesPage extends FormPage {
     public final static String PAGE_ID = NamespacesPage.class.getName();
     private NamespacesMasterDetailsBlock block;
 
-    public NamespacesPage(SpringExtConfigurationFileEditor editor) {
+    public NamespacesPage(SpringExtConfigEditor editor) {
         super(editor, PAGE_ID, "Namespaces");
         this.block = new NamespacesMasterDetailsBlock(this);
     }
 
     @Override
-    public SpringExtConfigurationFileEditor getEditor() {
-        return (SpringExtConfigurationFileEditor) super.getEditor();
+    public SpringExtConfigEditor getEditor() {
+        return (SpringExtConfigEditor) super.getEditor();
     }
 
     @Override
