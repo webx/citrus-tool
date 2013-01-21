@@ -18,9 +18,6 @@
         </option>
         <option name="JD_DO_NOT_WRAP_ONE_LINE_COMMENTS" value="true" />
         <option name="JD_KEEP_EMPTY_RETURN" value="false" />
-        <JSCodeStyleSettings>
-          <option name="ALIGN_OBJECT_PROPERTIES" value="1" />
-        </JSCodeStyleSettings>
         <XML>
           <option name="XML_KEEP_BLANK_LINES" value="1" />
           <option name="XML_SPACE_INSIDE_EMPTY_TAG" value="true" />

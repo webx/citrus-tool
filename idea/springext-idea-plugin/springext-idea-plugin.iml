@@ -9,7 +9,7 @@
     </content>
     <orderEntry type="jdk" jdkName="IDEA IC-123.123" jdkType="IDEA JDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="webx-idea-plugin-deps" />
+    <orderEntry type="module" module-name="springext-idea-plugin-deps" />
   </component>
 </module>
 

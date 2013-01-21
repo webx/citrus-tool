@@ -12,7 +12,7 @@
 
     <project-components>
         <component>
-            <implementation-class>com.alibaba.intellij.plugin.webx.extension.SpringExtFileMonitor</implementation-class>
+            <implementation-class>com.alibaba.ide.plugin.intellij.springext.extension.SpringExtFileMonitor</implementation-class>
         </component>
     </project-components>
 
@@ -22,10 +22,10 @@
     <extensions defaultExtensionNs="com.intellij">
 
         <xml.schemaProvider
-                implementation="com.alibaba.intellij.plugin.webx.extension.SpringExtSchemaProvider" />
+                implementation="com.alibaba.ide.plugin.intellij.springext.extension.SpringExtSchemaProvider" />
 
         <gotoDeclarationHandler
-                implementation="com.alibaba.intellij.plugin.webx.extension.SpringExtGotoDeclarationHandler" />
+                implementation="com.alibaba.ide.plugin.intellij.springext.extension.SpringExtGotoDeclarationHandler" />
 
     </extensions>
 </idea-plugin>

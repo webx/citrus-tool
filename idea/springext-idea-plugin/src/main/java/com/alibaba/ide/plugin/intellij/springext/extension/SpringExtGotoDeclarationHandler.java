@@ -15,17 +15,17 @@
  * limitations under the License.
  */
 
-package com.alibaba.intellij.plugin.webx.extension;
+package com.alibaba.ide.plugin.intellij.springext.extension;
 
 import static com.alibaba.citrus.util.CollectionUtil.*;
 import static com.alibaba.citrus.util.StringUtil.*;
-import static com.alibaba.intellij.plugin.webx.util.SpringExtPluginUtil.*;
+import static com.alibaba.ide.plugin.intellij.springext.util.SpringExtPluginUtil.*;
 
 import java.util.List;
 
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.SourceInfo;
-import com.alibaba.intellij.plugin.webx.util.SpringExtSchemaXmlFileSet;
+import com.alibaba.ide.plugin.intellij.springext.util.SpringExtSchemaXmlFileSet;
 import com.intellij.codeInsight.TargetElementUtilBase;
 import com.intellij.codeInsight.navigation.actions.GotoDeclarationAction;
 import com.intellij.codeInsight.navigation.actions.GotoDeclarationHandler;

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.alibaba.intellij.plugin.webx.extension;
+package com.alibaba.ide.plugin.intellij.springext.extension;
 
 import com.alibaba.citrus.springext.ContributionType;
 import com.intellij.openapi.components.ProjectComponent;

@@ -15,13 +15,13 @@
  * limitations under the License.
  */
 
-package com.alibaba.intellij.plugin.webx.util;
+package com.alibaba.ide.plugin.intellij.springext.util;
 
 import com.alibaba.citrus.springext.ResourceResolver.Resource;
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.SourceInfo;
-import com.alibaba.intellij.plugin.webx.SpringExtConstant;
-import com.alibaba.intellij.plugin.webx.util.SpringExtSchemaXmlFileSet.VirtualFileResource;
+import com.alibaba.ide.plugin.intellij.springext.SpringExtConstant;
+import com.alibaba.ide.plugin.intellij.springext.util.SpringExtSchemaXmlFileSet.VirtualFileResource;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.openapi.vfs.VirtualFile;

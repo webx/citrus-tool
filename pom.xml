@@ -64,7 +64,7 @@
         <module>maven/util</module>
         <module>maven/springext-maven-plugin</module>
         <module>maven/docbook-maven-plugin</module>
-        <module>idea/webx-idea-plugin-deps</module>
+        <module>idea/springext-idea-plugin-deps</module>
     </modules>
     <build>
         <plugins>

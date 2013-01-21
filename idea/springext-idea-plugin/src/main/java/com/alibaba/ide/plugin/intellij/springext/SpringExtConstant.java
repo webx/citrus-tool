@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.alibaba.intellij.plugin.webx;
+package com.alibaba.ide.plugin.intellij.springext;
 
 import org.springframework.beans.factory.xml.BeanDefinitionParserDelegate;
 

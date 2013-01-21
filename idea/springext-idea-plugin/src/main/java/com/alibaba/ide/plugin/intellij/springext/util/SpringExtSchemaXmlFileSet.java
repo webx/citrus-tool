@@ -15,11 +15,11 @@
  * limitations under the License.
  */
 
-package com.alibaba.intellij.plugin.webx.util;
+package com.alibaba.ide.plugin.intellij.springext.util;
 
 import static com.alibaba.citrus.springext.support.SchemaUtil.*;
 import static com.alibaba.citrus.util.CollectionUtil.*;
-import static com.alibaba.intellij.plugin.webx.util.SpringExtPluginUtil.*;
+import static com.alibaba.ide.plugin.intellij.springext.util.SpringExtPluginUtil.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,7 +32,7 @@ import com.alibaba.citrus.springext.ResourceResolver;
 import com.alibaba.citrus.springext.ResourceResolver.Resource;
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet;
-import com.alibaba.intellij.plugin.webx.extension.SpringExtFileMonitor;
+import com.alibaba.ide.plugin.intellij.springext.extension.SpringExtFileMonitor;
 import com.intellij.lang.StdLanguages;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.fileTypes.WildcardFileNameMatcher;
