@@ -24,10 +24,10 @@ import org.slf4j.helpers.MarkerIgnoringBase;
 import org.slf4j.helpers.MessageFormatter;
 import org.slf4j.spi.LocationAwareLogger;
 
-final class IntellijLoggerAdapter extends MarkerIgnoringBase implements LocationAwareLogger {
+final class IdeaLoggerAdapter extends MarkerIgnoringBase implements LocationAwareLogger {
     private final transient Logger logger;
 
-    IntellijLoggerAdapter(Logger logger, String name) {
+    IdeaLoggerAdapter(Logger logger, String name) {
         this.logger = logger;
         this.name = name;
     }

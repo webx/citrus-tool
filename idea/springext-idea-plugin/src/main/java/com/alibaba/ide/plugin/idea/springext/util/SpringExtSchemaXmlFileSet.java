@@ -15,11 +15,11 @@
  * limitations under the License.
  */
 
-package com.alibaba.ide.plugin.intellij.springext.util;
+package com.alibaba.ide.plugin.idea.springext.util;
 
 import static com.alibaba.citrus.springext.support.SchemaUtil.*;
 import static com.alibaba.citrus.util.CollectionUtil.*;
-import static com.alibaba.ide.plugin.intellij.springext.util.SpringExtPluginUtil.*;
+import static com.alibaba.ide.plugin.idea.springext.util.SpringExtPluginUtil.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,7 +32,7 @@ import com.alibaba.citrus.springext.ResourceResolver;
 import com.alibaba.citrus.springext.ResourceResolver.Resource;
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet;
-import com.alibaba.ide.plugin.intellij.springext.extension.SpringExtFileMonitor;
+import com.alibaba.ide.plugin.idea.springext.extension.SpringExtFileMonitor;
 import com.intellij.lang.StdLanguages;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.fileTypes.WildcardFileNameMatcher;
@@ -79,7 +79,7 @@ public class SpringExtSchemaXmlFileSet extends SpringExtSchemaSet {
                 dependencies.add(ProjectRootManager.getInstance(project));
                 dependencies.add(SpringExtFileMonitor.getInstance(project));
 
-                SpringExtSchemaXmlFileSet schemas = new SpringExtSchemaXmlFileSet(new IntellijResourceResolver(module, dependencies));
+                SpringExtSchemaXmlFileSet schemas = new SpringExtSchemaXmlFileSet(new IdeaResourceResolver(module, dependencies));
 
                 schemas.transformAll(getAddPrefixTransformer(schemas, "http://localhost:8080/schema/"));
 
@@ -161,13 +161,13 @@ public class SpringExtSchemaXmlFileSet extends SpringExtSchemaSet {
     }
 
     /** 这个类负责从Intellij IDEA项目的模块及其依赖中，装载SpringExt所需要的一切文件。 */
-    static class IntellijResourceResolver extends ResourceResolver {
+    static class IdeaResourceResolver extends ResourceResolver {
         private final Logger log = Logger.getInstance(getClass());
         private final Project      project;
         private final Module       module;
         private final List<Object> dependencies;
 
-        public IntellijResourceResolver(@NotNull Module module, @NotNull List<Object> dependencies) {
+        public IdeaResourceResolver(@NotNull Module module, @NotNull List<Object> dependencies) {
             this.project = module.getProject();
             this.module = module;
             this.dependencies = dependencies;

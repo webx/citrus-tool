@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.alibaba.ide.plugin.intellij.springext.extension;
+package com.alibaba.ide.plugin.idea.springext.extension;
 
 import com.alibaba.citrus.springext.ContributionType;
 import com.intellij.openapi.components.ProjectComponent;

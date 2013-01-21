@@ -29,12 +29,12 @@ public class StaticLoggerBinder implements LoggerFactoryBinder {
 
     public static String REQUESTED_API_VERSION = "1.6"; // !final
 
-    private static final String loggerFactoryClassStr = IntellijLoggerFactory.class.getName();
+    private static final String loggerFactoryClassStr = IdeaLoggerFactory.class.getName();
 
     private final ILoggerFactory loggerFactory;
 
     private StaticLoggerBinder() {
-        loggerFactory = new IntellijLoggerFactory();
+        loggerFactory = new IdeaLoggerFactory();
     }
 
     public ILoggerFactory getLoggerFactory() {
