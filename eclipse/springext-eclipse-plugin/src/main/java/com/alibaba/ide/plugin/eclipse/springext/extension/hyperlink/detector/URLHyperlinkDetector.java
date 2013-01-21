@@ -15,7 +15,7 @@ import org.eclipse.jface.text.hyperlink.AbstractHyperlinkDetector;
 import org.eclipse.jface.text.hyperlink.IHyperlink;
 
 import com.alibaba.citrus.springext.Schema;
-import com.alibaba.ide.plugin.eclipse.springext.extension.resolver.SpringExtSchemaResourceSet;
+import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
 
 /**
  * URL hyperlink detector.
@@ -125,7 +125,7 @@ public class URLHyperlinkDetector extends AbstractHyperlinkDetector {
         }
 
         IRegion urlRegion = new Region(lineInfo.getOffset() + urlOffsetInLine, urlLength);
-        SpringExtSchemaResourceSet schemas = SpringExtSchemaResourceSet.getInstance(document);
+        SchemaResourceSet schemas = SchemaResourceSet.getInstance(document);
 
         if (schemas != null) {
             Schema schema = schemas.findSchemaByUrl(urlString);

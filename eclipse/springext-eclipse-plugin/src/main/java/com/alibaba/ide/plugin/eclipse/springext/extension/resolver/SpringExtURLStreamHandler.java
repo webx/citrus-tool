@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.citrus.springext.Schema;
+import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
 
 public class SpringExtURLStreamHandler extends AbstractURLStreamHandlerService {
     private static final Logger log = LoggerFactory.getLogger(SpringExtURLStreamHandler.class);
@@ -29,7 +30,7 @@ public class SpringExtURLStreamHandler extends AbstractURLStreamHandlerService {
                 IProject project = getProjectFromURL(url);
 
                 if (project != null) {
-                    SpringExtSchemaResourceSet schemas = SpringExtSchemaResourceSet.getInstance(project);
+                    SchemaResourceSet schemas = SchemaResourceSet.getInstance(project);
 
                     if (schemas != null) {
                         String schemaName = getSchemaNameFromURL(url);

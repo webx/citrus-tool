@@ -1,7 +1,11 @@
 package com.alibaba.ide.plugin.eclipse.springext;
 
-import java.net.URL;
+import static com.alibaba.citrus.util.CollectionUtil.*;
 
+import java.net.URL;
+import java.util.Map;
+
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -12,11 +16,14 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 import com.alibaba.citrus.logconfig.LogConfigurator;
-import com.alibaba.ide.plugin.eclipse.springext.extension.resolver.SpringExtSchemaResourceSet;
+import com.alibaba.ide.plugin.eclipse.springext.schema.ISchemaSetChangeListener;
+import com.alibaba.ide.plugin.eclipse.springext.schema.ISchemaSetChangeListener.SchemaSetChangeEvent;
+import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
 
 @SuppressWarnings("restriction")
 public class SpringExtPlugin extends AbstractUIPlugin implements SpringExtConstant {
     private static SpringExtPlugin plugin;
+    private final Map<ISchemaSetChangeListener, ISchemaSetChangeListener> schemaSetChangeListeners = createConcurrentHashMap();
 
     public SpringExtPlugin() {
     }
@@ -33,7 +40,7 @@ public class SpringExtPlugin extends AbstractUIPlugin implements SpringExtConsta
         Platform.getBundle(org.eclipse.ecf.internal.filetransfer.Activator.PLUGIN_ID);
 
         // register listener
-        SpringExtSchemaResourceSet.registerChangedListener();
+        SchemaResourceSet.registerChangedListener();
     }
 
     @Override
@@ -44,6 +51,20 @@ public class SpringExtPlugin extends AbstractUIPlugin implements SpringExtConsta
 
     public static SpringExtPlugin getDefault() {
         return plugin;
+    }
+
+    public void notifySchemaSetChangeListeners(IProject project) {
+        for (ISchemaSetChangeListener listener : schemaSetChangeListeners.keySet()) {
+            listener.onSchemaSetChanged(new SchemaSetChangeEvent(project));
+        }
+    }
+
+    public void registerSchemaSetChangeListener(ISchemaSetChangeListener listener) {
+        schemaSetChangeListeners.put(listener, listener);
+    }
+
+    public void unregisterSchemaSetChangeListener(ISchemaSetChangeListener listener) {
+        schemaSetChangeListeners.remove(listener);
     }
 
     public static ImageDescriptor getImageDescriptor(String path) {

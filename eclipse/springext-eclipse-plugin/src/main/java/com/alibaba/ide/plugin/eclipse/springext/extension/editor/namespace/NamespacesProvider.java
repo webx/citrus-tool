@@ -18,14 +18,14 @@ import com.alibaba.citrus.springext.support.SpringExtSchemaSet.ContributionItem;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.SpringPluggableItem;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.TreeItem;
 import com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin;
-import com.alibaba.ide.plugin.eclipse.springext.extension.resolver.SpringExtSchemaResourceSet;
+import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
 
 @SuppressWarnings("restriction")
 public class NamespacesProvider extends LabelProvider implements ITreePathLabelProvider, ITreeContentProvider,
         ICheckStateProvider {
-    private SpringExtSchemaResourceSet schemas;
+    private SchemaResourceSet schemas;
 
-    public NamespacesProvider(SpringExtSchemaResourceSet schemas) {
+    public NamespacesProvider(SchemaResourceSet schemas) {
         this.schemas = schemas;
     }
 

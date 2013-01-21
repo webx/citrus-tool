@@ -21,7 +21,7 @@ import org.eclipse.wst.xml.core.internal.provisional.document.IDOMModel;
 
 import com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin;
 import com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.NamespacesPage;
-import com.alibaba.ide.plugin.eclipse.springext.extension.resolver.SpringExtSchemaResourceSet;
+import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
 
 @SuppressWarnings("restriction")
 public class SpringExtConfigurationFileEditor extends FormEditor implements ITextListener {
@@ -36,13 +36,13 @@ public class SpringExtConfigurationFileEditor extends FormEditor implements ITex
     private IFile file;
     private IDOMModel model;
     private IDOMDocument domDocument;
-    private SpringExtSchemaResourceSet schemas;
+    private SchemaResourceSet schemas;
 
     public IDOMDocument getDomDocument() {
         return domDocument;
     }
 
-    public SpringExtSchemaResourceSet getSchemas() {
+    public SchemaResourceSet getSchemas() {
         return schemas;
     }
 
@@ -140,7 +140,7 @@ public class SpringExtConfigurationFileEditor extends FormEditor implements ITex
                 releaseModel();
                 model = (IDOMModel) structModel;
                 domDocument = model.getDocument();
-                schemas = SpringExtSchemaResourceSet.getInstance(file.getProject());
+                schemas = SchemaResourceSet.getInstance(file.getProject());
             } else {
                 structModel.releaseFromEdit();
             }

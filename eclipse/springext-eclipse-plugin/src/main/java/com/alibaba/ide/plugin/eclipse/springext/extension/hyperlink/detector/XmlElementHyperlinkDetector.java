@@ -11,7 +11,7 @@ import com.alibaba.citrus.springext.ConfigurationPoint;
 import com.alibaba.citrus.springext.Contribution;
 import com.alibaba.citrus.springext.ContributionType;
 import com.alibaba.citrus.springext.Schema;
-import com.alibaba.ide.plugin.eclipse.springext.extension.resolver.SpringExtSchemaResourceSet;
+import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
 
 /**
  * 在XML中，如果某个tag或attribute的名称、namespace代表某个configuration
@@ -22,7 +22,7 @@ import com.alibaba.ide.plugin.eclipse.springext.extension.resolver.SpringExtSche
 public class XmlElementHyperlinkDetector extends AbstractXMLHyperlinkDetector {
     @Override
     protected IHyperlink[] visitTagPrefix(IDocument document, IRegion region, String namespaceURI) {
-        SpringExtSchemaResourceSet schemas = SpringExtSchemaResourceSet.getInstance(document);
+        SchemaResourceSet schemas = SchemaResourceSet.getInstance(document);
 
         if (schemas != null) {
             Schema schema = schemas.findSchemaByUrl(namespaceURI);
@@ -41,7 +41,7 @@ public class XmlElementHyperlinkDetector extends AbstractXMLHyperlinkDetector {
     }
 
     private IHyperlink[] visitTagOrAttribute(IDocument document, IRegion region, String namespaceURI, boolean tag) {
-        SpringExtSchemaResourceSet schemas = SpringExtSchemaResourceSet.getInstance(document);
+        SchemaResourceSet schemas = SchemaResourceSet.getInstance(document);
 
         if (schemas != null) {
             Schema schema = schemas.findSchemaByUrl(namespaceURI);

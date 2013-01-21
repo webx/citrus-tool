@@ -1,17 +1,16 @@
-package com.alibaba.ide.plugin.eclipse.springext.extension.resolver;
+package com.alibaba.ide.plugin.eclipse.springext.schema;
 
 import static com.alibaba.citrus.springext.support.SchemaUtil.*;
 import static com.alibaba.citrus.util.Assert.*;
 import static com.alibaba.citrus.util.CollectionUtil.*;
 import static com.alibaba.citrus.util.StringUtil.*;
-import static com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin.*;
+import static com.alibaba.ide.plugin.eclipse.springext.SpringExtConstant.*;
 import static com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil.*;
 import static org.eclipse.jdt.core.IJavaElementDelta.*;
 
 import java.io.File;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentMap;
@@ -44,14 +43,15 @@ import com.alibaba.citrus.springext.ContributionType;
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.support.ClasspathResourceResolver;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet;
+import com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin;
 
 @SuppressWarnings("restriction")
-public class SpringExtSchemaResourceSet extends SpringExtSchemaSet {
-    private static final Logger log = LoggerFactory.getLogger(SpringExtSchemaResourceSet.class);
-    private static final ConcurrentMap<IProject, Future<SpringExtSchemaResourceSet>> projectCache = createConcurrentHashMap();
+public class SchemaResourceSet extends SpringExtSchemaSet {
+    private static final Logger log = LoggerFactory.getLogger(SchemaResourceSet.class);
+    private static final ConcurrentMap<IProject, Future<SchemaResourceSet>> projectCache = createConcurrentHashMap();
     private final IProject project;
 
-    public SpringExtSchemaResourceSet(ClassLoader classLoader, IProject project) {
+    public SchemaResourceSet(ClassLoader classLoader, IProject project) {
         // 传递ResourceResolver而不是直接传ClassLoader，目的是避免创建类实例。
         super(new ClasspathResourceResolver(classLoader));
         this.project = project;
@@ -83,7 +83,7 @@ public class SpringExtSchemaResourceSet extends SpringExtSchemaSet {
     }
 
     @Nullable
-    public static SpringExtSchemaResourceSet getInstance(IDocument document) {
+    public static SchemaResourceSet getInstance(IDocument document) {
         IProject project = getProjectFromDocument(document);
 
         if (project != null) {
@@ -94,10 +94,10 @@ public class SpringExtSchemaResourceSet extends SpringExtSchemaSet {
     }
 
     @Nullable
-    public static SpringExtSchemaResourceSet getInstance(IProject project) {
+    public static SchemaResourceSet getInstance(IProject project) {
         assertNotNull(project, "project");
 
-        Future<SpringExtSchemaResourceSet> future = projectCache.get(project);
+        Future<SchemaResourceSet> future = projectCache.get(project);
 
         if (future == null) {
             final IJavaProject javaProject = getJavaProject(project, true);
@@ -106,9 +106,9 @@ public class SpringExtSchemaResourceSet extends SpringExtSchemaSet {
                 return null;
             }
 
-            FutureTask<SpringExtSchemaResourceSet> futureTask = new FutureTask<SpringExtSchemaResourceSet>(
-                    new Callable<SpringExtSchemaResourceSet>() {
-                        public SpringExtSchemaResourceSet call() throws Exception {
+            FutureTask<SchemaResourceSet> futureTask = new FutureTask<SchemaResourceSet>(
+                    new Callable<SchemaResourceSet>() {
+                        public SchemaResourceSet call() throws Exception {
                             if (log.isDebugEnabled()) {
                                 log.debug("Recompute schemas for project {}", javaProject.getProject().getName());
                             }
@@ -125,7 +125,7 @@ public class SpringExtSchemaResourceSet extends SpringExtSchemaSet {
             }
         }
 
-        SpringExtSchemaResourceSet schemas = null;
+        SchemaResourceSet schemas = null;
 
         try {
             schemas = future.get();
@@ -139,12 +139,12 @@ public class SpringExtSchemaResourceSet extends SpringExtSchemaSet {
         return schemas;
     }
 
-    private static SpringExtSchemaResourceSet computeSchemas(IJavaProject javaProject) {
-        SpringExtSchemaResourceSet schemas;
+    private static SchemaResourceSet computeSchemas(IJavaProject javaProject) {
+        SchemaResourceSet schemas;
         ClassLoader cl = createClassLoader(javaProject);
 
         if (cl != null) {
-            schemas = new SpringExtSchemaResourceSet(cl, javaProject.getProject());
+            schemas = new SchemaResourceSet(cl, javaProject.getProject());
             schemas.transformAll(getAddPrefixTransformer(schemas, URL_PREFIX));
             return schemas;
         }
@@ -184,52 +184,75 @@ public class SpringExtSchemaResourceSet extends SpringExtSchemaSet {
         Cache.getInstance().clear();
     }
 
+    private static abstract class AbstractChangeListener {
+        protected final void projectsChanged(Set<IProject> changedProjects) {
+            if (!changedProjects.isEmpty()) {
+                for (IProject project : changedProjects) {
+                    projectCache.remove(project);
+                    SpringExtPlugin.getDefault().notifySchemaSetChangeListeners(project);
+                }
+
+                clearCache();
+            }
+        }
+
+        protected final void addChangedProject(IProject project, Set<IProject> changedProjects) {
+            changedProjects.add(project);
+
+            IJavaProject javaProject = getJavaProject(project, false);
+
+            if (javaProject != null) {
+                addIndirectProjects(javaProject, changedProjects);
+            }
+        }
+
+        protected final void addChangedProject(IJavaElement element, Set<IProject> changedProjects) {
+            // 直接的classpath改变
+            if (element instanceof IJavaProject) {
+                changedProjects.add(((IJavaProject) element).getProject());
+            }
+
+            // 间接的classpath改变
+            addIndirectProjects(element, changedProjects);
+        }
+
+        private void addIndirectProjects(IJavaElement element, Set<IProject> changedProjects) {
+            for (IProject cachedProject : projectCache.keySet()) {
+                IJavaProject cachedJavaProject = getJavaProject(cachedProject, false);
+
+                if (cachedJavaProject != null && cachedJavaProject.isOnClasspath(element)) {
+                    changedProjects.add(cachedProject);
+                }
+            }
+        }
+    }
+
     /**
      * 观测classpath的改变。
      */
-    private static class ClasspathChangeListener implements IElementChangedListener {
+    private static class ClasspathChangeListener extends AbstractChangeListener implements IElementChangedListener {
         private final static int CLASSPATH_CHANGED_MASK = F_RESOLVED_CLASSPATH_CHANGED | F_CLASSPATH_CHANGED | F_CLOSED
                 | F_OPENED;
 
         public void elementChanged(ElementChangedEvent event) {
-            visitDelta(event.getDelta());
+            Set<IProject> changedProjects = createHashSet();
+
+            visitDelta(event.getDelta(), changedProjects);
+
+            projectsChanged(changedProjects);
         }
 
-        private void visitDelta(IJavaElementDelta delta) {
-            boolean changed = false;
-
+        private void visitDelta(IJavaElementDelta delta, Set<IProject> changedProjects) {
             if (delta != null) {
                 if (hasBits(delta.getFlags(), CLASSPATH_CHANGED_MASK)) {
                     IJavaElement element = delta.getElement();
 
-                    // 直接的classpath改变
-                    if (element instanceof IJavaProject) {
-                        IProject project = ((IJavaProject) element).getProject();
-                        projectCache.remove(project);
-                        changed = true;
-                    }
-
-                    // 间接的classpath改变
-                    for (Iterator<IProject> i = projectCache.keySet().iterator(); i.hasNext();) {
-                        IProject project = i.next();
-                        IJavaProject javaProject = getJavaProject(project, false);
-
-                        if (javaProject != null) {
-                            if (javaProject.isOnClasspath(element)) {
-                                i.remove();
-                                changed = true;
-                            }
-                        }
-                    }
+                    addChangedProject(element, changedProjects);
                 }
 
                 for (IJavaElementDelta child : delta.getAffectedChildren()) {
-                    visitDelta(child);
+                    visitDelta(child, changedProjects);
                 }
-            }
-
-            if (changed) {
-                clearCache();
             }
         }
     }
@@ -245,18 +268,20 @@ public class SpringExtSchemaResourceSet extends SpringExtSchemaSet {
      * <li>*.xsd</li>
      * </ul>
      */
-    private static class ResourceChangeListener implements IResourceChangeListener {
+    private static class ResourceChangeListener extends AbstractChangeListener implements IResourceChangeListener {
         public void resourceChanged(IResourceChangeEvent event) {
             IResourceDelta delta = event.getDelta();
+            final Set<IProject> changedProjects = createHashSet();
 
             if (delta != null) {
                 try {
+
                     delta.accept(new IResourceDeltaVisitor() {
                         public boolean visit(IResourceDelta delta) throws CoreException {
                             IResource resource = delta.getResource();
 
                             if (resource instanceof IFile) {
-                                fileChanged((IFile) resource);
+                                fileChanged((IFile) resource, changedProjects);
                             }
 
                             return true;
@@ -265,9 +290,11 @@ public class SpringExtSchemaResourceSet extends SpringExtSchemaSet {
                 } catch (CoreException ignored) {
                 }
             }
+
+            projectsChanged(changedProjects);
         }
 
-        private void fileChanged(IFile file) {
+        private void fileChanged(IFile file, Set<IProject> changedProjects) {
             String fileName = trimToNull(file.getName());
 
             if (fileName != null) {
@@ -278,32 +305,10 @@ public class SpringExtSchemaResourceSet extends SpringExtSchemaSet {
                                 .getContributionsLocationSuffix())
                         || fileName.endsWith(ContributionType.BEAN_DEFINITION_DECORATOR_FOR_ATTRIBUTE
                                 .getContributionsLocationSuffix()) || fileName.toLowerCase().endsWith(".xsd")) {
-                    projectChanged(file.getProject());
+
+                    addChangedProject(file.getProject(), changedProjects);
                 }
             }
-        }
-
-        private void projectChanged(IProject project) {
-            // 直接的classpath改变
-            projectCache.remove(project);
-
-            // 间接的classpath改变
-            IJavaProject javaProject = getJavaProject(project, false);
-
-            if (javaProject != null) {
-                for (Iterator<IProject> i = projectCache.keySet().iterator(); i.hasNext();) {
-                    IProject cachedProject = i.next();
-                    IJavaProject cachedJavaProject = getJavaProject(cachedProject, false);
-
-                    if (cachedJavaProject != null) {
-                        if (cachedJavaProject.isOnClasspath(javaProject)) {
-                            i.remove();
-                        }
-                    }
-                }
-            }
-
-            clearCache();
         }
     }
 }
