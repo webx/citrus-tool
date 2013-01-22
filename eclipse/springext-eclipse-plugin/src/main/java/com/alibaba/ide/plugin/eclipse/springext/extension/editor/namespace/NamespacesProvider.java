@@ -15,18 +15,23 @@ import org.eclipse.wst.xml.core.internal.provisional.document.IDOMDocument;
 
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.ConfigurationPointItem;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.ContributionItem;
+import com.alibaba.citrus.springext.support.SpringExtSchemaSet.NamespaceItem;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.SpringPluggableItem;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.TreeItem;
 import com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin;
 import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
+import com.alibaba.ide.plugin.eclipse.springext.util.SpringExtConfigUtil;
+import com.alibaba.ide.plugin.eclipse.springext.util.SpringExtConfigUtil.NamespaceDefinition;
 
 @SuppressWarnings("restriction")
 public class NamespacesProvider extends LabelProvider implements ITreePathLabelProvider, ITreeContentProvider,
         ICheckStateProvider {
     private SchemaResourceSet schemas;
+    private IDOMDocument document;
 
-    public NamespacesProvider(SchemaResourceSet schemas) {
+    public NamespacesProvider(SchemaResourceSet schemas, IDOMDocument document) {
         this.schemas = schemas;
+        this.document = document;
     }
 
     public Object[] getElements(Object inputElement) {
@@ -76,6 +81,13 @@ public class NamespacesProvider extends LabelProvider implements ITreePathLabelP
     }
 
     public boolean isChecked(Object element) {
+        if (element instanceof NamespaceItem) {
+            String namespace = ((NamespaceItem) element).getNamespace();
+            NamespaceDefinition nd = SpringExtConfigUtil.getNamespace(document, namespace);
+
+            return nd != null;
+        }
+
         return false;
     }
 

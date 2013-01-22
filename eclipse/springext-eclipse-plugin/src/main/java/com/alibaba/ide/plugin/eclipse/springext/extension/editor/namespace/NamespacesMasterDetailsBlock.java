@@ -72,7 +72,8 @@ public class NamespacesMasterDetailsBlock extends MasterDetailsBlock {
             }
         });
 
-        NamespacesProvider provider = new NamespacesProvider(page.getEditor().getSchemas());
+        NamespacesProvider provider = new NamespacesProvider(page.getEditor().getSchemas(), page.getEditor()
+                .getDomDocument());
 
         treeViewer.setContentProvider(provider);
         treeViewer.setLabelProvider(provider);
