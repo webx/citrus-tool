@@ -1,0 +1,36 @@
+发布指南
+
+源码库地址
+=========
+
+Git  Read-Only:         git://github.com/webx/citrus-tool.git
+HTTP Read+Write         https://github.com/webx/citrus-tool.git
+SSH  Read+Write         git@github.com:webx/citrus-tool.git
+
+Maven的配置（$HOME/.m2/settings.xml）
+====================================
+
+参见：https://github.com/webx/citrus/blob/master/DEPLOY.txt
+
+Maven库管理 - Staging
+=====================
+
+参见：https://github.com/webx/citrus/blob/master/DEPLOY.txt
+
+发布步骤
+========
+
+1. 发布
+
+cd citrus-tool
+mvn clean deploy -Pdeployment
+
+确保使用deployment profile，以便生成sonatype所需要的数字签名。
+部分子项目不会被发布，因为设置了 <deployment.skip>true</deployment.skip> 参数。
+
+2. 在应用中测试staging库，用sonatype profile，例如在应用的目录下执行：mvn jetty:run -Psonatype
+3. 在sonatype管理界面中promote项目到central maven repository
+4. 对发布版本创建tags
+5. 删除已发布的分支
+6. 创建新的开发分支
+
