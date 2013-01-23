@@ -9,7 +9,7 @@
     </parent>
     <artifactId>autoconfig-maven-plugin</artifactId>
     <packaging>maven-plugin</packaging>
-    <name>Maven plugin for autoconfig</name>
+    <name>Antx Auto-config Maven Plugin</name>
     <modelVersion>4.0.0</modelVersion>
     <dependencies>
         <dependency>

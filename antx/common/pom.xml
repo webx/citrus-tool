@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <parent>
         <groupId>com.alibaba.citrus.tool</groupId>
         <artifactId>antx-parent</artifactId>
@@ -11,6 +11,10 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>antx-common</artifactId>
     <name>Antx Common Utils</name>
+    <properties>
+        <!-- 此项目不发布 -->
+        <deployment.skip>true</deployment.skip>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.slf4j</groupId>

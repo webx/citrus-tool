@@ -10,7 +10,7 @@
     </parent>
     <artifactId>maven-util</artifactId>
     <packaging>jar</packaging>
-    <name>Maven plugin utils</name>
+    <name>Maven Plugin Utils</name>
     <modelVersion>4.0.0</modelVersion>
     <dependencies>
         <dependency>

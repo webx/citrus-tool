@@ -46,6 +46,7 @@
         <java.version>1.6</java.version>
         <java.encoding>UTF-8</java.encoding>
         <project.build.sourceEncoding>${java.encoding}</project.build.sourceEncoding>
+        <deployment.skip>false</deployment.skip>
         <gpg.skip>true</gpg.skip>
     </properties>
     <profiles>
@@ -145,6 +146,12 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>${deployment.skip}</skip>
+                </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-gpg-plugin</artifactId>

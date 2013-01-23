@@ -12,6 +12,8 @@
     <artifactId>springext-idea-plugin-deps</artifactId>
     <name>Intellij IDEA Tools Dependencies</name>
     <properties>
+        <!-- 此项目不发布 -->
+        <deployment.skip>true</deployment.skip>
         <webx-version>3.2.0</webx-version>
     </properties>
     <dependencies>
