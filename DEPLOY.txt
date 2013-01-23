@@ -26,7 +26,7 @@ cd citrus-tool
 mvn clean deploy -Pdeployment
 
 确保使用deployment profile，以便生成sonatype所需要的数字签名。
-部分子项目不会被发布，因为设置了 <deployment.skip>true</deployment.skip> 参数。
+并非所有子项目都会被发布，只有那些 maven-deploy-plugin.skip=false 的项目才会被发布。
 
 2. 在应用中测试staging库，用sonatype profile，例如在应用的目录下执行：mvn jetty:run -Psonatype
 3. 在sonatype管理界面中promote项目到central maven repository

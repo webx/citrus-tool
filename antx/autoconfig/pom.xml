@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <parent>
         <groupId>com.alibaba.citrus.tool</groupId>
         <artifactId>antx-parent</artifactId>
@@ -39,6 +39,13 @@
     </dependencies>
     <build>
         <plugins>
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <!-- 发布此项目 -->
+                    <skip>false</skip>
+                </configuration>
+            </plugin>
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
                 <executions>
@@ -84,7 +91,7 @@
                             </artifactSet>
                             <transformers>
                                 <transformer
-                                    implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>com.alibaba.antx.config.cli.Main</mainClass>
                                 </transformer>
                             </transformers>
@@ -124,22 +131,22 @@
                         <configuration>
                             <target>
                                 <concat destfile="${project.build.directory}/autoconfig"
-                                    binary="true">
+                                        binary="true">
 
                                     <filelist dir="${project.build.scriptSourceDirectory}"
-                                        files="scriptHeader.sh" />
+                                              files="scriptHeader.sh" />
 
                                     <filelist dir="${project.build.directory}"
-                                        files="antx-autoconfig-${project.version}.jar" />
+                                              files="antx-autoconfig-${project.version}.jar" />
 
                                 </concat>
 
                                 <chmod dir="${project.build.directory}" perm="ugo+rx"
-                                    includes="autoconfig" />
+                                       includes="autoconfig" />
 
                                 <tar longfile="gnu"
-                                    destfile="${project.build.directory}/autoconfig.tgz"
-                                    compression="gzip">
+                                     destfile="${project.build.directory}/autoconfig.tgz"
+                                     compression="gzip">
                                     <tarfileset dir="${project.build.directory}" mode="755">
                                         <include name="autoconfig" />
                                         <include name="autoconfig.exe" />

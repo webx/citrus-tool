@@ -15,6 +15,17 @@
     <properties>
         <jetty.version>8.1.7.v20120910</jetty.version>
     </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <!-- 发布此项目 -->
+                    <skip>false</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
     <dependencies>
         <dependency>
             <groupId>org.eclipse.jetty</groupId>

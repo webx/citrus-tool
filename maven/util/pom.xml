@@ -12,6 +12,17 @@
     <packaging>jar</packaging>
     <name>Maven Plugin Utils</name>
     <modelVersion>4.0.0</modelVersion>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <!-- 发布此项目 -->
+                    <skip>false</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
     <dependencies>
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
