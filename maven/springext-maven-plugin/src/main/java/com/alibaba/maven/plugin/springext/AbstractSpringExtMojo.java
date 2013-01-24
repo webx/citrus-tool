@@ -19,6 +19,7 @@ package com.alibaba.maven.plugin.springext;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -36,18 +37,18 @@ public abstract class AbstractSpringExtMojo extends AbstractMojo {
     /**
      * The maven project.
      *
-     * @parameter expression="${executedProject}"
+     * @parameter expression="${project}"
      * @required
      * @readonly
      */
-    protected MavenProject project;
+    private MavenProject project;
 
     /**
      * @parameter expression="${reactorProjects}"
      * @required
      * @readonly
      */
-    protected MavenProject[] projects;
+    private Object projects;
 
     /**
      * If true, the &lt;testOutputDirectory&gt; and the dependencies of
@@ -62,6 +63,21 @@ public abstract class AbstractSpringExtMojo extends AbstractMojo {
         return new DependencyLister().getDependencyFiles();
     }
 
+    protected final MavenProject getCurrentProject() {
+        return project;
+    }
+
+    protected final MavenProject[] getProjects() {
+        if (projects instanceof MavenProject[]) {
+            return (MavenProject[]) projects; // maven 3
+        } else if (projects instanceof Collection<?>) {
+            Collection<MavenProject> mavenProjects = (Collection<MavenProject>) projects; // maven 2
+            return mavenProjects.toArray(new MavenProject[mavenProjects.size()]);
+        } else {
+            return new MavenProject[0];
+        }
+    }
+
     private class DependencyLister {
         private final Set<String>    dependencyFileNames = new HashSet<String>();
         private final List<File>     dependencyFiles     = new ArrayList<File>();
@@ -74,7 +90,7 @@ public abstract class AbstractSpringExtMojo extends AbstractMojo {
         private List<File> getDependencyFiles() {
             getLog().info("Setting up classpath ...");
 
-            for (MavenProject project : projects) {
+            for (MavenProject project : getProjects()) {
                 String classesDirectory = project.getBuild().getOutputDirectory();
                 String testClassesDirectory = project.getBuild().getTestOutputDirectory();
 
@@ -89,7 +105,7 @@ public abstract class AbstractSpringExtMojo extends AbstractMojo {
 
             displayClasspath.add(null);
 
-            for (MavenProject project : projects) {
+            for (MavenProject project : getProjects()) {
                 for (Iterator i = project.getArtifacts().iterator(); i.hasNext(); ) {
                     Artifact artifact = (Artifact) i.next();
 

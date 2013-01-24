@@ -94,7 +94,7 @@ public class SpringExtRunnerMojo extends AbstractSpringExtMojo {
 
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {
-            getLog().info("Configuring Jetty for project: " + project.getName());
+            getLog().info("Configuring Jetty for project: " + getCurrentProject().getName());
 
             Server server = createServer();
             Connector connector = createConnector();
@@ -252,7 +252,7 @@ public class SpringExtRunnerMojo extends AbstractSpringExtMojo {
 
             if (result == null) {
                 throw new IOException("Could not find SchemaExporter resources.\n" + "Please make sure this project ("
-                                      + project.getId() + ") depends on \"com.alibaba.citrus:citrus-webx-all\"");
+                                      + getCurrentProject().getId() + ") or its sub-projects depends on \"com.alibaba.citrus:citrus-webx-all\"");
             }
 
             return result;

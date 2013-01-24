@@ -31,7 +31,7 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.codehaus.plexus.util.DirectoryScanner;
 
 /**
- * 将一个springext配置文件转换成unqualifed风格。
+ * Tool to convert a SpringExt configuration file into new unqualified-style for Webx 3.2.x.
  *
  * @author Michael Zhou
  * @goal convert
@@ -55,8 +55,8 @@ public class ConfigurationConvertMojo extends AbstractSpringExtMojo {
     }
 
     public String[] getExcludes() {
-        String basedir = project.getBasedir().getAbsolutePath();
-        String target = project.getBuild().getOutputDirectory();
+        String basedir = getCurrentProject().getBasedir().getAbsolutePath();
+        String target = getCurrentProject().getBuild().getOutputDirectory();
         String pattern = null;
 
         if (target.startsWith(basedir)) {

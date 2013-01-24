@@ -11,6 +11,7 @@
     <artifactId>springext-maven-plugin</artifactId>
     <packaging>maven-plugin</packaging>
     <name>SpringExt Maven Plugin</name>
+    <version>1.2</version>
     <modelVersion>4.0.0</modelVersion>
     <properties>
         <jetty.version>8.1.7.v20120910</jetty.version>
