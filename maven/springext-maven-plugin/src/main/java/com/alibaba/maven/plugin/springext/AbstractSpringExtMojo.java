@@ -55,9 +55,9 @@ public abstract class AbstractSpringExtMojo extends AbstractMojo {
      * &lt;scope&gt;test&lt;scope&gt; will be put first on the runtime
      * classpath.
      *
-     * @parameter expression="${useTestClasspath}" default-value="false"
+     * @parameter expression="${noTestClasspath}" default-value="false"
      */
-    private boolean useTestClasspath;
+    private boolean noTestClasspath;
 
     protected List<File> createClassPath() {
         return new DependencyLister().getDependencyFiles();
@@ -88,13 +88,16 @@ public abstract class AbstractSpringExtMojo extends AbstractMojo {
         private       int            width3              = -1;
 
         private List<File> getDependencyFiles() {
-            getLog().info("Setting up classpath ...");
+            getLog().info("Setting up classpath ..."
+                          + (noTestClasspath ? ""
+                                             : "\n  (includes test files, " +
+                                               "use \"-DnoTestClasspath\" to get rid of it)\n"));
 
             for (MavenProject project : getProjects()) {
                 String classesDirectory = project.getBuild().getOutputDirectory();
                 String testClassesDirectory = project.getBuild().getTestOutputDirectory();
 
-                if (useTestClasspath && testClassesDirectory != null) {
+                if (!noTestClasspath && testClassesDirectory != null) {
                     addDependency(new File(testClassesDirectory), project, Artifact.SCOPE_TEST);
                 }
 
@@ -112,7 +115,7 @@ public abstract class AbstractSpringExtMojo extends AbstractMojo {
                     if (artifact != null && "jar".equals(artifact.getType())) {
                         String scope = artifact.getScope();
 
-                        if (!artifact.isOptional() && !Artifact.SCOPE_PROVIDED.equals(scope) && (useTestClasspath || !Artifact.SCOPE_TEST.equals(scope))) {
+                        if (!artifact.isOptional() && !Artifact.SCOPE_PROVIDED.equals(scope) && (!noTestClasspath || !Artifact.SCOPE_TEST.equals(scope))) {
                             addDependency(artifact.getFile(), project, scope);
                         }
                     }
