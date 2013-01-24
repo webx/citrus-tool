@@ -119,9 +119,9 @@ public class ConfigurationConvertMojo extends AbstractSpringExtMojo {
         scanner.setExcludes(excludes);
 
         getLog().info("Looking for files in \n" +
-                      "  basedir  =" + scanner.getBasedir().getAbsolutePath() + "\n"
-                      + "  includes =" + Arrays.toString(includes) + "\n"
-                      + "  excludes =" + Arrays.toString(excludes));
+                      "  basedir  = " + scanner.getBasedir().getAbsolutePath() + "\n"
+                      + "  includes = " + Arrays.toString(includes) + "\n"
+                      + "  excludes = " + Arrays.toString(excludes));
 
         scanner.scan();
 
