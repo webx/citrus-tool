@@ -59,11 +59,11 @@ public class SpringExtPlugin extends AbstractUIPlugin implements SpringExtConsta
         }
     }
 
-    public void registerSchemaSetChangeListener(ISchemaSetChangeListener listener) {
+    public void addSchemaSetChangeListener(ISchemaSetChangeListener listener) {
         schemaSetChangeListeners.put(listener, listener);
     }
 
-    public void unregisterSchemaSetChangeListener(ISchemaSetChangeListener listener) {
+    public void removeSchemaSetChangeListener(ISchemaSetChangeListener listener) {
         schemaSetChangeListeners.remove(listener);
     }
 
