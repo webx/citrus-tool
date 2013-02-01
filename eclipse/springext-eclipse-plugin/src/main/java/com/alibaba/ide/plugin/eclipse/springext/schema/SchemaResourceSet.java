@@ -1,7 +1,6 @@
 package com.alibaba.ide.plugin.eclipse.springext.schema;
 
 import static com.alibaba.citrus.springext.support.SchemaUtil.*;
-import static com.alibaba.citrus.util.Assert.*;
 import static com.alibaba.citrus.util.CollectionUtil.*;
 import static com.alibaba.citrus.util.StringUtil.*;
 import static com.alibaba.ide.plugin.eclipse.springext.SpringExtConstant.*;
@@ -18,6 +17,7 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -35,7 +35,9 @@ import org.eclipse.jdt.core.IJavaElementDelta;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.launching.JavaRuntime;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.wst.internet.cache.internal.Cache;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -55,6 +57,7 @@ public class SchemaResourceSet extends SpringExtSchemaSet {
     private static final Resource[] NO_RESOURCE = new Resource[0];
     private static final Logger log = LoggerFactory.getLogger(SchemaResourceSet.class);
     private static final ConcurrentMap<IProject, Future<SchemaResourceSet>> projectCache = createConcurrentHashMap();
+    private static final AtomicBoolean hasError = new AtomicBoolean(false);
     private final IProject project;
     private final Throwable error;
     private final boolean successful;
@@ -99,6 +102,10 @@ public class SchemaResourceSet extends SpringExtSchemaSet {
         return error;
     }
 
+    public String getErrorMessage() {
+        return error == null ? "" : error.getMessage();
+    }
+
     @Nullable
     public Schema findSchemaByUrl(String url) {
         Schema schema = null;
@@ -125,14 +132,14 @@ public class SchemaResourceSet extends SpringExtSchemaSet {
      * 
      * @return 如果document不存在于某个project，则返回<code>null</code>
      */
-    @Nullable
+    @NotNull
     public static SchemaResourceSet getInstance(IDocument document) {
         IProject project = getProjectFromDocument(document);
 
         if (project != null) {
             return getInstance(project);
         } else {
-            return null;
+            return getInstanceInternal(null, "Document is not belong to a project: " + document);
         }
     }
 
@@ -144,59 +151,98 @@ public class SchemaResourceSet extends SpringExtSchemaSet {
      */
     @NotNull
     public static SchemaResourceSet getInstance(IProject project) {
-        assertNotNull(project, "project");
+        IJavaProject javaProject = getJavaProject(project, true);
 
-        Future<SchemaResourceSet> future = projectCache.get(project);
+        if (javaProject != null) {
+            return getInstanceInternal(javaProject, null);
+        } else {
+            return getInstanceInternal(null, (project == null ? "null" : project.getName()) + " is not a Java project");
+        }
+    }
 
-        if (future == null) {
-            final IJavaProject javaProject = getJavaProject(project, true);
+    private static SchemaResourceSet getInstanceInternal(final IJavaProject javaProject, String errorMessage) {
+        SchemaResourceSet schemas = null;
 
-            if (javaProject == null) {
-                return null;
-            }
-
-            FutureTask<SchemaResourceSet> futureTask = new FutureTask<SchemaResourceSet>(
-                    new Callable<SchemaResourceSet>() {
-                        public SchemaResourceSet call() throws Exception {
-                            if (log.isDebugEnabled()) {
-                                log.debug("Recompute schemas for project {}", javaProject.getProject().getName());
-                            }
-
-                            return computeSchemas(javaProject);
-                        }
-                    });
-
-            future = projectCache.putIfAbsent(project, futureTask);
+        if (javaProject == null) {
+            schemas = createEmptySet(null, errorMessage);
+        } else {
+            IProject project = javaProject.getProject();
+            Future<SchemaResourceSet> future = projectCache.get(project);
 
             if (future == null) {
-                future = futureTask;
-                futureTask.run();
+                FutureTask<SchemaResourceSet> futureTask = new FutureTask<SchemaResourceSet>(
+                        new Callable<SchemaResourceSet>() {
+                            public SchemaResourceSet call() throws Exception {
+                                if (log.isDebugEnabled()) {
+                                    log.debug("Recompute schemas for project {}", javaProject.getProject().getName());
+                                }
+
+                                return computeSchemas(javaProject);
+                            }
+                        });
+
+                future = projectCache.putIfAbsent(project, futureTask);
+
+                if (future == null) {
+                    future = futureTask;
+                    futureTask.run();
+                }
+            }
+
+            Throwable error = null;
+
+            try {
+                schemas = future.get();
+            } catch (Exception e) {
+                error = e;
+            }
+
+            if (schemas == null) {
+                schemas = createEmptySet(project, error);
             }
         }
 
-        SchemaResourceSet schemas = null;
-        Throwable error = null;
+        boolean hasErrorThisTime = !schemas.isSuccessful();
+        boolean hadErrorLastTime = hasError.getAndSet(hasErrorThisTime);
 
-        try {
-            schemas = future.get();
-        } catch (ExecutionException e) {
-            error = e.getCause();
-        } catch (Exception e) {
-            error = e;
-        }
+        // 防止重复报错
+        if (hasErrorThisTime && !hadErrorLastTime) {
+            final String message = schemas.getErrorMessage();
 
-        if (schemas == null) {
-            schemas = new SchemaResourceSet(project, error);
+            Display.getDefault().syncExec(new Runnable() {
+                public void run() {
+                    MessageDialog.openError(Display.getDefault().getActiveShell(), "Could not compute SchemaSet",
+                            "Could not compute SchemaSet.\n\n"
+                                    + "XML validation will fail until this problem is solved.\n\n" + message);
+                }
+            });
         }
 
         return schemas;
     }
 
-    @NotNull
-    private static SchemaResourceSet computeSchemas(IJavaProject javaProject) throws Exception {
-        SchemaResourceSet schemas = new SchemaResourceSet(createClassLoader(javaProject), javaProject.getProject());
+    private static SchemaResourceSet createEmptySet(IProject project, String message) {
+        return createEmptySet(project, new RuntimeException(message));
+    }
 
-        schemas.transformAll(getAddPrefixTransformer(schemas, URL_PREFIX));
+    private static SchemaResourceSet createEmptySet(IProject project, Throwable error) {
+        if (error instanceof ExecutionException) {
+            error = error.getCause();
+        }
+
+        return new SchemaResourceSet(project, error);
+    }
+
+    @NotNull
+    private static SchemaResourceSet computeSchemas(IJavaProject javaProject) {
+        SchemaResourceSet schemas;
+
+        try {
+            schemas = new SchemaResourceSet(createClassLoader(javaProject), javaProject.getProject());
+            schemas.transformAll(getAddPrefixTransformer(schemas, URL_PREFIX));
+        } catch (Exception e) {
+            schemas = createEmptySet(javaProject.getProject(), e);
+        }
 
         return schemas;
     }
