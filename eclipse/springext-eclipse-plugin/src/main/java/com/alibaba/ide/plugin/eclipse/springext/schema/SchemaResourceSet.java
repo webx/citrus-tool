@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentMap;
@@ -50,13 +51,14 @@ import com.alibaba.citrus.springext.ResourceResolver.Resource;
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.support.ClasspathResourceResolver;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet;
-import com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin;
+import com.alibaba.ide.plugin.eclipse.springext.schema.ISchemaSetChangeListener.SchemaSetChangeEvent;
 
 @SuppressWarnings("restriction")
 public class SchemaResourceSet extends SpringExtSchemaSet {
     private static final Resource[] NO_RESOURCE = new Resource[0];
     private static final Logger log = LoggerFactory.getLogger(SchemaResourceSet.class);
     private static final ConcurrentMap<IProject, Future<SchemaResourceSet>> projectCache = createConcurrentHashMap();
+    private static final Map<ISchemaSetChangeListener, ISchemaSetChangeListener> schemaSetChangeListeners = createConcurrentHashMap();
     private static final AtomicBoolean hasError = new AtomicBoolean(false);
     private final IProject project;
     private final Throwable error;
@@ -259,6 +261,20 @@ public class SchemaResourceSet extends SpringExtSchemaSet {
         return new URLClassLoader(urls);
     }
 
+    private static void notifySchemaSetChangeListeners(IProject project) {
+        for (ISchemaSetChangeListener listener : schemaSetChangeListeners.keySet()) {
+            listener.onSchemaSetChanged(new SchemaSetChangeEvent(project));
+        }
+    }
+
+    public static void addSchemaSetChangeListener(ISchemaSetChangeListener listener) {
+        schemaSetChangeListeners.put(listener, listener);
+    }
+
+    public static void removeSchemaSetChangeListener(ISchemaSetChangeListener listener) {
+        schemaSetChangeListeners.remove(listener);
+    }
+
     public static void registerChangedListener() {
         JavaCore.addElementChangedListener(new ClasspathChangeListener(), ElementChangedEvent.POST_CHANGE);
         ResourcesPlugin.getWorkspace().addResourceChangeListener(new ResourceChangeListener(),
@@ -278,7 +294,7 @@ public class SchemaResourceSet extends SpringExtSchemaSet {
             if (!changedProjects.isEmpty()) {
                 for (IProject project : changedProjects) {
                     projectCache.remove(project);
-                    SpringExtPlugin.getDefault().notifySchemaSetChangeListeners(project);
+                    notifySchemaSetChangeListeners(project);
                 }
 
                 clearInternetCache();
