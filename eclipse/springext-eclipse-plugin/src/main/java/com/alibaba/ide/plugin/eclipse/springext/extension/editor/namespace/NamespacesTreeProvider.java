@@ -1,9 +1,5 @@
 package com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace;
 
-import static com.alibaba.citrus.util.CollectionUtil.*;
-
-import java.util.LinkedList;
-
 import org.eclipse.jface.viewers.ICheckStateProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.ITreePathLabelProvider;
@@ -23,11 +19,11 @@ import com.alibaba.ide.plugin.eclipse.springext.extension.editor.SpringExtConfig
 import com.alibaba.ide.plugin.eclipse.springext.util.DomDocumentUtil;
 
 @SuppressWarnings("restriction")
-public class NamespacesProvider extends LabelProvider implements ITreePathLabelProvider, ITreeContentProvider,
+public class NamespacesTreeProvider extends LabelProvider implements ITreePathLabelProvider, ITreeContentProvider,
         ICheckStateProvider {
     private final SpringExtConfig config;
 
-    public NamespacesProvider(SpringExtConfig config) {
+    public NamespacesTreeProvider(SpringExtConfig config) {
         this.config = config;
     }
 
@@ -48,13 +44,37 @@ public class NamespacesProvider extends LabelProvider implements ITreePathLabelP
     }
 
     public Object getParent(Object element) {
-        TreePath[] paths = getParents(element);
+        if (config.getSchemas() != null) {
+            for (TreeItem item : config.getSchemas().getIndependentItems()) {
+                if (item == element) {
+                    return null;
+                }
 
-        if (paths.length > 0) {
-            return paths[0].getLastSegment();
-        } else {
-            return null;
+                TreeItem found = find(item, null, element);
+
+                if (found != null) {
+                    return found;
+                }
+            }
         }
+
+        return null;
+    }
+
+    private TreeItem find(TreeItem item, TreeItem parent, Object element) {
+        if (item == element) {
+            return parent;
+        }
+
+        for (TreeItem child : item.getChildren()) {
+            TreeItem found = find(child, item, element);
+
+            if (found != null) {
+                return found;
+            }
+        }
+
+        return null;
     }
 
     public void dispose() {
@@ -103,34 +123,5 @@ public class NamespacesProvider extends LabelProvider implements ITreePathLabelP
 
     private TreeItem getTreeItem(TreePath parentPath) {
         return (TreeItem) parentPath.getLastSegment();
-    }
-
-    private TreePath[] getParents(Object element) {
-        LinkedList<TreeItem> path = createLinkedList();
-        LinkedList<TreePath> allPaths = createLinkedList();
-
-        if (config.getSchemas() != null) {
-            for (TreeItem item : config.getSchemas().getIndependentItems()) {
-                visit(item, path, element, allPaths);
-            }
-        }
-
-        return allPaths.toArray(new TreePath[allPaths.size()]);
-    }
-
-    private void visit(TreeItem item, LinkedList<TreeItem> path, Object element, LinkedList<TreePath> allPaths) {
-        if (item == element) {
-            allPaths.add(new TreePath(path.toArray()));
-        }
-
-        try {
-            path.addLast(item);
-
-            for (TreeItem child : item.getChildren()) {
-                visit(child, path, element, allPaths);
-            }
-        } finally {
-            path.removeLast();
-        }
     }
 }

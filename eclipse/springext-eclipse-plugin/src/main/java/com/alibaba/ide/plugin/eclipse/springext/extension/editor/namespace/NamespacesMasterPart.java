@@ -84,7 +84,7 @@ public class NamespacesMasterPart extends SectionPart {
             }
         });
 
-        NamespacesProvider provider = new NamespacesProvider(config);
+        NamespacesTreeProvider provider = new NamespacesTreeProvider(config);
 
         treeViewer.setContentProvider(provider);
         treeViewer.setLabelProvider(provider);
