@@ -15,16 +15,21 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.dialogs.FilteredTree;
 import org.eclipse.ui.dialogs.PatternFilter;
 import org.eclipse.ui.forms.SectionPart;
+import org.eclipse.ui.forms.events.HyperlinkAdapter;
+import org.eclipse.ui.forms.events.HyperlinkEvent;
 import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.ui.forms.widgets.ImageHyperlink;
 import org.eclipse.ui.forms.widgets.Section;
 
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.ContributionItem;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.NamespaceItem;
+import com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin;
 import com.alibaba.ide.plugin.eclipse.springext.extension.editor.SpringExtConfig;
 
 public class NamespacesMasterPart extends SectionPart {
     private final SpringExtConfig config;
     private final FormToolkit toolkit;
+    private FilteredCheckboxTree tree;
     private CheckboxTreeViewer treeViewer;
 
     public NamespacesMasterPart(Composite parent, NamespacesPage page) {
@@ -38,6 +43,10 @@ public class NamespacesMasterPart extends SectionPart {
         return treeViewer;
     }
 
+    public FilteredTree getTree() {
+        return tree;
+    }
+
     public void createContents() {
         // section
         Section section = getSection();
@@ -47,17 +56,33 @@ public class NamespacesMasterPart extends SectionPart {
         section.marginWidth = 10;
         section.marginHeight = 5;
 
+        // section/textClient
+        Composite textClient = toolkit.createComposite(section, SWT.NO_BACKGROUND);
+        GridLayout layout = new GridLayout();
+        layout.numColumns = 2;
+        textClient.setLayout(layout);
+
+        ImageHyperlink collapseButton = toolkit.createImageHyperlink(textClient, SWT.NO_BACKGROUND | SWT.NO_FOCUS);
+        collapseButton.setImage(SpringExtPlugin.getDefault().getImageRegistry().get("collapse"));
+        collapseButton.setToolTipText("Collapse All");
+
+        ImageHyperlink expandButton = toolkit.createImageHyperlink(textClient, SWT.NO_BACKGROUND | SWT.NO_FOCUS);
+        expandButton.setImage(SpringExtPlugin.getDefault().getImageRegistry().get("expand"));
+        expandButton.setToolTipText("Expand All");
+
+        section.setTextClient(textClient);
+
         // section/client
         Composite client = toolkit.createComposite(section, SWT.WRAP);
-        GridLayout layout = new GridLayout();
+        layout = new GridLayout();
         layout.numColumns = 1;
         layout.marginWidth = 2;
         layout.marginHeight = 2;
         client.setLayout(layout);
 
         // section/client/tree
-        FilteredCheckboxTree tree = new FilteredCheckboxTree(toolkit, client, SWT.CHECK | SWT.SINGLE | SWT.V_SCROLL
-                | SWT.H_SCROLL | SWT.BORDER, new SchemaPatternfilter(), true);
+        tree = new FilteredCheckboxTree(toolkit, client, SWT.CHECK | SWT.SINGLE | SWT.V_SCROLL | SWT.H_SCROLL
+                | SWT.BORDER, new SchemaPatternfilter(), true);
 
         GridData gd = new GridData(GridData.FILL_BOTH);
         gd.heightHint = 20;
@@ -80,6 +105,7 @@ public class NamespacesMasterPart extends SectionPart {
             public void checkStateChanged(CheckStateChangedEvent event) {
                 if (event.getElement() instanceof NamespaceItem) {
                     updateNamespaceDefinition(config, (NamespaceItem) event.getElement(), event.getChecked());
+                    treeViewer.refresh();
                 }
             }
         });
@@ -90,6 +116,18 @@ public class NamespacesMasterPart extends SectionPart {
         treeViewer.setLabelProvider(provider);
         treeViewer.setCheckStateProvider(provider);
         treeViewer.setInput(config.getDomDocument());
+
+        collapseButton.addHyperlinkListener(new HyperlinkAdapter() {
+            public void linkActivated(HyperlinkEvent e) {
+                treeViewer.collapseAll();
+            }
+        });
+
+        expandButton.addHyperlinkListener(new HyperlinkAdapter() {
+            public void linkActivated(HyperlinkEvent e) {
+                treeViewer.expandAll();
+            }
+        });
     }
 
     @Override
