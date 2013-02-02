@@ -1,5 +1,8 @@
 package com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace;
 
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IAction;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.DetailsPart;
 import org.eclipse.ui.forms.IDetailsPage;
@@ -12,6 +15,7 @@ import org.eclipse.ui.forms.widgets.ScrolledForm;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.ConfigurationPointItem;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.ContributionItem;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.SpringPluggableItem;
+import com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin;
 import com.alibaba.ide.plugin.eclipse.springext.extension.editor.SpringExtConfig;
 import com.alibaba.ide.plugin.eclipse.springext.extension.editor.SpringExtConfigEditor;
 import com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.detail.SpringPluggableItemDetailsPage;
@@ -88,6 +92,36 @@ public class NamespacesPage extends FormPage implements IDetailsPageProvider {
 
         @Override
         protected void createToolBarActions(IManagedForm managedForm) {
+            final ScrolledForm form = managedForm.getForm();
+
+            // horizontal button
+            Action haction = new Action("horizontal", IAction.AS_RADIO_BUTTON) {
+                @Override
+                public void run() {
+                    sashForm.setOrientation(SWT.HORIZONTAL);
+                    form.reflow(true);
+                }
+            };
+
+            haction.setChecked(true);
+            haction.setToolTipText("Horizontal orientation");
+            haction.setImageDescriptor(SpringExtPlugin.getDefault().getImageRegistry().getDescriptor("horizontal"));
+
+            // vertical button
+            Action vaction = new Action("vertical", IAction.AS_RADIO_BUTTON) {
+                @Override
+                public void run() {
+                    sashForm.setOrientation(SWT.VERTICAL);
+                    form.reflow(true);
+                }
+            };
+
+            vaction.setChecked(false);
+            vaction.setToolTipText("Vertical orientation");
+            vaction.setImageDescriptor(SpringExtPlugin.getDefault().getImageRegistry().getDescriptor("vertical"));
+
+            form.getToolBarManager().add(haction);
+            form.getToolBarManager().add(vaction);
         }
     }
 }
