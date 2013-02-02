@@ -3,6 +3,7 @@ package com.alibaba.ide.plugin.eclipse.springext.util;
 import static com.alibaba.citrus.util.CollectionUtil.*;
 import static com.alibaba.citrus.util.StringUtil.*;
 
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -57,46 +58,58 @@ public abstract class DocumentVisitor {
 
     protected final void visitChildren() {
         NodeList children = element.getChildNodes();
+        List<IDOMElement> elements = createLinkedList();
 
+        // 复制elements，以便子类可以修改当前的element。
         for (int i = 0; i < children.getLength(); i++) {
             Node node = children.item(i);
 
             if (node instanceof IDOMElement) {
-                IDOMElement currentElement = element;
+                elements.add((IDOMElement) node);
+            }
+        }
 
-                try {
-                    element = (IDOMElement) node;
-                    visitElement();
+        for (IDOMElement node : elements) {
+            IDOMElement currentElement = element;
 
-                    if (!continueToNextChild()) {
-                        break;
-                    }
-                } finally {
-                    element = currentElement;
+            try {
+                element = node;
+                visitElement();
+
+                if (!continueToNextChild()) {
+                    break;
                 }
+            } finally {
+                element = currentElement;
             }
         }
     }
 
     protected final void visitAttributes() {
         NamedNodeMap attrs = element.getAttributes();
+        List<IDOMAttr> attrList = createLinkedList();
 
+        // 复制attributes，以便子类可以修改当前的attribute。
         for (int i = 0; i < attrs.getLength(); i++) {
             Node node = attrs.item(i);
 
             if (node instanceof IDOMAttr) {
-                IDOMAttr currentAttr = attribute;
+                attrList.add((IDOMAttr) node);
+            }
+        }
 
-                try {
-                    attribute = (IDOMAttr) node;
-                    visitAttribute();
+        for (IDOMAttr node : attrList) {
+            IDOMAttr currentAttr = attribute;
 
-                    if (!continueToNextAttribute()) {
-                        break;
-                    }
-                } finally {
-                    attribute = currentAttr;
+            try {
+                attribute = (IDOMAttr) node;
+                visitAttribute();
+
+                if (!continueToNextAttribute()) {
+                    break;
                 }
+            } finally {
+                attribute = currentAttr;
             }
         }
     }
@@ -115,8 +128,8 @@ public abstract class DocumentVisitor {
         return null;
     }
 
-    private final static String NS_XSI = "http://www.w3.org/2001/XMLSchema-instance";
-    private final static String ATTR_SCHEMA_LOCATION = "schemaLocation";
+    protected final static String NS_XSI = "http://www.w3.org/2001/XMLSchema-instance";
+    protected final static String ATTR_SCHEMA_LOCATION = "schemaLocation";
     private final static Pattern XMLNS_PATTERN = Pattern.compile("xmlns(:(.*))?", Pattern.CASE_INSENSITIVE);
 
     protected final void parseSchemaLocations() {
