@@ -29,7 +29,7 @@ public abstract class DocumentVisitor {
     protected IDOMAttr attribute;
 
     public void accept(IDOMDocument document) {
-        Element rootElement = document.getDocumentElement();
+        Element rootElement = document == null ? null : document.getDocumentElement();
 
         if (rootElement instanceof IDOMElement) {
             element = (IDOMElement) rootElement;

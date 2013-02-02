@@ -19,24 +19,21 @@ import com.alibaba.citrus.springext.support.SpringExtSchemaSet.NamespaceItem;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.SpringPluggableItem;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.TreeItem;
 import com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin;
-import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
-import com.alibaba.ide.plugin.eclipse.springext.util.SpringExtConfigUtil;
-import com.alibaba.ide.plugin.eclipse.springext.util.SpringExtConfigUtil.NamespaceDefinition;
+import com.alibaba.ide.plugin.eclipse.springext.extension.editor.SpringExtConfig;
+import com.alibaba.ide.plugin.eclipse.springext.util.DomDocumentUtil;
 
 @SuppressWarnings("restriction")
 public class NamespacesProvider extends LabelProvider implements ITreePathLabelProvider, ITreeContentProvider,
         ICheckStateProvider {
-    private SchemaResourceSet schemas;
-    private IDOMDocument document;
+    private final SpringExtConfig config;
 
-    public NamespacesProvider(SchemaResourceSet schemas, IDOMDocument document) {
-        this.schemas = schemas;
-        this.document = document;
+    public NamespacesProvider(SpringExtConfig config) {
+        this.config = config;
     }
 
     public Object[] getElements(Object inputElement) {
-        if (inputElement instanceof IDOMDocument) {
-            return schemas.getIndependentItems();
+        if (inputElement instanceof IDOMDocument && config.getSchemas() != null) {
+            return config.getSchemas().getIndependentItems();
         }
 
         return new Object[0];
@@ -82,13 +79,22 @@ public class NamespacesProvider extends LabelProvider implements ITreePathLabelP
 
     public boolean isChecked(Object element) {
         if (element instanceof NamespaceItem) {
-            String namespace = ((NamespaceItem) element).getNamespace();
-            NamespaceDefinition nd = SpringExtConfigUtil.getNamespace(document, namespace);
+            return isChecked((NamespaceItem) element);
+        } else if (element instanceof ContributionItem) {
+            boolean checked = false;
 
-            return nd != null;
+            for (TreeItem item : ((ContributionItem) element).getChildren()) {
+                checked |= isChecked((NamespaceItem) item);
+            }
+
+            return checked;
         }
 
         return false;
+    }
+
+    private boolean isChecked(NamespaceItem item) {
+        return DomDocumentUtil.getNamespace(config.getDomDocument(), item.getNamespace()) != null;
     }
 
     public boolean isGrayed(Object element) {
@@ -103,8 +109,10 @@ public class NamespacesProvider extends LabelProvider implements ITreePathLabelP
         LinkedList<TreeItem> path = createLinkedList();
         LinkedList<TreePath> allPaths = createLinkedList();
 
-        for (TreeItem item : schemas.getIndependentItems()) {
-            visit(item, path, element, allPaths);
+        if (config.getSchemas() != null) {
+            for (TreeItem item : config.getSchemas().getIndependentItems()) {
+                visit(item, path, element, allPaths);
+            }
         }
 
         return allPaths.toArray(new TreePath[allPaths.size()]);

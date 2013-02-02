@@ -1,30 +1,52 @@
 package com.alibaba.ide.plugin.eclipse.springext.extension.editor;
 
+import static com.alibaba.citrus.util.Assert.*;
+
 import java.io.IOException;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jface.viewers.CheckboxTreeViewer;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.forms.IFormPart;
 import org.eclipse.wst.sse.core.StructuredModelManager;
 import org.eclipse.wst.sse.core.internal.provisional.IStructuredModel;
+import org.eclipse.wst.sse.ui.internal.StructuredTextViewer;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMDocument;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMModel;
 
+import com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.NamespacesMasterPart;
+import com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.NamespacesPage;
+import com.alibaba.ide.plugin.eclipse.springext.schema.ISchemaSetChangeListener;
 import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
 
 /**
  * 这是SpringExt config editor的核心对象，其中保存了要编辑的文档内容，以及相关的对象。
+ * <p/>
+ * 此外，它还负责：
+ * <ul>
+ * <li>当schemas被改变时，更新namespaces列表。</li>
+ * </ul>
  * 
  * @author Michael Zhou
  */
 @SuppressWarnings("restriction")
-public class SpringExtConfig {
+public class SpringExtConfig implements ISchemaSetChangeListener {
+    private final SpringExtConfigEditor editor;
     private IProject project;
     private IFile editingFile;
 
     private IDOMModel model;
     private IDOMDocument domDocument;
     private SchemaResourceSet schemas;
+
+    private StructuredTextViewer textViewer;
+    private CheckboxTreeViewer namespacesTreeViewer;
+
+    public SpringExtConfig(SpringExtConfigEditor editor) {
+        this.editor = assertNotNull(editor, "no editor");
+    }
 
     public IProject getProject() {
         return project;
@@ -40,6 +62,34 @@ public class SpringExtConfig {
 
     public SchemaResourceSet getSchemas() {
         return schemas;
+    }
+
+    public StructuredTextViewer getTextViewer() {
+        if (textViewer == null) {
+            textViewer = editor.getSourceEditor().getTextViewer();
+        }
+
+        return textViewer;
+    }
+
+    public CheckboxTreeViewer getNamespacesTreeViewer() {
+        if (namespacesTreeViewer == null) {
+            NamespacesPage page = editor.getNamespacesPage();
+            NamespacesMasterPart masterPart = null;
+
+            for (IFormPart part : page.getManagedForm().getParts()) {
+                if (part instanceof NamespacesMasterPart) {
+                    masterPart = (NamespacesMasterPart) part;
+                    break;
+                }
+            }
+
+            if (masterPart != null) {
+                namespacesTreeViewer = masterPart.getViewer();
+            }
+        }
+
+        return namespacesTreeViewer;
     }
 
     /**
@@ -64,16 +114,11 @@ public class SpringExtConfig {
                 this.model = (IDOMModel) structModel;
                 this.domDocument = model.getDocument();
                 this.schemas = SchemaResourceSet.getInstance(project);
+
+                SchemaResourceSet.addSchemaSetChangeListener(this);
             } else {
                 structModel.releaseFromEdit();
             }
-        }
-    }
-
-    private void releaseModel() {
-        if (model != null) {
-            model.releaseFromEdit();
-            model = null;
         }
     }
 
@@ -81,9 +126,22 @@ public class SpringExtConfig {
      * 当schemas被更新时，此方法被调用。
      * <p/>
      * 例如，用户修改了<code>*.bean-definition-parsers</code>文件，或者调整了classpath。
+     * 
+     * @see ISchemaSetChangeListener
      */
-    public void updateSchemas() {
-        schemas = SchemaResourceSet.getInstance(project);
+    public void onSchemaSetChanged(SchemaSetChangeEvent event) {
+        // 仅当发生变化的project和当前所编辑的文件所在的project是同一个时，才作反应。
+        if (event.getProject().equals(project)) {
+            schemas = SchemaResourceSet.getInstance(project);
+
+            final CheckboxTreeViewer viewer = getNamespacesTreeViewer();
+
+            Display.getDefault().syncExec(new Runnable() {
+                public void run() {
+                    viewer.setInput(domDocument);
+                }
+            });
+        }
     }
 
     /**
@@ -91,5 +149,13 @@ public class SpringExtConfig {
      */
     public void dispose() {
         releaseModel();
+        SchemaResourceSet.removeSchemaSetChangeListener(this);
+    }
+
+    private void releaseModel() {
+        if (model != null) {
+            model.releaseFromEdit();
+            model = null;
+        }
     }
 }

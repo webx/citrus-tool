@@ -20,6 +20,7 @@ import org.eclipse.jface.text.IRegion;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.sse.core.StructuredModelManager;
 import org.eclipse.wst.sse.core.internal.provisional.IStructuredModel;
@@ -119,8 +120,16 @@ public class SpringExtPluginUtil {
         IEditorInput input = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor()
                 .getEditorInput();
 
+        return getProjectFromInput(input);
+    }
+
+    public static IProject getProjectFromInput(IEditorInput input) {
         if (input instanceof IProjectAware) {
             return ((IProjectAware) input).getProject();
+        }
+
+        if (input instanceof IFileEditorInput) {
+            return ((IFileEditorInput) input).getFile().getProject();
         }
 
         return null;

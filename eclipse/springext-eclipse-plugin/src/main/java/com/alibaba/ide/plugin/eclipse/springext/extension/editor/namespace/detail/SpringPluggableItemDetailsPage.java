@@ -1,4 +1,4 @@
-package com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace;
+package com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.detail;
 
 import static com.alibaba.citrus.util.ArrayUtil.*;
 

@@ -4,6 +4,7 @@ import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.FormPage;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 
+import com.alibaba.ide.plugin.eclipse.springext.extension.editor.SpringExtConfig;
 import com.alibaba.ide.plugin.eclipse.springext.extension.editor.SpringExtConfigEditor;
 
 public class NamespacesPage extends FormPage {
@@ -15,9 +16,8 @@ public class NamespacesPage extends FormPage {
         this.block = new NamespacesMasterDetailsBlock(this);
     }
 
-    @Override
-    public SpringExtConfigEditor getEditor() {
-        return (SpringExtConfigEditor) super.getEditor();
+    public SpringExtConfig getConfig() {
+        return ((SpringExtConfigEditor) super.getEditor()).getConfig();
     }
 
     @Override
@@ -26,5 +26,14 @@ public class NamespacesPage extends FormPage {
         form.setText(getTitle());
 
         block.createContent(managedForm);
+    }
+
+    @Override
+    public void setActive(boolean active) {
+        super.setActive(active);
+
+        if (active) {
+            block.getMasterPart().markStale();
+        }
     }
 }
