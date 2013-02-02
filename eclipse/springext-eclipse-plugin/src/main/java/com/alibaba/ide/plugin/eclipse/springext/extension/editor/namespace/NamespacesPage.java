@@ -1,23 +1,39 @@
 package com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace;
 
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.forms.DetailsPart;
+import org.eclipse.ui.forms.IDetailsPage;
+import org.eclipse.ui.forms.IDetailsPageProvider;
 import org.eclipse.ui.forms.IManagedForm;
+import org.eclipse.ui.forms.MasterDetailsBlock;
 import org.eclipse.ui.forms.editor.FormPage;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 
+import com.alibaba.citrus.springext.support.SpringExtSchemaSet.ConfigurationPointItem;
+import com.alibaba.citrus.springext.support.SpringExtSchemaSet.ContributionItem;
+import com.alibaba.citrus.springext.support.SpringExtSchemaSet.SpringPluggableItem;
 import com.alibaba.ide.plugin.eclipse.springext.extension.editor.SpringExtConfig;
 import com.alibaba.ide.plugin.eclipse.springext.extension.editor.SpringExtConfigEditor;
+import com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.detail.SpringPluggableItemDetailsPage;
 
-public class NamespacesPage extends FormPage {
+public class NamespacesPage extends FormPage implements IDetailsPageProvider {
     public final static String PAGE_ID = NamespacesPage.class.getName();
-    private NamespacesMasterDetailsBlock block;
+    private final NamespacesMasterDetailsBlock block;
+    private final SpringExtConfig config;
+    private NamespacesMasterPart masterPart;
 
     public NamespacesPage(SpringExtConfigEditor editor) {
         super(editor, PAGE_ID, "Namespaces");
-        this.block = new NamespacesMasterDetailsBlock(this);
+        this.block = new NamespacesMasterDetailsBlock();
+        this.config = editor.getConfig();
     }
 
     public SpringExtConfig getConfig() {
-        return ((SpringExtConfigEditor) super.getEditor()).getConfig();
+        return config;
+    }
+
+    public NamespacesMasterPart getMasterPart() {
+        return masterPart;
     }
 
     @Override
@@ -33,7 +49,45 @@ public class NamespacesPage extends FormPage {
         super.setActive(active);
 
         if (active) {
-            block.getMasterPart().markStale();
+            masterPart.markStale();
+        }
+    }
+
+    public Object getPageKey(Object object) {
+        return object;
+    }
+
+    public IDetailsPage getPage(Object key) {
+        if (key instanceof SpringPluggableItem) {
+            if (!((SpringPluggableItem) key).getSchemas().isEmpty()) {
+                return new SpringPluggableItemDetailsPage();
+            } else {
+
+            }
+        } else if (key instanceof ConfigurationPointItem) {
+
+        } else if (key instanceof ContributionItem) {
+
+        }
+
+        return null;
+    }
+
+    private class NamespacesMasterDetailsBlock extends MasterDetailsBlock {
+        @Override
+        protected void createMasterPart(IManagedForm managedForm, Composite parent) {
+            masterPart = new NamespacesMasterPart(parent, NamespacesPage.this);
+            managedForm.addPart(masterPart);
+            masterPart.createContents();
+        }
+
+        @Override
+        protected void registerPages(DetailsPart detailsPart) {
+            detailsPart.setPageProvider(NamespacesPage.this);
+        }
+
+        @Override
+        protected void createToolBarActions(IManagedForm managedForm) {
         }
     }
 }

@@ -20,16 +20,17 @@ import org.eclipse.ui.forms.widgets.Section;
 
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.ContributionItem;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.NamespaceItem;
+import com.alibaba.ide.plugin.eclipse.springext.extension.editor.SpringExtConfig;
 
 public class NamespacesMasterPart extends SectionPart {
-    private final NamespacesPage page;
+    private final SpringExtConfig config;
     private final FormToolkit toolkit;
     private CheckboxTreeViewer treeViewer;
 
     public NamespacesMasterPart(Composite parent, NamespacesPage page) {
         super(parent, page.getManagedForm().getToolkit(), Section.DESCRIPTION | Section.TITLE_BAR);
 
-        this.page = page;
+        this.config = page.getConfig();
         this.toolkit = page.getManagedForm().getToolkit();
     }
 
@@ -78,22 +79,22 @@ public class NamespacesMasterPart extends SectionPart {
         treeViewer.addCheckStateListener(new ICheckStateListener() {
             public void checkStateChanged(CheckStateChangedEvent event) {
                 if (event.getElement() instanceof NamespaceItem) {
-                    updateNamespaceDefinition(page.getConfig(), (NamespaceItem) event.getElement(), event.getChecked());
+                    updateNamespaceDefinition(config, (NamespaceItem) event.getElement(), event.getChecked());
                 }
             }
         });
 
-        NamespacesProvider provider = new NamespacesProvider(page.getConfig());
+        NamespacesProvider provider = new NamespacesProvider(config);
 
         treeViewer.setContentProvider(provider);
         treeViewer.setLabelProvider(provider);
         treeViewer.setCheckStateProvider(provider);
-        treeViewer.setInput(page.getConfig().getDomDocument());
+        treeViewer.setInput(config.getDomDocument());
     }
 
     @Override
     public void refresh() {
-        page.getConfig().getNamespacesTreeViewer().refresh();
+        config.getNamespacesTreeViewer().refresh();
         super.refresh();
     }
 
