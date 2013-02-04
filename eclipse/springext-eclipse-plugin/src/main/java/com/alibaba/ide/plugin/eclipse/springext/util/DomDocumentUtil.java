@@ -4,30 +4,23 @@ import static com.alibaba.citrus.util.CollectionUtil.*;
 import static com.alibaba.citrus.util.StringUtil.*;
 import static java.util.Collections.*;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.wst.sse.ui.internal.StructuredTextViewer;
-import org.eclipse.wst.xml.core.internal.provisional.document.IDOMAttr;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMDocument;
-import org.eclipse.wst.xml.core.internal.provisional.format.FormatProcessorXML;
 
 import com.alibaba.citrus.springext.Schema;
-import com.alibaba.citrus.springext.support.SchemaUtil;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.NamespaceItem;
 import com.alibaba.ide.plugin.eclipse.springext.extension.editor.SpringExtConfig;
 import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
 
 @SuppressWarnings("restriction")
 public class DomDocumentUtil {
-    private static FormatProcessorXML formatter = new FormatProcessorXML();
-
-    public static void updateNamespaceDefinition(SpringExtConfig config, NamespaceItem item, final boolean checked) {
+    public static void updateNamespaceDefinition(SpringExtConfig config, NamespaceItem item, boolean checked) {
         StructuredTextViewer textViewer = config.getTextViewer();
         IDOMDocument document = config.getDomDocument();
-        final SchemaResourceSet schemas = config.getSchemas();
+        SchemaResourceSet schemas = config.getSchemas();
         String namespaceToUpdate = item.getNamespace();
 
         Set<Schema> schemasOfNs = schemas.getNamespaceMappings().get(namespaceToUpdate);
@@ -38,178 +31,12 @@ public class DomDocumentUtil {
         }
 
         if (mainSchema != null) {
-            final Schema schema = mainSchema;
+            Schema schema = mainSchema;
 
             document.getModel().beginRecording(textViewer);
 
             try {
-                new DocumentVisitor() {
-                    private String xsiPrefix;
-                    private List<IDOMAttr> otherAttrs = createLinkedList();
-                    private NamespaceDefinitions defs = new NamespaceDefinitions();
-
-                    @Override
-                    protected void visitElement() {
-                        parseSchemaLocations();
-                        visitAttributes();
-
-                        String locationPrefix = getLocationPrefix();
-
-                        // 排序并加回所有的attrs
-                        // 1. xmlns:xsi
-                        element.setAttribute("xmlns:" + xsiPrefix, NS_XSI);
-
-                        // 2. namespace definitions
-                        if (checked) {
-                            String nsPrefix = SchemaUtil.getNamespacePrefix(schema.getPreferredNsPrefix(),
-                                    schema.getTargetNamespace());
-
-                            defs.add(new NamespaceDefinition(schema.getTargetNamespace(), nsPrefix,
-                                    getSchemaLocations()));
-
-                            getSchemaLocations().put(schema.getTargetNamespace(), locationPrefix + schema.getName());
-                        } else {
-                            defs.remove(schema.getTargetNamespace());
-                            getSchemaLocations().remove(schema.getTargetNamespace());
-                        }
-
-                        String[] namespaces = defs.getNamespaces();
-
-                        Arrays.sort(namespaces);
-
-                        for (String ns : namespaces) {
-                            Map<String, NamespaceDefinition> mappings = defs.find(ns);
-                            String[] prefixes = mappings.keySet().toArray(new String[mappings.size()]);
-
-                            Arrays.sort(prefixes);
-
-                            for (String prefix : prefixes) {
-                                if (isEmpty(prefix)) {
-                                    element.setAttribute("xmlns", mappings.get(prefix).getNamespace());
-                                } else {
-                                    element.setAttribute("xmlns:" + prefix, mappings.get(prefix).getNamespace());
-                                }
-                            }
-                        }
-
-                        // 3. other xmlns attrs
-                        for (IDOMAttr attr : otherAttrs) {
-                            if (attr.getNodeName().startsWith("xmlns")) {
-                                element.setAttribute(attr.getNodeName(), attr.getNodeValue());
-                            }
-                        }
-
-                        // 4. schema locations
-                        StringBuilder buf = new StringBuilder();
-
-                        String prefix = element.getNodeName().replaceAll(".", " ") + "  ";
-                        String indent = "    ";
-
-                        buf.append("\n");
-
-                        for (Map.Entry<String, String> entry : getSchemaLocations().entrySet()) {
-                            String ns = entry.getKey();
-                            String location = entry.getValue();
-
-                            buf.append(prefix).append(indent).append(ns).append(" ").append(location).append("\n");
-                        }
-
-                        buf.append(prefix);
-
-                        element.setAttribute(xsiPrefix + ":" + ATTR_SCHEMA_LOCATION, buf.toString());
-
-                        // 5. other  attrs
-                        for (IDOMAttr attr : otherAttrs) {
-                            if (!attr.getNodeName().startsWith("xmlns")) {
-                                element.setAttribute(attr.getNodeName(), attr.getNodeValue());
-                            }
-                        }
-
-                        formatter.formatNode(element);
-                    }
-
-                    private String getLocationPrefix() {
-                        String locationPrefix = null;
-
-                        for (Map.Entry<String, String> entry : getSchemaLocations().entrySet()) {
-                            String uri = entry.getKey();
-                            String location = entry.getValue();
-                            Set<Schema> schemaSet = schemas.getNamespaceMappings().get(uri);
-
-                            if (schemaSet != null) {
-                                for (Schema schema : schemaSet) {
-                                    if (location.endsWith(schema.getName())) {
-                                        locationPrefix = location.substring(0, location.length()
-                                                - schema.getName().length());
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-
-                        if (locationPrefix == null || locationPrefix.equals("http:")
-                                || locationPrefix.equals("http://")) {
-                            locationPrefix = "http://localhost:8080/schema/";
-                        }
-
-                        return locationPrefix;
-                    }
-
-                    @Override
-                    protected void visitAttribute() {
-                        String nsPrefix = getNamespacePrefix();
-
-                        if (nsPrefix != null) {
-                            String namespace = trimToEmpty(attribute.getNodeValue());
-
-                            // xmlns:schemaNs
-                            if (schemas.getNamespaceMappings().containsKey(namespace)) {
-                                defs.add(new NamespaceDefinition(namespace, nsPrefix, getSchemaLocations()));
-                                element.removeAttributeNode(attribute);
-                            }
-
-                            // xmlns:xsi
-                            else if (namespace.equals(NS_XSI)) {
-                                element.removeAttributeNode(attribute);
-                                xsiPrefix = nsPrefix;
-                            }
-
-                            // other attrs
-                            else {
-                                otherAttrs.add(attribute);
-                                element.removeAttributeNode(attribute);
-                            }
-                        }
-
-                        // xsi:schemaLocation
-                        else if ((NS_XSI.equals(attribute.getNamespaceURI()) && ATTR_SCHEMA_LOCATION.equals(attribute
-                                .getLocalName()))) {
-                            element.removeAttributeNode(attribute);
-                        }
-
-                        // xsi:schemaLocation after removal of xmlns:xsi
-                        else if (xsiPrefix != null
-                                && (xsiPrefix + ":" + ATTR_SCHEMA_LOCATION).equals(attribute.getNodeName())) {
-                            element.removeAttributeNode(attribute);
-                        }
-
-                        // other attrs
-                        else {
-                            otherAttrs.add(attribute);
-                            element.removeAttributeNode(attribute);
-                        }
-                    }
-
-                    @Override
-                    protected boolean continueToNextChild() {
-                        return false;
-                    }
-
-                    @Override
-                    protected boolean continueToNextAttribute() {
-                        return true;
-                    }
-                }.accept(document);
+                new AddRemoveNamespaceVisitor(schemas, schema, checked).visit(document);
             } finally {
                 document.getModel().endRecording(textViewer);
             }
@@ -232,7 +59,7 @@ public class DomDocumentUtil {
                 String nsPrefix = getNamespacePrefix();
 
                 if (nsPrefix != null) {
-                    String namespace = trimToEmpty(attribute.getNodeValue());
+                    String namespace = trimToEmpty(getCurrentAttribute().getNodeValue());
 
                     if (namespace.equals(namespaceToFind)) {
                         nd = new NamespaceDefinition(namespace, nsPrefix, getSchemaLocations());
@@ -253,7 +80,7 @@ public class DomDocumentUtil {
 
         NamespaceFinder finder = new NamespaceFinder();
 
-        finder.accept(document);
+        finder.visit(document);
 
         return finder.nd;
     }
@@ -278,10 +105,11 @@ public class DomDocumentUtil {
                 String nsPrefix = getNamespacePrefix();
 
                 if (nsPrefix != null) {
-                    defs.add(new NamespaceDefinition(attribute.getNodeValue(), nsPrefix, getSchemaLocations()));
+                    defs.add(new NamespaceDefinition(getCurrentAttribute().getNodeValue(), nsPrefix,
+                            getSchemaLocations()));
                 }
             }
-        }.accept(document);
+        }.visit(document);
 
         return defs;
     }
