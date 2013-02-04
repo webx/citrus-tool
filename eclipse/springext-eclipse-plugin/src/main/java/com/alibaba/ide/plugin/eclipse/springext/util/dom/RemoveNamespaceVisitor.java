@@ -3,8 +3,11 @@ package com.alibaba.ide.plugin.eclipse.springext.util.dom;
 import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
 
 public class RemoveNamespaceVisitor extends AbstractAddRemoveNamespaceVisitor {
+    private final String namespaceToUpdate;
+
     public RemoveNamespaceVisitor(SchemaResourceSet schemas, String namespaceToUpdate) {
-        super(schemas, namespaceToUpdate);
+        super(schemas);
+        this.namespaceToUpdate = namespaceToUpdate;
     }
 
     @Override

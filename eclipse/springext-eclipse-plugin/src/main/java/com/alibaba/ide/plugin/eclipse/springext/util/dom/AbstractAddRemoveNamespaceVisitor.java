@@ -34,16 +34,14 @@ import com.alibaba.ide.plugin.eclipse.springext.util.dom.DomDocumentUtil.Namespa
 abstract class AbstractAddRemoveNamespaceVisitor extends DocumentVisitor {
     private final static FormatProcessorXML formatter = new FormatProcessorXML();
     protected final SchemaResourceSet schemas;
-    protected final String namespaceToUpdate;
     protected IDOMAttr xmlnsXsi;
     protected List<IDOMAttr> otherAttrs = createLinkedList();
     protected NamespaceDefinitions defs = new NamespaceDefinitions();
     protected Set<String> existingPrefixes = createHashSet();
     protected Set<String> namespacesInUse = createHashSet();
 
-    public AbstractAddRemoveNamespaceVisitor(SchemaResourceSet schemas, String namespaceToUpdate) {
+    public AbstractAddRemoveNamespaceVisitor(SchemaResourceSet schemas) {
         this.schemas = schemas;
-        this.namespaceToUpdate = namespaceToUpdate;
     }
 
     @Override
