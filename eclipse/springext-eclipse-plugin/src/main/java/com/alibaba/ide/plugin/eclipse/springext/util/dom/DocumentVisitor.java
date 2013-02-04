@@ -1,12 +1,9 @@
-package com.alibaba.ide.plugin.eclipse.springext.util;
+package com.alibaba.ide.plugin.eclipse.springext.util.dom;
 
 import static com.alibaba.citrus.util.CollectionUtil.*;
-import static com.alibaba.citrus.util.StringUtil.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMAttr;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMDocument;
@@ -27,19 +24,27 @@ import com.alibaba.citrus.springext.support.SchemaUtil;
 public abstract class DocumentVisitor {
     public final static String NS_XSI = "http://www.w3.org/2001/XMLSchema-instance";
     public final static String ATTR_SCHEMA_LOCATION = "schemaLocation";
-    private final static Pattern XMLNS_PATTERN = Pattern.compile("xmlns(:(.*))?", Pattern.CASE_INSENSITIVE);
     private final Map<String, String> schemaLocations = createTreeMap();
     private Element rootElement;
     private IDOMElement currentElement;
     private IDOMAttr currentAttribute;
 
-    public void visit(IDOMDocument document) {
-        rootElement = document == null ? null : document.getDocumentElement();
+    public void accept(IDOMDocument document) {
+        if (document != null) {
+            if (document.getDocumentElement() == null) {
+                createRootElement(document);
+            }
 
-        if (rootElement instanceof IDOMElement) {
-            currentElement = (IDOMElement) rootElement;
-            visitRootElement();
+            rootElement = document.getDocumentElement();
+
+            if (rootElement instanceof IDOMElement) {
+                currentElement = (IDOMElement) rootElement;
+                visitRootElement();
+            }
         }
+    }
+
+    protected void createRootElement(IDOMDocument document) {
     }
 
     protected void visitRootElement() {
@@ -157,20 +162,6 @@ public abstract class DocumentVisitor {
                 currentAttribute = currentAttr;
             }
         }
-    }
-
-    /**
-     * 如果当前的attribute是一个xmlns定义，则返回其namespace前缀；如果不是，则返回<code>null</code>。
-     */
-    protected final String getNamespacePrefix() {
-        String attrName = trimToEmpty(currentAttribute.getNodeName());
-        Matcher m = XMLNS_PATTERN.matcher(attrName);
-
-        if (m.matches()) {
-            return trimToEmpty(m.group(2));
-        }
-
-        return null;
     }
 
     /**

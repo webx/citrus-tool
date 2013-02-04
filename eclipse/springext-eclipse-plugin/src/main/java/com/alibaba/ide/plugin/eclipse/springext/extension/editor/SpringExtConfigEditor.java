@@ -25,7 +25,7 @@ public class SpringExtConfigEditor extends FormEditor implements IGotoMarker {
     private NamespacesPage namespacesPage;
 
     // editing data
-    private final SpringExtConfig config = new SpringExtConfig(this);
+    private final SpringExtConfig config = new SpringExtConfig();
 
     public StructuredTextEditor getSourceEditor() {
         return sourceEditor;
@@ -49,13 +49,15 @@ public class SpringExtConfigEditor extends FormEditor implements IGotoMarker {
      * 创建XML源码页。
      */
     private void createSourcePage() {
-        try {
-            sourceEditor = new StructuredTextEditor();
+        sourceEditor = new StructuredTextEditor();
 
+        try {
             int index = addPage(sourceEditor, getEditorInput());
             setPageText(index, "Source");
             setPartName(sourceEditor.getTitle());
             sourceEditor.setEditorPart(this);
+
+            config.initWithTextViewer(sourceEditor.getTextViewer());
         } catch (PartInitException e) {
             logAndDisplay(new Status(IStatus.ERROR, SpringExtPlugin.PLUGIN_ID,
                     "Could not open editor for source file: " + sourceEditor.getTitle(), e));
@@ -111,7 +113,7 @@ public class SpringExtConfigEditor extends FormEditor implements IGotoMarker {
                 config.setInput(((IFileEditorInput) input).getFile());
             } catch (Exception e) {
                 logAndDisplay(new Status(IStatus.ERROR, SpringExtPlugin.PLUGIN_ID,
-                        "Could not load model for source file: " + sourceEditor.getTitle(), e));
+                        "Could not load model for source file: " + input.getName(), e));
             }
         }
     }

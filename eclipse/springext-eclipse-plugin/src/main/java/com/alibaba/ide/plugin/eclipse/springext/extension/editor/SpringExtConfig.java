@@ -7,17 +7,16 @@ import java.io.IOException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jface.text.ITextListener;
+import org.eclipse.jface.text.TextEvent;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.forms.IFormPart;
 import org.eclipse.wst.sse.core.StructuredModelManager;
 import org.eclipse.wst.sse.core.internal.provisional.IStructuredModel;
 import org.eclipse.wst.sse.ui.internal.StructuredTextViewer;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMDocument;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMModel;
 
-import com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.NamespacesMasterPart;
-import com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.NamespacesPage;
 import com.alibaba.ide.plugin.eclipse.springext.schema.ISchemaSetChangeListener;
 import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
 
@@ -32,8 +31,7 @@ import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
  * @author Michael Zhou
  */
 @SuppressWarnings("restriction")
-public class SpringExtConfig implements ISchemaSetChangeListener {
-    private final SpringExtConfigEditor editor;
+public class SpringExtConfig implements ISchemaSetChangeListener, ITextListener {
     private IProject project;
     private IFile editingFile;
 
@@ -43,10 +41,6 @@ public class SpringExtConfig implements ISchemaSetChangeListener {
 
     private StructuredTextViewer textViewer;
     private CheckboxTreeViewer namespacesTreeViewer;
-
-    public SpringExtConfig(SpringExtConfigEditor editor) {
-        this.editor = assertNotNull(editor, "no editor");
-    }
 
     public IProject getProject() {
         return project;
@@ -65,31 +59,20 @@ public class SpringExtConfig implements ISchemaSetChangeListener {
     }
 
     public StructuredTextViewer getTextViewer() {
-        if (textViewer == null) {
-            textViewer = editor.getSourceEditor().getTextViewer();
-        }
+        return assertNotNull(textViewer, "textViewer is not ready");
+    }
 
-        return textViewer;
+    public void initWithTextViewer(StructuredTextViewer viewer) {
+        this.textViewer = viewer;
+        viewer.addTextListener(this);
     }
 
     public CheckboxTreeViewer getNamespacesTreeViewer() {
-        if (namespacesTreeViewer == null) {
-            NamespacesPage page = editor.getNamespacesPage();
-            NamespacesMasterPart masterPart = null;
+        return assertNotNull(namespacesTreeViewer, "namespacesTreeViewer is not ready");
+    }
 
-            for (IFormPart part : page.getManagedForm().getParts()) {
-                if (part instanceof NamespacesMasterPart) {
-                    masterPart = (NamespacesMasterPart) part;
-                    break;
-                }
-            }
-
-            if (masterPart != null) {
-                namespacesTreeViewer = masterPart.getViewer();
-            }
-        }
-
-        return namespacesTreeViewer;
+    public void initWithNamespacesTreeViewer(CheckboxTreeViewer viewer) {
+        this.namespacesTreeViewer = viewer;
     }
 
     /**
@@ -144,12 +127,19 @@ public class SpringExtConfig implements ISchemaSetChangeListener {
         }
     }
 
+    public void textChanged(TextEvent event) {
+    }
+
     /**
      * 编辑器被关闭时被调用。
      */
     public void dispose() {
         releaseModel();
         SchemaResourceSet.removeSchemaSetChangeListener(this);
+
+        if (textViewer != null) {
+            textViewer.removeTextListener(this);
+        }
     }
 
     private void releaseModel() {

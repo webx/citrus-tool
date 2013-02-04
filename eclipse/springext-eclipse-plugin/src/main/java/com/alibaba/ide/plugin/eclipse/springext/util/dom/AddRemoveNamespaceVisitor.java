@@ -1,7 +1,9 @@
-package com.alibaba.ide.plugin.eclipse.springext.util;
+package com.alibaba.ide.plugin.eclipse.springext.util.dom;
 
 import static com.alibaba.citrus.util.CollectionUtil.*;
 import static com.alibaba.citrus.util.StringUtil.*;
+import static com.alibaba.ide.plugin.eclipse.springext.SpringExtConstant.*;
+import static com.alibaba.ide.plugin.eclipse.springext.util.dom.DomDocumentUtil.*;
 import static java.lang.Math.*;
 
 import java.util.Arrays;
@@ -11,14 +13,18 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMAttr;
+import org.eclipse.wst.xml.core.internal.provisional.document.IDOMDocument;
 import org.eclipse.wst.xml.core.internal.provisional.format.FormatProcessorXML;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.ProcessingInstruction;
 
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.support.SchemaUtil;
 import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
-import com.alibaba.ide.plugin.eclipse.springext.util.DomDocumentUtil.NamespaceDefinition;
-import com.alibaba.ide.plugin.eclipse.springext.util.DomDocumentUtil.NamespaceDefinitions;
+import com.alibaba.ide.plugin.eclipse.springext.util.dom.DomDocumentUtil.NamespaceDefinition;
+import com.alibaba.ide.plugin.eclipse.springext.util.dom.DomDocumentUtil.NamespaceDefinitions;
 
 /**
  * 从文档中添加、删除指定schema的namepsaces。
@@ -29,18 +35,41 @@ import com.alibaba.ide.plugin.eclipse.springext.util.DomDocumentUtil.NamespaceDe
 class AddRemoveNamespaceVisitor extends DocumentVisitor {
     private final static FormatProcessorXML formatter = new FormatProcessorXML();
     private final SchemaResourceSet schemas;
-    private final Schema schema;
+    private final String namespaceToUpdate;
     private final boolean checked;
-    private String xsiPrefix;
+    private IDOMAttr xmlnsXsi;
     private List<IDOMAttr> otherAttrs = createLinkedList();
     private NamespaceDefinitions defs = new NamespaceDefinitions();
     private Set<String> existingPrefixes = createHashSet();
     private Set<String> namespacesInUse = createHashSet();
 
-    public AddRemoveNamespaceVisitor(SchemaResourceSet schemas, Schema schema, boolean checked) {
+    public AddRemoveNamespaceVisitor(SchemaResourceSet schemas, String namespaceToUpdate, boolean checked) {
         this.schemas = schemas;
-        this.schema = schema;
+        this.namespaceToUpdate = namespaceToUpdate;
         this.checked = checked;
+    }
+
+    @Override
+    protected void createRootElement(IDOMDocument document) {
+        NodeList nodes = document.getChildNodes();
+        ProcessingInstruction pi = null;
+
+        if (nodes != null) {
+            for (int i = 0; i < nodes.getLength(); i++) {
+                if (nodes.item(i) instanceof ProcessingInstruction) {
+                    pi = (ProcessingInstruction) nodes.item(i);
+                }
+            }
+        }
+
+        if (pi == null) {
+            pi = document.createProcessingInstruction("xml", "version=\"1.0\" encoding=\"UTF-8\"");
+            document.appendChild(pi);
+        }
+
+        Element rootElement = document.createElementNS(SPRING_BEANS_NS, "beans:beans");
+        rootElement.setAttribute("xmlns:beans", SPRING_BEANS_NS);
+        document.appendChild(rootElement);
     }
 
     @Override
@@ -49,11 +78,17 @@ class AddRemoveNamespaceVisitor extends DocumentVisitor {
         saveNamespace(getCurrentElement());
         visitChildren();
         visitAttributes();
-        updateDocument(schema, checked);
+
+        if (xmlnsXsi != null) {
+            getCurrentElement().removeAttributeNode(xmlnsXsi);
+        }
+
+        updateDocument();
     }
 
     @Override
     protected void visitElement() {
+        parseSchemaLocations();
         saveNamespace(getCurrentElement());
         visitChildren();
         visitAttributes();
@@ -63,7 +98,7 @@ class AddRemoveNamespaceVisitor extends DocumentVisitor {
     protected void visitRootElementAttribute() {
         saveNamespace(getCurrentAttribute());
 
-        String nsPrefix = getNamespacePrefix();
+        String nsPrefix = getNamespacePrefix(getCurrentAttribute());
 
         if (nsPrefix != null) {
             String namespace = trimToEmpty(getCurrentAttribute().getNodeValue());
@@ -76,8 +111,7 @@ class AddRemoveNamespaceVisitor extends DocumentVisitor {
 
             // xmlns:xsi
             else if (namespace.equals(NS_XSI)) {
-                getCurrentElement().removeAttributeNode(getCurrentAttribute());
-                xsiPrefix = nsPrefix;
+                xmlnsXsi = getCurrentAttribute();
             }
 
             // other attrs
@@ -95,12 +129,6 @@ class AddRemoveNamespaceVisitor extends DocumentVisitor {
             getCurrentElement().removeAttributeNode(getCurrentAttribute());
         }
 
-        // xsi:schemaLocation after removal of xmlns:xsi
-        else if (xsiPrefix != null
-                && (xsiPrefix + ":" + ATTR_SCHEMA_LOCATION).equals(getCurrentAttribute().getNodeName())) {
-            getCurrentElement().removeAttributeNode(getCurrentAttribute());
-        }
-
         // other attrs
         else {
             otherAttrs.add(getCurrentAttribute());
@@ -111,6 +139,12 @@ class AddRemoveNamespaceVisitor extends DocumentVisitor {
     @Override
     protected void visitAttribute() {
         saveNamespace(getCurrentAttribute());
+
+        // xsi:schemaLocation
+        if ((NS_XSI.equals(getCurrentAttribute().getNamespaceURI()) && ATTR_SCHEMA_LOCATION
+                .equals(getCurrentAttribute().getLocalName()))) {
+            getCurrentElement().removeAttributeNode(getCurrentAttribute());
+        }
     }
 
     private void saveNamespace(Node node) {
@@ -121,17 +155,19 @@ class AddRemoveNamespaceVisitor extends DocumentVisitor {
         }
     }
 
-    private void updateDocument(final Schema schema, final boolean checked) {
+    private void updateDocument() {
         String locationPrefix = getLocationPrefix();
+        Schema schema = schemas.findSchemaByUrl(namespaceToUpdate); // 注：schema可能为null，比如：spring/c
 
         // 排序并加回所有的attrs
         // 1. xmlns:xsi
+        String xsiPrefix = xmlnsXsi == null ? "xsi" : getNamespacePrefix(xmlnsXsi);
         getCurrentElement().setAttribute("xmlns:" + xsiPrefix, NS_XSI);
 
         // 2. namespace definitions
         if (checked) {
-            String nsPrefixBase = SchemaUtil.getNamespacePrefix(schema.getPreferredNsPrefix(),
-                    schema.getTargetNamespace());
+            String nsPrefixBase = SchemaUtil.getNamespacePrefix(schema == null ? null : schema.getPreferredNsPrefix(),
+                    namespaceToUpdate);
 
             String nsPrefix = nsPrefixBase;
 
@@ -140,11 +176,13 @@ class AddRemoveNamespaceVisitor extends DocumentVisitor {
                 nsPrefix = nsPrefixBase + i;
             }
 
-            defs.add(new NamespaceDefinition(schema.getTargetNamespace(), nsPrefix, getSchemaLocations()));
+            defs.add(new NamespaceDefinition(namespaceToUpdate, nsPrefix, getSchemaLocations()));
 
-            getSchemaLocations().put(schema.getTargetNamespace(), locationPrefix + schema.getName());
+            if (schema != null) {
+                getSchemaLocations().put(namespaceToUpdate, locationPrefix + schema.getName());
+            }
         } else {
-            String nsToRemove = schema.getTargetNamespace();
+            String nsToRemove = namespaceToUpdate;
 
             // 避免删除正在使用的namespace
             if (!namespacesInUse.contains(nsToRemove)) {
@@ -152,6 +190,8 @@ class AddRemoveNamespaceVisitor extends DocumentVisitor {
                 getSchemaLocations().remove(nsToRemove);
             }
         }
+
+        processSchemaLocations(locationPrefix);
 
         String[] namespaces = defs.getNamespaces();
 
@@ -190,6 +230,21 @@ class AddRemoveNamespaceVisitor extends DocumentVisitor {
         }
 
         formatter.formatNode(getCurrentElement());
+    }
+
+    /**
+     * 将缺少的schemaLocation补全。
+     */
+    private void processSchemaLocations(String locationPrefix) {
+        for (String ns : defs.getNamespaces()) {
+            if (!getSchemaLocations().containsKey(ns)) {
+                Schema s = schemas.findSchemaByUrl(ns);
+
+                if (s != null) {
+                    getSchemaLocations().put(ns, locationPrefix + s.getName());
+                }
+            }
+        }
     }
 
     private String generateSchemaLocation() {

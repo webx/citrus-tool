@@ -8,4 +8,5 @@ public interface SpringExtConstant {
     String URL_PROTOCOL = "springext";
     String URL_PREFIX = "http://localhost:8080/schema/";
     String XML_EDITOR_ID = XMLMultiPageEditorPart.class.getName();
+    String SPRING_BEANS_NS = "http://www.springframework.org/schema/beans";
 }

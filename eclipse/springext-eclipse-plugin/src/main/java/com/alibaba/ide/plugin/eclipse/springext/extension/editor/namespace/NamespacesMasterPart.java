@@ -1,6 +1,6 @@
 package com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace;
 
-import static com.alibaba.ide.plugin.eclipse.springext.util.DomDocumentUtil.*;
+import static com.alibaba.ide.plugin.eclipse.springext.util.dom.DomDocumentUtil.*;
 
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
@@ -128,6 +128,8 @@ public class NamespacesMasterPart extends SectionPart {
                 treeViewer.expandAll();
             }
         });
+
+        config.initWithNamespacesTreeViewer(treeViewer);
     }
 
     @Override

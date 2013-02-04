@@ -1,16 +1,17 @@
-package com.alibaba.ide.plugin.eclipse.springext.util;
+package com.alibaba.ide.plugin.eclipse.springext.util.dom;
 
 import static com.alibaba.citrus.util.CollectionUtil.*;
 import static com.alibaba.citrus.util.StringUtil.*;
 import static java.util.Collections.*;
 
 import java.util.Map;
-import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.eclipse.wst.sse.ui.internal.StructuredTextViewer;
+import org.eclipse.wst.xml.core.internal.provisional.document.IDOMAttr;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMDocument;
 
-import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.NamespaceItem;
 import com.alibaba.ide.plugin.eclipse.springext.extension.editor.SpringExtConfig;
 import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
@@ -23,23 +24,12 @@ public class DomDocumentUtil {
         SchemaResourceSet schemas = config.getSchemas();
         String namespaceToUpdate = item.getNamespace();
 
-        Set<Schema> schemasOfNs = schemas.getNamespaceMappings().get(namespaceToUpdate);
-        Schema mainSchema = null;
+        document.getModel().beginRecording(textViewer);
 
-        if (schemasOfNs != null && !schemasOfNs.isEmpty()) {
-            mainSchema = schemasOfNs.iterator().next();
-        }
-
-        if (mainSchema != null) {
-            Schema schema = mainSchema;
-
-            document.getModel().beginRecording(textViewer);
-
-            try {
-                new AddRemoveNamespaceVisitor(schemas, schema, checked).visit(document);
-            } finally {
-                document.getModel().endRecording(textViewer);
-            }
+        try {
+            new AddRemoveNamespaceVisitor(schemas, namespaceToUpdate, checked).accept(document);
+        } finally {
+            document.getModel().endRecording(textViewer);
         }
     }
 
@@ -56,7 +46,7 @@ public class DomDocumentUtil {
 
             @Override
             protected void visitAttribute() {
-                String nsPrefix = getNamespacePrefix();
+                String nsPrefix = getNamespacePrefix(getCurrentAttribute());
 
                 if (nsPrefix != null) {
                     String namespace = trimToEmpty(getCurrentAttribute().getNodeValue());
@@ -80,7 +70,7 @@ public class DomDocumentUtil {
 
         NamespaceFinder finder = new NamespaceFinder();
 
-        finder.visit(document);
+        finder.accept(document);
 
         return finder.nd;
     }
@@ -102,16 +92,32 @@ public class DomDocumentUtil {
 
             @Override
             protected void visitAttribute() {
-                String nsPrefix = getNamespacePrefix();
+                String nsPrefix = getNamespacePrefix(getCurrentAttribute());
 
                 if (nsPrefix != null) {
                     defs.add(new NamespaceDefinition(getCurrentAttribute().getNodeValue(), nsPrefix,
                             getSchemaLocations()));
                 }
             }
-        }.visit(document);
+        }.accept(document);
 
         return defs;
+    }
+
+    private final static Pattern XMLNS_PATTERN = Pattern.compile("xmlns(:(.*))?", Pattern.CASE_INSENSITIVE);
+
+    /**
+     * 如果指定的attribute是一个xmlns定义，则返回其namespace前缀；如果不是，则返回<code>null</code>。
+     */
+    public static String getNamespacePrefix(IDOMAttr attr) {
+        String attrName = trimToEmpty(attr.getNodeName());
+        Matcher m = XMLNS_PATTERN.matcher(attrName);
+
+        if (m.matches()) {
+            return trimToEmpty(m.group(2));
+        }
+
+        return null;
     }
 
     public static class NamespaceDefinitions {
