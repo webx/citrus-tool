@@ -166,20 +166,22 @@ class AddRemoveNamespaceVisitor extends DocumentVisitor {
 
         // 2. namespace definitions
         if (checked) {
-            String nsPrefixBase = SchemaUtil.getNamespacePrefix(schema == null ? null : schema.getPreferredNsPrefix(),
-                    namespaceToUpdate);
+            if (defs.find(namespaceToUpdate).isEmpty()) {
+                String nsPrefixBase = SchemaUtil.getNamespacePrefix(
+                        schema == null ? null : schema.getPreferredNsPrefix(), namespaceToUpdate);
 
-            String nsPrefix = nsPrefixBase;
+                String nsPrefix = nsPrefixBase;
 
-            // 避免prefix重复。
-            for (int i = 1; existingPrefixes.contains(nsPrefix); i++) {
-                nsPrefix = nsPrefixBase + i;
-            }
+                // 避免prefix重复。
+                for (int i = 1; existingPrefixes.contains(nsPrefix); i++) {
+                    nsPrefix = nsPrefixBase + i;
+                }
 
-            defs.add(new NamespaceDefinition(namespaceToUpdate, nsPrefix, getSchemaLocations()));
+                defs.add(new NamespaceDefinition(namespaceToUpdate, nsPrefix, getSchemaLocations()));
 
-            if (schema != null) {
-                getSchemaLocations().put(namespaceToUpdate, locationPrefix + schema.getName());
+                if (schema != null) {
+                    getSchemaLocations().put(namespaceToUpdate, locationPrefix + schema.getName());
+                }
             }
         } else {
             String nsToRemove = namespaceToUpdate;
