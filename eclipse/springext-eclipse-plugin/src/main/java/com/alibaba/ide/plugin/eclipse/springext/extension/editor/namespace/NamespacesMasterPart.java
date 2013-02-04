@@ -9,11 +9,8 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.dialogs.FilteredTree;
 import org.eclipse.ui.dialogs.PatternFilter;
@@ -28,7 +25,6 @@ import com.alibaba.citrus.springext.support.SpringExtSchemaSet.ContributionItem;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.NamespaceItem;
 import com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin;
 import com.alibaba.ide.plugin.eclipse.springext.extension.editor.SpringExtConfig;
-import com.alibaba.ide.plugin.eclipse.springext.util.dom.DomDocumentUtil;
 
 public class NamespacesMasterPart extends SectionPart {
     private final SpringExtConfig config;
@@ -79,7 +75,7 @@ public class NamespacesMasterPart extends SectionPart {
         // section/client
         Composite client = toolkit.createComposite(section, SWT.WRAP);
         layout = new GridLayout();
-        layout.numColumns = 2;
+        layout.numColumns = 1;
         layout.marginWidth = 2;
         layout.marginHeight = 2;
         client.setLayout(layout);
@@ -93,12 +89,6 @@ public class NamespacesMasterPart extends SectionPart {
         gd.widthHint = 100;
         tree.setLayoutData(gd);
         toolkit.paintBordersFor(client);
-
-        // section/client/buttons
-        Button removeUnusedButton = toolkit.createButton(client, "Remove Unused", SWT.NO_BACKGROUND | SWT.NO_FOCUS);
-        gd = new GridData(GridData.FILL_HORIZONTAL | GridData.VERTICAL_ALIGN_BEGINNING);
-        gd.widthHint = 10;
-        removeUnusedButton.setLayoutData(gd);
 
         section.setClient(client);
 
@@ -136,13 +126,6 @@ public class NamespacesMasterPart extends SectionPart {
         expandButton.addHyperlinkListener(new HyperlinkAdapter() {
             public void linkActivated(HyperlinkEvent e) {
                 treeViewer.expandAll();
-            }
-        });
-
-        removeUnusedButton.addSelectionListener(new SelectionAdapter() {
-            public void widgetSelected(SelectionEvent e) {
-                DomDocumentUtil.removeUnusedNamespaceDefinitions(config);
-                treeViewer.refresh();
             }
         });
 
