@@ -26,8 +26,11 @@ public class DomDocumentUtil {
 
         document.getModel().beginRecording(textViewer);
 
+        DocumentVisitor visitor = checked ? new AddNamespaceVisitor(schemas, namespaceToUpdate)
+                : new RemoveNamespaceVisitor(schemas, namespaceToUpdate);
+
         try {
-            new AddRemoveNamespaceVisitor(schemas, namespaceToUpdate, checked).accept(document);
+            visitor.accept(document);
         } finally {
             document.getModel().endRecording(textViewer);
         }

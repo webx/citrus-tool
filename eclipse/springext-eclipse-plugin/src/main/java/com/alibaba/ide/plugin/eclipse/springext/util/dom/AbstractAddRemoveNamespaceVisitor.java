@@ -21,7 +21,6 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.ProcessingInstruction;
 
 import com.alibaba.citrus.springext.Schema;
-import com.alibaba.citrus.springext.support.SchemaUtil;
 import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
 import com.alibaba.ide.plugin.eclipse.springext.util.dom.DomDocumentUtil.NamespaceDefinition;
 import com.alibaba.ide.plugin.eclipse.springext.util.dom.DomDocumentUtil.NamespaceDefinitions;
@@ -32,21 +31,19 @@ import com.alibaba.ide.plugin.eclipse.springext.util.dom.DomDocumentUtil.Namespa
  * @author Michael Zhou
  */
 @SuppressWarnings("restriction")
-class AddRemoveNamespaceVisitor extends DocumentVisitor {
+abstract class AbstractAddRemoveNamespaceVisitor extends DocumentVisitor {
     private final static FormatProcessorXML formatter = new FormatProcessorXML();
-    private final SchemaResourceSet schemas;
-    private final String namespaceToUpdate;
-    private final boolean checked;
-    private IDOMAttr xmlnsXsi;
-    private List<IDOMAttr> otherAttrs = createLinkedList();
-    private NamespaceDefinitions defs = new NamespaceDefinitions();
-    private Set<String> existingPrefixes = createHashSet();
-    private Set<String> namespacesInUse = createHashSet();
+    protected final SchemaResourceSet schemas;
+    protected final String namespaceToUpdate;
+    protected IDOMAttr xmlnsXsi;
+    protected List<IDOMAttr> otherAttrs = createLinkedList();
+    protected NamespaceDefinitions defs = new NamespaceDefinitions();
+    protected Set<String> existingPrefixes = createHashSet();
+    protected Set<String> namespacesInUse = createHashSet();
 
-    public AddRemoveNamespaceVisitor(SchemaResourceSet schemas, String namespaceToUpdate, boolean checked) {
+    public AbstractAddRemoveNamespaceVisitor(SchemaResourceSet schemas, String namespaceToUpdate) {
         this.schemas = schemas;
         this.namespaceToUpdate = namespaceToUpdate;
-        this.checked = checked;
     }
 
     @Override
@@ -157,7 +154,6 @@ class AddRemoveNamespaceVisitor extends DocumentVisitor {
 
     private void updateDocument() {
         String locationPrefix = getLocationPrefix();
-        Schema schema = schemas.findSchemaByUrl(namespaceToUpdate); // 注：schema可能为null，比如：spring/c
 
         // 排序并加回所有的attrs
         // 1. xmlns:xsi
@@ -165,33 +161,7 @@ class AddRemoveNamespaceVisitor extends DocumentVisitor {
         getCurrentElement().setAttribute("xmlns:" + xsiPrefix, NS_XSI);
 
         // 2. namespace definitions
-        if (checked) {
-            if (defs.find(namespaceToUpdate).isEmpty()) {
-                String nsPrefixBase = SchemaUtil.getNamespacePrefix(
-                        schema == null ? null : schema.getPreferredNsPrefix(), namespaceToUpdate);
-
-                String nsPrefix = nsPrefixBase;
-
-                // 避免prefix重复。
-                for (int i = 1; existingPrefixes.contains(nsPrefix); i++) {
-                    nsPrefix = nsPrefixBase + i;
-                }
-
-                defs.add(new NamespaceDefinition(namespaceToUpdate, nsPrefix, getSchemaLocations()));
-
-                if (schema != null) {
-                    getSchemaLocations().put(namespaceToUpdate, locationPrefix + schema.getName());
-                }
-            }
-        } else {
-            String nsToRemove = namespaceToUpdate;
-
-            // 避免删除正在使用的namespace
-            if (!namespacesInUse.contains(nsToRemove)) {
-                defs.remove(nsToRemove);
-                getSchemaLocations().remove(nsToRemove);
-            }
-        }
+        updateNamespaces();
 
         processSchemaLocations(locationPrefix);
 
@@ -233,6 +203,8 @@ class AddRemoveNamespaceVisitor extends DocumentVisitor {
 
         formatter.formatNode(getCurrentElement());
     }
+
+    protected abstract void updateNamespaces();
 
     /**
      * 将缺少的schemaLocation补全。
@@ -282,7 +254,7 @@ class AddRemoveNamespaceVisitor extends DocumentVisitor {
         return buf.toString();
     }
 
-    private String getLocationPrefix() {
+    protected final String getLocationPrefix() {
         String locationPrefix = null;
 
         for (Map.Entry<String, String> entry : getSchemaLocations().entrySet()) {
