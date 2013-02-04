@@ -18,6 +18,22 @@ import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
 
 @SuppressWarnings("restriction")
 public class DomDocumentUtil {
+    public static void removeUnusedNamespaceDefinitions(SpringExtConfig config) {
+        StructuredTextViewer textViewer = config.getTextViewer();
+        IDOMDocument document = config.getDomDocument();
+        SchemaResourceSet schemas = config.getSchemas();
+
+        document.getModel().beginRecording(textViewer);
+
+        DocumentVisitor visitor = new RemoveUnusedNamespacesVisitor(schemas);
+
+        try {
+            visitor.accept(document);
+        } finally {
+            document.getModel().endRecording(textViewer);
+        }
+    }
+
     public static void updateNamespaceDefinition(SpringExtConfig config, NamespaceItem item, boolean checked) {
         StructuredTextViewer textViewer = config.getTextViewer();
         IDOMDocument document = config.getDomDocument();
