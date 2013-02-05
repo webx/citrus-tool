@@ -14,6 +14,7 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.DOMReader;
 import org.dom4j.io.DOMWriter;
+import org.eclipse.wst.sse.core.internal.format.IStructuredFormatPreferences;
 import org.eclipse.wst.sse.ui.internal.StructuredTextViewer;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMAttr;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMDocument;
@@ -28,7 +29,18 @@ import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
 
 @SuppressWarnings("restriction")
 public class DomDocumentUtil {
-    private final static FormatProcessorXML formatter = new FormatProcessorXML();
+    private final static FormatProcessorXML formatter = new FormatProcessorXML() {
+        @Override
+        public IStructuredFormatPreferences getFormatPreferences() {
+            IStructuredFormatPreferences prefs = super.getFormatPreferences();
+
+            if (prefs.getLineWidth() < 120) {
+                prefs.setLineWidth(120);
+            }
+
+            return prefs;
+        }
+    };
 
     public static void convertToUnqualifiedStyle(SpringExtConfig config) {
         StructuredTextViewer textViewer = config.getTextViewer();
