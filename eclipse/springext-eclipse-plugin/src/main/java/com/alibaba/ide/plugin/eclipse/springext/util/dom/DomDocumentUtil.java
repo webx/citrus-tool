@@ -4,13 +4,20 @@ import static com.alibaba.citrus.util.CollectionUtil.*;
 import static com.alibaba.citrus.util.StringUtil.*;
 import static java.util.Collections.*;
 
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.dom4j.Branch;
+import org.dom4j.Document;
+import org.dom4j.io.DOMReader;
+import org.dom4j.io.DOMWriter;
 import org.eclipse.wst.sse.ui.internal.StructuredTextViewer;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMAttr;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMDocument;
+import org.eclipse.wst.xml.core.internal.provisional.format.FormatProcessorXML;
+import org.w3c.dom.Node;
 
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.NamespaceItem;
 import com.alibaba.citrus.springext.util.ConvertToUnqualifiedStyle.Converter;
@@ -19,15 +26,59 @@ import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
 
 @SuppressWarnings("restriction")
 public class DomDocumentUtil {
+    private final static FormatProcessorXML formatter = new FormatProcessorXML();
+
     public static void convertToUnqualifiedStyle(SpringExtConfig config) {
         StructuredTextViewer textViewer = config.getTextViewer();
-        IDOMDocument document = config.getDomDocument();
         SchemaResourceSet schemas = config.getSchemas();
+        final IDOMDocument document = config.getDomDocument();
+
+        class MyDOMReader extends DOMReader {
+            @Override
+            protected void readTree(Node node, Branch current) {
+                if (current instanceof Document) {
+                    // 只解析root element，避免Dom4j NPE
+                    if (node.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE) {
+                        super.readTree(node, current);
+                    }
+                } else {
+                    super.readTree(node, current);
+                }
+            }
+        }
+
+        Document dom4jDoc = new MyDOMReader().read(document);
+
+        new Converter(dom4jDoc, schemas).convert();
 
         document.getModel().beginRecording(textViewer);
 
         try {
-            new Converter(document, schemas).doConvert();
+            LinkedList<Node> nodesAfterRootElement = createLinkedList();
+
+            for (Node node = document.getDocumentElement(); node != null; node = node.getNextSibling()) {
+                nodesAfterRootElement.add(node);
+            }
+
+            for (Node node : nodesAfterRootElement) {
+                document.removeChild(node);
+            }
+
+            nodesAfterRootElement.removeFirst();
+
+            class MyDOMWriter extends DOMWriter {
+                public void appendToW3CDoc(Document dom4jDoc) {
+                    appendDOMTree(document, document, dom4jDoc.content());
+                }
+            }
+
+            new MyDOMWriter().appendToW3CDoc(dom4jDoc);
+
+            for (Node node : nodesAfterRootElement) {
+                document.appendChild(node);
+            }
+
+            format(document);
         } finally {
             document.getModel().endRecording(textViewer);
         }
@@ -44,6 +95,7 @@ public class DomDocumentUtil {
 
         try {
             visitor.accept(document);
+            format(document);
         } finally {
             document.getModel().endRecording(textViewer);
         }
@@ -62,9 +114,14 @@ public class DomDocumentUtil {
 
         try {
             visitor.accept(document);
+            format(document);
         } finally {
             document.getModel().endRecording(textViewer);
         }
+    }
+
+    private static void format(IDOMDocument document) {
+        formatter.formatNode(document.getDocumentElement());
     }
 
     public static NamespaceDefinition getNamespace(IDOMDocument document, final String namespaceToFind) {

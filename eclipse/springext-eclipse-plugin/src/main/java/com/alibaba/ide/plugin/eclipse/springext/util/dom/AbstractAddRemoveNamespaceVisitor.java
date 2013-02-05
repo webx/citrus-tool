@@ -14,7 +14,6 @@ import java.util.Set;
 
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMAttr;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMDocument;
-import org.eclipse.wst.xml.core.internal.provisional.format.FormatProcessorXML;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -32,7 +31,6 @@ import com.alibaba.ide.plugin.eclipse.springext.util.dom.DomDocumentUtil.Namespa
  */
 @SuppressWarnings("restriction")
 abstract class AbstractAddRemoveNamespaceVisitor extends DocumentVisitor {
-    private final static FormatProcessorXML formatter = new FormatProcessorXML();
     protected final SchemaResourceSet schemas;
     protected IDOMAttr xmlnsXsi;
     protected List<IDOMAttr> otherAttrs = createLinkedList();
@@ -198,8 +196,6 @@ abstract class AbstractAddRemoveNamespaceVisitor extends DocumentVisitor {
                 getCurrentElement().setAttribute(attr.getNodeName(), attr.getNodeValue());
             }
         }
-
-        formatter.formatNode(getCurrentElement());
     }
 
     protected abstract void updateNamespaces();
