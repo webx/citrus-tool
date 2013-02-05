@@ -11,11 +11,13 @@ import java.util.regex.Pattern;
 
 import org.dom4j.Branch;
 import org.dom4j.Document;
+import org.dom4j.Element;
 import org.dom4j.io.DOMReader;
 import org.dom4j.io.DOMWriter;
 import org.eclipse.wst.sse.ui.internal.StructuredTextViewer;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMAttr;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMDocument;
+import org.eclipse.wst.xml.core.internal.provisional.document.IDOMElement;
 import org.eclipse.wst.xml.core.internal.provisional.format.FormatProcessorXML;
 import org.w3c.dom.Node;
 
@@ -69,6 +71,17 @@ public class DomDocumentUtil {
             class MyDOMWriter extends DOMWriter {
                 public void appendToW3CDoc(Document dom4jDoc) {
                     appendDOMTree(document, document, dom4jDoc.content());
+                }
+
+                @Override
+                protected void appendDOMTree(org.w3c.dom.Document domDocument, org.w3c.dom.Node domCurrent,
+                                             Element element) {
+                    super.appendDOMTree(domDocument, domCurrent, element);
+
+                    // 将无内容的element设置成empty tag。
+                    if (!element.hasContent() && domCurrent.getLastChild() instanceof IDOMElement) {
+                        ((IDOMElement) domCurrent.getLastChild()).setEmptyTag(true);
+                    }
                 }
             }
 
