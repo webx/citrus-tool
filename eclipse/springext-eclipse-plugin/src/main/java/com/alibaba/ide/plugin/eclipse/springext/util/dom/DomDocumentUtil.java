@@ -13,11 +13,26 @@ import org.eclipse.wst.xml.core.internal.provisional.document.IDOMAttr;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMDocument;
 
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.NamespaceItem;
+import com.alibaba.citrus.springext.util.ConvertToUnqualifiedStyle.Converter;
 import com.alibaba.ide.plugin.eclipse.springext.extension.editor.SpringExtConfig;
 import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
 
 @SuppressWarnings("restriction")
 public class DomDocumentUtil {
+    public static void convertToUnqualifiedStyle(SpringExtConfig config) {
+        StructuredTextViewer textViewer = config.getTextViewer();
+        IDOMDocument document = config.getDomDocument();
+        SchemaResourceSet schemas = config.getSchemas();
+
+        document.getModel().beginRecording(textViewer);
+
+        try {
+            new Converter(document, schemas).doConvert();
+        } finally {
+            document.getModel().endRecording(textViewer);
+        }
+    }
+
     public static void removeUnusedNamespaceDefinitions(SpringExtConfig config) {
         StructuredTextViewer textViewer = config.getTextViewer();
         IDOMDocument document = config.getDomDocument();
