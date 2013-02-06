@@ -42,7 +42,7 @@ public class DomDocumentUtil {
         }
     };
 
-    public static void convertToUnqualifiedStyle(SpringExtConfig config) {
+    public static void upgradeToUnqualifiedStyle(SpringExtConfig config) {
         StructuredTextViewer textViewer = config.getTextViewer();
         SchemaResourceSet schemas = config.getSchemas();
         final IDOMDocument document = config.getDomDocument();

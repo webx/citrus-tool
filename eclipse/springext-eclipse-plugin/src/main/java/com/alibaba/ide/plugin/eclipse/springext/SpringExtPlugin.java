@@ -60,7 +60,7 @@ public class SpringExtPlugin extends AbstractUIPlugin implements SpringExtConsta
         registerImage(registry, "expand", "expand.png");
         registerImage(registry, "collapse", "collapse.png");
         registerImage(registry, "clear", "clear.png");
-        registerImage(registry, "convert", "convert.png");
+        registerImage(registry, "upgrade32", "upgrade32.png");
     }
 
     private void registerImage(ImageRegistry registry, String key, String fileName) {

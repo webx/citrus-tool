@@ -6,6 +6,8 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.part.MultiPageEditorActionBarContributor;
 
@@ -16,14 +18,14 @@ public class SpringExtConfigEditorContributor extends MultiPageEditorActionBarCo
     private final static String MENU_ID = "springext";
     private final static String GROUP_ID = SpringExtConfigEditor.EDITOR_ID;
     private final RemoveUnusedNamespacesAction removeUnusedNamespacesAction = new RemoveUnusedNamespacesAction();
-    private final ConvertToUnqualifiedStyleAction convertToUnqualifiedStyleAction = new ConvertToUnqualifiedStyleAction();
+    private final UpgradeToUnqualifiedStyleAction upgradeToUnqualifiedStyleAction = new UpgradeToUnqualifiedStyleAction();
     private SpringExtConfig config;
 
     @Override
     public void contributeToToolBar(IToolBarManager toolBarManager) {
         toolBarManager.add(new GroupMarker(GROUP_ID));
         toolBarManager.appendToGroup(GROUP_ID, removeUnusedNamespacesAction);
-        toolBarManager.appendToGroup(GROUP_ID, convertToUnqualifiedStyleAction);
+        toolBarManager.appendToGroup(GROUP_ID, upgradeToUnqualifiedStyleAction);
     }
 
     @Override
@@ -33,7 +35,7 @@ public class SpringExtConfigEditorContributor extends MultiPageEditorActionBarCo
 
         springExtConfigEditorMenu.add(removeUnusedNamespacesAction);
         springExtConfigEditorMenu.add(new Separator());
-        springExtConfigEditorMenu.add(convertToUnqualifiedStyleAction);
+        springExtConfigEditorMenu.add(upgradeToUnqualifiedStyleAction);
     }
 
     @Override
@@ -65,16 +67,24 @@ public class SpringExtConfigEditorContributor extends MultiPageEditorActionBarCo
         }
     }
 
-    private class ConvertToUnqualifiedStyleAction extends Action {
-        public ConvertToUnqualifiedStyleAction() {
-            super("Convert to Webx 3.2.x Style", Action.AS_PUSH_BUTTON);
-            setImageDescriptor(SpringExtPlugin.getDefault().getImageRegistry().getDescriptor("convert"));
+    private class UpgradeToUnqualifiedStyleAction extends Action {
+        public UpgradeToUnqualifiedStyleAction() {
+            super("Upgrade to Webx 3.2.x Format", Action.AS_PUSH_BUTTON);
+            setImageDescriptor(SpringExtPlugin.getDefault().getImageRegistry().getDescriptor("upgrade32"));
         }
 
         @Override
         public void run() {
-            if (config != null) {
-                DomDocumentUtil.convertToUnqualifiedStyle(config);
+            if (config != null
+                    && MessageDialog.openConfirm(Display.getDefault().getActiveShell(),
+                            "Upgrading to Webx 3.2.x configuration format",
+                            "Webx 3.2.x has a slightly different configuration file format, "
+                                    + "which is not compatible to its previous versions.  "
+                                    + "If you decided to upgrade to Webx 3.2.x or newer versions, "
+                                    + "you should also upgrade all your configuration files to the new format.\n\n"
+                                    + "Are you sure you want to do the upgrading on file \""
+                                    + config.getEditingFile().getName() + "\"?\n\n" + "(This action is UNDO-able)")) {
+                DomDocumentUtil.upgradeToUnqualifiedStyle(config);
                 config.getTextViewer().refresh();
             }
         }
