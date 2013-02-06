@@ -5,7 +5,7 @@ import com.alibaba.citrus.springext.support.SchemaUtil;
 import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
 import com.alibaba.ide.plugin.eclipse.springext.util.dom.DomDocumentUtil.NamespaceDefinition;
 
-public class AddNamespaceVisitor extends AbstractAddRemoveNamespaceVisitor {
+class AddNamespaceVisitor extends AbstractAddRemoveNamespaceVisitor {
     private final String namespaceToUpdate;
 
     public AddNamespaceVisitor(SchemaResourceSet schemas, String namespaceToUpdate) {

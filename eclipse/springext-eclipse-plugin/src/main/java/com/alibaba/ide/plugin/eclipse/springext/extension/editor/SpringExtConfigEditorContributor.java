@@ -17,14 +17,14 @@ import com.alibaba.ide.plugin.eclipse.springext.util.dom.DomDocumentUtil;
 public class SpringExtConfigEditorContributor extends MultiPageEditorActionBarContributor {
     private final static String MENU_ID = "springext";
     private final static String GROUP_ID = SpringExtConfigEditor.EDITOR_ID;
-    private final RemoveUnusedNamespacesAction removeUnusedNamespacesAction = new RemoveUnusedNamespacesAction();
+    private final CleanupUnusedNamespacesAction cleanupUnusedNamespacesAction = new CleanupUnusedNamespacesAction();
     private final UpgradeToUnqualifiedStyleAction upgradeToUnqualifiedStyleAction = new UpgradeToUnqualifiedStyleAction();
     private SpringExtConfig config;
 
     @Override
     public void contributeToToolBar(IToolBarManager toolBarManager) {
         toolBarManager.add(new GroupMarker(GROUP_ID));
-        toolBarManager.appendToGroup(GROUP_ID, removeUnusedNamespacesAction);
+        toolBarManager.appendToGroup(GROUP_ID, cleanupUnusedNamespacesAction);
         toolBarManager.appendToGroup(GROUP_ID, upgradeToUnqualifiedStyleAction);
     }
 
@@ -33,7 +33,7 @@ public class SpringExtConfigEditorContributor extends MultiPageEditorActionBarCo
         IMenuManager springExtConfigEditorMenu = new MenuManager("SpringExt", MENU_ID);
         menuManager.insertBefore("window", springExtConfigEditorMenu);
 
-        springExtConfigEditorMenu.add(removeUnusedNamespacesAction);
+        springExtConfigEditorMenu.add(cleanupUnusedNamespacesAction);
         springExtConfigEditorMenu.add(new Separator());
         springExtConfigEditorMenu.add(upgradeToUnqualifiedStyleAction);
     }
@@ -49,19 +49,19 @@ public class SpringExtConfigEditorContributor extends MultiPageEditorActionBarCo
 
     @Override
     public void setActivePage(IEditorPart activeEditor) {
-        removeUnusedNamespacesAction.setEnabled(true);
+        cleanupUnusedNamespacesAction.setEnabled(true);
     }
 
-    private class RemoveUnusedNamespacesAction extends Action {
-        public RemoveUnusedNamespacesAction() {
-            super("Remove Unused Namespaces", Action.AS_PUSH_BUTTON);
-            setImageDescriptor(SpringExtPlugin.getDefault().getImageRegistry().getDescriptor("clear"));
+    private class CleanupUnusedNamespacesAction extends Action {
+        public CleanupUnusedNamespacesAction() {
+            super("Cleanup Unused Namespaces", Action.AS_PUSH_BUTTON);
+            setImageDescriptor(SpringExtPlugin.getDefault().getImageRegistry().getDescriptor("clear-ns"));
         }
 
         @Override
         public void run() {
             if (config != null) {
-                DomDocumentUtil.removeUnusedNamespaceDefinitions(config);
+                DomDocumentUtil.cleanupUnusedNamespaceDefinitions(config);
                 config.getTextViewer().refresh();
             }
         }

@@ -21,7 +21,7 @@ import com.alibaba.citrus.springext.support.SchemaUtil;
  * @author Michael Zhou
  */
 @SuppressWarnings("restriction")
-public abstract class DocumentVisitor {
+abstract class DocumentVisitor {
     public final static String NS_XSI = "http://www.w3.org/2001/XMLSchema-instance";
     public final static String ATTR_SCHEMA_LOCATION = "schemaLocation";
     private final Map<String, String> schemaLocations = createTreeMap();

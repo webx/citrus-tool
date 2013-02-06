@@ -109,14 +109,14 @@ public class DomDocumentUtil {
         }
     }
 
-    public static void removeUnusedNamespaceDefinitions(SpringExtConfig config) {
+    public static void cleanupUnusedNamespaceDefinitions(SpringExtConfig config) {
         StructuredTextViewer textViewer = config.getTextViewer();
         IDOMDocument document = config.getDomDocument();
         SchemaResourceSet schemas = config.getSchemas();
 
         document.getModel().beginRecording(textViewer);
 
-        DocumentVisitor visitor = new RemoveUnusedNamespacesVisitor(schemas);
+        DocumentVisitor visitor = new CleanupUnusedNamespacesVisitor(schemas);
 
         try {
             visitor.accept(document);
