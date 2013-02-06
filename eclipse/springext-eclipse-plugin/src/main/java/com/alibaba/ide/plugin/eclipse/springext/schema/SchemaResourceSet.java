@@ -1,6 +1,7 @@
 package com.alibaba.ide.plugin.eclipse.springext.schema;
 
 import static com.alibaba.citrus.springext.support.SchemaUtil.*;
+import static com.alibaba.citrus.util.Assert.*;
 import static com.alibaba.citrus.util.CollectionUtil.*;
 import static com.alibaba.citrus.util.StringUtil.*;
 import static com.alibaba.ide.plugin.eclipse.springext.SpringExtConstant.*;
@@ -45,6 +46,7 @@ import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.alibaba.citrus.springext.ConfigurationPoint;
 import com.alibaba.citrus.springext.ContributionType;
 import com.alibaba.citrus.springext.ResourceResolver;
 import com.alibaba.citrus.springext.ResourceResolver.Resource;
@@ -127,6 +129,48 @@ public class SchemaResourceSet extends SpringExtSchemaSet {
         }
 
         return schema;
+    }
+
+    private static class CloneableConfigurationPointItem extends ConfigurationPointItem implements Cloneable {
+        public CloneableConfigurationPointItem(@NotNull String namespace, @NotNull Set<Schema> schemas,
+                                               @NotNull ConfigurationPoint configurationPoint) {
+            super(namespace, schemas, configurationPoint);
+        }
+
+        @Override
+        public Object clone() {
+            try {
+                return super.clone();
+            } catch (CloneNotSupportedException e) {
+                unexpectedException(e);
+                return null;
+            }
+        }
+    }
+
+    @Override
+    protected ConfigurationPointItem createConfigurationPointItem(@NotNull String namespace,
+                                                                  @NotNull Set<Schema> schemas,
+                                                                  @NotNull ConfigurationPoint configurationPoint) {
+        return new CloneableConfigurationPointItem(namespace, schemas, configurationPoint);
+    }
+
+    @Override
+    protected <C extends TreeItem> void addChildItem(@NotNull ParentOf<C> parent, @NotNull String key,
+                                                     @NotNull C childItem) {
+        if (parent instanceof ContributionItem && childItem instanceof CloneableConfigurationPointItem) {
+            // 由于eclipse tree viewer对于重复项的处理有问题，例如同一个configuration point item出现在多个contribution下，
+            // 下面对于contribution下面的重复的configuration point item创建不同的对象。
+            ContributionItem contributionItem = (ContributionItem) parent;
+
+            // Shallow copy, all copies share the same children instances.
+            ConfigurationPointItem configurationPointItem = (ConfigurationPointItem) ((CloneableConfigurationPointItem) childItem)
+                    .clone();
+
+            super.addChildItem(contributionItem, key, configurationPointItem);
+        } else {
+            super.addChildItem(parent, key, childItem);
+        }
     }
 
     /**
