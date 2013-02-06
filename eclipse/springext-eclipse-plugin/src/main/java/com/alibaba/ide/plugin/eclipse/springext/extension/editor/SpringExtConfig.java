@@ -80,15 +80,7 @@ public class SpringExtConfig implements ISchemaSetChangeListener, ITextListener 
     }
 
     public CheckboxTreeViewer getNamespacesTreeViewer() {
-        return getNamespacesTreeViewer(true);
-    }
-
-    public CheckboxTreeViewer getNamespacesTreeViewer(boolean required) {
-        if (required) {
-            return assertNotNull(namespacesTreeViewer, "namespacesTreeViewer is not ready");
-        } else {
-            return namespacesTreeViewer;
-        }
+        return assertNotNull(namespacesTreeViewer, "namespacesTreeViewer is not ready");
     }
 
     public void initWithNamespacesTreeViewer(CheckboxTreeViewer viewer) {
@@ -137,12 +129,10 @@ public class SpringExtConfig implements ISchemaSetChangeListener, ITextListener 
         if (event.getProject().equals(project)) {
             schemas = SchemaResourceSet.getInstance(project);
 
-            final CheckboxTreeViewer viewer = getNamespacesTreeViewer(false);
-
-            if (viewer != null) {
+            if (namespacesTreeViewer != null) {
                 Display.getDefault().syncExec(new Runnable() {
                     public void run() {
-                        viewer.setInput(domDocument);
+                        namespacesTreeViewer.setInput(domDocument);
                     }
                 });
             }
@@ -151,6 +141,12 @@ public class SpringExtConfig implements ISchemaSetChangeListener, ITextListener 
 
     public void textChanged(TextEvent event) {
         nds = null;
+    }
+
+    public void refreshNamespacesPage() {
+        if (namespacesTreeViewer != null) {
+            namespacesTreeViewer.refresh();
+        }
     }
 
     /**

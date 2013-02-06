@@ -40,14 +40,6 @@ public class NamespacesMasterPart extends SectionPart {
         this.toolkit = page.getManagedForm().getToolkit();
     }
 
-    public CheckboxTreeViewer getViewer() {
-        return treeViewer;
-    }
-
-    public FilteredTree getTree() {
-        return tree;
-    }
-
     public void createContents() {
         // section
         Section section = getSection();
@@ -96,6 +88,8 @@ public class NamespacesMasterPart extends SectionPart {
         // section/client/tree viewer
         treeViewer = tree.getViewer();
 
+        config.initWithNamespacesTreeViewer(treeViewer);
+
         treeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
             public void selectionChanged(SelectionChangedEvent event) {
                 getManagedForm().fireSelectionChanged(NamespacesMasterPart.this, event.getSelection());
@@ -105,7 +99,7 @@ public class NamespacesMasterPart extends SectionPart {
         treeViewer.addCheckStateListener(new ICheckStateListener() {
             public void checkStateChanged(CheckStateChangedEvent event) {
                 updateNamespaceDefinitions(config, (TreeItem) event.getElement(), event.getChecked());
-                treeViewer.refresh();
+                config.refreshNamespacesPage();
             }
         });
 
@@ -129,13 +123,11 @@ public class NamespacesMasterPart extends SectionPart {
                 treeViewer.expandAll();
             }
         });
-
-        config.initWithNamespacesTreeViewer(treeViewer);
     }
 
     @Override
     public void refresh() {
-        config.getNamespacesTreeViewer().refresh();
+        config.refreshNamespacesPage();
         super.refresh();
     }
 

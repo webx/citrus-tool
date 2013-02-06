@@ -63,7 +63,7 @@ public class SpringExtConfigEditorContributor extends MultiPageEditorActionBarCo
         public void run() {
             if (config != null) {
                 DomDocumentUtil.cleanupUnusedNamespaceDefinitions(config);
-                config.getTextViewer().refresh();
+                config.refreshNamespacesPage();
             }
         }
     }
@@ -86,7 +86,7 @@ public class SpringExtConfigEditorContributor extends MultiPageEditorActionBarCo
                                     + "Are you sure you want to do the upgrading on file \""
                                     + config.getEditingFile().getName() + "\"?\n\n" + "(This action is UNDO-able)")) {
                 DomDocumentUtil.upgradeToUnqualifiedStyle(config);
-                config.getTextViewer().refresh();
+                config.refreshNamespacesPage();
             }
         }
     }
