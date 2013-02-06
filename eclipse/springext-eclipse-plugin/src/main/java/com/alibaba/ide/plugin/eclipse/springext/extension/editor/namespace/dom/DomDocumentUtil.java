@@ -4,6 +4,7 @@ import static com.alibaba.citrus.util.CollectionUtil.*;
 import static com.alibaba.citrus.util.StringUtil.*;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,6 +22,7 @@ import org.eclipse.wst.xml.core.internal.provisional.format.FormatProcessorXML;
 import org.w3c.dom.Node;
 
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.NamespaceItem;
+import com.alibaba.citrus.springext.support.SpringExtSchemaSet.TreeItem;
 import com.alibaba.citrus.springext.util.ConvertToUnqualifiedStyle.Converter;
 import com.alibaba.ide.plugin.eclipse.springext.extension.editor.SpringExtConfig;
 import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
@@ -124,16 +126,28 @@ public class DomDocumentUtil {
         }
     }
 
-    public static void updateNamespaceDefinition(SpringExtConfig config, NamespaceItem item, boolean checked) {
+    public static void updateNamespaceDefinitions(SpringExtConfig config, TreeItem item, boolean checked) {
         StructuredTextViewer textViewer = config.getTextViewer();
         IDOMDocument document = config.getDomDocument();
         SchemaResourceSet schemas = config.getSchemas();
-        String namespaceToUpdate = item.getNamespace();
+        List<String> namespacesToUpdate = createLinkedList();
+
+        if (item instanceof NamespaceItem) {
+            namespacesToUpdate.add(((NamespaceItem) item).getNamespace());
+        } else {
+            for (TreeItem child : item.getChildren()) {
+                if (child instanceof NamespaceItem) {
+                    namespacesToUpdate.add(((NamespaceItem) child).getNamespace());
+                }
+            }
+        }
+
+        String[] namespaces = namespacesToUpdate.toArray(new String[namespacesToUpdate.size()]);
 
         document.getModel().beginRecording(textViewer);
 
-        DocumentVisitor visitor = checked ? new AddNamespaceVisitor(schemas, namespaceToUpdate)
-                : new RemoveNamespaceVisitor(schemas, namespaceToUpdate);
+        DocumentVisitor visitor = checked ? new AddNamespaceVisitor(schemas, namespaces) : new RemoveNamespaceVisitor(
+                schemas, namespaces);
 
         try {
             visitor.accept(document);

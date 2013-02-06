@@ -20,7 +20,6 @@ import com.alibaba.citrus.springext.support.SpringExtSchemaSet.SpringPluggableIt
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.TreeItem;
 import com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin;
 import com.alibaba.ide.plugin.eclipse.springext.extension.editor.SpringExtConfig;
-import com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.dom.DomDocumentUtil;
 
 @SuppressWarnings("restriction")
 public class NamespacesTreeProvider extends LabelProvider implements ITreePathLabelProvider, ITreePathContentProvider,
@@ -118,7 +117,7 @@ public class NamespacesTreeProvider extends LabelProvider implements ITreePathLa
     }
 
     private boolean isChecked(NamespaceItem item) {
-        return DomDocumentUtil.getNamespace(config.getDomDocument(), item.getNamespace()) != null;
+        return !config.getNamespaceDefinitions().find(item.getNamespace()).isEmpty();
     }
 
     public boolean isGrayed(Object element) {

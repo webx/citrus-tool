@@ -3,21 +3,27 @@ package com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.dom;
 import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
 
 class RemoveNamespaceVisitor extends AbstractAddRemoveNamespaceVisitor {
-    private final String namespaceToUpdate;
+    private final String[] namespacesToUpdate;
 
-    public RemoveNamespaceVisitor(SchemaResourceSet schemas, String namespaceToUpdate) {
+    public RemoveNamespaceVisitor(SchemaResourceSet schemas, String... namespacesToUpdate) {
         super(schemas);
-        this.namespaceToUpdate = namespaceToUpdate;
+        this.namespacesToUpdate = namespacesToUpdate;
     }
 
     @Override
     protected void updateNamespaces() {
-        String nsToRemove = namespaceToUpdate;
+        if (namespacesToUpdate == null) {
+            return;
+        }
 
-        // 避免删除正在使用的namespace
-        if (!namespacesInUse.contains(nsToRemove)) {
-            defs.remove(nsToRemove);
-            getSchemaLocations().remove(nsToRemove);
+        for (String namespaceToUpdate : namespacesToUpdate) {
+            String nsToRemove = namespaceToUpdate;
+
+            // 避免删除正在使用的namespace
+            if (!namespacesInUse.contains(nsToRemove)) {
+                defs.remove(nsToRemove);
+                getSchemaLocations().remove(nsToRemove);
+            }
         }
     }
 }

@@ -23,7 +23,7 @@ import org.eclipse.ui.forms.widgets.ImageHyperlink;
 import org.eclipse.ui.forms.widgets.Section;
 
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.ContributionItem;
-import com.alibaba.citrus.springext.support.SpringExtSchemaSet.NamespaceItem;
+import com.alibaba.citrus.springext.support.SpringExtSchemaSet.TreeItem;
 import com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin;
 import com.alibaba.ide.plugin.eclipse.springext.extension.editor.SpringExtConfig;
 
@@ -104,10 +104,8 @@ public class NamespacesMasterPart extends SectionPart {
 
         treeViewer.addCheckStateListener(new ICheckStateListener() {
             public void checkStateChanged(CheckStateChangedEvent event) {
-                if (event.getElement() instanceof NamespaceItem) {
-                    updateNamespaceDefinition(config, (NamespaceItem) event.getElement(), event.getChecked());
-                    treeViewer.refresh();
-                }
+                updateNamespaceDefinitions(config, (TreeItem) event.getElement(), event.getChecked());
+                treeViewer.refresh();
             }
         });
 

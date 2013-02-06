@@ -7,33 +7,39 @@ import com.alibaba.citrus.springext.support.SchemaUtil;
 import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
 
 class AddNamespaceVisitor extends AbstractAddRemoveNamespaceVisitor {
-    private final String namespaceToUpdate;
+    private final String[] namespacesToUpdate;
 
-    public AddNamespaceVisitor(SchemaResourceSet schemas, String namespaceToUpdate) {
+    public AddNamespaceVisitor(SchemaResourceSet schemas, String... namespacesToUpdate) {
         super(schemas);
-        this.namespaceToUpdate = namespaceToUpdate;
+        this.namespacesToUpdate = namespacesToUpdate;
     }
 
     @Override
     protected void updateNamespaces() {
-        Schema schema = schemas.findSchemaByUrl(namespaceToUpdate); // 注：schema可能为null，比如：spring/c
-        String locationPrefix = guessLocationPrefix(getSchemaLocations(), schemas);
+        if (namespacesToUpdate == null) {
+            return;
+        }
 
-        if (defs.find(namespaceToUpdate).isEmpty()) {
-            String nsPrefixBase = SchemaUtil.getNamespacePrefix(schema == null ? null : schema.getPreferredNsPrefix(),
-                    namespaceToUpdate);
+        for (String namespaceToUpdate : namespacesToUpdate) {
+            Schema schema = schemas.findSchemaByUrl(namespaceToUpdate); // 注：schema可能为null，比如：spring/c
+            String locationPrefix = guessLocationPrefix(getSchemaLocations(), schemas);
 
-            String nsPrefix = nsPrefixBase;
+            if (defs.find(namespaceToUpdate).isEmpty()) {
+                String nsPrefixBase = SchemaUtil.getNamespacePrefix(
+                        schema == null ? null : schema.getPreferredNsPrefix(), namespaceToUpdate);
 
-            // 避免prefix重复。
-            for (int i = 1; existingPrefixes.contains(nsPrefix); i++) {
-                nsPrefix = nsPrefixBase + i;
-            }
+                String nsPrefix = nsPrefixBase;
 
-            defs.add(new NamespaceDefinition(namespaceToUpdate, nsPrefix, getSchemaLocations()));
+                // 避免prefix重复。
+                for (int i = 1; existingPrefixes.contains(nsPrefix); i++) {
+                    nsPrefix = nsPrefixBase + i;
+                }
 
-            if (schema != null) {
-                getSchemaLocations().put(namespaceToUpdate, locationPrefix + schema.getName());
+                defs.add(new NamespaceDefinition(namespaceToUpdate, nsPrefix, getSchemaLocations()));
+
+                if (schema != null) {
+                    getSchemaLocations().put(namespaceToUpdate, locationPrefix + schema.getName());
+                }
             }
         }
     }
