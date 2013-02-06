@@ -55,6 +55,7 @@ public class SpringExtPlugin extends AbstractUIPlugin implements SpringExtConsta
         registerImage(registry, "plug", "plug.png");
         registerImage(registry, "socket", "socket.png");
         registerImage(registry, "spring", "spring-lighter.png");
+        registerImage(registry, "spring-stroke", "spring-stroke.png");
         registerImage(registry, "horizontal", "horizontal.gif");
         registerImage(registry, "vertical", "vertical.gif");
         registerImage(registry, "expand", "expand.png");

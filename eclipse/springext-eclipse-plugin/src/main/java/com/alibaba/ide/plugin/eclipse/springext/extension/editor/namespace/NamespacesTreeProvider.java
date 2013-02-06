@@ -93,7 +93,11 @@ public class NamespacesTreeProvider extends LabelProvider implements ITreePathLa
         } else if (item instanceof ConfigurationPointItem) {
             label.setImage(SpringExtPlugin.getDefault().getImageRegistry().get("socket"));
         } else if (item instanceof SpringPluggableItem) {
-            label.setImage(SpringExtPlugin.getDefault().getImageRegistry().get("spring"));
+            if (((SpringPluggableItem) item).getSchemas().isEmpty()) {
+                label.setImage(SpringExtPlugin.getDefault().getImageRegistry().get("spring-stroke"));
+            } else {
+                label.setImage(SpringExtPlugin.getDefault().getImageRegistry().get("spring"));
+            }
         }
     }
 
