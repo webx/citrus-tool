@@ -112,10 +112,6 @@ public class NamespacesTreeProvider extends LabelProvider implements ITreePathLa
             }
         }
 
-        if (element.toString().contains("uris/intercept")) {
-            System.err.println("isChecked=" + checked + ": " + element + "(" + element.hashCode() + ")");
-        }
-
         return checked;
     }
 
