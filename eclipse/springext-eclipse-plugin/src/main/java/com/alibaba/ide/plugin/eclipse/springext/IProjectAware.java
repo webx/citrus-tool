@@ -1,4 +1,4 @@
-package com.alibaba.ide.plugin.eclipse.springext.util;
+package com.alibaba.ide.plugin.eclipse.springext;
 
 import org.eclipse.core.resources.IProject;
 

@@ -1,7 +1,7 @@
 package com.alibaba.ide.plugin.eclipse.springext.extension.resolver;
 
 import static com.alibaba.citrus.util.StringEscapeUtil.*;
-import static com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin.*;
+import static com.alibaba.ide.plugin.eclipse.springext.SpringExtConstant.*;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;

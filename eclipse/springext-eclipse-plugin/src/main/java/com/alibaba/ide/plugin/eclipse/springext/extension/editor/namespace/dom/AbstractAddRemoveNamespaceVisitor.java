@@ -1,9 +1,9 @@
-package com.alibaba.ide.plugin.eclipse.springext.util.dom;
+package com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.dom;
 
 import static com.alibaba.citrus.util.CollectionUtil.*;
 import static com.alibaba.citrus.util.StringUtil.*;
 import static com.alibaba.ide.plugin.eclipse.springext.SpringExtConstant.*;
-import static com.alibaba.ide.plugin.eclipse.springext.util.dom.DomDocumentUtil.*;
+import static com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.dom.DomDocumentUtil.*;
 import static java.lang.Math.*;
 
 import java.util.Arrays;
@@ -20,9 +20,9 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.ProcessingInstruction;
 
 import com.alibaba.citrus.springext.Schema;
+import com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.dom.DomDocumentUtil.NamespaceDefinition;
+import com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.dom.DomDocumentUtil.NamespaceDefinitions;
 import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
-import com.alibaba.ide.plugin.eclipse.springext.util.dom.DomDocumentUtil.NamespaceDefinition;
-import com.alibaba.ide.plugin.eclipse.springext.util.dom.DomDocumentUtil.NamespaceDefinitions;
 
 /**
  * 从文档中添加、删除指定schema的namepsaces。
@@ -117,8 +117,8 @@ abstract class AbstractAddRemoveNamespaceVisitor extends DocumentVisitor {
         }
 
         // xsi:schemaLocation
-        else if ((NS_XSI.equals(getCurrentAttribute().getNamespaceURI()) && ATTR_SCHEMA_LOCATION
-                .equals(getCurrentAttribute().getLocalName()))) {
+        else if (NS_XSI.equals(getCurrentAttribute().getNamespaceURI())
+                && ATTR_SCHEMA_LOCATION.equals(getCurrentAttribute().getLocalName())) {
             getCurrentElement().removeAttributeNode(getCurrentAttribute());
         }
 
@@ -134,8 +134,8 @@ abstract class AbstractAddRemoveNamespaceVisitor extends DocumentVisitor {
         saveNamespace(getCurrentAttribute());
 
         // xsi:schemaLocation
-        if ((NS_XSI.equals(getCurrentAttribute().getNamespaceURI()) && ATTR_SCHEMA_LOCATION
-                .equals(getCurrentAttribute().getLocalName()))) {
+        if (NS_XSI.equals(getCurrentAttribute().getNamespaceURI())
+                && ATTR_SCHEMA_LOCATION.equals(getCurrentAttribute().getLocalName())) {
             getCurrentElement().removeAttributeNode(getCurrentAttribute());
         }
     }

@@ -1,4 +1,4 @@
-package com.alibaba.ide.plugin.eclipse.springext.util.dom;
+package com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.dom;
 
 import static com.alibaba.citrus.util.CollectionUtil.*;
 
@@ -147,7 +147,7 @@ abstract class DocumentVisitor {
             IDOMAttr currentAttr = currentAttribute;
 
             try {
-                currentAttribute = (IDOMAttr) node;
+                currentAttribute = node;
 
                 if (isRootElement) {
                     visitRootElementAttribute();

@@ -1,6 +1,6 @@
 package com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace;
 
-import static com.alibaba.ide.plugin.eclipse.springext.util.dom.DomDocumentUtil.*;
+import static com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.dom.DomDocumentUtil.*;
 
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
@@ -17,6 +17,7 @@ import org.eclipse.ui.dialogs.PatternFilter;
 import org.eclipse.ui.forms.SectionPart;
 import org.eclipse.ui.forms.events.HyperlinkAdapter;
 import org.eclipse.ui.forms.events.HyperlinkEvent;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ImageHyperlink;
 import org.eclipse.ui.forms.widgets.Section;
@@ -33,7 +34,7 @@ public class NamespacesMasterPart extends SectionPart {
     private CheckboxTreeViewer treeViewer;
 
     public NamespacesMasterPart(Composite parent, NamespacesPage page) {
-        super(parent, page.getManagedForm().getToolkit(), Section.DESCRIPTION | Section.TITLE_BAR);
+        super(parent, page.getManagedForm().getToolkit(), Section.DESCRIPTION | ExpandableComposite.TITLE_BAR);
 
         this.config = page.getConfig();
         this.toolkit = page.getManagedForm().getToolkit();
@@ -118,12 +119,14 @@ public class NamespacesMasterPart extends SectionPart {
         treeViewer.setInput(config.getDomDocument());
 
         collapseButton.addHyperlinkListener(new HyperlinkAdapter() {
+            @Override
             public void linkActivated(HyperlinkEvent e) {
                 treeViewer.collapseAll();
             }
         });
 
         expandButton.addHyperlinkListener(new HyperlinkAdapter() {
+            @Override
             public void linkActivated(HyperlinkEvent e) {
                 treeViewer.expandAll();
             }

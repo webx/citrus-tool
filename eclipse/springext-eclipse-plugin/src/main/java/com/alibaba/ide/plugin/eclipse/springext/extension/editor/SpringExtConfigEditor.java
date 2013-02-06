@@ -1,6 +1,6 @@
 package com.alibaba.ide.plugin.eclipse.springext.extension.editor;
 
-import static com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil.*;
+import static com.alibaba.ide.plugin.eclipse.springext.SpringExtPluginUtil.*;
 
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -14,7 +14,7 @@ import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.ide.IGotoMarker;
 import org.eclipse.wst.sse.ui.StructuredTextEditor;
 
-import com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin;
+import com.alibaba.ide.plugin.eclipse.springext.SpringExtConstant;
 import com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.NamespacesPage;
 
 public class SpringExtConfigEditor extends FormEditor implements IGotoMarker {
@@ -59,7 +59,7 @@ public class SpringExtConfigEditor extends FormEditor implements IGotoMarker {
 
             config.initWithTextViewer(sourceEditor.getTextViewer());
         } catch (PartInitException e) {
-            logAndDisplay(new Status(IStatus.ERROR, SpringExtPlugin.PLUGIN_ID,
+            logAndDisplay(new Status(IStatus.ERROR, SpringExtConstant.PLUGIN_ID,
                     "Could not open editor for source file: " + sourceEditor.getTitle(), e));
         }
     }
@@ -73,7 +73,7 @@ public class SpringExtConfigEditor extends FormEditor implements IGotoMarker {
             int index = addPage(namespacesPage);
             setPageText(index, "Namespaces");
         } catch (PartInitException e) {
-            logAndDisplay(new Status(IStatus.ERROR, SpringExtPlugin.PLUGIN_ID, "Could not add tab to editor "
+            logAndDisplay(new Status(IStatus.ERROR, SpringExtConstant.PLUGIN_ID, "Could not add tab to editor "
                     + sourceEditor.getTitle(), e));
         }
     }
@@ -112,7 +112,7 @@ public class SpringExtConfigEditor extends FormEditor implements IGotoMarker {
             try {
                 config.setInput(((IFileEditorInput) input).getFile());
             } catch (Exception e) {
-                logAndDisplay(new Status(IStatus.ERROR, SpringExtPlugin.PLUGIN_ID,
+                logAndDisplay(new Status(IStatus.ERROR, SpringExtConstant.PLUGIN_ID,
                         "Could not load model for source file: " + input.getName(), e));
             }
         }

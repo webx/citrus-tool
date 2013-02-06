@@ -1,4 +1,4 @@
-package com.alibaba.ide.plugin.eclipse.springext.util.dom;
+package com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.dom;
 
 import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
 

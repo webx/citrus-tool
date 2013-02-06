@@ -1,6 +1,6 @@
 package com.alibaba.ide.plugin.eclipse.springext.extension.hyperlink;
 
-import static com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin.*;
+import static com.alibaba.ide.plugin.eclipse.springext.SpringExtConstant.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,9 +36,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.citrus.util.io.StreamUtil;
-import com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin;
-import com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil;
-import com.alibaba.ide.plugin.eclipse.springext.util.IProjectAware;
+import com.alibaba.ide.plugin.eclipse.springext.IProjectAware;
+import com.alibaba.ide.plugin.eclipse.springext.SpringExtConstant;
+import com.alibaba.ide.plugin.eclipse.springext.SpringExtPluginUtil;
 
 /**
  * 在编辑器中打开URL。如果URL代表一个workspace file，则打开file。
@@ -145,8 +145,8 @@ public class URLHyperlink implements IHyperlink {
             try {
                 return StreamUtil.readBytes(url.openStream(), true).toInputStream();
             } catch (IOException e) {
-                throw new CoreException(new Status(IStatus.ERROR, SpringExtPlugin.PLUGIN_ID,
-                        "Could not read URL: " + url, e));
+                throw new CoreException(new Status(IStatus.ERROR, SpringExtConstant.PLUGIN_ID, "Could not read URL: "
+                        + url, e));
             }
         }
 

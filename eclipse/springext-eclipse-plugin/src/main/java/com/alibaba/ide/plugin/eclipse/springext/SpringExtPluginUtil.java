@@ -1,4 +1,4 @@
-package com.alibaba.ide.plugin.eclipse.springext.util;
+package com.alibaba.ide.plugin.eclipse.springext;
 
 import org.eclipse.core.filebuffers.FileBuffers;
 import org.eclipse.core.filebuffers.ITextFileBuffer;
@@ -27,8 +27,6 @@ import org.eclipse.wst.sse.core.internal.provisional.IStructuredModel;
 import org.eclipse.wst.sse.core.utils.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin;
 
 @SuppressWarnings("restriction")
 public class SpringExtPluginUtil {

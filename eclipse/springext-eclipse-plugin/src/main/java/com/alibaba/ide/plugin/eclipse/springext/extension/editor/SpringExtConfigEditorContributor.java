@@ -2,6 +2,7 @@ package com.alibaba.ide.plugin.eclipse.springext.extension.editor;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.GroupMarker;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
@@ -12,7 +13,7 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.part.MultiPageEditorActionBarContributor;
 
 import com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin;
-import com.alibaba.ide.plugin.eclipse.springext.util.dom.DomDocumentUtil;
+import com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.dom.DomDocumentUtil;
 
 public class SpringExtConfigEditorContributor extends MultiPageEditorActionBarContributor {
     private final static String MENU_ID = "springext";
@@ -54,7 +55,7 @@ public class SpringExtConfigEditorContributor extends MultiPageEditorActionBarCo
 
     private class CleanupUnusedNamespacesAction extends Action {
         public CleanupUnusedNamespacesAction() {
-            super("Cleanup Unused Namespaces", Action.AS_PUSH_BUTTON);
+            super("Cleanup Unused Namespaces", IAction.AS_PUSH_BUTTON);
             setImageDescriptor(SpringExtPlugin.getDefault().getImageRegistry().getDescriptor("clear-ns"));
         }
 
@@ -69,7 +70,7 @@ public class SpringExtConfigEditorContributor extends MultiPageEditorActionBarCo
 
     private class UpgradeToUnqualifiedStyleAction extends Action {
         public UpgradeToUnqualifiedStyleAction() {
-            super("Upgrade to Webx 3.2.x Format", Action.AS_PUSH_BUTTON);
+            super("Upgrade to Webx 3.2.x Format", IAction.AS_PUSH_BUTTON);
             setImageDescriptor(SpringExtPlugin.getDefault().getImageRegistry().getDescriptor("upgrade32"));
         }
 
