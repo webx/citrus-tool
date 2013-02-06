@@ -17,6 +17,8 @@ import org.eclipse.wst.sse.ui.internal.StructuredTextViewer;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMDocument;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMModel;
 
+import com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.dom.DomDocumentUtil;
+import com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.dom.NamespaceDefinitions;
 import com.alibaba.ide.plugin.eclipse.springext.schema.ISchemaSetChangeListener;
 import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
 
@@ -39,6 +41,8 @@ public class SpringExtConfig implements ISchemaSetChangeListener, ITextListener 
     private IDOMDocument domDocument;
     private SchemaResourceSet schemas;
 
+    private NamespaceDefinitions nds;
+
     private StructuredTextViewer textViewer;
     private CheckboxTreeViewer namespacesTreeViewer;
 
@@ -56,6 +60,14 @@ public class SpringExtConfig implements ISchemaSetChangeListener, ITextListener 
 
     public SchemaResourceSet getSchemas() {
         return schemas;
+    }
+
+    public NamespaceDefinitions getNamespaceDefinitions() {
+        if (nds == null && domDocument != null) {
+            nds = DomDocumentUtil.loadNamespaces(domDocument);
+        }
+
+        return nds;
     }
 
     public StructuredTextViewer getTextViewer() {
@@ -138,6 +150,7 @@ public class SpringExtConfig implements ISchemaSetChangeListener, ITextListener 
     }
 
     public void textChanged(TextEvent event) {
+        nds = null;
     }
 
     /**

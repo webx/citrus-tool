@@ -1,13 +1,12 @@
 package com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.dom;
 
+import static com.alibaba.citrus.springext.support.SchemaUtil.*;
 import static com.alibaba.citrus.util.CollectionUtil.*;
 import static com.alibaba.citrus.util.StringUtil.*;
 import static com.alibaba.ide.plugin.eclipse.springext.SpringExtConstant.*;
 import static com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.dom.DomDocumentUtil.*;
-import static java.lang.Math.*;
 
 import java.util.Arrays;
-import java.util.Formatter;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -147,7 +146,7 @@ abstract class AbstractAddRemoveNamespaceVisitor extends DocumentVisitor {
     }
 
     private void updateDocument() {
-        String locationPrefix = getLocationPrefix();
+        String locationPrefix = guessLocationPrefix(getSchemaLocations(), schemas);
 
         // 排序并加回所有的attrs
         // 1. xmlns:xsi
@@ -186,7 +185,8 @@ abstract class AbstractAddRemoveNamespaceVisitor extends DocumentVisitor {
         }
 
         // 4. schema locations
-        getCurrentElement().setAttribute(xsiPrefix + ":" + ATTR_SCHEMA_LOCATION, generateSchemaLocation());
+        getCurrentElement().setAttribute(xsiPrefix + ":" + ATTR_SCHEMA_LOCATION,
+                formatSchemaLocations(getSchemaLocations(), getCurrentElement().getNodeName()));
 
         // 5. other  attrs
         for (IDOMAttr attr : otherAttrs) {
@@ -211,63 +211,5 @@ abstract class AbstractAddRemoveNamespaceVisitor extends DocumentVisitor {
                 }
             }
         }
-    }
-
-    private String generateSchemaLocation() {
-        StringBuilder buf = new StringBuilder();
-        Formatter formatter = new Formatter(buf);
-
-        try {
-            String prefix = getCurrentElement().getNodeName().replaceAll(".", " ") + "  ";
-            String indent = "    ";
-
-            formatter.format("%n");
-
-            int maxLength = 0;
-
-            for (String ns : getSchemaLocations().keySet()) {
-                maxLength = max(maxLength, ns.length());
-            }
-
-            String format = "%s%s%-" + maxLength + "s %s%n";
-
-            for (Map.Entry<String, String> entry : getSchemaLocations().entrySet()) {
-                String ns = entry.getKey();
-                String location = entry.getValue();
-
-                formatter.format(format, prefix, indent, ns, location);
-            }
-
-            formatter.format(prefix);
-        } finally {
-            formatter.close();
-        }
-
-        return buf.toString();
-    }
-
-    protected final String getLocationPrefix() {
-        String locationPrefix = null;
-
-        for (Map.Entry<String, String> entry : getSchemaLocations().entrySet()) {
-            String uri = entry.getKey();
-            String location = entry.getValue();
-            Set<Schema> schemaSet = schemas.getNamespaceMappings().get(uri);
-
-            if (schemaSet != null) {
-                for (Schema schema : schemaSet) {
-                    if (location.endsWith(schema.getName())) {
-                        locationPrefix = location.substring(0, location.length() - schema.getName().length());
-                        break;
-                    }
-                }
-            }
-        }
-
-        if (locationPrefix == null || locationPrefix.equals("http:") || locationPrefix.equals("http://")) {
-            locationPrefix = "http://localhost:8080/schema/";
-        }
-
-        return locationPrefix;
     }
 }

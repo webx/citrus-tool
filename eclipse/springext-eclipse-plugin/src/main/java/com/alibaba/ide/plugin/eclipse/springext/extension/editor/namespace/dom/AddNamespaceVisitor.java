@@ -1,5 +1,7 @@
 package com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.dom;
 
+import static com.alibaba.citrus.springext.support.SchemaUtil.*;
+
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.support.SchemaUtil;
 import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
@@ -15,7 +17,7 @@ class AddNamespaceVisitor extends AbstractAddRemoveNamespaceVisitor {
     @Override
     protected void updateNamespaces() {
         Schema schema = schemas.findSchemaByUrl(namespaceToUpdate); // 注：schema可能为null，比如：spring/c
-        String locationPrefix = getLocationPrefix();
+        String locationPrefix = guessLocationPrefix(getSchemaLocations(), schemas);
 
         if (defs.find(namespaceToUpdate).isEmpty()) {
             String nsPrefixBase = SchemaUtil.getNamespacePrefix(schema == null ? null : schema.getPreferredNsPrefix(),
