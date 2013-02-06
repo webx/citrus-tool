@@ -2,10 +2,8 @@ package com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.dom;
 
 import static com.alibaba.citrus.util.CollectionUtil.*;
 import static com.alibaba.citrus.util.StringUtil.*;
-import static java.util.Collections.*;
 
 import java.util.LinkedList;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -234,67 +232,5 @@ public class DomDocumentUtil {
         }
 
         return null;
-    }
-
-    public static class NamespaceDefinitions {
-        private final Map<String/* ns */, Map<String/* prefix */, NamespaceDefinition>> namespaces = createLinkedHashMap();
-
-        public void add(NamespaceDefinition nd) {
-            Map<String, NamespaceDefinition> prefixes = namespaces.get(nd.getNamespace());
-
-            if (prefixes == null) {
-                prefixes = createHashMap();
-                namespaces.put(nd.getNamespace(), prefixes);
-            }
-
-            prefixes.put(nd.getPrefix(), nd);
-        }
-
-        public void remove(String namespace) {
-            namespaces.remove(namespace);
-        }
-
-        public Map<String, NamespaceDefinition> find(String namespace) {
-            Map<String, NamespaceDefinition> prefixes = namespaces.get(trimToNull(namespace));
-
-            if (prefixes == null) {
-                return emptyMap();
-            } else {
-                return prefixes;
-            }
-        }
-
-        public String[] getNamespaces() {
-            return namespaces.keySet().toArray(new String[namespaces.size()]);
-        }
-    }
-
-    public static class NamespaceDefinition {
-        private final String namespace;
-        private final String prefix;
-        private final String location;
-
-        public NamespaceDefinition(String namespace, String prefix, Map<String, String> schemaLocations) {
-            this.namespace = trimToNull(namespace);
-            this.prefix = trimToNull(prefix);
-            this.location = schemaLocations.get(this.namespace);
-        }
-
-        public String getNamespace() {
-            return namespace;
-        }
-
-        public String getPrefix() {
-            return prefix;
-        }
-
-        public String getLocation() {
-            return location;
-        }
-
-        @Override
-        public String toString() {
-            return "xmlns" + (prefix == null ? "" : ":" + prefix) + "=\"" + namespace + "\"";
-        }
     }
 }

@@ -20,8 +20,6 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.ProcessingInstruction;
 
 import com.alibaba.citrus.springext.Schema;
-import com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.dom.DomDocumentUtil.NamespaceDefinition;
-import com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.dom.DomDocumentUtil.NamespaceDefinitions;
 import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
 
 /**

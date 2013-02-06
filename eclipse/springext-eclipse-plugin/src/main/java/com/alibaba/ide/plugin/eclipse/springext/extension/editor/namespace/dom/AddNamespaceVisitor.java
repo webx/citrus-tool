@@ -2,7 +2,6 @@ package com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.dom;
 
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.support.SchemaUtil;
-import com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.dom.DomDocumentUtil.NamespaceDefinition;
 import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
 
 class AddNamespaceVisitor extends AbstractAddRemoveNamespaceVisitor {
