@@ -1,11 +1,7 @@
 package com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace;
 
-import static com.alibaba.citrus.util.CollectionUtil.*;
-
-import java.util.LinkedList;
-
 import org.eclipse.jface.viewers.ICheckStateProvider;
-import org.eclipse.jface.viewers.ITreePathContentProvider;
+import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.ITreePathLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TreePath;
@@ -22,7 +18,7 @@ import com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin;
 import com.alibaba.ide.plugin.eclipse.springext.extension.editor.SpringExtConfig;
 
 @SuppressWarnings("restriction")
-public class NamespacesTreeProvider extends LabelProvider implements ITreePathLabelProvider, ITreePathContentProvider,
+public class NamespacesTreeProvider extends LabelProvider implements ITreePathLabelProvider, ITreeContentProvider,
         ICheckStateProvider {
     private final SpringExtConfig config;
 
@@ -38,41 +34,46 @@ public class NamespacesTreeProvider extends LabelProvider implements ITreePathLa
         return new Object[0];
     }
 
-    public Object[] getChildren(TreePath parentPath) {
-        return getTreeItem(parentPath).getChildren();
+    public Object[] getChildren(Object element) {
+        return ((TreeItem) element).getChildren();
     }
 
-    public boolean hasChildren(TreePath path) {
-        return getTreeItem(path).hasChildren();
+    public boolean hasChildren(Object element) {
+        return ((TreeItem) element).hasChildren();
     }
 
-    public TreePath[] getParents(Object element) {
-        LinkedList<TreeItem> path = createLinkedList();
-        LinkedList<TreePath> allPaths = createLinkedList();
-
+    public Object getParent(Object element) {
         if (config.getSchemas() != null) {
             for (TreeItem item : config.getSchemas().getIndependentItems()) {
-                visit(item, path, element, allPaths);
+                if (item == element) {
+                    return null;
+                }
+
+                TreeItem found = find(item, null, element);
+
+                if (found != null) {
+                    return found;
+                }
             }
         }
 
-        return allPaths.toArray(new TreePath[allPaths.size()]);
+        return null;
     }
 
-    private void visit(TreeItem item, LinkedList<TreeItem> path, Object element, LinkedList<TreePath> allPaths) {
+    private TreeItem find(TreeItem item, TreeItem parent, Object element) {
         if (item == element) {
-            allPaths.add(new TreePath(path.toArray()));
+            return parent;
         }
 
-        try {
-            path.addLast(item);
+        for (TreeItem child : item.getChildren()) {
+            TreeItem found = find(child, item, element);
 
-            for (TreeItem child : item.getChildren()) {
-                visit(child, path, element, allPaths);
+            if (found != null) {
+                return found;
             }
-        } finally {
-            path.removeLast();
         }
+
+        return null;
     }
 
     @Override
@@ -101,19 +102,21 @@ public class NamespacesTreeProvider extends LabelProvider implements ITreePathLa
     }
 
     public boolean isChecked(Object element) {
-        if (element instanceof NamespaceItem) {
-            return isChecked((NamespaceItem) element);
-        } else if (element instanceof ContributionItem) {
-            boolean checked = false;
+        boolean checked = false;
 
+        if (element instanceof NamespaceItem) {
+            checked = isChecked((NamespaceItem) element);
+        } else if (element instanceof ContributionItem) {
             for (TreeItem item : ((ContributionItem) element).getChildren()) {
                 checked |= isChecked((NamespaceItem) item);
             }
-
-            return checked;
         }
 
-        return false;
+        if (element.toString().contains("uris/intercept")) {
+            System.err.println("isChecked=" + checked + ": " + element + "(" + element.hashCode() + ")");
+        }
+
+        return checked;
     }
 
     private boolean isChecked(NamespaceItem item) {
@@ -121,7 +124,17 @@ public class NamespacesTreeProvider extends LabelProvider implements ITreePathLa
     }
 
     public boolean isGrayed(Object element) {
-        return element instanceof ContributionItem;
+        boolean greyed = false;
+
+        if (element instanceof ContributionItem) {
+            for (TreeItem item : ((ContributionItem) element).getChildren()) {
+                if (!isChecked((NamespaceItem) item)) {
+                    greyed = true;
+                }
+            }
+        }
+
+        return greyed;
     }
 
     private TreeItem getTreeItem(TreePath parentPath) {
