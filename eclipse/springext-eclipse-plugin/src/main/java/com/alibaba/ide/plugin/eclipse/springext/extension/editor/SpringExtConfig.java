@@ -1,8 +1,11 @@
 package com.alibaba.ide.plugin.eclipse.springext.extension.editor;
 
 import static com.alibaba.citrus.util.Assert.*;
+import static com.alibaba.citrus.util.CollectionUtil.*;
 
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -17,6 +20,8 @@ import org.eclipse.wst.sse.ui.internal.StructuredTextViewer;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMDocument;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMModel;
 
+import com.alibaba.citrus.springext.support.SpringExtSchemaSet.NamespaceItem;
+import com.alibaba.citrus.springext.support.SpringExtSchemaSet.TreeItem;
 import com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.dom.DomDocumentUtil;
 import com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.dom.NamespaceDefinitions;
 import com.alibaba.ide.plugin.eclipse.springext.schema.ISchemaSetChangeListener;
@@ -40,11 +45,13 @@ public class SpringExtConfig implements ISchemaSetChangeListener, ITextListener 
     private IDOMModel model;
     private IDOMDocument domDocument;
     private SchemaResourceSet schemas;
+    private NamespaceItem[] allNamespaces;
 
     private NamespaceDefinitions nds;
 
     private StructuredTextViewer textViewer;
     private CheckboxTreeViewer namespacesTreeViewer;
+    private boolean listNamespacesAsTree = true;
 
     public IProject getProject() {
         return project;
@@ -60,6 +67,44 @@ public class SpringExtConfig implements ISchemaSetChangeListener, ITextListener 
 
     public SchemaResourceSet getSchemas() {
         return schemas;
+    }
+
+    public void setSchemas(SchemaResourceSet schemas) {
+        if (schemas != this.schemas) {
+            this.schemas = schemas;
+            this.allNamespaces = null;
+        }
+    }
+
+    public NamespaceItem[] getAllNamespaces() {
+        if (allNamespaces == null) {
+            Map<String, TreeItem> all = createTreeMap();
+            LinkedList<TreeItem> queue = createLinkedList();
+
+            for (NamespaceItem i : schemas.getIndependentItems()) {
+                queue.addLast(i);
+            }
+
+            while (!queue.isEmpty()) {
+                TreeItem item = queue.removeFirst();
+                String ns = item instanceof NamespaceItem ? ((NamespaceItem) item).getNamespace() : null;
+
+                // 避免加入重复的ns
+                if ((ns == null || !all.containsKey(ns)) && item.hasChildren()) {
+                    for (TreeItem c : item.getChildren()) {
+                        queue.addLast(c);
+                    }
+                }
+
+                if (ns != null) {
+                    all.put(ns, item);
+                }
+            }
+
+            allNamespaces = all.values().toArray(new NamespaceItem[all.size()]);
+        }
+
+        return allNamespaces;
     }
 
     public NamespaceDefinitions getNamespaceDefinitions() {
@@ -87,6 +132,14 @@ public class SpringExtConfig implements ISchemaSetChangeListener, ITextListener 
         this.namespacesTreeViewer = viewer;
     }
 
+    public boolean isListNamespacesAsTree() {
+        return listNamespacesAsTree;
+    }
+
+    public void setListNamespacesAsTree(boolean treeView) {
+        this.listNamespacesAsTree = treeView;
+    }
+
     /**
      * 设置要编辑的文件。
      * <p/>
@@ -108,7 +161,7 @@ public class SpringExtConfig implements ISchemaSetChangeListener, ITextListener 
 
                 this.model = (IDOMModel) structModel;
                 this.domDocument = model.getDocument();
-                this.schemas = SchemaResourceSet.getInstance(project);
+                setSchemas(SchemaResourceSet.getInstance(project));
 
                 SchemaResourceSet.addSchemaSetChangeListener(this);
             } else {
@@ -127,7 +180,7 @@ public class SpringExtConfig implements ISchemaSetChangeListener, ITextListener 
     public void onSchemaSetChanged(SchemaSetChangeEvent event) {
         // 仅当发生变化的project和当前所编辑的文件所在的project是同一个时，才作反应。
         if (event.getProject().equals(project)) {
-            schemas = SchemaResourceSet.getInstance(project);
+            setSchemas(SchemaResourceSet.getInstance(project));
 
             if (namespacesTreeViewer != null) {
                 Display.getDefault().syncExec(new Runnable() {

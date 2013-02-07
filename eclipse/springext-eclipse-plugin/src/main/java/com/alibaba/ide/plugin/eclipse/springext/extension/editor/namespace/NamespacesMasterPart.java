@@ -52,8 +52,13 @@ public class NamespacesMasterPart extends SectionPart {
         // section/textClient
         Composite textClient = toolkit.createComposite(section, SWT.NO_BACKGROUND);
         GridLayout layout = new GridLayout();
-        layout.numColumns = 2;
+        layout.numColumns = 3;
         textClient.setLayout(layout);
+
+        final ImageHyperlink treeListButton = toolkit
+                .createImageHyperlink(textClient, SWT.NO_BACKGROUND | SWT.NO_FOCUS);
+
+        updateTreeListButton(treeListButton);
 
         ImageHyperlink collapseButton = toolkit.createImageHyperlink(textClient, SWT.NO_BACKGROUND | SWT.NO_FOCUS);
         collapseButton.setImage(SpringExtPlugin.getDefault().getImageRegistry().get("collapse"));
@@ -110,6 +115,14 @@ public class NamespacesMasterPart extends SectionPart {
         treeViewer.setCheckStateProvider(provider);
         treeViewer.setInput(config.getDomDocument());
 
+        treeListButton.addHyperlinkListener(new HyperlinkAdapter() {
+            @Override
+            public void linkActivated(HyperlinkEvent e) {
+                config.setListNamespacesAsTree(!config.isListNamespacesAsTree());
+                updateTreeListButton(treeListButton);
+            }
+        });
+
         collapseButton.addHyperlinkListener(new HyperlinkAdapter() {
             @Override
             public void linkActivated(HyperlinkEvent e) {
@@ -123,6 +136,18 @@ public class NamespacesMasterPart extends SectionPart {
                 treeViewer.expandAll();
             }
         });
+    }
+
+    private void updateTreeListButton(ImageHyperlink treeListButton) {
+        if (config.isListNamespacesAsTree()) {
+            treeListButton.setImage(SpringExtPlugin.getDefault().getImageRegistry().get("list"));
+            treeListButton.setToolTipText("View in Flat Mode");
+        } else {
+            treeListButton.setImage(SpringExtPlugin.getDefault().getImageRegistry().get("tree"));
+            treeListButton.setToolTipText("View in Hierachical Mode");
+        }
+
+        config.refreshNamespacesPage();
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace;
 
+import static com.alibaba.citrus.util.BasicConstant.*;
+
 import org.eclipse.jface.viewers.ICheckStateProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.ITreePathLabelProvider;
@@ -28,22 +30,34 @@ public class NamespacesTreeProvider extends LabelProvider implements ITreePathLa
 
     public Object[] getElements(Object inputElement) {
         if (inputElement instanceof IDOMDocument && config.getSchemas() != null) {
-            return config.getSchemas().getIndependentItems();
+            if (config.isListNamespacesAsTree()) {
+                return config.getSchemas().getIndependentItems();
+            } else {
+                return config.getAllNamespaces();
+            }
+        } else {
+            return EMPTY_OBJECT_ARRAY;
         }
-
-        return new Object[0];
     }
 
     public Object[] getChildren(Object element) {
-        return ((TreeItem) element).getChildren();
+        if (config.isListNamespacesAsTree()) {
+            return ((TreeItem) element).getChildren();
+        } else {
+            return EMPTY_OBJECT_ARRAY;
+        }
     }
 
     public boolean hasChildren(Object element) {
-        return ((TreeItem) element).hasChildren();
+        if (config.isListNamespacesAsTree()) {
+            return ((TreeItem) element).hasChildren();
+        } else {
+            return false;
+        }
     }
 
     public Object getParent(Object element) {
-        if (config.getSchemas() != null) {
+        if (config.isListNamespacesAsTree() && config.getSchemas() != null) {
             for (TreeItem item : config.getSchemas().getIndependentItems()) {
                 if (item == element) {
                     return null;
