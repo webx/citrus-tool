@@ -38,14 +38,16 @@ public class NamespacesMasterPart extends SectionPart {
 
         this.config = page.getConfig();
         this.toolkit = page.getManagedForm().getToolkit();
+
+        createContents();
     }
 
-    public void createContents() {
+    private void createContents() {
         // section
         Section section = getSection();
 
         section.setText("Select Namespaces");
-        section.setDescription("The list contains namepsaces that are available to SpringExt/Spring configuration file");
+        section.setDescription("The list contains namepsaces that are available to SpringExt/Spring configuration file.");
         section.marginWidth = 10;
         section.marginHeight = 5;
 

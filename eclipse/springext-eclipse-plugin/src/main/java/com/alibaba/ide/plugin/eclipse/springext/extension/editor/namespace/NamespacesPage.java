@@ -82,7 +82,6 @@ public class NamespacesPage extends FormPage implements IDetailsPageProvider {
         protected void createMasterPart(IManagedForm managedForm, Composite parent) {
             masterPart = new NamespacesMasterPart(parent, NamespacesPage.this);
             managedForm.addPart(masterPart);
-            masterPart.createContents();
         }
 
         @Override

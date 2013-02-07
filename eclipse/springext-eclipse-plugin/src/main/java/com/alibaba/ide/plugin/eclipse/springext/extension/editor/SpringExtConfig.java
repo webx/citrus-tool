@@ -33,6 +33,8 @@ import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
  * 此外，它还负责：
  * <ul>
  * <li>当schemas被改变时，更新namespaces列表。</li>
+ * <li>当配置文件内容被改变时，更新从文件内容中读取的已选中的namespaces列表。</li>
+ * <li>刷新treeViewer，使之反映文档中的选择。</li>
  * </ul>
  * 
  * @author Michael Zhou
