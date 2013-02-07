@@ -58,15 +58,16 @@ public class NamespacesMasterPart extends SectionPart {
         final ImageHyperlink treeListButton = toolkit
                 .createImageHyperlink(textClient, SWT.NO_BACKGROUND | SWT.NO_FOCUS);
 
-        updateTreeListButton(treeListButton);
-
-        ImageHyperlink collapseButton = toolkit.createImageHyperlink(textClient, SWT.NO_BACKGROUND | SWT.NO_FOCUS);
+        final ImageHyperlink collapseButton = toolkit
+                .createImageHyperlink(textClient, SWT.NO_BACKGROUND | SWT.NO_FOCUS);
         collapseButton.setImage(SpringExtPlugin.getDefault().getImageRegistry().get("collapse"));
         collapseButton.setToolTipText("Collapse All");
 
-        ImageHyperlink expandButton = toolkit.createImageHyperlink(textClient, SWT.NO_BACKGROUND | SWT.NO_FOCUS);
+        final ImageHyperlink expandButton = toolkit.createImageHyperlink(textClient, SWT.NO_BACKGROUND | SWT.NO_FOCUS);
         expandButton.setImage(SpringExtPlugin.getDefault().getImageRegistry().get("expand"));
         expandButton.setToolTipText("Expand All");
+
+        updateTreeListButton(treeListButton, collapseButton, expandButton);
 
         section.setTextClient(textClient);
 
@@ -119,7 +120,7 @@ public class NamespacesMasterPart extends SectionPart {
             @Override
             public void linkActivated(HyperlinkEvent e) {
                 config.setListNamespacesAsTree(!config.isListNamespacesAsTree());
-                updateTreeListButton(treeListButton);
+                updateTreeListButton(treeListButton, collapseButton, expandButton);
             }
         });
 
@@ -138,13 +139,20 @@ public class NamespacesMasterPart extends SectionPart {
         });
     }
 
-    private void updateTreeListButton(ImageHyperlink treeListButton) {
+    private void updateTreeListButton(ImageHyperlink treeListButton, ImageHyperlink collapseButton,
+                                      ImageHyperlink expandButton) {
         if (config.isListNamespacesAsTree()) {
             treeListButton.setImage(SpringExtPlugin.getDefault().getImageRegistry().get("list"));
             treeListButton.setToolTipText("View in Flat Mode");
+
+            collapseButton.setEnabled(true);
+            expandButton.setEnabled(true);
         } else {
             treeListButton.setImage(SpringExtPlugin.getDefault().getImageRegistry().get("tree"));
             treeListButton.setToolTipText("View in Hierachical Mode");
+
+            collapseButton.setEnabled(false);
+            expandButton.setEnabled(false);
         }
 
         config.refreshNamespacesPage();
