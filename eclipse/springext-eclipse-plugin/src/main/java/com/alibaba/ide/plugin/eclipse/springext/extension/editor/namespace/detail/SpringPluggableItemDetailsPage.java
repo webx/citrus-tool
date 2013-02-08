@@ -5,7 +5,10 @@ import static com.alibaba.citrus.util.CollectionUtil.*;
 import java.io.IOException;
 import java.util.Set;
 
+import org.eclipse.jface.viewers.IStructuredContentProvider;
+import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.ui.forms.widgets.FormText;
@@ -41,6 +44,26 @@ public class SpringPluggableItemDetailsPage extends AbstractTreeItemDetailsPage<
         table.setLayoutData(new TableWrapData(TableWrapData.FILL, TableWrapData.FILL));
 
         schemasTable = new TableViewer(table);
+
+        schemasTable.setContentProvider(new IStructuredContentProvider() {
+            public Object[] getElements(Object inputElement) {
+                return ((SpringPluggableItem) inputElement).getSchemas().toArray();
+            }
+
+            public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+            }
+
+            public void dispose() {
+            }
+        });
+
+        schemasTable.setLabelProvider(new LabelProvider() {
+            @Override
+            public String getText(Object element) {
+                Schema schema = (Schema) element;
+                return schema.getName();
+            }
+        });
     }
 
     @Override
@@ -61,5 +84,6 @@ public class SpringPluggableItemDetailsPage extends AbstractTreeItemDetailsPage<
         }
 
         sourceText.setText(StringUtil.join(sources, "\n\n"), false, true);
+        schemasTable.setInput(item);
     }
 }
