@@ -53,8 +53,9 @@ public class NamespacesMasterPart extends SectionPart {
 
         // section/textClient
         Composite textClient = toolkit.createComposite(section, SWT.NO_BACKGROUND);
-        GridLayout layout = new GridLayout();
-        layout.numColumns = 3;
+        GridLayout layout = new GridLayout(3, true);
+        layout.marginWidth = 0;
+        layout.marginHeight = 0;
         textClient.setLayout(layout);
 
         final ImageHyperlink treeListButton = toolkit
@@ -75,8 +76,7 @@ public class NamespacesMasterPart extends SectionPart {
 
         // section/client
         Composite client = toolkit.createComposite(section, SWT.WRAP);
-        layout = new GridLayout();
-        layout.numColumns = 1;
+        layout = new GridLayout(1, false);
         layout.marginWidth = 2;
         layout.marginHeight = 2;
         client.setLayout(layout);

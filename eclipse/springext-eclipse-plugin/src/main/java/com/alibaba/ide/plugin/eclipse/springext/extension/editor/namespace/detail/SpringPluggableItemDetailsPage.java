@@ -4,11 +4,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormText;
-import org.eclipse.ui.forms.widgets.Section;
-import org.eclipse.ui.forms.widgets.TableWrapData;
-import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.SpringPluggableItem;
 
@@ -16,30 +12,19 @@ public class SpringPluggableItemDetailsPage extends AbstractTreeItemDetailsPage 
     private FormText namespaceText;
     private Composite schemasComposite;
 
+    @Override
     public void createContents(Composite parent) {
-        TableWrapLayout layout = new TableWrapLayout();
-        layout.topMargin = 5;
-        layout.leftMargin = 5;
-        layout.rightMargin = 2;
-        layout.bottomMargin = 2;
-        parent.setLayout(layout);
+        super.createContents(parent);
 
         // section
-        Section section = toolkit.createSection(parent, Section.DESCRIPTION | ExpandableComposite.TITLE_BAR);
-        section.marginWidth = 10;
         section.setText("Spring Pluggable Schema");
         section.setDescription("The schema defined in META-INF/spring.schemas");
 
-        TableWrapData td = new TableWrapData(TableWrapData.FILL, TableWrapData.TOP);
-        td.grabHorizontal = true;
-        section.setLayoutData(td);
-
         // section/client
         Composite client = toolkit.createComposite(section);
-        GridLayout glayout = new GridLayout();
+        GridLayout glayout = new GridLayout(2, false);
         glayout.marginWidth = 0;
         glayout.marginHeight = 0;
-        glayout.numColumns = 2;
         client.setLayout(glayout);
 
         section.setClient(client);
@@ -54,8 +39,7 @@ public class SpringPluggableItemDetailsPage extends AbstractTreeItemDetailsPage 
         schemasComposite = toolkit.createComposite(client);
         gd = new GridData(GridData.FILL_BOTH);
         schemasComposite.setLayoutData(gd);
-        glayout = new GridLayout();
-        glayout.numColumns = 1;
+        glayout = new GridLayout(1, false);
         glayout.marginWidth = 0;
         glayout.marginHeight = 0;
         schemasComposite.setLayout(glayout);
