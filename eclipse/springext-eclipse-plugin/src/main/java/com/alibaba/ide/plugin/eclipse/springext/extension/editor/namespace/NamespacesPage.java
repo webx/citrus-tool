@@ -19,6 +19,7 @@ import com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin;
 import com.alibaba.ide.plugin.eclipse.springext.extension.editor.SpringExtConfig;
 import com.alibaba.ide.plugin.eclipse.springext.extension.editor.SpringExtConfigEditor;
 import com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.detail.ConfigurationPointItemDetailsPage;
+import com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.detail.ContributionItemDetailsPage;
 import com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.detail.SpringNamespaceHandlerDetailsPage;
 import com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.detail.SpringPluggableItemDetailsPage;
 
@@ -29,6 +30,7 @@ public class NamespacesPage extends FormPage implements IDetailsPageProvider {
     private final SpringPluggableItemDetailsPage springPluggableItemDetailsPage = new SpringPluggableItemDetailsPage();
     private final SpringNamespaceHandlerDetailsPage springNamespaceHandlerDetailsPage = new SpringNamespaceHandlerDetailsPage();
     private final ConfigurationPointItemDetailsPage configurationPointItemDetailsPage = new ConfigurationPointItemDetailsPage();
+    private final ContributionItemDetailsPage contributionItemDetailsPage = new ContributionItemDetailsPage();
 
     private final SpringExtConfig config;
     private NamespacesMasterPart masterPart;
@@ -77,7 +79,7 @@ public class NamespacesPage extends FormPage implements IDetailsPageProvider {
         } else if (key instanceof ConfigurationPointItem) {
             return configurationPointItemDetailsPage;
         } else if (key instanceof ContributionItem) {
-
+            return contributionItemDetailsPage;
         }
 
         return null;

@@ -27,7 +27,7 @@ public class SpringPluggableItemDetailsPage extends AbstractNamespaceItemDetails
         namespaceText = toolkit.createFormText(client, false);
 
         // Sources
-        toolkit.createLabel(client, "Source");
+        toolkit.createLabel(client, "Defined in");
         sourceText = toolkit.createFormText(client, false);
 
         createSchemasTable();
