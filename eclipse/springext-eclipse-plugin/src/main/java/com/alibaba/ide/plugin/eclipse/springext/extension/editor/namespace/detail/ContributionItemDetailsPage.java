@@ -1,14 +1,9 @@
 package com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.detail;
 
-import java.io.IOException;
-
 import org.eclipse.ui.forms.widgets.FormText;
-import org.springframework.core.io.Resource;
 
 import com.alibaba.citrus.springext.Contribution;
 import com.alibaba.citrus.springext.Schema;
-import com.alibaba.citrus.springext.support.ContributionSchemaSourceInfo;
-import com.alibaba.citrus.springext.support.ContributionSourceInfo;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.ConfigurationPointItem;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.ContributionItem;
 
@@ -47,15 +42,8 @@ public class ContributionItemDetailsPage extends AbstractTreeItemDetailsPage<Con
     @Override
     protected void update() {
         Contribution contrib = item.getContribution();
-        ContributionSourceInfo sourceInfo = (ContributionSourceInfo) contrib;
 
-        Resource resource = (Resource) sourceInfo.getSource();
-
-        try {
-            location.setText(resource.getURL().toExternalForm(), false, true);
-        } catch (IOException ignored) {
-        }
-
+        location.setText(getSourceDesc(contrib), false, true);
         contributionName.setText(contrib.getName(), false, true);
         contributionType.setText(contrib.getType().toString(), false, true);
         configurationPointName.setText(contrib.getConfigurationPoint().getNamespaceUri(), false, true);
@@ -79,12 +67,7 @@ public class ContributionItemDetailsPage extends AbstractTreeItemDetailsPage<Con
                 buf.append("\n");
             }
 
-            resource = (Resource) ((ContributionSchemaSourceInfo) schema).getSource();
-
-            try {
-                buf.append(resource.getURL().toExternalForm());
-            } catch (IOException ignored) {
-            }
+            buf.append(getSourceDesc(schema));
         }
 
         schemas.setText(buf.toString(), false, true);

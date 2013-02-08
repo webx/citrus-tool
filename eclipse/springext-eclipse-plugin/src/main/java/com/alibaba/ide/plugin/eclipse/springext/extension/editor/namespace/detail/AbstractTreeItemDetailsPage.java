@@ -3,6 +3,8 @@ package com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.deta
 import static com.alibaba.citrus.util.ArrayUtil.*;
 import static com.alibaba.citrus.util.Assert.*;
 
+import java.io.IOException;
+
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ITreeSelection;
 import org.eclipse.swt.SWT;
@@ -16,7 +18,9 @@ import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
+import org.springframework.core.io.Resource;
 
+import com.alibaba.citrus.springext.SourceInfo;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.TreeItem;
 import com.alibaba.ide.plugin.eclipse.springext.extension.editor.SpringExtConfig;
 import com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.NamespacesMasterPart;
@@ -110,4 +114,26 @@ public abstract class AbstractTreeItemDetailsPage<T extends TreeItem> implements
     }
 
     protected abstract void update();
+
+    protected final String getSourceDesc(Object object) {
+        assertTrue(object instanceof SourceInfo<?>, "not a source info");
+        return getSourceDesc((SourceInfo<?>) object);
+    }
+
+    protected final String getSourceDesc(SourceInfo<?> sourceInfo) {
+        Resource resource = (Resource) sourceInfo.getSource();
+        int lineNumber = sourceInfo.getLineNumber();
+        String url = null;
+
+        try {
+            url = resource.getURL().toExternalForm();
+        } catch (IOException ignored) {
+        }
+
+        if (url == null) {
+            return "";
+        } else {
+            return url + (lineNumber > 0 ? ":" + lineNumber : "");
+        }
+    }
 }

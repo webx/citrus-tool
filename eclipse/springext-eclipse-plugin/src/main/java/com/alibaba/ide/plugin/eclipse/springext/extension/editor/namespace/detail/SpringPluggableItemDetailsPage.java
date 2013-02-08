@@ -2,11 +2,9 @@ package com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.deta
 
 import static com.alibaba.citrus.util.CollectionUtil.*;
 
-import java.io.IOException;
 import java.util.Set;
 
 import org.eclipse.ui.forms.widgets.FormText;
-import org.springframework.core.io.Resource;
 
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.SpringPluggableItem;
@@ -42,12 +40,7 @@ public class SpringPluggableItemDetailsPage extends AbstractNamespaceItemDetails
 
         for (Schema schema : schemas) {
             SpringPluggableSchemaSourceInfo sourceInfo = (SpringPluggableSchemaSourceInfo) schema;
-            Resource resource = (Resource) sourceInfo.getParent().getSource();
-
-            try {
-                sources.add(resource.getURL().toExternalForm());
-            } catch (IOException ignored) {
-            }
+            sources.add(getSourceDesc(sourceInfo.getParent()));
         }
 
         sourceText.setText(StringUtil.join(sources, "\n\n"), false, true);
