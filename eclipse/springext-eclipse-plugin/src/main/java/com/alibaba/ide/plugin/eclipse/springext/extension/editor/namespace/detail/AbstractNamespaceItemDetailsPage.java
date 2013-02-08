@@ -15,7 +15,6 @@ import org.eclipse.ui.forms.widgets.TableWrapData;
 
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.NamespaceItem;
-import com.alibaba.citrus.springext.support.SpringExtSchemaSet.SpringPluggableItem;
 
 public abstract class AbstractNamespaceItemDetailsPage<T extends NamespaceItem> extends AbstractTreeItemDetailsPage<T> {
     protected CheckboxTableViewer schemasTable;
@@ -31,7 +30,7 @@ public abstract class AbstractNamespaceItemDetailsPage<T extends NamespaceItem> 
 
         schemasTable.setContentProvider(new IStructuredContentProvider() {
             public Object[] getElements(Object inputElement) {
-                return ((SpringPluggableItem) inputElement).getSchemas().toArray();
+                return ((NamespaceItem) inputElement).getSchemas().toArray();
             }
 
             public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
