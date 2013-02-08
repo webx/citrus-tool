@@ -51,6 +51,7 @@ public class NamespacesMasterPart extends SectionPart {
         section.setDescription("The list contains namepsaces that are available to SpringExt/Spring configuration file.");
         section.marginWidth = 10;
         section.marginHeight = 5;
+        section.clientVerticalSpacing = 8;
 
         // section/textClient
         Composite textClient = toolkit.createComposite(section, SWT.NO_BACKGROUND);

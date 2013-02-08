@@ -26,6 +26,7 @@ public class SpringExtConfigEditorContributor extends MultiPageEditorActionBarCo
     public void contributeToToolBar(IToolBarManager toolBarManager) {
         toolBarManager.add(new GroupMarker(GROUP_ID));
         toolBarManager.appendToGroup(GROUP_ID, cleanupUnusedNamespacesAction);
+        toolBarManager.appendToGroup(GROUP_ID, new Separator());
         toolBarManager.appendToGroup(GROUP_ID, upgradeToUnqualifiedStyleAction);
     }
 
