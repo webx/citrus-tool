@@ -34,6 +34,16 @@ public class NamespaceDefinitions {
         }
     }
 
+    public String getLocation(String namespace) {
+        Map<String, NamespaceDefinition> nds = find(namespace);
+
+        if (!nds.isEmpty()) {
+            return nds.values().iterator().next().getLocation();
+        }
+
+        return null;
+    }
+
     public String[] getNamespaces() {
         return namespaces.keySet().toArray(new String[namespaces.size()]);
     }

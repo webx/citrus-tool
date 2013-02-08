@@ -72,6 +72,8 @@ public class SpringExtConfigEditor extends FormEditor implements IGotoMarker {
             namespacesPage = new NamespacesPage(this);
             int index = addPage(namespacesPage);
             setPageText(index, "Namespaces");
+            
+            config.initWithFormPage(namespacesPage);
         } catch (PartInitException e) {
             logAndDisplay(new Status(IStatus.ERROR, SpringExtConstant.PLUGIN_ID, "Could not add tab to editor "
                     + sourceEditor.getTitle(), e));

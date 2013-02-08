@@ -14,6 +14,10 @@ import org.eclipse.jface.text.ITextListener;
 import org.eclipse.jface.text.TextEvent;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.forms.DetailsPart;
+import org.eclipse.ui.forms.IFormPart;
+import org.eclipse.ui.forms.IManagedForm;
+import org.eclipse.ui.forms.editor.IFormPage;
 import org.eclipse.wst.sse.core.StructuredModelManager;
 import org.eclipse.wst.sse.core.internal.provisional.IStructuredModel;
 import org.eclipse.wst.sse.ui.internal.StructuredTextViewer;
@@ -51,6 +55,7 @@ public class SpringExtConfig implements ISchemaSetChangeListener, ITextListener 
 
     private NamespaceDefinitions nds;
 
+    private IFormPage formPage;
     private StructuredTextViewer textViewer;
     private CheckboxTreeViewer namespacesTreeViewer;
     private boolean listNamespacesAsTree = true;
@@ -115,6 +120,30 @@ public class SpringExtConfig implements ISchemaSetChangeListener, ITextListener 
         }
 
         return nds;
+    }
+
+    public IManagedForm getManagedForm() {
+        return formPage == null ? null : formPage.getManagedForm();
+    }
+
+    public void initWithFormPage(IFormPage formPage) {
+        this.formPage = formPage;
+    }
+
+    public static <T> T getFormPart(Class<T> partType, IManagedForm form) {
+        if (form != null) {
+            for (IFormPart part : form.getParts()) {
+                if (partType.isInstance(part)) {
+                    return partType.cast(part);
+                }
+            }
+        }
+
+        return null;
+    }
+
+    public <T> T getFormPart(Class<T> partType) {
+        return getFormPart(partType, getManagedForm());
     }
 
     public StructuredTextViewer getTextViewer() {
@@ -201,6 +230,12 @@ public class SpringExtConfig implements ISchemaSetChangeListener, ITextListener 
     public void refreshNamespacesPage() {
         if (namespacesTreeViewer != null) {
             namespacesTreeViewer.refresh();
+        }
+
+        DetailsPart part = getFormPart(DetailsPart.class);
+
+        if (part != null) {
+            part.refresh();
         }
     }
 

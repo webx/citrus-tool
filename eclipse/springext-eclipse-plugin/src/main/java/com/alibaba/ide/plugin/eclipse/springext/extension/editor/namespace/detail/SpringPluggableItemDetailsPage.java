@@ -5,9 +5,10 @@ import static com.alibaba.citrus.util.CollectionUtil.*;
 import java.io.IOException;
 import java.util.Set;
 
+import org.eclipse.jface.viewers.CheckboxTableViewer;
+import org.eclipse.jface.viewers.ICheckStateProvider;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Table;
@@ -23,7 +24,7 @@ import com.alibaba.citrus.util.StringUtil;
 public class SpringPluggableItemDetailsPage extends AbstractTreeItemDetailsPage<SpringPluggableItem> {
     private FormText namespaceText;
     private FormText sourceText;
-    private TableViewer schemasTable;
+    private CheckboxTableViewer schemasTable;
 
     @Override
     protected void initSection() {
@@ -40,10 +41,11 @@ public class SpringPluggableItemDetailsPage extends AbstractTreeItemDetailsPage<
 
         // Schemas
         toolkit.createLabel(client, "Schemas");
-        Table table = toolkit.createTable(client, SWT.CHECK);
+        Table table = new Table(client, SWT.CHECK); // table with no border
+        toolkit.adapt(table);
         table.setLayoutData(new TableWrapData(TableWrapData.FILL, TableWrapData.FILL));
 
-        schemasTable = new TableViewer(table);
+        schemasTable = new CheckboxTableViewer(table);
 
         schemasTable.setContentProvider(new IStructuredContentProvider() {
             public Object[] getElements(Object inputElement) {
@@ -60,8 +62,24 @@ public class SpringPluggableItemDetailsPage extends AbstractTreeItemDetailsPage<
         schemasTable.setLabelProvider(new LabelProvider() {
             @Override
             public String getText(Object element) {
+                return ((Schema) element).getName();
+            }
+        });
+
+        schemasTable.setCheckStateProvider(new ICheckStateProvider() {
+            public boolean isChecked(Object element) {
                 Schema schema = (Schema) element;
-                return schema.getName();
+                String location = config.getNamespaceDefinitions().getLocation(schema.getTargetNamespace());
+
+                if (location == null) {
+                    return schema == item.getSchemas().iterator().next();
+                } else {
+                    return location.endsWith(schema.getName());
+                }
+            }
+
+            public boolean isGrayed(Object element) {
+                return false;
             }
         });
     }

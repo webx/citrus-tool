@@ -20,29 +20,26 @@ import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.TreeItem;
+import com.alibaba.ide.plugin.eclipse.springext.extension.editor.SpringExtConfig;
 import com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.NamespacesMasterPart;
 
 public abstract class AbstractTreeItemDetailsPage<T extends TreeItem> implements IDetailsPage {
     protected IManagedForm form;
     protected FormToolkit toolkit;
     protected T item;
+    protected SpringExtConfig config;
     protected Section section;
     protected Composite client;
 
     public void initialize(IManagedForm form) {
         this.form = form;
         this.toolkit = form.getToolkit();
+        this.config = getNamespacesMasterPart().getConfig();
     }
 
     private NamespacesMasterPart getNamespacesMasterPart() {
-        for (IFormPart part : form.getParts()) {
-            if (part instanceof NamespacesMasterPart) {
-                return (NamespacesMasterPart) part;
-            }
-        }
-
-        unreachableCode("no Namespaces master part found");
-        return null;
+        return assertNotNull(SpringExtConfig.getFormPart(NamespacesMasterPart.class, form),
+                "no Namespaces master part found");
     }
 
     public final void createContents(Composite parent) {

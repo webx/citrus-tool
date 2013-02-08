@@ -43,6 +43,10 @@ public class NamespacesMasterPart extends SectionPart {
         createContents();
     }
 
+    public SpringExtConfig getConfig() {
+        return config;
+    }
+
     private void createContents() {
         // section
         Section section = getSection();
