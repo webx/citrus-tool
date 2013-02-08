@@ -21,7 +21,7 @@ class AddNamespaceVisitor extends AbstractAddRemoveNamespaceVisitor {
         }
 
         for (String namespaceToUpdate : namespacesToUpdate) {
-            Schema schema = schemas.findSchemaByUrl(namespaceToUpdate); // 注：schema可能为null，比如：spring/c
+            Schema schema = getSchema(namespaceToUpdate); // 注：schema可能为null，比如：spring/c
             String locationPrefix = guessLocationPrefix(getSchemaLocations(), schemas);
 
             if (defs.find(namespaceToUpdate).isEmpty()) {
@@ -36,11 +36,15 @@ class AddNamespaceVisitor extends AbstractAddRemoveNamespaceVisitor {
                 }
 
                 defs.add(new NamespaceDefinition(namespaceToUpdate, nsPrefix, getSchemaLocations()));
+            }
 
-                if (schema != null) {
-                    getSchemaLocations().put(namespaceToUpdate, locationPrefix + schema.getName());
-                }
+            if (schema != null) {
+                getSchemaLocations().put(namespaceToUpdate, locationPrefix + schema.getName());
             }
         }
+    }
+
+    protected Schema getSchema(String namespace) {
+        return schemas.findSchemaByUrl(namespace);
     }
 }

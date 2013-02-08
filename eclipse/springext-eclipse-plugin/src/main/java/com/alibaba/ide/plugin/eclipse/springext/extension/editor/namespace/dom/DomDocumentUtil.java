@@ -128,7 +128,20 @@ public class DomDocumentUtil {
     }
 
     public static void updateNamespaceDefinitionLocation(SpringExtConfig config, Schema schema) {
-        System.err.println(schema);
+        StructuredTextViewer textViewer = config.getTextViewer();
+        IDOMDocument document = config.getDomDocument();
+        SchemaResourceSet schemas = config.getSchemas();
+
+        document.getModel().beginRecording(textViewer);
+
+        DocumentVisitor visitor = new ChangeSchemaLocationVisitor(schemas, schema);
+
+        try {
+            visitor.accept(document);
+            format(document);
+        } finally {
+            document.getModel().endRecording(textViewer);
+        }
     }
 
     public static void updateNamespaceDefinitions(SpringExtConfig config, TreeItem item, boolean checked) {
