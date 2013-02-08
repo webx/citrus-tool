@@ -1,9 +1,9 @@
 package com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.detail;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.forms.widgets.FormText;
 
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.SpringPluggableItem;
@@ -29,20 +29,21 @@ public class SpringPluggableItemDetailsPage extends AbstractTreeItemDetailsPage 
 
         section.setClient(client);
 
+        createSpacer(client, 2);
+
         // Namespace
-        Label label = toolkit.createLabel(client, "Namespace");
+        toolkit.createLabel(client, "Namespace");
         namespaceText = toolkit.createFormText(client, false);
-        GridData gd = new GridData(GridData.FILL_HORIZONTAL);
-        namespaceText.setLayoutData(gd);
+        namespaceText.setLayoutData(new GridData(SWT.BEGINNING, SWT.BEGINNING, false, false));
 
         // Schemas
-        schemasComposite = toolkit.createComposite(client);
-        gd = new GridData(GridData.FILL_BOTH);
-        schemasComposite.setLayoutData(gd);
-        glayout = new GridLayout(1, false);
-        glayout.marginWidth = 0;
-        glayout.marginHeight = 0;
-        schemasComposite.setLayout(glayout);
+        //        schemasComposite = toolkit.createComposite(client);
+        //        gd = new GridData(GridData.FILL_BOTH);
+        //        schemasComposite.setLayoutData(gd);
+        //        glayout = new GridLayout(1, false);
+        //        glayout.marginWidth = 0;
+        //        glayout.marginHeight = 0;
+        //        schemasComposite.setLayout(glayout);
     }
 
     @Override
