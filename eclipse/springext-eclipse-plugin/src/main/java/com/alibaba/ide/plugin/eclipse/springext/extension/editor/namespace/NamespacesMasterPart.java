@@ -12,6 +12,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.dialogs.FilteredTree;
 import org.eclipse.ui.dialogs.PatternFilter;
 import org.eclipse.ui.forms.SectionPart;
@@ -53,13 +54,18 @@ public class NamespacesMasterPart extends SectionPart {
 
         // section/textClient
         Composite textClient = toolkit.createComposite(section, SWT.NO_BACKGROUND);
-        GridLayout layout = new GridLayout(3, true);
+        GridLayout layout = new GridLayout(4, false);
         layout.marginWidth = 0;
         layout.marginHeight = 0;
         textClient.setLayout(layout);
 
         final ImageHyperlink treeListButton = toolkit
                 .createImageHyperlink(textClient, SWT.NO_BACKGROUND | SWT.NO_FOCUS);
+
+        Label sep = toolkit.createSeparator(textClient, SWT.VERTICAL | SWT.SHADOW_IN);
+        GridData gd = new GridData();
+        gd.heightHint = 16;
+        sep.setLayoutData(gd);
 
         final ImageHyperlink collapseButton = toolkit
                 .createImageHyperlink(textClient, SWT.NO_BACKGROUND | SWT.NO_FOCUS);
@@ -85,7 +91,7 @@ public class NamespacesMasterPart extends SectionPart {
         tree = new FilteredCheckboxTree(toolkit, client, SWT.CHECK | SWT.SINGLE | SWT.V_SCROLL | SWT.H_SCROLL
                 | SWT.BORDER, new SchemaPatternfilter(), true);
 
-        GridData gd = new GridData(GridData.FILL_BOTH);
+        gd = new GridData(GridData.FILL_BOTH);
         gd.heightHint = 20;
         gd.widthHint = 100;
         tree.setLayoutData(gd);
