@@ -73,12 +73,8 @@ public class SpringPluggableItemDetailsPage extends AbstractTreeItemDetailsPage<
             public boolean isChecked(Object element) {
                 Schema schema = (Schema) element;
                 String location = config.getNamespaceDefinitions().getLocation(schema.getTargetNamespace());
-
-                if (location == null) {
-                    return schema == item.getSchemas().iterator().next();
-                } else {
-                    return location.endsWith(schema.getName());
-                }
+                
+                return location != null && location.endsWith(schema.getName());
             }
 
             public boolean isGrayed(Object element) {
