@@ -2,45 +2,32 @@ package com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.deta
 
 import static com.alibaba.citrus.util.ArrayUtil.*;
 import static com.alibaba.citrus.util.Assert.*;
-import static com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.dom.DomDocumentUtil.*;
 
-import org.eclipse.jface.viewers.CheckStateChangedEvent;
-import org.eclipse.jface.viewers.CheckboxTableViewer;
-import org.eclipse.jface.viewers.ICheckStateListener;
-import org.eclipse.jface.viewers.ICheckStateProvider;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITreeSelection;
-import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Table;
 import org.eclipse.ui.forms.IDetailsPage;
 import org.eclipse.ui.forms.IFormPart;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
-import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
-import com.alibaba.citrus.springext.Schema;
-import com.alibaba.citrus.springext.support.SpringExtSchemaSet.NamespaceItem;
-import com.alibaba.citrus.springext.support.SpringExtSchemaSet.SpringPluggableItem;
+import com.alibaba.citrus.springext.support.SpringExtSchemaSet.TreeItem;
 import com.alibaba.ide.plugin.eclipse.springext.extension.editor.SpringExtConfig;
 import com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.NamespacesMasterPart;
 
-public abstract class AbstractTreeItemDetailsPage<T extends NamespaceItem> implements IDetailsPage {
+public abstract class AbstractTreeItemDetailsPage<T extends TreeItem> implements IDetailsPage {
     protected IManagedForm form;
     protected FormToolkit toolkit;
     protected T item;
     protected SpringExtConfig config;
     protected Section section;
     protected Composite client;
-    protected CheckboxTableViewer schemasTable;
 
     public void initialize(IManagedForm form) {
         this.form = form;
@@ -82,55 +69,6 @@ public abstract class AbstractTreeItemDetailsPage<T extends NamespaceItem> imple
         initSection();
     }
 
-    protected final void createSchemasTable() {
-        // Schemas
-        toolkit.createLabel(client, "Schemas");
-        Table table = new Table(client, SWT.CHECK); // table with no border
-        toolkit.adapt(table);
-        table.setLayoutData(new TableWrapData(TableWrapData.FILL, TableWrapData.FILL));
-
-        schemasTable = new CheckboxTableViewer(table);
-
-        schemasTable.setContentProvider(new IStructuredContentProvider() {
-            public Object[] getElements(Object inputElement) {
-                return ((SpringPluggableItem) inputElement).getSchemas().toArray();
-            }
-
-            public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-            }
-
-            public void dispose() {
-            }
-        });
-
-        schemasTable.setLabelProvider(new LabelProvider() {
-            @Override
-            public String getText(Object element) {
-                return ((Schema) element).getName();
-            }
-        });
-
-        schemasTable.setCheckStateProvider(new ICheckStateProvider() {
-            public boolean isChecked(Object element) {
-                Schema schema = (Schema) element;
-                String location = config.getNamespaceDefinitions().getLocation(schema.getTargetNamespace());
-
-                return location != null && location.endsWith(schema.getName());
-            }
-
-            public boolean isGrayed(Object element) {
-                return false;
-            }
-        });
-
-        schemasTable.addCheckStateListener(new ICheckStateListener() {
-            public void checkStateChanged(CheckStateChangedEvent event) {
-                updateNamespaceDefinitionLocation(config, (Schema) event.getElement(), event.getChecked());
-                config.refreshNamespacesPage();
-            }
-        });
-    }
-
     protected abstract void initSection();
 
     public void dispose() {
@@ -169,7 +107,6 @@ public abstract class AbstractTreeItemDetailsPage<T extends NamespaceItem> imple
         }
 
         update();
-        schemasTable.setInput(item);
     }
 
     protected abstract void update();

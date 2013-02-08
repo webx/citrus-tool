@@ -13,7 +13,7 @@ import com.alibaba.citrus.springext.support.SpringExtSchemaSet.SpringPluggableIt
 import com.alibaba.citrus.springext.support.SpringPluggableSchemaSourceInfo;
 import com.alibaba.citrus.util.StringUtil;
 
-public class SpringPluggableItemDetailsPage extends AbstractTreeItemDetailsPage<SpringPluggableItem> {
+public class SpringPluggableItemDetailsPage extends AbstractNamespaceItemDetailsPage<SpringPluggableItem> {
     private FormText namespaceText;
     private FormText sourceText;
 
@@ -51,5 +51,7 @@ public class SpringPluggableItemDetailsPage extends AbstractTreeItemDetailsPage<
         }
 
         sourceText.setText(StringUtil.join(sources, "\n\n"), false, true);
+
+        super.update();
     }
 }
