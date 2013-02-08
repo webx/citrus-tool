@@ -2,7 +2,6 @@ package com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.deta
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.widgets.FormText;
 
@@ -13,21 +12,9 @@ public class SpringPluggableItemDetailsPage extends AbstractTreeItemDetailsPage 
     private Composite schemasComposite;
 
     @Override
-    public void createContents(Composite parent) {
-        super.createContents(parent);
-
-        // section
+    protected void initSection() {
         section.setText("Spring Pluggable Schema");
-        section.setDescription("The schema defined in META-INF/spring.schemas");
-
-        // section/client
-        Composite client = toolkit.createComposite(section);
-        GridLayout glayout = new GridLayout(2, false);
-        glayout.marginWidth = 0;
-        glayout.marginHeight = 0;
-        client.setLayout(glayout);
-
-        section.setClient(client);
+        section.setDescription("The schema defined in [CLASSPATH]/META-INF/spring.schemas");
 
         createSpacer(client, 2);
 

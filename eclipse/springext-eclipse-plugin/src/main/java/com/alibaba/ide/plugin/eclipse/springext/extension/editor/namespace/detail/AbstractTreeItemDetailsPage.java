@@ -25,6 +25,7 @@ public abstract class AbstractTreeItemDetailsPage implements IDetailsPage {
     protected FormToolkit toolkit;
     protected TreeItem item;
     protected Section section;
+    protected Composite client;
 
     public void initialize(IManagedForm form) {
         this.form = form;
@@ -42,7 +43,7 @@ public abstract class AbstractTreeItemDetailsPage implements IDetailsPage {
         return null;
     }
 
-    public void createContents(Composite parent) {
+    public final void createContents(Composite parent) {
         GridLayout layout = new GridLayout(1, false);
         layout.marginWidth = 0;
         layout.marginHeight = 0;
@@ -57,7 +58,20 @@ public abstract class AbstractTreeItemDetailsPage implements IDetailsPage {
 
         // 和master part的description对齐。
         section.descriptionVerticalSpacing = getNamespacesMasterPart().getSection().getTextClientHeightDifference();
+
+        // section/client
+        client = toolkit.createComposite(section);
+        GridLayout glayout = new GridLayout(2, false);
+        glayout.marginWidth = 0;
+        glayout.marginHeight = 0;
+        client.setLayout(glayout);
+
+        section.setClient(client);
+
+        initSection();
     }
+
+    protected abstract void initSection();
 
     protected final void createSpacer(Composite parent, int span) {
         Label spacer = toolkit.createLabel(parent, "");
