@@ -127,14 +127,15 @@ public class DomDocumentUtil {
         }
     }
 
-    public static void updateNamespaceDefinitionLocation(SpringExtConfig config, Schema schema) {
+    public static void updateNamespaceDefinitionLocation(SpringExtConfig config, Schema schema, boolean checked) {
         StructuredTextViewer textViewer = config.getTextViewer();
         IDOMDocument document = config.getDomDocument();
         SchemaResourceSet schemas = config.getSchemas();
 
         document.getModel().beginRecording(textViewer);
 
-        DocumentVisitor visitor = new ChangeSchemaLocationVisitor(schemas, schema);
+        DocumentVisitor visitor = checked ? new ChangeSchemaLocationVisitor(schemas, schema)
+                : new RemoveNamespaceVisitor(schemas, schema.getTargetNamespace());
 
         try {
             visitor.accept(document);

@@ -1,22 +1,11 @@
 package com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.detail;
 
 import static com.alibaba.citrus.util.CollectionUtil.*;
-import static com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.dom.DomDocumentUtil.*;
 
 import java.io.IOException;
 import java.util.Set;
 
-import org.eclipse.jface.viewers.CheckStateChangedEvent;
-import org.eclipse.jface.viewers.CheckboxTableViewer;
-import org.eclipse.jface.viewers.ICheckStateListener;
-import org.eclipse.jface.viewers.ICheckStateProvider;
-import org.eclipse.jface.viewers.IStructuredContentProvider;
-import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Table;
 import org.eclipse.ui.forms.widgets.FormText;
-import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.springframework.core.io.Resource;
 
 import com.alibaba.citrus.springext.Schema;
@@ -27,7 +16,6 @@ import com.alibaba.citrus.util.StringUtil;
 public class SpringPluggableItemDetailsPage extends AbstractTreeItemDetailsPage<SpringPluggableItem> {
     private FormText namespaceText;
     private FormText sourceText;
-    private CheckboxTableViewer schemasTable;
 
     @Override
     protected void initSection() {
@@ -42,55 +30,7 @@ public class SpringPluggableItemDetailsPage extends AbstractTreeItemDetailsPage<
         toolkit.createLabel(client, "Source");
         sourceText = toolkit.createFormText(client, false);
 
-        // Schemas
-        toolkit.createLabel(client, "Schemas");
-        Table table = new Table(client, SWT.CHECK); // table with no border
-        toolkit.adapt(table);
-        table.setLayoutData(new TableWrapData(TableWrapData.FILL, TableWrapData.FILL));
-
-        schemasTable = new CheckboxTableViewer(table);
-
-        schemasTable.setContentProvider(new IStructuredContentProvider() {
-            public Object[] getElements(Object inputElement) {
-                return ((SpringPluggableItem) inputElement).getSchemas().toArray();
-            }
-
-            public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-            }
-
-            public void dispose() {
-            }
-        });
-
-        schemasTable.setLabelProvider(new LabelProvider() {
-            @Override
-            public String getText(Object element) {
-                return ((Schema) element).getName();
-            }
-        });
-
-        schemasTable.setCheckStateProvider(new ICheckStateProvider() {
-            public boolean isChecked(Object element) {
-                Schema schema = (Schema) element;
-                String location = config.getNamespaceDefinitions().getLocation(schema.getTargetNamespace());
-                
-                return location != null && location.endsWith(schema.getName());
-            }
-
-            public boolean isGrayed(Object element) {
-                return false;
-            }
-        });
-
-        schemasTable.addCheckStateListener(new ICheckStateListener() {
-            public void checkStateChanged(CheckStateChangedEvent event) {
-                if (event.getChecked()) {
-                    updateNamespaceDefinitionLocation(config, (Schema) event.getElement());
-                }
-
-                config.refreshNamespacesPage();
-            }
-        });
+        createSchemasTable();
     }
 
     @Override
@@ -111,6 +51,5 @@ public class SpringPluggableItemDetailsPage extends AbstractTreeItemDetailsPage<
         }
 
         sourceText.setText(StringUtil.join(sources, "\n\n"), false, true);
-        schemasTable.setInput(item);
     }
 }
