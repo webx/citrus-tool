@@ -9,6 +9,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.forms.IDetailsPage;
 import org.eclipse.ui.forms.IFormPart;
 import org.eclipse.ui.forms.IManagedForm;
@@ -49,12 +50,20 @@ public abstract class AbstractTreeItemDetailsPage implements IDetailsPage {
 
         // section
         section = toolkit.createSection(parent, Section.DESCRIPTION | ExpandableComposite.TITLE_BAR);
-        section.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false, 1, 1));
+        section.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         section.marginWidth = 10;
         section.marginHeight = 5;
+        section.clientVerticalSpacing = 8;
 
         // 和master part的description对齐。
         section.descriptionVerticalSpacing = getNamespacesMasterPart().getSection().getTextClientHeightDifference();
+    }
+
+    protected final void createSpacer(Composite parent, int span) {
+        Label spacer = toolkit.createLabel(parent, "");
+        GridData gd = new GridData();
+        gd.horizontalSpan = span;
+        spacer.setLayoutData(gd);
     }
 
     public void dispose() {

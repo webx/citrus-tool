@@ -22,13 +22,15 @@ import com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.detai
 
 public class NamespacesPage extends FormPage implements IDetailsPageProvider {
     public final static String PAGE_ID = NamespacesPage.class.getName();
-    private final NamespacesMasterDetailsBlock block;
+
+    private final NamespacesMasterDetailsBlock block = new NamespacesMasterDetailsBlock();
+    private final SpringPluggableItemDetailsPage springPluggableItemDetailsPage = new SpringPluggableItemDetailsPage();
+
     private final SpringExtConfig config;
     private NamespacesMasterPart masterPart;
 
     public NamespacesPage(SpringExtConfigEditor editor) {
         super(editor, PAGE_ID, "Namespaces");
-        this.block = new NamespacesMasterDetailsBlock();
         this.config = editor.getConfig();
     }
 
@@ -64,7 +66,7 @@ public class NamespacesPage extends FormPage implements IDetailsPageProvider {
     public IDetailsPage getPage(Object key) {
         if (key instanceof SpringPluggableItem) {
             if (!((SpringPluggableItem) key).getSchemas().isEmpty()) {
-                return new SpringPluggableItemDetailsPage();
+                return springPluggableItemDetailsPage;
             } else {
 
             }
