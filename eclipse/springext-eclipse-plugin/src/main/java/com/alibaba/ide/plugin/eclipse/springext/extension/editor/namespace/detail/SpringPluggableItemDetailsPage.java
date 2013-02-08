@@ -1,11 +1,14 @@
 package com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.detail;
 
 import static com.alibaba.citrus.util.CollectionUtil.*;
+import static com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.dom.DomDocumentUtil.*;
 
 import java.io.IOException;
 import java.util.Set;
 
+import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
+import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.ICheckStateProvider;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -80,6 +83,16 @@ public class SpringPluggableItemDetailsPage extends AbstractTreeItemDetailsPage<
 
             public boolean isGrayed(Object element) {
                 return false;
+            }
+        });
+
+        schemasTable.addCheckStateListener(new ICheckStateListener() {
+            public void checkStateChanged(CheckStateChangedEvent event) {
+                if (event.getChecked()) {
+                    updateNamespaceDefinitionLocation(config, (Schema) event.getElement());
+                }
+
+                config.refreshNamespacesPage();
             }
         });
     }

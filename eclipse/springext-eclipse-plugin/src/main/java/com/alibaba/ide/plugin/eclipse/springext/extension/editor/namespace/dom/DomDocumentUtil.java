@@ -21,6 +21,7 @@ import org.eclipse.wst.xml.core.internal.provisional.document.IDOMElement;
 import org.eclipse.wst.xml.core.internal.provisional.format.FormatProcessorXML;
 import org.w3c.dom.Node;
 
+import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.NamespaceItem;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.TreeItem;
 import com.alibaba.citrus.springext.util.ConvertToUnqualifiedStyle.Converter;
@@ -124,6 +125,10 @@ public class DomDocumentUtil {
         } finally {
             document.getModel().endRecording(textViewer);
         }
+    }
+
+    public static void updateNamespaceDefinitionLocation(SpringExtConfig config, Schema schema) {
+        System.err.println(schema);
     }
 
     public static void updateNamespaceDefinitions(SpringExtConfig config, TreeItem item, boolean checked) {
