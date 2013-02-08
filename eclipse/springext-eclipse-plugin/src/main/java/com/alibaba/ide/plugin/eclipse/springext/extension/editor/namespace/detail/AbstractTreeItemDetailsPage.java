@@ -16,14 +16,16 @@ import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
+import org.eclipse.ui.forms.widgets.TableWrapData;
+import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.TreeItem;
 import com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.NamespacesMasterPart;
 
-public abstract class AbstractTreeItemDetailsPage implements IDetailsPage {
+public abstract class AbstractTreeItemDetailsPage<T extends TreeItem> implements IDetailsPage {
     protected IManagedForm form;
     protected FormToolkit toolkit;
-    protected TreeItem item;
+    protected T item;
     protected Section section;
     protected Composite client;
 
@@ -61,10 +63,11 @@ public abstract class AbstractTreeItemDetailsPage implements IDetailsPage {
 
         // section/client
         client = toolkit.createComposite(section);
-        GridLayout glayout = new GridLayout(2, false);
-        glayout.marginWidth = 0;
-        glayout.marginHeight = 0;
-        client.setLayout(glayout);
+        TableWrapLayout tlayout = new TableWrapLayout();
+        tlayout.numColumns = 2;
+        tlayout.horizontalSpacing = 20;
+        tlayout.verticalSpacing = 20;
+        client.setLayout(tlayout);
 
         section.setClient(client);
 
@@ -75,9 +78,9 @@ public abstract class AbstractTreeItemDetailsPage implements IDetailsPage {
 
     protected final void createSpacer(Composite parent, int span) {
         Label spacer = toolkit.createLabel(parent, "");
-        GridData gd = new GridData();
-        gd.horizontalSpan = span;
-        spacer.setLayoutData(gd);
+        TableWrapData td = new TableWrapData();
+        td.colspan = span;
+        spacer.setLayoutData(td);
     }
 
     public void dispose() {
@@ -105,11 +108,12 @@ public abstract class AbstractTreeItemDetailsPage implements IDetailsPage {
         update();
     }
 
+    @SuppressWarnings("unchecked")
     public void selectionChanged(IFormPart part, ISelection selection) {
         ITreeSelection ts = (ITreeSelection) selection;
 
         if (!isEmptyArray(ts.getPaths())) {
-            this.item = (TreeItem) ts.getPaths()[0].getLastSegment();
+            this.item = (T) ts.getPaths()[0].getLastSegment();
         } else {
             this.item = null;
         }
