@@ -3,6 +3,7 @@ package com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.deta
 import java.net.URL;
 
 import org.eclipse.ui.forms.widgets.FormText;
+import org.eclipse.ui.forms.widgets.TableWrapData;
 
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.support.ConfigurationPointSchemaSourceInfo;
@@ -21,10 +22,12 @@ public class ConfigurationPointItemDetailsPage extends AbstractNamespaceItemDeta
         // Namespace
         toolkit.createLabel(client, "Namespace");
         namespaceText = toolkit.createFormText(client, false);
+        namespaceText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));
 
         // Sources
         toolkit.createLabel(client, "Defined in");
         sourceText = toolkit.createFormText(client, false);
+        sourceText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));
 
         createSchemasTable();
     }

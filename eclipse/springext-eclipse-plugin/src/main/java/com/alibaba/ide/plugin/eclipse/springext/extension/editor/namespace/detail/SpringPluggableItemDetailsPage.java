@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.Set;
 
 import org.eclipse.ui.forms.widgets.FormText;
+import org.eclipse.ui.forms.widgets.TableWrapData;
 
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.SpringPluggableItem;
@@ -24,10 +25,12 @@ public class SpringPluggableItemDetailsPage extends AbstractNamespaceItemDetails
         // Namespace
         toolkit.createLabel(client, "Namespace");
         namespaceText = toolkit.createFormText(client, false);
+        namespaceText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));
 
         // Sources
         toolkit.createLabel(client, "Defined in");
         sourceText = toolkit.createFormText(client, false);
+        sourceText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));
 
         createSchemasTable();
     }
@@ -56,9 +59,9 @@ public class SpringPluggableItemDetailsPage extends AbstractNamespaceItemDetails
 
         // 点击namespace，打开当前所选择的schema。
         Schema schema = config.getNamespaceDefinitions().getSchemaOfLocation(item.getNamespace(), config.getSchemas());
+        URL url = getSourceURL(schema);
 
-        namespaceBuilder.append("<p>").appendLink(item.getNamespace(), new SchemaHyperlinkListener(schema))
-                .append("</p>");
+        namespaceBuilder.append("<p>").appendLink(item.getNamespace(), new URLHyperlinkListener(url)).append("</p>");
 
         namespaceBuilder.setText(namespaceText);
 

@@ -15,16 +15,21 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.IDetailsPage;
 import org.eclipse.ui.forms.IFormPart;
 import org.eclipse.ui.forms.IManagedForm;
+import org.eclipse.ui.forms.events.HyperlinkAdapter;
+import org.eclipse.ui.forms.events.HyperlinkEvent;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 import org.springframework.core.io.Resource;
 
+import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.SourceInfo;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.TreeItem;
 import com.alibaba.ide.plugin.eclipse.springext.extension.editor.SpringExtConfig;
 import com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.NamespacesMasterPart;
+import com.alibaba.ide.plugin.eclipse.springext.extension.hyperlink.SchemaHyperlink;
+import com.alibaba.ide.plugin.eclipse.springext.extension.hyperlink.URLHyperlink;
 
 public abstract class AbstractTreeItemDetailsPage<T extends TreeItem> implements IDetailsPage {
     protected IManagedForm form;
@@ -131,5 +136,31 @@ public abstract class AbstractTreeItemDetailsPage<T extends TreeItem> implements
         }
 
         return url;
+    }
+
+    protected final class URLHyperlinkListener extends HyperlinkAdapter {
+        private final URL url;
+
+        public URLHyperlinkListener(URL url) {
+            this.url = url;
+        }
+
+        @Override
+        public void linkActivated(HyperlinkEvent e) {
+            new URLHyperlink(null, url, config.getProject()).open();
+        }
+    }
+
+    protected final class SchemaHyperlinkListener extends HyperlinkAdapter {
+        private final Schema schema;
+
+        public SchemaHyperlinkListener(Schema schema) {
+            this.schema = schema;
+        }
+
+        @Override
+        public void linkActivated(HyperlinkEvent e) {
+            new SchemaHyperlink(null, schema, config.getProject()).open();
+        }
     }
 }
