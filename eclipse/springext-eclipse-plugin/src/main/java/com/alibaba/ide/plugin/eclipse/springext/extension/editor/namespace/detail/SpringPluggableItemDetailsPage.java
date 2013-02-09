@@ -2,6 +2,7 @@ package com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.deta
 
 import static com.alibaba.citrus.util.CollectionUtil.*;
 
+import java.net.URL;
 import java.util.Set;
 
 import org.eclipse.ui.forms.widgets.FormText;
@@ -9,7 +10,7 @@ import org.eclipse.ui.forms.widgets.FormText;
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.SpringPluggableItem;
 import com.alibaba.citrus.springext.support.SpringPluggableSchemaSourceInfo;
-import com.alibaba.citrus.util.StringUtil;
+import com.alibaba.ide.plugin.eclipse.springext.extension.hyperlink.HyperlinkTextBuilder;
 
 public class SpringPluggableItemDetailsPage extends AbstractNamespaceItemDetailsPage<SpringPluggableItem> {
     private FormText namespaceText;
@@ -33,17 +34,33 @@ public class SpringPluggableItemDetailsPage extends AbstractNamespaceItemDetails
 
     @Override
     protected void update() {
-        namespaceText.setText(item.getNamespace(), false, true);
+        HyperlinkTextBuilder namespaceBuilder = new HyperlinkTextBuilder(toolkit);
+        HyperlinkTextBuilder sourcesBuilder = new HyperlinkTextBuilder(toolkit);
 
-        Set<String> sources = createLinkedHashSet();
+        // 点击sources，打开spring.schemas的定义文件。
         Set<Schema> schemas = item.getSchemas();
+        Set<URL> sources = createHashSet();
 
         for (Schema schema : schemas) {
             SpringPluggableSchemaSourceInfo sourceInfo = (SpringPluggableSchemaSourceInfo) schema;
-            sources.add(getSourceURL(sourceInfo.getParent()).toExternalForm());
+            URL url = getSourceURL(sourceInfo.getParent());
+
+            if (!sources.contains(url)) {
+                sources.add(url);
+                sourcesBuilder.append("<p>").appendLink(url.toExternalForm(), new URLHyperlinkListener(url))
+                        .append("</p>");
+            }
         }
 
-        sourceText.setText(StringUtil.join(sources, "\n\n"), false, true);
+        sourcesBuilder.setText(sourceText);
+
+        // 点击namespace，打开当前所选择的schema。
+        Schema schema = config.getNamespaceDefinitions().getSchemaOfLocation(item.getNamespace(), config.getSchemas());
+
+        namespaceBuilder.append("<p>").appendLink(item.getNamespace(), new SchemaHyperlinkListener(schema))
+                .append("</p>");
+
+        namespaceBuilder.setText(namespaceText);
 
         super.update();
     }

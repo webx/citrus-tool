@@ -2,6 +2,8 @@ package com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.deta
 
 import static com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.dom.DomDocumentUtil.*;
 
+import java.net.URL;
+
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.ICheckStateListener;
@@ -11,10 +13,14 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.ui.forms.events.HyperlinkAdapter;
+import org.eclipse.ui.forms.events.HyperlinkEvent;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.NamespaceItem;
+import com.alibaba.ide.plugin.eclipse.springext.extension.hyperlink.SchemaHyperlink;
+import com.alibaba.ide.plugin.eclipse.springext.extension.hyperlink.URLHyperlink;
 
 public abstract class AbstractNamespaceItemDetailsPage<T extends NamespaceItem> extends AbstractTreeItemDetailsPage<T> {
     protected CheckboxTableViewer schemasTable;
@@ -72,6 +78,32 @@ public abstract class AbstractNamespaceItemDetailsPage<T extends NamespaceItem> 
     protected void update() {
         if (schemasTable != null) {
             schemasTable.setInput(item);
+        }
+    }
+
+    protected final class URLHyperlinkListener extends HyperlinkAdapter {
+        private final URL url;
+
+        public URLHyperlinkListener(URL url) {
+            this.url = url;
+        }
+
+        @Override
+        public void linkActivated(HyperlinkEvent e) {
+            new URLHyperlink(null, url, config.getProject()).open();
+        }
+    }
+
+    protected final class SchemaHyperlinkListener extends HyperlinkAdapter {
+        private final Schema schema;
+
+        public SchemaHyperlinkListener(Schema schema) {
+            this.schema = schema;
+        }
+
+        @Override
+        public void linkActivated(HyperlinkEvent e) {
+            new SchemaHyperlink(null, schema, config.getProject()).open();
         }
     }
 }
