@@ -52,7 +52,7 @@ public class URLHyperlink implements IHyperlink {
     protected final IFile file;
     protected final IProject project;
 
-    public URLHyperlink(@NotNull IRegion region, @NotNull URL url, @NotNull IProject project) {
+    public URLHyperlink(IRegion region, @NotNull URL url, @NotNull IProject project) {
         this.region = region;
         this.url = url;
         this.file = toFile(url);

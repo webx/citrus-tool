@@ -5,6 +5,10 @@ import static com.alibaba.citrus.util.StringUtil.*;
 import static java.util.Collections.*;
 
 import java.util.Map;
+import java.util.Set;
+
+import com.alibaba.citrus.springext.Schema;
+import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
 
 public class NamespaceDefinitions {
     private final Map<String/* ns */, Map<String/* prefix */, NamespaceDefinition>> namespaces = createLinkedHashMap();
@@ -39,6 +43,29 @@ public class NamespaceDefinitions {
 
         if (!nds.isEmpty()) {
             return nds.values().iterator().next().getLocation();
+        }
+
+        return null;
+    }
+
+    /**
+     * 根据schema location，取得指定版本的schema。
+     */
+    public Schema getSchemaOfLocation(String namespace, SchemaResourceSet schemas) {
+        Set<Schema> set = schemas.getNamespaceMappings().get(namespace);
+        String location = getLocation(namespace);
+
+        if (set != null && !set.isEmpty()) {
+            if (location != null) {
+                for (Schema schema : set) {
+                    if (location.endsWith(schema.getName())) {
+                        return schema;
+                    }
+                }
+            }
+
+            // 取得第一个schema作为默认结果。
+            return set.iterator().next();
         }
 
         return null;

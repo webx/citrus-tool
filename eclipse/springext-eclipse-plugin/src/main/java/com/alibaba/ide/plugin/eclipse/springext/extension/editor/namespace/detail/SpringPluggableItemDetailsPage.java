@@ -40,7 +40,7 @@ public class SpringPluggableItemDetailsPage extends AbstractNamespaceItemDetails
 
         for (Schema schema : schemas) {
             SpringPluggableSchemaSourceInfo sourceInfo = (SpringPluggableSchemaSourceInfo) schema;
-            sources.add(getSourceDesc(sourceInfo.getParent()));
+            sources.add(getSourceURL(sourceInfo.getParent()).toExternalForm());
         }
 
         sourceText.setText(StringUtil.join(sources, "\n\n"), false, true);

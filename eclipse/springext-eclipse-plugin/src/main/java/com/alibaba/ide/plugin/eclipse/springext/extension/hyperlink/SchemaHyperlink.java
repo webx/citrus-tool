@@ -37,7 +37,7 @@ public class SchemaHyperlink implements IHyperlink {
     private final Schema schema;
     private final IProject project;
 
-    public SchemaHyperlink(@NotNull IRegion region, @NotNull Schema schema, @NotNull IProject project) {
+    public SchemaHyperlink(IRegion region, @NotNull Schema schema, @NotNull IProject project) {
         this.region = region;
         this.schema = schema;
         this.project = project;

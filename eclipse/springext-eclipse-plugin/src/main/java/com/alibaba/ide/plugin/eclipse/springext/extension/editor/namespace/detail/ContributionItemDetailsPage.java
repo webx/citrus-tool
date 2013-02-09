@@ -43,7 +43,7 @@ public class ContributionItemDetailsPage extends AbstractTreeItemDetailsPage<Con
     protected void update() {
         Contribution contrib = item.getContribution();
 
-        location.setText(getSourceDesc(contrib), false, true);
+        location.setText(getSourceURL(contrib).toExternalForm(), false, true);
         contributionName.setText(contrib.getName(), false, true);
         contributionType.setText(contrib.getType().toString(), false, true);
         configurationPointName.setText(contrib.getConfigurationPoint().getNamespaceUri(), false, true);
@@ -67,7 +67,7 @@ public class ContributionItemDetailsPage extends AbstractTreeItemDetailsPage<Con
                 buf.append("\n");
             }
 
-            buf.append(getSourceDesc(schema));
+            buf.append(getSourceURL(schema).toExternalForm());
         }
 
         schemas.setText(buf.toString(), false, true);

@@ -1,15 +1,17 @@
 package com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.detail;
 
-import static com.alibaba.citrus.util.CollectionUtil.*;
+import java.net.URL;
 
-import java.util.Set;
-
+import org.eclipse.ui.forms.events.HyperlinkAdapter;
+import org.eclipse.ui.forms.events.HyperlinkEvent;
 import org.eclipse.ui.forms.widgets.FormText;
 
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.support.ConfigurationPointSchemaSourceInfo;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.ConfigurationPointItem;
-import com.alibaba.citrus.util.StringUtil;
+import com.alibaba.ide.plugin.eclipse.springext.extension.hyperlink.HyperlinkTextBuilder;
+import com.alibaba.ide.plugin.eclipse.springext.extension.hyperlink.SchemaHyperlink;
+import com.alibaba.ide.plugin.eclipse.springext.extension.hyperlink.URLHyperlink;
 
 public class ConfigurationPointItemDetailsPage extends AbstractNamespaceItemDetailsPage<ConfigurationPointItem> {
     private FormText namespaceText;
@@ -18,7 +20,7 @@ public class ConfigurationPointItemDetailsPage extends AbstractNamespaceItemDeta
     @Override
     protected void initSection() {
         section.setText("Configuration Point Schema");
-        section.setDescription("The schema defined in [CLASSPATH]/META-INF/spring.configuration-points");
+        section.setDescription("This namespace and corresponding schema represent a SpringExt Configuration Point.");
 
         // Namespace
         toolkit.createLabel(client, "Namespace");
@@ -33,17 +35,34 @@ public class ConfigurationPointItemDetailsPage extends AbstractNamespaceItemDeta
 
     @Override
     protected void update() {
-        namespaceText.setText(item.getNamespace(), false, true);
+        HyperlinkTextBuilder namespaceBuilder = new HyperlinkTextBuilder(toolkit);
+        HyperlinkTextBuilder sourcesBuilder = new HyperlinkTextBuilder(toolkit);
 
-        Set<String> sources = createLinkedHashSet();
-        Set<Schema> schemas = item.getSchemas();
+        final Schema schema = config.getNamespaceDefinitions().getSchemaOfLocation(item.getNamespace(),
+                config.getSchemas());
 
-        for (Schema schema : schemas) {
-            ConfigurationPointSchemaSourceInfo sourceInfo = (ConfigurationPointSchemaSourceInfo) schema;
-            sources.add(getSourceDesc(sourceInfo.getParent()));
-        }
+        // 点击sources，打开configuration point的定义文件。
+        ConfigurationPointSchemaSourceInfo sourceInfo = (ConfigurationPointSchemaSourceInfo) schema;
+        final URL url = getSourceURL(sourceInfo.getParent());
 
-        sourceText.setText(StringUtil.join(sources, "\n\n"), false, true);
+        sourcesBuilder.append("<p>").appendLink(url.toExternalForm(), new HyperlinkAdapter() {
+            @Override
+            public void linkActivated(HyperlinkEvent e) {
+                new URLHyperlink(null, url, config.getProject()).open();
+            }
+        }).append("</p>");
+
+        sourcesBuilder.setText(sourceText);
+
+        // 点击namespace，打开当前所选的schema。
+        namespaceBuilder.append("<p>").appendLink(item.getNamespace(), new HyperlinkAdapter() {
+            @Override
+            public void linkActivated(HyperlinkEvent e) {
+                new SchemaHyperlink(null, schema, config.getProject()).open();
+            }
+        }).append("</p>");
+
+        namespaceBuilder.setText(namespaceText);
 
         super.update();
     }

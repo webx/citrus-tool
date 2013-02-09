@@ -4,6 +4,7 @@ import static com.alibaba.citrus.util.ArrayUtil.*;
 import static com.alibaba.citrus.util.Assert.*;
 
 import java.io.IOException;
+import java.net.URL;
 
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ITreeSelection;
@@ -115,25 +116,20 @@ public abstract class AbstractTreeItemDetailsPage<T extends TreeItem> implements
 
     protected abstract void update();
 
-    protected final String getSourceDesc(Object object) {
+    protected final URL getSourceURL(Object object) {
         assertTrue(object instanceof SourceInfo<?>, "not a source info");
-        return getSourceDesc((SourceInfo<?>) object);
+        return getSourceURL((SourceInfo<?>) object);
     }
 
-    protected final String getSourceDesc(SourceInfo<?> sourceInfo) {
+    protected final URL getSourceURL(SourceInfo<?> sourceInfo) {
         Resource resource = (Resource) sourceInfo.getSource();
-        int lineNumber = sourceInfo.getLineNumber();
-        String url = null;
+        URL url = null;
 
         try {
-            url = resource.getURL().toExternalForm();
+            url = resource.getURL();
         } catch (IOException ignored) {
         }
 
-        if (url == null) {
-            return "";
-        } else {
-            return url + (lineNumber > 0 ? ":" + lineNumber : "");
-        }
+        return url;
     }
 }
