@@ -11,7 +11,6 @@ import org.eclipse.ui.forms.widgets.TableWrapData;
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.SpringPluggableItem;
 import com.alibaba.citrus.springext.support.SpringPluggableSchemaSourceInfo;
-import com.alibaba.ide.plugin.eclipse.springext.extension.hyperlink.HyperlinkTextBuilder;
 
 public class SpringPluggableItemDetailsPage extends AbstractNamespaceItemDetailsPage<SpringPluggableItem> {
     private FormText namespaceText;

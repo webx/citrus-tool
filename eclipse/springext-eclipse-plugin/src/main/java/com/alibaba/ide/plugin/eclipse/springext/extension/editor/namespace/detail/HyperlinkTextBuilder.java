@@ -1,4 +1,4 @@
-package com.alibaba.ide.plugin.eclipse.springext.extension.hyperlink;
+package com.alibaba.ide.plugin.eclipse.springext.extension.editor.namespace.detail;
 
 import static com.alibaba.citrus.util.CollectionUtil.*;
 import static com.alibaba.citrus.util.ObjectUtil.*;

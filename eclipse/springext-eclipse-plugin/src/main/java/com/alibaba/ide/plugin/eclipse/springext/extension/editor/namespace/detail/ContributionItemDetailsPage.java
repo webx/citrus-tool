@@ -9,7 +9,6 @@ import com.alibaba.citrus.springext.Contribution;
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.ConfigurationPointItem;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.ContributionItem;
-import com.alibaba.ide.plugin.eclipse.springext.extension.hyperlink.HyperlinkTextBuilder;
 
 public class ContributionItemDetailsPage extends AbstractTreeItemDetailsPage<ContributionItem> {
     private FormText sourceText;

@@ -8,7 +8,6 @@ import org.eclipse.ui.forms.widgets.TableWrapData;
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.support.ConfigurationPointSchemaSourceInfo;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.ConfigurationPointItem;
-import com.alibaba.ide.plugin.eclipse.springext.extension.hyperlink.HyperlinkTextBuilder;
 
 public class ConfigurationPointItemDetailsPage extends AbstractNamespaceItemDetailsPage<ConfigurationPointItem> {
     private FormText namespaceText;
