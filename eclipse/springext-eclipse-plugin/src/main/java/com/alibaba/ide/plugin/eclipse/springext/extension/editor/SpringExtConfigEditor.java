@@ -6,6 +6,7 @@ import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.text.source.SourceViewerConfiguration;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.PartInitException;
@@ -49,7 +50,16 @@ public class SpringExtConfigEditor extends FormEditor implements IGotoMarker {
      * 创建XML源码页。
      */
     private void createSourcePage() {
-        sourceEditor = new StructuredTextEditor();
+        sourceEditor = new StructuredTextEditor() {
+            @Override
+            protected void setSourceViewerConfiguration(SourceViewerConfiguration config) {
+                if (config instanceof StructuredTextViewerConfigurationSpringExtXML) {
+                    ((StructuredTextViewerConfigurationSpringExtXML) config).setContext(getConfig());
+                }
+
+                super.setSourceViewerConfiguration(config);
+            }
+        };
 
         try {
             int index = addPage(sourceEditor, getEditorInput());
@@ -72,7 +82,7 @@ public class SpringExtConfigEditor extends FormEditor implements IGotoMarker {
             namespacesPage = new NamespacesPage(this);
             int index = addPage(namespacesPage);
             setPageText(index, "Namespaces");
-            
+
             config.initWithFormPage(namespacesPage);
         } catch (PartInitException e) {
             logAndDisplay(new Status(IStatus.ERROR, SpringExtConstant.PLUGIN_ID, "Could not add tab to editor "

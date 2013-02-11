@@ -10,6 +10,7 @@ import java.util.Map;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.PlatformObject;
 import org.eclipse.jface.text.ITextListener;
 import org.eclipse.jface.text.TextEvent;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
@@ -44,7 +45,7 @@ import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
  * @author Michael Zhou
  */
 @SuppressWarnings("restriction")
-public class SpringExtConfig implements ISchemaSetChangeListener, ITextListener {
+public class SpringExtConfig extends PlatformObject implements ISchemaSetChangeListener, ITextListener {
     private IProject project;
     private IFile editingFile;
 
