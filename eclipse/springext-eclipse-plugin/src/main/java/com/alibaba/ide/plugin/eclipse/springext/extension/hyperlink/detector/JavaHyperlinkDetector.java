@@ -9,6 +9,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jdt.ui.JavaElementLabels;
 import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
@@ -95,7 +96,8 @@ public class JavaHyperlinkDetector extends AbstractHyperlinkDetector {
         }
 
         public String getHyperlinkText() {
-            return String.format("Open '%s'", element.getElementName());
+            return String.format("Open '%s'",
+                    JavaElementLabels.getElementLabel(element, JavaElementLabels.ALL_POST_QUALIFIED));
         }
 
         public String getTypeLabel() {
