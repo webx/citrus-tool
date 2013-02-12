@@ -1,11 +1,8 @@
 package com.alibaba.ide.plugin.eclipse.springext.editor.config;
 
 import static com.alibaba.citrus.util.Assert.*;
-import static com.alibaba.citrus.util.CollectionUtil.*;
 
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
@@ -23,8 +20,6 @@ import org.eclipse.wst.sse.ui.internal.StructuredTextViewer;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMDocument;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMModel;
 
-import com.alibaba.citrus.springext.support.SpringExtSchemaSet.NamespaceItem;
-import com.alibaba.citrus.springext.support.SpringExtSchemaSet.TreeItem;
 import com.alibaba.ide.plugin.eclipse.springext.editor.SpringExtEditingData;
 import com.alibaba.ide.plugin.eclipse.springext.editor.config.namespace.dom.DomDocumentUtil;
 import com.alibaba.ide.plugin.eclipse.springext.editor.config.namespace.dom.NamespaceDefinitions;
@@ -49,7 +44,6 @@ public class SpringExtConfig extends SpringExtEditingData implements ITextListen
 
     private IDOMModel model;
     private IDOMDocument domDocument;
-    private NamespaceItem[] allNamespaces;
 
     private NamespaceDefinitions nds;
 
@@ -68,8 +62,6 @@ public class SpringExtConfig extends SpringExtEditingData implements ITextListen
 
     @Override
     protected void onSchemaSetChanged() {
-        this.allNamespaces = null;
-
         if (namespacesTreeViewer != null) {
             Display.getDefault().syncExec(new Runnable() {
                 public void run() {
@@ -77,37 +69,6 @@ public class SpringExtConfig extends SpringExtEditingData implements ITextListen
                 }
             });
         }
-    }
-
-    public NamespaceItem[] getAllNamespaces() {
-        if (allNamespaces == null) {
-            Map<String, TreeItem> all = createTreeMap();
-            LinkedList<TreeItem> queue = createLinkedList();
-
-            for (NamespaceItem i : getSchemas().getIndependentItems()) {
-                queue.addLast(i);
-            }
-
-            while (!queue.isEmpty()) {
-                TreeItem item = queue.removeFirst();
-                String ns = item instanceof NamespaceItem ? ((NamespaceItem) item).getNamespace() : null;
-
-                // 避免加入重复的ns
-                if ((ns == null || !all.containsKey(ns)) && item.hasChildren()) {
-                    for (TreeItem c : item.getChildren()) {
-                        queue.addLast(c);
-                    }
-                }
-
-                if (ns != null) {
-                    all.put(ns, item);
-                }
-            }
-
-            allNamespaces = all.values().toArray(new NamespaceItem[all.size()]);
-        }
-
-        return allNamespaces;
     }
 
     public NamespaceDefinitions getNamespaceDefinitions() {

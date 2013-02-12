@@ -33,7 +33,7 @@ public class NamespacesTreeProvider extends LabelProvider implements ITreePathLa
             if (config.isListNamespacesAsTree()) {
                 return config.getSchemas().getIndependentItems();
             } else {
-                return config.getAllNamespaces();
+                return config.getSchemas().getAllItems();
             }
         } else {
             return EMPTY_OBJECT_ARRAY;
