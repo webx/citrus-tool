@@ -1,5 +1,10 @@
 package com.alibaba.ide.plugin.eclipse.springext;
 
+import static com.alibaba.citrus.util.Assert.*;
+
+import java.io.IOException;
+import java.net.URL;
+
 import org.eclipse.core.filebuffers.FileBuffers;
 import org.eclipse.core.filebuffers.ITextFileBuffer;
 import org.eclipse.core.resources.IFile;
@@ -27,6 +32,9 @@ import org.eclipse.wst.sse.core.internal.provisional.IStructuredModel;
 import org.eclipse.wst.sse.core.utils.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.core.io.Resource;
+
+import com.alibaba.citrus.springext.SourceInfo;
 
 @SuppressWarnings("restriction")
 public class SpringExtPluginUtil {
@@ -215,5 +223,22 @@ public class SpringExtPluginUtil {
         } else {
             MessageDialog.openError(shell, title, status.getMessage());
         }
+    }
+
+    public static URL getSourceURL(Object object) {
+        assertTrue(object instanceof SourceInfo<?>, "not a source info");
+        return getSourceURL((SourceInfo<?>) object);
+    }
+
+    public static URL getSourceURL(SourceInfo<?> sourceInfo) {
+        Resource resource = (Resource) sourceInfo.getSource();
+        URL url = null;
+
+        try {
+            url = resource.getURL();
+        } catch (IOException ignored) {
+        }
+
+        return url;
     }
 }

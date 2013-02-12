@@ -3,7 +3,6 @@ package com.alibaba.ide.plugin.eclipse.springext.editor.config.namespace.detail;
 import static com.alibaba.citrus.util.ArrayUtil.*;
 import static com.alibaba.citrus.util.Assert.*;
 
-import java.io.IOException;
 import java.net.URL;
 
 import org.eclipse.jface.viewers.ISelection;
@@ -21,10 +20,8 @@ import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
-import org.springframework.core.io.Resource;
 
 import com.alibaba.citrus.springext.Schema;
-import com.alibaba.citrus.springext.SourceInfo;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.TreeItem;
 import com.alibaba.ide.plugin.eclipse.springext.editor.config.SpringExtConfig;
 import com.alibaba.ide.plugin.eclipse.springext.editor.config.namespace.NamespacesMasterPart;
@@ -120,23 +117,6 @@ public abstract class AbstractTreeItemDetailsPage<T extends TreeItem> implements
     }
 
     protected abstract void update();
-
-    protected final URL getSourceURL(Object object) {
-        assertTrue(object instanceof SourceInfo<?>, "not a source info");
-        return getSourceURL((SourceInfo<?>) object);
-    }
-
-    protected final URL getSourceURL(SourceInfo<?> sourceInfo) {
-        Resource resource = (Resource) sourceInfo.getSource();
-        URL url = null;
-
-        try {
-            url = resource.getURL();
-        } catch (IOException ignored) {
-        }
-
-        return url;
-    }
 
     protected final class URLHyperlinkListener extends HyperlinkAdapter {
         private final URL url;

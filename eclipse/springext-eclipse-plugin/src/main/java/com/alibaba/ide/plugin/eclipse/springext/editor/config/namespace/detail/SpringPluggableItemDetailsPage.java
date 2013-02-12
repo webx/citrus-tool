@@ -1,6 +1,7 @@
 package com.alibaba.ide.plugin.eclipse.springext.editor.config.namespace.detail;
 
 import static com.alibaba.citrus.util.CollectionUtil.*;
+import static com.alibaba.ide.plugin.eclipse.springext.SpringExtPluginUtil.*;
 
 import java.net.URL;
 import java.util.Set;
