@@ -8,9 +8,7 @@ import java.util.LinkedList;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.PlatformObject;
 import org.eclipse.jface.text.ITextListener;
 import org.eclipse.jface.text.TextEvent;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
@@ -27,9 +25,9 @@ import org.eclipse.wst.xml.core.internal.provisional.document.IDOMModel;
 
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.NamespaceItem;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.TreeItem;
+import com.alibaba.ide.plugin.eclipse.springext.editor.SpringExtEditingData;
 import com.alibaba.ide.plugin.eclipse.springext.editor.config.namespace.dom.DomDocumentUtil;
 import com.alibaba.ide.plugin.eclipse.springext.editor.config.namespace.dom.NamespaceDefinitions;
-import com.alibaba.ide.plugin.eclipse.springext.schema.ISchemaSetChangeListener;
 import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
 
 /**
@@ -40,18 +38,17 @@ import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
  * <li>当schemas被改变时，更新namespaces列表。</li>
  * <li>当配置文件内容被改变时，更新从文件内容中读取的已选中的namespaces列表。</li>
  * <li>刷新treeViewer，使之反映文档中的选择。</li>
+ * <li>支持树状或列表状两种显示模式。</li>
  * </ul>
  * 
  * @author Michael Zhou
  */
 @SuppressWarnings("restriction")
-public class SpringExtConfig extends PlatformObject implements ISchemaSetChangeListener, ITextListener {
-    private IProject project;
+public class SpringExtConfig extends SpringExtEditingData implements ITextListener {
     private IFile editingFile;
 
     private IDOMModel model;
     private IDOMDocument domDocument;
-    private SchemaResourceSet schemas;
     private NamespaceItem[] allNamespaces;
 
     private NamespaceDefinitions nds;
@@ -61,10 +58,6 @@ public class SpringExtConfig extends PlatformObject implements ISchemaSetChangeL
     private CheckboxTreeViewer namespacesTreeViewer;
     private boolean listNamespacesAsTree = true;
 
-    public IProject getProject() {
-        return project;
-    }
-
     public IFile getEditingFile() {
         return editingFile;
     }
@@ -73,14 +66,16 @@ public class SpringExtConfig extends PlatformObject implements ISchemaSetChangeL
         return domDocument;
     }
 
-    public SchemaResourceSet getSchemas() {
-        return schemas;
-    }
+    @Override
+    protected void onSchemaSetChanged() {
+        this.allNamespaces = null;
 
-    public void setSchemas(SchemaResourceSet schemas) {
-        if (schemas != this.schemas) {
-            this.schemas = schemas;
-            this.allNamespaces = null;
+        if (namespacesTreeViewer != null) {
+            Display.getDefault().syncExec(new Runnable() {
+                public void run() {
+                    namespacesTreeViewer.setInput(domDocument);
+                }
+            });
         }
     }
 
@@ -89,7 +84,7 @@ public class SpringExtConfig extends PlatformObject implements ISchemaSetChangeL
             Map<String, TreeItem> all = createTreeMap();
             LinkedList<TreeItem> queue = createLinkedList();
 
-            for (NamespaceItem i : schemas.getIndependentItems()) {
+            for (NamespaceItem i : getSchemas().getIndependentItems()) {
                 queue.addLast(i);
             }
 
@@ -189,37 +184,13 @@ public class SpringExtConfig extends PlatformObject implements ISchemaSetChangeL
                 releaseModel(); // release previous model
 
                 this.editingFile = file;
-                this.project = file.getProject();
-
                 this.model = (IDOMModel) structModel;
                 this.domDocument = model.getDocument();
-                setSchemas(SchemaResourceSet.getInstance(project));
 
-                SchemaResourceSet.addSchemaSetChangeListener(this);
+                initWithProject(file.getProject());
+                setSchemas(SchemaResourceSet.getInstance(getProject()));
             } else {
                 structModel.releaseFromEdit();
-            }
-        }
-    }
-
-    /**
-     * 当schemas被更新时，此方法被调用。
-     * <p/>
-     * 例如，用户修改了<code>*.bean-definition-parsers</code>文件，或者调整了classpath。
-     * 
-     * @see ISchemaSetChangeListener
-     */
-    public void onSchemaSetChanged(SchemaSetChangeEvent event) {
-        // 仅当发生变化的project和当前所编辑的文件所在的project是同一个时，才作反应。
-        if (event.getProject().equals(project)) {
-            setSchemas(SchemaResourceSet.getInstance(project));
-
-            if (namespacesTreeViewer != null) {
-                Display.getDefault().syncExec(new Runnable() {
-                    public void run() {
-                        namespacesTreeViewer.setInput(domDocument);
-                    }
-                });
             }
         }
     }
@@ -240,16 +211,15 @@ public class SpringExtConfig extends PlatformObject implements ISchemaSetChangeL
         }
     }
 
-    /**
-     * 编辑器被关闭时被调用。
-     */
+    @Override
     public void dispose() {
-        releaseModel();
-        SchemaResourceSet.removeSchemaSetChangeListener(this);
+        super.dispose();
 
         if (textViewer != null) {
             textViewer.removeTextListener(this);
         }
+
+        releaseModel();
     }
 
     private void releaseModel() {
