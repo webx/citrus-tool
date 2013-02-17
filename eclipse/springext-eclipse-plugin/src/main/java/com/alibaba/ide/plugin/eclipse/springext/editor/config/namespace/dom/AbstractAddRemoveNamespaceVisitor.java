@@ -1,12 +1,15 @@
 package com.alibaba.ide.plugin.eclipse.springext.editor.config.namespace.dom;
 
 import static com.alibaba.citrus.springext.support.SchemaUtil.*;
+import static com.alibaba.citrus.util.BasicConstant.*;
 import static com.alibaba.citrus.util.CollectionUtil.*;
+import static com.alibaba.citrus.util.ObjectUtil.*;
 import static com.alibaba.citrus.util.StringUtil.*;
 import static com.alibaba.ide.plugin.eclipse.springext.SpringExtConstant.*;
 import static com.alibaba.ide.plugin.eclipse.springext.editor.config.namespace.dom.DomDocumentUtil.*;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -166,7 +169,14 @@ abstract class AbstractAddRemoveNamespaceVisitor extends DocumentVisitor {
             Map<String, NamespaceDefinition> mappings = defs.find(ns);
             String[] prefixes = mappings.keySet().toArray(new String[mappings.size()]);
 
-            Arrays.sort(prefixes);
+            Arrays.sort(prefixes, new Comparator<String>() {
+                public int compare(String o1, String o2) {
+                    // 防止NPE
+                    o1 = defaultIfNull(o1, EMPTY_STRING);
+                    o2 = defaultIfNull(o2, EMPTY_STRING);
+                    return o1.compareTo(o2);
+                }
+            });
 
             for (String prefix : prefixes) {
                 if (isEmpty(prefix)) {
