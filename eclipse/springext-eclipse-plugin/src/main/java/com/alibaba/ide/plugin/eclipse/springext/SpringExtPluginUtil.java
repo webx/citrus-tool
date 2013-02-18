@@ -237,4 +237,12 @@ public class SpringExtPluginUtil {
 
         return url;
     }
+
+    public static String getLastSegment(String path) {
+        if (path == null) {
+            return null;
+        }
+
+        return path.substring(path.lastIndexOf("/") + 1);
+    }
 }

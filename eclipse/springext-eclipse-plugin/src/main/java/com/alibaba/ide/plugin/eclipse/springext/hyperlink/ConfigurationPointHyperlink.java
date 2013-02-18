@@ -1,5 +1,7 @@
 package com.alibaba.ide.plugin.eclipse.springext.hyperlink;
 
+import static com.alibaba.ide.plugin.eclipse.springext.SpringExtPluginUtil.*;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.text.IRegion;
 import org.jetbrains.annotations.NotNull;
@@ -27,8 +29,7 @@ public class ConfigurationPointHyperlink extends AbstractSpringExtHyperlink<Conf
 
     @Override
     public String getName() {
-        String name = component.getName();
-        return name.substring(name.indexOf("/") + 1);
+        return getLastSegment(component.getName());
     }
 
     @Override

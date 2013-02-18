@@ -16,6 +16,7 @@ import org.eclipse.ui.ide.IGotoMarker;
 import org.eclipse.wst.sse.ui.StructuredTextEditor;
 
 import com.alibaba.ide.plugin.eclipse.springext.SpringExtConstant;
+import com.alibaba.ide.plugin.eclipse.springext.editor.StructuredTextViewerConfigurationSpringExtXML;
 import com.alibaba.ide.plugin.eclipse.springext.editor.config.namespace.NamespacesPage;
 
 public class SpringExtConfigEditor extends FormEditor implements IGotoMarker {

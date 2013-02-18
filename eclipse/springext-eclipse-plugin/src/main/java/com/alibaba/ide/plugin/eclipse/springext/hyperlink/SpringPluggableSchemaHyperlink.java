@@ -1,5 +1,7 @@
 package com.alibaba.ide.plugin.eclipse.springext.hyperlink;
 
+import static com.alibaba.ide.plugin.eclipse.springext.SpringExtPluginUtil.*;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.text.IRegion;
 import org.jetbrains.annotations.NotNull;
@@ -22,8 +24,7 @@ public class SpringPluggableSchemaHyperlink extends AbstractSpringExtHyperlink<S
 
     @Override
     public String getName() {
-        String name = getTargetNamespace();
-        return name.substring(name.indexOf("/") + 1);
+        return getLastSegment(getTargetNamespace());
     }
 
     private String getTargetNamespace() {

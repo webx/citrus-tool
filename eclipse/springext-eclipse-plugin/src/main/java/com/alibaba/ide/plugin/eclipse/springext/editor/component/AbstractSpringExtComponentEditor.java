@@ -1,6 +1,7 @@
 package com.alibaba.ide.plugin.eclipse.springext.editor.component;
 
 import static com.alibaba.ide.plugin.eclipse.springext.SpringExtConstant.*;
+import static com.alibaba.ide.plugin.eclipse.springext.SpringExtPluginUtil.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,16 +15,22 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.PlatformObject;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jdt.internal.ui.propertiesfileeditor.PropertiesFileEditor;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IPersistableElement;
 import org.eclipse.ui.IStorageEditorInput;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.forms.editor.FormEditor;
+import org.eclipse.ui.forms.editor.IFormPage;
+import org.eclipse.wst.sse.ui.StructuredTextEditor;
 import org.jetbrains.annotations.NotNull;
 
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.util.io.StreamUtil;
 import com.alibaba.ide.plugin.eclipse.springext.SpringExtConstant;
 
+@SuppressWarnings("restriction")
 public abstract class AbstractSpringExtComponentEditor<C, D extends AbstractSpringExtComponentData<C>> extends
         FormEditor {
     // editing data
@@ -35,6 +42,72 @@ public abstract class AbstractSpringExtComponentEditor<C, D extends AbstractSpri
 
     public D getData() {
         return data;
+    }
+
+    @Override
+    protected void setInput(IEditorInput input) {
+        super.setInput(input);
+        getData().initWithEditorInput(input);
+        setPartName(input.getName());
+    }
+
+    protected final <T extends IFormPage> T addPage(T page, String tabTitle) {
+        try {
+            int index = addPage(page);
+            setPageText(index, tabTitle);
+        } catch (PartInitException e) {
+            logAndDisplay(new Status(IStatus.ERROR, SpringExtConstant.PLUGIN_ID, "Could not add tab to editor", e));
+        }
+
+        return page;
+    }
+
+    protected final PropertiesFileEditor createPropertiesEditorPage(URL url, String tabTitle) {
+        PropertiesFileEditor editor = null;
+
+        if (url != null) {
+            try {
+                editor = new PropertiesFileEditor();
+                int index = addPage(editor, new URLEditorInput(url, getData().getProject()));
+                setPageText(index, tabTitle);
+            } catch (PartInitException e) {
+                logAndDisplay(new Status(IStatus.ERROR, SpringExtConstant.PLUGIN_ID, "Could not add tab to editor", e));
+            }
+        }
+
+        return editor;
+    }
+
+    protected final StructuredTextEditor createSchemaEditorPage(Schema schema, String tabTitle) {
+        StructuredTextEditor editor = null;
+
+        if (schema != null) {
+            try {
+                editor = new StructuredTextEditor();
+                int index = addPage(editor, new SchemaEditorInput(schema, getData().getProject()));
+                setPageText(index, tabTitle);
+            } catch (PartInitException e) {
+                logAndDisplay(new Status(IStatus.ERROR, SpringExtConstant.PLUGIN_ID, "Could not add tab to editor", e));
+            }
+        }
+
+        return editor;
+    }
+
+    protected final StructuredTextEditor createSchemaEditorPage(URL url, String tabTitle) {
+        StructuredTextEditor editor = null;
+
+        if (url != null) {
+            try {
+                editor = new StructuredTextEditor();
+                int index = addPage(editor, new URLEditorInput(url, getData().getProject()));
+                setPageText(index, tabTitle);
+            } catch (PartInitException e) {
+                logAndDisplay(new Status(IStatus.ERROR, SpringExtConstant.PLUGIN_ID, "Could not add tab to editor", e));
+            }
+        }
+
+        return editor;
     }
 
     protected class SchemaEditorInput extends PlatformObject implements IStorageEditorInput {
