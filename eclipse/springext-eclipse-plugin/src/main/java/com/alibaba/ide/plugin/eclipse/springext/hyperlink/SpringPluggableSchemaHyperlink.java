@@ -17,6 +17,11 @@ public class SpringPluggableSchemaHyperlink extends AbstractSpringExtHyperlink<S
         super(region, project, springPluggableSchema, (Schema) springPluggableSchema);
     }
 
+    public SpringPluggableSchemaHyperlink(@NotNull IProject project,
+                                          @NotNull SpringPluggableSchemaSourceInfo springPluggableSchema) {
+        super(null, project, springPluggableSchema, (Schema) springPluggableSchema);
+    }
+
     @Override
     protected String getDescription() {
         return getTargetNamespace();

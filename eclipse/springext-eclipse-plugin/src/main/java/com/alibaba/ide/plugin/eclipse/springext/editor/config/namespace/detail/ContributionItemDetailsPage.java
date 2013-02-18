@@ -74,7 +74,7 @@ public class ContributionItemDetailsPage extends AbstractTreeItemDetailsPage<Con
         builder = new HyperlinkTextBuilder(toolkit);
         builder.append("<p>")
                 .appendLink(parentCpSchema.getTargetNamespace(),
-                        new ConfigurationPointHyperlink(null, config.getProject(), parentCpSchema)).append("</p>")
+                        new ConfigurationPointHyperlink(config.getProject(), parentCpSchema)).append("</p>")
                 .setText(configurationPointName);
 
         // child configuration points
@@ -86,7 +86,7 @@ public class ContributionItemDetailsPage extends AbstractTreeItemDetailsPage<Con
 
             builder.append("<p>")
                     .appendLink(childCpSchema.getTargetNamespace(),
-                            new ConfigurationPointHyperlink(null, config.getProject(), childCpSchema)).append("</p>");
+                            new ConfigurationPointHyperlink(config.getProject(), childCpSchema)).append("</p>");
         }
 
         builder.setText(childConfigurationPoints);

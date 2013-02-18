@@ -54,8 +54,7 @@ public class SpringPluggableItemDetailsPage extends AbstractNamespaceItemDetails
                 sourcesBuilder
                         .append("<p>")
                         .appendLink(url.toExternalForm(),
-                                new SpringPluggableSchemaHyperlink(null, config.getProject(), sourceInfo))
-                        .append("</p>");
+                                new SpringPluggableSchemaHyperlink(config.getProject(), sourceInfo)).append("</p>");
             }
         }
 
@@ -68,7 +67,7 @@ public class SpringPluggableItemDetailsPage extends AbstractNamespaceItemDetails
                 .append("<p>")
                 .appendLink(
                         item.getNamespace(),
-                        new SpringPluggableSchemaHyperlink(null, config.getProject(),
+                        new SpringPluggableSchemaHyperlink(config.getProject(),
                                 (SpringPluggableSchemaSourceInfo) schema)).append("</p>");
 
         namespaceBuilder.setText(namespaceText);

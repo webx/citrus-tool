@@ -15,8 +15,8 @@ public class ContributionHyperlink extends AbstractSpringExtHyperlink<Contributi
         super(region, project, contrib, null);
     }
 
-    public ContributionHyperlink(@Nullable IRegion region, @NotNull IProject project, @NotNull Schema schema) {
-        super(region, project, (Contribution) ((ContributionSchemaSourceInfo) schema).getParent(), schema);
+    public ContributionHyperlink(@NotNull IProject project, @NotNull Schema schema) {
+        super(null, project, (Contribution) ((ContributionSchemaSourceInfo) schema).getParent(), schema);
     }
 
     @Override

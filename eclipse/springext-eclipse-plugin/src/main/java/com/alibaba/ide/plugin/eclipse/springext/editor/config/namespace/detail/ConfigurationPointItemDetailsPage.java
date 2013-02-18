@@ -43,7 +43,7 @@ public class ConfigurationPointItemDetailsPage extends AbstractNamespaceItemDeta
 
         // 点击sources，打开configuration point的定义文件。
         ConfigurationPointSchemaSourceInfo sourceInfo = (ConfigurationPointSchemaSourceInfo) schema;
-        ConfigurationPointHyperlink link = new ConfigurationPointHyperlink(null, config.getProject(), schema);
+        ConfigurationPointHyperlink link = new ConfigurationPointHyperlink(config.getProject(), schema);
         URL url = getSourceURL(sourceInfo.getParent());
 
         sourcesBuilder.append("<p>").appendLink(url.toExternalForm(), link).append("</p>");

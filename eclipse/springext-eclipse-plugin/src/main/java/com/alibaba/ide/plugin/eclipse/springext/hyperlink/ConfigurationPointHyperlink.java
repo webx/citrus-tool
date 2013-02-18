@@ -18,8 +18,8 @@ public class ConfigurationPointHyperlink extends AbstractSpringExtHyperlink<Conf
         super(region, project, cp, null);
     }
 
-    public ConfigurationPointHyperlink(@Nullable IRegion region, @NotNull IProject project, @NotNull Schema schema) {
-        super(region, project, (ConfigurationPoint) ((ConfigurationPointSchemaSourceInfo) schema).getParent(), schema);
+    public ConfigurationPointHyperlink(@NotNull IProject project, @NotNull Schema schema) {
+        super(null, project, (ConfigurationPoint) ((ConfigurationPointSchemaSourceInfo) schema).getParent(), schema);
     }
 
     @Override
