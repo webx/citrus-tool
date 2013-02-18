@@ -11,6 +11,8 @@ import com.alibaba.citrus.springext.Contribution;
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.ConfigurationPointItem;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.ContributionItem;
+import com.alibaba.ide.plugin.eclipse.springext.hyperlink.ConfigurationPointHyperlink;
+import com.alibaba.ide.plugin.eclipse.springext.hyperlink.ContributionHyperlink;
 
 public class ContributionItemDetailsPage extends AbstractTreeItemDetailsPage<ContributionItem> {
     private FormText sourceText;
@@ -57,8 +59,10 @@ public class ContributionItemDetailsPage extends AbstractTreeItemDetailsPage<Con
         // sources
         HyperlinkTextBuilder builder = new HyperlinkTextBuilder(toolkit);
         URL url = getSourceURL(contrib);
-        builder.append("<p>").appendLink(url.toExternalForm(), new URLHyperlinkListener(url)).append("</p>")
-                .setText(sourceText);
+
+        builder.append("<p>")
+                .appendLink(url.toExternalForm(), new ContributionHyperlink(null, config.getProject(), contrib))
+                .append("</p>").setText(sourceText);
 
         contributionName.setText(contrib.getName(), false, true);
         contributionType.setText(contrib.getType().toString(), false, true);
@@ -69,8 +73,9 @@ public class ContributionItemDetailsPage extends AbstractTreeItemDetailsPage<Con
 
         builder = new HyperlinkTextBuilder(toolkit);
         builder.append("<p>")
-                .appendLink(parentCpSchema.getTargetNamespace(), new SchemaHyperlinkListener(parentCpSchema))
-                .append("</p>").setText(configurationPointName);
+                .appendLink(parentCpSchema.getTargetNamespace(),
+                        new ConfigurationPointHyperlink(null, config.getProject(), parentCpSchema)).append("</p>")
+                .setText(configurationPointName);
 
         // child configuration points
         builder = new HyperlinkTextBuilder(toolkit);
@@ -80,8 +85,8 @@ public class ContributionItemDetailsPage extends AbstractTreeItemDetailsPage<Con
                     child.getConfigurationPoint().getNamespaceUri(), config.getSchemas());
 
             builder.append("<p>")
-                    .appendLink(childCpSchema.getTargetNamespace(), new SchemaHyperlinkListener(childCpSchema))
-                    .append("</p>");
+                    .appendLink(childCpSchema.getTargetNamespace(),
+                            new ConfigurationPointHyperlink(null, config.getProject(), childCpSchema)).append("</p>");
         }
 
         builder.setText(childConfigurationPoints);
@@ -91,7 +96,9 @@ public class ContributionItemDetailsPage extends AbstractTreeItemDetailsPage<Con
 
         for (Schema schema : contrib.getSchemas().getNamedMappings().values()) {
             url = getSourceURL(schema);
-            builder.append("<p>").appendLink(url.toExternalForm(), new URLHyperlinkListener(url)).append("</p>");
+            builder.append("<p>")
+                    .appendLink(url.toExternalForm(), new ContributionHyperlink(null, config.getProject(), contrib))
+                    .append("</p>");
         }
 
         builder.setText(schemas);

@@ -10,6 +10,7 @@ import org.eclipse.ui.forms.widgets.TableWrapData;
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.support.ConfigurationPointSchemaSourceInfo;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.ConfigurationPointItem;
+import com.alibaba.ide.plugin.eclipse.springext.hyperlink.ConfigurationPointHyperlink;
 
 public class ConfigurationPointItemDetailsPage extends AbstractNamespaceItemDetailsPage<ConfigurationPointItem> {
     private FormText namespaceText;
@@ -42,15 +43,15 @@ public class ConfigurationPointItemDetailsPage extends AbstractNamespaceItemDeta
 
         // 点击sources，打开configuration point的定义文件。
         ConfigurationPointSchemaSourceInfo sourceInfo = (ConfigurationPointSchemaSourceInfo) schema;
+        ConfigurationPointHyperlink link = new ConfigurationPointHyperlink(null, config.getProject(), schema);
         URL url = getSourceURL(sourceInfo.getParent());
 
-        sourcesBuilder.append("<p>").appendLink(url.toExternalForm(), new URLHyperlinkListener(url)).append("</p>");
+        sourcesBuilder.append("<p>").appendLink(url.toExternalForm(), link).append("</p>");
 
         sourcesBuilder.setText(sourceText);
 
         // 点击namespace，打开当前所选的schema。
-        namespaceBuilder.append("<p>").appendLink(item.getNamespace(), new SchemaHyperlinkListener(schema))
-                .append("</p>");
+        namespaceBuilder.append("<p>").appendLink(item.getNamespace(), link).append("</p>");
 
         namespaceBuilder.setText(namespaceText);
 

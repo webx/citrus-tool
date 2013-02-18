@@ -12,6 +12,7 @@ import org.eclipse.ui.forms.widgets.TableWrapData;
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.SpringPluggableItem;
 import com.alibaba.citrus.springext.support.SpringPluggableSchemaSourceInfo;
+import com.alibaba.ide.plugin.eclipse.springext.hyperlink.SpringPluggableSchemaHyperlink;
 
 public class SpringPluggableItemDetailsPage extends AbstractNamespaceItemDetailsPage<SpringPluggableItem> {
     private FormText namespaceText;
@@ -50,7 +51,10 @@ public class SpringPluggableItemDetailsPage extends AbstractNamespaceItemDetails
 
             if (!sources.contains(url)) {
                 sources.add(url);
-                sourcesBuilder.append("<p>").appendLink(url.toExternalForm(), new URLHyperlinkListener(url))
+                sourcesBuilder
+                        .append("<p>")
+                        .appendLink(url.toExternalForm(),
+                                new SpringPluggableSchemaHyperlink(null, config.getProject(), sourceInfo))
                         .append("</p>");
             }
         }
@@ -59,9 +63,13 @@ public class SpringPluggableItemDetailsPage extends AbstractNamespaceItemDetails
 
         // 点击namespace，打开当前所选择的schema。
         Schema schema = config.getNamespaceDefinitions().getSchemaOfLocation(item.getNamespace(), config.getSchemas());
-        URL url = getSourceURL(schema);
 
-        namespaceBuilder.append("<p>").appendLink(item.getNamespace(), new URLHyperlinkListener(url)).append("</p>");
+        namespaceBuilder
+                .append("<p>")
+                .appendLink(
+                        item.getNamespace(),
+                        new SpringPluggableSchemaHyperlink(null, config.getProject(),
+                                (SpringPluggableSchemaSourceInfo) schema)).append("</p>");
 
         namespaceBuilder.setText(namespaceText);
 

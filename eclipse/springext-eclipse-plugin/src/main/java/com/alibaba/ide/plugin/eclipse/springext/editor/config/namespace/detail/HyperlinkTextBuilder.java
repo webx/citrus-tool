@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.WeakHashMap;
 
+import org.eclipse.jface.text.hyperlink.IHyperlink;
 import org.eclipse.ui.forms.events.HyperlinkAdapter;
 import org.eclipse.ui.forms.events.HyperlinkEvent;
 import org.eclipse.ui.forms.events.IHyperlinkListener;
@@ -41,7 +42,14 @@ public class HyperlinkTextBuilder {
         return this;
     }
 
-    public HyperlinkTextBuilder appendLink(String text, IHyperlinkListener listener) {
+    public HyperlinkTextBuilder appendLink(String text, final IHyperlink link) {
+        IHyperlinkListener listener = new HyperlinkAdapter() {
+            @Override
+            public void linkActivated(HyperlinkEvent e) {
+                link.open();
+            }
+        };
+
         String key = identityHashCode(listener) + "";
         linksMapping.put(key, listener);
         buf.append(String.format("<a href=\"%s\">%s</a>", key, text));
