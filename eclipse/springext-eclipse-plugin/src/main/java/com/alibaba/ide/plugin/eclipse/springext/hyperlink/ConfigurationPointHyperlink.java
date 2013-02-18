@@ -38,7 +38,7 @@ public class ConfigurationPointHyperlink extends AbstractSpringExtHyperlink<Conf
     }
 
     @Override
-    protected Schema getComponentSchema() {
+    protected Schema getComponentDefaultSchema() {
         return component.getSchemas().getMainSchema();
     }
 }

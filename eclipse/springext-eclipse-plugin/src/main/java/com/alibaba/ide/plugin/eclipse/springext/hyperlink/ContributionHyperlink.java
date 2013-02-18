@@ -35,7 +35,7 @@ public class ContributionHyperlink extends AbstractSpringExtHyperlink<Contributi
     }
 
     @Override
-    protected Schema getComponentSchema() {
+    protected Schema getComponentDefaultSchema() {
         return component.getSchemas().getMainSchema();
     }
 }

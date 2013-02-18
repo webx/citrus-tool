@@ -65,13 +65,26 @@ public abstract class AbstractSpringExtHyperlink<C> implements IHyperlink {
         }
     }
 
-    protected abstract String getDescription();
-
+    /**
+     * 返回link的名称，这个名称将作为editor的标题。
+     */
     protected abstract String getName();
 
+    /**
+     * 返回link的详细描述，这个名称将被显示为link的文本，例如<code>Open xyz.xsd</code>，以及编辑器标题的弹出提示。
+     */
+    protected abstract String getDescription();
+
+    /**
+     * 返回要打开的、用来编辑此link所代表的组件的编辑器的ID。
+     */
     protected abstract String getEditorId();
 
-    protected abstract Schema getComponentSchema();
+    /**
+     * 一个component可能有多个版本的schema。如果指定了某个版本的schema，则打开之。否则，此方法会被调用，以获取默认的schema版本
+     * ，并打开之。
+     */
+    protected abstract Schema getComponentDefaultSchema();
 
     private class SpringExtComponentEditorInput extends PlatformObject implements IEditorInput {
         public boolean exists() {
@@ -109,7 +122,7 @@ public abstract class AbstractSpringExtHyperlink<C> implements IHyperlink {
                 if (componentSchema != null) {
                     return componentSchema;
                 } else {
-                    return getComponentSchema();
+                    return getComponentDefaultSchema();
                 }
             }
 

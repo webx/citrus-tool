@@ -37,7 +37,7 @@ public class SpringPluggableSchemaHyperlink extends AbstractSpringExtHyperlink<S
     }
 
     @Override
-    protected Schema getComponentSchema() {
+    protected Schema getComponentDefaultSchema() {
         return null;
     }
 }
