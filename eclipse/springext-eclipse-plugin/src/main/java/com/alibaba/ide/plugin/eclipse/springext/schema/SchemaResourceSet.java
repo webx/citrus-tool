@@ -38,7 +38,6 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.text.IDocument;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.wst.internet.cache.internal.Cache;
 import org.jetbrains.annotations.NotNull;
@@ -170,22 +169,6 @@ public class SchemaResourceSet extends SpringExtSchemaSet {
             super.addChildItem(contributionItem, key, configurationPointItem);
         } else {
             super.addChildItem(parent, key, childItem);
-        }
-    }
-
-    /**
-     * 取得document所在的project对应的schema set。
-     * 
-     * @return 如果document不存在于某个project，则返回<code>null</code>
-     */
-    @NotNull
-    public static SchemaResourceSet getInstance(IDocument document) {
-        IProject project = getProjectFromDocument(document);
-
-        if (project != null) {
-            return getInstance(project);
-        } else {
-            return getInstanceInternal(null, "Document is not belong to a project: " + document);
         }
     }
 

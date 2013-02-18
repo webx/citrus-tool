@@ -16,10 +16,9 @@ import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.Region;
-import org.eclipse.jface.text.hyperlink.AbstractHyperlinkDetector;
 import org.eclipse.jface.text.hyperlink.IHyperlink;
 
-public class JavaHyperlinkDetector extends AbstractHyperlinkDetector {
+public class JavaHyperlinkDetector extends AbstractContextualHyperlinkDetector {
     private final static Pattern classPattern = Pattern
             .compile("([\\p{L}_$][\\p{L}\\p{N}_$]*\\.)*[\\p{L}_$][\\p{L}\\p{N}_$]*");
 
@@ -62,7 +61,7 @@ public class JavaHyperlinkDetector extends AbstractHyperlinkDetector {
     }
 
     private IHyperlink[] createJavaHyperlinks(IDocument document, String className, Region region) {
-        IProject project = getProjectFromDocument(document);
+        IProject project = getContext(IProject.class);
 
         if (project != null) {
             IJavaProject javaProject = getJavaProject(project, true);

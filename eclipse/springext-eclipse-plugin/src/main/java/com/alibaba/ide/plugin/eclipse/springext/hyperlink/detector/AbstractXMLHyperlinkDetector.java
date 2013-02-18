@@ -9,7 +9,6 @@ import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.Region;
-import org.eclipse.jface.text.hyperlink.AbstractHyperlinkDetector;
 import org.eclipse.jface.text.hyperlink.IHyperlink;
 import org.eclipse.wst.sse.core.StructuredModelManager;
 import org.eclipse.wst.sse.core.internal.provisional.IStructuredModel;
@@ -31,7 +30,7 @@ import org.w3c.dom.Node;
  * @author Michael Zhou
  */
 @SuppressWarnings("restriction")
-public abstract class AbstractXMLHyperlinkDetector extends AbstractHyperlinkDetector {
+public abstract class AbstractXMLHyperlinkDetector extends AbstractContextualHyperlinkDetector {
     public final IHyperlink[] detectHyperlinks(ITextViewer textViewer, IRegion region, boolean canShowMultipleHyperlinks) {
         if (region == null || textViewer == null) {
             return null;

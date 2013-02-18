@@ -11,7 +11,6 @@ import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.Region;
-import org.eclipse.jface.text.hyperlink.AbstractHyperlinkDetector;
 import org.eclipse.jface.text.hyperlink.IHyperlink;
 
 import com.alibaba.citrus.springext.Schema;
@@ -24,7 +23,7 @@ import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
  * 
  * @author Michael Zhou
  */
-public class URLHyperlinkDetector extends AbstractHyperlinkDetector {
+public class URLHyperlinkDetector extends AbstractContextualHyperlinkDetector {
     public IHyperlink[] detectHyperlinks(ITextViewer textViewer, IRegion region, boolean canShowMultipleHyperlinks) {
         if (region == null || textViewer == null) {
             return null;
@@ -125,7 +124,7 @@ public class URLHyperlinkDetector extends AbstractHyperlinkDetector {
         }
 
         IRegion urlRegion = new Region(lineInfo.getOffset() + urlOffsetInLine, urlLength);
-        SchemaResourceSet schemas = SchemaResourceSet.getInstance(document);
+        SchemaResourceSet schemas = getContext(SchemaResourceSet.class);
 
         if (schemas != null) {
             Schema schema = schemas.findSchemaByUrl(urlString);

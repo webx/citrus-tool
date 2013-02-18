@@ -5,6 +5,7 @@ import static com.alibaba.citrus.util.Assert.*;
 import java.io.IOException;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.text.ITextListener;
 import org.eclipse.jface.text.TextEvent;
@@ -188,5 +189,19 @@ public class SpringExtConfig extends SpringExtEditingData implements ITextListen
             model.releaseFromEdit();
             model = null;
         }
+    }
+
+    @Override
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public Object getAdapter(Class adapter) {
+        if (adapter.isAssignableFrom(IProject.class)) {
+            return getProject();
+        }
+
+        if (adapter.isAssignableFrom(SchemaResourceSet.class)) {
+            return getSchemas();
+        }
+
+        return super.getAdapter(adapter);
     }
 }
