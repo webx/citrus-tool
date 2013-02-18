@@ -86,6 +86,7 @@ public abstract class AbstractSpringExtComponentEditor<C, D extends AbstractSpri
                 editor = new StructuredTextEditor();
                 int index = addPage(editor, new SchemaEditorInput(schema, getData().getProject()));
                 setPageText(index, tabTitle);
+                editor.setEditorPart(this);
             } catch (PartInitException e) {
                 logAndDisplay(new Status(IStatus.ERROR, SpringExtConstant.PLUGIN_ID, "Could not add tab to editor", e));
             }
@@ -102,6 +103,7 @@ public abstract class AbstractSpringExtComponentEditor<C, D extends AbstractSpri
                 editor = new StructuredTextEditor();
                 int index = addPage(editor, new URLEditorInput(url, getData().getProject()));
                 setPageText(index, tabTitle);
+                editor.setEditorPart(this);
             } catch (PartInitException e) {
                 logAndDisplay(new Status(IStatus.ERROR, SpringExtConstant.PLUGIN_ID, "Could not add tab to editor", e));
             }
