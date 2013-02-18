@@ -4,9 +4,9 @@ import org.eclipse.ui.IEditorInput;
 
 import com.alibaba.citrus.springext.ConfigurationPoint;
 import com.alibaba.citrus.springext.Schema;
-import com.alibaba.ide.plugin.eclipse.springext.editor.component.AbstactSpringExtComponentData;
+import com.alibaba.ide.plugin.eclipse.springext.editor.component.AbstractSpringExtComponentData;
 
-public class ConfigurationPointData extends AbstactSpringExtComponentData<ConfigurationPoint> {
+public class ConfigurationPointData extends AbstractSpringExtComponentData<ConfigurationPoint> {
     private ConfigurationPoint cp;
     private Schema schema;
 

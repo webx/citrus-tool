@@ -18,7 +18,8 @@ import com.alibaba.ide.plugin.eclipse.springext.SpringExtConstant;
 import com.alibaba.ide.plugin.eclipse.springext.editor.component.AbstractSpringExtComponentEditor;
 
 @SuppressWarnings("restriction")
-public class ConfigurationPointEditor extends AbstractSpringExtComponentEditor<ConfigurationPoint> {
+public class ConfigurationPointEditor extends
+        AbstractSpringExtComponentEditor<ConfigurationPoint, ConfigurationPointData> {
     public final static String EDITOR_ID = ConfigurationPointEditor.class.getName();
 
     // editor & form pages
@@ -26,11 +27,8 @@ public class ConfigurationPointEditor extends AbstractSpringExtComponentEditor<C
     private PropertiesFileEditor definitionFileEditor;
     private StructuredTextEditor schemaEditor;
 
-    // editing data
-    private final ConfigurationPointData data = new ConfigurationPointData();
-
-    public ConfigurationPointData getData() {
-        return data;
+    public ConfigurationPointEditor(ConfigurationPointData data) {
+        super(new ConfigurationPointData());
     }
 
     @Override
@@ -51,12 +49,12 @@ public class ConfigurationPointEditor extends AbstractSpringExtComponentEditor<C
     }
 
     private void createDefinitionFileEditor() {
-        URL definitionURL = getSourceURL(data.getConfigurationPoint());
+        URL definitionURL = getSourceURL(getData().getConfigurationPoint());
 
         if (definitionURL != null) {
             try {
                 definitionFileEditor = new PropertiesFileEditor();
-                int index = addPage(definitionFileEditor, new URLEditorInput(definitionURL, data.getProject()));
+                int index = addPage(definitionFileEditor, new URLEditorInput(definitionURL, getData().getProject()));
                 setPageText(index, definitionFileEditor.getTitle());
             } catch (PartInitException e) {
                 logAndDisplay(new Status(IStatus.ERROR, SpringExtConstant.PLUGIN_ID, "Could not add tab to editor", e));
@@ -65,12 +63,12 @@ public class ConfigurationPointEditor extends AbstractSpringExtComponentEditor<C
     }
 
     private void createSchemaEditor() {
-        Schema schema = data.getSchema();
+        Schema schema = getData().getSchema();
 
         if (schema != null) {
             try {
                 schemaEditor = new StructuredTextEditor();
-                int index = addPage(schemaEditor, new SchemaEditorInput(schema, data.getProject()));
+                int index = addPage(schemaEditor, new SchemaEditorInput(schema, getData().getProject()));
                 setPageText(index, schemaEditor.getTitle());
             } catch (PartInitException e) {
                 logAndDisplay(new Status(IStatus.ERROR, SpringExtConstant.PLUGIN_ID, "Could not add tab to editor", e));
@@ -94,6 +92,6 @@ public class ConfigurationPointEditor extends AbstractSpringExtComponentEditor<C
     @Override
     protected void setInput(IEditorInput input) {
         super.setInput(input);
-        data.initWithEditorInput(input);
+        getData().initWithEditorInput(input);
     }
 }

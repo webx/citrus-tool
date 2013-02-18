@@ -130,15 +130,11 @@ public class SpringExtPluginUtil {
     }
 
     public static IProject getProjectFromInput(IEditorInput input) {
-        if (input instanceof IProjectAware) {
-            return ((IProjectAware) input).getProject();
-        }
-
         if (input instanceof IFileEditorInput) {
             return ((IFileEditorInput) input).getFile().getProject();
         }
 
-        return null;
+        return (IProject) input.getAdapter(IProject.class);
     }
 
     /**

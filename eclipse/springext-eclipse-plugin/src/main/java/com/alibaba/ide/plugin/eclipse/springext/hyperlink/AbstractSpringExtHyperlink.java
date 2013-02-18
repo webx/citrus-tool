@@ -20,7 +20,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import com.alibaba.citrus.springext.Schema;
-import com.alibaba.ide.plugin.eclipse.springext.IProjectAware;
 import com.alibaba.ide.plugin.eclipse.springext.SpringExtConstant;
 
 public abstract class AbstractSpringExtHyperlink<C> implements IHyperlink {
@@ -74,11 +73,7 @@ public abstract class AbstractSpringExtHyperlink<C> implements IHyperlink {
 
     protected abstract Schema getComponentSchema();
 
-    private class SpringExtComponentEditorInput extends PlatformObject implements IEditorInput, IProjectAware {
-        public IProject getProject() {
-            return project;
-        }
-
+    private class SpringExtComponentEditorInput extends PlatformObject implements IEditorInput {
         public boolean exists() {
             return component != null;
         }
@@ -102,6 +97,10 @@ public abstract class AbstractSpringExtHyperlink<C> implements IHyperlink {
         @Override
         @SuppressWarnings({ "rawtypes", "unchecked" })
         public Object getAdapter(Class adapter) {
+            if (adapter.isAssignableFrom(IProject.class)) {
+                return project;
+            }
+
             if (adapter.isAssignableFrom(componentType)) {
                 return component;
             }

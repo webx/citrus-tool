@@ -12,6 +12,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.PlatformObject;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IPersistableElement;
@@ -21,21 +22,26 @@ import org.jetbrains.annotations.NotNull;
 
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.util.io.StreamUtil;
-import com.alibaba.ide.plugin.eclipse.springext.IProjectAware;
 import com.alibaba.ide.plugin.eclipse.springext.SpringExtConstant;
 
-public abstract class AbstractSpringExtComponentEditor<C> extends FormEditor {
-    protected static class SchemaEditorInput implements IStorageEditorInput, IProjectAware {
+public abstract class AbstractSpringExtComponentEditor<C, D extends AbstractSpringExtComponentData<C>> extends
+        FormEditor {
+    // editing data
+    private final D data;
+
+    public AbstractSpringExtComponentEditor(D data) {
+        this.data = data;
+    }
+
+    public D getData() {
+        return data;
+    }
+
+    protected class SchemaEditorInput extends PlatformObject implements IStorageEditorInput {
         private final IStorage storage;
-        private final IProject project;
 
         public SchemaEditorInput(Schema schema, IProject project) {
             this.storage = new SchemaStorage(schema);
-            this.project = project;
-        }
-
-        public IProject getProject() {
-            return project;
         }
 
         public IStorage getStorage() throws CoreException {
@@ -62,15 +68,19 @@ public abstract class AbstractSpringExtComponentEditor<C> extends FormEditor {
             return storage.getFullPath().toString();
         }
 
-        @SuppressWarnings("rawtypes")
+        @SuppressWarnings({ "rawtypes", "unchecked" })
         public Object getAdapter(Class adapter) {
-            return null;
+            if (adapter.isAssignableFrom(IProject.class)) {
+                return data.getProject();
+            }
+
+            return super.getAdapter(adapter);
         }
 
         @Override
         public boolean equals(Object other) {
-            if (other instanceof SchemaEditorInput) {
-                IStorage otherStorage = ((SchemaEditorInput) other).storage;
+            if (other instanceof AbstractSpringExtComponentEditor<?, ?>.SchemaEditorInput) {
+                IStorage otherStorage = ((AbstractSpringExtComponentEditor<?, ?>.SchemaEditorInput) other).storage;
                 return storage.equals(otherStorage);
             }
 
@@ -117,17 +127,15 @@ public abstract class AbstractSpringExtComponentEditor<C> extends FormEditor {
         }
     }
 
-    protected static class URLEditorInput implements IStorageEditorInput, IProjectAware {
+    protected class URLEditorInput extends PlatformObject implements IStorageEditorInput {
         private final IStorage storage;
-        private final IProject project;
 
         public URLEditorInput(URL url, IProject project) {
             this.storage = new URLStorage(url);
-            this.project = project;
         }
 
         public IProject getProject() {
-            return project;
+            return data.getProject();
         }
 
         public IStorage getStorage() throws CoreException {
@@ -154,15 +162,19 @@ public abstract class AbstractSpringExtComponentEditor<C> extends FormEditor {
             return storage.getFullPath() != null ? storage.getFullPath().toString() : storage.getName();
         }
 
-        @SuppressWarnings("rawtypes")
+        @SuppressWarnings({ "rawtypes", "unchecked" })
         public Object getAdapter(Class adapter) {
-            return null;
+            if (adapter.isAssignableFrom(IProject.class)) {
+                return data.getProject();
+            }
+
+            return super.getAdapter(adapter);
         }
 
         @Override
         public boolean equals(Object other) {
-            if (other instanceof URLEditorInput) {
-                IStorage otherStorage = ((URLEditorInput) other).storage;
+            if (other instanceof AbstractSpringExtComponentEditor<?, ?>.URLEditorInput) {
+                IStorage otherStorage = ((AbstractSpringExtComponentEditor<?, ?>.URLEditorInput) other).storage;
                 return storage.equals(otherStorage);
             }
 

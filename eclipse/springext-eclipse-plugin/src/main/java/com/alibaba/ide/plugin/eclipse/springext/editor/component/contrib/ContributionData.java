@@ -4,9 +4,9 @@ import org.eclipse.ui.IEditorInput;
 
 import com.alibaba.citrus.springext.Contribution;
 import com.alibaba.citrus.springext.Schema;
-import com.alibaba.ide.plugin.eclipse.springext.editor.component.AbstactSpringExtComponentData;
+import com.alibaba.ide.plugin.eclipse.springext.editor.component.AbstractSpringExtComponentData;
 
-public class ContributionData extends AbstactSpringExtComponentData<Contribution> {
+public class ContributionData extends AbstractSpringExtComponentData<Contribution> {
     private Contribution contrib;
     private Schema schema;
 

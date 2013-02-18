@@ -4,7 +4,7 @@ import org.eclipse.ui.IEditorInput;
 
 import com.alibaba.ide.plugin.eclipse.springext.editor.SpringExtEditingData;
 
-public abstract class AbstactSpringExtComponentData<C> extends SpringExtEditingData {
+public abstract class AbstractSpringExtComponentData<C> extends SpringExtEditingData {
     protected IEditorInput input;
 
     public void initWithEditorInput(IEditorInput input) {

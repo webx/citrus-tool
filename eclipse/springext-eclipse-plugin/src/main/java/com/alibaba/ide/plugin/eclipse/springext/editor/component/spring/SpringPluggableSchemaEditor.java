@@ -18,7 +18,8 @@ import com.alibaba.ide.plugin.eclipse.springext.SpringExtConstant;
 import com.alibaba.ide.plugin.eclipse.springext.editor.component.AbstractSpringExtComponentEditor;
 
 @SuppressWarnings("restriction")
-public class SpringPluggableSchemaEditor extends AbstractSpringExtComponentEditor<SpringPluggableSchemaSourceInfo> {
+public class SpringPluggableSchemaEditor extends
+        AbstractSpringExtComponentEditor<SpringPluggableSchemaSourceInfo, SpringPluggableSchemaData> {
     public final static String EDITOR_ID = SpringPluggableSchemaEditor.class.getName();
 
     // editor & form pages
@@ -26,8 +27,9 @@ public class SpringPluggableSchemaEditor extends AbstractSpringExtComponentEdito
     private StructuredTextEditor schemaEditor;
     private StructuredTextEditor generatedSchemaEditor;
 
-    // editing data
-    private final SpringPluggableSchemaData data = new SpringPluggableSchemaData();
+    public SpringPluggableSchemaEditor() {
+        super(new SpringPluggableSchemaData());
+    }
 
     @Override
     protected void addPages() {
@@ -37,12 +39,12 @@ public class SpringPluggableSchemaEditor extends AbstractSpringExtComponentEdito
     }
 
     private void createDefinitionFileEditor() {
-        URL definitionURL = getSourceURL(data.getSpringPluggableSchemaSourceInfo().getParent());
+        URL definitionURL = getSourceURL(getData().getSpringPluggableSchemaSourceInfo().getParent());
 
         if (definitionURL != null) {
             try {
                 definitionFileEditor = new PropertiesFileEditor();
-                int index = addPage(definitionFileEditor, new URLEditorInput(definitionURL, data.getProject()));
+                int index = addPage(definitionFileEditor, new URLEditorInput(definitionURL, getData().getProject()));
                 setPageText(index, definitionFileEditor.getTitle());
             } catch (PartInitException e) {
                 logAndDisplay(new Status(IStatus.ERROR, SpringExtConstant.PLUGIN_ID, "Could not add tab to editor", e));
@@ -51,12 +53,12 @@ public class SpringPluggableSchemaEditor extends AbstractSpringExtComponentEdito
     }
 
     private void createSchemaEditor() {
-        URL originalSourceURL = getSourceURL(data.getSchema());
+        URL originalSourceURL = getSourceURL(getData().getSchema());
 
         if (originalSourceURL != null) {
             try {
                 schemaEditor = new StructuredTextEditor();
-                int index = addPage(schemaEditor, new URLEditorInput(originalSourceURL, data.getProject()));
+                int index = addPage(schemaEditor, new URLEditorInput(originalSourceURL, getData().getProject()));
                 setPageText(index, schemaEditor.getTitle());
             } catch (PartInitException e) {
                 logAndDisplay(new Status(IStatus.ERROR, SpringExtConstant.PLUGIN_ID, "Could not add tab to editor", e));
@@ -65,12 +67,12 @@ public class SpringPluggableSchemaEditor extends AbstractSpringExtComponentEdito
     }
 
     private void createGeneratedSchemaEditor() {
-        Schema schema = data.getSchema();
+        Schema schema = getData().getSchema();
 
         if (schema != null) {
             try {
                 generatedSchemaEditor = new StructuredTextEditor();
-                int index = addPage(generatedSchemaEditor, new SchemaEditorInput(schema, data.getProject()));
+                int index = addPage(generatedSchemaEditor, new SchemaEditorInput(schema, getData().getProject()));
                 setPageText(index, generatedSchemaEditor.getTitle());
             } catch (PartInitException e) {
                 logAndDisplay(new Status(IStatus.ERROR, SpringExtConstant.PLUGIN_ID, "Could not add tab to editor", e));
@@ -94,6 +96,6 @@ public class SpringPluggableSchemaEditor extends AbstractSpringExtComponentEdito
     @Override
     protected void setInput(IEditorInput input) {
         super.setInput(input);
-        data.initWithEditorInput(input);
+        getData().initWithEditorInput(input);
     }
 }

@@ -4,9 +4,9 @@ import org.eclipse.ui.IEditorInput;
 
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.support.SpringPluggableSchemaSourceInfo;
-import com.alibaba.ide.plugin.eclipse.springext.editor.component.AbstactSpringExtComponentData;
+import com.alibaba.ide.plugin.eclipse.springext.editor.component.AbstractSpringExtComponentData;
 
-public class SpringPluggableSchemaData extends AbstactSpringExtComponentData<SpringPluggableSchemaSourceInfo> {
+public class SpringPluggableSchemaData extends AbstractSpringExtComponentData<SpringPluggableSchemaSourceInfo> {
     private Schema schema;
 
     public SpringPluggableSchemaSourceInfo getSpringPluggableSchemaSourceInfo() {
