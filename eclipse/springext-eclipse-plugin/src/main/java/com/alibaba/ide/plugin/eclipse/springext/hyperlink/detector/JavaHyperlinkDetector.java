@@ -61,7 +61,7 @@ public class JavaHyperlinkDetector extends AbstractContextualHyperlinkDetector {
     }
 
     private IHyperlink[] createJavaHyperlinks(IDocument document, String className, Region region) {
-        IProject project = getContext(IProject.class);
+        IProject project = getFromContext(IProject.class);
 
         if (project != null) {
             IJavaProject javaProject = getJavaProject(project, true);

@@ -12,11 +12,11 @@ import org.eclipse.jface.text.hyperlink.AbstractHyperlinkDetector;
  * @author Michael Zhou
  */
 public abstract class AbstractContextualHyperlinkDetector extends AbstractHyperlinkDetector {
-    protected final <T> T getContext(Class<T> type) {
-        return getContext(type, true);
+    protected final <T> T getFromContext(Class<T> type) {
+        return getFromContext(type, true);
     }
 
-    protected final <T> T getContext(Class<T> type, boolean required) {
+    protected final <T> T getFromContext(Class<T> type, boolean required) {
         T context = type.cast(getAdapter(type));
 
         if (context == null && required) {

@@ -22,7 +22,7 @@ import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
 public class XmlElementHyperlinkDetector extends AbstractXMLHyperlinkDetector {
     @Override
     protected IHyperlink[] visitTagPrefix(IDocument document, IRegion region, String namespaceURI) {
-        SchemaResourceSet schemas = getContext(SchemaResourceSet.class);
+        SchemaResourceSet schemas = getFromContext(SchemaResourceSet.class);
 
         if (schemas != null) {
             Schema schema = schemas.findSchemaByUrl(namespaceURI);
@@ -41,7 +41,7 @@ public class XmlElementHyperlinkDetector extends AbstractXMLHyperlinkDetector {
     }
 
     private IHyperlink[] visitTagOrAttribute(IDocument document, IRegion region, String namespaceURI, boolean tag) {
-        SchemaResourceSet schemas = getContext(SchemaResourceSet.class);
+        SchemaResourceSet schemas = getFromContext(SchemaResourceSet.class);
 
         if (schemas != null) {
             Schema schema = schemas.findSchemaByUrl(namespaceURI);

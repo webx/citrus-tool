@@ -124,7 +124,7 @@ public class URLHyperlinkDetector extends AbstractContextualHyperlinkDetector {
         }
 
         IRegion urlRegion = new Region(lineInfo.getOffset() + urlOffsetInLine, urlLength);
-        SchemaResourceSet schemas = getContext(SchemaResourceSet.class);
+        SchemaResourceSet schemas = getFromContext(SchemaResourceSet.class);
 
         if (schemas != null) {
             Schema schema = schemas.findSchemaByUrl(urlString);
