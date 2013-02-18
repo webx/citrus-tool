@@ -16,6 +16,7 @@ import com.alibaba.ide.plugin.eclipse.springext.hyperlink.SpringPluggableSchemaH
 import com.alibaba.ide.plugin.eclipse.springext.util.HyperlinkTextBuilder;
 
 public class SpringPluggableItemDetailsPage extends AbstractNamespaceItemDetailsPage<SpringPluggableItem> {
+    private FormText prefixText;
     private FormText namespaceText;
     private FormText sourceText;
 
@@ -23,6 +24,11 @@ public class SpringPluggableItemDetailsPage extends AbstractNamespaceItemDetails
     protected void initSection() {
         section.setText("Spring Pluggable Schema");
         section.setDescription("The schema defined in [CLASSPATH]/META-INF/spring.schemas");
+
+        // Prefix
+        toolkit.createLabel(client, "Prefix");
+        prefixText = toolkit.createFormText(client, false);
+        prefixText.setLayoutData(new TableWrapData());
 
         // Namespace
         toolkit.createLabel(client, "Namespace");
@@ -41,6 +47,11 @@ public class SpringPluggableItemDetailsPage extends AbstractNamespaceItemDetails
     protected void update() {
         HyperlinkTextBuilder namespaceBuilder = new HyperlinkTextBuilder(toolkit);
         HyperlinkTextBuilder sourcesBuilder = new HyperlinkTextBuilder(toolkit);
+
+        String prefix = config.getNamespaceDefinitions().getPrefix(item.getNamespace(), config.getSchemas());
+
+        // prefix
+        prefixText.setText(prefix, false, false);
 
         // 点击sources，打开spring.schemas的定义文件。
         Set<Schema> schemas = item.getSchemas();

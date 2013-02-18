@@ -14,6 +14,7 @@ import com.alibaba.ide.plugin.eclipse.springext.hyperlink.ConfigurationPointHype
 import com.alibaba.ide.plugin.eclipse.springext.util.HyperlinkTextBuilder;
 
 public class ConfigurationPointItemDetailsPage extends AbstractNamespaceItemDetailsPage<ConfigurationPointItem> {
+    private FormText prefixText;
     private FormText namespaceText;
     private FormText sourceText;
 
@@ -21,6 +22,11 @@ public class ConfigurationPointItemDetailsPage extends AbstractNamespaceItemDeta
     protected void initSection() {
         section.setText("Configuration Point Schema");
         section.setDescription("This namespace and corresponding schema represent a SpringExt Configuration Point.");
+
+        // Prefix
+        toolkit.createLabel(client, "Prefix");
+        prefixText = toolkit.createFormText(client, false);
+        prefixText.setLayoutData(new TableWrapData());
 
         // Namespace
         toolkit.createLabel(client, "Namespace");
@@ -41,6 +47,10 @@ public class ConfigurationPointItemDetailsPage extends AbstractNamespaceItemDeta
         HyperlinkTextBuilder sourcesBuilder = new HyperlinkTextBuilder(toolkit);
 
         Schema schema = config.getNamespaceDefinitions().getSchemaOfLocation(item.getNamespace(), config.getSchemas());
+        String prefix = config.getNamespaceDefinitions().getPrefix(item.getNamespace(), config.getSchemas());
+
+        // prefix
+        prefixText.setText(prefix, false, false);
 
         // 点击sources，打开configuration point的定义文件。
         ConfigurationPointSchemaSourceInfo sourceInfo = (ConfigurationPointSchemaSourceInfo) schema;

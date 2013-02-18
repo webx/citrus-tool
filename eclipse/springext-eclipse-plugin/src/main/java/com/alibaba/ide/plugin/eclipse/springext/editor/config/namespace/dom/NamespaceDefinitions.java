@@ -2,6 +2,7 @@ package com.alibaba.ide.plugin.eclipse.springext.editor.config.namespace.dom;
 
 import static com.alibaba.citrus.util.CollectionUtil.*;
 import static com.alibaba.citrus.util.StringUtil.*;
+import static com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil.*;
 import static java.util.Collections.*;
 
 import java.util.Map;
@@ -46,6 +47,22 @@ public class NamespaceDefinitions {
         }
 
         return null;
+    }
+
+    public String getPrefix(String namespace, SchemaResourceSet schemas) {
+        Map<String, NamespaceDefinition> prefixes = find(namespace);
+
+        if (prefixes.isEmpty()) {
+            Schema schema = schemas.findSchemaByUrl(namespace);
+
+            if (schema != null) {
+                return schema.getNamespacePrefix();
+            } else {
+                return getLastSegment(namespace);
+            }
+        } else {
+            return prefixes.keySet().iterator().next();
+        }
     }
 
     /**
