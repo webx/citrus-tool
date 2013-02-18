@@ -79,7 +79,7 @@
     </extension>
     <extension point="org.eclipse.wst.sse.ui.editorConfiguration">
         <sourceViewerConfiguration
-            class="com.alibaba.ide.plugin.eclipse.springext.editor.config.StructuredTextViewerConfigurationSpringExtXML"
+            class="com.alibaba.ide.plugin.eclipse.springext.editor.StructuredTextViewerConfigurationSpringExtXML"
             target="com.alibaba.ide.plugin.eclipse.springext.configFile" />
     </extension>
 </plugin>

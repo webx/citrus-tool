@@ -1,7 +1,6 @@
-package com.alibaba.ide.plugin.eclipse.springext.editor.config;
+package com.alibaba.ide.plugin.eclipse.springext.editor;
 
 import static com.alibaba.citrus.util.CollectionUtil.*;
-import static com.alibaba.ide.plugin.eclipse.springext.SpringExtConstant.*;
 
 import java.util.Map;
 
@@ -16,6 +15,9 @@ import org.eclipse.wst.xml.ui.StructuredTextViewerConfigurationXML;
  * @author Michael Zhou
  */
 public class StructuredTextViewerConfigurationSpringExtXML extends StructuredTextViewerConfigurationXML {
+    private static final String[] contentTypes = { "com.alibaba.ide.plugin.eclipse.springext.configFile",
+            "com.alibaba.ide.plugin.eclipse.springext.definitionProperitesFile" };
+
     private IAdaptable context;
 
     public IAdaptable getContext() {
@@ -35,13 +37,18 @@ public class StructuredTextViewerConfigurationSpringExtXML extends StructuredTex
      * <ul>
      * <li>将default text editor对应的detectors排除，因为SpringExt中的URL不需要由默认的URL
      * hyperlink来解析。</li>
-     * <li>将<code>SpringExtConfig</code>对象作为context传递给hyperlink。</li>
+     * <li>将<code>IAdaptable</code>对象（例如：<code>SpringExtConfig</code>
+     * ）对象作为context传递给hyperlink。</li>
      * </ul>
      */
     @Override
     protected Map<String, IAdaptable> getHyperlinkDetectorTargets(ISourceViewer sourceViewer) {
         Map<String, IAdaptable> targets = createHashMap();
-        targets.put(SPRINGEXT_CONFIG_CONTENT_TYPE, getContext());
+
+        for (String contentType : contentTypes) {
+            targets.put(contentType, getContext());
+        }
+
         return targets;
     }
 }
