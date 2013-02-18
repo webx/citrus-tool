@@ -9,6 +9,10 @@ import com.alibaba.ide.plugin.eclipse.springext.editor.component.AbstactSpringEx
 public class SpringPluggableSchemaData extends AbstactSpringExtComponentData<SpringPluggableSchemaSourceInfo> {
     private Schema schema;
 
+    public SpringPluggableSchemaSourceInfo getSpringPluggableSchemaSourceInfo() {
+        return (SpringPluggableSchemaSourceInfo) schema;
+    }
+
     public Schema getSchema() {
         return schema;
     }
