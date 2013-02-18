@@ -1,6 +1,6 @@
 package com.alibaba.ide.plugin.eclipse.springext.editor.config;
 
-import static com.alibaba.ide.plugin.eclipse.springext.SpringExtPluginUtil.*;
+import static com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil.*;
 
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.IProgressMonitor;

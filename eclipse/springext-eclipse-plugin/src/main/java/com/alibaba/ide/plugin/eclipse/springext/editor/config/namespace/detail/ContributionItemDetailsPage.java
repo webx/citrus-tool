@@ -1,6 +1,6 @@
 package com.alibaba.ide.plugin.eclipse.springext.editor.config.namespace.detail;
 
-import static com.alibaba.ide.plugin.eclipse.springext.SpringExtPluginUtil.*;
+import static com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil.*;
 
 import java.net.URL;
 
@@ -13,6 +13,7 @@ import com.alibaba.citrus.springext.support.SpringExtSchemaSet.ConfigurationPoin
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.ContributionItem;
 import com.alibaba.ide.plugin.eclipse.springext.hyperlink.ConfigurationPointHyperlink;
 import com.alibaba.ide.plugin.eclipse.springext.hyperlink.ContributionHyperlink;
+import com.alibaba.ide.plugin.eclipse.springext.util.HyperlinkTextBuilder;
 
 public class ContributionItemDetailsPage extends AbstractTreeItemDetailsPage<ContributionItem> {
     private FormText sourceText;

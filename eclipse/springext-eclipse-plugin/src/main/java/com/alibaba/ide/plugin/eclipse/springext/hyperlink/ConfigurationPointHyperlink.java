@@ -1,6 +1,6 @@
 package com.alibaba.ide.plugin.eclipse.springext.hyperlink;
 
-import static com.alibaba.ide.plugin.eclipse.springext.SpringExtPluginUtil.*;
+import static com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil.*;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.text.IRegion;

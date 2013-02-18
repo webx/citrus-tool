@@ -1,7 +1,7 @@
 package com.alibaba.ide.plugin.eclipse.springext.editor.config.namespace.detail;
 
 import static com.alibaba.citrus.util.CollectionUtil.*;
-import static com.alibaba.ide.plugin.eclipse.springext.SpringExtPluginUtil.*;
+import static com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil.*;
 
 import java.net.URL;
 import java.util.Set;
@@ -13,6 +13,7 @@ import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.SpringPluggableItem;
 import com.alibaba.citrus.springext.support.SpringPluggableSchemaSourceInfo;
 import com.alibaba.ide.plugin.eclipse.springext.hyperlink.SpringPluggableSchemaHyperlink;
+import com.alibaba.ide.plugin.eclipse.springext.util.HyperlinkTextBuilder;
 
 public class SpringPluggableItemDetailsPage extends AbstractNamespaceItemDetailsPage<SpringPluggableItem> {
     private FormText namespaceText;

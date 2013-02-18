@@ -1,6 +1,6 @@
 package com.alibaba.ide.plugin.eclipse.springext.editor.component.contrib;
 
-import static com.alibaba.ide.plugin.eclipse.springext.SpringExtPluginUtil.*;
+import static com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil.*;
 
 import java.net.URL;
 

@@ -1,6 +1,6 @@
 package com.alibaba.ide.plugin.eclipse.springext.editor.config.namespace.detail;
 
-import static com.alibaba.ide.plugin.eclipse.springext.SpringExtPluginUtil.*;
+import static com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil.*;
 
 import java.net.URL;
 
@@ -11,6 +11,7 @@ import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.support.ConfigurationPointSchemaSourceInfo;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.ConfigurationPointItem;
 import com.alibaba.ide.plugin.eclipse.springext.hyperlink.ConfigurationPointHyperlink;
+import com.alibaba.ide.plugin.eclipse.springext.util.HyperlinkTextBuilder;
 
 public class ConfigurationPointItemDetailsPage extends AbstractNamespaceItemDetailsPage<ConfigurationPointItem> {
     private FormText namespaceText;

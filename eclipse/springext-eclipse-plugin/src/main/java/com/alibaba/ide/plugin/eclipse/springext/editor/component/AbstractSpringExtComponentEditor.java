@@ -1,7 +1,7 @@
 package com.alibaba.ide.plugin.eclipse.springext.editor.component;
 
 import static com.alibaba.ide.plugin.eclipse.springext.SpringExtConstant.*;
-import static com.alibaba.ide.plugin.eclipse.springext.SpringExtPluginUtil.*;
+import static com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -141,6 +141,7 @@ public abstract class AbstractSpringExtComponentEditor<C, D extends AbstractSpri
             return storage.getFullPath().toString();
         }
 
+        @Override
         @SuppressWarnings({ "rawtypes", "unchecked" })
         public Object getAdapter(Class adapter) {
             if (adapter.isAssignableFrom(IProject.class)) {
@@ -235,6 +236,7 @@ public abstract class AbstractSpringExtComponentEditor<C, D extends AbstractSpri
             return storage.getFullPath() != null ? storage.getFullPath().toString() : storage.getName();
         }
 
+        @Override
         @SuppressWarnings({ "rawtypes", "unchecked" })
         public Object getAdapter(Class adapter) {
             if (adapter.isAssignableFrom(IProject.class)) {

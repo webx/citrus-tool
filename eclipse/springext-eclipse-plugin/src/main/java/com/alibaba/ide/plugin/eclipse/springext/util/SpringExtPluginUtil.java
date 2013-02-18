@@ -1,4 +1,4 @@
-package com.alibaba.ide.plugin.eclipse.springext;
+package com.alibaba.ide.plugin.eclipse.springext.util;
 
 import static com.alibaba.citrus.util.Assert.*;
 
@@ -35,6 +35,7 @@ import org.jetbrains.annotations.Nullable;
 import org.springframework.core.io.Resource;
 
 import com.alibaba.citrus.springext.SourceInfo;
+import com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin;
 
 @SuppressWarnings("restriction")
 public class SpringExtPluginUtil {
