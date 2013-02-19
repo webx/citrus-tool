@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.WeakHashMap;
 
+import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.hyperlink.IHyperlink;
 import org.eclipse.ui.forms.events.HyperlinkAdapter;
 import org.eclipse.ui.forms.events.HyperlinkEvent;
@@ -86,6 +87,20 @@ public class HyperlinkTextBuilder {
     @Override
     public String toString() {
         return buf.toString();
+    }
+
+    public static abstract class AbstractHyperlink implements IHyperlink {
+        public IRegion getHyperlinkRegion() {
+            return null;
+        }
+
+        public String getTypeLabel() {
+            return null;
+        }
+
+        public String getHyperlinkText() {
+            return null;
+        }
     }
 
     private static class ListenerDelegator extends HyperlinkAdapter {

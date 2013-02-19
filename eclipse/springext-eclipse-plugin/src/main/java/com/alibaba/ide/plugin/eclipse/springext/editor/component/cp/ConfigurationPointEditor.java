@@ -20,6 +20,7 @@ public class ConfigurationPointEditor extends
     // editor & form pages
     private ConfigurationPointPage configurationPointPage;
     private PropertiesFileEditor definitionFileEditor;
+    private int definitionFileEditorIndex;
     private StructuredTextEditor schemaEditor;
 
     public ConfigurationPointEditor() {
@@ -40,6 +41,11 @@ public class ConfigurationPointEditor extends
     private void createDefinitionFileEditor() {
         URL definitionURL = getSourceURL(getData().getConfigurationPoint());
         definitionFileEditor = createPropertiesEditorPage(definitionURL, getLastSegment(definitionURL.toExternalForm()));
+        definitionFileEditorIndex = getPageCount() - 1;
+    }
+
+    public void activeDefinitionFileEditor() {
+        setActivePage(definitionFileEditorIndex);
     }
 
     private void createSchemaEditor() {
