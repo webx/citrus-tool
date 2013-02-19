@@ -118,7 +118,7 @@ public class NamespacesMasterPart extends SectionPart {
         treeViewer.addCheckStateListener(new ICheckStateListener() {
             public void checkStateChanged(CheckStateChangedEvent event) {
                 updateNamespaceDefinitions(config, (TreeItem) event.getElement(), event.getChecked());
-                config.refreshNamespacesPage();
+                config.forceRefreshPages();
             }
         });
 
@@ -168,12 +168,12 @@ public class NamespacesMasterPart extends SectionPart {
             expandButton.setEnabled(false);
         }
 
-        config.refreshNamespacesPage();
+        config.forceRefreshPages();
     }
 
     @Override
     public void refresh() {
-        config.refreshNamespacesPage();
+        config.forceRefreshPages();
         super.refresh();
     }
 

@@ -47,6 +47,10 @@ public abstract class SpringExtEditingData extends PlatformObject implements ISc
     }
 
     protected void onSchemaSetChanged() {
+        forceRefreshPages();
+    }
+
+    public void forceRefreshPages() {
     }
 
     /**

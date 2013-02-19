@@ -109,6 +109,12 @@ public abstract class AbstractSpringExtComponentEditor<C, D extends AbstractSpri
         setActivePage(index);
     }
 
+    @Override
+    public void dispose() {
+        data.dispose();
+        pageIndexes.clear();
+    }
+
     protected class SchemaEditorInput extends PlatformObject implements IStorageEditorInput {
         private final IStorage storage;
 

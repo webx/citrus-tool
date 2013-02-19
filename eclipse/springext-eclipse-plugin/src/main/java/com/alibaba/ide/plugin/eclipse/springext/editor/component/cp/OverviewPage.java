@@ -67,8 +67,7 @@ public class OverviewPage extends FormPage {
         super.setActive(active);
 
         if (active) {
-            definitionPart.markStale();
-            contributionsPart.markStale();
+            data.forceRefreshPages();
         }
     }
 

@@ -63,7 +63,7 @@ public abstract class AbstractNamespaceItemDetailsPage<T extends NamespaceItem> 
         schemasTable.addCheckStateListener(new ICheckStateListener() {
             public void checkStateChanged(CheckStateChangedEvent event) {
                 updateNamespaceDefinitionLocation(config, (Schema) event.getElement(), event.getChecked());
-                config.refreshNamespacesPage();
+                config.forceRefreshPages();
             }
         });
     }

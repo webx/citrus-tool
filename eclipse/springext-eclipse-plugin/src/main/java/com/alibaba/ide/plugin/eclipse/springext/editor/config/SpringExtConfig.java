@@ -174,7 +174,8 @@ public class SpringExtConfig extends SpringExtEditingData implements ITextListen
         nds = null;
     }
 
-    public void refreshNamespacesPage() {
+    @Override
+    public void forceRefreshPages() {
         if (namespacesTreeViewer != null) {
             namespacesTreeViewer.refresh();
         }
