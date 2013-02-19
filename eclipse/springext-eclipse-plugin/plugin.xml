@@ -35,9 +35,17 @@
             </describer>
         </content-type>
         <content-type base-type="org.eclipse.core.runtime.properties" default-charset="UTF-8"
-            id="com.alibaba.ide.plugin.eclipse.springext.definitionProperitesFile"
-            name="%definitionPropertiesFileContentTypeName" file-names="spring.schemas, spring.configuration-points"
+            id="com.alibaba.ide.plugin.eclipse.springext.configurationPointDefinitionFile"
+            name="%configurationPointDefinitionFileContentTypeName" file-names="spring.configuration-points"
+            priority="high" />
+        <content-type base-type="org.eclipse.core.runtime.properties" default-charset="UTF-8"
+            id="com.alibaba.ide.plugin.eclipse.springext.contributionDefinitionFile"
+            name="%contributionDefinitionFileContentTypeName"
             file-extensions="bean-definition-parsers, bean-definition-decorators, bean-definition-decorators-for-attribute"
+            priority="high" />
+        <content-type base-type="org.eclipse.core.runtime.properties" default-charset="UTF-8"
+            id="com.alibaba.ide.plugin.eclipse.springext.springPluggableDefinitionFile"
+            name="%springPluggableDefinitionFileContentTypeName" file-names="spring.schemas, spring.handlers"
             priority="high" />
     </extension>
     <extension point="org.eclipse.ui.editors">
@@ -51,23 +59,23 @@
         <editor id="com.alibaba.ide.plugin.eclipse.springext.editor.component.cp.ConfigurationPointEditor"
             class="com.alibaba.ide.plugin.eclipse.springext.editor.component.cp.ConfigurationPointEditor"
             contributorClass="com.alibaba.ide.plugin.eclipse.springext.editor.component.cp.ConfigurationPointEditorContributor"
-            default="true" icon="icons/springext.png" name="%configurationPointEditorName"
+            default="true" icon="icons/socket.png" name="%configurationPointEditorName"
             symbolicFontName="org.eclipse.wst.sse.ui.textfont">
-            <contentTypeBinding contentTypeId="com.alibaba.ide.plugin.eclipse.springext.definitionProperitesFile" />
+            <contentTypeBinding contentTypeId="com.alibaba.ide.plugin.eclipse.springext.configurationPointDefinitionFile" />
         </editor>
         <editor id="com.alibaba.ide.plugin.eclipse.springext.editor.component.contrib.ContributionEditor"
             class="com.alibaba.ide.plugin.eclipse.springext.editor.component.contrib.ContributionEditor"
             contributorClass="com.alibaba.ide.plugin.eclipse.springext.editor.component.contrib.ContributionEditorContributor"
-            default="true" icon="icons/springext.png" name="%contributionEditorName"
+            default="true" icon="icons/plug.png" name="%contributionEditorName"
             symbolicFontName="org.eclipse.wst.sse.ui.textfont">
-            <contentTypeBinding contentTypeId="com.alibaba.ide.plugin.eclipse.springext.definitionProperitesFile" />
+            <contentTypeBinding contentTypeId="com.alibaba.ide.plugin.eclipse.springext.contributionDefinitionFile" />
         </editor>
         <editor id="com.alibaba.ide.plugin.eclipse.springext.editor.component.spring.SpringPluggableSchemaEditor"
             class="com.alibaba.ide.plugin.eclipse.springext.editor.component.spring.SpringPluggableSchemaEditor"
             contributorClass="com.alibaba.ide.plugin.eclipse.springext.editor.component.spring.SpringPluggableSchemaEditorContributor"
-            default="true" icon="icons/springext.png" name="%springPluggableSchemaEditorName"
+            default="true" icon="icons/spring-lighter.png" name="%springPluggableSchemaEditorName"
             symbolicFontName="org.eclipse.wst.sse.ui.textfont">
-            <contentTypeBinding contentTypeId="com.alibaba.ide.plugin.eclipse.springext.definitionProperitesFile" />
+            <contentTypeBinding contentTypeId="com.alibaba.ide.plugin.eclipse.springext.springPluggableDefinitionFile" />
         </editor>
     </extension>
     <extension point="org.eclipse.wst.sse.ui.completionProposal">
