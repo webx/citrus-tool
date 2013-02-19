@@ -137,6 +137,7 @@ public class SpringExtConfig extends SpringExtEditingData implements ITextListen
      * <p/>
      * 在编辑器被创建时，或者saveAs后，此方法将被调用。
      */
+    @Override
     public void initWithEditorInput(IEditorInput input) {
         super.initWithEditorInput(input);
 

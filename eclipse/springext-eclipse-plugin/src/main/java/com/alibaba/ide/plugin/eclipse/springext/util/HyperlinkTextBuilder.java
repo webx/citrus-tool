@@ -58,7 +58,7 @@ public class HyperlinkTextBuilder {
 
         String key = identityHashCode(listener) + "";
         linksMapping.put(key, listener);
-        buf.append(String.format("<a href=\"%s\"%s>%s</a>", key, (linkStyle == null ? EMPTY_STRING : " " + linkStyle),
+        buf.append(String.format("<a href=\"%s\"%s>%s</a>", key, linkStyle == null ? EMPTY_STRING : " " + linkStyle,
                 text));
 
         return this;
