@@ -51,7 +51,7 @@ public abstract class AbstractSpringExtComponentEditor<C, D extends AbstractSpri
     @Override
     protected void setInput(IEditorInput input) {
         super.setInput(input);
-        getData().initWithEditorInput(input);
+        data.initWithEditorInput(input);
         setPartName(input.getName());
     }
 

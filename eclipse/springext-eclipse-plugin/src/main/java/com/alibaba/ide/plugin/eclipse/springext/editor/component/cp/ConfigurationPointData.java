@@ -21,8 +21,11 @@ public class ConfigurationPointData extends AbstractSpringExtComponentData<Confi
     @Override
     public void initWithEditorInput(IEditorInput input) {
         super.initWithEditorInput(input);
-
         cp = (ConfigurationPoint) input.getAdapter(ConfigurationPoint.class);
         schema = (Schema) input.getAdapter(Schema.class);
+    }
+
+    @Override
+    protected void onSchemaSetChanged() {
     }
 }

@@ -20,7 +20,6 @@ public class SpringPluggableSchemaData extends AbstractSpringExtComponentData<Sp
     @Override
     public void initWithEditorInput(IEditorInput input) {
         super.initWithEditorInput(input);
-
         schema = (Schema) input.getAdapter(Schema.class);
     }
 }

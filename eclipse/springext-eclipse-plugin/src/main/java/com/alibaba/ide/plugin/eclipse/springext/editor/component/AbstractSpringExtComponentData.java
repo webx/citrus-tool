@@ -1,14 +1,15 @@
 package com.alibaba.ide.plugin.eclipse.springext.editor.component;
 
-import org.eclipse.ui.IEditorInput;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.ui.forms.IManagedForm;
 
 import com.alibaba.ide.plugin.eclipse.springext.editor.SpringExtEditingData;
 
 public abstract class AbstractSpringExtComponentData<C> extends SpringExtEditingData {
-    protected IEditorInput input;
+    protected IManagedForm managedForm;
 
-    public void initWithEditorInput(IEditorInput input) {
-        this.input = input;
+    public void initWithManagedForm(IManagedForm managedForm) {
+        this.managedForm = managedForm;
     }
 
     @Override
@@ -18,8 +19,12 @@ public abstract class AbstractSpringExtComponentData<C> extends SpringExtEditing
             return this;
         }
 
-        if (input != null) {
-            return input.getAdapter(adapter);
+        if (adapter.isAssignableFrom(IProject.class)) {
+            return getProject();
+        }
+
+        if (getInput() != null) {
+            return getInput().getAdapter(adapter);
         }
 
         return super.getAdapter(adapter);

@@ -21,7 +21,6 @@ public class ContributionData extends AbstractSpringExtComponentData<Contributio
     @Override
     public void initWithEditorInput(IEditorInput input) {
         super.initWithEditorInput(input);
-
         contrib = (Contribution) input.getAdapter(Contribution.class);
         schema = (Schema) input.getAdapter(Schema.class);
     }

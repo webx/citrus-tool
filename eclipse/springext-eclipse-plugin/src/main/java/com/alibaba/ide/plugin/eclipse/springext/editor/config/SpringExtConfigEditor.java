@@ -8,7 +8,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.text.source.SourceViewerConfiguration;
 import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.ide.IDE;
@@ -120,15 +119,7 @@ public class SpringExtConfigEditor extends FormEditor implements IGotoMarker {
     @Override
     protected void setInput(IEditorInput input) {
         super.setInput(input);
-
-        if (input instanceof IFileEditorInput) {
-            try {
-                config.setInput(((IFileEditorInput) input).getFile());
-            } catch (Exception e) {
-                logAndDisplay(new Status(IStatus.ERROR, SpringExtConstant.PLUGIN_ID,
-                        "Could not load model for source file: " + input.getName(), e));
-            }
-        }
+        config.initWithEditorInput(input);
     }
 
     @Override

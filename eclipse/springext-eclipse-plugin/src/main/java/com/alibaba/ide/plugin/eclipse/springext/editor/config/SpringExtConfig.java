@@ -1,16 +1,18 @@
 package com.alibaba.ide.plugin.eclipse.springext.editor.config;
 
 import static com.alibaba.citrus.util.Assert.*;
-
-import java.io.IOException;
+import static com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil.*;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.text.ITextListener;
 import org.eclipse.jface.text.TextEvent;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.forms.DetailsPart;
 import org.eclipse.ui.forms.IFormPart;
 import org.eclipse.ui.forms.IManagedForm;
@@ -21,6 +23,7 @@ import org.eclipse.wst.sse.ui.internal.StructuredTextViewer;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMDocument;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMModel;
 
+import com.alibaba.ide.plugin.eclipse.springext.SpringExtConstant;
 import com.alibaba.ide.plugin.eclipse.springext.editor.SpringExtEditingData;
 import com.alibaba.ide.plugin.eclipse.springext.editor.config.namespace.dom.DomDocumentUtil;
 import com.alibaba.ide.plugin.eclipse.springext.editor.config.namespace.dom.NamespaceDefinitions;
@@ -134,26 +137,35 @@ public class SpringExtConfig extends SpringExtEditingData implements ITextListen
      * <p/>
      * 在编辑器被创建时，或者saveAs后，此方法将被调用。
      */
-    public void setInput(IFile file) throws CoreException, IOException {
-        IStructuredModel structModel = StructuredModelManager.getModelManager().getExistingModelForEdit(file);
+    public void initWithEditorInput(IEditorInput input) {
+        super.initWithEditorInput(input);
 
-        if (structModel == null) {
-            structModel = StructuredModelManager.getModelManager().getModelForEdit(file);
-        }
+        try {
+            if (input instanceof IFileEditorInput) {
+                IFile file = ((IFileEditorInput) input).getFile();
+                IStructuredModel structModel = StructuredModelManager.getModelManager().getExistingModelForEdit(file);
 
-        if (structModel != null) {
-            if (structModel instanceof IDOMModel) {
-                releaseModel(); // release previous model
+                if (structModel == null) {
+                    structModel = StructuredModelManager.getModelManager().getModelForEdit(file);
+                }
 
-                this.editingFile = file;
-                this.model = (IDOMModel) structModel;
-                this.domDocument = model.getDocument();
+                if (structModel != null) {
+                    if (structModel instanceof IDOMModel) {
+                        releaseModel(); // release previous model
 
-                initWithProject(file.getProject());
-                setSchemas(SchemaResourceSet.getInstance(getProject()));
-            } else {
-                structModel.releaseFromEdit();
+                        this.editingFile = file;
+                        this.model = (IDOMModel) structModel;
+                        this.domDocument = model.getDocument();
+
+                        setSchemas(SchemaResourceSet.getInstance(getProject()));
+                    } else {
+                        structModel.releaseFromEdit();
+                    }
+                }
             }
+        } catch (Exception e) {
+            logAndDisplay(new Status(IStatus.ERROR, SpringExtConstant.PLUGIN_ID,
+                    "Could not load model for source file: " + input.getName(), e));
         }
     }
 

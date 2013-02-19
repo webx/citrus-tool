@@ -45,6 +45,7 @@ public class OverviewPage extends FormPage {
     @Override
     protected void createFormContent(IManagedForm managedForm) {
         toolkit = managedForm.getToolkit();
+        data.initWithManagedForm(managedForm);
 
         ScrolledForm form = managedForm.getForm();
         form.setText(getTitle());

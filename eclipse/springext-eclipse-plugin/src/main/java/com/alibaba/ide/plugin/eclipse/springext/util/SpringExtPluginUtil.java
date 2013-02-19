@@ -131,11 +131,21 @@ public class SpringExtPluginUtil {
     }
 
     public static IProject getProjectFromInput(IEditorInput input) {
+        return getProjectFromInput(input, true);
+    }
+
+    public static IProject getProjectFromInput(IEditorInput input, boolean required) {
+        IProject project = null;
+
         if (input instanceof IFileEditorInput) {
-            return ((IFileEditorInput) input).getFile().getProject();
+            project = ((IFileEditorInput) input).getFile().getProject();
+        } else {
+            project = (IProject) input.getAdapter(IProject.class);
         }
 
-        return (IProject) input.getAdapter(IProject.class);
+        assertTrue(project != null || !required, "Could not get project from editor input: %s", input);
+
+        return project;
     }
 
     /**
