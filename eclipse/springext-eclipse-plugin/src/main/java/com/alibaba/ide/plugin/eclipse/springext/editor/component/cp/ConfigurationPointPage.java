@@ -20,6 +20,7 @@ import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
 import com.alibaba.citrus.springext.ConfigurationPoint;
+import com.alibaba.citrus.springext.Schema;
 import com.alibaba.ide.plugin.eclipse.springext.util.HyperlinkTextBuilder;
 import com.alibaba.ide.plugin.eclipse.springext.util.HyperlinkTextBuilder.AbstractHyperlink;
 import com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil;
@@ -30,12 +31,7 @@ public class ConfigurationPointPage extends FormPage {
     private final ConfigurationPointData data;
     private FormToolkit toolkit;
     private SectionPart definitionPart;
-    private SectionPart infoPart;
-    private FormText definedInText;
-    private Text nameText;
-    private Text namespaceText;
-    private Text defaultElementText;
-    private Text defaultNsPrefixText;
+    private SectionPart contributionsPart;
 
     public ConfigurationPointPage(ConfigurationPointEditor editor) {
         super(editor, PAGE_ID, "Configuration Point");
@@ -55,10 +51,10 @@ public class ConfigurationPointPage extends FormPage {
         form.getBody().setLayout(layout);
 
         definitionPart = new DefinitionPart(form.getBody(), toolkit);
-        infoPart = new InfoPart(form.getBody(), toolkit);
+        contributionsPart = new ContributionsPart(form.getBody(), toolkit);
 
         managedForm.addPart(definitionPart);
-        managedForm.addPart(infoPart);
+        managedForm.addPart(contributionsPart);
     }
 
     @Override
@@ -67,11 +63,18 @@ public class ConfigurationPointPage extends FormPage {
 
         if (active) {
             definitionPart.markStale();
-            infoPart.markStale();
+            contributionsPart.markStale();
         }
     }
 
     private class DefinitionPart extends SectionPart {
+        private FormText definedInText;
+        private Text nameText;
+        private Text namespaceText;
+        private Text defaultElementText;
+        private Text defaultNsPrefixText;
+        private FormText schemaText;
+
         public DefinitionPart(Composite parent, FormToolkit toolkit) {
             super(parent, toolkit, Section.DESCRIPTION | ExpandableComposite.TITLE_BAR);
             createContents();
@@ -82,7 +85,7 @@ public class ConfigurationPointPage extends FormPage {
             Section section = getSection();
 
             section.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP));
-            section.setText("Definition");
+            section.setText("Configuration Point Definition");
 
             // section/client
             Composite client = toolkit.createComposite(section, SWT.WRAP);
@@ -96,35 +99,41 @@ public class ConfigurationPointPage extends FormPage {
             client.setLayout(layout);
             section.setClient(client);
 
-            // seciton/client/definedIn
+            // section/client/definedIn
             toolkit.createLabel(client, "Defined in");
             definedInText = toolkit.createFormText(client, false);
             definedInText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP));
 
-            // seciton/client/name
+            // section/client/name
             toolkit.createLabel(client, "Name");
             nameText = toolkit.createText(client, "");
             nameText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP));
 
-            // seciton/client/namespace
+            // section/client/namespace
             toolkit.createLabel(client, "Namespace");
             namespaceText = toolkit.createText(client, "");
             namespaceText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP));
 
-            // seciton/client/defaultElementName
+            // section/client/defaultElementName
             toolkit.createLabel(client, "Default Element Name");
             defaultElementText = toolkit.createText(client, "");
             defaultElementText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP));
 
-            // seciton/client/defaultNamespacePrefix
+            // section/client/defaultNamespacePrefix
             toolkit.createLabel(client, "Default Namespace Prefix");
             defaultNsPrefixText = toolkit.createText(client, "");
             defaultNsPrefixText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP));
+
+            // section/client/schema
+            toolkit.createLabel(client, "Generated Schema");
+            schemaText = toolkit.createFormText(client, false);
+            schemaText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP));
         }
 
         @Override
         public void refresh() {
             ConfigurationPoint cp = data.getConfigurationPoint();
+            Schema schema = data.getSchema();
             URL defURL = SpringExtPluginUtil.getSourceURL(cp);
 
             new HyperlinkTextBuilder(toolkit).append("<p>")
@@ -139,12 +148,18 @@ public class ConfigurationPointPage extends FormPage {
             defaultElementText.setText(defaultIfNull(cp.getDefaultElementName(), EMPTY_STRING));
             defaultNsPrefixText.setText(defaultIfNull(cp.getPreferredNsPrefix(), EMPTY_STRING));
 
+            new HyperlinkTextBuilder(toolkit).append("<p>").appendLink(schema.getName(), new AbstractHyperlink() {
+                public void open() {
+                    editor.activePage("schema");
+                }
+            }).append("</p>").setText(schemaText);
+
             super.refresh();
         }
     }
 
-    private class InfoPart extends SectionPart {
-        public InfoPart(Composite parent, FormToolkit toolkit) {
+    private class ContributionsPart extends SectionPart {
+        public ContributionsPart(Composite parent, FormToolkit toolkit) {
             super(parent, toolkit, Section.DESCRIPTION | ExpandableComposite.TITLE_BAR);
             createContents();
         }
@@ -154,7 +169,26 @@ public class ConfigurationPointPage extends FormPage {
             Section section = getSection();
 
             section.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP));
-            section.setText("Informations");
+            section.setText("Contributions & Schemas");
+
+            // section/client
+            Composite client = toolkit.createComposite(section, SWT.WRAP);
+
+            TableWrapLayout layout = new TableWrapLayout();
+            layout.numColumns = 2;
+            layout.horizontalSpacing = 10;
+            layout.verticalSpacing = 10;
+            layout.bottomMargin = 20;
+
+            client.setLayout(layout);
+            section.setClient(client);
+
+        }
+
+        @Override
+        public void refresh() {
+
+            super.refresh();
         }
     }
 }
