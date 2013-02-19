@@ -72,11 +72,11 @@ public class OverviewPage extends FormPage {
     }
 
     private class DefinitionPart extends SectionPart {
-        private FormText definedInText;
         private Text nameText;
         private Text namespaceText;
         private Text defaultElementText;
         private Text defaultNsPrefixText;
+        private FormText definedInText;
         private FormText schemaText;
 
         public DefinitionPart(Composite parent, FormToolkit toolkit) {
@@ -103,11 +103,6 @@ public class OverviewPage extends FormPage {
             client.setLayout(layout);
             section.setClient(client);
 
-            // section/client/definedIn
-            toolkit.createLabel(client, "Defined in");
-            definedInText = toolkit.createFormText(client, false);
-            definedInText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP));
-
             // section/client/name
             toolkit.createLabel(client, "Name");
             nameText = toolkit.createText(client, "");
@@ -128,6 +123,17 @@ public class OverviewPage extends FormPage {
             defaultNsPrefixText = toolkit.createText(client, "");
             defaultNsPrefixText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP));
 
+            // separator
+            toolkit.createLabel(client, EMPTY_STRING).setLayoutData(
+                    new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP, 1, 2));
+            toolkit.createSeparator(client, SWT.HORIZONTAL).setLayoutData(
+                    new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP, 1, 2));
+
+            // section/client/definedIn
+            toolkit.createLabel(client, "Defined in");
+            definedInText = toolkit.createFormText(client, false);
+            definedInText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP));
+
             // section/client/schema
             toolkit.createLabel(client, "Generated Schema");
             schemaText = toolkit.createFormText(client, false);
@@ -140,17 +146,17 @@ public class OverviewPage extends FormPage {
             Schema schema = data.getSchema();
             URL defURL = SpringExtPluginUtil.getSourceURL(cp);
 
+            nameText.setText(cp.getName());
+            namespaceText.setText(cp.getNamespaceUri());
+            defaultElementText.setText(defaultIfNull(cp.getDefaultElementName(), EMPTY_STRING));
+            defaultNsPrefixText.setText(defaultIfNull(cp.getPreferredNsPrefix(), EMPTY_STRING));
+
             new HyperlinkTextBuilder(toolkit).append("<p>")
                     .appendLink(defURL.toExternalForm(), new AbstractHyperlink() {
                         public void open() {
                             editor.activePage("def");
                         }
                     }).append("</p>").setText(definedInText);
-
-            nameText.setText(cp.getName());
-            namespaceText.setText(cp.getNamespaceUri());
-            defaultElementText.setText(defaultIfNull(cp.getDefaultElementName(), EMPTY_STRING));
-            defaultNsPrefixText.setText(defaultIfNull(cp.getPreferredNsPrefix(), EMPTY_STRING));
 
             new HyperlinkTextBuilder(toolkit).append("<p>").appendLink(schema.getName(), new AbstractHyperlink() {
                 public void open() {
