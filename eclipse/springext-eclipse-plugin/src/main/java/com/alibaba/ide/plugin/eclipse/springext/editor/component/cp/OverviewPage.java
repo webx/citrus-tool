@@ -25,15 +25,15 @@ import com.alibaba.ide.plugin.eclipse.springext.util.HyperlinkTextBuilder;
 import com.alibaba.ide.plugin.eclipse.springext.util.HyperlinkTextBuilder.AbstractHyperlink;
 import com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil;
 
-public class ConfigurationPointPage extends FormPage {
-    public final static String PAGE_ID = ConfigurationPointPage.class.getName();
+public class OverviewPage extends FormPage {
+    public final static String PAGE_ID = OverviewPage.class.getName();
     private final ConfigurationPointEditor editor;
     private final ConfigurationPointData data;
     private FormToolkit toolkit;
     private SectionPart definitionPart;
     private SectionPart contributionsPart;
 
-    public ConfigurationPointPage(ConfigurationPointEditor editor) {
+    public OverviewPage(ConfigurationPointEditor editor) {
         super(editor, PAGE_ID, "Configuration Point");
         this.editor = editor;
         this.data = editor.getData();
@@ -85,7 +85,7 @@ public class ConfigurationPointPage extends FormPage {
             Section section = getSection();
 
             section.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP));
-            section.setText("Configuration Point Definition");
+            section.setText("Definition");
 
             // section/client
             Composite client = toolkit.createComposite(section, SWT.WRAP);

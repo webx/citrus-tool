@@ -18,7 +18,7 @@ public class ConfigurationPointEditor extends
     public final static String EDITOR_ID = ConfigurationPointEditor.class.getName();
 
     // editor & form pages
-    private ConfigurationPointPage configurationPointPage;
+    private OverviewPage overviewPage;
     private PropertiesFileEditor definitionFileEditor;
     private StructuredTextEditor schemaEditor;
 
@@ -28,13 +28,13 @@ public class ConfigurationPointEditor extends
 
     @Override
     protected void addPages() {
-        createConfigurationPointPage();
+        createOverviewPage();
         createDefinitionFileEditor();
         createSchemaEditor();
     }
 
-    private void createConfigurationPointPage() {
-        configurationPointPage = addPage("cp", new ConfigurationPointPage(this), "Configuration Point");
+    private void createOverviewPage() {
+        overviewPage = addPage("overview", new OverviewPage(this), "Overview");
     }
 
     private void createDefinitionFileEditor() {
@@ -45,7 +45,7 @@ public class ConfigurationPointEditor extends
 
     private void createSchemaEditor() {
         Schema schema = getData().getSchema();
-        schemaEditor = createSchemaEditorPage("schema", schema, "Generated " + getLastSegment(schema.getName()));
+        schemaEditor = createSchemaEditorPage("schema", schema, "<generated> " + getLastSegment(schema.getName()));
     }
 
     @Override
