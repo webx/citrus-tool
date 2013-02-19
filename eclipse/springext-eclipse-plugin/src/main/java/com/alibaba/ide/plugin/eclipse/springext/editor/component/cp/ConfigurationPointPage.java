@@ -130,7 +130,7 @@ public class ConfigurationPointPage extends FormPage {
             new HyperlinkTextBuilder(toolkit).append("<p>")
                     .appendLink(defURL.toExternalForm(), new AbstractHyperlink() {
                         public void open() {
-                            editor.activeDefinitionFileEditor();
+                            editor.activePage("def");
                         }
                     }).append("</p>").setText(definedInText);
 

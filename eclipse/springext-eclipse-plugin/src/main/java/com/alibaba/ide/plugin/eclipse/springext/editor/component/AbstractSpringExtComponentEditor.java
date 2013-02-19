@@ -1,11 +1,14 @@
 package com.alibaba.ide.plugin.eclipse.springext.editor.component;
 
+import static com.alibaba.citrus.util.Assert.*;
+import static com.alibaba.citrus.util.CollectionUtil.*;
 import static com.alibaba.ide.plugin.eclipse.springext.SpringExtConstant.*;
 import static com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil.*;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IStorage;
@@ -18,6 +21,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.internal.ui.propertiesfileeditor.PropertiesFileEditor;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPersistableElement;
 import org.eclipse.ui.IStorageEditorInput;
 import org.eclipse.ui.PartInitException;
@@ -33,7 +37,7 @@ import com.alibaba.ide.plugin.eclipse.springext.SpringExtConstant;
 @SuppressWarnings("restriction")
 public abstract class AbstractSpringExtComponentEditor<C, D extends AbstractSpringExtComponentData<C>> extends
         FormEditor {
-    // editing data
+    private final Map<String, Integer> pageIndexes = createHashMap();
     private final D data;
 
     public AbstractSpringExtComponentEditor(D data) {
@@ -51,10 +55,11 @@ public abstract class AbstractSpringExtComponentEditor<C, D extends AbstractSpri
         setPartName(input.getName());
     }
 
-    protected final <T extends IFormPage> T addPage(T page, String tabTitle) {
+    protected final <T extends IFormPage> T addPage(String key, T page, String tabTitle) {
         try {
             int index = addPage(page);
             setPageText(index, tabTitle);
+            pageIndexes.put(key, index);
         } catch (PartInitException e) {
             logAndDisplay(new Status(IStatus.ERROR, SpringExtConstant.PLUGIN_ID, "Could not add tab to editor", e));
         }
@@ -62,54 +67,46 @@ public abstract class AbstractSpringExtComponentEditor<C, D extends AbstractSpri
         return page;
     }
 
-    protected final PropertiesFileEditor createPropertiesEditorPage(URL url, String tabTitle) {
-        PropertiesFileEditor editor = null;
-
-        if (url != null) {
-            try {
-                editor = new PropertiesFileEditor();
-                int index = addPage(editor, new URLEditorInput(url, getData().getProject()));
-                setPageText(index, tabTitle);
-            } catch (PartInitException e) {
-                logAndDisplay(new Status(IStatus.ERROR, SpringExtConstant.PLUGIN_ID, "Could not add tab to editor", e));
-            }
+    protected final <T extends IEditorPart> T addPage(String key, T page, IEditorInput input, String tabTitle) {
+        try {
+            int index = addPage(page, input);
+            setPageText(index, tabTitle);
+            pageIndexes.put(key, index);
+        } catch (PartInitException e) {
+            logAndDisplay(new Status(IStatus.ERROR, SpringExtConstant.PLUGIN_ID, "Could not add tab to editor", e));
         }
 
-        return editor;
+        return page;
     }
 
-    protected final StructuredTextEditor createSchemaEditorPage(Schema schema, String tabTitle) {
-        StructuredTextEditor editor = null;
+    protected final PropertiesFileEditor createPropertiesEditorPage(String key, URL url, String tabTitle) {
+        if (url != null) {
+            return addPage(key, new PropertiesFileEditor(), new URLEditorInput(url, getData().getProject()), tabTitle);
+        }
 
+        return null;
+    }
+
+    protected final StructuredTextEditor createSchemaEditorPage(String key, Schema schema, String tabTitle) {
         if (schema != null) {
-            try {
-                editor = new StructuredTextEditor();
-                int index = addPage(editor, new SchemaEditorInput(schema, getData().getProject()));
-                setPageText(index, tabTitle);
-                editor.setEditorPart(this);
-            } catch (PartInitException e) {
-                logAndDisplay(new Status(IStatus.ERROR, SpringExtConstant.PLUGIN_ID, "Could not add tab to editor", e));
-            }
+            return addPage(key, new StructuredTextEditor(), new SchemaEditorInput(schema, getData().getProject()),
+                    tabTitle);
         }
 
-        return editor;
+        return null;
     }
 
-    protected final StructuredTextEditor createSchemaEditorPage(URL url, String tabTitle) {
-        StructuredTextEditor editor = null;
-
+    protected final StructuredTextEditor createSchemaEditorPage(String key, URL url, String tabTitle) {
         if (url != null) {
-            try {
-                editor = new StructuredTextEditor();
-                int index = addPage(editor, new URLEditorInput(url, getData().getProject()));
-                setPageText(index, tabTitle);
-                editor.setEditorPart(this);
-            } catch (PartInitException e) {
-                logAndDisplay(new Status(IStatus.ERROR, SpringExtConstant.PLUGIN_ID, "Could not add tab to editor", e));
-            }
+            return addPage(key, new StructuredTextEditor(), new URLEditorInput(url, getData().getProject()), tabTitle);
         }
 
-        return editor;
+        return null;
+    }
+
+    public void activePage(String key) {
+        Integer index = assertNotNull(pageIndexes.get(key), "key %s does not exist", key);
+        setActivePage(index);
     }
 
     protected class SchemaEditorInput extends PlatformObject implements IStorageEditorInput {

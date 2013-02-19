@@ -35,17 +35,20 @@ public class SpringPluggableSchemaEditor extends
 
     private void createDefinitionFileEditor() {
         URL definitionURL = getSourceURL(getData().getSpringPluggableSchemaSourceInfo().getParent());
-        definitionFileEditor = createPropertiesEditorPage(definitionURL, getLastSegment(definitionURL.toExternalForm()));
+        definitionFileEditor = createPropertiesEditorPage("def", definitionURL,
+                getLastSegment(definitionURL.toExternalForm()));
     }
 
     private void createSchemaEditor() {
         URL originalSourceURL = getSourceURL(getData().getSchema());
-        schemaEditor = createSchemaEditorPage(originalSourceURL, getLastSegment(originalSourceURL.toExternalForm()));
+        schemaEditor = createSchemaEditorPage("originalSchema", originalSourceURL,
+                getLastSegment(originalSourceURL.toExternalForm()));
     }
 
     private void createGeneratedSchemaEditor() {
         Schema schema = getData().getSchema();
-        generatedSchemaEditor = createSchemaEditorPage(schema, "Generated " + getLastSegment(schema.getName()));
+        generatedSchemaEditor = createSchemaEditorPage("generatedSchema", schema,
+                "Generated " + getLastSegment(schema.getName()));
     }
 
     @Override
