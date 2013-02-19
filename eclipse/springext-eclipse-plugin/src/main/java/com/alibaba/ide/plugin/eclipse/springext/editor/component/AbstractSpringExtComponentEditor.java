@@ -5,13 +5,17 @@ import static com.alibaba.citrus.util.CollectionUtil.*;
 import static com.alibaba.ide.plugin.eclipse.springext.SpringExtConstant.*;
 import static com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Map;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IStorage;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
@@ -27,17 +31,19 @@ import org.eclipse.ui.IStorageEditorInput;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.IFormPage;
+import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.wst.sse.ui.StructuredTextEditor;
 import org.jetbrains.annotations.NotNull;
 
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.util.io.StreamUtil;
 import com.alibaba.ide.plugin.eclipse.springext.SpringExtConstant;
+import com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil;
 
 @SuppressWarnings("restriction")
 public abstract class AbstractSpringExtComponentEditor<C, D extends AbstractSpringExtComponentData<C>> extends
         FormEditor {
-    private final Map<String, Integer> pageIndexes = createHashMap();
+    private final Map<String, TabInfo> tabs = createHashMap();
     private final D data;
 
     public AbstractSpringExtComponentEditor(D data) {
@@ -46,6 +52,17 @@ public abstract class AbstractSpringExtComponentEditor<C, D extends AbstractSpri
 
     public D getData() {
         return data;
+    }
+
+    private TabInfo getOrCreateTab(String key) {
+        TabInfo tab = tabs.get(key);
+
+        if (tab == null) {
+            tab = new TabInfo();
+            tabs.put(key, tab);
+        }
+
+        return tab;
     }
 
     @Override
@@ -59,7 +76,7 @@ public abstract class AbstractSpringExtComponentEditor<C, D extends AbstractSpri
         try {
             int index = addPage(page);
             setPageText(index, tabTitle);
-            pageIndexes.put(key, index);
+            getOrCreateTab(key).index = index;
         } catch (PartInitException e) {
             logAndDisplay(new Status(IStatus.ERROR, SpringExtConstant.PLUGIN_ID, "Could not add tab to editor", e));
         }
@@ -71,7 +88,7 @@ public abstract class AbstractSpringExtComponentEditor<C, D extends AbstractSpri
         try {
             int index = addPage(page, input);
             setPageText(index, tabTitle);
-            pageIndexes.put(key, index);
+            getOrCreateTab(key).index = index;
         } catch (PartInitException e) {
             logAndDisplay(new Status(IStatus.ERROR, SpringExtConstant.PLUGIN_ID, "Could not add tab to editor", e));
         }
@@ -81,7 +98,7 @@ public abstract class AbstractSpringExtComponentEditor<C, D extends AbstractSpri
 
     protected final PropertiesFileEditor createPropertiesEditorPage(String key, URL url, String tabTitle) {
         if (url != null) {
-            return addPage(key, new PropertiesFileEditor(), new URLEditorInput(url, getData().getProject()), tabTitle);
+            return addPage(key, new PropertiesFileEditor(), createInputFromURL(url, key), tabTitle);
         }
 
         return null;
@@ -98,21 +115,25 @@ public abstract class AbstractSpringExtComponentEditor<C, D extends AbstractSpri
 
     protected final StructuredTextEditor createSchemaEditorPage(String key, URL url, String tabTitle) {
         if (url != null) {
-            return addPage(key, new StructuredTextEditor(), new URLEditorInput(url, getData().getProject()), tabTitle);
+            return addPage(key, new StructuredTextEditor(), createInputFromURL(url, key), tabTitle);
         }
 
         return null;
     }
 
+    public boolean isReadOnly(String key) {
+        return assertNotNull(tabs.get(key), "key %s does not exist", key).readOnly;
+    }
+
     public void activePage(String key) {
-        Integer index = assertNotNull(pageIndexes.get(key), "key %s does not exist", key);
+        int index = assertNotNull(tabs.get(key), "key %s does not exist", key).index;
         setActivePage(index);
     }
 
     @Override
     public void dispose() {
         data.dispose();
-        pageIndexes.clear();
+        tabs.clear();
     }
 
     protected class SchemaEditorInput extends PlatformObject implements IStorageEditorInput {
@@ -206,10 +227,45 @@ public abstract class AbstractSpringExtComponentEditor<C, D extends AbstractSpri
         }
     }
 
+    protected final IEditorInput createInputFromURL(URL url, String tabKey) {
+        assertNotNull(url, "no url");
+
+        IFile file = toFile(url);
+
+        if (file != null) {
+            if (tabKey != null) {
+                getOrCreateTab(tabKey).readOnly = false;
+            }
+
+            return new FileEditorInput(file);
+        } else {
+            return new URLEditorInput(url);
+        }
+    }
+
+    private IFile toFile(URL url) {
+        IFile file = null;
+        File javaFile = null;
+
+        try {
+            javaFile = new File(url.toURI());
+        } catch (URISyntaxException ignored) {
+        } catch (IllegalArgumentException ignored) {
+        }
+
+        if (javaFile != null) {
+            IPath path = Path.fromOSString(javaFile.getAbsolutePath());
+            file = ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(path);
+            file = SpringExtPluginUtil.findSourceFile(file);
+        }
+
+        return file;
+    }
+
     protected class URLEditorInput extends PlatformObject implements IStorageEditorInput {
         private final IStorage storage;
 
-        public URLEditorInput(URL url, IProject project) {
+        private URLEditorInput(URL url) {
             this.storage = new URLStorage(url);
         }
 
@@ -304,5 +360,10 @@ public abstract class AbstractSpringExtComponentEditor<C, D extends AbstractSpri
 
             return super.equals(other);
         }
+    }
+
+    private static class TabInfo {
+        public int index = -1;
+        public boolean readOnly = true;
     }
 }

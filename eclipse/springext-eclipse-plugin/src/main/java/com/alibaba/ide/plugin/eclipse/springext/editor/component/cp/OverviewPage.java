@@ -6,6 +6,8 @@ import static com.alibaba.citrus.util.ObjectUtil.*;
 import java.net.URL;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.IManagedForm;
@@ -103,6 +105,12 @@ public class OverviewPage extends FormPage {
             client.setLayout(layout);
             section.setClient(client);
 
+            ModifyListener listener = new ModifyListener() {
+                public void modifyText(ModifyEvent e) {
+                    updateDefinitionFile();
+                }
+            };
+
             // section/client/name
             toolkit.createLabel(client, "Name");
             nameText = toolkit.createText(client, "");
@@ -123,6 +131,18 @@ public class OverviewPage extends FormPage {
             defaultNsPrefixText = toolkit.createText(client, "");
             defaultNsPrefixText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP));
 
+            if (data.isReadOnly()) {
+                nameText.setEditable(false);
+                namespaceText.setEditable(false);
+                defaultElementText.setEditable(false);
+                defaultNsPrefixText.setEditable(false);
+            } else {
+                nameText.addModifyListener(listener);
+                namespaceText.addModifyListener(listener);
+                defaultElementText.addModifyListener(listener);
+                defaultNsPrefixText.addModifyListener(listener);
+            }
+
             // separator
             toolkit.createLabel(client, EMPTY_STRING).setLayoutData(
                     new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP, 1, 2));
@@ -138,6 +158,14 @@ public class OverviewPage extends FormPage {
             toolkit.createLabel(client, "Generated Schema");
             schemaText = toolkit.createFormText(client, false);
             schemaText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP));
+        }
+
+        private void updateDefinitionFile() {
+            String name = nameText.getText();
+            String namespace = namespaceText.getText();
+            String defaultElement = defaultElementText.getText();
+            String defaultNsPrefix = defaultNsPrefixText.getText();
+
         }
 
         @Override

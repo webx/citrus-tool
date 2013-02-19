@@ -9,6 +9,7 @@ import com.alibaba.citrus.springext.Schema;
 import com.alibaba.ide.plugin.eclipse.springext.editor.component.AbstractSpringExtComponentData;
 
 public class ConfigurationPointData extends AbstractSpringExtComponentData<ConfigurationPoint> {
+    private ConfigurationPointEditor editor;
     private ConfigurationPoint cp;
     private Schema schema;
 
@@ -18,6 +19,14 @@ public class ConfigurationPointData extends AbstractSpringExtComponentData<Confi
 
     public Schema getSchema() {
         return schema;
+    }
+
+    public void initWithEditor(ConfigurationPointEditor editor) {
+        this.editor = editor;
+    }
+
+    public boolean isReadOnly() {
+        return editor != null && editor.isReadOnly("def");
     }
 
     @Override
