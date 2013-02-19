@@ -1,5 +1,6 @@
 package com.alibaba.ide.plugin.eclipse.springext.util;
 
+import static com.alibaba.citrus.util.BasicConstant.*;
 import static com.alibaba.citrus.util.CollectionUtil.*;
 import static com.alibaba.citrus.util.ObjectUtil.*;
 
@@ -43,7 +44,11 @@ public class HyperlinkTextBuilder {
         return this;
     }
 
-    public HyperlinkTextBuilder appendLink(String text, final IHyperlink link) {
+    public HyperlinkTextBuilder appendLink(String text, IHyperlink link) {
+        return appendLink(text, link, null);
+    }
+
+    public HyperlinkTextBuilder appendLink(String text, final IHyperlink link, String linkStyle) {
         IHyperlinkListener listener = new HyperlinkAdapter() {
             @Override
             public void linkActivated(HyperlinkEvent e) {
@@ -53,7 +58,9 @@ public class HyperlinkTextBuilder {
 
         String key = identityHashCode(listener) + "";
         linksMapping.put(key, listener);
-        buf.append(String.format("<a href=\"%s\">%s</a>", key, text));
+        buf.append(String.format("<a href=\"%s\"%s>%s</a>", key, (linkStyle == null ? EMPTY_STRING : " " + linkStyle),
+                text));
+
         return this;
     }
 

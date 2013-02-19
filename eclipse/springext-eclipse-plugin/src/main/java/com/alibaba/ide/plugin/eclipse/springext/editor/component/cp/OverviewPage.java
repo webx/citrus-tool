@@ -20,7 +20,10 @@ import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
 import com.alibaba.citrus.springext.ConfigurationPoint;
+import com.alibaba.citrus.springext.Contribution;
 import com.alibaba.citrus.springext.Schema;
+import com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin;
+import com.alibaba.ide.plugin.eclipse.springext.hyperlink.ContributionHyperlink;
 import com.alibaba.ide.plugin.eclipse.springext.util.HyperlinkTextBuilder;
 import com.alibaba.ide.plugin.eclipse.springext.util.HyperlinkTextBuilder.AbstractHyperlink;
 import com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil;
@@ -47,7 +50,8 @@ public class OverviewPage extends FormPage {
         form.setText(getTitle());
 
         TableWrapLayout layout = new TableWrapLayout();
-        layout.numColumns = 1;
+        layout.numColumns = 2;
+        layout.horizontalSpacing = 10;
         form.getBody().setLayout(layout);
 
         definitionPart = new DefinitionPart(form.getBody(), toolkit);
@@ -159,6 +163,8 @@ public class OverviewPage extends FormPage {
     }
 
     private class ContributionsPart extends SectionPart {
+        private FormText contributionsText;
+
         public ContributionsPart(Composite parent, FormToolkit toolkit) {
             super(parent, toolkit, Section.DESCRIPTION | ExpandableComposite.TITLE_BAR);
             createContents();
@@ -169,7 +175,7 @@ public class OverviewPage extends FormPage {
             Section section = getSection();
 
             section.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP));
-            section.setText("Contributions & Schemas");
+            section.setText("Contributions");
 
             // section/client
             Composite client = toolkit.createComposite(section, SWT.WRAP);
@@ -183,10 +189,34 @@ public class OverviewPage extends FormPage {
             client.setLayout(layout);
             section.setClient(client);
 
+            // section/client/contributions
+            contributionsText = toolkit.createFormText(client, false);
+            contributionsText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP));
         }
 
         @Override
         public void refresh() {
+            HyperlinkTextBuilder buf = new HyperlinkTextBuilder(toolkit);
+            Schema schema = data.getSchema();
+            String version = schema == null ? null : schema.getVersion();
+
+            for (final Contribution contrib : data.getConfigurationPoint().getContributions()) {
+                final Schema contribSchema = contrib.getSchemas().getVersionedSchema(version);
+
+                buf.append("<li style=\"image\" value=\"plug\">")
+                        .appendLink(contrib.getName(), new AbstractHyperlink() {
+                            public void open() {
+                                ContributionHyperlink link = contribSchema == null ? new ContributionHyperlink(null,
+                                        data.getProject(), contrib) : new ContributionHyperlink(data.getProject(),
+                                        contribSchema);
+
+                                link.open();
+                            }
+                        }, "nowrap=\"true\"").append("</li>");
+            }
+
+            buf.setText(contributionsText);
+            contributionsText.setImage("plug", SpringExtPlugin.getDefault().getImageRegistry().get("plug"));
 
             super.refresh();
         }
