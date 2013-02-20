@@ -32,7 +32,7 @@ public abstract class SpringExtEditingData extends PlatformObject implements ISc
         return project;
     }
 
-    public IEditorInput getInput() {
+    public IEditorInput getEditorInput() {
         return input;
     }
 
@@ -81,5 +81,27 @@ public abstract class SpringExtEditingData extends PlatformObject implements ISc
      */
     public void dispose() {
         SchemaResourceSet.removeSchemaSetChangeListener(this);
+    }
+
+    @Override
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public Object getAdapter(Class adapter) {
+        if (adapter.isAssignableFrom(getClass())) {
+            return this;
+        }
+
+        if (adapter.isAssignableFrom(IProject.class)) {
+            return getProject();
+        }
+
+        if (adapter.isAssignableFrom(SchemaResourceSet.class)) {
+            return getSchemas();
+        }
+
+        if (getEditorInput() != null) {
+            return getEditorInput().getAdapter(adapter);
+        }
+
+        return super.getAdapter(adapter);
     }
 }

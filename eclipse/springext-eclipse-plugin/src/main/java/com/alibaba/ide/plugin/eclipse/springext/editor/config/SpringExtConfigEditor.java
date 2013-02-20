@@ -1,19 +1,13 @@
 package com.alibaba.ide.plugin.eclipse.springext.editor.config;
 
-import static com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil.*;
-
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.text.source.SourceViewerConfiguration;
 import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.ide.IGotoMarker;
 import org.eclipse.wst.sse.ui.StructuredTextEditor;
 
-import com.alibaba.ide.plugin.eclipse.springext.SpringExtConstant;
 import com.alibaba.ide.plugin.eclipse.springext.editor.SpringExtFormEditor;
 import com.alibaba.ide.plugin.eclipse.springext.editor.StructuredTextViewerConfigurationSpringExtXML;
 import com.alibaba.ide.plugin.eclipse.springext.editor.config.namespace.NamespacesPage;
@@ -58,33 +52,17 @@ public class SpringExtConfigEditor extends SpringExtFormEditor<SpringExtConfigDa
             }
         };
 
-        try {
-            int index = addPage(sourceEditor, getEditorInput());
-            setPageText(index, "Source");
-            setPartName(sourceEditor.getTitle());
-            sourceEditor.setEditorPart(this);
-
-            getData().initWithTextViewer(sourceEditor.getTextViewer());
-        } catch (PartInitException e) {
-            logAndDisplay(new Status(IStatus.ERROR, SpringExtConstant.PLUGIN_ID,
-                    "Could not open editor for source file: " + sourceEditor.getTitle(), e));
-        }
+        addTab("source", sourceEditor, getEditorInput(), "Source");
+        getData().initWithTextViewer(sourceEditor.getTextViewer());
     }
 
     /**
      * 创建namespaces选择页。
      */
     private void createNamespacesPage() {
-        try {
-            namespacesPage = new NamespacesPage(this);
-            int index = addPage(namespacesPage);
-            setPageText(index, "Namespaces");
-
-            getData().initWithFormPage(namespacesPage);
-        } catch (PartInitException e) {
-            logAndDisplay(new Status(IStatus.ERROR, SpringExtConstant.PLUGIN_ID, "Could not add tab to editor "
-                    + sourceEditor.getTitle(), e));
-        }
+        namespacesPage = new NamespacesPage(this);
+        addTab("namespace", namespacesPage, "Namespaces");
+        getData().initWithFormPage(namespacesPage);
     }
 
     @Override
