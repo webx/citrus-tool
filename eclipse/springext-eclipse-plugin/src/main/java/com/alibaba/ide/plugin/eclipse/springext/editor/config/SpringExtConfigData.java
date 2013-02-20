@@ -43,7 +43,7 @@ import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
  * @author Michael Zhou
  */
 @SuppressWarnings("restriction")
-public class SpringExtConfig extends SpringExtEditingData implements ITextListener {
+public class SpringExtConfigData extends SpringExtEditingData implements ITextListener {
     private IFile editingFile;
 
     private IDOMModel model;

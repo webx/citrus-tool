@@ -15,9 +15,18 @@ import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
  * @author Michael Zhou
  */
 public abstract class SpringExtEditingData extends PlatformObject implements ISchemaSetChangeListener {
+    private SpringExtFormEditor<?> editor;
     private IProject project;
     private IEditorInput input;
     private SchemaResourceSet schemas;
+
+    public final SpringExtFormEditor<?> getEditor() {
+        return editor;
+    }
+
+    void setEditor(SpringExtFormEditor<?> editor) {
+        this.editor = editor;
+    }
 
     public IProject getProject() {
         return project;

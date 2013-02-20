@@ -9,24 +9,25 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.text.source.SourceViewerConfiguration;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.ide.IGotoMarker;
 import org.eclipse.wst.sse.ui.StructuredTextEditor;
 
 import com.alibaba.ide.plugin.eclipse.springext.SpringExtConstant;
+import com.alibaba.ide.plugin.eclipse.springext.editor.SpringExtFormEditor;
 import com.alibaba.ide.plugin.eclipse.springext.editor.StructuredTextViewerConfigurationSpringExtXML;
 import com.alibaba.ide.plugin.eclipse.springext.editor.config.namespace.NamespacesPage;
 
-public class SpringExtConfigEditor extends FormEditor implements IGotoMarker {
+public class SpringExtConfigEditor extends SpringExtFormEditor<SpringExtConfigData> implements IGotoMarker {
     public final static String EDITOR_ID = SpringExtConfigEditor.class.getName();
 
     // editor & form pages
     private StructuredTextEditor sourceEditor;
     private NamespacesPage namespacesPage;
 
-    // editing data
-    private final SpringExtConfig config = new SpringExtConfig();
+    public SpringExtConfigEditor() {
+        super(new SpringExtConfigData());
+    }
 
     public StructuredTextEditor getSourceEditor() {
         return sourceEditor;
@@ -34,10 +35,6 @@ public class SpringExtConfigEditor extends FormEditor implements IGotoMarker {
 
     public NamespacesPage getNamespacesPage() {
         return namespacesPage;
-    }
-
-    public SpringExtConfig getConfig() {
-        return config;
     }
 
     @Override
@@ -54,7 +51,7 @@ public class SpringExtConfigEditor extends FormEditor implements IGotoMarker {
             @Override
             protected void setSourceViewerConfiguration(SourceViewerConfiguration config) {
                 if (config instanceof StructuredTextViewerConfigurationSpringExtXML) {
-                    ((StructuredTextViewerConfigurationSpringExtXML) config).setContext(getConfig());
+                    ((StructuredTextViewerConfigurationSpringExtXML) config).setContext(getData());
                 }
 
                 super.setSourceViewerConfiguration(config);
@@ -67,7 +64,7 @@ public class SpringExtConfigEditor extends FormEditor implements IGotoMarker {
             setPartName(sourceEditor.getTitle());
             sourceEditor.setEditorPart(this);
 
-            config.initWithTextViewer(sourceEditor.getTextViewer());
+            getData().initWithTextViewer(sourceEditor.getTextViewer());
         } catch (PartInitException e) {
             logAndDisplay(new Status(IStatus.ERROR, SpringExtConstant.PLUGIN_ID,
                     "Could not open editor for source file: " + sourceEditor.getTitle(), e));
@@ -83,7 +80,7 @@ public class SpringExtConfigEditor extends FormEditor implements IGotoMarker {
             int index = addPage(namespacesPage);
             setPageText(index, "Namespaces");
 
-            config.initWithFormPage(namespacesPage);
+            getData().initWithFormPage(namespacesPage);
         } catch (PartInitException e) {
             logAndDisplay(new Status(IStatus.ERROR, SpringExtConstant.PLUGIN_ID, "Could not add tab to editor "
                     + sourceEditor.getTitle(), e));
@@ -119,13 +116,7 @@ public class SpringExtConfigEditor extends FormEditor implements IGotoMarker {
     @Override
     protected void setInput(IEditorInput input) {
         super.setInput(input);
-        config.initWithEditorInput(input);
-    }
-
-    @Override
-    public void dispose() {
-        config.dispose();
-        super.dispose();
+        getData().initWithEditorInput(input);
     }
 
     /**

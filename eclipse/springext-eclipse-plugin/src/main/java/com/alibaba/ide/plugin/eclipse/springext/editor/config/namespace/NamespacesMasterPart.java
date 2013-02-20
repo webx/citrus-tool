@@ -26,10 +26,10 @@ import org.eclipse.ui.forms.widgets.Section;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.ContributionItem;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.TreeItem;
 import com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin;
-import com.alibaba.ide.plugin.eclipse.springext.editor.config.SpringExtConfig;
+import com.alibaba.ide.plugin.eclipse.springext.editor.config.SpringExtConfigData;
 
 public class NamespacesMasterPart extends SectionPart {
-    private final SpringExtConfig config;
+    private final SpringExtConfigData data;
     private final FormToolkit toolkit;
     private FilteredCheckboxTree tree;
     private CheckboxTreeViewer treeViewer;
@@ -37,14 +37,14 @@ public class NamespacesMasterPart extends SectionPart {
     public NamespacesMasterPart(Composite parent, NamespacesPage page) {
         super(parent, page.getManagedForm().getToolkit(), Section.DESCRIPTION | ExpandableComposite.TITLE_BAR);
 
-        this.config = page.getConfig();
+        this.data = page.getData();
         this.toolkit = page.getManagedForm().getToolkit();
 
         createContents();
     }
 
-    public SpringExtConfig getConfig() {
-        return config;
+    public SpringExtConfigData getData() {
+        return data;
     }
 
     private void createContents() {
@@ -107,7 +107,7 @@ public class NamespacesMasterPart extends SectionPart {
         // section/client/tree viewer
         treeViewer = tree.getViewer();
 
-        config.initWithNamespacesTreeViewer(treeViewer);
+        data.initWithNamespacesTreeViewer(treeViewer);
 
         treeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
             public void selectionChanged(SelectionChangedEvent event) {
@@ -117,22 +117,22 @@ public class NamespacesMasterPart extends SectionPart {
 
         treeViewer.addCheckStateListener(new ICheckStateListener() {
             public void checkStateChanged(CheckStateChangedEvent event) {
-                updateNamespaceDefinitions(config, (TreeItem) event.getElement(), event.getChecked());
-                config.forceRefreshPages();
+                updateNamespaceDefinitions(data, (TreeItem) event.getElement(), event.getChecked());
+                data.forceRefreshPages();
             }
         });
 
-        NamespacesTreeProvider provider = new NamespacesTreeProvider(config);
+        NamespacesTreeProvider provider = new NamespacesTreeProvider(data);
 
         treeViewer.setContentProvider(provider);
         treeViewer.setLabelProvider(provider);
         treeViewer.setCheckStateProvider(provider);
-        treeViewer.setInput(config.getDomDocument());
+        treeViewer.setInput(data.getDomDocument());
 
         treeListButton.addHyperlinkListener(new HyperlinkAdapter() {
             @Override
             public void linkActivated(HyperlinkEvent e) {
-                config.setListNamespacesAsTree(!config.isListNamespacesAsTree());
+                data.setListNamespacesAsTree(!data.isListNamespacesAsTree());
                 updateTreeListButton(treeListButton, collapseButton, expandButton);
             }
         });
@@ -154,7 +154,7 @@ public class NamespacesMasterPart extends SectionPart {
 
     private void updateTreeListButton(ImageHyperlink treeListButton, ImageHyperlink collapseButton,
                                       ImageHyperlink expandButton) {
-        if (config.isListNamespacesAsTree()) {
+        if (data.isListNamespacesAsTree()) {
             treeListButton.setImage(SpringExtPlugin.getDefault().getImageRegistry().get("list"));
             treeListButton.setToolTipText("View in Flat Mode");
 
@@ -168,12 +168,12 @@ public class NamespacesMasterPart extends SectionPart {
             expandButton.setEnabled(false);
         }
 
-        config.forceRefreshPages();
+        data.forceRefreshPages();
     }
 
     @Override
     public void refresh() {
-        config.forceRefreshPages();
+        data.forceRefreshPages();
         super.refresh();
     }
 

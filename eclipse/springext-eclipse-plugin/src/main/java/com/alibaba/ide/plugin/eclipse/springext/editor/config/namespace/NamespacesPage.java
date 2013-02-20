@@ -16,7 +16,7 @@ import com.alibaba.citrus.springext.support.SpringExtSchemaSet.ConfigurationPoin
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.ContributionItem;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.SpringPluggableItem;
 import com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin;
-import com.alibaba.ide.plugin.eclipse.springext.editor.config.SpringExtConfig;
+import com.alibaba.ide.plugin.eclipse.springext.editor.config.SpringExtConfigData;
 import com.alibaba.ide.plugin.eclipse.springext.editor.config.SpringExtConfigEditor;
 import com.alibaba.ide.plugin.eclipse.springext.editor.config.namespace.detail.ConfigurationPointItemDetailsPage;
 import com.alibaba.ide.plugin.eclipse.springext.editor.config.namespace.detail.ContributionItemDetailsPage;
@@ -32,16 +32,16 @@ public class NamespacesPage extends FormPage implements IDetailsPageProvider {
     private final ConfigurationPointItemDetailsPage configurationPointItemDetailsPage = new ConfigurationPointItemDetailsPage();
     private final ContributionItemDetailsPage contributionItemDetailsPage = new ContributionItemDetailsPage();
 
-    private final SpringExtConfig config;
+    private final SpringExtConfigData data;
     private NamespacesMasterPart masterPart;
 
     public NamespacesPage(SpringExtConfigEditor editor) {
         super(editor, PAGE_ID, "Namespaces");
-        this.config = editor.getConfig();
+        this.data = editor.getData();
     }
 
-    public SpringExtConfig getConfig() {
-        return config;
+    public SpringExtConfigData getData() {
+        return data;
     }
 
     public NamespacesMasterPart getMasterPart() {

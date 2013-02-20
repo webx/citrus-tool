@@ -37,7 +37,7 @@ public class StructuredTextViewerConfigurationSpringExtXML extends StructuredTex
      * <ul>
      * <li>将default text editor对应的detectors排除，因为SpringExt中的URL不需要由默认的URL
      * hyperlink来解析。</li>
-     * <li>将<code>IAdaptable</code>对象（例如：<code>SpringExtConfig</code>
+     * <li>将<code>IAdaptable</code>对象（例如：<code>SpringExtConfigData</code>
      * ）对象作为context传递给hyperlink。</li>
      * </ul>
      */

@@ -17,14 +17,14 @@ import com.alibaba.citrus.springext.support.SpringExtSchemaSet.NamespaceItem;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.SpringPluggableItem;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.TreeItem;
 import com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin;
-import com.alibaba.ide.plugin.eclipse.springext.editor.config.SpringExtConfig;
+import com.alibaba.ide.plugin.eclipse.springext.editor.config.SpringExtConfigData;
 
 @SuppressWarnings("restriction")
 public class NamespacesTreeProvider extends LabelProvider implements ITreePathLabelProvider, ITreeContentProvider,
         ICheckStateProvider {
-    private final SpringExtConfig config;
+    private final SpringExtConfigData config;
 
-    public NamespacesTreeProvider(SpringExtConfig config) {
+    public NamespacesTreeProvider(SpringExtConfigData config) {
         this.config = config;
     }
 

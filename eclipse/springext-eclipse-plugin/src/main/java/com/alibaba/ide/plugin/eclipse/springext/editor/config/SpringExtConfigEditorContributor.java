@@ -20,7 +20,7 @@ public class SpringExtConfigEditorContributor extends MultiPageEditorActionBarCo
     private final static String GROUP_ID = SpringExtConfigEditor.EDITOR_ID;
     private final CleanupUnusedNamespacesAction cleanupUnusedNamespacesAction = new CleanupUnusedNamespacesAction();
     private final UpgradeToUnqualifiedStyleAction upgradeToUnqualifiedStyleAction = new UpgradeToUnqualifiedStyleAction();
-    private SpringExtConfig config;
+    private SpringExtConfigData config;
 
     @Override
     public void contributeToToolBar(IToolBarManager toolBarManager) {
@@ -43,7 +43,7 @@ public class SpringExtConfigEditorContributor extends MultiPageEditorActionBarCo
     @Override
     public void setActiveEditor(IEditorPart part) {
         if (part instanceof SpringExtConfigEditor) {
-            config = ((SpringExtConfigEditor) part).getConfig();
+            config = ((SpringExtConfigEditor) part).getData();
         }
 
         super.setActiveEditor(part);

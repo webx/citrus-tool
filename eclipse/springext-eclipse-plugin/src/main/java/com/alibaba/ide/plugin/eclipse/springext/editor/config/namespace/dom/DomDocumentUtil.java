@@ -25,7 +25,7 @@ import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.NamespaceItem;
 import com.alibaba.citrus.springext.support.SpringExtSchemaSet.TreeItem;
 import com.alibaba.citrus.springext.util.ConvertToUnqualifiedStyle.Converter;
-import com.alibaba.ide.plugin.eclipse.springext.editor.config.SpringExtConfig;
+import com.alibaba.ide.plugin.eclipse.springext.editor.config.SpringExtConfigData;
 import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
 
 @SuppressWarnings("restriction")
@@ -43,7 +43,7 @@ public class DomDocumentUtil {
         }
     };
 
-    public static void upgradeToUnqualifiedStyle(SpringExtConfig config) {
+    public static void upgradeToUnqualifiedStyle(SpringExtConfigData config) {
         StructuredTextViewer textViewer = config.getTextViewer();
         SchemaResourceSet schemas = config.getSchemas();
         final IDOMDocument document = config.getDomDocument();
@@ -110,7 +110,7 @@ public class DomDocumentUtil {
         }
     }
 
-    public static void cleanupUnusedNamespaceDefinitions(SpringExtConfig config) {
+    public static void cleanupUnusedNamespaceDefinitions(SpringExtConfigData config) {
         StructuredTextViewer textViewer = config.getTextViewer();
         IDOMDocument document = config.getDomDocument();
         SchemaResourceSet schemas = config.getSchemas();
@@ -127,7 +127,7 @@ public class DomDocumentUtil {
         }
     }
 
-    public static void updateNamespaceDefinitionLocation(SpringExtConfig config, Schema schema, boolean checked) {
+    public static void updateNamespaceDefinitionLocation(SpringExtConfigData config, Schema schema, boolean checked) {
         StructuredTextViewer textViewer = config.getTextViewer();
         IDOMDocument document = config.getDomDocument();
         SchemaResourceSet schemas = config.getSchemas();
@@ -145,7 +145,7 @@ public class DomDocumentUtil {
         }
     }
 
-    public static void updateNamespaceDefinitions(SpringExtConfig config, TreeItem item, boolean checked) {
+    public static void updateNamespaceDefinitions(SpringExtConfigData config, TreeItem item, boolean checked) {
         StructuredTextViewer textViewer = config.getTextViewer();
         IDOMDocument document = config.getDomDocument();
         SchemaResourceSet schemas = config.getSchemas();
