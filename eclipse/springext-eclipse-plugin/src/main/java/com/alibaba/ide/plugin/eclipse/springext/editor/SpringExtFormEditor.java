@@ -1,15 +1,18 @@
 package com.alibaba.ide.plugin.eclipse.springext.editor;
 
+import static com.alibaba.citrus.generictype.TypeInfoUtil.*;
 import static com.alibaba.citrus.util.Assert.*;
 import static com.alibaba.citrus.util.CollectionUtil.*;
 import static com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil.*;
 
 import java.util.Map;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IStorageEditorInput;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.IFormPage;
@@ -27,17 +30,32 @@ import com.alibaba.ide.plugin.eclipse.springext.SpringExtConstant;
  * 
  * @author Michael Zhou
  */
-public abstract class SpringExtFormEditor<D extends SpringExtEditingData> extends FormEditor {
+public abstract class SpringExtFormEditor<D extends SpringExtEditingData, S extends IEditorPart> extends FormEditor {
+    private final static String SOURCE_TAB_KEY = "source";
     private final Map<String, TabInfo> tabs = createHashMap();
     private final D data;
+    private final Class<S> sourceEditorType;
+    private S sourceEditor;
 
     public SpringExtFormEditor(D data) {
         this.data = data;
         data.setEditor(this);
+
+        @SuppressWarnings("unchecked")
+        Class<S> c = (Class<S>) resolveParameter(getClass(), SpringExtFormEditor.class, 1).getRawType();
+        this.sourceEditorType = c;
     }
 
     public final D getData() {
         return data;
+    }
+
+    public final S getSourceEditor() {
+        return sourceEditor;
+    }
+
+    public final boolean isSourceReadOnly() {
+        return getTab(SOURCE_TAB_KEY).readOnly;
     }
 
     @Override
@@ -59,7 +77,15 @@ public abstract class SpringExtFormEditor<D extends SpringExtEditingData> extend
         return page;
     }
 
+    protected final S addSouceTab(S page, IEditorInput input, String tabTitle) {
+        return addTab(SOURCE_TAB_KEY, page, input, tabTitle);
+    }
+
     protected final <T extends IEditorPart> T addTab(String tabKey, T page, IEditorInput input, String tabTitle) {
+        if (SOURCE_TAB_KEY.equals(tabKey)) {
+            this.sourceEditor = sourceEditorType.cast(page);
+        }
+
         try {
             int index = addPage(page, input);
             setPageText(index, tabTitle);
@@ -71,6 +97,13 @@ public abstract class SpringExtFormEditor<D extends SpringExtEditingData> extend
             getOrCreateTab(tabKey).index = index;
         } catch (PartInitException e) {
             logAndDisplay(new Status(IStatus.ERROR, SpringExtConstant.PLUGIN_ID, "Could not add tab to editor", e));
+        }
+
+        if (input instanceof IStorageEditorInput) {
+            try {
+                getTab(tabKey).readOnly = ((IStorageEditorInput) input).getStorage().isReadOnly();
+            } catch (CoreException ignored) {
+            }
         }
 
         return page;

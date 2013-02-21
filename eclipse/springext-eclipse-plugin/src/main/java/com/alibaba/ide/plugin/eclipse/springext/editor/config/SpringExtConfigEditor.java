@@ -3,7 +3,6 @@ package com.alibaba.ide.plugin.eclipse.springext.editor.config;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.text.source.SourceViewerConfiguration;
-import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.ide.IGotoMarker;
 import org.eclipse.wst.sse.ui.StructuredTextEditor;
@@ -12,19 +11,13 @@ import com.alibaba.ide.plugin.eclipse.springext.editor.SpringExtFormEditor;
 import com.alibaba.ide.plugin.eclipse.springext.editor.StructuredTextViewerConfigurationSpringExtXML;
 import com.alibaba.ide.plugin.eclipse.springext.editor.config.namespace.NamespacesPage;
 
-public class SpringExtConfigEditor extends SpringExtFormEditor<SpringExtConfigData> implements IGotoMarker {
+public class SpringExtConfigEditor extends SpringExtFormEditor<SpringExtConfigData, StructuredTextEditor> implements
+        IGotoMarker {
     public final static String EDITOR_ID = SpringExtConfigEditor.class.getName();
-
-    // editor & form pages
-    private StructuredTextEditor sourceEditor;
     private NamespacesPage namespacesPage;
 
     public SpringExtConfigEditor() {
         super(new SpringExtConfigData());
-    }
-
-    public StructuredTextEditor getSourceEditor() {
-        return sourceEditor;
     }
 
     public NamespacesPage getNamespacesPage() {
@@ -41,7 +34,7 @@ public class SpringExtConfigEditor extends SpringExtFormEditor<SpringExtConfigDa
      * 创建XML源码页。
      */
     private void createSourcePage() {
-        sourceEditor = new StructuredTextEditor() {
+        StructuredTextEditor sourceEditor = new StructuredTextEditor() {
             @Override
             protected void setSourceViewerConfiguration(SourceViewerConfiguration config) {
                 if (config instanceof StructuredTextViewerConfigurationSpringExtXML) {
@@ -52,7 +45,7 @@ public class SpringExtConfigEditor extends SpringExtFormEditor<SpringExtConfigDa
             }
         };
 
-        addTab("source", sourceEditor, getEditorInput(), "Source");
+        addSouceTab(sourceEditor, getEditorInput(), "Source");
         getData().initWithTextViewer(sourceEditor.getTextViewer());
     }
 
@@ -67,34 +60,28 @@ public class SpringExtConfigEditor extends SpringExtFormEditor<SpringExtConfigDa
 
     @Override
     public void doSave(IProgressMonitor monitor) {
-        sourceEditor.doSave(monitor);
+        getSourceEditor().doSave(monitor);
     }
 
     @Override
     public void doSaveAs() {
-        sourceEditor.doSaveAs();
-        setPartName(sourceEditor.getTitle());
-        setInput(sourceEditor.getEditorInput());
+        getSourceEditor().doSaveAs();
+        setPartName(getSourceEditor().getTitle());
+        setInput(getSourceEditor().getEditorInput());
     }
 
     @Override
     public boolean isSaveAsAllowed() {
-        return sourceEditor != null && sourceEditor.isSaveAsAllowed();
+        return getSourceEditor() != null && getSourceEditor().isSaveAsAllowed();
     }
 
     @Override
     public boolean isSaveOnCloseNeeded() {
-        if (sourceEditor != null) {
-            return sourceEditor.isSaveOnCloseNeeded();
+        if (getSourceEditor() != null) {
+            return getSourceEditor().isSaveOnCloseNeeded();
         } else {
             return super.isSaveOnCloseNeeded();
         }
-    }
-
-    @Override
-    protected void setInput(IEditorInput input) {
-        super.setInput(input);
-        getData().initWithEditorInput(input);
     }
 
     /**
@@ -103,7 +90,7 @@ public class SpringExtConfigEditor extends SpringExtFormEditor<SpringExtConfigDa
      * @see IGotoMarker
      */
     public void gotoMarker(IMarker marker) {
-        setActiveEditor(sourceEditor);
-        IDE.gotoMarker(sourceEditor, marker);
+        setActiveEditor(getSourceEditor());
+        IDE.gotoMarker(getSourceEditor(), marker);
     }
 }
