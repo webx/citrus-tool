@@ -60,24 +60,24 @@ public class SpringExtConfigEditor extends SpringExtFormEditor<SpringExtConfigDa
 
     @Override
     public void doSave(IProgressMonitor monitor) {
-        getSourceEditor().doSave(monitor);
+        getData().getSourceEditor().doSave(monitor);
     }
 
     @Override
     public void doSaveAs() {
-        getSourceEditor().doSaveAs();
-        setInput(getSourceEditor().getEditorInput());
+        getData().getSourceEditor().doSaveAs();
+        setInput(getData().getSourceEditor().getEditorInput());
     }
 
     @Override
     public boolean isSaveAsAllowed() {
-        return getSourceEditor() != null && getSourceEditor().isSaveAsAllowed();
+        return getData().getSourceEditor() != null && getData().getSourceEditor().isSaveAsAllowed();
     }
 
     @Override
     public boolean isSaveOnCloseNeeded() {
-        if (getSourceEditor() != null) {
-            return getSourceEditor().isSaveOnCloseNeeded();
+        if (getData().getSourceEditor() != null) {
+            return getData().getSourceEditor().isSaveOnCloseNeeded();
         } else {
             return super.isSaveOnCloseNeeded();
         }
@@ -89,7 +89,7 @@ public class SpringExtConfigEditor extends SpringExtFormEditor<SpringExtConfigDa
      * @see IGotoMarker
      */
     public void gotoMarker(IMarker marker) {
-        setActiveEditor(getSourceEditor());
-        IDE.gotoMarker(getSourceEditor(), marker);
+        setActiveEditor(getData().getSourceEditor());
+        IDE.gotoMarker(getData().getSourceEditor(), marker);
     }
 }

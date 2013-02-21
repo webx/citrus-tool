@@ -5,6 +5,7 @@ import static com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil.
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.PlatformObject;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
 
 import com.alibaba.ide.plugin.eclipse.springext.schema.ISchemaSetChangeListener;
 import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
@@ -14,11 +15,13 @@ import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
  * 
  * @author Michael Zhou
  */
-public abstract class SpringExtEditingData extends PlatformObject implements ISchemaSetChangeListener {
+public abstract class SpringExtEditingData<S extends IEditorPart> extends PlatformObject implements
+        ISchemaSetChangeListener {
     private SpringExtFormEditor<?, ?> editor;
     private IProject project;
     private IEditorInput input;
     private SchemaResourceSet schemas;
+    private S sourceEditor;
 
     public final SpringExtFormEditor<?, ?> getEditor() {
         return editor;
@@ -26,6 +29,14 @@ public abstract class SpringExtEditingData extends PlatformObject implements ISc
 
     void setEditor(SpringExtFormEditor<?, ?> editor) {
         this.editor = editor;
+    }
+
+    public final S getSourceEditor() {
+        return sourceEditor;
+    }
+
+    protected void initWithSourceEditor(S sourceEditor) {
+        this.sourceEditor = sourceEditor;
     }
 
     public IProject getProject() {

@@ -47,12 +47,11 @@ import com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil;
  * 
  * @author Michael Zhou
  */
-public abstract class SpringExtFormEditor<D extends SpringExtEditingData, S extends IEditorPart> extends FormEditor {
+public abstract class SpringExtFormEditor<D extends SpringExtEditingData<S>, S extends IEditorPart> extends FormEditor {
     public final static String SOURCE_TAB_KEY = "source";
     private final Map<String, TabInfo> tabs = createHashMap();
     private final D data;
     private final Class<S> sourceEditorType;
-    private S sourceEditor;
 
     public SpringExtFormEditor(D data) {
         this.data = data;
@@ -65,10 +64,6 @@ public abstract class SpringExtFormEditor<D extends SpringExtEditingData, S exte
 
     public final D getData() {
         return data;
-    }
-
-    public final S getSourceEditor() {
-        return sourceEditor;
     }
 
     public final boolean isSourceReadOnly() {
@@ -100,7 +95,7 @@ public abstract class SpringExtFormEditor<D extends SpringExtEditingData, S exte
 
     protected final <T extends IEditorPart> T addTab(String tabKey, T page, IEditorInput input, String tabTitle) {
         if (SOURCE_TAB_KEY.equals(tabKey)) {
-            this.sourceEditor = sourceEditorType.cast(page);
+            data.initWithSourceEditor(sourceEditorType.cast(page));
         }
 
         try {

@@ -19,6 +19,7 @@ import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.IFormPage;
 import org.eclipse.wst.sse.core.StructuredModelManager;
 import org.eclipse.wst.sse.core.internal.provisional.IStructuredModel;
+import org.eclipse.wst.sse.ui.StructuredTextEditor;
 import org.eclipse.wst.sse.ui.internal.StructuredTextViewer;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMDocument;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMModel;
@@ -43,7 +44,7 @@ import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
  * @author Michael Zhou
  */
 @SuppressWarnings("restriction")
-public class SpringExtConfigData extends SpringExtEditingData implements ITextListener {
+public class SpringExtConfigData extends SpringExtEditingData<StructuredTextEditor> implements ITextListener {
     private IFile editingFile;
 
     private IDOMModel model;
