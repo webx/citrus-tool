@@ -2,7 +2,9 @@ package com.alibaba.ide.plugin.eclipse.springext.editor.component.cp;
 
 import static com.alibaba.citrus.util.BasicConstant.*;
 import static com.alibaba.citrus.util.ObjectUtil.*;
+import static com.alibaba.citrus.util.StringUtil.*;
 
+import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
 import org.eclipse.jdt.internal.ui.propertiesfileeditor.PropertiesFileEditor;
@@ -142,17 +144,17 @@ public class ConfigurationPointData extends AbstractSpringExtComponentData<Confi
 
             ConfigurationPointModel newModel = new ConfigurationPointModel();
 
-            newModel.name = nameText.getText();
-            newModel.namespaceUri = namespaceText.getText();
-            newModel.defaultElementName = defaultElementText.getText();
-            newModel.defaultNsPrefix = defaultNsPrefixText.getText();
+            newModel.name = trimToNull(nameText.getText());
+            newModel.namespaceUri = trimToNull(namespaceText.getText());
+            newModel.defaultElementName = trimToNull(defaultElementText.getText());
+            newModel.defaultNsPrefix = trimToNull(defaultNsPrefixText.getText());
 
             updateDocument(model, newModel);
             model = newModel;
         }
 
         public void updateDocument(ConfigurationPointModel oldValue, ConfigurationPointModel newValue) {
-
+            PropertiesUtil.updateDocument(document, oldValue.name, newValue.name, newValue.toRawValue());
         }
 
         /**
@@ -198,8 +200,35 @@ public class ConfigurationPointData extends AbstractSpringExtComponentData<Confi
             super(key, rawValue);
             name = key;
             namespaceUri = value;
-            defaultElementName = params.get("defaultElement");
-            defaultNsPrefix = params.get("nsPrefix");
+            defaultElementName = params.remove("defaultElement");
+            defaultNsPrefix = params.remove("nsPrefix");
+        }
+
+        public String toRawValue() {
+            StringBuilder buf = new StringBuilder();
+
+            if (namespaceUri != null) {
+                buf.append(namespaceUri);
+            }
+
+            if (defaultElementName != null) {
+                buf.append(", defaultElement=").append(defaultElementName);
+            }
+
+            if (defaultNsPrefix != null) {
+                buf.append(", nsPrefix=").append(defaultNsPrefix);
+            }
+
+            for (Map.Entry<String, String> entry : params.entrySet()) {
+                buf.append(", ").append(entry.getKey()).append("=").append(entry.getValue());
+            }
+
+            return buf.toString();
+        }
+
+        @Override
+        public String toString() {
+            return name + " = " + toRawValue();
         }
     }
 }
