@@ -38,4 +38,11 @@ public class ContributionHyperlink extends AbstractSpringExtHyperlink<Contributi
     protected Schema getComponentDefaultSchema() {
         return component.getSchemas().getMainSchema();
     }
+
+    @Override
+    protected boolean compareComponent(Contribution thisComponent, Contribution otherComponent) {
+        return thisComponent.getName().equals(otherComponent.getName())
+                && thisComponent.getConfigurationPoint().getName()
+                        .equals(otherComponent.getConfigurationPoint().getName());
+    }
 }

@@ -41,4 +41,9 @@ public class ConfigurationPointHyperlink extends AbstractSpringExtHyperlink<Conf
     protected Schema getComponentDefaultSchema() {
         return component.getSchemas().getMainSchema();
     }
+
+    @Override
+    protected boolean compareComponent(ConfigurationPoint thisComponent, ConfigurationPoint otherComponent) {
+        return thisComponent.getName().equals(otherComponent.getName());
+    }
 }

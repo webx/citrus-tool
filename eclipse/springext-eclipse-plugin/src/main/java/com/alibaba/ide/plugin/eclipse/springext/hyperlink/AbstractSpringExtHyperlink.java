@@ -86,6 +86,11 @@ public abstract class AbstractSpringExtHyperlink<C> implements IHyperlink {
      */
     protected abstract Schema getComponentDefaultSchema();
 
+    /**
+     * 此方法用来避免重复打开编辑器。
+     */
+    protected abstract boolean compareComponent(C thisComponent, C otherComponent);
+
     private class SpringExtComponentEditorInput extends PlatformObject implements IEditorInput {
         public boolean exists() {
             return component != null;
@@ -105,6 +110,26 @@ public abstract class AbstractSpringExtHyperlink<C> implements IHyperlink {
 
         public String getName() {
             return AbstractSpringExtHyperlink.this.getName();
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public boolean equals(Object obj) {
+            if (obj != null && obj.getClass().equals(getClass())) {
+                Object otherComponent = ((SpringExtComponentEditorInput) obj).getComponent();
+                C component = getComponent();
+
+                if (component != null && otherComponent != null
+                        && otherComponent.getClass().equals(component.getClass())) {
+                    return compareComponent(component, (C) otherComponent);
+                }
+            }
+
+            return super.equals(obj);
+        }
+
+        private C getComponent() {
+            return component;
         }
 
         @Override

@@ -2,6 +2,8 @@ package com.alibaba.ide.plugin.eclipse.springext.hyperlink;
 
 import static com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil.*;
 
+import java.net.URL;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.text.IRegion;
 import org.jetbrains.annotations.NotNull;
@@ -44,5 +46,14 @@ public class SpringPluggableSchemaHyperlink extends AbstractSpringExtHyperlink<S
     @Override
     protected Schema getComponentDefaultSchema() {
         return null;
+    }
+
+    @Override
+    protected boolean compareComponent(SpringPluggableSchemaSourceInfo thisComponent,
+                                       SpringPluggableSchemaSourceInfo otherComponent) {
+        URL u1 = getSourceURL(thisComponent);
+        URL u2 = getSourceURL(otherComponent);
+
+        return u1.equals(u2);
     }
 }
