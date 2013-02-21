@@ -8,9 +8,9 @@ import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
 import org.eclipse.jdt.internal.ui.propertiesfileeditor.PropertiesFileEditor;
+import org.eclipse.jface.text.DocumentEvent;
 import org.eclipse.jface.text.IDocument;
-import org.eclipse.jface.text.ITextListener;
-import org.eclipse.jface.text.TextEvent;
+import org.eclipse.jface.text.IDocumentListener;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -58,6 +58,7 @@ public class ConfigurationPointData extends AbstractSpringExtComponentData<Confi
     protected void initWithSourceEditor(PropertiesFileEditor sourceEditor) {
         super.initWithSourceEditor(sourceEditor);
         document = sourceEditor.getDocumentProvider().getDocument(sourceEditor.getEditorInput());
+        document.addDocumentListener(getDocumentViewer());
     }
 
     @Override
@@ -92,7 +93,16 @@ public class ConfigurationPointData extends AbstractSpringExtComponentData<Confi
         }
     }
 
-    public class ConfigurationPointViewer implements ModifyListener, ITextListener {
+    @Override
+    public void dispose() {
+        if (document != null) {
+            document.removeDocumentListener(getDocumentViewer());
+        }
+
+        super.dispose();
+    }
+
+    public class ConfigurationPointViewer implements ModifyListener, IDocumentListener {
         private final ReentrantLock refreshingLock = new ReentrantLock();
         private Text nameText;
         private Text namespaceText;
@@ -149,18 +159,23 @@ public class ConfigurationPointData extends AbstractSpringExtComponentData<Confi
             newModel.defaultElementName = trimToNull(defaultElementText.getText());
             newModel.defaultNsPrefix = trimToNull(defaultNsPrefixText.getText());
 
-            updateDocument(model, newModel);
-            model = newModel;
+            if (model != null) {
+                updateDocument(model, newModel);
+                model = newModel;
+            }
         }
 
         public void updateDocument(ConfigurationPointModel oldValue, ConfigurationPointModel newValue) {
             PropertiesUtil.updateDocument(document, oldValue.name, newValue.name, newValue.toRawValue());
         }
 
+        public void documentAboutToBeChanged(DocumentEvent event) {
+        }
+
         /**
          * 当用户直接修改了文件时。
          */
-        public void textChanged(TextEvent event) {
+        public void documentChanged(DocumentEvent event) {
             refresh();
         }
 
