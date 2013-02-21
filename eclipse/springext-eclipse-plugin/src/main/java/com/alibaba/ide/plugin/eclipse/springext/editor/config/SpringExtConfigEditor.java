@@ -66,7 +66,6 @@ public class SpringExtConfigEditor extends SpringExtFormEditor<SpringExtConfigDa
     @Override
     public void doSaveAs() {
         getSourceEditor().doSaveAs();
-        setPartName(getSourceEditor().getTitle());
         setInput(getSourceEditor().getEditorInput());
     }
 
