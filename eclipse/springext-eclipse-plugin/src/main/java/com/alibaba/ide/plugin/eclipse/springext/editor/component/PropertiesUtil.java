@@ -220,9 +220,9 @@ public class PropertiesUtil {
             'F' };
 
     public static abstract class PropertyModel {
-        public final String key;
-        public final String value;
-        public final Map<String, String> params = createHashMap();
+        protected final String key;
+        protected final String value;
+        protected final Map<String, String> params = createHashMap();
 
         public PropertyModel() {
             this(null, null);

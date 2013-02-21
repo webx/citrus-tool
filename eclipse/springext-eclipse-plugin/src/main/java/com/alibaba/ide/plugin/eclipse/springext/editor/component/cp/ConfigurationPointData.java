@@ -170,7 +170,8 @@ public class ConfigurationPointData extends AbstractSpringExtComponentData<Confi
         public void refresh() {
             try {
                 refreshingLock.lock();
-                model = PropertiesUtil.getModel(ConfigurationPointModel.class, document, cp.getName());
+                model = PropertiesUtil.getModel(ConfigurationPointModel.class, document, model == null ? cp.getName()
+                        : model.name);
 
                 if (model != null) {
                     nameText.setText(model.name);
