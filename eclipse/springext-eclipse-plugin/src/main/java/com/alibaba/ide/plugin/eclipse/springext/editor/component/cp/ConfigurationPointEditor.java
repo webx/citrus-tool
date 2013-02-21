@@ -34,7 +34,7 @@ public class ConfigurationPointEditor extends
 
     @Override
     public void doSave(IProgressMonitor monitor) {
-        getSourceEditor().doSave(monitor);
+        getData().getSourceEditor().doSave(monitor);
     }
 
     @Override

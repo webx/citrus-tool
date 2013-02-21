@@ -1,15 +1,11 @@
 package com.alibaba.ide.plugin.eclipse.springext.editor.component.cp;
 
 import static com.alibaba.citrus.util.BasicConstant.*;
-import static com.alibaba.citrus.util.ObjectUtil.*;
 
 import java.net.URL;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.SectionPart;
 import org.eclipse.ui.forms.editor.FormPage;
@@ -25,6 +21,7 @@ import com.alibaba.citrus.springext.ConfigurationPoint;
 import com.alibaba.citrus.springext.Contribution;
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin;
+import com.alibaba.ide.plugin.eclipse.springext.editor.SpringExtFormEditor;
 import com.alibaba.ide.plugin.eclipse.springext.hyperlink.ContributionHyperlink;
 import com.alibaba.ide.plugin.eclipse.springext.util.HyperlinkTextBuilder;
 import com.alibaba.ide.plugin.eclipse.springext.util.HyperlinkTextBuilder.AbstractHyperlink;
@@ -74,10 +71,6 @@ public class OverviewPage extends FormPage {
     }
 
     private class DefinitionPart extends SectionPart {
-        private Text nameText;
-        private Text namespaceText;
-        private Text defaultElementText;
-        private Text defaultNsPrefixText;
         private FormText definedInText;
         private FormText schemaText;
 
@@ -105,43 +98,8 @@ public class OverviewPage extends FormPage {
             client.setLayout(layout);
             section.setClient(client);
 
-            ModifyListener listener = new ModifyListener() {
-                public void modifyText(ModifyEvent e) {
-                    updateDefinitionFile();
-                }
-            };
-
             // section/client/name
-            toolkit.createLabel(client, "Name");
-            nameText = toolkit.createText(client, "");
-            nameText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP));
-
-            // section/client/namespace
-            toolkit.createLabel(client, "Namespace");
-            namespaceText = toolkit.createText(client, "");
-            namespaceText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP));
-
-            // section/client/defaultElementName
-            toolkit.createLabel(client, "Default Element Name");
-            defaultElementText = toolkit.createText(client, "");
-            defaultElementText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP));
-
-            // section/client/defaultNamespacePrefix
-            toolkit.createLabel(client, "Default Namespace Prefix");
-            defaultNsPrefixText = toolkit.createText(client, "");
-            defaultNsPrefixText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP));
-
-            if (data.isReadOnly()) {
-                nameText.setEditable(false);
-                namespaceText.setEditable(false);
-                defaultElementText.setEditable(false);
-                defaultNsPrefixText.setEditable(false);
-            } else {
-                nameText.addModifyListener(listener);
-                namespaceText.addModifyListener(listener);
-                defaultElementText.addModifyListener(listener);
-                defaultNsPrefixText.addModifyListener(listener);
-            }
+            data.getDocumentViewer().createContent(client, toolkit);
 
             // separator
             toolkit.createLabel(client, EMPTY_STRING).setLayoutData(
@@ -160,35 +118,26 @@ public class OverviewPage extends FormPage {
             schemaText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP));
         }
 
-        private void updateDefinitionFile() {
-            String name = nameText.getText();
-            String namespace = namespaceText.getText();
-            String defaultElement = defaultElementText.getText();
-            String defaultNsPrefix = defaultNsPrefixText.getText();
-
-        }
-
         @Override
         public void refresh() {
-            ConfigurationPoint cp = data.getConfigurationPoint();
-            Schema schema = data.getSchema();
-            URL defURL = SpringExtPluginUtil.getSourceURL(cp);
+            data.getDocumentViewer().refresh();
 
-            nameText.setText(cp.getName());
-            namespaceText.setText(cp.getNamespaceUri());
-            defaultElementText.setText(defaultIfNull(cp.getDefaultElementName(), EMPTY_STRING));
-            defaultNsPrefixText.setText(defaultIfNull(cp.getPreferredNsPrefix(), EMPTY_STRING));
+            ConfigurationPoint cp = data.getConfigurationPoint();
+
+            URL defURL = SpringExtPluginUtil.getSourceURL(cp);
 
             new HyperlinkTextBuilder(toolkit).append("<p>")
                     .appendLink(defURL.toExternalForm(), new AbstractHyperlink() {
                         public void open() {
-                            editor.activePage("def");
+                            editor.setActiveTab(SpringExtFormEditor.SOURCE_TAB_KEY);
                         }
                     }).append("</p>").setText(definedInText);
 
+            Schema schema = data.getSchema();
+
             new HyperlinkTextBuilder(toolkit).append("<p>").appendLink(schema.getName(), new AbstractHyperlink() {
                 public void open() {
-                    editor.activePage("schema");
+                    editor.setActiveTab("schema");
                 }
             }).append("</p>").setText(schemaText);
 

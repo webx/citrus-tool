@@ -1,17 +1,37 @@
 package com.alibaba.ide.plugin.eclipse.springext.editor.component.cp;
 
+import static com.alibaba.citrus.util.BasicConstant.*;
+import static com.alibaba.citrus.util.ObjectUtil.*;
+
+import java.util.concurrent.locks.ReentrantLock;
+
+import org.eclipse.jdt.internal.ui.propertiesfileeditor.PropertiesFileEditor;
+import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.ITextListener;
+import org.eclipse.jface.text.TextEvent;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.forms.AbstractFormPart;
 import org.eclipse.ui.forms.IFormPart;
+import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.ui.forms.widgets.TableWrapData;
 
 import com.alibaba.citrus.springext.ConfigurationPoint;
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.ide.plugin.eclipse.springext.editor.component.AbstractSpringExtComponentData;
+import com.alibaba.ide.plugin.eclipse.springext.editor.component.PropertiesUtil;
+import com.alibaba.ide.plugin.eclipse.springext.editor.component.PropertiesUtil.PropertyModel;
 
+@SuppressWarnings("restriction")
 public class ConfigurationPointData extends AbstractSpringExtComponentData<ConfigurationPoint> {
-    private ConfigurationPointEditor editor;
+    private final ConfigurationPointViewer documentViewer = new ConfigurationPointViewer();
     private ConfigurationPoint cp;
     private Schema schema;
+    private IDocument document;
 
     public ConfigurationPoint getConfigurationPoint() {
         return cp;
@@ -21,12 +41,8 @@ public class ConfigurationPointData extends AbstractSpringExtComponentData<Confi
         return schema;
     }
 
-    public void initWithEditor(ConfigurationPointEditor editor) {
-        this.editor = editor;
-    }
-
-    public boolean isReadOnly() {
-        return editor != null && editor.isReadOnly("def");
+    public ConfigurationPointViewer getDocumentViewer() {
+        return documentViewer;
     }
 
     @Override
@@ -34,6 +50,12 @@ public class ConfigurationPointData extends AbstractSpringExtComponentData<Confi
         super.initWithEditorInput(input);
         cp = (ConfigurationPoint) input.getAdapter(ConfigurationPoint.class);
         schema = (Schema) input.getAdapter(Schema.class);
+    }
+
+    @Override
+    protected void initWithSourceEditor(PropertiesFileEditor sourceEditor) {
+        super.initWithSourceEditor(sourceEditor);
+        document = sourceEditor.getDocumentProvider().getDocument(sourceEditor.getEditorInput());
     }
 
     @Override
@@ -65,6 +87,119 @@ public class ConfigurationPointData extends AbstractSpringExtComponentData<Confi
                     ((AbstractFormPart) part).markStale();
                 }
             }
+        }
+    }
+
+    public class ConfigurationPointViewer implements ModifyListener, ITextListener {
+        private final ReentrantLock refreshingLock = new ReentrantLock();
+        private Text nameText;
+        private Text namespaceText;
+        private Text defaultElementText;
+        private Text defaultNsPrefixText;
+        private ConfigurationPointModel model;
+
+        public void createContent(Composite parent, FormToolkit toolkit) {
+            // section/client/name
+            toolkit.createLabel(parent, "Name");
+            nameText = toolkit.createText(parent, "");
+            nameText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP));
+
+            // section/client/namespace
+            toolkit.createLabel(parent, "Namespace");
+            namespaceText = toolkit.createText(parent, "");
+            namespaceText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP));
+
+            // section/client/defaultElementName
+            toolkit.createLabel(parent, "Default Element Name");
+            defaultElementText = toolkit.createText(parent, "");
+            defaultElementText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP));
+
+            // section/client/defaultNamespacePrefix
+            toolkit.createLabel(parent, "Default Namespace Prefix");
+            defaultNsPrefixText = toolkit.createText(parent, "");
+            defaultNsPrefixText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP));
+
+            if (getEditor().isSourceReadOnly()) {
+                nameText.setEditable(false);
+                namespaceText.setEditable(false);
+                defaultElementText.setEditable(false);
+                defaultNsPrefixText.setEditable(false);
+            } else {
+                nameText.addModifyListener(this);
+                namespaceText.addModifyListener(this);
+                defaultElementText.addModifyListener(this);
+                defaultNsPrefixText.addModifyListener(this);
+            }
+        }
+
+        /**
+         * 将字段的修改写入文件中。
+         */
+        public void modifyText(ModifyEvent e) {
+            if (refreshingLock.isLocked()) {
+                return;
+            }
+
+            ConfigurationPointModel newModel = new ConfigurationPointModel();
+
+            newModel.name = nameText.getText();
+            newModel.namespaceUri = namespaceText.getText();
+            newModel.defaultElementName = defaultElementText.getText();
+            newModel.defaultNsPrefix = defaultNsPrefixText.getText();
+
+            updateDocument(model, newModel);
+            model = newModel;
+        }
+
+        public void updateDocument(ConfigurationPointModel oldValue, ConfigurationPointModel newValue) {
+
+        }
+
+        /**
+         * 当用户直接修改了文件时。
+         */
+        public void textChanged(TextEvent event) {
+            refresh();
+        }
+
+        /**
+         * 将文件的内容更新到字段中。
+         */
+        public void refresh() {
+            try {
+                refreshingLock.lock();
+                model = PropertiesUtil.getModel(ConfigurationPointModel.class, document, cp.getName());
+
+                if (model != null) {
+                    nameText.setText(model.name);
+                    namespaceText.setText(model.namespaceUri);
+                    defaultElementText.setText(defaultIfNull(model.defaultElementName, EMPTY_STRING));
+                    defaultNsPrefixText.setText(defaultIfNull(model.defaultNsPrefix, EMPTY_STRING));
+                }
+            } finally {
+                refreshingLock.unlock();
+            }
+        }
+    }
+
+    /**
+     * 一个简单的封装类，代表configuration point的编辑数据。
+     */
+    public static class ConfigurationPointModel extends PropertyModel {
+        public String name;
+        public String namespaceUri;
+        public String defaultElementName;
+        public String defaultNsPrefix;
+
+        public ConfigurationPointModel() {
+        }
+
+        public ConfigurationPointModel(String key, String rawValue) {
+            super(key, rawValue);
+            name = key;
+            namespaceUri = value;
+            defaultElementName = params.get("defaultElement");
+            defaultNsPrefix = params.get("nsPrefix");
         }
     }
 }

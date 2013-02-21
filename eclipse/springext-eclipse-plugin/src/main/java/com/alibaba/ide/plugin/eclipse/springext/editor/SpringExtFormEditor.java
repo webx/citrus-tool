@@ -94,10 +94,6 @@ public abstract class SpringExtFormEditor<D extends SpringExtEditingData<S>, S e
     }
 
     protected final <T extends IEditorPart> T addTab(String tabKey, T page, IEditorInput input, String tabTitle) {
-        if (SOURCE_TAB_KEY.equals(tabKey)) {
-            data.initWithSourceEditor(sourceEditorType.cast(page));
-        }
-
         try {
             int index = addPage(page, input);
             setPageText(index, tabTitle);
@@ -116,6 +112,10 @@ public abstract class SpringExtFormEditor<D extends SpringExtEditingData<S>, S e
                 getTab(tabKey).readOnly = ((IStorageEditorInput) input).getStorage().isReadOnly();
             } catch (CoreException ignored) {
             }
+        }
+
+        if (SOURCE_TAB_KEY.equals(tabKey)) {
+            data.initWithSourceEditor(sourceEditorType.cast(page));
         }
 
         return page;
