@@ -48,7 +48,7 @@ import com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil;
  * @author Michael Zhou
  */
 public abstract class SpringExtFormEditor<D extends SpringExtEditingData, S extends IEditorPart> extends FormEditor {
-    private final static String SOURCE_TAB_KEY = "source";
+    public final static String SOURCE_TAB_KEY = "source";
     private final Map<String, TabInfo> tabs = createHashMap();
     private final D data;
     private final Class<S> sourceEditorType;

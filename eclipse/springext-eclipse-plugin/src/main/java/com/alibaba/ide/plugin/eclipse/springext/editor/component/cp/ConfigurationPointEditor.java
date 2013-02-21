@@ -16,32 +16,25 @@ public class ConfigurationPointEditor extends
 
     public ConfigurationPointEditor() {
         super(new ConfigurationPointData());
-        getData().initWithEditor(this);
     }
 
     @Override
     protected void addPages() {
-        createOverviewPage();
-        createDefinitionFileEditor();
-        createSchemaEditor();
-    }
+        // overview page
+        addTab("overview", new OverviewPage(this), "Overview");
 
-    private void createOverviewPage() {
-        addPage("overview", new OverviewPage(this), "Overview");
-    }
-
-    private void createDefinitionFileEditor() {
+        // definition file, editable
         URL definitionURL = getSourceURL(getData().getConfigurationPoint());
-        createPropertiesEditorPage("def", definitionURL, getLastSegment(definitionURL.toExternalForm()));
-    }
+        createPropertiesEditorPage(SOURCE_TAB_KEY, definitionURL, getLastSegment(definitionURL.toExternalForm()));
 
-    private void createSchemaEditor() {
+        // schema file, read only
         Schema schema = getData().getSchema();
         createSchemaEditorPage("schema", schema, "<generated> " + getLastSegment(schema.getName()));
     }
 
     @Override
     public void doSave(IProgressMonitor monitor) {
+        getSourceEditor().doSave(monitor);
     }
 
     @Override
