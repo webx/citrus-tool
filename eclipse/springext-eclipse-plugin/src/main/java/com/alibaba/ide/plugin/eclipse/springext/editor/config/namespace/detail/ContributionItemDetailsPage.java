@@ -32,15 +32,15 @@ public class ContributionItemDetailsPage extends AbstractTreeItemDetailsPage<Con
         sourceText = toolkit.createFormText(client, false);
         sourceText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));
 
-        toolkit.createLabel(client, "Contribution Type");
-        contributionType = toolkit.createFormText(client, false);
-        contributionType.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));
-
         toolkit.createLabel(client, "Contribution Name");
         contributionName = toolkit.createFormText(client, false);
         contributionName.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));
 
-        toolkit.createLabel(client, "Contributing to");
+        toolkit.createLabel(client, "Contribution Type");
+        contributionType = toolkit.createFormText(client, false);
+        contributionType.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));
+
+        toolkit.createLabel(client, "Belongs to");
         configurationPointName = toolkit.createFormText(client, false);
         configurationPointName.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));
 
