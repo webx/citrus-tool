@@ -143,40 +143,42 @@ public class OverviewPage extends FormPage {
             data.getDocumentViewer().refresh();
 
             Contribution contrib = data.getContribution();
-            Schema schema = data.getSchema();
+            Schema schema = data.getSchema(); // schema可能不存在
 
             contributionTypeText.setText(contrib.getType().toString(), false, false);
 
-            ConfigurationPoint cp = contrib.getConfigurationPoint();
-            Schema cpSchema = cp.getSchemas().getVersionedSchema(schema.getVersion());
+            if (schema != null) {
+                ConfigurationPoint cp = contrib.getConfigurationPoint();
+                Schema cpSchema = cp.getSchemas().getVersionedSchema(schema.getVersion());
 
-            new HyperlinkTextBuilder(toolkit).append("<p>")
-                    .appendLink(cp.getNamespaceUri(), new ConfigurationPointHyperlink(data.getProject(), cpSchema))
-                    .append("</p>").setText(belongsToText);
+                new HyperlinkTextBuilder(toolkit).append("<p>")
+                        .appendLink(cp.getNamespaceUri(), new ConfigurationPointHyperlink(data.getProject(), cpSchema))
+                        .append("</p>").setText(belongsToText);
 
-            URL defURL = SpringExtPluginUtil.getSourceURL(contrib);
+                URL defURL = SpringExtPluginUtil.getSourceURL(contrib);
 
-            new HyperlinkTextBuilder(toolkit).append("<p>")
-                    .appendLink(defURL.toExternalForm(), new AbstractHyperlink() {
-                        public void open() {
-                            editor.setActiveTab(SpringExtFormEditor.SOURCE_TAB_KEY);
-                        }
-                    }).append("</p>").setText(definedInText);
+                new HyperlinkTextBuilder(toolkit).append("<p>")
+                        .appendLink(defURL.toExternalForm(), new AbstractHyperlink() {
+                            public void open() {
+                                editor.setActiveTab(SpringExtFormEditor.SOURCE_TAB_KEY);
+                            }
+                        }).append("</p>").setText(definedInText);
 
-            URL schemaURL = SpringExtPluginUtil.getSourceURL(schema);
+                URL schemaURL = SpringExtPluginUtil.getSourceURL(schema);
 
-            new HyperlinkTextBuilder(toolkit).append("<p>")
-                    .appendLink(schemaURL.toExternalForm(), new AbstractHyperlink() {
-                        public void open() {
-                            editor.setActiveTab("originalSchema");
-                        }
-                    }).append("</p>").setText(schemaText);
+                new HyperlinkTextBuilder(toolkit).append("<p>")
+                        .appendLink(schemaURL.toExternalForm(), new AbstractHyperlink() {
+                            public void open() {
+                                editor.setActiveTab("originalSchema");
+                            }
+                        }).append("</p>").setText(schemaText);
 
-            new HyperlinkTextBuilder(toolkit).append("<p>").appendLink(schema.getName(), new AbstractHyperlink() {
-                public void open() {
-                    editor.setActiveTab("generatedSchema");
-                }
-            }).append("</p>").setText(schemaGeneratedText);
+                new HyperlinkTextBuilder(toolkit).append("<p>").appendLink(schema.getName(), new AbstractHyperlink() {
+                    public void open() {
+                        editor.setActiveTab("generatedSchema");
+                    }
+                }).append("</p>").setText(schemaGeneratedText);
+            }
 
             super.refresh();
         }

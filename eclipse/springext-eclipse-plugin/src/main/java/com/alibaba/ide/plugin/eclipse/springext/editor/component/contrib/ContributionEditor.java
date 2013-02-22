@@ -5,21 +5,15 @@ import static com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil.
 import java.net.URL;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jdt.internal.ui.propertiesfileeditor.PropertiesFileEditor;
 import org.eclipse.wst.sse.ui.StructuredTextEditor;
 
 import com.alibaba.citrus.springext.Contribution;
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.ide.plugin.eclipse.springext.editor.component.AbstractSpringExtComponentEditor;
 
-@SuppressWarnings("restriction")
 public class ContributionEditor extends AbstractSpringExtComponentEditor<Contribution, ContributionData> {
     public final static String EDITOR_ID = ContributionEditor.class.getName();
-
-    // editor & form pages
-    private PropertiesFileEditor definitionFileEditor;
     private StructuredTextEditor schemaEditor;
-    private StructuredTextEditor generatedSchemaEditor;
 
     public ContributionEditor() {
         super(new ContributionData());
@@ -30,21 +24,27 @@ public class ContributionEditor extends AbstractSpringExtComponentEditor<Contrib
         // overview page
         addTab("overview", new OverviewPage(this), "Overview");
 
+        // definition file, editable
         URL definitionURL = getSourceURL(getData().getContribution());
-        definitionFileEditor = createPropertiesEditorPage(SOURCE_TAB_KEY, definitionURL,
-                getLastSegment(definitionURL.toExternalForm()));
+        createPropertiesEditorPage(SOURCE_TAB_KEY, definitionURL, getLastSegment(definitionURL.toExternalForm()));
 
-        URL originalSourceURL = getSourceURL(getData().getSchema());
-        schemaEditor = createSchemaEditorPage("originalSchema", originalSourceURL,
-                getLastSegment(originalSourceURL.toExternalForm()));
+        Schema schema = getData().getSchema(); // schema可能不存在
 
-        Schema schema = getData().getSchema();
-        generatedSchemaEditor = createSchemaEditorPage("generatedSchema", schema, "<generated> "
-                + getLastSegment(schema.getName()));
+        if (schema != null) {
+            // schema file, editable
+            URL originalSourceURL = getSourceURL(schema);
+            schemaEditor = createSchemaEditorPage("originalSchema", originalSourceURL,
+                    getLastSegment(originalSourceURL.toExternalForm()));
+
+            // generated schema file, read only
+            createSchemaEditorPage("generatedSchema", schema, "<generated> " + getLastSegment(schema.getName()));
+        }
     }
 
     @Override
     public void doSave(IProgressMonitor monitor) {
+        getData().getSourceEditor().doSave(monitor);
+        schemaEditor.doSave(monitor);
     }
 
     @Override
