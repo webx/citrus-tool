@@ -15,8 +15,6 @@ import org.eclipse.jdt.internal.ui.dialogs.FilteredTypesSelectionDialog;
 import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Button;
@@ -89,7 +87,7 @@ public class ContributionData extends AbstractSpringExtComponentData<Contributio
         return new ContributionViewer();
     }
 
-    public class ContributionViewer extends DocumentViewer implements ModifyListener {
+    public class ContributionViewer extends DocumentViewer {
         private Text nameText;
         private Text classNameText;
         private ContributionModel model;
@@ -185,11 +183,8 @@ public class ContributionData extends AbstractSpringExtComponentData<Contributio
         /**
          * 将字段的修改写入文件中。
          */
-        public void modifyText(ModifyEvent e) {
-            if (isRefreshing()) {
-                return;
-            }
-
+        @Override
+        protected void doUpdate() {
             ContributionModel newModel = new ContributionModel();
 
             newModel.name = trimToNull(nameText.getText());

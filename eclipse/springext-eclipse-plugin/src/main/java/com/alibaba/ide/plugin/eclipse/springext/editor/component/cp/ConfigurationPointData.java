@@ -6,8 +6,6 @@ import static com.alibaba.citrus.util.StringUtil.*;
 
 import java.util.Map;
 
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IEditorInput;
@@ -65,7 +63,7 @@ public class ConfigurationPointData extends AbstractSpringExtComponentData<Confi
         return new ConfigurationPointViewer();
     }
 
-    public class ConfigurationPointViewer extends DocumentViewer implements ModifyListener {
+    public class ConfigurationPointViewer extends DocumentViewer {
         private Text nameText;
         private Text namespaceText;
         private Text defaultElementText;
@@ -109,11 +107,8 @@ public class ConfigurationPointData extends AbstractSpringExtComponentData<Confi
         /**
          * 将字段的修改写入文件中。
          */
-        public void modifyText(ModifyEvent e) {
-            if (isRefreshing()) {
-                return;
-            }
-
+        @Override
+        protected void doUpdate() {
             ConfigurationPointModel newModel = new ConfigurationPointModel();
 
             newModel.name = trimToNull(nameText.getText());
