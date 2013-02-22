@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Callable;
@@ -46,6 +47,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.citrus.springext.ConfigurationPoint;
+import com.alibaba.citrus.springext.Contribution;
 import com.alibaba.citrus.springext.ContributionType;
 import com.alibaba.citrus.springext.ResourceResolver;
 import com.alibaba.citrus.springext.ResourceResolver.Resource;
@@ -128,6 +130,34 @@ public class SchemaResourceSet extends SpringExtSchemaSet {
         }
 
         return schema;
+    }
+
+    public ConfigurationPointItem[] getChildConfigurationPoint(Contribution contrib) {
+        LinkedList<TreeItem> queue = createLinkedList(getIndependentItems());
+
+        while (!queue.isEmpty()) {
+            TreeItem item = queue.removeFirst();
+
+            if (item.hasChildren()) {
+                for (TreeItem child : item.getChildren()) {
+                    queue.addLast(child);
+                }
+            }
+
+            if (item instanceof ContributionItem) {
+                Contribution itemContrib = ((ContributionItem) item).getContribution();
+
+                if (contrib.getConfigurationPoint().getNamespaceUri()
+                        .equals(itemContrib.getConfigurationPoint().getNamespaceUri())
+                        && contrib.getName().equals(itemContrib.getName())) {
+                    ConfigurationPointItem[] result = new ConfigurationPointItem[item.getChildren().length];
+                    System.arraycopy(item.getChildren(), 0, result, 0, item.getChildren().length);
+                    return result;
+                }
+            }
+        }
+
+        return new ConfigurationPointItem[0];
     }
 
     private static class CloneableConfigurationPointItem extends ConfigurationPointItem implements Cloneable {

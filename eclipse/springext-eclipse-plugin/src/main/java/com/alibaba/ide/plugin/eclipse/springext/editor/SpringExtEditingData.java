@@ -50,6 +50,7 @@ public abstract class SpringExtEditingData<S extends IEditorPart> extends Platfo
     public void initWithEditorInput(IEditorInput input) {
         this.input = input;
         this.project = getProjectFromInput(input);
+        this.schemas = SchemaResourceSet.getInstance(this.project);
 
         SchemaResourceSet.addSchemaSetChangeListener(this);
     }
