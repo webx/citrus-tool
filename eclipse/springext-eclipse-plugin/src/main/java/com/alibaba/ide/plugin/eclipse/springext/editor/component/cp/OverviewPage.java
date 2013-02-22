@@ -3,6 +3,7 @@ package com.alibaba.ide.plugin.eclipse.springext.editor.component.cp;
 import static com.alibaba.citrus.util.BasicConstant.*;
 
 import java.net.URL;
+import java.util.Collection;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -34,6 +35,7 @@ public class OverviewPage extends FormPage {
     private FormToolkit toolkit;
     private SectionPart definitionPart;
     private SectionPart contributionsPart;
+    private SectionPart parentsPart;
 
     public OverviewPage(ConfigurationPointEditor editor) {
         super(editor, PAGE_ID, "Configuration Point");
@@ -56,9 +58,12 @@ public class OverviewPage extends FormPage {
 
         definitionPart = new DefinitionPart(form.getBody(), toolkit);
         contributionsPart = new ContributionsPart(form.getBody(), toolkit);
+        contributionsPart.getSection().setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP, 2, 1));
+        parentsPart = new ParentsPart(form.getBody(), toolkit);
 
         managedForm.addPart(definitionPart);
         managedForm.addPart(contributionsPart);
+        managedForm.addPart(parentsPart);
     }
 
     @Override
@@ -200,6 +205,64 @@ public class OverviewPage extends FormPage {
 
             buf.setText(contributionsText);
             contributionsText.setImage("plug", SpringExtPlugin.getDefault().getImageRegistry().get("plug"));
+
+            super.refresh();
+        }
+    }
+
+    private class ParentsPart extends SectionPart {
+        private FormText parentsText;
+
+        public ParentsPart(Composite parent, FormToolkit toolkit) {
+            super(parent, toolkit, Section.DESCRIPTION | ExpandableComposite.TITLE_BAR);
+            createContents();
+        }
+
+        private void createContents() {
+            // section
+            Section section = getSection();
+
+            section.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP));
+            section.setText("Parent Contributions");
+
+            // section/client
+            Composite client = toolkit.createComposite(section, SWT.WRAP);
+
+            TableWrapLayout layout = new TableWrapLayout();
+            layout.numColumns = 2;
+            layout.horizontalSpacing = 10;
+            layout.verticalSpacing = 10;
+            layout.bottomMargin = 20;
+
+            client.setLayout(layout);
+            section.setClient(client);
+
+            // section/client/contributions
+            parentsText = toolkit.createFormText(client, false);
+            parentsText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP));
+        }
+
+        @Override
+        public void refresh() {
+            HyperlinkTextBuilder buf = new HyperlinkTextBuilder(toolkit);
+            Collection<Contribution> parents = data.getConfigurationPoint().getDependingContributions();
+
+            if (parents.isEmpty()) {
+                parentsText.setText("<no parent>", false, false);
+            } else {
+                for (final Contribution contrib : parents) {
+                    buf.append("<li style=\"image\" value=\"plug\">")
+                            .appendLink(contrib.getName(), new AbstractHyperlink() {
+                                public void open() {
+                                    new ContributionHyperlink(null, data.getProject(), contrib).open();
+                                }
+                            }, "nowrap=\"true\"").append("</li>");
+                }
+
+                buf.setText(parentsText);
+
+                parentsText.setImage("plug", SpringExtPlugin.getDefault().getImageRegistry().get("plug"));
+            }
 
             super.refresh();
         }
