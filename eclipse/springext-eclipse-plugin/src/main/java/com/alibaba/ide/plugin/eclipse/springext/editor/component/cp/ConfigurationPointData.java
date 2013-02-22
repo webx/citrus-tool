@@ -5,10 +5,7 @@ import static com.alibaba.citrus.util.ObjectUtil.*;
 import static com.alibaba.citrus.util.StringUtil.*;
 
 import java.util.Map;
-import java.util.concurrent.locks.ReentrantLock;
 
-import org.eclipse.jface.text.DocumentEvent;
-import org.eclipse.jface.text.IDocumentListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Composite;
@@ -23,7 +20,6 @@ import com.alibaba.ide.plugin.eclipse.springext.editor.component.AbstractSpringE
 import com.alibaba.ide.plugin.eclipse.springext.editor.component.PropertiesUtil;
 import com.alibaba.ide.plugin.eclipse.springext.editor.component.PropertiesUtil.PropertyModel;
 
-@SuppressWarnings("restriction")
 public class ConfigurationPointData extends AbstractSpringExtComponentData<ConfigurationPoint> {
     private ConfigurationPoint cp;
     private Schema schema;
@@ -69,8 +65,7 @@ public class ConfigurationPointData extends AbstractSpringExtComponentData<Confi
         return new ConfigurationPointViewer();
     }
 
-    public class ConfigurationPointViewer extends DocumentViewer implements ModifyListener, IDocumentListener {
-        private final ReentrantLock refreshingLock = new ReentrantLock();
+    public class ConfigurationPointViewer extends DocumentViewer implements ModifyListener {
         private Text nameText;
         private Text namespaceText;
         private Text defaultElementText;
@@ -115,7 +110,7 @@ public class ConfigurationPointData extends AbstractSpringExtComponentData<Confi
          * 将字段的修改写入文件中。
          */
         public void modifyText(ModifyEvent e) {
-            if (refreshingLock.isLocked()) {
+            if (isRefreshing()) {
                 return;
             }
 
@@ -127,42 +122,24 @@ public class ConfigurationPointData extends AbstractSpringExtComponentData<Confi
             newModel.defaultNsPrefix = trimToNull(defaultNsPrefixText.getText());
 
             if (model != null) {
-                updateDocument(model, newModel);
+                PropertiesUtil.updateDocument(getDocument(), model.name, newModel.name, newModel.toRawValue());
                 model = newModel;
             }
-        }
-
-        public void updateDocument(ConfigurationPointModel oldValue, ConfigurationPointModel newValue) {
-            PropertiesUtil.updateDocument(document, oldValue.name, newValue.name, newValue.toRawValue());
-        }
-
-        public void documentAboutToBeChanged(DocumentEvent event) {
-        }
-
-        /**
-         * 当用户直接修改了文件时。
-         */
-        public void documentChanged(DocumentEvent event) {
-            refresh();
         }
 
         /**
          * 将文件的内容更新到字段中。
          */
-        public void refresh() {
-            try {
-                refreshingLock.lock();
-                model = PropertiesUtil.getModel(ConfigurationPointModel.class, document, model == null ? cp.getName()
-                        : model.name);
+        @Override
+        protected void doRefresh() {
+            String cpName = model == null ? cp.getName() : model.name;
+            model = PropertiesUtil.getModel(ConfigurationPointModel.class, getDocument(), cpName);
 
-                if (model != null) {
-                    nameText.setText(model.name);
-                    namespaceText.setText(model.namespaceUri);
-                    defaultElementText.setText(defaultIfNull(model.defaultElementName, EMPTY_STRING));
-                    defaultNsPrefixText.setText(defaultIfNull(model.defaultNsPrefix, EMPTY_STRING));
-                }
-            } finally {
-                refreshingLock.unlock();
+            if (model != null) {
+                nameText.setText(model.name);
+                namespaceText.setText(model.namespaceUri);
+                defaultElementText.setText(defaultIfNull(model.defaultElementName, EMPTY_STRING));
+                defaultNsPrefixText.setText(defaultIfNull(model.defaultNsPrefix, EMPTY_STRING));
             }
         }
     }

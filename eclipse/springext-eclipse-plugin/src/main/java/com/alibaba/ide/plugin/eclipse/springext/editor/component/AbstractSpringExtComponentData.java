@@ -1,6 +1,9 @@
 package com.alibaba.ide.plugin.eclipse.springext.editor.component;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 import org.eclipse.jdt.internal.ui.propertiesfileeditor.PropertiesFileEditor;
+import org.eclipse.jface.text.DocumentEvent;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IDocumentListener;
 import org.eclipse.swt.widgets.Composite;
@@ -14,8 +17,8 @@ import com.alibaba.ide.plugin.eclipse.springext.editor.SpringExtEditingData;
 @SuppressWarnings("restriction")
 public abstract class AbstractSpringExtComponentData<C> extends SpringExtEditingData<PropertiesFileEditor> {
     private DocumentViewer documentViewer;
-    protected IManagedForm managedForm;
-    protected IDocument document;
+    private IManagedForm managedForm;
+    private IDocument document;
 
     public AbstractSpringExtComponentData() {
         this.documentViewer = createDocumentViewer();
@@ -34,6 +37,10 @@ public abstract class AbstractSpringExtComponentData<C> extends SpringExtEditing
 
     public DocumentViewer getDocumentViewer() {
         return documentViewer;
+    }
+
+    public IDocument getDocument() {
+        return document;
     }
 
     @Override
@@ -59,8 +66,36 @@ public abstract class AbstractSpringExtComponentData<C> extends SpringExtEditing
     protected abstract DocumentViewer createDocumentViewer();
 
     public abstract class DocumentViewer implements IDocumentListener {
+        private final ReentrantLock refreshingLock = new ReentrantLock();
+
         public abstract void createContent(Composite parent, FormToolkit toolkit);
 
-        public abstract void refresh();
+        public void documentAboutToBeChanged(DocumentEvent event) {
+        }
+
+        /**
+         * 当用户直接修改了文件时。
+         */
+        public void documentChanged(DocumentEvent event) {
+            refresh();
+        }
+
+        /**
+         * 将文件的内容更新到字段中。
+         */
+        public final void refresh() {
+            try {
+                refreshingLock.lock();
+                doRefresh();
+            } finally {
+                refreshingLock.unlock();
+            }
+        }
+
+        protected final boolean isRefreshing() {
+            return refreshingLock.isLocked();
+        }
+
+        protected abstract void doRefresh();
     }
 }

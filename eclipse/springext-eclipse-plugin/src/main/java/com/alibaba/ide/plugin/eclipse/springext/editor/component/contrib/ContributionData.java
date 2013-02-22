@@ -1,10 +1,10 @@
 package com.alibaba.ide.plugin.eclipse.springext.editor.component.contrib;
 
+import static com.alibaba.citrus.util.BasicConstant.*;
+import static com.alibaba.citrus.util.ObjectUtil.*;
 import static com.alibaba.citrus.util.StringUtil.*;
 import static com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil.*;
 import static org.eclipse.jdt.core.search.IJavaSearchConstants.*;
-
-import java.util.concurrent.locks.ReentrantLock;
 
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
@@ -13,8 +13,6 @@ import org.eclipse.jdt.core.search.IJavaSearchScope;
 import org.eclipse.jdt.core.search.SearchEngine;
 import org.eclipse.jdt.internal.ui.dialogs.FilteredTypesSelectionDialog;
 import org.eclipse.jdt.ui.JavaUI;
-import org.eclipse.jface.text.DocumentEvent;
-import org.eclipse.jface.text.IDocumentListener;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -38,6 +36,7 @@ import com.alibaba.citrus.springext.ConfigurationPoint;
 import com.alibaba.citrus.springext.Contribution;
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.ide.plugin.eclipse.springext.editor.component.AbstractSpringExtComponentData;
+import com.alibaba.ide.plugin.eclipse.springext.editor.component.PropertiesUtil;
 import com.alibaba.ide.plugin.eclipse.springext.editor.component.PropertiesUtil.PropertyModel;
 
 @SuppressWarnings("restriction")
@@ -90,8 +89,7 @@ public class ContributionData extends AbstractSpringExtComponentData<Contributio
         return new ContributionViewer();
     }
 
-    public class ContributionViewer extends DocumentViewer implements ModifyListener, IDocumentListener {
-        private final ReentrantLock refreshingLock = new ReentrantLock();
+    public class ContributionViewer extends DocumentViewer implements ModifyListener {
         private Text nameText;
         private Text classNameText;
         private ContributionModel model;
@@ -174,27 +172,47 @@ public class ContributionData extends AbstractSpringExtComponentData<Contributio
             });
 
             browse.setLayoutData(new TableWrapData(TableWrapData.CENTER, TableWrapData.MIDDLE));
+
+            if (getEditor().isSourceReadOnly()) {
+                nameText.setEditable(false);
+                classNameText.setEditable(false);
+            } else {
+                nameText.addModifyListener(this);
+                classNameText.addModifyListener(this);
+            }
         }
 
-        public void documentAboutToBeChanged(DocumentEvent event) {
-            // TODO Auto-generated method stub
-
-        }
-
-        public void documentChanged(DocumentEvent event) {
-            // TODO Auto-generated method stub
-
-        }
-
+        /**
+         * 将字段的修改写入文件中。
+         */
         public void modifyText(ModifyEvent e) {
-            // TODO Auto-generated method stub
+            if (isRefreshing()) {
+                return;
+            }
 
+            ContributionModel newModel = new ContributionModel();
+
+            newModel.name = trimToNull(nameText.getText());
+            newModel.className = trimToNull(classNameText.getText());
+
+            if (model != null) {
+                PropertiesUtil.updateDocument(getDocument(), model.name, newModel.name, newModel.className);
+                model = newModel;
+            }
         }
 
         /**
          * 将文件的内容更新到字段中。
          */
-        public void refresh() {
+        @Override
+        protected void doRefresh() {
+            String contribName = model == null ? contrib.getName() : model.name;
+            model = PropertiesUtil.getModel(ContributionModel.class, getDocument(), contribName);
+
+            if (model != null) {
+                nameText.setText(model.name);
+                classNameText.setText(defaultIfNull(model.className, EMPTY_STRING));
+            }
         }
     }
 
