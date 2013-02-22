@@ -7,17 +7,13 @@ import static com.alibaba.citrus.util.StringUtil.*;
 import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
-import org.eclipse.jdt.internal.ui.propertiesfileeditor.PropertiesFileEditor;
 import org.eclipse.jface.text.DocumentEvent;
-import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IDocumentListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.forms.AbstractFormPart;
-import org.eclipse.ui.forms.IFormPart;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 
@@ -29,10 +25,8 @@ import com.alibaba.ide.plugin.eclipse.springext.editor.component.PropertiesUtil.
 
 @SuppressWarnings("restriction")
 public class ConfigurationPointData extends AbstractSpringExtComponentData<ConfigurationPoint> {
-    private final ConfigurationPointViewer documentViewer = new ConfigurationPointViewer();
     private ConfigurationPoint cp;
     private Schema schema;
-    private IDocument document;
 
     public ConfigurationPoint getConfigurationPoint() {
         return cp;
@@ -42,22 +36,11 @@ public class ConfigurationPointData extends AbstractSpringExtComponentData<Confi
         return schema;
     }
 
-    public ConfigurationPointViewer getDocumentViewer() {
-        return documentViewer;
-    }
-
     @Override
     public void initWithEditorInput(IEditorInput input) {
         super.initWithEditorInput(input);
         cp = (ConfigurationPoint) input.getAdapter(ConfigurationPoint.class);
         schema = (Schema) input.getAdapter(Schema.class);
-    }
-
-    @Override
-    protected void initWithSourceEditor(PropertiesFileEditor sourceEditor) {
-        super.initWithSourceEditor(sourceEditor);
-        document = sourceEditor.getDocumentProvider().getDocument(sourceEditor.getEditorInput());
-        document.addDocumentListener(getDocumentViewer());
     }
 
     @Override
@@ -82,26 +65,11 @@ public class ConfigurationPointData extends AbstractSpringExtComponentData<Confi
     }
 
     @Override
-    public void forceRefreshPages() {
-        if (managedForm != null) {
-            for (IFormPart part : managedForm.getParts()) {
-                if (part instanceof AbstractFormPart) {
-                    ((AbstractFormPart) part).markStale();
-                }
-            }
-        }
+    protected ConfigurationPointViewer createDocumentViewer() {
+        return new ConfigurationPointViewer();
     }
 
-    @Override
-    public void dispose() {
-        if (document != null) {
-            document.removeDocumentListener(getDocumentViewer());
-        }
-
-        super.dispose();
-    }
-
-    public class ConfigurationPointViewer implements ModifyListener, IDocumentListener {
+    public class ConfigurationPointViewer extends DocumentViewer implements ModifyListener, IDocumentListener {
         private final ReentrantLock refreshingLock = new ReentrantLock();
         private Text nameText;
         private Text namespaceText;

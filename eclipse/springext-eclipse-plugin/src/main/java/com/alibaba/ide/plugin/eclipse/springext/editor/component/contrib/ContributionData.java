@@ -34,6 +34,7 @@ import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
+import com.alibaba.citrus.springext.ConfigurationPoint;
 import com.alibaba.citrus.springext.Contribution;
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.ide.plugin.eclipse.springext.editor.component.AbstractSpringExtComponentData;
@@ -41,7 +42,6 @@ import com.alibaba.ide.plugin.eclipse.springext.editor.component.PropertiesUtil.
 
 @SuppressWarnings("restriction")
 public class ContributionData extends AbstractSpringExtComponentData<Contribution> {
-    private final ContributionViewer documentViewer = new ContributionViewer();
     private Contribution contrib;
     private Schema schema;
 
@@ -53,10 +53,6 @@ public class ContributionData extends AbstractSpringExtComponentData<Contributio
         return schema;
     }
 
-    public ContributionViewer getDocumentViewer() {
-        return documentViewer;
-    }
-
     @Override
     public void initWithEditorInput(IEditorInput input) {
         super.initWithEditorInput(input);
@@ -64,7 +60,37 @@ public class ContributionData extends AbstractSpringExtComponentData<Contributio
         schema = (Schema) input.getAdapter(Schema.class);
     }
 
-    public class ContributionViewer implements ModifyListener, IDocumentListener {
+    @Override
+    protected void onSchemaSetChanged() {
+        if (contrib != null && getSchemas().isSuccessful()) {
+            ConfigurationPoint newCp = getSchemas().getConfigurationPoints().getConfigurationPointByName(
+                    contrib.getConfigurationPoint().getName());
+
+            Contribution newContrib = newCp == null ? null : newCp
+                    .getContribution(contrib.getName(), contrib.getType());
+
+            if (newContrib != null) {
+                contrib = newContrib;
+            }
+
+            if (schema != null) {
+                Schema newSchema = getSchemas().getNamedMappings().get(schema.getName());
+
+                if (newSchema != null) {
+                    schema = newSchema;
+                }
+            }
+        }
+
+        super.onSchemaSetChanged();
+    }
+
+    @Override
+    protected ContributionViewer createDocumentViewer() {
+        return new ContributionViewer();
+    }
+
+    public class ContributionViewer extends DocumentViewer implements ModifyListener, IDocumentListener {
         private final ReentrantLock refreshingLock = new ReentrantLock();
         private Text nameText;
         private Text classNameText;
