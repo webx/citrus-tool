@@ -44,7 +44,10 @@ public class ContributionEditor extends AbstractSpringExtComponentEditor<Contrib
     @Override
     public void doSave(IProgressMonitor monitor) {
         getData().getSourceEditor().doSave(monitor);
-        schemaEditor.doSave(monitor);
+
+        if (schemaEditor != null) {
+            schemaEditor.doSave(monitor);
+        }
     }
 
     @Override
