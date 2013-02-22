@@ -27,27 +27,20 @@ public class ContributionEditor extends AbstractSpringExtComponentEditor<Contrib
 
     @Override
     protected void addPages() {
-        createDefinitionFileEditor();
-        createSchemaEditor();
-        createGeneratedSchemaEditor();
-    }
+        // overview page
+        addTab("overview", new OverviewPage(this), "Overview");
 
-    private void createDefinitionFileEditor() {
         URL definitionURL = getSourceURL(getData().getContribution());
-        definitionFileEditor = createPropertiesEditorPage("def", definitionURL,
+        definitionFileEditor = createPropertiesEditorPage(SOURCE_TAB_KEY, definitionURL,
                 getLastSegment(definitionURL.toExternalForm()));
-    }
 
-    private void createSchemaEditor() {
         URL originalSourceURL = getSourceURL(getData().getSchema());
-        schemaEditor = createSchemaEditorPage("orignalSchema", originalSourceURL,
+        schemaEditor = createSchemaEditorPage("originalSchema", originalSourceURL,
                 getLastSegment(originalSourceURL.toExternalForm()));
-    }
 
-    private void createGeneratedSchemaEditor() {
         Schema schema = getData().getSchema();
-        generatedSchemaEditor = createSchemaEditorPage("generatedSchema", schema,
-                "Generated " + getLastSegment(schema.getName()));
+        generatedSchemaEditor = createSchemaEditorPage("generatedSchema", schema, "<generated> "
+                + getLastSegment(schema.getName()));
     }
 
     @Override
