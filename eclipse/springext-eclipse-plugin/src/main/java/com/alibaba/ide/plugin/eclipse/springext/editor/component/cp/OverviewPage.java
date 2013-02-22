@@ -103,19 +103,19 @@ public class OverviewPage extends FormPage {
 
             // separator
             toolkit.createLabel(client, EMPTY_STRING).setLayoutData(
-                    new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP, 1, 2));
+                    new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP, 1, 2));
             toolkit.createSeparator(client, SWT.HORIZONTAL).setLayoutData(
-                    new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP, 1, 2));
+                    new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP, 1, 2));
 
             // section/client/definedIn
             toolkit.createLabel(client, "Defined in");
             definedInText = toolkit.createFormText(client, false);
-            definedInText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP));
+            definedInText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP));
 
             // section/client/schema
             toolkit.createLabel(client, "Generated Schema");
             schemaText = toolkit.createFormText(client, false);
-            schemaText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP));
+            schemaText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP));
         }
 
         @Override
@@ -157,7 +157,7 @@ public class OverviewPage extends FormPage {
             // section
             Section section = getSection();
 
-            section.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP));
+            section.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP));
             section.setText("Contributions");
 
             // section/client
@@ -174,7 +174,7 @@ public class OverviewPage extends FormPage {
 
             // section/client/contributions
             contributionsText = toolkit.createFormText(client, false);
-            contributionsText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP));
+            contributionsText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP));
         }
 
         @Override

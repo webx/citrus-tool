@@ -11,7 +11,6 @@ import org.eclipse.jdt.internal.ui.propertiesfileeditor.PropertiesFileEditor;
 import org.eclipse.jface.text.DocumentEvent;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IDocumentListener;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Composite;
@@ -114,22 +113,22 @@ public class ConfigurationPointData extends AbstractSpringExtComponentData<Confi
             // section/client/name
             toolkit.createLabel(parent, "Name");
             nameText = toolkit.createText(parent, "");
-            nameText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP));
+            nameText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP));
 
             // section/client/namespace
             toolkit.createLabel(parent, "Namespace");
             namespaceText = toolkit.createText(parent, "");
-            namespaceText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP));
+            namespaceText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP));
 
             // section/client/defaultElementName
             toolkit.createLabel(parent, "Default Element Name");
             defaultElementText = toolkit.createText(parent, "");
-            defaultElementText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP));
+            defaultElementText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP));
 
             // section/client/defaultNamespacePrefix
             toolkit.createLabel(parent, "Default Namespace Prefix");
             defaultNsPrefixText = toolkit.createText(parent, "");
-            defaultNsPrefixText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, SWT.TOP));
+            defaultNsPrefixText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP));
 
             if (getEditor().isSourceReadOnly()) {
                 nameText.setEditable(false);
