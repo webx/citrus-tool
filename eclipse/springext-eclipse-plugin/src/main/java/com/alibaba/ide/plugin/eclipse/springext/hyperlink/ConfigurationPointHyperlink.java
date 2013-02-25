@@ -4,8 +4,6 @@ import static com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil.
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.text.IRegion;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import com.alibaba.citrus.springext.ConfigurationPoint;
 import com.alibaba.citrus.springext.Schema;
@@ -13,12 +11,11 @@ import com.alibaba.citrus.springext.support.ConfigurationPointSchemaSourceInfo;
 import com.alibaba.ide.plugin.eclipse.springext.editor.component.cp.ConfigurationPointEditor;
 
 public class ConfigurationPointHyperlink extends AbstractSpringExtHyperlink<ConfigurationPoint> {
-    public ConfigurationPointHyperlink(@Nullable IRegion region, @NotNull IProject project,
-                                       @NotNull ConfigurationPoint cp) {
+    public ConfigurationPointHyperlink(IRegion region, IProject project, ConfigurationPoint cp) {
         super(region, project, cp, null);
     }
 
-    public ConfigurationPointHyperlink(@NotNull IProject project, @NotNull Schema schema) {
+    public ConfigurationPointHyperlink(IProject project, Schema schema) {
         super(null, project, (ConfigurationPoint) ((ConfigurationPointSchemaSourceInfo) schema).getParent(), schema);
     }
 

@@ -92,6 +92,7 @@ public class ContributionData extends AbstractSpringExtComponentData<Contributio
         private Text classNameText;
         private ContributionModel model;
 
+        @Override
         public void createContent(Composite parent, FormToolkit toolkit) {
             // section/client/name
             toolkit.createLabel(parent, "Name");
@@ -101,7 +102,6 @@ public class ContributionData extends AbstractSpringExtComponentData<Contributio
             // section/client/className label
             Hyperlink classNameLink = toolkit.createHyperlink(parent, "Class Name", SWT.NO_FOCUS);
             classNameLink.addHyperlinkListener(new HyperlinkAdapter() {
-
                 @Override
                 public void linkActivated(HyperlinkEvent e) {
                     String className = trimToNull(classNameText.getText());
@@ -135,40 +135,6 @@ public class ContributionData extends AbstractSpringExtComponentData<Contributio
 
             // section/client/combo/browse
             Button browse = toolkit.createButton(combo, "Browse", SWT.PUSH);
-            browse.addSelectionListener(new SelectionListener() {
-                public void widgetSelected(SelectionEvent e) {
-                    Shell shell = Display.getDefault().getActiveShell();
-                    IJavaProject javaProject = getJavaProject(getProject(), false);
-                    IJavaSearchScope scope = SearchEngine.createJavaSearchScope(new IJavaElement[] { javaProject });
-
-                    FilteredTypesSelectionDialog dialog = new FilteredTypesSelectionDialog(shell, false, null, scope,
-                            CLASS_AND_INTERFACE);
-
-                    dialog.setTitle("Select Type");
-                    dialog.setInitialPattern(toClassName(classNameText.getText()));
-
-                    if (dialog.open() == Window.OK) {
-                        Object result = dialog.getFirstResult();
-
-                        if (result instanceof IType) {
-                            IType type = (IType) result;
-                            classNameText.setText(type.getFullyQualifiedName());
-                        }
-                    }
-                }
-
-                private String toClassName(String s) {
-                    if (s != null) {
-                        s = s.replace('$', '.');
-                    }
-
-                    return s;
-                }
-
-                public void widgetDefaultSelected(SelectionEvent e) {
-                }
-            });
-
             browse.setLayoutData(new TableWrapData(TableWrapData.CENTER, TableWrapData.MIDDLE));
 
             if (getEditor().isSourceReadOnly()) {
@@ -177,6 +143,39 @@ public class ContributionData extends AbstractSpringExtComponentData<Contributio
             } else {
                 nameText.addModifyListener(this);
                 classNameText.addModifyListener(this);
+                browse.addSelectionListener(new SelectionListener() {
+                    public void widgetSelected(SelectionEvent e) {
+                        Shell shell = Display.getDefault().getActiveShell();
+                        IJavaProject javaProject = getJavaProject(getProject(), false);
+                        IJavaSearchScope scope = SearchEngine.createJavaSearchScope(new IJavaElement[] { javaProject });
+
+                        FilteredTypesSelectionDialog dialog = new FilteredTypesSelectionDialog(shell, false, null,
+                                scope, CLASS_AND_INTERFACE);
+
+                        dialog.setTitle("Select Type");
+                        dialog.setInitialPattern(toClassName(classNameText.getText()));
+
+                        if (dialog.open() == Window.OK) {
+                            Object result = dialog.getFirstResult();
+
+                            if (result instanceof IType) {
+                                IType type = (IType) result;
+                                classNameText.setText(type.getFullyQualifiedName());
+                            }
+                        }
+                    }
+
+                    private String toClassName(String s) {
+                        if (s != null) {
+                            s = s.replace('$', '.');
+                        }
+
+                        return s;
+                    }
+
+                    public void widgetDefaultSelected(SelectionEvent e) {
+                    }
+                });
             }
         }
 

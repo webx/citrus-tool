@@ -6,21 +6,18 @@ import java.net.URL;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.text.IRegion;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.citrus.springext.support.SpringPluggableSchemaSourceInfo;
 import com.alibaba.ide.plugin.eclipse.springext.editor.component.spring.SpringPluggableSchemaEditor;
 
 public class SpringPluggableSchemaHyperlink extends AbstractSpringExtHyperlink<SpringPluggableSchemaSourceInfo> {
-    public SpringPluggableSchemaHyperlink(@Nullable IRegion region, @NotNull IProject project,
-                                          @NotNull SpringPluggableSchemaSourceInfo springPluggableSchema) {
+    public SpringPluggableSchemaHyperlink(IRegion region, IProject project,
+                                          SpringPluggableSchemaSourceInfo springPluggableSchema) {
         super(region, project, springPluggableSchema, (Schema) springPluggableSchema);
     }
 
-    public SpringPluggableSchemaHyperlink(@NotNull IProject project,
-                                          @NotNull SpringPluggableSchemaSourceInfo springPluggableSchema) {
+    public SpringPluggableSchemaHyperlink(IProject project, SpringPluggableSchemaSourceInfo springPluggableSchema) {
         super(null, project, springPluggableSchema, (Schema) springPluggableSchema);
     }
 

@@ -41,8 +41,6 @@ import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.wst.internet.cache.internal.Cache;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -78,14 +76,12 @@ public class SchemaResourceSet extends SpringExtSchemaSet {
     private SchemaResourceSet(IProject project, Throwable error) {
         super(new ResourceResolver() {
             @Override
-            @Nullable
-            public Resource getResource(@NotNull String location) {
+            public Resource getResource(String location) {
                 return null;
             }
 
             @Override
-            @NotNull
-            public Resource[] getResources(@NotNull String locationPattern) throws IOException {
+            public Resource[] getResources(String locationPattern) throws IOException {
                 return NO_RESOURCE;
             }
         });
@@ -111,7 +107,6 @@ public class SchemaResourceSet extends SpringExtSchemaSet {
         return error == null ? "" : error.getMessage();
     }
 
-    @Nullable
     public Schema findSchemaByUrl(String url) {
         Schema schema = null;
 
@@ -161,8 +156,8 @@ public class SchemaResourceSet extends SpringExtSchemaSet {
     }
 
     private static class CloneableConfigurationPointItem extends ConfigurationPointItem implements Cloneable {
-        public CloneableConfigurationPointItem(@NotNull String namespace, @NotNull Set<Schema> schemas,
-                                               @NotNull ConfigurationPoint configurationPoint) {
+        public CloneableConfigurationPointItem(String namespace, Set<Schema> schemas,
+                                               ConfigurationPoint configurationPoint) {
             super(namespace, schemas, configurationPoint);
         }
 
@@ -178,15 +173,13 @@ public class SchemaResourceSet extends SpringExtSchemaSet {
     }
 
     @Override
-    protected ConfigurationPointItem createConfigurationPointItem(@NotNull String namespace,
-                                                                  @NotNull Set<Schema> schemas,
-                                                                  @NotNull ConfigurationPoint configurationPoint) {
+    protected ConfigurationPointItem createConfigurationPointItem(String namespace, Set<Schema> schemas,
+                                                                  ConfigurationPoint configurationPoint) {
         return new CloneableConfigurationPointItem(namespace, schemas, configurationPoint);
     }
 
     @Override
-    protected <C extends TreeItem> void addChildItem(@NotNull ParentOf<C> parent, @NotNull String key,
-                                                     @NotNull C childItem) {
+    protected <C extends TreeItem> void addChildItem(ParentOf<C> parent, String key, C childItem) {
         if (parent instanceof ContributionItem && childItem instanceof CloneableConfigurationPointItem) {
             // 由于eclipse tree viewer对于重复项的处理有问题，例如同一个configuration point item出现在多个contribution下，
             // 下面对于contribution下面的重复的configuration point item创建不同的对象。
@@ -208,7 +201,6 @@ public class SchemaResourceSet extends SpringExtSchemaSet {
      * 通过访问<code>isSuccessful()</code>可以知道schemas是否成功生成，通过访问
      * <code>getError()</code> 可以取得导致生成出错的异常信息。
      */
-    @NotNull
     public static SchemaResourceSet getInstance(IProject project) {
         IJavaProject javaProject = getJavaProject(project, true);
 
@@ -292,7 +284,6 @@ public class SchemaResourceSet extends SpringExtSchemaSet {
         return new SchemaResourceSet(project, error);
     }
 
-    @NotNull
     private static SchemaResourceSet computeSchemas(IJavaProject javaProject) {
         SchemaResourceSet schemas;
 
@@ -306,7 +297,6 @@ public class SchemaResourceSet extends SpringExtSchemaSet {
         return schemas;
     }
 
-    @NotNull
     private static ClassLoader createClassLoader(IJavaProject javaProject) throws Exception {
         String[] classpath = JavaRuntime.computeDefaultRuntimeClassPath(javaProject);
         URL[] urls = new URL[classpath.length];

@@ -16,7 +16,6 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IPersistableElement;
 import org.eclipse.ui.IStorageEditorInput;
 import org.eclipse.wst.sse.ui.StructuredTextEditor;
-import org.jetbrains.annotations.NotNull;
 
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.ide.plugin.eclipse.springext.editor.SpringExtFormEditor;
@@ -104,7 +103,7 @@ public abstract class AbstractSpringExtComponentEditor<C, D extends AbstractSpri
     private static class SchemaStorage implements IStorage {
         private final Schema schema;
 
-        private SchemaStorage(@NotNull Schema schema) {
+        private SchemaStorage(Schema schema) {
             this.schema = schema;
         }
 

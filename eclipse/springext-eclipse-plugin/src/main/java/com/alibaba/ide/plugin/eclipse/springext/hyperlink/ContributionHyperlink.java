@@ -2,8 +2,6 @@ package com.alibaba.ide.plugin.eclipse.springext.hyperlink;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.text.IRegion;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import com.alibaba.citrus.springext.Contribution;
 import com.alibaba.citrus.springext.Schema;
@@ -11,11 +9,11 @@ import com.alibaba.citrus.springext.support.ContributionSchemaSourceInfo;
 import com.alibaba.ide.plugin.eclipse.springext.editor.component.contrib.ContributionEditor;
 
 public class ContributionHyperlink extends AbstractSpringExtHyperlink<Contribution> {
-    public ContributionHyperlink(@Nullable IRegion region, @NotNull IProject project, @NotNull Contribution contrib) {
+    public ContributionHyperlink(IRegion region, IProject project, Contribution contrib) {
         super(region, project, contrib, null);
     }
 
-    public ContributionHyperlink(@NotNull IProject project, @NotNull Schema schema) {
+    public ContributionHyperlink(IProject project, Schema schema) {
         super(null, project, (Contribution) ((ContributionSchemaSourceInfo) schema).getParent(), schema);
     }
 

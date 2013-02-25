@@ -70,6 +70,7 @@ public class ConfigurationPointData extends AbstractSpringExtComponentData<Confi
         private Text defaultNsPrefixText;
         private ConfigurationPointModel model;
 
+        @Override
         public void createContent(Composite parent, FormToolkit toolkit) {
             // section/client/name
             toolkit.createLabel(parent, "Name");

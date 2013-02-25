@@ -3,7 +3,6 @@ package com.alibaba.ide.plugin.eclipse.springext.hyperlink.detector;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.hyperlink.IHyperlink;
-import org.jetbrains.annotations.NotNull;
 
 import com.alibaba.citrus.springext.ConfigurationPoint;
 import com.alibaba.citrus.springext.Contribution;
@@ -18,8 +17,7 @@ import com.alibaba.ide.plugin.eclipse.springext.hyperlink.ContributionHyperlink;
 import com.alibaba.ide.plugin.eclipse.springext.hyperlink.SpringPluggableSchemaHyperlink;
 
 public class HyperlinkDetectorUtil {
-    public static IHyperlink[] createHyperlinks(@NotNull IRegion region, @NotNull Schema schema,
-                                                @NotNull IProject project) {
+    public static IHyperlink[] createHyperlinks(IRegion region, Schema schema, IProject project) {
         // configuration point
         ConfigurationPoint cp = getConfigurationPoint(schema);
 

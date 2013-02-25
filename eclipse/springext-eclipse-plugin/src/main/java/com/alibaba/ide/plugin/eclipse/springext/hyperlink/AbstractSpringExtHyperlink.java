@@ -16,8 +16,6 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import com.alibaba.citrus.springext.Schema;
 import com.alibaba.ide.plugin.eclipse.springext.SpringExtConstant;
@@ -29,8 +27,7 @@ public abstract class AbstractSpringExtHyperlink<C> implements IHyperlink {
     private final IRegion region;
     private final Schema componentSchema;
 
-    public AbstractSpringExtHyperlink(@Nullable IRegion region, @NotNull IProject project, @NotNull C component,
-                                      @Nullable Schema componentSchema) {
+    public AbstractSpringExtHyperlink(IRegion region, IProject project, C component, Schema componentSchema) {
         this.region = region;
         this.project = project;
         this.component = component;

@@ -30,8 +30,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.sse.core.StructuredModelManager;
 import org.eclipse.wst.sse.core.internal.provisional.IStructuredModel;
 import org.eclipse.wst.sse.core.utils.StringUtils;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.springframework.core.io.Resource;
 
 import com.alibaba.citrus.springext.SourceInfo;
@@ -151,7 +149,7 @@ public class SpringExtPluginUtil {
     /**
      * 找到target file所对应的source file。
      */
-    public static IFile findSourceFile(@NotNull IFile targetFile) {
+    public static IFile findSourceFile(IFile targetFile) {
         IJavaProject javaProject = getJavaProject(targetFile.getProject(), false);
 
         if (javaProject != null) {
@@ -194,7 +192,6 @@ public class SpringExtPluginUtil {
         return targetFile;
     }
 
-    @Nullable
     public static IJavaProject getJavaProject(IProject project, boolean create) {
         IJavaProject javaProject = null;
 
