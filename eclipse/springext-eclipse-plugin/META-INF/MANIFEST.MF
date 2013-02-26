@@ -25,7 +25,6 @@ Require-Bundle: org.eclipse.ui,
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-ClassPath: .,
- lib/annotations-9.0.4.jar,
  lib/aopalliance-1.0.jar,
  lib/cglib-nodep-2.2.2.jar,
  lib/citrus-springext-all-3.2.1.jar,
