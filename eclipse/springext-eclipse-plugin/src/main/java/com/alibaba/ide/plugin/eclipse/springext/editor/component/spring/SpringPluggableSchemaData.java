@@ -184,8 +184,11 @@ public class SpringPluggableSchemaData extends AbstractSpringExtComponentData<Sp
          */
         @Override
         protected void doRefresh() {
-            String schemaUri = model == null ? schema.getTargetNamespace() : model.schemaUri;
-            model = PropertiesUtil.getModel(SpringSchemasModel.class, getDocument(), schemaUri);
+            if (model == null) {
+                model = PropertiesUtil.getModel(SpringSchemasModel.class, getDocument(), schema.getName(), true);
+            } else {
+                model = PropertiesUtil.getModel(SpringSchemasModel.class, getDocument(), model.schemaUri);
+            }
 
             if (model != null) {
                 schemaUriText.setText(model.schemaUri);

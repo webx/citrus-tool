@@ -11,6 +11,11 @@ import org.eclipse.jface.text.IRegion;
 
 public class PropertiesUtil {
     public static <T extends PropertyModel> T getModel(Class<T> modelType, IDocument document, String searchKey) {
+        return getModel(modelType, document, searchKey, false);
+    }
+
+    public static <T extends PropertyModel> T getModel(Class<T> modelType, IDocument document, String searchKey,
+                                                       boolean matchPrefix) {
         try {
             if (document != null) {
                 Constructor<T> constructor = modelType.getConstructor(String.class, String.class);
@@ -27,8 +32,15 @@ public class PropertiesUtil {
 
                         if ("=".equals(c)) {
                             String key = decode(document.get(region.getOffset(), i));
+                            boolean matched;
 
-                            if (searchKey.equals(key)) {
+                            if (matchPrefix) {
+                                matched = key.endsWith(searchKey);
+                            } else {
+                                matched = searchKey.equals(key);
+                            }
+
+                            if (matched) {
                                 String rawValue = decode(document.get(region.getOffset() + i + 1, region.getLength()
                                         - i - 1));
 
@@ -64,7 +76,11 @@ public class PropertiesUtil {
                             if (searchKey.equals(key)) {
                                 document.replace(region.getOffset(), region.getLength(), encode(newKey) + " = "
                                         + encode(rawValue));
+
+                                return;
                             }
+
+                            break;
                         }
                     }
                 }
