@@ -224,8 +224,8 @@ public class SchemaResourceSet extends SpringExtSchemaSet {
                 FutureTask<SchemaResourceSet> futureTask = new FutureTask<SchemaResourceSet>(
                         new Callable<SchemaResourceSet>() {
                             public SchemaResourceSet call() throws Exception {
-                                if (log.isDebugEnabled()) {
-                                    log.debug("Recompute schemas for project {}", javaProject.getProject().getName());
+                                if (log.isInfoEnabled()) {
+                                    log.info("Recompute schemas for project {}", javaProject.getProject().getName());
                                 }
 
                                 return computeSchemas(javaProject);
