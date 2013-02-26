@@ -1,5 +1,6 @@
 package com.alibaba.ide.plugin.eclipse.springext.editor.component;
 
+import static com.alibaba.citrus.util.BasicConstant.*;
 import static com.alibaba.citrus.util.CollectionUtil.*;
 import static com.alibaba.citrus.util.StringUtil.*;
 
@@ -171,7 +172,7 @@ public class PropertiesUtil {
         in = trimToNull(in);
 
         if (in == null) {
-            return null;
+            return EMPTY_STRING;
         }
 
         StringBuilder out = new StringBuilder();

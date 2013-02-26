@@ -150,7 +150,7 @@ public abstract class SpringExtFormEditor<D extends SpringExtEditingData<S>, S e
         tabs.clear();
     }
 
-    protected final IEditorInput createInputFromURL(URL url, String tabKey) {
+    protected final IEditorInput createInputFromURL(URL url) {
         assertNotNull(url, "no url");
 
         IFile file = toFile(url);

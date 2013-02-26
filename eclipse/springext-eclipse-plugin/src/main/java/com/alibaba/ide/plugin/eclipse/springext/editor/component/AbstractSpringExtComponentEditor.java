@@ -29,7 +29,7 @@ public abstract class AbstractSpringExtComponentEditor<C, D extends AbstractSpri
 
     protected final PropertiesFileEditor createPropertiesEditorPage(String key, URL url, String tabTitle) {
         if (url != null) {
-            return addTab(key, new PropertiesFileEditor(), createInputFromURL(url, key), tabTitle);
+            return addTab(key, new PropertiesFileEditor(), createInputFromURL(url), tabTitle);
         }
 
         return null;
@@ -46,7 +46,7 @@ public abstract class AbstractSpringExtComponentEditor<C, D extends AbstractSpri
 
     protected final StructuredTextEditor createSchemaEditorPage(String key, URL url, String tabTitle) {
         if (url != null) {
-            return addTab(key, new StructuredTextEditor(), createInputFromURL(url, key), tabTitle);
+            return addTab(key, new StructuredTextEditor(), createInputFromURL(url), tabTitle);
         }
 
         return null;
