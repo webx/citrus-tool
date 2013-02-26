@@ -143,6 +143,7 @@ public class ContributionData extends AbstractSpringExtComponentData<Contributio
             } else {
                 nameText.addModifyListener(this);
                 classNameText.addModifyListener(this);
+
                 browse.addSelectionListener(new SelectionListener() {
                     public void widgetSelected(SelectionEvent e) {
                         Shell shell = Display.getDefault().getActiveShell();

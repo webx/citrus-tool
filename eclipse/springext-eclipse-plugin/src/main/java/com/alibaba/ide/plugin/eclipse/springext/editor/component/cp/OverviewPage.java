@@ -103,7 +103,7 @@ public class OverviewPage extends FormPage {
             client.setLayout(layout);
             section.setClient(client);
 
-            // section/client/name
+            // section/client/editable fields
             data.getDocumentViewer().createContent(client, toolkit);
 
             // separator
