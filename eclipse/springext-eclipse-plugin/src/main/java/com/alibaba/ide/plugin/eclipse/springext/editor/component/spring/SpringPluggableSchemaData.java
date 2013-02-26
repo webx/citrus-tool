@@ -3,15 +3,13 @@ package com.alibaba.ide.plugin.eclipse.springext.editor.component.spring;
 import static com.alibaba.citrus.util.BasicConstant.*;
 import static com.alibaba.citrus.util.ObjectUtil.*;
 import static com.alibaba.citrus.util.StringUtil.*;
-import static com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil.*;
-import static org.eclipse.jdt.core.search.IJavaSearchConstants.*;
 
-import org.eclipse.jdt.core.IJavaElement;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.IType;
-import org.eclipse.jdt.core.search.IJavaSearchScope;
-import org.eclipse.jdt.core.search.SearchEngine;
-import org.eclipse.jdt.internal.ui.dialogs.FilteredTypesSelectionDialog;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -19,11 +17,10 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.dialogs.FilteredResourcesSelectionDialog;
 import org.eclipse.ui.forms.widgets.FormToolkit;
-import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
@@ -32,8 +29,8 @@ import com.alibaba.citrus.springext.support.SpringPluggableSchemaSourceInfo;
 import com.alibaba.ide.plugin.eclipse.springext.editor.component.AbstractSpringExtComponentData;
 import com.alibaba.ide.plugin.eclipse.springext.editor.component.PropertiesUtil;
 import com.alibaba.ide.plugin.eclipse.springext.editor.component.PropertiesUtil.PropertyModel;
+import com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil;
 
-@SuppressWarnings("restriction")
 public class SpringPluggableSchemaData extends AbstractSpringExtComponentData<SpringPluggableSchemaSourceInfo> {
     private Schema schema;
 
@@ -82,23 +79,8 @@ public class SpringPluggableSchemaData extends AbstractSpringExtComponentData<Sp
             schemaUriText.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP));
 
             // section/client/classpathLocation label
-            Hyperlink classNameLink = toolkit.createHyperlink(parent, "Classpath Location", SWT.NO_FOCUS);
-            //            classNameLink.addHyperlinkListener(new HyperlinkAdapter() {
-            //                @Override
-            //                public void linkActivated(HyperlinkEvent e) {
-            //                    String className = trimToNull(classNameText.getText());
-            //                    IJavaProject javaProject = getJavaProject(getProject(), false);
-            //
-            //                    if (javaProject != null && className != null) {
-            //                        try {
-            //                            JavaUI.openInEditor(javaProject.findType(className));
-            //                        } catch (Exception ignored) {
-            //                        }
-            //                    }
-            //                }
-            //            });
-
-            classNameLink.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.MIDDLE));
+            toolkit.createLabel(parent, "Classpath Location").setLayoutData(
+                    new TableWrapData(TableWrapData.CENTER, TableWrapData.MIDDLE));
 
             // section/client/combo
             Composite combo = toolkit.createComposite(parent);
@@ -128,32 +110,38 @@ public class SpringPluggableSchemaData extends AbstractSpringExtComponentData<Sp
 
                 browse.addSelectionListener(new SelectionListener() {
                     public void widgetSelected(SelectionEvent e) {
-                        Shell shell = Display.getDefault().getActiveShell();
-                        IJavaProject javaProject = getJavaProject(getProject(), false);
-                        IJavaSearchScope scope = SearchEngine.createJavaSearchScope(new IJavaElement[] { javaProject });
+                        FilteredResourcesSelectionDialog dialog = new FilteredResourcesSelectionDialog(Display
+                                .getDefault().getActiveShell(), false, getProject().getWorkspace().getRoot(),
+                                IResource.FILE);
 
-                        FilteredTypesSelectionDialog dialog = new FilteredTypesSelectionDialog(shell, false, null,
-                                scope, CLASS_AND_INTERFACE);
-
-                        dialog.setTitle("Select Type");
-                        dialog.setInitialPattern(toClassName(classpathLocationText.getText()));
+                        dialog.setTitle("Select Resource");
+                        dialog.setInitialPattern("**/" + classpathLocationText.getText());
 
                         if (dialog.open() == Window.OK) {
                             Object result = dialog.getFirstResult();
 
-                            if (result instanceof IType) {
-                                IType type = (IType) result;
-                                classpathLocationText.setText(type.getFullyQualifiedName());
+                            if (result instanceof IFile) {
+                                IFile resource = (IFile) result;
+                                IJavaProject javaProject = SpringExtPluginUtil.getJavaProject(resource.getProject(),
+                                        false);
+
+                                if (javaProject != null) {
+                                    try {
+                                        IPath path = resource.getFullPath();
+
+                                        for (IPackageFragmentRoot root : javaProject.getAllPackageFragmentRoots()) {
+                                            if (root.getPath().isPrefixOf(path)) {
+                                                classpathLocationText.setText(path.removeFirstSegments(
+                                                        root.getPath().segmentCount()).toString());
+
+                                                ((SpringPluggableSchemaEditor) getEditor()).openNewSchemaFile(resource);
+                                            }
+                                        }
+                                    } catch (JavaModelException ignored) {
+                                    }
+                                }
                             }
                         }
-                    }
-
-                    private String toClassName(String s) {
-                        if (s != null) {
-                            s = s.replace('$', '.');
-                        }
-
-                        return s;
                     }
 
                     public void widgetDefaultSelected(SelectionEvent e) {

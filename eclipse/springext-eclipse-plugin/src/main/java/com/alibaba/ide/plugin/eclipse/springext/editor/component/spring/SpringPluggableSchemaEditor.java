@@ -2,8 +2,10 @@ package com.alibaba.ide.plugin.eclipse.springext.editor.component.spring;
 
 import static com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil.*;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.wst.sse.ui.StructuredTextEditor;
 
@@ -18,6 +20,15 @@ public class SpringPluggableSchemaEditor extends
 
     public SpringPluggableSchemaEditor() {
         super(new SpringPluggableSchemaData());
+    }
+
+    public final void openNewSchemaFile(IResource resource) {
+        try {
+            schemaEditor.setInput(createInputFromURL(resource.getLocationURI().toURL()));
+        } catch (MalformedURLException ignored) {
+        }
+
+        setPageText(getTab("originalSchema").index, schemaEditor.getTitle());
     }
 
     @Override
