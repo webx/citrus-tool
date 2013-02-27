@@ -68,7 +68,7 @@ public class ContextualStructuredTextEditor extends StructuredTextEditor {
         protected Map<String, IAdaptable> getHyperlinkDetectorTargets(ISourceViewer sourceViewer) {
             Map<String, IAdaptable> targets = createHashMap();
 
-            for (String contentType : SUPPORTED_CONTENT_TYPES) {
+            for (String contentType : HYPERLINK_TARGET_IDS) {
                 targets.put(contentType, getContext());
             }
 

@@ -26,16 +26,11 @@ public class ContextualPropertiesFileEditor extends PropertiesFileEditor {
 
     public ContextualPropertiesFileEditor(IAdaptable context) {
         this.context = context;
+        setSourceViewerConfiguration(new PropertiesFileSourceViewerConfigurationSpringExt(this));
     }
 
     public IAdaptable getContext() {
         return context;
-    }
-
-    @Override
-    protected void initializeEditor() {
-        super.initializeEditor();
-        setSourceViewerConfiguration(new PropertiesFileSourceViewerConfigurationSpringExt(this));
     }
 
     @Override
@@ -84,7 +79,7 @@ public class ContextualPropertiesFileEditor extends PropertiesFileEditor {
         protected Map<String, IAdaptable> getHyperlinkDetectorTargets(ISourceViewer sourceViewer) {
             Map<String, IAdaptable> targets = createHashMap();
 
-            for (String contentType : SUPPORTED_CONTENT_TYPES) {
+            for (String contentType : HYPERLINK_TARGET_IDS) {
                 targets.put(contentType, getContext());
             }
 
