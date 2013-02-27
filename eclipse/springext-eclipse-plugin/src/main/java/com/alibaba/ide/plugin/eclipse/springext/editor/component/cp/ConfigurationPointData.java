@@ -8,7 +8,6 @@ import java.util.Map;
 
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 
@@ -19,25 +18,14 @@ import com.alibaba.ide.plugin.eclipse.springext.editor.component.PropertiesUtil;
 import com.alibaba.ide.plugin.eclipse.springext.editor.component.PropertiesUtil.PropertyModel;
 
 public class ConfigurationPointData extends AbstractSpringExtComponentData<ConfigurationPoint> {
-    private ConfigurationPoint cp;
-
-    public ConfigurationPoint getConfigurationPoint() {
-        return cp;
-    }
-
-    @Override
-    public void initWithEditorInput(IEditorInput input) {
-        super.initWithEditorInput(input);
-        cp = (ConfigurationPoint) input.getAdapter(ConfigurationPoint.class);
-    }
-
     @Override
     protected void onSchemaSetChanged() {
-        if (cp != null && getSchemas().isSuccessful()) {
-            ConfigurationPoint newCp = getSchemas().getConfigurationPoints().getConfigurationPointByName(cp.getName());
+        if (component != null && getSchemas().isSuccessful()) {
+            ConfigurationPoint newCp = getSchemas().getConfigurationPoints().getConfigurationPointByName(
+                    component.getName());
 
             if (newCp != null) {
-                cp = newCp;
+                component = newCp;
             }
 
             if (schema != null) {
@@ -122,7 +110,7 @@ public class ConfigurationPointData extends AbstractSpringExtComponentData<Confi
          */
         @Override
         protected void doRefresh() {
-            String cpName = model == null ? cp.getName() : model.name;
+            String cpName = model == null ? component.getName() : model.name;
             model = PropertiesUtil.getModel(ConfigurationPointModel.class, getDocument(), cpName);
 
             if (model != null) {

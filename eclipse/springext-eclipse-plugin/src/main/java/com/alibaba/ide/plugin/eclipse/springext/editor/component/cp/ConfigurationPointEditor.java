@@ -24,7 +24,7 @@ public class ConfigurationPointEditor extends
         addTab("overview", new OverviewPage(this), "Overview");
 
         // definition file, editable
-        URL definitionURL = getSourceURL(getData().getConfigurationPoint());
+        URL definitionURL = getSourceURL(getData().getComponent());
         createPropertiesEditorPage(SOURCE_TAB_KEY, definitionURL, getLastSegment(definitionURL.toExternalForm()));
 
         // schema file, read only

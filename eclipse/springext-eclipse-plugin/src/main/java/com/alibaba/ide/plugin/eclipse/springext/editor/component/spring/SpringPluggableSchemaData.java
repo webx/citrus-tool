@@ -31,10 +31,6 @@ import com.alibaba.ide.plugin.eclipse.springext.editor.component.PropertiesUtil.
 import com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil;
 
 public class SpringPluggableSchemaData extends AbstractSpringExtComponentData<SpringPluggableSchemaSourceInfo> {
-    public SpringPluggableSchemaSourceInfo getSpringPluggableSchemaSourceInfo() {
-        return (SpringPluggableSchemaSourceInfo) schema;
-    }
-
     @Override
     protected void onSchemaSetChanged() {
         if (schema != null && getSchemas().isSuccessful()) {

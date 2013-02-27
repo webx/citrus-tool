@@ -56,7 +56,7 @@ public class URLHyperlinkDetector extends AbstractContextualHyperlinkDetector {
         int urlOffsetInLine = 0;
         int urlLength = 0;
 
-        int urlSeparatorOffset = indexOfUrlSep(line, -1); //$NON-NLS-1$
+        int urlSeparatorOffset = indexOfUrlSep(line, -1);
 
         while (urlSeparatorOffset >= 0) {
             // URL protocol (left to "://")
@@ -92,7 +92,7 @@ public class URLHyperlinkDetector extends AbstractContextualHyperlinkDetector {
                 break;
             }
 
-            urlSeparatorOffset = indexOfUrlSep(line, urlSeparatorOffset + 1); //$NON-NLS-1$
+            urlSeparatorOffset = indexOfUrlSep(line, urlSeparatorOffset + 1);
         }
 
         if (urlSeparatorOffset < 0) {

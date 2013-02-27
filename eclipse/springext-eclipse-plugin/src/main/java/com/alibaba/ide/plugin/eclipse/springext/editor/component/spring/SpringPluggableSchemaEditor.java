@@ -37,7 +37,7 @@ public class SpringPluggableSchemaEditor extends
         addTab("overview", new OverviewPage(this), "Overview");
 
         // definition file, editable
-        URL definitionURL = getSourceURL(getData().getSpringPluggableSchemaSourceInfo().getParent());
+        URL definitionURL = getSourceURL(getData().getComponent().getParent());
         createPropertiesEditorPage(SOURCE_TAB_KEY, definitionURL, getLastSegment(definitionURL.toExternalForm()));
 
         Schema schema = getData().getSchema(); // schema可能不存在

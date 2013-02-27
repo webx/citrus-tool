@@ -25,7 +25,7 @@ public class ContributionEditor extends AbstractSpringExtComponentEditor<Contrib
         addTab("overview", new OverviewPage(this), "Overview");
 
         // definition file, editable
-        URL definitionURL = getSourceURL(getData().getContribution());
+        URL definitionURL = getSourceURL(getData().getComponent());
         createPropertiesEditorPage(SOURCE_TAB_KEY, definitionURL, getLastSegment(definitionURL.toExternalForm()));
 
         Schema schema = getData().getSchema(); // schema可能不存在

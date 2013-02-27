@@ -22,7 +22,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.forms.events.HyperlinkAdapter;
 import org.eclipse.ui.forms.events.HyperlinkEvent;
 import org.eclipse.ui.forms.widgets.FormToolkit;
@@ -39,29 +38,17 @@ import com.alibaba.ide.plugin.eclipse.springext.editor.component.PropertiesUtil.
 
 @SuppressWarnings("restriction")
 public class ContributionData extends AbstractSpringExtComponentData<Contribution> {
-    private Contribution contrib;
-
-    public Contribution getContribution() {
-        return contrib;
-    }
-
-    @Override
-    public void initWithEditorInput(IEditorInput input) {
-        super.initWithEditorInput(input);
-        contrib = (Contribution) input.getAdapter(Contribution.class);
-    }
-
     @Override
     protected void onSchemaSetChanged() {
-        if (contrib != null && getSchemas().isSuccessful()) {
+        if (component != null && getSchemas().isSuccessful()) {
             ConfigurationPoint newCp = getSchemas().getConfigurationPoints().getConfigurationPointByName(
-                    contrib.getConfigurationPoint().getName());
+                    component.getConfigurationPoint().getName());
 
-            Contribution newContrib = newCp == null ? null : newCp
-                    .getContribution(contrib.getName(), contrib.getType());
+            Contribution newContrib = newCp == null ? null : newCp.getContribution(component.getName(),
+                    component.getType());
 
             if (newContrib != null) {
-                contrib = newContrib;
+                component = newContrib;
             }
 
             if (schema != null) {
@@ -195,7 +182,7 @@ public class ContributionData extends AbstractSpringExtComponentData<Contributio
          */
         @Override
         protected void doRefresh() {
-            String contribName = model == null ? contrib.getName() : model.name;
+            String contribName = model == null ? component.getName() : model.name;
             model = PropertiesUtil.getModel(ContributionModel.class, getDocument(), contribName);
 
             if (model != null) {

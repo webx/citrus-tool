@@ -142,7 +142,7 @@ public class OverviewPage extends FormPage {
         public void refresh() {
             data.getDocumentViewer().refresh();
 
-            Contribution contrib = data.getContribution();
+            Contribution contrib = data.getComponent();
             Schema schema = data.getSchema(); // schema可能不存在
 
             contributionTypeText.setText(contrib.getType().toString(), false, false);
@@ -219,7 +219,7 @@ public class OverviewPage extends FormPage {
         @Override
         public void refresh() {
             HyperlinkTextBuilder buf = new HyperlinkTextBuilder(toolkit);
-            ConfigurationPointItem[] items = data.getSchemas().getChildConfigurationPoint(data.getContribution());
+            ConfigurationPointItem[] items = data.getSchemas().getChildConfigurationPoint(data.getComponent());
 
             if (isEmptyArray(items)) {
                 childrenText.setText("<no child>", false, false);

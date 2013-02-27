@@ -2,6 +2,7 @@ package com.alibaba.ide.plugin.eclipse.springext.editor.component;
 
 import static com.alibaba.citrus.util.StringUtil.*;
 import static com.alibaba.ide.plugin.eclipse.springext.SpringExtConstant.*;
+import static com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil.*;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -14,6 +15,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.PlatformObject;
 import org.eclipse.jdt.internal.ui.propertiesfileeditor.PropertiesFileEditor;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IPersistableElement;
 import org.eclipse.ui.IStorageEditorInput;
 import org.eclipse.wst.sse.ui.StructuredTextEditor;
@@ -49,6 +51,21 @@ public abstract class AbstractSpringExtComponentEditor<C, D extends AbstractSpri
             return baseName.substring(0, i) + "-" + version + baseName.substring(i);
         } else {
             return super.getEditorTitleName(baseName);
+        }
+    }
+
+    @Override
+    protected void createPages() {
+        // 假如input为一个简单文件，而不是一个component对象，则直接打开properties文件。
+        if (getData().getComponent() == null && getEditorInput() != null) {
+            IEditorInput input = getEditorInput();
+
+            if (input != null) {
+                addTab(SOURCE_TAB_KEY, new ContextualPropertiesFileEditor(getData()), input,
+                        getLastSegment(input.getName()));
+            }
+        } else {
+            super.createPages(); // call addPages()
         }
     }
 

@@ -1,5 +1,7 @@
 package com.alibaba.ide.plugin.eclipse.springext.editor.component;
 
+import static com.alibaba.citrus.generictype.TypeInfoUtil.*;
+
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.eclipse.jdt.internal.ui.propertiesfileeditor.PropertiesFileEditor;
@@ -20,23 +22,34 @@ import com.alibaba.ide.plugin.eclipse.springext.editor.SpringExtEditingData;
 
 @SuppressWarnings("restriction")
 public abstract class AbstractSpringExtComponentData<C> extends SpringExtEditingData<PropertiesFileEditor> {
-    protected Schema schema;
     private DocumentViewer documentViewer;
     private IManagedForm managedForm;
     private IDocument document;
+    private final Class<C> componentType;
+    protected C component;
+    protected Schema schema;
 
     public AbstractSpringExtComponentData() {
         this.documentViewer = createDocumentViewer();
+
+        @SuppressWarnings("unchecked")
+        Class<C> c = (Class<C>) resolveParameter(getClass(), AbstractSpringExtComponentData.class, 0).getRawType();
+        this.componentType = c;
     }
 
     public Schema getSchema() {
         return schema;
     }
 
+    public C getComponent() {
+        return component;
+    }
+
     @Override
     public void initWithEditorInput(IEditorInput input) {
         super.initWithEditorInput(input);
         schema = (Schema) input.getAdapter(Schema.class);
+        component = componentType.cast(input.getAdapter(componentType));
     }
 
     public void initWithManagedForm(IManagedForm managedForm) {

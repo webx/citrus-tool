@@ -127,7 +127,7 @@ public class OverviewPage extends FormPage {
         public void refresh() {
             data.getDocumentViewer().refresh();
 
-            ConfigurationPoint cp = data.getConfigurationPoint();
+            ConfigurationPoint cp = data.getComponent();
 
             URL defURL = SpringExtPluginUtil.getSourceURL(cp);
 
@@ -188,7 +188,7 @@ public class OverviewPage extends FormPage {
             Schema schema = data.getSchema();
             String version = schema == null ? null : schema.getVersion();
 
-            for (final Contribution contrib : data.getConfigurationPoint().getContributions()) {
+            for (final Contribution contrib : data.getComponent().getContributions()) {
                 final Schema contribSchema = contrib.getSchemas().getVersionedSchema(version);
 
                 buf.append("<li style=\"image\" value=\"plug\">")
@@ -245,7 +245,7 @@ public class OverviewPage extends FormPage {
         @Override
         public void refresh() {
             HyperlinkTextBuilder buf = new HyperlinkTextBuilder(toolkit);
-            Collection<Contribution> parents = data.getConfigurationPoint().getDependingContributions();
+            Collection<Contribution> parents = data.getComponent().getDependingContributions();
 
             if (parents.isEmpty()) {
                 parentsText.setText("<no parent>", false, false);
