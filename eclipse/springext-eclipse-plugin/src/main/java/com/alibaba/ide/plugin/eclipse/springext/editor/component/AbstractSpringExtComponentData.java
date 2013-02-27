@@ -59,8 +59,11 @@ public abstract class AbstractSpringExtComponentData<C> extends SpringExtEditing
     @Override
     protected void initWithSourceEditor(PropertiesFileEditor sourceEditor) {
         super.initWithSourceEditor(sourceEditor);
-        document = sourceEditor.getDocumentProvider().getDocument(sourceEditor.getEditorInput());
-        document.addDocumentListener(getDocumentViewer());
+
+        if (component != null) {
+            document = sourceEditor.getDocumentProvider().getDocument(sourceEditor.getEditorInput());
+            document.addDocumentListener(getDocumentViewer());
+        }
     }
 
     public DocumentViewer getDocumentViewer() {
