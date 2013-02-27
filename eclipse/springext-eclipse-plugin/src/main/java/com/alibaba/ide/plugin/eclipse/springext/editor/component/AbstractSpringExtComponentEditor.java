@@ -18,6 +18,8 @@ import org.eclipse.ui.IStorageEditorInput;
 import org.eclipse.wst.sse.ui.StructuredTextEditor;
 
 import com.alibaba.citrus.springext.Schema;
+import com.alibaba.ide.plugin.eclipse.springext.editor.ContextualPropertiesFileEditor;
+import com.alibaba.ide.plugin.eclipse.springext.editor.ContextualStructuredTextEditor;
 import com.alibaba.ide.plugin.eclipse.springext.editor.SpringExtFormEditor;
 
 @SuppressWarnings("restriction")
@@ -29,7 +31,7 @@ public abstract class AbstractSpringExtComponentEditor<C, D extends AbstractSpri
 
     protected final PropertiesFileEditor createPropertiesEditorPage(String key, URL url, String tabTitle) {
         if (url != null) {
-            return addTab(key, new PropertiesFileEditor(), createInputFromURL(url), tabTitle);
+            return addTab(key, new ContextualPropertiesFileEditor(getData()), createInputFromURL(url), tabTitle);
         }
 
         return null;
@@ -37,8 +39,8 @@ public abstract class AbstractSpringExtComponentEditor<C, D extends AbstractSpri
 
     protected final StructuredTextEditor createSchemaEditorPage(String key, Schema schema, String tabTitle) {
         if (schema != null) {
-            return addTab(key, new StructuredTextEditor(), new SchemaEditorInput(schema, getData().getProject()),
-                    tabTitle);
+            return addTab(key, new ContextualStructuredTextEditor(getData()), new SchemaEditorInput(schema, getData()
+                    .getProject()), tabTitle);
         }
 
         return null;
@@ -46,7 +48,7 @@ public abstract class AbstractSpringExtComponentEditor<C, D extends AbstractSpri
 
     protected final StructuredTextEditor createSchemaEditorPage(String key, URL url, String tabTitle) {
         if (url != null) {
-            return addTab(key, new StructuredTextEditor(), createInputFromURL(url), tabTitle);
+            return addTab(key, new ContextualStructuredTextEditor(getData()), createInputFromURL(url), tabTitle);
         }
 
         return null;

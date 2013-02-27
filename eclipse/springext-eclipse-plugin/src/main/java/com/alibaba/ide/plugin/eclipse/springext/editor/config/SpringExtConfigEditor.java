@@ -2,13 +2,12 @@ package com.alibaba.ide.plugin.eclipse.springext.editor.config;
 
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jface.text.source.SourceViewerConfiguration;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.ide.IGotoMarker;
 import org.eclipse.wst.sse.ui.StructuredTextEditor;
 
+import com.alibaba.ide.plugin.eclipse.springext.editor.ContextualStructuredTextEditor;
 import com.alibaba.ide.plugin.eclipse.springext.editor.SpringExtFormEditor;
-import com.alibaba.ide.plugin.eclipse.springext.editor.StructuredTextViewerConfigurationSpringExtXML;
 import com.alibaba.ide.plugin.eclipse.springext.editor.config.namespace.NamespacesPage;
 
 public class SpringExtConfigEditor extends SpringExtFormEditor<SpringExtConfigData, StructuredTextEditor> implements
@@ -34,16 +33,7 @@ public class SpringExtConfigEditor extends SpringExtFormEditor<SpringExtConfigDa
      * 创建XML源码页。
      */
     private void createSourcePage() {
-        StructuredTextEditor sourceEditor = new StructuredTextEditor() {
-            @Override
-            protected void setSourceViewerConfiguration(SourceViewerConfiguration config) {
-                if (config instanceof StructuredTextViewerConfigurationSpringExtXML) {
-                    ((StructuredTextViewerConfigurationSpringExtXML) config).setContext(getData());
-                }
-
-                super.setSourceViewerConfiguration(config);
-            }
-        };
+        StructuredTextEditor sourceEditor = new ContextualStructuredTextEditor(getData());
 
         addSouceTab(sourceEditor, getEditorInput(), "Source");
         getData().initWithTextViewer(sourceEditor.getTextViewer());

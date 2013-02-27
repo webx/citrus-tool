@@ -42,33 +42,35 @@ public abstract class AbstractXMLHyperlinkDetector extends AbstractContextualHyp
         int currentOffset = region.getOffset();
         Node currentNode = getCurrentNode(document, currentOffset);
 
-        switch (currentNode.getNodeType()) {
-            case Node.ELEMENT_NODE:
-                Detector detector = new Detector(document, currentNode, currentOffset);
+        if (currentNode != null) {
+            switch (currentNode.getNodeType()) {
+                case Node.ELEMENT_NODE:
+                    Detector detector = new Detector(document, currentNode, currentOffset);
 
-                results = detector.visitOpenTag();
+                    results = detector.visitOpenTag();
 
-                if (isEmptyArray(results)) {
-                    results = detector.visitCloseTag();
-                }
-
-                if (isEmptyArray(results)) {
-                    Attr attr = getCurrentAttrNode(currentNode, currentOffset);
-
-                    if (attr != null) {
-                        results = new Detector(document, attr, currentOffset).visitAttr();
+                    if (isEmptyArray(results)) {
+                        results = detector.visitCloseTag();
                     }
-                }
 
-                break;
+                    if (isEmptyArray(results)) {
+                        Attr attr = getCurrentAttrNode(currentNode, currentOffset);
 
-            case Node.TEXT_NODE:
-                if (currentNode instanceof IDOMText) {
-                    IDOMText textNode = (IDOMText) currentNode;
-                    visitText(document, new Region(textNode.getStartOffset(), textNode.getLength()));
-                }
+                        if (attr != null) {
+                            results = new Detector(document, attr, currentOffset).visitAttr();
+                        }
+                    }
 
-                break;
+                    break;
+
+                case Node.TEXT_NODE:
+                    if (currentNode instanceof IDOMText) {
+                        IDOMText textNode = (IDOMText) currentNode;
+                        visitText(document, new Region(textNode.getStartOffset(), textNode.getLength()));
+                    }
+
+                    break;
+            }
         }
 
         return results;
