@@ -1,6 +1,7 @@
 package com.alibaba.ide.plugin.eclipse.springext.hyperlink.detector;
 
 import static com.alibaba.ide.plugin.eclipse.springext.hyperlink.detector.HyperlinkDetectorUtil.*;
+import static com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil.*;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -20,6 +21,8 @@ import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
  * URL hyperlink detector.
  * <p/>
  * Copied from {@link org.eclipse.jface.text.hyperlink.URLHyperlinkDetector}
+ * <p/>
+ * 特别支持properties文件中，<code>http\://...</code>的格式。
  * 
  * @author Michael Zhou
  */
@@ -53,7 +56,7 @@ public class URLHyperlinkDetector extends AbstractContextualHyperlinkDetector {
         int urlOffsetInLine = 0;
         int urlLength = 0;
 
-        int urlSeparatorOffset = line.indexOf("://"); //$NON-NLS-1$
+        int urlSeparatorOffset = indexOfUrlSep(line, -1); //$NON-NLS-1$
 
         while (urlSeparatorOffset >= 0) {
             // URL protocol (left to "://")
@@ -89,7 +92,7 @@ public class URLHyperlinkDetector extends AbstractContextualHyperlinkDetector {
                 break;
             }
 
-            urlSeparatorOffset = line.indexOf("://", urlSeparatorOffset + 1); //$NON-NLS-1$
+            urlSeparatorOffset = indexOfUrlSep(line, urlSeparatorOffset + 1); //$NON-NLS-1$
         }
 
         if (urlSeparatorOffset < 0) {
@@ -116,7 +119,7 @@ public class URLHyperlinkDetector extends AbstractContextualHyperlinkDetector {
 
         // Set and validate URL string
         try {
-            urlString = line.substring(urlOffsetInLine, urlOffsetInLine + urlLength);
+            urlString = decode(line.substring(urlOffsetInLine, urlOffsetInLine + urlLength));
             new URL(urlString);
         } catch (MalformedURLException ex) {
             urlString = null;
@@ -135,5 +138,19 @@ public class URLHyperlinkDetector extends AbstractContextualHyperlinkDetector {
         }
 
         return null;
+    }
+
+    private int indexOfUrlSep(String s, int start) {
+        if (start < 0) {
+            start = 0;
+        }
+
+        int i = s.indexOf("\\://", start);
+
+        if (i < 0) {
+            i = s.indexOf("://", start);
+        }
+
+        return i;
     }
 }
