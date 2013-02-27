@@ -74,7 +74,11 @@ public abstract class SpringExtFormEditor<D extends SpringExtEditingData<S>, S e
     protected void setInput(IEditorInput input) {
         super.setInput(input);
         data.initWithEditorInput(input);
-        setPartName(input.getName());
+        setPartName(getEditorTitleName(input.getName()));
+    }
+
+    protected String getEditorTitleName(String baseName) {
+        return baseName;
     }
 
     protected final <T extends IFormPage> T addTab(String tabKey, T page, String tabTitle) {

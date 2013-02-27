@@ -18,7 +18,6 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.dialogs.FilteredResourcesSelectionDialog;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.TableWrapData;
@@ -32,20 +31,8 @@ import com.alibaba.ide.plugin.eclipse.springext.editor.component.PropertiesUtil.
 import com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil;
 
 public class SpringPluggableSchemaData extends AbstractSpringExtComponentData<SpringPluggableSchemaSourceInfo> {
-    private Schema schema;
-
     public SpringPluggableSchemaSourceInfo getSpringPluggableSchemaSourceInfo() {
         return (SpringPluggableSchemaSourceInfo) schema;
-    }
-
-    public Schema getSchema() {
-        return schema;
-    }
-
-    @Override
-    public void initWithEditorInput(IEditorInput input) {
-        super.initWithEditorInput(input);
-        schema = (Schema) input.getAdapter(Schema.class);
     }
 
     @Override

@@ -9,21 +9,34 @@ import org.eclipse.jface.text.IDocumentListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.forms.AbstractFormPart;
 import org.eclipse.ui.forms.IFormPart;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
+import com.alibaba.citrus.springext.Schema;
 import com.alibaba.ide.plugin.eclipse.springext.editor.SpringExtEditingData;
 
 @SuppressWarnings("restriction")
 public abstract class AbstractSpringExtComponentData<C> extends SpringExtEditingData<PropertiesFileEditor> {
+    protected Schema schema;
     private DocumentViewer documentViewer;
     private IManagedForm managedForm;
     private IDocument document;
 
     public AbstractSpringExtComponentData() {
         this.documentViewer = createDocumentViewer();
+    }
+
+    public Schema getSchema() {
+        return schema;
+    }
+
+    @Override
+    public void initWithEditorInput(IEditorInput input) {
+        super.initWithEditorInput(input);
+        schema = (Schema) input.getAdapter(Schema.class);
     }
 
     public void initWithManagedForm(IManagedForm managedForm) {

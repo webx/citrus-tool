@@ -1,5 +1,6 @@
 package com.alibaba.ide.plugin.eclipse.springext.editor.component;
 
+import static com.alibaba.citrus.util.StringUtil.*;
 import static com.alibaba.ide.plugin.eclipse.springext.SpringExtConstant.*;
 
 import java.io.InputStream;
@@ -27,6 +28,28 @@ public abstract class AbstractSpringExtComponentEditor<C, D extends AbstractSpri
         SpringExtFormEditor<D, PropertiesFileEditor> {
     public AbstractSpringExtComponentEditor(D data) {
         super(data);
+    }
+
+    @Override
+    protected final String getEditorTitleName(String baseName) {
+        String version = null;
+        Schema schema = getData().getSchema();
+
+        if (schema != null) {
+            version = trimToNull(schema.getVersion());
+        }
+
+        if (baseName != null && version != null) {
+            int i = baseName.lastIndexOf(".");
+
+            if (i < 0) {
+                i = baseName.length();
+            }
+
+            return baseName.substring(0, i) + "-" + version + baseName.substring(i);
+        } else {
+            return super.getEditorTitleName(baseName);
+        }
     }
 
     protected final PropertiesFileEditor createPropertiesEditorPage(String key, URL url, String tabTitle) {
