@@ -5,10 +5,6 @@
         <resolverExtension priority="high" stage="prenormalization"
             class="com.alibaba.ide.plugin.eclipse.springext.resolver.SpringExtSchemaResolver" />
     </extension>
-    <extension point="org.eclipse.ecf.filetransfer.urlStreamHandlerService">
-        <urlStreamHandlerService protocol="springext"
-            serviceClass="com.alibaba.ide.plugin.eclipse.springext.resolver.SpringExtURLStreamHandler" />
-    </extension>
     <extension point="org.eclipse.ui.workbench.texteditor.hyperlinkDetectorTargets">
         <target id="com.alibaba.ide.plugin.eclipse.springext.configFile"
             name="com.alibaba.ide.plugin.eclipse.springext.configFile" />

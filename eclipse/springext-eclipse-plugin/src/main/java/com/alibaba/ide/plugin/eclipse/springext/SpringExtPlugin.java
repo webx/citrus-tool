@@ -1,20 +1,21 @@
 package com.alibaba.ide.plugin.eclipse.springext;
 
+import static com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil.*;
+
 import java.net.URL;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 import com.alibaba.citrus.logconfig.LogConfigurator;
+import com.alibaba.ide.plugin.eclipse.springext.resolver.SpringExtURLStreamHandler;
 import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
 
-@SuppressWarnings("restriction")
 public class SpringExtPlugin extends AbstractUIPlugin implements SpringExtConstant {
     private static SpringExtPlugin plugin;
 
@@ -30,7 +31,7 @@ public class SpringExtPlugin extends AbstractUIPlugin implements SpringExtConsta
         LogConfigurator.getConfigurator().configureDefault();
 
         // activate URL handler
-        Platform.getBundle(org.eclipse.ecf.internal.filetransfer.Activator.PLUGIN_ID);
+        registerURLStreamHandler(context, URL_PROTOCOL, new SpringExtURLStreamHandler());
 
         // register listener
         SchemaResourceSet.registerChangedListener();

@@ -6,6 +6,7 @@ import static com.alibaba.citrus.util.StringUtil.*;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Hashtable;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -22,12 +23,23 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IFileEditorInput;
+import org.osgi.framework.BundleContext;
+import org.osgi.service.url.AbstractURLStreamHandlerService;
+import org.osgi.service.url.URLConstants;
+import org.osgi.service.url.URLStreamHandlerService;
 import org.springframework.core.io.Resource;
 
 import com.alibaba.citrus.springext.SourceInfo;
 import com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin;
 
 public class SpringExtPluginUtil {
+    public static void registerURLStreamHandler(BundleContext context, String protocol,
+                                                AbstractURLStreamHandlerService service) {
+        Hashtable<String, Object> properties = new Hashtable<String, Object>();
+        properties.put(URLConstants.URL_HANDLER_PROTOCOL, new String[] { protocol });
+        context.registerService(URLStreamHandlerService.class.getName(), service, properties);
+    }
+
     public static IProject getProjectFromInput(IEditorInput input) {
         return getProjectFromInput(input, true);
     }
