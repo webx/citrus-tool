@@ -12,6 +12,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jdt.core.IJavaProject;
@@ -310,4 +311,19 @@ public class SpringExtPluginUtil {
 
     private static final char[] hexDigit = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E',
             'F' };
+
+    public static <T> T getFromContext(Object context, Class<T> type) {
+        return getFromContext(context, type, true);
+    }
+
+    public static <T> T getFromContext(Object context, Class<T> type, boolean required) {
+        IAdaptable adaptableContext = context instanceof IAdaptable ? (IAdaptable) context : null;
+        T result = adaptableContext != null ? type.cast(adaptableContext.getAdapter(type)) : null;
+
+        if (result == null && required) {
+            throw new IllegalArgumentException("Could not get context object of type " + type.getName());
+        }
+
+        return result;
+    }
 }
