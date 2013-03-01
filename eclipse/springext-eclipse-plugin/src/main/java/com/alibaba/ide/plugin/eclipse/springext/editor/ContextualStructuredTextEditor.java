@@ -6,11 +6,14 @@ import static com.alibaba.ide.plugin.eclipse.springext.SpringExtConstant.*;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 import org.eclipse.jface.text.hyperlink.IHyperlinkDetector;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.SourceViewerConfiguration;
 import org.eclipse.wst.sse.ui.StructuredTextEditor;
 import org.eclipse.wst.xml.ui.StructuredTextViewerConfigurationXML;
+
+import com.alibaba.ide.plugin.eclipse.springext.completion.ContextualXMLStructuredContentAssistProcessor;
 
 /**
  * 扩展原xml编辑器，使之可以取得一个<code>IAdaptable</code>上下文对象。
@@ -49,6 +52,15 @@ public class ContextualStructuredTextEditor extends StructuredTextEditor {
 
         public void setContext(IAdaptable context) {
             this.context = context;
+        }
+
+        /**
+         * 将context传递给content assist。
+         */
+        @Override
+        protected IContentAssistProcessor[] getContentAssistProcessors(ISourceViewer sourceViewer, String partitionType) {
+            return new IContentAssistProcessor[] { new ContextualXMLStructuredContentAssistProcessor(
+                    getContentAssistant(), partitionType, sourceViewer, getContext()) };
         }
 
         @Override

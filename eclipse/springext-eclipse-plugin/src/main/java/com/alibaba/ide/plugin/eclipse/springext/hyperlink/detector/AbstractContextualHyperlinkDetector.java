@@ -17,12 +17,12 @@ public abstract class AbstractContextualHyperlinkDetector extends AbstractHyperl
     }
 
     protected final <T> T getFromContext(Class<T> type, boolean required) {
-        T context = type.cast(getAdapter(type));
+        T result = type.cast(getAdapter(type));
 
-        if (context == null && required) {
+        if (result == null && required) {
             throw new IllegalArgumentException("Could not get context object of type " + type.getName());
         }
 
-        return context;
+        return result;
     }
 }
