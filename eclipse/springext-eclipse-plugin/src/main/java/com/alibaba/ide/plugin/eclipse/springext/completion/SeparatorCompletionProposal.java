@@ -1,7 +1,5 @@
 package com.alibaba.ide.plugin.eclipse.springext.completion;
 
-import org.eclipse.wst.sse.ui.internal.contentassist.CustomCompletionProposal;
-import org.eclipse.wst.sse.ui.internal.contentassist.IRelevanceConstants;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMNode;
 import org.eclipse.wst.xml.ui.internal.contentassist.ContentAssistRequest;
 
@@ -15,13 +13,12 @@ import org.eclipse.wst.xml.ui.internal.contentassist.ContentAssistRequest;
  * @author Michael Zhou
  */
 @SuppressWarnings("restriction")
-public class SeparatorCompletionProposal extends CustomCompletionProposal {
+public class SeparatorCompletionProposal extends AbstractInsertNothingCompletionProposal {
     private final IDOMNode node;
     private final IDOMNode parentNode;
 
     public SeparatorCompletionProposal(ContentAssistRequest request, IDOMNode node, IDOMNode parentNode) {
-        super("", request.getReplacementBeginPosition() + request.getReplacementLength(), 0, 0, null,
-                "--------------------", null, null, IRelevanceConstants.R_NONE);
+        super(request, null, "--------------------", null);
 
         this.node = node;
         this.parentNode = parentNode;

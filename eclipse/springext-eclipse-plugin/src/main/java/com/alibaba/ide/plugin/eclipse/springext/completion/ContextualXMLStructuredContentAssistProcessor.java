@@ -65,29 +65,49 @@ public class ContextualXMLStructuredContentAssistProcessor extends XMLStructured
         // 取得标志性的proposal，如果不存在，则不作处理直接返回
         SeparatorCompletionProposal sep = removeSeparatorCompletionProposal(proposals);
 
-        if (sep != null) {
-            // 对于beans:beans下的configuration point element，只保留independent items。
-            IDOMNode parentNode = sep.getParentNode();
-            IDOMDocument document = (IDOMDocument) parentNode.getOwnerDocument();
+        if (sep == null) {
+            return proposals;
+        }
 
-            if (document.getDocumentElement() == parentNode) {
-                NamespaceDefinitions nds = DomDocumentUtil.loadNamespaces(document);
+        List<ICompletionProposal> filteredProposals = createArrayList(proposals.size() + 1);
 
-                for (Iterator<ICompletionProposal> i = proposals.iterator(); i.hasNext();) {
-                    ICompletionProposal proposal = i.next();
+        // 对于beans:beans下的configuration point element，只保留independent items。
+        IDOMNode parentNode = sep.getParentNode();
+        IDOMDocument document = (IDOMDocument) parentNode.getOwnerDocument();
 
-                    if (isTagProposal(proposal)) {
-                        String nsPrefix = getNamespacePrefix(proposal);
+        if (document.getDocumentElement() == parentNode) {
+            NamespaceDefinitions nds = DomDocumentUtil.loadNamespaces(document);
 
-                        if (!isIndependentOrUnknwonItem(nsPrefix, nds)) {
-                            i.remove();
-                        }
+            for (Iterator<ICompletionProposal> i = proposals.iterator(); i.hasNext();) {
+                ICompletionProposal proposal = i.next();
+
+                if (isTagProposal(proposal)) {
+                    String nsPrefix = getNamespacePrefix(proposal);
+
+                    if (!isIndependentOrUnknwonItem(nsPrefix, nds)) {
+                        i.remove();
                     }
                 }
             }
         }
 
-        return proposals;
+        // 将所有import namespace放在最前面
+        for (Iterator<ICompletionProposal> i = proposals.iterator(); i.hasNext();) {
+            ICompletionProposal proposal = i.next();
+
+            if (proposal instanceof ImportNamespaceCompletionProposal) {
+                i.remove();
+                filteredProposals.add(proposal);
+            }
+        }
+
+        if (!filteredProposals.isEmpty()) {
+            filteredProposals.add(sep);
+        }
+
+        filteredProposals.addAll(proposals);
+
+        return filteredProposals;
     }
 
     private boolean isIndependentOrUnknwonItem(String nsPrefix, NamespaceDefinitions nds) {
