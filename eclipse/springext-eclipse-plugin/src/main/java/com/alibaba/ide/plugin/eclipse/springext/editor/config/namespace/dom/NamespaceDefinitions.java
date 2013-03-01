@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.alibaba.citrus.springext.Schema;
+import com.alibaba.citrus.util.ObjectUtil;
 import com.alibaba.ide.plugin.eclipse.springext.schema.SchemaResourceSet;
 
 public class NamespaceDefinitions {
@@ -37,6 +38,20 @@ public class NamespaceDefinitions {
         } else {
             return prefixes;
         }
+    }
+
+    public NamespaceDefinition findNamespaceByPrefix(String prefix) {
+        prefix = trimToNull(prefix);
+
+        for (Map<String, NamespaceDefinition> prefixes : namespaces.values()) {
+            for (NamespaceDefinition ns : prefixes.values()) {
+                if (ObjectUtil.isEquals(prefix, ns.getPrefix())) {
+                    return ns;
+                }
+            }
+        }
+
+        return null;
     }
 
     public String getLocation(String namespace) {
