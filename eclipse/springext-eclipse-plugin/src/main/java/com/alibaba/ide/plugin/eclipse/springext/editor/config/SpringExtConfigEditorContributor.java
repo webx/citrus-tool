@@ -7,9 +7,16 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.commands.ActionHandler;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.contexts.IContextActivation;
+import org.eclipse.ui.contexts.IContextService;
+import org.eclipse.ui.handlers.IHandlerActivation;
+import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.part.MultiPageEditorActionBarContributor;
 
 import com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin;
@@ -21,6 +28,36 @@ public class SpringExtConfigEditorContributor extends MultiPageEditorActionBarCo
     private final CleanupUnusedNamespacesAction cleanupUnusedNamespacesAction = new CleanupUnusedNamespacesAction();
     private final UpgradeToUnqualifiedStyleAction upgradeToUnqualifiedStyleAction = new UpgradeToUnqualifiedStyleAction();
     private SpringExtConfigData config;
+
+    private IContextService contextService;
+    private IContextActivation cleanupUnusedNamespacesContextActivation;
+    private IHandlerService handlerService;
+    private IHandlerActivation cleanupUnusedNamespacesHandlerActivation;
+
+    @Override
+    public void init(IActionBars bars) {
+        super.init(bars);
+
+        handlerService = (IHandlerService) getPage().getWorkbenchWindow().getService(IHandlerService.class);
+        cleanupUnusedNamespacesHandlerActivation = handlerService
+                .activateHandler(cleanupUnusedNamespacesAction.getActionDefinitionId(), new ActionHandler(
+                        cleanupUnusedNamespacesAction));
+
+        contextService = (IContextService) PlatformUI.getWorkbench().getService(IContextService.class);
+        cleanupUnusedNamespacesContextActivation = contextService.activateContext(SpringExtConfigEditor.class.getName()
+                + ".scope");
+    }
+
+    @Override
+    public void dispose() {
+        if (handlerService != null && cleanupUnusedNamespacesHandlerActivation != null) {
+            handlerService.deactivateHandler(cleanupUnusedNamespacesHandlerActivation);
+        }
+
+        if (contextService != null && cleanupUnusedNamespacesContextActivation != null) {
+            contextService.deactivateContext(cleanupUnusedNamespacesContextActivation);
+        }
+    }
 
     @Override
     public void contributeToToolBar(IToolBarManager toolBarManager) {
@@ -58,6 +95,7 @@ public class SpringExtConfigEditorContributor extends MultiPageEditorActionBarCo
         public CleanupUnusedNamespacesAction() {
             super("Cleanup Unused Namespaces", IAction.AS_PUSH_BUTTON);
             setImageDescriptor(SpringExtPlugin.getDefault().getImageRegistry().getDescriptor("clear-ns"));
+            setActionDefinitionId("com.alibaba.ide.plugin.eclipse.springext.commands.cleanupUnusedNamespaces");
         }
 
         @Override
