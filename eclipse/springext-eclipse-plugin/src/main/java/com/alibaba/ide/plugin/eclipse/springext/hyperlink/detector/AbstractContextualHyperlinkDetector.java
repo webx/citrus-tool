@@ -2,8 +2,6 @@ package com.alibaba.ide.plugin.eclipse.springext.hyperlink.detector;
 
 import org.eclipse.jface.text.hyperlink.AbstractHyperlinkDetector;
 
-import com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil;
-
 /**
  * 这是一个hyperlink detector的基类，方便取得context相关的对象。
  * <p/>
@@ -15,6 +13,16 @@ import com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil;
  */
 public abstract class AbstractContextualHyperlinkDetector extends AbstractHyperlinkDetector {
     protected final <T> T getFromContext(Class<T> type) {
-        return SpringExtPluginUtil.getFromContext(this, type, true);
+        return getFromContext(type, true);
+    }
+
+    protected final <T> T getFromContext(Class<T> type, boolean required) {
+        T result = type.cast(getAdapter(type));
+
+        if (result == null && required) {
+            throw new IllegalArgumentException("Could not get context object of type " + type.getName());
+        }
+
+        return result;
     }
 }
