@@ -76,7 +76,7 @@ public class SpringExtXMLCompletionProposalComputer extends DefaultXMLCompletion
 
                 if (isEmpty(filter) || nsPrefix.contains(filter)) {
                     contentAssistRequest.addProposal(new ImportNamespaceCompletionProposal(contentAssistRequest, image,
-                            "import xmlns:" + nsPrefix, desc, nsPrefix, item.getNamespace()));
+                            "import xmlns:" + nsPrefix, desc, item, context, node));
                 }
             }
         }
