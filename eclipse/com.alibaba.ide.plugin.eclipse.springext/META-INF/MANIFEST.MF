@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: %pluginName
-Bundle-Vendor: %providerName
+Bundle-Name: Webx/SpringExt Eclipse Plugin
+Bundle-Vendor: Michael Zhou
 Bundle-SymbolicName: com.alibaba.ide.plugin.eclipse.springext;singleton:=true
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0
 Bundle-Localization: plugin
 Bundle-Activator: com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin
 Require-Bundle: org.eclipse.ui,
@@ -23,20 +23,20 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.forms;bundle-version="3.5.200"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Bundle-ClassPath: .,
- lib/aopalliance-1.0.jar,
- lib/cglib-nodep-2.2.2.jar,
- lib/citrus-springext-all-3.2.1.jar,
- lib/dom4j-1.6.1.jar,
- lib/jcl-over-slf4j-1.6.6.jar,
- lib/logback-classic-1.0.6.jar,
- lib/logback-core-1.0.6.jar,
- lib/slf4j-api-1.6.6.jar,
- lib/spring-aop-3.1.2.RELEASE.jar,
- lib/spring-asm-3.1.2.RELEASE.jar,
- lib/spring-beans-3.1.2.RELEASE.jar,
- lib/spring-context-3.1.2.RELEASE.jar,
- lib/spring-core-3.1.2.RELEASE.jar,
- lib/spring-expression-3.1.2.RELEASE.jar,
- lib/spring-web-3.1.2.RELEASE.jar
 Eclipse-SourceReferences: scm:git:git://github.com/webx/citrus-tool.git;path="eclipse/springext-eclipse-plugin";
+Bundle-ClassPath: .,
+ citrus-springext-all-3.2.1.jar,
+ cglib-nodep-2.2.2.jar,
+ dom4j-1.6.1.jar,
+ spring-core-3.1.2.RELEASE.jar,
+ spring-asm-3.1.2.RELEASE.jar,
+ spring-beans-3.1.2.RELEASE.jar,
+ spring-aop-3.1.2.RELEASE.jar,
+ aopalliance-1.0.jar,
+ spring-context-3.1.2.RELEASE.jar,
+ spring-expression-3.1.2.RELEASE.jar,
+ spring-web-3.1.2.RELEASE.jar,
+ slf4j-api-1.6.6.jar,
+ jcl-over-slf4j-1.6.6.jar,
+ logback-classic-1.0.6.jar,
+ logback-core-1.0.6.jar
