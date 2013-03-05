@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Webx/SpringExt Eclipse Plugin
 Bundle-Vendor: Michael Zhou
 Bundle-SymbolicName: com.alibaba.ide.plugin.eclipse.springext;singleton:=true
-Bundle-Version: 1.0
+Bundle-Version: 1.0.0
 Bundle-Localization: plugin
 Bundle-Activator: com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin
 Require-Bundle: org.eclipse.ui,

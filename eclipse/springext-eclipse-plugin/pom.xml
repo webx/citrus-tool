@@ -4,7 +4,7 @@
     <groupId>com.alibaba.ide.plugin.eclipse</groupId>
     <artifactId>springext</artifactId>
     <name>Webx/SpringExt Eclipse Plugin</name>
-    <version>1.0</version>
+    <version>1.0.0</version>
     <organization>
         <name>Michael Zhou</name>
     </organization>
