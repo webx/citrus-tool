@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 package com.alibaba.citrus.maven.eclipse.base.eclipse.writers.workspace;
 
 import java.io.File;
@@ -27,11 +28,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
-import org.apache.maven.model.Resource;
-import org.apache.maven.plugin.MojoExecutionException;
 import com.alibaba.citrus.maven.eclipse.base.eclipse.Messages;
 import com.alibaba.citrus.maven.eclipse.base.eclipse.writers.AbstractEclipseWriter;
 import com.alibaba.citrus.maven.eclipse.base.ide.IdeUtils;
+import org.apache.maven.model.Resource;
+import org.apache.maven.plugin.MojoExecutionException;
 
 /**
  * @author <a href="mailto:trygvis@inamo.no">Trygve Laugst&oslash;l</a>
@@ -40,8 +41,7 @@ import com.alibaba.citrus.maven.eclipse.base.ide.IdeUtils;
  * @version $Id: EclipseSettingsWriter.java 1185004 2011-10-17 05:08:00Z baerrach $
  */
 public class EclipseSettingsWriter
-    extends AbstractEclipseWriter
-{
+        extends AbstractEclipseWriter {
 
     private static final String JDK_1_2_SOURCES = "1.2"; //$NON-NLS-1$
 
@@ -53,132 +53,109 @@ public class EclipseSettingsWriter
 
     private static final String PROP_JDT_CORE_COMPILER_ENCODING = "encoding/"; //$NON-NLS-1$
 
-    /**
-     * @see com.alibaba.citrus.maven.eclipse.base.eclipse.writers.EclipseWriter#write()
-     */
+    /** @see com.alibaba.citrus.maven.eclipse.base.eclipse.writers.EclipseWriter#write() */
     public void write()
-        throws MojoExecutionException
-    {
+            throws MojoExecutionException {
 
         // check if it's necessary to create project specific settings
         Properties coreSettings = new Properties();
 
-        String source = IdeUtils.getCompilerSourceVersion( config.getProject() );
-        String encoding = IdeUtils.getCompilerSourceEncoding( config.getProject() );
-        String target = IdeUtils.getCompilerTargetVersion( config.getProject() );
+        String source = IdeUtils.getCompilerSourceVersion(config.getProject());
+        String encoding = IdeUtils.getCompilerSourceEncoding(config.getProject());
+        String target = IdeUtils.getCompilerTargetVersion(config.getProject());
 
-        if ( source != null )
-        {
-            coreSettings.put( PROP_JDT_CORE_COMPILER_SOURCE, source );
-            coreSettings.put( PROP_JDT_CORE_COMPILER_COMPLIANCE, source );
+        if (source != null) {
+            coreSettings.put(PROP_JDT_CORE_COMPILER_SOURCE, source);
+            coreSettings.put(PROP_JDT_CORE_COMPILER_COMPLIANCE, source);
         }
-        
-        if ( encoding != null )
-        {
+
+        if (encoding != null) {
             File basedir = config.getProject().getBasedir();
-			List compileSourceRoots = config.getProject().getCompileSourceRoots();
-			if ( compileSourceRoots != null )
-			{
-				Iterator it = compileSourceRoots.iterator();
-				while ( it.hasNext() )
-				{
-					String sourcePath = (String) it.next();
-                    String relativePath = IdeUtils.toRelativeAndFixSeparator( basedir, new File( sourcePath ), false );
-					coreSettings.put( PROP_JDT_CORE_COMPILER_ENCODING + relativePath, encoding );
-				}
-			}
-			List testCompileSourceRoots = config.getProject().getTestCompileSourceRoots();
-            if ( testCompileSourceRoots != null )
-			{
-				Iterator it = testCompileSourceRoots.iterator();
-				while ( it.hasNext() )
-				{
-					String sourcePath = (String) it.next();
-                    String relativePath = IdeUtils.toRelativeAndFixSeparator( basedir, new File( sourcePath ), false );
-					coreSettings.put( PROP_JDT_CORE_COMPILER_ENCODING + relativePath, encoding );
-				}
-			}
-			List resources = config.getProject().getResources();
-            if ( resources != null )
-			{
-				Iterator it = resources.iterator();
-				while ( it.hasNext() )
-				{
-					Resource resource = (Resource) it.next();
+            List compileSourceRoots = config.getProject().getCompileSourceRoots();
+            if (compileSourceRoots != null) {
+                Iterator it = compileSourceRoots.iterator();
+                while (it.hasNext()) {
+                    String sourcePath = (String) it.next();
+                    String relativePath = IdeUtils.toRelativeAndFixSeparator(basedir, new File(sourcePath), false);
+                    coreSettings.put(PROP_JDT_CORE_COMPILER_ENCODING + relativePath, encoding);
+                }
+            }
+            List testCompileSourceRoots = config.getProject().getTestCompileSourceRoots();
+            if (testCompileSourceRoots != null) {
+                Iterator it = testCompileSourceRoots.iterator();
+                while (it.hasNext()) {
+                    String sourcePath = (String) it.next();
+                    String relativePath = IdeUtils.toRelativeAndFixSeparator(basedir, new File(sourcePath), false);
+                    coreSettings.put(PROP_JDT_CORE_COMPILER_ENCODING + relativePath, encoding);
+                }
+            }
+            List resources = config.getProject().getResources();
+            if (resources != null) {
+                Iterator it = resources.iterator();
+                while (it.hasNext()) {
+                    Resource resource = (Resource) it.next();
                     String relativePath =
-                        IdeUtils.toRelativeAndFixSeparator( basedir, new File( resource.getDirectory() ), false );
-					coreSettings.put( PROP_JDT_CORE_COMPILER_ENCODING + relativePath, encoding );
-				}
-			}
-			List testResources = config.getProject().getTestResources();
-            if ( testResources != null )
-			{
-				Iterator it = testResources.iterator();
-				while ( it.hasNext() )
-				{
-					Resource resource = (Resource) it.next();
+                            IdeUtils.toRelativeAndFixSeparator(basedir, new File(resource.getDirectory()), false);
+                    coreSettings.put(PROP_JDT_CORE_COMPILER_ENCODING + relativePath, encoding);
+                }
+            }
+            List testResources = config.getProject().getTestResources();
+            if (testResources != null) {
+                Iterator it = testResources.iterator();
+                while (it.hasNext()) {
+                    Resource resource = (Resource) it.next();
                     String relativePath =
-                        IdeUtils.toRelativeAndFixSeparator( basedir, new File( resource.getDirectory() ), false );
-					coreSettings.put( PROP_JDT_CORE_COMPILER_ENCODING + relativePath, encoding );
-				}
-			}
+                            IdeUtils.toRelativeAndFixSeparator(basedir, new File(resource.getDirectory()), false);
+                    coreSettings.put(PROP_JDT_CORE_COMPILER_ENCODING + relativePath, encoding);
+                }
+            }
         }
 
-        if ( target != null && !JDK_1_2_SOURCES.equals( target ) )
-        {
-            coreSettings.put( "org.eclipse.jdt.core.compiler.codegen.targetPlatform", target ); //$NON-NLS-1$
+        if (target != null && !JDK_1_2_SOURCES.equals(target)) {
+            coreSettings.put("org.eclipse.jdt.core.compiler.codegen.targetPlatform", target); //$NON-NLS-1$
         }
 
         // write the settings, if needed
-        if ( !coreSettings.isEmpty() )
-        {
-            File settingsDir = new File( config.getEclipseProjectDirectory(), EclipseWorkspaceWriter.DIR_DOT_SETTINGS ); //$NON-NLS-1$
+        if (!coreSettings.isEmpty()) {
+            File settingsDir = new File(config.getEclipseProjectDirectory(),
+                                        EclipseWorkspaceWriter.DIR_DOT_SETTINGS); //$NON-NLS-1$
 
             settingsDir.mkdirs();
 
-            coreSettings.put( PROP_ECLIPSE_PREFERENCES_VERSION, "1" ); //$NON-NLS-1$ 
+            coreSettings.put(PROP_ECLIPSE_PREFERENCES_VERSION, "1"); //$NON-NLS-1$
 
-            try
-            {
+            try {
                 File oldCoreSettingsFile;
 
-                File coreSettingsFile = new File( settingsDir, EclipseWorkspaceWriter.ECLIPSE_JDT_CORE_PREFS_FILE );
+                File coreSettingsFile = new File(settingsDir, EclipseWorkspaceWriter.ECLIPSE_JDT_CORE_PREFS_FILE);
 
-                if ( coreSettingsFile.exists() )
-                {
+                if (coreSettingsFile.exists()) {
                     oldCoreSettingsFile = coreSettingsFile;
 
                     Properties oldsettings = new Properties();
-                    oldsettings.load( new FileInputStream( oldCoreSettingsFile ) );
+                    oldsettings.load(new FileInputStream(oldCoreSettingsFile));
 
                     Properties newsettings = (Properties) oldsettings.clone();
-                    newsettings.putAll( coreSettings );
+                    newsettings.putAll(coreSettings);
 
-                    if ( !oldsettings.equals( newsettings ) )
-                    {
-                        newsettings.store( new FileOutputStream( coreSettingsFile ), null );
+                    if (!oldsettings.equals(newsettings)) {
+                        newsettings.store(new FileOutputStream(coreSettingsFile), null);
                     }
-                }
-                else
-                {
-                    coreSettings.store( new FileOutputStream( coreSettingsFile ), null );
+                } else {
+                    coreSettings.store(new FileOutputStream(coreSettingsFile), null);
 
-                    log.info( Messages.getString( "EclipseSettingsWriter.wrotesettings", //$NON-NLS-1$
-                                                  coreSettingsFile.getCanonicalPath() ) );
+                    log.info(Messages.getString("EclipseSettingsWriter.wrotesettings", //$NON-NLS-1$
+                                                coreSettingsFile.getCanonicalPath()));
                 }
+            } catch (FileNotFoundException e) {
+                throw new MojoExecutionException(Messages.getString("EclipseSettingsWriter.cannotcreatesettings"),
+                                                 e); //$NON-NLS-1$
+            } catch (IOException e) {
+                throw new MojoExecutionException(Messages.getString("EclipseSettingsWriter.errorwritingsettings"),
+                                                 e); //$NON-NLS-1$
             }
-            catch ( FileNotFoundException e )
-            {
-                throw new MojoExecutionException( Messages.getString( "EclipseSettingsWriter.cannotcreatesettings" ), e ); //$NON-NLS-1$
-            }
-            catch ( IOException e )
-            {
-                throw new MojoExecutionException( Messages.getString( "EclipseSettingsWriter.errorwritingsettings" ), e ); //$NON-NLS-1$
-            }
-        }
-        else
-        {
-            log.info( Messages.getString( "EclipseSettingsWriter.usingdefaults" ) ); //$NON-NLS-1$
+        } else {
+            log.info(Messages.getString("EclipseSettingsWriter.usingdefaults")); //$NON-NLS-1$
         }
     }
 }

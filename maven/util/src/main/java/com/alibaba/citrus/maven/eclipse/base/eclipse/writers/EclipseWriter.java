@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 package com.alibaba.citrus.maven.eclipse.base.eclipse.writers;
 
 import org.apache.maven.plugin.MojoExecutionException;
@@ -25,22 +26,21 @@ import org.apache.maven.plugin.logging.Log;
  * @author Fabrizio Giustina
  * @version $Id: EclipseWriter.java 595476 2007-11-15 22:21:55Z aheritier $
  */
-public interface EclipseWriter
-{
+public interface EclipseWriter {
     /**
      * Init this writer.
-     * 
-     * @param log mojo logger.
+     *
+     * @param log    mojo logger.
      * @param config writer configuration.
      * @return the writer instance
      */
-    EclipseWriter init( Log log, EclipseWriterConfig config );
+    EclipseWriter init(Log log, EclipseWriterConfig config);
 
     /**
      * Main method that should be implemented by the writer to do the work.
-     * 
+     *
      * @throws MojoExecutionException
      */
     void write()
-        throws MojoExecutionException;
+            throws MojoExecutionException;
 }

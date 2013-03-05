@@ -16,10 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 package com.alibaba.citrus.maven.eclipse.base.ide;
 
-public class JeeDescriptor
-{
+public class JeeDescriptor {
     private String jeeVersion;
 
     private String ejbVersion;
@@ -74,8 +74,7 @@ public class JeeDescriptor
      * @param servletVersion
      * @param jspVersion
      */
-    public JeeDescriptor( String jeeVersion, String ejbVersion, String servletVersion, String jspVersion )
-    {
+    public JeeDescriptor(String jeeVersion, String ejbVersion, String servletVersion, String jspVersion) {
         super();
         this.jeeVersion = jeeVersion;
         this.ejbVersion = ejbVersion;
@@ -83,35 +82,23 @@ public class JeeDescriptor
         this.jspVersion = jspVersion;
     }
 
-    /**
-     * @return the ejbVersion
-     */
-    public String getEjbVersion()
-    {
+    /** @return the ejbVersion */
+    public String getEjbVersion() {
         return ejbVersion;
     }
 
-    /**
-     * @return the jeeVersion
-     */
-    public String getJeeVersion()
-    {
+    /** @return the jeeVersion */
+    public String getJeeVersion() {
         return jeeVersion;
     }
 
-    /**
-     * @return the jspVersion
-     */
-    public String getJspVersion()
-    {
+    /** @return the jspVersion */
+    public String getJspVersion() {
         return jspVersion;
     }
 
-    /**
-     * @return the servletVersion
-     */
-    public String getServletVersion()
-    {
+    /** @return the servletVersion */
+    public String getServletVersion() {
         return servletVersion;
     }
 }

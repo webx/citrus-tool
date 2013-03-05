@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 package com.alibaba.citrus.maven.eclipse.base.eclipse.osgiplugin;
 
 import java.io.File;
@@ -25,41 +26,34 @@ import java.util.jar.Manifest;
 
 /**
  * Represents an Eclipse plugin that it's packaged as a jar
- * 
+ *
  * @author <a href="mailto:carlos@apache.org">Carlos Sanchez</a>
  * @version $Id: PackagedPlugin.java 728546 2008-12-21 22:56:51Z bentmann $
  */
 public class PackagedPlugin
-    extends AbstractEclipseOsgiPlugin
-{
-    public PackagedPlugin( File jar )
-        throws IOException
-    {
-        super( jar );
+        extends AbstractEclipseOsgiPlugin {
+    public PackagedPlugin(File jar)
+            throws IOException {
+        super(jar);
     }
 
     public boolean hasManifest()
-        throws IOException
-    {
+            throws IOException {
         return getJar().getManifest() != null;
     }
 
     public JarFile getJar()
-        throws IOException
-    {
-        return new JarFile( getFile(), false );
+            throws IOException {
+        return new JarFile(getFile(), false);
     }
 
     public Manifest getManifest()
-        throws IOException
-    {
+            throws IOException {
         return getJar().getManifest();
     }
 
     public File getJarFile()
-        throws IOException
-    {
+            throws IOException {
         return getFile();
     }
-
 }

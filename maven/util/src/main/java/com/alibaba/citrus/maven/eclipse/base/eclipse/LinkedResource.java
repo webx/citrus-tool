@@ -22,11 +22,10 @@ import org.codehaus.plexus.util.xml.Xpp3Dom;
 
 /**
  * Represents a LinkedResources section in the <code>.project</code> file.
- * 
+ *
  * @author <a href="mailto:ashoknanw@gmail.com">Ashokkumar Sankaran</a>
  */
-public class LinkedResource
-{
+public class LinkedResource {
     /** Resource name */
     private String name;
 
@@ -39,143 +38,117 @@ public class LinkedResource
     /** Resource localtionURI */
     private String locationURI;
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public void setName( String name )
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getType()
-    {
+    public String getType() {
         return type;
     }
 
-    public void setType( String type )
-    {
+    public void setType(String type) {
         this.type = type;
     }
 
-    public String getLocation()
-    {
+    public String getLocation() {
         return location;
     }
 
-    public void setLocation( String location )
-    {
+    public void setLocation(String location) {
         this.location = location;
     }
 
-    public String getLocationURI()
-    {
+    public String getLocationURI() {
         return locationURI;
     }
 
-    public void setLocationURI( String locationURI )
-    {
+    public void setLocationURI(String locationURI) {
         this.locationURI = locationURI;
     }
 
-    /**
-     * Default constructor
-     */
-    public LinkedResource()
-    {
+    /** Default constructor */
+    public LinkedResource() {
         super();
     }
 
     /**
      * Creates a LinkedResource from a DOM subtree
-     * <p>
+     * <p/>
      * The subtree must represent a &lt;linkedResources&gt; section from an Eclipse .project file
-     * 
+     *
      * @param node DOM node
      */
-    public LinkedResource( Xpp3Dom node )
-    {
-        Xpp3Dom nameNode = node.getChild( "name" );
+    public LinkedResource(Xpp3Dom node) {
+        Xpp3Dom nameNode = node.getChild("name");
 
-        if ( nameNode == null )
-        {
-            throw new IllegalArgumentException( "No name node." );
+        if (nameNode == null) {
+            throw new IllegalArgumentException("No name node.");
         }
 
         name = nameNode.getValue();
 
-        Xpp3Dom typeNode = node.getChild( "type" );
+        Xpp3Dom typeNode = node.getChild("type");
 
-        if ( typeNode == null )
-        {
-            throw new IllegalArgumentException( "No type node." );
+        if (typeNode == null) {
+            throw new IllegalArgumentException("No type node.");
         }
 
         type = typeNode.getValue();
 
-        Xpp3Dom locationNode = node.getChild( "location" );
-        Xpp3Dom locationURINode = node.getChild( "locationURI" );
+        Xpp3Dom locationNode = node.getChild("location");
+        Xpp3Dom locationURINode = node.getChild("locationURI");
 
-        if ( locationNode == null && locationURINode == null )
-        {
-            throw new IllegalArgumentException( "No location or locationURI node." );
-        }
-        else if ( locationNode != null && locationURINode != null )
-        {
-            throw new IllegalArgumentException( "Both location and locationURI nodes are set." );
+        if (locationNode == null && locationURINode == null) {
+            throw new IllegalArgumentException("No location or locationURI node.");
+        } else if (locationNode != null && locationURINode != null) {
+            throw new IllegalArgumentException("Both location and locationURI nodes are set.");
         }
 
         location = locationNode.getValue();
     }
 
-    public void print( XMLWriter writer )
-    {
-        writer.startElement( "link" );
+    public void print(XMLWriter writer) {
+        writer.startElement("link");
 
-        writer.startElement( "name" );
-        writer.writeText( name );
+        writer.startElement("name");
+        writer.writeText(name);
         writer.endElement(); // name
 
-        writer.startElement( "type" );
-        writer.writeText( type );
+        writer.startElement("type");
+        writer.writeText(type);
         writer.endElement(); // type
 
-        if ( location != null )
-        {
-            writer.startElement( "location" );
-            writer.writeText( location );
+        if (location != null) {
+            writer.startElement("location");
+            writer.writeText(location);
             writer.endElement(); // location
-        }
-        else if ( locationURI != null )
-        {
-            writer.startElement( "locationURI" );
-            writer.writeText( locationURI );
+        } else if (locationURI != null) {
+            writer.startElement("locationURI");
+            writer.writeText(locationURI);
             writer.endElement(); // locationURI
         }
         writer.endElement();// link
     }
 
-    public boolean equals( Object obj )
-    {
-        if ( obj instanceof LinkedResource )
-        {
+    public boolean equals(Object obj) {
+        if (obj instanceof LinkedResource) {
             LinkedResource b = (LinkedResource) obj;
 
-            return name.equals( b.name ) && ( type == null ? b.type == null : type.equals( b.type ) )
-                && ( location == null ? b.location == null : location.equals( b.location ) )
-                && ( locationURI == null ? b.locationURI == null : locationURI.equals( b.locationURI ) );
-        }
-        else
-        {
+            return name.equals(b.name) && (type == null ? b.type == null : type.equals(b.type))
+                   && (location == null ? b.location == null : location.equals(b.location))
+                   && (locationURI == null ? b.locationURI == null : locationURI.equals(b.locationURI));
+        } else {
             return false;
         }
     }
 
-    public int hashCode()
-    {
-        return name.hashCode() + ( type == null ? 0 : 13 * type.hashCode() )
-            + ( location == null ? 0 : 17 * location.hashCode() )
-            + ( locationURI == null ? 0 : 19 * locationURI.hashCode() );
+    public int hashCode() {
+        return name.hashCode() + (type == null ? 0 : 13 * type.hashCode())
+               + (location == null ? 0 : 17 * location.hashCode())
+               + (locationURI == null ? 0 : 19 * locationURI.hashCode());
     }
 }

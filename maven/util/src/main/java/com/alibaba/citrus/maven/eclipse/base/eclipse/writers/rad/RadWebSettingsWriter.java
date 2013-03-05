@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 package com.alibaba.citrus.maven.eclipse.base.eclipse.writers.rad;
 
 import java.io.File;
@@ -24,28 +25,27 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 
-import org.apache.maven.plugin.MojoExecutionException;
 import com.alibaba.citrus.maven.eclipse.base.eclipse.Constants;
 import com.alibaba.citrus.maven.eclipse.base.eclipse.Messages;
 import com.alibaba.citrus.maven.eclipse.base.eclipse.writers.AbstractEclipseWriter;
 import com.alibaba.citrus.maven.eclipse.base.ide.IdeDependency;
 import com.alibaba.citrus.maven.eclipse.base.ide.IdeUtils;
 import com.alibaba.citrus.maven.eclipse.base.ide.JeeUtils;
+import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.xml.PrettyPrintXMLWriter;
 import org.codehaus.plexus.util.xml.XMLWriter;
 
 /**
  * Creates a .settings folder for Eclipse WTP 1.x release and writes out the configuration under it.
- * 
+ *
  * @author <a href="mailto:nir@cfc.at">Richard van Nieuwenhoven </a>
  */
 public class RadWebSettingsWriter
-    extends AbstractEclipseWriter
-{
+        extends AbstractEclipseWriter {
 
     private static final String COM_IBM_ETOOLS_SITEEDIT_WIZARDS_PROJECTFEATURE_WEB_SITE_FEATURE =
-        "com.ibm.etools.siteedit.wizards.projectfeature.WebSiteFeature";
+            "com.ibm.etools.siteedit.wizards.projectfeature.WebSiteFeature";
 
     private static final String WEBSETTINGS_CONTEXT_ROOT = "context-root";
 
@@ -77,132 +77,118 @@ public class RadWebSettingsWriter
 
     private static final String WEBSETTINGS_LM_PROJECT = "project";
 
-    /**
-     * the context root to use for this project
-     */
+    /** the context root to use for this project */
     private String warContextRoot;
 
     /**
      * required default constructor.
-     * 
+     *
      * @param warContextRoot the context root to use for this project
      */
-    public RadWebSettingsWriter( String warContextRoot )
-    {
+    public RadWebSettingsWriter(String warContextRoot) {
         this.warContextRoot = warContextRoot;
     }
 
     /**
      * write the websettings file for RAD6 if needed.
-     * 
+     *
      * @throws MojoExecutionException when writing the config files was not possible
      */
     public void write()
-        throws MojoExecutionException
-    {
+            throws MojoExecutionException {
         Writer w;
-        if ( Constants.PROJECT_PACKAGING_WAR.equalsIgnoreCase( config.getPackaging() ) )
-        {
-            try
-            {
+        if (Constants.PROJECT_PACKAGING_WAR.equalsIgnoreCase(config.getPackaging())) {
+            try {
                 w =
-                    new OutputStreamWriter( new FileOutputStream( new File( config.getEclipseProjectDirectory(),
-                                                                            WEBSETTINGS_FILENAME ) ), "UTF-8" );
-            }
-            catch ( IOException ex )
-            {
-                throw new MojoExecutionException( Messages.getString( "EclipsePlugin.erroropeningfile" ), ex ); //$NON-NLS-1$
+                        new OutputStreamWriter(new FileOutputStream(new File(config.getEclipseProjectDirectory(),
+                                                                             WEBSETTINGS_FILENAME)), "UTF-8");
+            } catch (IOException ex) {
+                throw new MojoExecutionException(Messages.getString("EclipsePlugin.erroropeningfile"),
+                                                 ex); //$NON-NLS-1$
             }
 
-            XMLWriter writer = new PrettyPrintXMLWriter( w, "UTF-8", null );
-            writeModuleTypeFacetCore( writer );
-            IOUtil.close( w );
+            XMLWriter writer = new PrettyPrintXMLWriter(w, "UTF-8", null);
+            writeModuleTypeFacetCore(writer);
+            IOUtil.close(w);
         }
     }
 
     /**
      * write the websettings file for RAD6.
-     * 
+     *
      * @param writer where to write to
      * @throws MojoExecutionException
      */
-    private void writeModuleTypeFacetCore( XMLWriter writer )
-        throws MojoExecutionException
-    {
-        writer.startElement( WEBSETTINGS_WEBSETTINGS );
-        writer.addAttribute( WEBSETTINGS_VERSION, "600" );
-        writer.startElement( WEBSETTINGS_WEBCONTENT );
+    private void writeModuleTypeFacetCore(XMLWriter writer)
+            throws MojoExecutionException {
+        writer.startElement(WEBSETTINGS_WEBSETTINGS);
+        writer.addAttribute(WEBSETTINGS_VERSION, "600");
+        writer.startElement(WEBSETTINGS_WEBCONTENT);
 
         // Generating web content settings based on war plug-in warSourceDirectory property
         File warSourceDirectory =
-            new File( IdeUtils.getPluginSetting( config.getProject(), JeeUtils.ARTIFACT_MAVEN_WAR_PLUGIN,
-                                                 "warSourceDirectory", //$NON-NLS-1$
-                                                 config.getProject().getBasedir() + "/src/main/webapp" ) ); //$NON-NLS-1$
+                new File(IdeUtils.getPluginSetting(config.getProject(), JeeUtils.ARTIFACT_MAVEN_WAR_PLUGIN,
+                                                   "warSourceDirectory", //$NON-NLS-1$
+                                                   config.getProject().getBasedir() + "/src/main/webapp")); //$NON-NLS-1$
         String webContentDir =
-            IdeUtils.toRelativeAndFixSeparator( config.getEclipseProjectDirectory(), warSourceDirectory, false );
+                IdeUtils.toRelativeAndFixSeparator(config.getEclipseProjectDirectory(), warSourceDirectory, false);
 
-        writer.writeText( webContentDir );
+        writer.writeText(webContentDir);
 
         writer.endElement();
-        writer.startElement( WEBSETTINGS_CONTEXT_ROOT );
-        writer.writeText( getContextRoot( warContextRoot ) );
+        writer.startElement(WEBSETTINGS_CONTEXT_ROOT);
+        writer.writeText(getContextRoot(warContextRoot));
         writer.endElement();
-        writer.startElement( WEBSETTINGS_PROJECT_TYPE );
-        writer.writeText( "J2EE" );
+        writer.startElement(WEBSETTINGS_PROJECT_TYPE);
+        writer.writeText("J2EE");
         writer.endElement();
-        writer.startElement( WEBSETTINGS_JSP_LEVEL );
+        writer.startElement(WEBSETTINGS_JSP_LEVEL);
         String jspVersion;
-        if ( config.getJeeVersion() != null )
-        {
-            jspVersion = JeeUtils.getJeeDescriptorFromJeeVersion( config.getJeeVersion() ).getJspVersion();
+        if (config.getJeeVersion() != null) {
+            jspVersion = JeeUtils.getJeeDescriptorFromJeeVersion(config.getJeeVersion()).getJspVersion();
+        } else {
+            jspVersion = JeeUtils.resolveJspVersion(config.getProject());
         }
-        else
-        {
-            jspVersion = JeeUtils.resolveJspVersion( config.getProject() );
-        }
-        writer.writeText( jspVersion );
+        writer.writeText(jspVersion);
         writer.endElement();
-        writer.startElement( WEBSETTINGS_FEATURES );
-        writer.startElement( WEBSETTINGS_FEATURE );
-        writer.startElement( WEBSETTINGS_FEATURE_ID );
-        writer.writeText( WEBSETTINGS_TEMPLATEFEATURE );
+        writer.startElement(WEBSETTINGS_FEATURES);
+        writer.startElement(WEBSETTINGS_FEATURE);
+        writer.startElement(WEBSETTINGS_FEATURE_ID);
+        writer.writeText(WEBSETTINGS_TEMPLATEFEATURE);
         writer.endElement();
         writer.endElement();
-        writer.startElement( WEBSETTINGS_FEATURE );
-        writer.startElement( WEBSETTINGS_FEATURE_ID );
-        writer.writeText( COM_IBM_ETOOLS_SITEEDIT_WIZARDS_PROJECTFEATURE_WEB_SITE_FEATURE );
+        writer.startElement(WEBSETTINGS_FEATURE);
+        writer.startElement(WEBSETTINGS_FEATURE_ID);
+        writer.writeText(COM_IBM_ETOOLS_SITEEDIT_WIZARDS_PROJECTFEATURE_WEB_SITE_FEATURE);
         writer.endElement();
         writer.endElement();
         writer.endElement();
 
         // library modules
-        writer.startElement( WEBSETTINGS_LIBMODULES );
+        writer.startElement(WEBSETTINGS_LIBMODULES);
 
         // iterate relevant dependencies (non-test, non-provided, project)
         IdeDependency[] deps = config.getDeps();
-        if ( deps != null )
-        {
-            for ( int i = 0; i < deps.length; i++ )
-            {
+        if (deps != null) {
+            for (int i = 0; i < deps.length; i++) {
                 final IdeDependency dependency = deps[i];
-                log.debug( "RadWebSettingsWriter: checking dependency " + dependency.toString() );
+                log.debug("RadWebSettingsWriter: checking dependency " + dependency.toString());
 
-                if ( dependency.isReferencedProject() && !dependency.isTestDependency() && !dependency.isProvided() )
-                {
-                    log.debug( "RadWebSettingsWriter: dependency " + dependency.toString()
-                        + " selected for inclusion as lib-module" );
+                if (dependency.isReferencedProject() && !dependency.isTestDependency() && !dependency.isProvided()) {
+                    log.debug("RadWebSettingsWriter: dependency " + dependency.toString()
+                              + " selected for inclusion as lib-module");
 
                     String depName = dependency.getEclipseProjectName();
                     String depJar = dependency.getArtifactId() + ".jar";
 
-                    writer.startElement( WEBSETTINGS_LIBMODULE );
+                    writer.startElement(WEBSETTINGS_LIBMODULE);
 
-                    writer.startElement( WEBSETTINGS_LM_JAR );
-                    writer.writeText( depJar );
+                    writer.startElement(WEBSETTINGS_LM_JAR);
+                    writer.writeText(depJar);
                     writer.endElement(); // jar
 
-                    writer.startElement( WEBSETTINGS_LM_PROJECT );
-                    writer.writeText( depName );
+                    writer.startElement(WEBSETTINGS_LM_PROJECT);
+                    writer.writeText(depName);
                     writer.endElement(); // project
 
                     writer.endElement(); // libmodule
@@ -212,25 +198,19 @@ public class RadWebSettingsWriter
 
         writer.endElement(); // libmodules
         writer.endElement(); // websettings
-
     }
 
     /**
      * Create the ContextRoot for this project, the default is the artifact id
-     * 
+     *
      * @param warContextRoot set as a configuration property.
      * @return the context root to use
      */
-    private String getContextRoot( String warContextRoot )
-    {
-        if ( warContextRoot == null || warContextRoot.length() == 0 )
-        {
+    private String getContextRoot(String warContextRoot) {
+        if (warContextRoot == null || warContextRoot.length() == 0) {
             return config.getProject().getArtifactId();
-        }
-        else
-        {
+        } else {
             return warContextRoot;
         }
     }
-
 }

@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 package com.alibaba.citrus.maven.eclipse.base.eclipse;
 
 import java.io.File;
@@ -34,13 +35,6 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.maven.artifact.Artifact;
-import org.apache.maven.artifact.handler.ArtifactHandler;
-import org.apache.maven.artifact.manager.WagonManager;
-import org.apache.maven.model.Build;
-import org.apache.maven.model.Plugin;
-import org.apache.maven.model.Resource;
-import org.apache.maven.plugin.MojoExecutionException;
 import com.alibaba.citrus.maven.eclipse.base.eclipse.reader.ReadWorkspaceLocations;
 import com.alibaba.citrus.maven.eclipse.base.eclipse.writers.EclipseAjdtWriter;
 import com.alibaba.citrus.maven.eclipse.base.eclipse.writers.EclipseClasspathWriter;
@@ -58,6 +52,13 @@ import com.alibaba.citrus.maven.eclipse.base.ide.AbstractIdeSupportMojo;
 import com.alibaba.citrus.maven.eclipse.base.ide.IdeDependency;
 import com.alibaba.citrus.maven.eclipse.base.ide.IdeUtils;
 import com.alibaba.citrus.maven.eclipse.base.ide.JeeUtils;
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.handler.ArtifactHandler;
+import org.apache.maven.artifact.manager.WagonManager;
+import org.apache.maven.model.Build;
+import org.apache.maven.model.Plugin;
+import org.apache.maven.model.Resource;
+import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.settings.MavenSettingsBuilder;
 import org.apache.maven.settings.Proxy;
@@ -86,7 +87,7 @@ import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
  * </ul>
  * If this goal is run on a multiproject root, dependencies between modules will be configured as direct project
  * dependencies in Eclipse (unless <code>useProjectReferences</code> is set to <code>false</code>).
- * 
+ *
  * @author <a href="mailto:trygvis@inamo.no">Trygve Laugst&oslash;l</a>
  * @author <a href="mailto:fgiust@apache.org">Fabrizio Giustina</a>
  * @version $Id: EclipsePlugin.java 1213573 2011-12-13 06:22:43Z baerrach $
@@ -94,8 +95,7 @@ import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
  * @execute phase="generate-resources"
  */
 public class EclipsePlugin
-    extends AbstractIdeSupportMojo
-{
+        extends AbstractIdeSupportMojo {
     private static final String WEAVE_DEPENDENCY = "weaveDependency";
 
     private static final String WEAVE_DEPENDENCIES = "weaveDependencies";
@@ -119,14 +119,14 @@ public class EclipsePlugin
     private static final String NATURE_WST_FACET_CORE_NATURE = "org.eclipse.wst.common.project.facet.core.nature"; //$NON-NLS-1$
 
     private static final String BUILDER_WST_COMPONENT_STRUCTURAL_DEPENDENCY_RESOLVER =
-        "org.eclipse.wst.common.modulecore.ComponentStructuralBuilderDependencyResolver"; //$NON-NLS-1$
+            "org.eclipse.wst.common.modulecore.ComponentStructuralBuilderDependencyResolver"; //$NON-NLS-1$
 
     protected static final String BUILDER_WST_VALIDATION = "org.eclipse.wst.validation.validationbuilder"; //$NON-NLS-1$
 
     private static final String BUILDER_JDT_CORE_JAVA = "org.eclipse.jdt.core.javabuilder"; //$NON-NLS-1$
 
     private static final String BUILDER_WST_COMPONENT_STRUCTURAL =
-        "org.eclipse.wst.common.modulecore.ComponentStructuralBuilder"; //$NON-NLS-1$
+            "org.eclipse.wst.common.modulecore.ComponentStructuralBuilder"; //$NON-NLS-1$
 
     private static final String BUILDER_WST_FACET = "org.eclipse.wst.common.project.facet.core.builder"; //$NON-NLS-1$
 
@@ -159,63 +159,59 @@ public class EclipsePlugin
 
     public static final String JAVA_FILE_PATTERN = "**/*.java";
 
-    /**
-     * Constant for 'artifactId' element in POM.xml.
-     */
+    /** Constant for 'artifactId' element in POM.xml. */
     private static final String POM_ELT_ARTIFACT_ID = "artifactId"; //$NON-NLS-1$
 
-    /**
-     * Constant for 'groupId' element in POM.xml.
-     */
+    /** Constant for 'groupId' element in POM.xml. */
     private static final String POM_ELT_GROUP_ID = "groupId"; //$NON-NLS-1$
 
     /**
      * List of eclipse project natures. By default the <code>org.eclipse.jdt.core.javanature</code> nature plus the
      * needed WTP natures are added. Natures added using this property <strong>replace</strong> the default list.
-     * 
+     * <p/>
      * <pre>
      * &lt;projectnatures&gt;
      *    &lt;projectnature&gt;org.eclipse.jdt.core.javanature&lt;/projectnature&gt;
      *    &lt;projectnature&gt;org.eclipse.wst.common.modulecore.ModuleCoreNature&lt;/projectnature&gt;
      * &lt;/projectnatures&gt;
      * </pre>
-     * 
+     *
      * @parameter
      */
     private List projectnatures;
 
     /**
-     * List of artifacts, represented as <code>groupId:artifactId</code>, to exclude from the eclipse classpath, 
+     * List of artifacts, represented as <code>groupId:artifactId</code>, to exclude from the eclipse classpath,
      * being provided by some eclipse classPathContainer.
      *
+     * @parameter
      * @see http://jira.codehaus.org/browse/MECLIPSE-79
      * @since 2.5
-     * @parameter
      */
     private List excludes;
 
     /**
      * List of eclipse project natures to be added to the default ones.
-     * 
+     * <p/>
      * <pre>
      * &lt;additionalProjectnatures&gt;
      *    &lt;projectnature&gt;org.springframework.ide.eclipse.core.springnature&lt;/projectnature&gt;
      * &lt;/additionalProjectnatures&gt;
      * </pre>
-     * 
+     *
      * @parameter
      */
     private List additionalProjectnatures;
 
     /**
      * List of eclipse project facets to be added to the default ones.
-     * 
+     * <p/>
      * <pre>
      * &lt;additionalProjectFacets&gt;
      *    &lt;jst.jsf&gt;1.1&lt;jst.jsf/&gt;
      * &lt;/additionalProjectFacets&gt;
      * </pre>
-     * 
+     *
      * @parameter
      */
     private Map additionalProjectFacets;
@@ -225,7 +221,7 @@ public class EclipsePlugin
      * needed WTP builders are added. If you specify any configuration for this parameter, only those buildcommands
      * specified will be used; the defaults won't be added. Use the <code>additionalBuildCommands</code> parameter for
      * that. Configuration example: Old style:
-     * 
+     * <p/>
      * <pre>
      * &lt;buildcommands&gt;
      *    &lt;buildcommand&gt;org.eclipse.wst.common.modulecore.ComponentStructuralBuilder&lt;/buildcommand&gt;
@@ -233,24 +229,24 @@ public class EclipsePlugin
      *    &lt;buildcommand&gt;org.eclipse.wst.common.modulecore.ComponentStructuralBuilderDependencyResolver&lt;/buildcommand&gt;
      * &lt;/buildcommands&gt;
      * </pre>
-     * 
+     * <p/>
      * For new style, see <code>additionalBuildCommands</code>.
-     * 
+     *
      * @parameter
      */
     private List buildcommands;
 
     /**
      * List of eclipse build commands to be added to the default ones. Old style:
-     * 
+     * <p/>
      * <pre>
      * &lt;additionalBuildcommands&gt;
      *    &lt;buildcommand&gt;org.springframework.ide.eclipse.core.springbuilder&lt;/buildcommand&gt;
      * &lt;/additionalBuildcommands&gt;
      * </pre>
-     * 
+     * <p/>
      * New style:
-     * 
+     * <p/>
      * <pre>
      * &lt;additionalBuildcommands&gt;
      *    &lt;buildCommand&gt;
@@ -262,10 +258,10 @@ public class EclipsePlugin
      *    &lt;/buildCommand&gt;
      * &lt;/additionalBuildcommands&gt;
      * </pre>
-     * 
+     * <p/>
      * Note the difference between <code>build<strong>c</strong>ommand</code> and
      * <code>build<strong>C</strong>ommand</code>. You can mix and match old and new-style configuration entries.
-     * 
+     *
      * @parameter
      */
     private List additionalBuildcommands;
@@ -273,7 +269,7 @@ public class EclipsePlugin
     /**
      * List of container classpath entries. By default the <code>org.eclipse.jdt.launching.JRE_CONTAINER</code>
      * classpath container is added. Configuration example:
-     * 
+     * <p/>
      * <pre>
      * &lt;classpathContainers&gt;
      *    &lt;classpathContainer&gt;org.eclipse.jdt.launching.JRE_CONTAINER&lt;/classpathContainer&gt;
@@ -281,14 +277,14 @@ public class EclipsePlugin
      *    &lt;classpathContainer&gt;org.eclipse.jst.j2ee.internal.web.container/artifact&lt;/classpathContainer&gt;
      * &lt;/classpathContainers&gt;
      * </pre>
-     * 
+     *
      * @parameter
      */
     private List classpathContainers;
 
     /**
      * Enables/disables the downloading of source attachments. Defaults to false. DEPRECATED - use downloadSources
-     * 
+     *
      * @parameter expression="${eclipse.downloadSources}"
      * @deprecated use downloadSources
      */
@@ -296,7 +292,7 @@ public class EclipsePlugin
 
     /**
      * Eclipse workspace directory.
-     * 
+     *
      * @parameter expression="${eclipse.projectDir}" alias="outputDir"
      */
     private File eclipseProjectDir;
@@ -304,7 +300,7 @@ public class EclipsePlugin
     /**
      * When set to false, the plugin will not create sub-projects and instead reference those sub-projects using the
      * installed package in the local repository
-     * 
+     *
      * @parameter expression="${eclipse.useProjectReferences}" default-value="true"
      * @required
      */
@@ -312,9 +308,9 @@ public class EclipsePlugin
 
     /**
      * The default output directory
-     * 
+     *
      * @parameter expression="${outputDirectory}" alias="outputDirectory"
-     *            default-value="${project.build.outputDirectory}"
+     * default-value="${project.build.outputDirectory}"
      * @required
      */
     private File buildOutputDirectory;
@@ -322,7 +318,7 @@ public class EclipsePlugin
     /**
      * The version of WTP for which configuration files will be generated. The default value is "none" (don't generate
      * WTP configuration), supported versions are "R7", "1.0", "1.5" and "2.0"
-     * 
+     *
      * @parameter expression="${wtpversion}" default-value="none"
      */
     private String wtpversion;
@@ -330,7 +326,7 @@ public class EclipsePlugin
     /**
      * JEE context name of the WTP module. ( ex. WEB context name ). You can use "ROOT" if you want to map the webapp
      * to the root context.
-     * 
+     *
      * @parameter expression="${wtpContextName}"
      */
     private String wtpContextName;
@@ -340,19 +336,17 @@ public class EclipsePlugin
      * Additionally it copies all libraries to a project local directory and references them instead of referencing the
      * files in the local Maven repository. It also ensured that the "Bundle-Classpath" in META-INF/MANIFEST.MF is
      * synchronized.
-     * 
+     *
      * @parameter expression="${eclipse.pde}" default-value="false"
      */
     private boolean pde;
 
-    /**
-     * Is it an AJDT project? If yes, the plugin adds the necessary natures and build commands to the .project file.
-     */
+    /** Is it an AJDT project? If yes, the plugin adds the necessary natures and build commands to the .project file. */
     private boolean ajdt;
 
     /**
      * The relative path of the manifest file
-     * 
+     *
      * @parameter expression="${eclipse.manifest}" default-value="${basedir}/META-INF/MANIFEST.MF"
      */
     private File manifest;
@@ -360,7 +354,7 @@ public class EclipsePlugin
     /**
      * Allow to configure additional generic configuration files for eclipse that will be written out to disk when
      * running eclipse:eclipse. FOr each file you can specify the name and the text content.
-     * 
+     * <p/>
      * <pre>
      * &lt;plugin&gt;
      *  &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
@@ -382,9 +376,9 @@ public class EclipsePlugin
      *  &lt;/configuration&gt;
      * &lt;/plugin&gt;
      * </pre>
-     * 
+     * <p/>
      * Instead of the content you can also define (from version 2.5) an url to download the file :
-     * 
+     * <p/>
      * <pre>
      * &lt;plugin&gt;
      *  &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
@@ -398,9 +392,9 @@ public class EclipsePlugin
      *   &lt;/additionalConfig&gt;
      *  &lt;/configuration&gt;
      * </pre>
-     * 
+     * <p/>
      * or a location :
-     * 
+     * <p/>
      * <pre>
      * &lt;plugin&gt;
      *  &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
@@ -423,7 +417,7 @@ public class EclipsePlugin
      *  &lt;/dependencies&gt;
      * &lt;/plugin&gt;
      * </pre>
-     * 
+     *
      * @parameter
      */
     private EclipseConfigFile[] additionalConfig;
@@ -431,7 +425,7 @@ public class EclipsePlugin
     /**
      * If set to <code>true</code>, the version number of the artifact is appended to the name of the generated Eclipse
      * project. See projectNameTemplate for other options.
-     * 
+     *
      * @parameter expression="${eclipse.addVersionToProjectName}" default-value="false"
      */
     private boolean addVersionToProjectName;
@@ -439,7 +433,7 @@ public class EclipsePlugin
     /**
      * If set to <code>true</code>, the groupId of the artifact is appended to the name of the generated Eclipse
      * project. See projectNameTemplate for other options.
-     * 
+     *
      * @parameter expression="${eclipse.addGroupIdToProjectName}" default-value="false"
      */
     private boolean addGroupIdToProjectName;
@@ -448,38 +442,34 @@ public class EclipsePlugin
      * Allows configuring the name of the eclipse projects. This property if set wins over addVersionToProjectName and
      * addGroupIdToProjectName You can use <code>[groupId]</code>, <code>[artifactId]</code> and <code>[version]</code>
      * variables. eg. <code>[groupId].[artifactId]-[version]</code>
-     * 
+     *
      * @parameter expression="${eclipse.projectNameTemplate}"
      */
     private String projectNameTemplate;
 
-    /**
-     * Parsed wtp version.
-     */
+    /** Parsed wtp version. */
     private float wtpVersionFloat;
 
-    /**
-     * Not a plugin parameter. Is this a java project?
-     */
+    /** Not a plugin parameter. Is this a java project? */
     private boolean isJavaProject;
 
     /**
      * Must the manifest files be written for java projects so that that the jee classpath for wtp is correct.
-     * 
+     *
      * @parameter expression="${eclipse.wtpmanifest}" default-value="false"
      */
     private boolean wtpmanifest;
 
     /**
      * Must the application files be written for ear projects in a separate directory.
-     * 
+     *
      * @parameter expression="${eclipse.wtpapplicationxml}" default-value="false"
      */
     private boolean wtpapplicationxml;
 
     /**
      * What WTP defined server to use for deployment informations.
-     * 
+     *
      * @parameter expression="${eclipse.wtpdefaultserver}"
      */
     private String wtpdefaultserver;
@@ -488,7 +478,7 @@ public class EclipsePlugin
 
     /**
      * ResourceManager for getting additonalConfig files from resources
-     * 
+     *
      * @component
      * @required
      * @readonly
@@ -497,16 +487,16 @@ public class EclipsePlugin
 
     /**
      * WagonManager for accessing internet resources.
-     *  
+     *
      * @component
      * @required
      * @readonly
      */
     private WagonManager wagonManager;
-    
+
     /**
      * MavenSettingsBuilder for accessing settings.xml.
-     *  
+     *
      * @component
      * @required
      * @readonly
@@ -519,16 +509,16 @@ public class EclipsePlugin
      * settings as the reactor projects, but the project name template my differ. The pom's in the workspace projects
      * may not contain variables in the artefactId, groupId and version tags. If workspace is not defined, then an
      * attempt to locate it by checking up the directory hierarchy will be made.
-     * 
-     * @since 2.5
+     *
      * @parameter expression="${eclipse.workspace}"
+     * @since 2.5
      */
     protected File workspace;
 
     /**
      * Limit the use of project references to the current workspace. No project references will be created to projects
      * in the reactor when they are not available in the workspace.
-     * 
+     *
      * @parameter expression="${eclipse.limitProjectReferencesToWorkspace}" default-value="false"
      */
     protected boolean limitProjectReferencesToWorkspace;
@@ -536,7 +526,7 @@ public class EclipsePlugin
     /**
      * The version of AJDT for which configuration files will be generated. The default value is "1.5", supported
      * versions are "none" (AJDT support disabled), "1.4", and "1.5".
-     * 
+     *
      * @parameter expression="${eclipse.ajdtVersion}" default-value="none"
      */
     private String ajdtVersion;
@@ -544,42 +534,42 @@ public class EclipsePlugin
     /**
      * List of exclusions to add to the source directories on the classpath. Adds excluding="" to the classpathentry of
      * the eclipse .classpath file. [MECLIPSE-104]
-     * 
-     * @since 2.6.1
+     *
      * @parameter
+     * @since 2.6.1
      */
     private List sourceExcludes;
 
     /**
      * List of inclusions to add to the source directories on the classpath. Adds including="" to the classpathentry of
      * the eclipse .classpath file.
-     * <p>
+     * <p/>
      * Java projects will always include "**&#47;*.java"
-     * <p>
+     * <p/>
      * Ajdt projects will always include "**&#47;*.aj"
-     * <p>
+     * <p/>
      * [MECLIPSE-104]
-     * 
-     * @since 2.6.1
+     *
      * @parameter
+     * @since 2.6.1
      */
     private List sourceIncludes;
 
     /**
-     * A list of links to local files in the system. A configuration like this one in the pom : 
+     * A list of links to local files in the system. A configuration like this one in the pom :
      * <pre>
      * &lt;plugin&gt;
      *   &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
      *   &lt;artifactId&gt;maven-eclipse-plugin&lt;/artifactId&gt;
-     *   &lt;configuration&gt; 
-     *     &lt;linkedResources&gt; 
+     *   &lt;configuration&gt;
+     *     &lt;linkedResources&gt;
      *       &lt;linkedResource&gt;
      *         &lt;name&gt;src/test/resources/oracle-ds.xml&lt;/name&gt;
      *         &lt;type&gt;1&lt;/type&gt;
-     *         &lt;location&gt;C://jboss/server/default/deploy/oracle-ds.xml&lt;/location&gt; 
+     *         &lt;location&gt;C://jboss/server/default/deploy/oracle-ds.xml&lt;/location&gt;
      *       &lt;/linkedResource&gt;
-     *     &lt;/linkedResources&gt; 
-     *   &lt;/configuration&gt; 
+     *     &lt;/linkedResources&gt;
+     *   &lt;/configuration&gt;
      * &lt;/plugin&gt;
      * </pre>
      * will produce in the .project :
@@ -587,333 +577,290 @@ public class EclipsePlugin
      * &lt;linkedResources&gt;
      *   &lt;link&gt;
      *     &lt;name&gt;src/test/resources/oracle-ds.xml&lt;/name&gt;
-     *     &lt;type&gt;1&lt;/type&gt; 
+     *     &lt;type&gt;1&lt;/type&gt;
      *     &lt;location&gt;C://jboss/server/default/deploy/oracle-ds.xml&lt;/location&gt;
      *   &lt;/link&gt;
      * &lt;/linkedResources&gt;
      * </pre>
-     * 
-     * @since 2.8
+     *
      * @parameter
+     * @since 2.8
      */
     private List linkedResources;
-    
+
     /**
      * Put classpath container entries last in eclipse classpath configuration. Note that this behaviour, although
      * useful in situations were you want to override resources found in classpath containers, will made JRE classes
      * loaded after 3rd party jars, so enabling it is not suggested.
-     * 
-     * @since 2.9
+     *
      * @parameter expression="${eclipse.classpathContainersLast}" default-value="false"
+     * @since 2.9
      */
     protected boolean classpathContainersLast;
-    
+
     /**
-     * Whether to place test resources after main resources. Note that the default behavior of Maven version 2.0.8 or 
+     * Whether to place test resources after main resources. Note that the default behavior of Maven version 2.0.8 or
      * later is to have test dirs before main dirs in classpath so this is discouraged if you need to reproduce the
      * maven behavior during tests. The default behavior is also changed in eclipse plugin version 2.6 in order to
      * better match the maven one.
      * Switching to "test source last" can anyway be useful if you need to run your application in eclipse, since there
      * is no concept in eclipse of "phases" with different set of source dirs and dependencies like we have in maven.
-     * 
-     * @since 2.9
+     *
      * @parameter expression="${eclipse.testSourcesLast}" default-value="false"
+     * @since 2.9
      */
     protected boolean testSourcesLast;
-    
+
     /**
      * The plugin is often capable in predicting the required jee version based on the dependencies of the project.
-     * By setting this parameter to one of the {@code jeeversion} options the version will be locked. 
-     *  
+     * By setting this parameter to one of the {@code jeeversion} options the version will be locked.
+     * <p/>
      * <table>
-     *  <thead>
-     *    <tr><th>jeeversion</th><th>EJB version</th><th>Servlet version</th><th>JSP version</th></tr>
-     *  </thead>
-     *  <tbody>
-     *    <tr><td>6.0</td><td>3.1</td><td>3.0</td><td>2.2</td></tr>
-     *    <tr><td>5.0</td><td>3.0</td><td>2.5</td><td>2.1</td></tr>
-     *    <tr><td>1.4</td><td>2.1</td><td>2.4</td><td>2.0</td></tr>
-     *    <tr><td>1.3</td><td>2.0</td><td>2.3</td><td>1.2</td></tr>
-     *    <tr><td>1.2</td><td>1.1</td><td>2.2</td><td>1.1</td></tr>
-     *  </tbody>
+     * <thead>
+     * <tr><th>jeeversion</th><th>EJB version</th><th>Servlet version</th><th>JSP version</th></tr>
+     * </thead>
+     * <tbody>
+     * <tr><td>6.0</td><td>3.1</td><td>3.0</td><td>2.2</td></tr>
+     * <tr><td>5.0</td><td>3.0</td><td>2.5</td><td>2.1</td></tr>
+     * <tr><td>1.4</td><td>2.1</td><td>2.4</td><td>2.0</td></tr>
+     * <tr><td>1.3</td><td>2.0</td><td>2.3</td><td>1.2</td></tr>
+     * <tr><td>1.2</td><td>1.1</td><td>2.2</td><td>1.1</td></tr>
+     * </tbody>
      * </table>
-     * 
-     * @since 2.9
+     *
      * @parameter expression="${eclipse.jeeversion}"
+     * @since 2.9
      */
     protected String jeeversion;
 
-    protected final boolean isJavaProject()
-    {
+    protected final boolean isJavaProject() {
         return isJavaProject;
     }
 
-    protected final boolean isPdeProject()
-    {
+    protected final boolean isPdeProject() {
         return pde;
     }
 
     /**
      * Getter for <code>buildcommands</code>.
-     * 
+     *
      * @return Returns the buildcommands.
      */
-    public final List getBuildcommands()
-    {
+    public final List getBuildcommands() {
         return buildcommands;
     }
 
     /**
      * Setter for <code>buildcommands</code>.
-     * 
+     *
      * @param buildcommands The buildcommands to set.
      */
-    public final void setBuildcommands( List buildcommands )
-    {
+    public final void setBuildcommands(List buildcommands) {
         this.buildcommands = buildcommands;
     }
 
     /**
      * Getter for <code>buildOutputDirectory</code>.
-     * 
+     *
      * @return Returns the buildOutputDirectory.
      */
-    public final File getBuildOutputDirectory()
-    {
+    public final File getBuildOutputDirectory() {
         return buildOutputDirectory;
     }
 
     /**
      * Setter for <code>buildOutputDirectory</code>.
-     * 
+     *
      * @param buildOutputDirectory The buildOutputDirectory to set.
      */
-    public final void setBuildOutputDirectory( File buildOutputDirectory )
-    {
+    public final void setBuildOutputDirectory(File buildOutputDirectory) {
         this.buildOutputDirectory = buildOutputDirectory;
     }
 
     /**
      * Getter for <code>classpathContainers</code>.
-     * 
+     *
      * @return Returns the classpathContainers.
      */
-    public final List getClasspathContainers()
-    {
+    public final List getClasspathContainers() {
         return classpathContainers;
     }
 
     /**
      * Setter for <code>classpathContainers</code>.
-     * 
+     *
      * @param classpathContainers The classpathContainers to set.
      */
-    public final void setClasspathContainers( List classpathContainers )
-    {
+    public final void setClasspathContainers(List classpathContainers) {
         this.classpathContainers = classpathContainers;
     }
 
     /**
      * Getter for <code>eclipseProjectDir</code>.
-     * 
+     *
      * @return Returns the eclipseProjectDir.
      */
-    public final File getEclipseProjectDir()
-    {
+    public final File getEclipseProjectDir() {
         return eclipseProjectDir;
     }
 
     /**
      * Setter for <code>eclipseProjectDir</code>.
-     * 
+     *
      * @param eclipseProjectDir The eclipseProjectDir to set.
      */
-    public final void setEclipseProjectDir( File eclipseProjectDir )
-    {
+    public final void setEclipseProjectDir(File eclipseProjectDir) {
         this.eclipseProjectDir = eclipseProjectDir;
     }
 
     /**
      * Getter for <code>projectnatures</code>.
-     * 
+     *
      * @return Returns the projectnatures.
      */
-    public final List getProjectnatures()
-    {
+    public final List getProjectnatures() {
         return projectnatures;
     }
 
     /**
      * Setter for <code>projectnatures</code>.
-     * 
+     *
      * @param projectnatures The projectnatures to set.
      */
-    public final void setProjectnatures( List projectnatures )
-    {
+    public final void setProjectnatures(List projectnatures) {
         this.projectnatures = projectnatures;
     }
 
     /**
      * Getter for <code>useProjectReferences</code>.
-     * 
+     *
      * @return Returns the useProjectReferences.
      */
-    public final boolean getUseProjectReferences()
-    {
+    public final boolean getUseProjectReferences() {
         return useProjectReferences;
     }
 
     /**
      * Setter for <code>useProjectReferences</code>.
-     * 
+     *
      * @param useProjectReferences The useProjectReferences to set.
      */
-    public final void setUseProjectReferences( boolean useProjectReferences )
-    {
+    public final void setUseProjectReferences(boolean useProjectReferences) {
         this.useProjectReferences = useProjectReferences;
     }
 
     /**
      * Getter for <code>wtpversion</code>.
-     * 
+     *
      * @return Returns the wtpversion.
      */
-    public final String getWtpversion()
-    {
+    public final String getWtpversion() {
         return wtpversion;
     }
 
     /**
      * Setter for <code>wtpversion</code>.
-     * 
+     *
      * @param wtpversion The wtpversion to set.
      */
-    public final void setWtpversion( String wtpversion )
-    {
+    public final void setWtpversion(String wtpversion) {
         this.wtpversion = wtpversion;
     }
 
     /**
      * Getter for <code>additionalBuildcommands</code>.
-     * 
+     *
      * @return Returns the additionalBuildcommands.
      */
-    public final List getAdditionalBuildcommands()
-    {
+    public final List getAdditionalBuildcommands() {
         return additionalBuildcommands;
     }
 
     /**
      * Setter for <code>additionalBuildcommands</code>.
-     * 
+     *
      * @param additionalBuildcommands The additionalBuildcommands to set.
      */
-    public final void setAdditionalBuildcommands( List additionalBuildcommands )
-    {
+    public final void setAdditionalBuildcommands(List additionalBuildcommands) {
         this.additionalBuildcommands = additionalBuildcommands;
     }
 
     /**
      * Getter for <code>additionalProjectnatures</code>.
-     * 
+     *
      * @return Returns the additionalProjectnatures.
      */
-    public final List getAdditionalProjectnatures()
-    {
+    public final List getAdditionalProjectnatures() {
         return additionalProjectnatures;
     }
 
     /**
      * Setter for <code>additionalProjectnatures</code>.
-     * 
+     *
      * @param additionalProjectnatures The additionalProjectnatures to set.
      */
-    public final void setAdditionalProjectnatures( List additionalProjectnatures )
-    {
+    public final void setAdditionalProjectnatures(List additionalProjectnatures) {
         this.additionalProjectnatures = additionalProjectnatures;
     }
 
-    /**
-     * Getter for <code>addVersionToProjectName</code>.
-     */
-    public final boolean isAddVersionToProjectName()
-    {
+    /** Getter for <code>addVersionToProjectName</code>. */
+    public final boolean isAddVersionToProjectName() {
         return addVersionToProjectName;
     }
 
-    /**
-     * Setter for <code>addVersionToProjectName</code>.
-     */
-    public final void setAddVersionToProjectName( boolean addVersionToProjectName )
-    {
+    /** Setter for <code>addVersionToProjectName</code>. */
+    public final void setAddVersionToProjectName(boolean addVersionToProjectName) {
         this.addVersionToProjectName = addVersionToProjectName;
     }
 
-    /**
-     * Getter for <code>addGroupIdToProjectName</code>.
-     */
-    public final boolean isAddGroupIdToProjectName()
-    {
+    /** Getter for <code>addGroupIdToProjectName</code>. */
+    public final boolean isAddGroupIdToProjectName() {
         return addGroupIdToProjectName;
     }
 
-    /**
-     * Setter for <code>addGroupIdToProjectName</code>.
-     */
-    public final void setAddGroupIdToProjectName( boolean addGroupIdToProjectName )
-    {
+    /** Setter for <code>addGroupIdToProjectName</code>. */
+    public final void setAddGroupIdToProjectName(boolean addGroupIdToProjectName) {
         this.addGroupIdToProjectName = addGroupIdToProjectName;
     }
 
     /**
      * Getter for <code>projectNameTemplate</code>
-     * 
+     *
      * @return projectNameTemplate
      */
-    public final String getProjectNameTemplate()
-    {
+    public final String getProjectNameTemplate() {
         return projectNameTemplate;
     }
 
     /**
      * Setter for <code>projectNameTemplate</code>.
-     * 
+     *
      * @param projectNameTemplate projectNameTemplate
      */
-    public final void setProjectNameTemplate( String projectNameTemplate )
-    {
+    public final void setProjectNameTemplate(String projectNameTemplate) {
         this.projectNameTemplate = projectNameTemplate;
     }
 
-    /**
-     * @return the linkedResources
-     */
-    public List getLinkedResources()
-    {
+    /** @return the linkedResources */
+    public List getLinkedResources() {
         return linkedResources;
     }
 
-    /**
-     * @param linkedResources the linkedResources to set
-     */
-    public void setLinkedResources( List linkedResources )
-    {
+    /** @param linkedResources the linkedResources to set */
+    public void setLinkedResources(List linkedResources) {
         this.linkedResources = linkedResources;
     }
 
-    /**
-     * @see org.apache.maven.plugin.Mojo#execute()
-     */
+    /** @see org.apache.maven.plugin.Mojo#execute() */
     public final boolean setup()
-        throws MojoExecutionException
-    {
+            throws MojoExecutionException {
         boolean ready = true;
 
         checkDeprecations();
-        setProjectNameTemplate( IdeUtils.calculateProjectNameTemplate( getProjectNameTemplate(),
-                                                                       isAddVersionToProjectName(),
-                                                                       isAddGroupIdToProjectName(), getLog() ) );
-        ajdt = enableAjdt( executedProject ) && !ajdtVersion.equals( "none" );
+        setProjectNameTemplate(IdeUtils.calculateProjectNameTemplate(getProjectNameTemplate(),
+                                                                     isAddVersionToProjectName(),
+                                                                     isAddGroupIdToProjectName(), getLog()));
+        ajdt = enableAjdt(executedProject) && !ajdtVersion.equals("none");
         ready = validate();
 
         // TODO: Why are we using project in some places, and executedProject in others??
@@ -922,24 +869,21 @@ public class EclipsePlugin
         // ear projects don't contain java sources
         // pde projects are always java projects
         isJavaProject =
-            pde
-                || ( Constants.LANGUAGE_JAVA.equals( artifactHandler.getLanguage() ) && !Constants.PROJECT_PACKAGING_EAR.equals( packaging ) );
+                pde
+                || (Constants.LANGUAGE_JAVA.equals(artifactHandler.getLanguage()) && !Constants.PROJECT_PACKAGING_EAR.equals(
+                        packaging));
 
-        if ( sourceIncludes == null )
-        {
+        if (sourceIncludes == null) {
             sourceIncludes = new ArrayList();
         }
-        if ( isJavaProject )
-        {
-            sourceIncludes.add( JAVA_FILE_PATTERN );
+        if (isJavaProject) {
+            sourceIncludes.add(JAVA_FILE_PATTERN);
         }
-        if ( ajdt )
-        {
-            sourceIncludes.add( ASPECTJ_FILE_PATTERN );
+        if (ajdt) {
+            sourceIncludes.add(ASPECTJ_FILE_PATTERN);
         }
 
-        if ( sourceExcludes == null )
-        {
+        if (sourceExcludes == null) {
             sourceExcludes = new ArrayList();
         }
 
@@ -948,47 +892,37 @@ public class EclipsePlugin
         parseConfigurationOptions();
 
         // defaults
-        if ( projectnatures == null )
-        {
-            fillDefaultNatures( packaging );
+        if (projectnatures == null) {
+            fillDefaultNatures(packaging);
         }
 
-        if ( additionalProjectnatures != null )
-        {
-            projectnatures.addAll( additionalProjectnatures );
+        if (additionalProjectnatures != null) {
+            projectnatures.addAll(additionalProjectnatures);
         }
 
-        if ( buildcommands == null )
-        {
-            fillDefaultBuilders( packaging );
-        }
-        else
-        {
-            convertBuildCommandList( buildcommands );
+        if (buildcommands == null) {
+            fillDefaultBuilders(packaging);
+        } else {
+            convertBuildCommandList(buildcommands);
         }
 
-        if ( additionalBuildcommands != null )
-        {
-            convertBuildCommandList( additionalBuildcommands );
-            buildcommands.addAll( additionalBuildcommands );
+        if (additionalBuildcommands != null) {
+            convertBuildCommandList(additionalBuildcommands);
+            buildcommands.addAll(additionalBuildcommands);
         }
 
-        if ( classpathContainers == null )
-        {
-            fillDefaultClasspathContainers( packaging );
-        }
-        else
-        {
+        if (classpathContainers == null) {
+            fillDefaultClasspathContainers(packaging);
+        } else {
             verifyClasspathContainerListIsComplete();
         }
 
-        if ( linkedResources == null )
-        {
+        if (linkedResources == null) {
             linkedResources = new ArrayList();
         }
 
-        locator.addSearchPath( FileResourceLoader.ID, project.getFile().getParentFile().getAbsolutePath() );
-        locator.setOutputDirectory( new File( project.getBuild().getDirectory() ) );
+        locator.addSearchPath(FileResourceLoader.ID, project.getFile().getParentFile().getAbsolutePath());
+        locator.setOutputDirectory(new File(project.getBuild().getDirectory()));
 
         // ready to start
         return ready;
@@ -997,136 +931,118 @@ public class EclipsePlugin
     /**
      * Convert any Strings in the <code>commands</code> List to <code>BuildCommand</code>s. The conversion happens in
      * situ.
-     * 
+     *
      * @param commands a list of commands to convert into <code>BuildCommand</code>
      */
-    protected final void convertBuildCommandList( List commands )
-    {
-        if ( commands != null )
-        {
-            for ( ListIterator i = commands.listIterator(); i.hasNext(); )
-            {
+    protected final void convertBuildCommandList(List commands) {
+        if (commands != null) {
+            for (ListIterator i = commands.listIterator(); i.hasNext(); ) {
                 Object command = i.next();
 
-                if ( command instanceof String )
-                {
-                    command = new BuildCommand( (String) command );
-                    i.set( command );
+                if (command instanceof String) {
+                    command = new BuildCommand((String) command);
+                    i.set(command);
                 }
             }
         }
     }
 
-    private void parseConfigurationOptions()
-    {
-        if ( "R7".equalsIgnoreCase( wtpversion ) ) //$NON-NLS-1$
+    private void parseConfigurationOptions() {
+        if ("R7".equalsIgnoreCase(wtpversion)) //$NON-NLS-1$
         {
             wtpVersionFloat = 0.7f;
-        }
-        else if ( "1.0".equalsIgnoreCase( wtpversion ) ) //$NON-NLS-1$
+        } else if ("1.0".equalsIgnoreCase(wtpversion)) //$NON-NLS-1$
         {
             wtpVersionFloat = 1.0f;
-        }
-        else if ( "1.5".equalsIgnoreCase( wtpversion ) ) //$NON-NLS-1$
+        } else if ("1.5".equalsIgnoreCase(wtpversion)) //$NON-NLS-1$
         {
             wtpVersionFloat = 1.5f;
-        }
-        else if ( "2.0".equalsIgnoreCase( wtpversion ) ) //$NON-NLS-1$
+        } else if ("2.0".equalsIgnoreCase(wtpversion)) //$NON-NLS-1$
         {
             wtpVersionFloat = 2.0f;
         }
-        if ( !"none".equalsIgnoreCase( wtpversion ) )
-        {
-            getLog().info( Messages.getString( "EclipsePlugin.wtpversion", wtpversion ) );
+        if (!"none".equalsIgnoreCase(wtpversion)) {
+            getLog().info(Messages.getString("EclipsePlugin.wtpversion", wtpversion));
         }
     }
 
     /**
      * Extension point for subclasses.
-     * <p>
+     * <p/>
      * Called during <code>setup</code>.
-     * 
+     *
      * @throws MojoExecutionException mojo failures.
      */
     protected void setupExtras()
-        throws MojoExecutionException
-    {
+            throws MojoExecutionException {
         // extension point.
     }
 
-    private void verifyClasspathContainerListIsComplete()
-    {
+    private void verifyClasspathContainerListIsComplete() {
         boolean containsJREContainer = false;
         // Check if classpathContainer contains a JRE (default, alternate or
         // Execution Environment)
-        for ( Iterator iter = classpathContainers.iterator(); iter.hasNext(); )
-        {
+        for (Iterator iter = classpathContainers.iterator(); iter.hasNext(); ) {
             Object classPathContainer = iter.next();
-            if ( classPathContainer != null
-                && classPathContainer.toString().startsWith( COMMON_PATH_JDT_LAUNCHING_JRE_CONTAINER ) )
-            {
+            if (classPathContainer != null
+                && classPathContainer.toString().startsWith(COMMON_PATH_JDT_LAUNCHING_JRE_CONTAINER)) {
                 containsJREContainer = true;
                 break;
             }
         }
-        if ( !containsJREContainer )
-        {
-            getLog().warn( Messages.getString( "EclipsePlugin.missingjrecontainer" ) ); //$NON-NLS-1$
-            classpathContainers.add( 0, COMMON_PATH_JDT_LAUNCHING_JRE_CONTAINER );
+        if (!containsJREContainer) {
+            getLog().warn(Messages.getString("EclipsePlugin.missingjrecontainer")); //$NON-NLS-1$
+            classpathContainers.add(0, COMMON_PATH_JDT_LAUNCHING_JRE_CONTAINER);
         }
     }
 
     private boolean validate()
-        throws MojoExecutionException
-    {
+            throws MojoExecutionException {
         // validate sanity of the current m2 project
-        if ( Arrays.binarySearch( WTP_SUPPORTED_VERSIONS, wtpversion ) < 0 )
-        {
+        if (Arrays.binarySearch(WTP_SUPPORTED_VERSIONS, wtpversion) < 0) {
             throw new MojoExecutionException(
-                                              Messages.getString( "EclipsePlugin.unsupportedwtp", new Object[] { //$NON-NLS-1$
-                                                                  wtpversion,
-                                                                      StringUtils.join( WTP_SUPPORTED_VERSIONS, " " ) } ) ); //$NON-NLS-1$
+                    Messages.getString("EclipsePlugin.unsupportedwtp", new Object[] { //$NON-NLS-1$
+                                                                                      wtpversion,
+                                                                                      StringUtils.join(
+                                                                                              WTP_SUPPORTED_VERSIONS,
+                                                                                              " ") })); //$NON-NLS-1$
         }
 
-        assertNotEmpty( executedProject.getGroupId(), POM_ELT_GROUP_ID );
-        assertNotEmpty( executedProject.getArtifactId(), POM_ELT_ARTIFACT_ID );
+        assertNotEmpty(executedProject.getGroupId(), POM_ELT_GROUP_ID);
+        assertNotEmpty(executedProject.getArtifactId(), POM_ELT_ARTIFACT_ID);
 
-        if ( executedProject.getFile() == null || !executedProject.getFile().exists() )
-        {
-            throw new MojoExecutionException( Messages.getString( "EclipsePlugin.missingpom" ) ); //$NON-NLS-1$
+        if (executedProject.getFile() == null || !executedProject.getFile().exists()) {
+            throw new MojoExecutionException(Messages.getString("EclipsePlugin.missingpom")); //$NON-NLS-1$
         }
 
-        if ( "pom".equals( packaging ) && eclipseProjectDir == null ) //$NON-NLS-1$
+        if ("pom".equals(packaging) && eclipseProjectDir == null) //$NON-NLS-1$
         {
-            getLog().info( Messages.getString( "EclipsePlugin.pompackaging" ) ); //$NON-NLS-1$
+            getLog().info(Messages.getString("EclipsePlugin.pompackaging")); //$NON-NLS-1$
             return false;
         }
 
-        if ( "eclipse-plugin".equals( packaging ) )
-        {
+        if ("eclipse-plugin".equals(packaging)) {
             pde = true;
         }
 
-        if ( eclipseProjectDir == null )
-        {
+        if (eclipseProjectDir == null) {
             eclipseProjectDir = executedProject.getFile().getParentFile();
         }
 
-        if ( !eclipseProjectDir.exists() && !eclipseProjectDir.mkdirs() )
-        {
-            throw new MojoExecutionException( Messages.getString( "EclipsePlugin.cantcreatedir", eclipseProjectDir ) ); //$NON-NLS-1$
+        if (!eclipseProjectDir.exists() && !eclipseProjectDir.mkdirs()) {
+            throw new MojoExecutionException(Messages.getString("EclipsePlugin.cantcreatedir",
+                                                                eclipseProjectDir)); //$NON-NLS-1$
         }
 
-        if ( !eclipseProjectDir.equals( executedProject.getFile().getParentFile() ) )
-        {
-            if ( !eclipseProjectDir.isDirectory() )
-            {
-                throw new MojoExecutionException( Messages.getString( "EclipsePlugin.notadir", eclipseProjectDir ) ); //$NON-NLS-1$
+        if (!eclipseProjectDir.equals(executedProject.getFile().getParentFile())) {
+            if (!eclipseProjectDir.isDirectory()) {
+                throw new MojoExecutionException(Messages.getString("EclipsePlugin.notadir",
+                                                                    eclipseProjectDir)); //$NON-NLS-1$
             }
-            eclipseProjectDir = new File( eclipseProjectDir, executedProject.getArtifactId() );
-            if ( !eclipseProjectDir.isDirectory() && !eclipseProjectDir.mkdirs() )
-            {
-                throw new MojoExecutionException( Messages.getString( "EclipsePlugin.cantcreatedir", eclipseProjectDir ) ); //$NON-NLS-1$
+            eclipseProjectDir = new File(eclipseProjectDir, executedProject.getArtifactId());
+            if (!eclipseProjectDir.isDirectory() && !eclipseProjectDir.mkdirs()) {
+                throw new MojoExecutionException(Messages.getString("EclipsePlugin.cantcreatedir",
+                                                                    eclipseProjectDir)); //$NON-NLS-1$
             }
         }
 
@@ -1137,25 +1053,22 @@ public class EclipsePlugin
 
     /**
      * Extension point for subclasses.
-     * <p>
+     * <p/>
      * Called during <code>setup</code> and used to validate that the configuration is sane.
-     * 
+     *
      * @throws MojoExecutionException mojo failures.
      */
     protected void validateExtras()
-        throws MojoExecutionException
-    {
+            throws MojoExecutionException {
         // provided for extension.
     }
 
-    private void checkDeprecations()
-    {
-        if ( eclipseDownloadSources )
-        {
+    private void checkDeprecations() {
+        if (eclipseDownloadSources) {
             // deprecated warning
-            getLog().warn( Messages.getString( "EclipsePlugin.deprecatedpar", new Object[] { //$NON-NLS-1$
-                                               "eclipse.downloadSources", //$NON-NLS-1$
-                                                   "downloadSources" } ) ); //$NON-NLS-1$
+            getLog().warn(Messages.getString("EclipsePlugin.deprecatedpar", new Object[] { //$NON-NLS-1$
+                                                                                           "eclipse.downloadSources", //$NON-NLS-1$
+                                                                                           "downloadSources" })); //$NON-NLS-1$
             downloadSources = true;
         }
 
@@ -1164,179 +1077,146 @@ public class EclipsePlugin
 
     /**
      * Extension point for subclasses.
-     * <p>
+     * <p/>
      * Check for any extra deprecations and log warnings. Called during <code>setup</code>
      */
-    protected void checkDeprecationsExtras()
-    {
+    protected void checkDeprecationsExtras() {
         // provided for extension.
     }
 
-    public final void writeConfiguration( IdeDependency[] deps )
-        throws MojoExecutionException
-    {
-        EclipseWriterConfig config = createEclipseWriterConfig( deps );
+    public final void writeConfiguration(IdeDependency[] deps)
+            throws MojoExecutionException {
+        EclipseWriterConfig config = createEclipseWriterConfig(deps);
 
-        if ( wtpmanifest && isJavaProject() )
-        {
+        if (wtpmanifest && isJavaProject()) {
             // NOTE: This could change the config!
-            EclipseManifestWriter.addManifestResource( getLog(), config );
+            EclipseManifestWriter.addManifestResource(getLog(), config);
         }
         // NOTE: This could change the config!
-        writeConfigurationExtras( config );
+        writeConfigurationExtras(config);
 
-        if ( wtpVersionFloat == 0.7f )
-        {
-            new EclipseWtpmodulesWriter().init( getLog(), config ).write();
+        if (wtpVersionFloat == 0.7f) {
+            new EclipseWtpmodulesWriter().init(getLog(), config).write();
         }
 
-        if ( wtpVersionFloat >= 1.0f )
-        {
-            new EclipseWtpFacetsWriter().init( getLog(), config ).write();
+        if (wtpVersionFloat >= 1.0f) {
+            new EclipseWtpFacetsWriter().init(getLog(), config).write();
         }
-        if ( wtpVersionFloat == 1.0f )
-        {
-            new EclipseWtpComponentWriter().init( getLog(), config ).write();
+        if (wtpVersionFloat == 1.0f) {
+            new EclipseWtpComponentWriter().init(getLog(), config).write();
         }
-        if ( wtpVersionFloat >= 1.5 )
-        {
-            new EclipseWtpComponent15Writer().init( getLog(), config ).write();
+        if (wtpVersionFloat >= 1.5) {
+            new EclipseWtpComponent15Writer().init(getLog(), config).write();
         }
 
-        new EclipseSettingsWriter().init( getLog(), config ).write();
+        new EclipseSettingsWriter().init(getLog(), config).write();
 
-        if ( isJavaProject )
-        {
-            new EclipseClasspathWriter().init( getLog(), config ).write();
-            if ( ajdt && ajdtVersion.equals( "1.4" ) )
-            {
-                new EclipseAjdtWriter().init( getLog(), config ).write();
+        if (isJavaProject) {
+            new EclipseClasspathWriter().init(getLog(), config).write();
+            if (ajdt && ajdtVersion.equals("1.4")) {
+                new EclipseAjdtWriter().init(getLog(), config).write();
             }
         }
 
-        if ( wtpapplicationxml )
-        {
-            new EclipseWtpApplicationXMLWriter().init( getLog(), config ).write();
+        if (wtpapplicationxml) {
+            new EclipseWtpApplicationXMLWriter().init(getLog(), config).write();
         }
 
-        if ( pde )
-        {
-            this.getLog().info( "The Maven Eclipse plugin runs in 'pde'-mode." );
-            new EclipseOSGiManifestWriter().init( getLog(), config ).write();
+        if (pde) {
+            this.getLog().info("The Maven Eclipse plugin runs in 'pde'-mode.");
+            new EclipseOSGiManifestWriter().init(getLog(), config).write();
         }
 
         // NOTE: This one MUST be after EclipseClasspathwriter, and possibly others,
         // since currently EclipseClasspathWriter does some magic to detect nested
         // output folders and modifies the configuration by adding new (Ant) builders.
         // So the .project file must be written AFTER those have run!
-        new EclipseProjectWriter().init( getLog(), config ).write();
+        new EclipseProjectWriter().init(getLog(), config).write();
 
         writeAdditionalConfig();
 
-        getLog().info( Messages.getString( "EclipsePlugin.wrote", new Object[] { //$NON-NLS-1$
-                                           config.getEclipseProjectName(), eclipseProjectDir.getAbsolutePath() } ) );
+        getLog().info(Messages.getString("EclipsePlugin.wrote", new Object[] { //$NON-NLS-1$
+                                                                               config.getEclipseProjectName(), eclipseProjectDir.getAbsolutePath() }));
     }
 
     private void writeAdditionalConfig()
-        throws MojoExecutionException
-    {
-        if ( additionalConfig != null )
-        {
-            for ( int j = 0; j < additionalConfig.length; j++ )
-            {
+            throws MojoExecutionException {
+        if (additionalConfig != null) {
+            for (int j = 0; j < additionalConfig.length; j++) {
                 EclipseConfigFile file = additionalConfig[j];
-                File projectRelativeFile = new File( eclipseProjectDir, file.getName() );
-                if ( projectRelativeFile.isDirectory() )
-                {
+                File projectRelativeFile = new File(eclipseProjectDir, file.getName());
+                if (projectRelativeFile.isDirectory()) {
                     // just ignore?
-                    getLog().warn( Messages.getString( "EclipsePlugin.foundadir", //$NON-NLS-1$
-                                                       projectRelativeFile.getAbsolutePath() ) );
+                    getLog().warn(Messages.getString("EclipsePlugin.foundadir", //$NON-NLS-1$
+                                                     projectRelativeFile.getAbsolutePath()));
                 }
 
-                try
-                {
+                try {
                     projectRelativeFile.getParentFile().mkdirs();
-                    if ( file.getContent() == null )
-                    {
-                        if ( file.getLocation() != null )
-                        {
-                            InputStream inStream = locator.getResourceAsInputStream( file.getLocation() );
-                            OutputStream outStream = new FileOutputStream( projectRelativeFile );
-                            try
-                            {
-                                IOUtil.copy( inStream, outStream );
-                            }
-                            finally
-                            {
+                    if (file.getContent() == null) {
+                        if (file.getLocation() != null) {
+                            InputStream inStream = locator.getResourceAsInputStream(file.getLocation());
+                            OutputStream outStream = new FileOutputStream(projectRelativeFile);
+                            try {
+                                IOUtil.copy(inStream, outStream);
+                            } finally {
                                 IOUtil.close(inStream);
                                 IOUtil.close(outStream);
-                            }                            
-                        }
-                        else
-                        {
+                            }
+                        } else {
                             URL url = file.getURL();
                             String endPointUrl = url.getProtocol() + "://" + url.getAuthority();
                             // Repository Id should be ignored by Wagon ...
-                            Repository repository = new Repository( "additonal-configs", endPointUrl );
-                            Wagon wagon = wagonManager.getWagon( repository );;
-                            if ( logger.isDebugEnabled() )
-                            {
+                            Repository repository = new Repository("additonal-configs", endPointUrl);
+                            Wagon wagon = wagonManager.getWagon(repository);
+                            ;
+                            if (logger.isDebugEnabled()) {
                                 Debug debug = new Debug();
-                                wagon.addSessionListener( debug );
-                                wagon.addTransferListener( debug );
+                                wagon.addSessionListener(debug);
+                                wagon.addTransferListener(debug);
                             }
-                            wagon.setTimeout( 1000 );
+                            wagon.setTimeout(1000);
                             Settings settings = mavenSettingsBuilder.buildSettings();
-                            ProxyInfo proxyInfo = null; 
-                            if ( settings != null && settings.getActiveProxy() != null )
-                            {
+                            ProxyInfo proxyInfo = null;
+                            if (settings != null && settings.getActiveProxy() != null) {
                                 Proxy settingsProxy = settings.getActiveProxy();
 
                                 proxyInfo = new ProxyInfo();
-                                proxyInfo.setHost( settingsProxy.getHost() );
-                                proxyInfo.setType( settingsProxy.getProtocol() );
-                                proxyInfo.setPort( settingsProxy.getPort() );
-                                proxyInfo.setNonProxyHosts( settingsProxy.getNonProxyHosts() );
-                                proxyInfo.setUserName( settingsProxy.getUsername() );
-                                proxyInfo.setPassword( settingsProxy.getPassword() );                                
+                                proxyInfo.setHost(settingsProxy.getHost());
+                                proxyInfo.setType(settingsProxy.getProtocol());
+                                proxyInfo.setPort(settingsProxy.getPort());
+                                proxyInfo.setNonProxyHosts(settingsProxy.getNonProxyHosts());
+                                proxyInfo.setUserName(settingsProxy.getUsername());
+                                proxyInfo.setPassword(settingsProxy.getPassword());
                             }
-                                
-                            if ( proxyInfo != null )
-                            {
-                                wagon.connect( repository, wagonManager.getAuthenticationInfo( repository.getId() ), proxyInfo );
+
+                            if (proxyInfo != null) {
+                                wagon.connect(repository,
+                                              wagonManager.getAuthenticationInfo(repository.getId()),
+                                              proxyInfo);
+                            } else {
+                                wagon.connect(repository, wagonManager.getAuthenticationInfo(repository.getId()));
                             }
-                            else
-                            {
-                                wagon.connect( repository, wagonManager.getAuthenticationInfo( repository.getId() ) );
-                            }
-                            
-                            wagon.get( url.getPath(), projectRelativeFile );
+
+                            wagon.get(url.getPath(), projectRelativeFile);
                         }
+                    } else {
+                        FileUtils.fileWrite(projectRelativeFile.getAbsolutePath(), file.getContent());
                     }
-                    else
-                    {
-                        FileUtils.fileWrite( projectRelativeFile.getAbsolutePath(), file.getContent() );
-                    }
-                }
-                catch ( WagonException e ) {
+                } catch (WagonException e) {
                     throw new MojoExecutionException(Messages.getString("EclipsePlugin.remoteexception", //$NON-NLS-1$
                                                                         new Object[] { file.getURL(),
-                                                                            e.getMessage() }));                    
-                }
-                catch ( IOException e )
-                {
-                    throw new MojoExecutionException( Messages.getString( "EclipsePlugin.cantwritetofile", //$NON-NLS-1$
-                                                                          projectRelativeFile.getAbsolutePath() ) );
-                }
-                catch ( ResourceNotFoundException e )
-                {
-                    throw new MojoExecutionException( Messages.getString( "EclipsePlugin.cantfindresource", //$NON-NLS-1$
-                                                                          file.getLocation() ) );
-                }
-                catch ( XmlPullParserException e )
-                {
-                    throw new MojoExecutionException( Messages.getString( "EclipsePlugin.settingsxmlfailure", //$NON-NLS-1$
-                                                                          e.getMessage() ) );
+                                                                                       e.getMessage() }));
+                } catch (IOException e) {
+                    throw new MojoExecutionException(Messages.getString("EclipsePlugin.cantwritetofile", //$NON-NLS-1$
+                                                                        projectRelativeFile.getAbsolutePath()));
+                } catch (ResourceNotFoundException e) {
+                    throw new MojoExecutionException(Messages.getString("EclipsePlugin.cantfindresource", //$NON-NLS-1$
+                                                                        file.getLocation()));
+                } catch (XmlPullParserException e) {
+                    throw new MojoExecutionException(Messages.getString("EclipsePlugin.settingsxmlfailure",
+                                                                        //$NON-NLS-1$
+                                                                        e.getMessage()));
                 }
             }
         }
@@ -1344,91 +1224,81 @@ public class EclipsePlugin
 
     /**
      * Create the <code>EclipseWriterConfig</code> for the specified dependencies.
-     * 
+     *
      * @param deps the project dependencies
      * @return a configured <code>EclipseWriterConfig</code>
      * @throws MojoExecutionException mojo failures.
      */
-    protected final EclipseWriterConfig createEclipseWriterConfig( IdeDependency[] deps )
-        throws MojoExecutionException
-    {
+    protected final EclipseWriterConfig createEclipseWriterConfig(IdeDependency[] deps)
+            throws MojoExecutionException {
         File projectBaseDir = executedProject.getFile().getParentFile();
 
         // build a list of UNIQUE source dirs (both src and resources) to be
         // used in classpath and wtpmodules
-        EclipseSourceDir[] sourceDirs = buildDirectoryList( executedProject, eclipseProjectDir, buildOutputDirectory );
+        EclipseSourceDir[] sourceDirs = buildDirectoryList(executedProject, eclipseProjectDir, buildOutputDirectory);
 
         EclipseWriterConfig config = new EclipseWriterConfig();
 
-        config.setWorkspaceConfiguration( getWorkspaceConfiguration() );
+        config.setWorkspaceConfiguration(getWorkspaceConfiguration());
 
-        config.setProjectNameTemplate( getProjectNameTemplate() );
+        config.setProjectNameTemplate(getProjectNameTemplate());
 
-        String projectName = IdeUtils.getProjectName( config.getProjectNameTemplate(), project );
+        String projectName = IdeUtils.getProjectName(config.getProjectNameTemplate(), project);
 
-        config.setEclipseProjectName( projectName );
+        config.setEclipseProjectName(projectName);
 
-        config.setWtpapplicationxml( wtpapplicationxml );
+        config.setWtpapplicationxml(wtpapplicationxml);
 
-        config.setWtpVersion( wtpVersionFloat );
+        config.setWtpVersion(wtpVersionFloat);
 
         float ajdtVersionFloat;
-        try
-        {
-            ajdtVersionFloat = Float.parseFloat( ajdtVersion );
-        }
-        catch ( NumberFormatException e )
-        {
+        try {
+            ajdtVersionFloat = Float.parseFloat(ajdtVersion);
+        } catch (NumberFormatException e) {
             ajdtVersionFloat = 0.0f;
         }
 
-        config.setAjdtVersion( ajdtVersionFloat );
+        config.setAjdtVersion(ajdtVersionFloat);
 
         Set convertedBuildCommands = new LinkedHashSet();
 
-        if ( buildcommands != null )
-        {
-            for ( Iterator it = buildcommands.iterator(); it.hasNext(); )
-            {
+        if (buildcommands != null) {
+            for (Iterator it = buildcommands.iterator(); it.hasNext(); ) {
                 Object cmd = it.next();
 
-                if ( cmd instanceof BuildCommand )
-                {
-                    convertedBuildCommands.add( cmd );
-                }
-                else
-                {
-                    convertedBuildCommands.add( new BuildCommand( (String) cmd ) );
+                if (cmd instanceof BuildCommand) {
+                    convertedBuildCommands.add(cmd);
+                } else {
+                    convertedBuildCommands.add(new BuildCommand((String) cmd));
                 }
             }
         }
 
-        if ( ajdt )
-        {
-            buildAjdtWeaveDeps( deps );
-            buildAspectjDeps( deps );
+        if (ajdt) {
+            buildAjdtWeaveDeps(deps);
+            buildAspectjDeps(deps);
         }
 
-        config.setBuildCommands( new LinkedList( convertedBuildCommands ) );
+        config.setBuildCommands(new LinkedList(convertedBuildCommands));
 
-        config.setBuildOutputDirectory( buildOutputDirectory );
-        config.setClasspathContainers( classpathContainers );
-        config.setDeps( deps );
-        config.setEclipseProjectDirectory( eclipseProjectDir );
-        config.setLocalRepository( localRepository );
-        config.setOSGIManifestFile( manifest );
-        config.setPde( pde );
-        config.setProject( project );
-        config.setProjectBaseDir( projectBaseDir );
-        config.setProjectnatures( projectnatures );
-        config.setProjectFacets( additionalProjectFacets );
-        config.setSourceDirs( sourceDirs );
-        config.setPackaging( packaging );
-        config.setLinkedResources( linkedResources );
-        config.setClasspathContainersLast( classpathContainersLast );
-        config.setJeeVersion( jeeversion );
+        config.setBuildOutputDirectory(buildOutputDirectory);
+        config.setClasspathContainers(classpathContainers);
+        config.setDeps(deps);
+        config.setEclipseProjectDirectory(eclipseProjectDir);
+        config.setLocalRepository(localRepository);
+        config.setOSGIManifestFile(manifest);
+        config.setPde(pde);
+        config.setProject(project);
+        config.setProjectBaseDir(projectBaseDir);
+        config.setProjectnatures(projectnatures);
+        config.setProjectFacets(additionalProjectFacets);
+        config.setSourceDirs(sourceDirs);
+        config.setPackaging(packaging);
+        config.setLinkedResources(linkedResources);
+        config.setClasspathContainersLast(classpathContainersLast);
+        config.setJeeVersion(jeeversion);
 
-        collectWarContextRootsFromReactorEarConfiguration( config );
+        collectWarContextRootsFromReactorEarConfiguration(config);
 
         return config;
     }
@@ -1436,64 +1306,49 @@ public class EclipsePlugin
     /**
      * If this is a war module peek into the reactor an search for an ear module that defines the context root of this
      * module.
-     * 
+     *
      * @param config config to save the context root.
      */
-    private void collectWarContextRootsFromReactorEarConfiguration( EclipseWriterConfig config )
-    {
-        if ( reactorProjects != null && wtpContextName == null
-            && Constants.PROJECT_PACKAGING_WAR.equals( project.getPackaging() ) )
-        {
-            for ( Iterator iter = reactorProjects.iterator(); iter.hasNext(); )
-            {
+    private void collectWarContextRootsFromReactorEarConfiguration(EclipseWriterConfig config) {
+        if (reactorProjects != null && wtpContextName == null
+            && Constants.PROJECT_PACKAGING_WAR.equals(project.getPackaging())) {
+            for (Iterator iter = reactorProjects.iterator(); iter.hasNext(); ) {
                 MavenProject reactorProject = (MavenProject) iter.next();
 
-                if ( Constants.PROJECT_PACKAGING_EAR.equals( reactorProject.getPackaging() ) )
-                {
+                if (Constants.PROJECT_PACKAGING_EAR.equals(reactorProject.getPackaging())) {
                     Xpp3Dom[] warDefinitions =
-                        IdeUtils.getPluginConfigurationDom( reactorProject, JeeUtils.ARTIFACT_MAVEN_EAR_PLUGIN,
-                                                            new String[] { "modules", "webModule" } );
-                    for ( int index = 0; index < warDefinitions.length; index++ )
-                    {
-                        Xpp3Dom groupId = warDefinitions[index].getChild( "groupId" );
-                        Xpp3Dom artifactId = warDefinitions[index].getChild( "artifactId" );
-                        Xpp3Dom contextRoot = warDefinitions[index].getChild( "contextRoot" );
-                        if ( groupId != null && artifactId != null && contextRoot != null && groupId.getValue() != null
-                            && artifactId.getValue() != null && contextRoot.getValue() != null )
-                        {
+                            IdeUtils.getPluginConfigurationDom(reactorProject, JeeUtils.ARTIFACT_MAVEN_EAR_PLUGIN,
+                                                               new String[] { "modules", "webModule" });
+                    for (int index = 0; index < warDefinitions.length; index++) {
+                        Xpp3Dom groupId = warDefinitions[index].getChild("groupId");
+                        Xpp3Dom artifactId = warDefinitions[index].getChild("artifactId");
+                        Xpp3Dom contextRoot = warDefinitions[index].getChild("contextRoot");
+                        if (groupId != null && artifactId != null && contextRoot != null && groupId.getValue() != null
+                            && artifactId.getValue() != null && contextRoot.getValue() != null) {
                             getLog().info(
-                                           "Found context root definition for " + groupId.getValue() + ":"
-                                               + artifactId.getValue() + " " + contextRoot.getValue() );
-                            if ( project.getArtifactId().equals( artifactId.getValue() )
-                                && project.getGroupId().equals( groupId.getValue() ) )
-                            {
-                                config.setContextName( contextRoot.getValue() );
+                                    "Found context root definition for " + groupId.getValue() + ":"
+                                    + artifactId.getValue() + " " + contextRoot.getValue());
+                            if (project.getArtifactId().equals(artifactId.getValue())
+                                && project.getGroupId().equals(groupId.getValue())) {
+                                config.setContextName(contextRoot.getValue());
                             }
-                        }
-                        else
-                        {
+                        } else {
                             getLog().info(
-                                           "Found incomplete ear configuration in " + reactorProject.getGroupId() + ":"
-                                               + reactorProject.getGroupId() + " found "
-                                               + warDefinitions[index].toString() );
+                                    "Found incomplete ear configuration in " + reactorProject.getGroupId() + ":"
+                                    + reactorProject.getGroupId() + " found "
+                                    + warDefinitions[index].toString());
                         }
                     }
                 }
             }
         }
-        if ( config.getContextName() == null && Constants.PROJECT_PACKAGING_WAR.equals( project.getPackaging() ) )
-        {
-            if ( wtpContextName == null )
-            {
-                config.setContextName( project.getArtifactId() );
-            }
-            else if ( "ROOT".equals(wtpContextName) )
-            {
-                config.setContextName( "" );
-            }
-            else
-            {
-                config.setContextName( wtpContextName );
+        if (config.getContextName() == null && Constants.PROJECT_PACKAGING_WAR.equals(project.getPackaging())) {
+            if (wtpContextName == null) {
+                config.setContextName(project.getArtifactId());
+            } else if ("ROOT".equals(wtpContextName)) {
+                config.setContextName("");
+            } else {
+                config.setContextName(wtpContextName);
             }
         }
     }
@@ -1502,315 +1357,272 @@ public class EclipsePlugin
      * Write any extra configuration information for the Eclipse project. This is an extension point, called before the
      * main configurations are written. <br/>
      * <b> NOTE: This could change the config! </b>
-     * 
+     *
      * @param config
      * @throws MojoExecutionException
      */
-    protected void writeConfigurationExtras( EclipseWriterConfig config )
-        throws MojoExecutionException
-    {
+    protected void writeConfigurationExtras(EclipseWriterConfig config)
+            throws MojoExecutionException {
         // extension point.
     }
 
-    private void assertNotEmpty( String string, String elementName )
-        throws MojoExecutionException
-    {
-        if ( string == null )
-        {
-            throw new MojoExecutionException( Messages.getString( "EclipsePlugin.missingelement", elementName ) ); //$NON-NLS-1$
+    private void assertNotEmpty(String string, String elementName)
+            throws MojoExecutionException {
+        if (string == null) {
+            throw new MojoExecutionException(Messages.getString("EclipsePlugin.missingelement",
+                                                                elementName)); //$NON-NLS-1$
         }
     }
 
     /**
      * Fill getProjectnatures() with values.
-     * <p>
+     * <p/>
      * Subclasses should call super and then calculate their own additions and insert them via
      * <code>getProjectnatures().addAll()</code>.
-     * 
+     *
      * @param packaging the pom's packaging
      */
-    protected void fillDefaultNatures( String packaging )
-    {
+    protected void fillDefaultNatures(String packaging) {
         projectnatures = new ArrayList();
 
-        if ( wtpVersionFloat >= 1.0f )
-        {
-            projectnatures.add( NATURE_WST_FACET_CORE_NATURE ); // WTP 1.0 nature
+        if (wtpVersionFloat >= 1.0f) {
+            projectnatures.add(NATURE_WST_FACET_CORE_NATURE); // WTP 1.0 nature
         }
 
-        if ( isJavaProject )
-        {
-            if ( ajdt )
-            {
-                projectnatures.add( NATURE_AJDT_CORE_JAVA );
+        if (isJavaProject) {
+            if (ajdt) {
+                projectnatures.add(NATURE_AJDT_CORE_JAVA);
             }
 
-            projectnatures.add( NATURE_JDT_CORE_JAVA );
+            projectnatures.add(NATURE_JDT_CORE_JAVA);
         }
 
-        if ( wtpVersionFloat >= 0.7f )
-        {
-            projectnatures.add( NATURE_WST_MODULE_CORE_NATURE ); // WTP 0.7/1.0 nature
+        if (wtpVersionFloat >= 0.7f) {
+            projectnatures.add(NATURE_WST_MODULE_CORE_NATURE); // WTP 0.7/1.0 nature
 
-            if ( isJavaProject )
-            {
-                projectnatures.add( NATURE_JEM_WORKBENCH_JAVA_EMF ); // WTP 0.7/1.0 nature
+            if (isJavaProject) {
+                projectnatures.add(NATURE_JEM_WORKBENCH_JAVA_EMF); // WTP 0.7/1.0 nature
             }
         }
 
-        if ( pde )
-        {
-            projectnatures.add( NATURE_PDE_PLUGIN );
+        if (pde) {
+            projectnatures.add(NATURE_PDE_PLUGIN);
         }
-
     }
 
     /**
      * Fill getClasspathContainers() with values.
-     * <p>
+     * <p/>
      * Subclasses should call super and then calculate their own additions and insert them via
      * <code>getClasspathContainers().addAll()</code>.
-     * 
+     *
      * @param packaging the pom's packaging
      */
-    protected void fillDefaultClasspathContainers( String packaging )
-    {
+    protected void fillDefaultClasspathContainers(String packaging) {
         classpathContainers = new ArrayList();
 
-        if ( getWorkspaceConfiguration().getDefaultClasspathContainer() != null )
-        {
+        if (getWorkspaceConfiguration().getDefaultClasspathContainer() != null) {
             getLog().info(
-                           "Adding default classpath container: "
-                               + getWorkspaceConfiguration().getDefaultClasspathContainer() );
-            classpathContainers.add( getWorkspaceConfiguration().getDefaultClasspathContainer() );
+                    "Adding default classpath container: "
+                    + getWorkspaceConfiguration().getDefaultClasspathContainer());
+            classpathContainers.add(getWorkspaceConfiguration().getDefaultClasspathContainer());
         }
-        if ( pde )
-        {
-            classpathContainers.add( REQUIRED_PLUGINS_CONTAINER );
+        if (pde) {
+            classpathContainers.add(REQUIRED_PLUGINS_CONTAINER);
         }
 
-        if ( ajdt )
-        {
-            classpathContainers.add( ASPECTJ_RT_CONTAINER );
+        if (ajdt) {
+            classpathContainers.add(ASPECTJ_RT_CONTAINER);
         }
     }
 
     /**
      * Fill getBuildcommands() with values.
-     * <p>
+     * <p/>
      * Subclasses should call super and then calculate their own additions and insert them via
      * <code>getBuildcommands().addAll()</code>.
-     * 
+     *
      * @param packaging the pom's packaging
      */
-    protected void fillDefaultBuilders( String packaging )
-    {
+    protected void fillDefaultBuilders(String packaging) {
         buildcommands = new ArrayList();
 
-        if ( wtpVersionFloat == 0.7f )
-        {
-            buildcommands.add( new BuildCommand( BUILDER_WST_COMPONENT_STRUCTURAL ) ); // WTP 0.7 builder
+        if (wtpVersionFloat == 0.7f) {
+            buildcommands.add(new BuildCommand(BUILDER_WST_COMPONENT_STRUCTURAL)); // WTP 0.7 builder
         }
 
-        if ( isJavaProject )
-        {
-            if ( ajdt )
-            {
-                buildcommands.add( new BuildCommand( BUILDER_AJDT_CORE_JAVA ) );
-            }
-            else
-            {
-                buildcommands.add( new BuildCommand( BUILDER_JDT_CORE_JAVA ) );
+        if (isJavaProject) {
+            if (ajdt) {
+                buildcommands.add(new BuildCommand(BUILDER_AJDT_CORE_JAVA));
+            } else {
+                buildcommands.add(new BuildCommand(BUILDER_JDT_CORE_JAVA));
             }
         }
 
-        if ( wtpVersionFloat >= 1.5f )
-        {
-            buildcommands.add( new BuildCommand( BUILDER_WST_FACET ) ); // WTP 1.5 builder
+        if (wtpVersionFloat >= 1.5f) {
+            buildcommands.add(new BuildCommand(BUILDER_WST_FACET)); // WTP 1.5 builder
         }
 
-        if ( wtpVersionFloat >= 0.7f )
-        {
-            buildcommands.add( new BuildCommand( BUILDER_WST_VALIDATION ) ); // WTP 0.7/1.0 builder
+        if (wtpVersionFloat >= 0.7f) {
+            buildcommands.add(new BuildCommand(BUILDER_WST_VALIDATION)); // WTP 0.7/1.0 builder
         }
 
-        if ( wtpVersionFloat == 0.7f )
-        {
+        if (wtpVersionFloat == 0.7f) {
             // WTP 0.7 builder
-            buildcommands.add( new BuildCommand( BUILDER_WST_COMPONENT_STRUCTURAL_DEPENDENCY_RESOLVER ) );
+            buildcommands.add(new BuildCommand(BUILDER_WST_COMPONENT_STRUCTURAL_DEPENDENCY_RESOLVER));
         }
 
-        if ( pde )
-        {
-            buildcommands.add( new BuildCommand( BUILDER_PDE_MANIFEST ) );
-            buildcommands.add( new BuildCommand( BUILDER_PDE_SCHEMA ) );
+        if (pde) {
+            buildcommands.add(new BuildCommand(BUILDER_PDE_MANIFEST));
+            buildcommands.add(new BuildCommand(BUILDER_PDE_SCHEMA));
         }
     }
 
-    public final EclipseSourceDir[] buildDirectoryList( MavenProject project, File basedir, File buildOutputDirectory )
-        throws MojoExecutionException
-    {
+    public final EclipseSourceDir[] buildDirectoryList(MavenProject project, File basedir, File buildOutputDirectory)
+            throws MojoExecutionException {
         File projectBaseDir = project.getFile().getParentFile();
 
-        String mainOutput = IdeUtils.toRelativeAndFixSeparator( projectBaseDir, buildOutputDirectory, false );
+        String mainOutput = IdeUtils.toRelativeAndFixSeparator(projectBaseDir, buildOutputDirectory, false);
 
         // If using the standard output location, don't mix the test output into it.
         String testOutput = null;
         boolean useStandardOutputDir =
-            buildOutputDirectory.equals( new File( project.getBuild().getOutputDirectory() ) );
-        if ( useStandardOutputDir )
-        {
+                buildOutputDirectory.equals(new File(project.getBuild().getOutputDirectory()));
+        if (useStandardOutputDir) {
             getLog().debug(
-                            "testOutput toRelativeAndFixSeparator " + projectBaseDir + " , "
-                                + project.getBuild().getTestOutputDirectory() );
+                    "testOutput toRelativeAndFixSeparator " + projectBaseDir + " , "
+                    + project.getBuild().getTestOutputDirectory());
             testOutput =
-                IdeUtils.toRelativeAndFixSeparator( projectBaseDir,
-                                                    new File( project.getBuild().getTestOutputDirectory() ), false );
-            getLog().debug( "testOutput after toRelative : " + testOutput );
+                    IdeUtils.toRelativeAndFixSeparator(projectBaseDir,
+                                                       new File(project.getBuild().getTestOutputDirectory()), false);
+            getLog().debug("testOutput after toRelative : " + testOutput);
         }
 
         Set mainDirectories = new LinkedHashSet();
 
-        extractSourceDirs( mainDirectories, project.getCompileSourceRoots(), basedir, projectBaseDir, false, null );
+        extractSourceDirs(mainDirectories, project.getCompileSourceRoots(), basedir, projectBaseDir, false, null);
 
-        extractResourceDirs( mainDirectories, project.getBuild().getResources(), basedir, projectBaseDir, false,
-                             mainOutput );
+        extractResourceDirs(mainDirectories, project.getBuild().getResources(), basedir, projectBaseDir, false,
+                            mainOutput);
 
         Set testDirectories = new LinkedHashSet();
 
-        extractSourceDirs( testDirectories, project.getTestCompileSourceRoots(), basedir, projectBaseDir, true,
-                           testOutput );
+        extractSourceDirs(testDirectories, project.getTestCompileSourceRoots(), basedir, projectBaseDir, true,
+                          testOutput);
 
-        extractResourceDirs( testDirectories, project.getBuild().getTestResources(), basedir, projectBaseDir, true,
-                             testOutput );
+        extractResourceDirs(testDirectories, project.getBuild().getTestResources(), basedir, projectBaseDir, true,
+                            testOutput);
 
         // avoid duplicated entries
         Set directories = new LinkedHashSet();
 
         // NOTE: Since MNG-3118, test classes come before main classes
-        boolean testBeforeMain = isMavenVersion( "[2.0.8,)" );
-        
+        boolean testBeforeMain = isMavenVersion("[2.0.8,)");
+
         // let users override this if needed, they need to simulate more than the test phase in eclipse
-        if (testSourcesLast)
-        {
+        if (testSourcesLast) {
             testBeforeMain = false;
         }
 
-        if ( testBeforeMain )
-        {
-            directories.addAll( testDirectories );
-            directories.removeAll( mainDirectories );
-            directories.addAll( mainDirectories );
+        if (testBeforeMain) {
+            directories.addAll(testDirectories);
+            directories.removeAll(mainDirectories);
+            directories.addAll(mainDirectories);
+        } else {
+            directories.addAll(mainDirectories);
+            directories.addAll(testDirectories);
         }
-        else
-        {
-            directories.addAll( mainDirectories );
-            directories.addAll( testDirectories );
+        if (ajdt) {
+            extractAspectDirs(directories, project, basedir, projectBaseDir, testOutput);
         }
-        if ( ajdt )
-            extractAspectDirs( directories, project, basedir, projectBaseDir, testOutput );
-        return (EclipseSourceDir[]) directories.toArray( new EclipseSourceDir[directories.size()] );
+        return (EclipseSourceDir[]) directories.toArray(new EclipseSourceDir[directories.size()]);
     }
 
-    private void extractSourceDirs( Set directories, List sourceRoots, File basedir, File projectBaseDir, boolean test,
-                                    String output )
-        throws MojoExecutionException
-    {
-        for ( Iterator it = sourceRoots.iterator(); it.hasNext(); )
-        {
+    private void extractSourceDirs(Set directories, List sourceRoots, File basedir, File projectBaseDir, boolean test,
+                                   String output)
+            throws MojoExecutionException {
+        for (Iterator it = sourceRoots.iterator(); it.hasNext(); ) {
 
-            File sourceRootFile = new File( (String) it.next() );
+            File sourceRootFile = new File((String) it.next());
 
-            if ( sourceRootFile.isDirectory() )
-            {
+            if (sourceRootFile.isDirectory()) {
                 String sourceRoot =
-                    IdeUtils.toRelativeAndFixSeparator( projectBaseDir, sourceRootFile,
-                                                        !projectBaseDir.equals( basedir ) );
+                        IdeUtils.toRelativeAndFixSeparator(projectBaseDir, sourceRootFile,
+                                                           !projectBaseDir.equals(basedir));
 
-                directories.add( new EclipseSourceDir( sourceRoot, output, false, test, sourceIncludes, sourceExcludes,
-                                                       false ) );
+                directories.add(new EclipseSourceDir(sourceRoot, output, false, test, sourceIncludes, sourceExcludes,
+                                                     false));
             }
         }
     }
 
-    final void extractResourceDirs( Set directories, List resources, File basedir, File workspaceProjectBaseDir,
-                                    boolean test, final String output )
-        throws MojoExecutionException
-    {
-        for ( Iterator it = resources.iterator(); it.hasNext(); )
-        {
+    final void extractResourceDirs(Set directories, List resources, File basedir, File workspaceProjectBaseDir,
+                                   boolean test, final String output)
+            throws MojoExecutionException {
+        for (Iterator it = resources.iterator(); it.hasNext(); ) {
             Resource resource = (Resource) it.next();
 
-            getLog().debug( "Processing resource dir: " + resource.getDirectory() );
+            getLog().debug("Processing resource dir: " + resource.getDirectory());
 
-            List excludes = new ArrayList( resource.getExcludes() );
+            List excludes = new ArrayList(resource.getExcludes());
             // automatically exclude java files: eclipse doesn't have the concept of resource directory so it will
             // try to compile any java file found in maven resource dirs
-            excludes.add( JAVA_FILE_PATTERN );
+            excludes.add(JAVA_FILE_PATTERN);
 
             // TODO: figure out how to merge if the same dir is specified twice
             // with different in/exclude patterns.
 
-            File resourceDirectory = new File( /* basedir, */resource.getDirectory() );
+            File resourceDirectory = new File( /* basedir, */resource.getDirectory());
 
-            if ( !resourceDirectory.exists() || !resourceDirectory.isDirectory() )
-            {
-                getLog().debug( "Resource dir: " + resourceDirectory + " either missing or not a directory." );
+            if (!resourceDirectory.exists() || !resourceDirectory.isDirectory()) {
+                getLog().debug("Resource dir: " + resourceDirectory + " either missing or not a directory.");
                 continue;
             }
 
             String resourcePath =
-                IdeUtils.toRelativeAndFixSeparator( workspaceProjectBaseDir, resourceDirectory,
-                                                    !workspaceProjectBaseDir.equals( basedir ) );
+                    IdeUtils.toRelativeAndFixSeparator(workspaceProjectBaseDir, resourceDirectory,
+                                                       !workspaceProjectBaseDir.equals(basedir));
             String thisOutput = output;
-            if ( thisOutput != null )
-            {
+            if (thisOutput != null) {
                 // sometimes thisOutput is already an absolute path
-                File outputFile = new File( thisOutput );
-                if ( !outputFile.isAbsolute() )
-                {
-                    outputFile = new File( workspaceProjectBaseDir, thisOutput );
+                File outputFile = new File(thisOutput);
+                if (!outputFile.isAbsolute()) {
+                    outputFile = new File(workspaceProjectBaseDir, thisOutput);
                 }
                 // create output dir if it doesn't exist
                 outputFile.mkdirs();
 
-                if ( !StringUtils.isEmpty( resource.getTargetPath() ) )
-                {
-                    outputFile = new File( outputFile, resource.getTargetPath() );
+                if (!StringUtils.isEmpty(resource.getTargetPath())) {
+                    outputFile = new File(outputFile, resource.getTargetPath());
                     // create output dir if it doesn't exist
                     outputFile.mkdirs();
                 }
 
                 getLog().debug(
-                                "Making relative and fixing separator: { " + workspaceProjectBaseDir + ", "
-                                    + outputFile + ", false }." );
-                thisOutput = IdeUtils.toRelativeAndFixSeparator( workspaceProjectBaseDir, outputFile, false );
+                        "Making relative and fixing separator: { " + workspaceProjectBaseDir + ", "
+                        + outputFile + ", false }.");
+                thisOutput = IdeUtils.toRelativeAndFixSeparator(workspaceProjectBaseDir, outputFile, false);
             }
 
             EclipseSourceDir resourceDir =
-                new EclipseSourceDir( resourcePath, thisOutput, true, test, resource.getIncludes(), excludes,
-                                      resource.isFiltering() );
+                    new EclipseSourceDir(resourcePath, thisOutput, true, test, resource.getIncludes(), excludes,
+                                         resource.isFiltering());
 
-            if ( !directories.add( resourceDir ) )
-            {
-                EclipseSourceDir originalDir = (EclipseSourceDir) get( directories, resourceDir );
+            if (!directories.add(resourceDir)) {
+                EclipseSourceDir originalDir = (EclipseSourceDir) get(directories, resourceDir);
 
                 boolean merged = originalDir.merge(resourceDir);
-                if (merged)
-                {
+                if (merged) {
                     getLog().info(
-                        "Resource directory's path matches an existing source directory. Resources have been merged with the source directory "
+                            "Resource directory's path matches an existing source directory. Resources have been merged with the source directory "
                             + originalDir.getPath());
-                }
-                else
-                {
+                } else {
                     getLog()
-                        .info(
-                            "Resource directory's path matches an existing source directory but \"test\", \"filtering\" or \"output\" were different."
-                                + "The resulting eclipse configuration may not accurately reflect the project configuration for "
-                                + originalDir.getPath());
+                            .info(
+                                    "Resource directory's path matches an existing source directory but \"test\", \"filtering\" or \"output\" were different."
+                                    + "The resulting eclipse configuration may not accurately reflect the project configuration for "
+                                    + originalDir.getPath());
                 }
-
             }
         }
     }
@@ -1818,80 +1630,68 @@ public class EclipsePlugin
     /**
      * java.util.Set doesn't have a get() method that returns the matching object. Since we use objects that are
      * different by conceptually "equal" based on the path we need to locate the original object out of the Set.
-     * 
+     *
      * @param set the set to iterate over looking for the specified object
-     * @param o the object to locate in the set
+     * @param o   the object to locate in the set
      * @return the object from the set, or null if not found in the set
      */
-    private Object get( Set set, Object o )
-    {
+    private Object get(Set set, Object o) {
         Iterator iter = set.iterator();
-        while ( iter.hasNext() )
-        {
+        while (iter.hasNext()) {
             Object item = iter.next();
-            if ( o.equals( item ) )
-            {
+            if (o.equals(item)) {
                 return item;
             }
         }
         return null;
     }
 
-    private void extractAspectDirs( Set directories, MavenProject project, File basedir, File projectBaseDir,
-                                    String testOutput )
-        throws MojoExecutionException
-    {
-        Xpp3Dom configuration = getAspectjConfiguration( project );
-        if ( configuration != null )
-        {
+    private void extractAspectDirs(Set directories, MavenProject project, File basedir, File projectBaseDir,
+                                   String testOutput)
+            throws MojoExecutionException {
+        Xpp3Dom configuration = getAspectjConfiguration(project);
+        if (configuration != null) {
             String aspectDirectory = DEFAULT_ASPECT_DIRECTORY;
-            Xpp3Dom aspectDirectoryElement = configuration.getChild( ASPECT_DIRECTORY );
-            if ( aspectDirectoryElement != null )
-            {
+            Xpp3Dom aspectDirectoryElement = configuration.getChild(ASPECT_DIRECTORY);
+            if (aspectDirectoryElement != null) {
                 aspectDirectory = aspectDirectoryElement.getValue();
             }
 
-            File aspectDirectoryFile = new File( basedir, aspectDirectory );
-            if ( aspectDirectoryFile.exists() && aspectDirectoryFile.isDirectory() )
-            {
+            File aspectDirectoryFile = new File(basedir, aspectDirectory);
+            if (aspectDirectoryFile.exists() && aspectDirectoryFile.isDirectory()) {
                 String sourceRoot =
-                    IdeUtils.toRelativeAndFixSeparator( projectBaseDir, aspectDirectoryFile,
-                                                        !projectBaseDir.equals( basedir ) );
+                        IdeUtils.toRelativeAndFixSeparator(projectBaseDir, aspectDirectoryFile,
+                                                           !projectBaseDir.equals(basedir));
 
-                directories.add( new EclipseSourceDir( sourceRoot, null, false, false, sourceIncludes, sourceExcludes,
-                                                       false ) );
+                directories.add(new EclipseSourceDir(sourceRoot, null, false, false, sourceIncludes, sourceExcludes,
+                                                     false));
             }
 
             String testAspectDirectory = DEFAULT_TEST_ASPECT_DIRECTORY;
-            Xpp3Dom testAspectDirectoryElement = configuration.getChild( TEST_ASPECT_DIRECTORY );
-            if ( testAspectDirectoryElement != null )
-            {
+            Xpp3Dom testAspectDirectoryElement = configuration.getChild(TEST_ASPECT_DIRECTORY);
+            if (testAspectDirectoryElement != null) {
                 testAspectDirectory = testAspectDirectoryElement.getValue();
             }
 
-            File testAspectDirectoryFile = new File( basedir, testAspectDirectory );
-            if ( testAspectDirectoryFile.exists() && testAspectDirectoryFile.isDirectory() )
-            {
+            File testAspectDirectoryFile = new File(basedir, testAspectDirectory);
+            if (testAspectDirectoryFile.exists() && testAspectDirectoryFile.isDirectory()) {
                 String sourceRoot =
-                    IdeUtils.toRelativeAndFixSeparator( projectBaseDir, testAspectDirectoryFile,
-                                                        !projectBaseDir.equals( basedir ) );
+                        IdeUtils.toRelativeAndFixSeparator(projectBaseDir, testAspectDirectoryFile,
+                                                           !projectBaseDir.equals(basedir));
 
-                directories.add( new EclipseSourceDir( sourceRoot, testOutput, false, true, sourceIncludes,
-                                                       sourceExcludes, false ) );
+                directories.add(new EclipseSourceDir(sourceRoot, testOutput, false, true, sourceIncludes,
+                                                     sourceExcludes, false));
             }
         }
     }
 
-    private boolean enableAjdt( MavenProject project )
-    {
+    private boolean enableAjdt(MavenProject project) {
         boolean enable = false;
         List buildPlugins = project.getBuildPlugins();
-        for ( Iterator it = buildPlugins.iterator(); it.hasNext(); )
-        {
+        for (Iterator it = buildPlugins.iterator(); it.hasNext(); ) {
             Plugin plugin = (Plugin) it.next();
-            if ( plugin.getGroupId().equals( ORG_CODEHAUS_MOJO )
-                && plugin.getArtifactId().equals( ASPECTJ_MAVEN_PLUGIN ) )
-            {
+            if (plugin.getGroupId().equals(ORG_CODEHAUS_MOJO)
+                && plugin.getArtifactId().equals(ASPECTJ_MAVEN_PLUGIN)) {
                 enable = true;
                 break;
             }
@@ -1900,16 +1700,13 @@ public class EclipsePlugin
         return enable;
     }
 
-    private Xpp3Dom getAspectjConfiguration( MavenProject project )
-    {
+    private Xpp3Dom getAspectjConfiguration(MavenProject project) {
         Xpp3Dom configuration = null;
         List buildPlugins = project.getBuildPlugins();
-        for ( Iterator it = buildPlugins.iterator(); it.hasNext(); )
-        {
+        for (Iterator it = buildPlugins.iterator(); it.hasNext(); ) {
             Plugin plugin = (Plugin) it.next();
-            if ( plugin.getGroupId().equals( ORG_CODEHAUS_MOJO )
-                && plugin.getArtifactId().equals( ASPECTJ_MAVEN_PLUGIN ) )
-            {
+            if (plugin.getGroupId().equals(ORG_CODEHAUS_MOJO)
+                && plugin.getArtifactId().equals(ASPECTJ_MAVEN_PLUGIN)) {
                 configuration = (Xpp3Dom) plugin.getConfiguration();
                 break;
             }
@@ -1918,168 +1715,134 @@ public class EclipsePlugin
         return configuration;
     }
 
-    private void buildAspectjDeps( IdeDependency[] deps )
-        throws MojoExecutionException
-    {
-        Xpp3Dom configuration = getAspectjConfiguration( executedProject );
-        if ( configuration != null )
-        {
-            Xpp3Dom aspectLibrariesParent = configuration.getChild( ASPECT_LIBRARIES );
-            if ( aspectLibrariesParent != null )
-            {
-                Xpp3Dom[] aspectLibraries = aspectLibrariesParent.getChildren( ASPECT_LIBRARY );
-                outerLoop: for ( int i = 0; i < aspectLibraries.length; i++ )
-                {
-                    String artifactId = aspectLibraries[i].getChild( POM_ELT_ARTIFACT_ID ).getValue();
-                    String groupId = aspectLibraries[i].getChild( POM_ELT_GROUP_ID ).getValue();
-                    for ( int j = 0; j < deps.length; j++ )
-                    {
-                        if ( deps[j].getArtifactId().equals( artifactId ) && deps[j].getGroupId().equals( groupId ) )
-                        {
-                            deps[j].setAjdtDependency( true );
+    private void buildAspectjDeps(IdeDependency[] deps)
+            throws MojoExecutionException {
+        Xpp3Dom configuration = getAspectjConfiguration(executedProject);
+        if (configuration != null) {
+            Xpp3Dom aspectLibrariesParent = configuration.getChild(ASPECT_LIBRARIES);
+            if (aspectLibrariesParent != null) {
+                Xpp3Dom[] aspectLibraries = aspectLibrariesParent.getChildren(ASPECT_LIBRARY);
+                outerLoop:
+                for (int i = 0; i < aspectLibraries.length; i++) {
+                    String artifactId = aspectLibraries[i].getChild(POM_ELT_ARTIFACT_ID).getValue();
+                    String groupId = aspectLibraries[i].getChild(POM_ELT_GROUP_ID).getValue();
+                    for (int j = 0; j < deps.length; j++) {
+                        if (deps[j].getArtifactId().equals(artifactId) && deps[j].getGroupId().equals(groupId)) {
+                            deps[j].setAjdtDependency(true);
                             continue outerLoop;
                         }
                     }
 
-                    throw new MojoExecutionException( "AspectLibrary is not a dependency of project" );
+                    throw new MojoExecutionException("AspectLibrary is not a dependency of project");
                 }
             }
         }
     }
 
-    private void buildAjdtWeaveDeps( IdeDependency[] deps )
-        throws MojoExecutionException
-    {
-        Xpp3Dom configuration = getAspectjConfiguration( executedProject );
-        if ( configuration != null )
-        {
-            Xpp3Dom weaveDependenciesParent = configuration.getChild( WEAVE_DEPENDENCIES );
-            if ( weaveDependenciesParent != null )
-            {
-                Xpp3Dom[] weaveDependencies = weaveDependenciesParent.getChildren( WEAVE_DEPENDENCY );
-                outerLoop: for ( int i = 0; i < weaveDependencies.length; i++ )
-                {
-                    String artifactId = weaveDependencies[i].getChild( POM_ELT_ARTIFACT_ID ).getValue();
-                    String groupId = weaveDependencies[i].getChild( POM_ELT_GROUP_ID ).getValue();
-                    for ( int j = 0; j < deps.length; j++ )
-                    {
-                        if ( deps[j].getArtifactId().equals( artifactId ) && deps[j].getGroupId().equals( groupId ) )
-                        {
-                            deps[j].setAjdtWeaveDependency( true );
+    private void buildAjdtWeaveDeps(IdeDependency[] deps)
+            throws MojoExecutionException {
+        Xpp3Dom configuration = getAspectjConfiguration(executedProject);
+        if (configuration != null) {
+            Xpp3Dom weaveDependenciesParent = configuration.getChild(WEAVE_DEPENDENCIES);
+            if (weaveDependenciesParent != null) {
+                Xpp3Dom[] weaveDependencies = weaveDependenciesParent.getChildren(WEAVE_DEPENDENCY);
+                outerLoop:
+                for (int i = 0; i < weaveDependencies.length; i++) {
+                    String artifactId = weaveDependencies[i].getChild(POM_ELT_ARTIFACT_ID).getValue();
+                    String groupId = weaveDependencies[i].getChild(POM_ELT_GROUP_ID).getValue();
+                    for (int j = 0; j < deps.length; j++) {
+                        if (deps[j].getArtifactId().equals(artifactId) && deps[j].getGroupId().equals(groupId)) {
+                            deps[j].setAjdtWeaveDependency(true);
                             continue outerLoop;
                         }
                     }
 
-                    throw new MojoExecutionException( "WeaveDependency is not a dependency of project" );
+                    throw new MojoExecutionException("WeaveDependency is not a dependency of project");
                 }
             }
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public String getProjectNameForArifact( Artifact artifact )
-    {
+    /** {@inheritDoc} */
+    public String getProjectNameForArifact(Artifact artifact) {
         IdeDependency[] workspaceArtefacts = getWorkspaceArtefacts();
-        for ( int index = 0; workspaceArtefacts != null && index < workspaceArtefacts.length; index++ )
-        {
+        for (int index = 0; workspaceArtefacts != null && index < workspaceArtefacts.length; index++) {
             IdeDependency workspaceArtefact = workspaceArtefacts[index];
-            if ( workspaceArtefact.isAddedToClasspath()
-                && workspaceArtefact.getGroupId().equals( artifact.getGroupId() )
-                && workspaceArtefact.getArtifactId().equals( artifact.getArtifactId() ) )
-            {
-                if ( workspaceArtefact.getVersion().equals( artifact.getBaseVersion() ) )
-                {
+            if (workspaceArtefact.isAddedToClasspath()
+                && workspaceArtefact.getGroupId().equals(artifact.getGroupId())
+                && workspaceArtefact.getArtifactId().equals(artifact.getArtifactId())) {
+                if (workspaceArtefact.getVersion().equals(artifact.getBaseVersion())) {
                     return workspaceArtefact.getEclipseProjectName();
                 }
             }
         }
-        MavenProject reactorProject = getReactorProject( artifact );
-        if ( reactorProject != null )
-        {
-            return IdeUtils.getProjectName( getProjectNameTemplateForMavenProject( reactorProject ), artifact );
+        MavenProject reactorProject = getReactorProject(artifact);
+        if (reactorProject != null) {
+            return IdeUtils.getProjectName(getProjectNameTemplateForMavenProject(reactorProject), artifact);
         }
-        return IdeUtils.getProjectName( getProjectNameTemplate(), artifact );
+        return IdeUtils.getProjectName(getProjectNameTemplate(), artifact);
     }
 
     /**
      * @param mavenProject the project to get the projectNameTemplate configuration from
      * @return the projectNameTemplate configuration from the specified MavenProject
      */
-    private String getProjectNameTemplateForMavenProject( MavenProject mavenProject )
-    {
+    private String getProjectNameTemplateForMavenProject(MavenProject mavenProject) {
         String projectNameTemplate = null;
         boolean addVersionToProjectName = false;
         boolean addGroupIdToProjectName = false;
 
         Build build = mavenProject.getBuild();
-        if ( build != null )
-        {
+        if (build != null) {
             String eclipsePlugin = "org.apache.maven.plugins:maven-eclipse-plugin";
-            Plugin plugin = (Plugin) build.getPluginsAsMap().get( eclipsePlugin );
-            if ( plugin == null && build.getPluginManagement() != null )
-            {
-                plugin = (Plugin) build.getPluginManagement().getPluginsAsMap().get( eclipsePlugin );
+            Plugin plugin = (Plugin) build.getPluginsAsMap().get(eclipsePlugin);
+            if (plugin == null && build.getPluginManagement() != null) {
+                plugin = (Plugin) build.getPluginManagement().getPluginsAsMap().get(eclipsePlugin);
             }
-            if ( plugin != null )
-            {
+            if (plugin != null) {
                 Xpp3Dom config = (Xpp3Dom) plugin.getConfiguration();
-                if ( config != null )
-                {
-                    Xpp3Dom projectNameTemplateNode = config.getChild( "projectNameTemplate" );
-                    if ( projectNameTemplateNode != null )
-                    {
+                if (config != null) {
+                    Xpp3Dom projectNameTemplateNode = config.getChild("projectNameTemplate");
+                    if (projectNameTemplateNode != null) {
                         projectNameTemplate = projectNameTemplateNode.getValue();
                     }
-                    Xpp3Dom addVersionToProjectNameNode = config.getChild( "addVersionToProjectName" );
+                    Xpp3Dom addVersionToProjectNameNode = config.getChild("addVersionToProjectName");
                     addVersionToProjectName = addVersionToProjectNameNode != null;
-                    Xpp3Dom addGroupIdToProjectNameNode = config.getChild( "addGroupIdToProjectName" );
+                    Xpp3Dom addGroupIdToProjectNameNode = config.getChild("addGroupIdToProjectName");
                     addGroupIdToProjectName = addGroupIdToProjectNameNode != null;
                 }
             }
         }
-        return IdeUtils.calculateProjectNameTemplate( projectNameTemplate, addVersionToProjectName,
-                                                      addGroupIdToProjectName, getLog() );
+        return IdeUtils.calculateProjectNameTemplate(projectNameTemplate, addVersionToProjectName,
+                                                     addGroupIdToProjectName, getLog());
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    protected final IdeDependency[] getWorkspaceArtefacts()
-    {
+    /** {@inheritDoc} */
+    protected final IdeDependency[] getWorkspaceArtefacts() {
         return getWorkspaceConfiguration().getWorkspaceArtefacts();
     }
 
-    public final WorkspaceConfiguration getWorkspaceConfiguration()
-    {
-        if ( workspaceConfiguration == null )
-        {
+    public final WorkspaceConfiguration getWorkspaceConfiguration() {
+        if (workspaceConfiguration == null) {
             workspaceConfiguration = new WorkspaceConfiguration();
             locateWorkspace();
-            getLog().info( Messages.getString( "EclipsePlugin.workspace", workspace ) );
-            workspaceConfiguration.setWorkspaceDirectory( workspace );
+            getLog().info(Messages.getString("EclipsePlugin.workspace", workspace));
+            workspaceConfiguration.setWorkspaceDirectory(workspace);
 
-            new ReadWorkspaceLocations().init( getLog(), workspaceConfiguration, project, wtpdefaultserver );
+            new ReadWorkspaceLocations().init(getLog(), workspaceConfiguration, project, wtpdefaultserver);
         }
         return workspaceConfiguration;
     }
 
-    /**
-     * If workspace is not defined, then attempt to locate it by checking up the directory hierarchy.
-     */
-    private void locateWorkspace()
-    {
-        if ( workspace == null )
-        {
-            File currentWorkingDirectory = new File( "." ).getAbsoluteFile();
-            while ( currentWorkingDirectory != null )
-            {
-                File metadataDirectory = new File( currentWorkingDirectory, ".metadata" );
-                logger.debug( "Checking for eclipse workspace at " + currentWorkingDirectory );
-                if ( metadataDirectory.exists() && metadataDirectory.isDirectory() )
-                {
-                    logger.debug( "  Found workspace at " + currentWorkingDirectory );
+    /** If workspace is not defined, then attempt to locate it by checking up the directory hierarchy. */
+    private void locateWorkspace() {
+        if (workspace == null) {
+            File currentWorkingDirectory = new File(".").getAbsoluteFile();
+            while (currentWorkingDirectory != null) {
+                File metadataDirectory = new File(currentWorkingDirectory, ".metadata");
+                logger.debug("Checking for eclipse workspace at " + currentWorkingDirectory);
+                if (metadataDirectory.exists() && metadataDirectory.isDirectory()) {
+                    logger.debug("  Found workspace at " + currentWorkingDirectory);
                     workspace = currentWorkingDirectory;
                     return;
                 }
@@ -2088,52 +1851,44 @@ public class EclipsePlugin
         }
     }
 
-    public final List getExcludes()
-    {
+    public final List getExcludes() {
         return excludes;
     }
 
     /**
-     * Utility method that locates a project producing the given artifact 
+     * Utility method that locates a project producing the given artifact
      * and verifies if it's a valid Eclipse project.
-     * 
+     *
      * @param artifact the artifact a project should produce.
      * @return <code>true</code> if the artifact is produced by a reactor projectart.
      */
-    protected boolean isAvailableAsAReactorProject( Artifact artifact )
-    {
-        MavenProject project = getReactorProject( artifact );
-        return ( project != null && new File( project.getBasedir(), ".project" ).exists() ) ;
+    protected boolean isAvailableAsAReactorProject(Artifact artifact) {
+        MavenProject project = getReactorProject(artifact);
+        return (project != null && new File(project.getBasedir(), ".project").exists());
     }
-    
+
     /**
      * Utility method that locates a project in the workspace for the given artifact.
-     * 
+     *
      * @param artifact the artifact a project should produce.
      * @return <code>true</code> if the artifact is produced by a reactor projectart.
      */
-    private boolean isAvailableAsAWorkspaceProject( Artifact artifact )
-    {
+    private boolean isAvailableAsAWorkspaceProject(Artifact artifact) {
         IdeDependency[] workspaceArtefacts = getWorkspaceArtefacts();
-        for ( int index = 0; workspaceArtefacts != null && index < workspaceArtefacts.length; index++ )
-        {
+        for (int index = 0; workspaceArtefacts != null && index < workspaceArtefacts.length; index++) {
             IdeDependency workspaceArtefact = workspaceArtefacts[index];
-            if ( workspaceArtefact.getGroupId().equals( artifact.getGroupId() )
-                && workspaceArtefact.getArtifactId().equals( artifact.getArtifactId() ) )
-            {
-                if ( workspaceArtefact.getVersion().equals( artifact.getBaseVersion() ) )
-                {
-                    workspaceArtefact.setAddedToClasspath( true );
-                    getLog().debug( "Using workspace project: " + workspaceArtefact.getEclipseProjectName() );
+            if (workspaceArtefact.getGroupId().equals(artifact.getGroupId())
+                && workspaceArtefact.getArtifactId().equals(artifact.getArtifactId())) {
+                if (workspaceArtefact.getVersion().equals(artifact.getBaseVersion())) {
+                    workspaceArtefact.setAddedToClasspath(true);
+                    getLog().debug("Using workspace project: " + workspaceArtefact.getEclipseProjectName());
                     return true;
-                }
-                else
-                {
+                } else {
                     getLog().info(
-                                   "Artifact "
-                                       + artifact.getId()
-                                       + " already available as a workspace project, but with different version. Expected: "
-                                       + artifact.getBaseVersion() + ", found: " + workspaceArtefact.getVersion() );
+                            "Artifact "
+                            + artifact.getId()
+                            + " already available as a workspace project, but with different version. Expected: "
+                            + artifact.getBaseVersion() + ", found: " + workspaceArtefact.getVersion());
                 }
             }
         }
@@ -2142,28 +1897,27 @@ public class EclipsePlugin
 
     /**
      * Checks if jar has to be resolved for the given artifact
-     * 
+     *
      * @param art the artifact to check
      * @return true if resolution should happen
      */
-    protected final boolean hasToResolveJar( Artifact art )
-    {
-        return !( getUseProjectReferences() && isAvailableAsAReactorProject( art ) )
-            || ( limitProjectReferencesToWorkspace && !( getUseProjectReferences() && isAvailableAsAWorkspaceProject( art ) ) );
+    protected final boolean hasToResolveJar(Artifact art) {
+        return !(getUseProjectReferences() && isAvailableAsAReactorProject(art))
+               || (limitProjectReferencesToWorkspace && !(getUseProjectReferences() && isAvailableAsAWorkspaceProject(
+                art)));
     }
 
     /**
      * Checks if a projects reference has to be used for the given artifact
-     * 
+     *
      * @param art the artifact to check
      * @return true if a project reference has to be used.
      */
-    protected final boolean useProjectReference( Artifact art )
-    {
-        boolean isReactorProject = getUseProjectReferences() && isAvailableAsAReactorProject( art );
-        boolean isWorkspaceProject = getUseProjectReferences() && isAvailableAsAWorkspaceProject( art );
-        return ( isReactorProject && !limitProjectReferencesToWorkspace ) || // default
-            ( limitProjectReferencesToWorkspace && isWorkspaceProject ) || // limitProjectReferencesToWorkspace
-            ( !isReactorProject && isWorkspaceProject ); // default + workspace projects
+    protected final boolean useProjectReference(Artifact art) {
+        boolean isReactorProject = getUseProjectReferences() && isAvailableAsAReactorProject(art);
+        boolean isWorkspaceProject = getUseProjectReferences() && isAvailableAsAWorkspaceProject(art);
+        return (isReactorProject && !limitProjectReferencesToWorkspace) || // default
+               (limitProjectReferencesToWorkspace && isWorkspaceProject) || // limitProjectReferencesToWorkspace
+               (!isReactorProject && isWorkspaceProject); // default + workspace projects
     }
 }

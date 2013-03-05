@@ -14,10 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.alibaba.citrus.maven.eclipse.base.eclipse;
 
-public final class Constants
-{
+public final class Constants {
 
     public static final String LANGUAGE_JAVA = "java";
 
@@ -31,8 +31,6 @@ public final class Constants
 
     public static final String PROJECT_PACKAGING_POM = "pom";
 
-    private Constants()
-    {
+    private Constants() {
     }
-
 }

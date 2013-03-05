@@ -23,10 +23,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import org.apache.maven.plugin.MojoExecutionException;
 import com.alibaba.citrus.maven.eclipse.base.eclipse.Messages;
 import com.alibaba.citrus.maven.eclipse.base.ide.IdeDependency;
 import com.alibaba.citrus.maven.eclipse.base.ide.IdeUtils;
+import org.apache.maven.plugin.MojoExecutionException;
 
 /**
  * @author <a href="mailto:trygvis@inamo.no">Trygve Laugst&oslash;l</a>
@@ -35,26 +35,25 @@ import com.alibaba.citrus.maven.eclipse.base.ide.IdeUtils;
  * @version $Id: EclipseAjdtWriter.java 691425 2008-09-02 23:17:03Z aheritier $
  */
 public class EclipseAjdtWriter
-    extends AbstractEclipseWriter
-{
+        extends AbstractEclipseWriter {
 
     /**
-     * 
+     *
      */
     private static final String LIBRARY = "LIBRARY";
 
     /**
-     * 
+     *
      */
     private static final String BINARY = "BINARY";
 
     /**
-     * 
+     *
      */
     private static final String CONTENT_KIND = ".contentKind";
 
     /**
-     * 
+     *
      */
     private static final String ENTRY_KIND = ".entryKind";
 
@@ -70,12 +69,9 @@ public class EclipseAjdtWriter
 
     private static final String WEAVE_DEP_PROP = "inPath";
 
-    /**
-     * @see com.alibaba.citrus.maven.eclipse.base.eclipse.writers.EclipseWriter#write()
-     */
+    /** @see com.alibaba.citrus.maven.eclipse.base.eclipse.writers.EclipseWriter#write() */
     public void write()
-        throws MojoExecutionException
-    {
+            throws MojoExecutionException {
 
         // check if it's necessary to create project specific settings
         Properties ajdtSettings = new Properties();
@@ -83,141 +79,112 @@ public class EclipseAjdtWriter
         IdeDependency[] deps = config.getDeps();
         int ajdtDepCount = 0;
         int ajdtWeaveDepCount = 0;
-        for ( int i = 0; i < deps.length; i++ )
-        {
-            if ( deps[i].isAjdtDependency() )
-            {
-                addDependency( ajdtSettings, deps[i], ASPECT_DEP_PROP, ++ajdtDepCount );
+        for (int i = 0; i < deps.length; i++) {
+            if (deps[i].isAjdtDependency()) {
+                addDependency(ajdtSettings, deps[i], ASPECT_DEP_PROP, ++ajdtDepCount);
             }
 
-            if ( deps[i].isAjdtWeaveDependency() )
-            {
-                addDependency( ajdtSettings, deps[i], WEAVE_DEP_PROP, ++ajdtWeaveDepCount );
+            if (deps[i].isAjdtWeaveDependency()) {
+                addDependency(ajdtSettings, deps[i], WEAVE_DEP_PROP, ++ajdtWeaveDepCount);
             }
         }
 
         // write the settings, if needed
-        if ( !ajdtSettings.isEmpty() )
-        {
-            File settingsDir = new File( config.getEclipseProjectDirectory(), DIR_DOT_SETTINGS ); //$NON-NLS-1$
+        if (!ajdtSettings.isEmpty()) {
+            File settingsDir = new File(config.getEclipseProjectDirectory(), DIR_DOT_SETTINGS); //$NON-NLS-1$
 
             settingsDir.mkdirs();
 
-            ajdtSettings.put( PROP_ECLIPSE_PREFERENCES_VERSION, "1" ); //$NON-NLS-1$ 
+            ajdtSettings.put(PROP_ECLIPSE_PREFERENCES_VERSION, "1"); //$NON-NLS-1$
 
-            try
-            {
+            try {
                 File oldAjdtSettingsFile;
 
-                File ajdtSettingsFile = new File( settingsDir, FILE_AJDT_PREFS );
+                File ajdtSettingsFile = new File(settingsDir, FILE_AJDT_PREFS);
 
-                if ( ajdtSettingsFile.exists() )
-                {
+                if (ajdtSettingsFile.exists()) {
                     oldAjdtSettingsFile = ajdtSettingsFile;
 
                     Properties oldsettings = new Properties();
-                    oldsettings.load( new FileInputStream( oldAjdtSettingsFile ) );
+                    oldsettings.load(new FileInputStream(oldAjdtSettingsFile));
 
                     Properties newsettings = (Properties) oldsettings.clone();
-                    newsettings.putAll( ajdtSettings );
+                    newsettings.putAll(ajdtSettings);
 
-                    if ( !oldsettings.equals( newsettings ) )
-                    {
-                        newsettings.store( new FileOutputStream( ajdtSettingsFile ), null );
+                    if (!oldsettings.equals(newsettings)) {
+                        newsettings.store(new FileOutputStream(ajdtSettingsFile), null);
                     }
-                }
-                else
-                {
-                    ajdtSettings.store( new FileOutputStream( ajdtSettingsFile ), null );
+                } else {
+                    ajdtSettings.store(new FileOutputStream(ajdtSettingsFile), null);
 
-                    log.info( Messages.getString( "EclipseSettingsWriter.wrotesettings", //$NON-NLS-1$
-                                                  ajdtSettingsFile.getCanonicalPath() ) );
+                    log.info(Messages.getString("EclipseSettingsWriter.wrotesettings", //$NON-NLS-1$
+                                                ajdtSettingsFile.getCanonicalPath()));
                 }
-            }
-            catch ( FileNotFoundException e )
-            {
-                throw new MojoExecutionException( Messages.getString( "EclipseSettingsWriter.cannotcreatesettings" ), e ); //$NON-NLS-1$
-            }
-            catch ( IOException e )
-            {
-                throw new MojoExecutionException( Messages.getString( "EclipseSettingsWriter.errorwritingsettings" ), e ); //$NON-NLS-1$
+            } catch (FileNotFoundException e) {
+                throw new MojoExecutionException(Messages.getString("EclipseSettingsWriter.cannotcreatesettings"),
+                                                 e); //$NON-NLS-1$
+            } catch (IOException e) {
+                throw new MojoExecutionException(Messages.getString("EclipseSettingsWriter.errorwritingsettings"),
+                                                 e); //$NON-NLS-1$
             }
         }
     }
 
-    private void addDependency( Properties ajdtSettings, IdeDependency dep, String propName, int index )
-        throws MojoExecutionException
-    {
+    private void addDependency(Properties ajdtSettings, IdeDependency dep, String propName, int index)
+            throws MojoExecutionException {
 
         String path;
 
-        if ( dep.isReferencedProject() && !config.isPde() )
-        {
+        if (dep.isReferencedProject() && !config.isPde()) {
             path = "/" + dep.getEclipseProjectName(); //$NON-NLS-1$
-        }
-        else if ( dep.isReferencedProject() && config.isPde() )
-        {
+        } else if (dep.isReferencedProject() && config.isPde()) {
             // don't do anything, referenced projects are automatically handled by eclipse in PDE builds
             return;
-        }
-        else
-        {
+        } else {
             File artifactPath = dep.getFile();
 
-            if ( artifactPath == null )
-            {
-                log.error( Messages.getString( "EclipsePlugin.artifactpathisnull", dep.getId() ) ); //$NON-NLS-1$
+            if (artifactPath == null) {
+                log.error(Messages.getString("EclipsePlugin.artifactpathisnull", dep.getId())); //$NON-NLS-1$
                 return;
             }
 
-            if ( dep.isSystemScoped() )
-            {
-                path = IdeUtils.toRelativeAndFixSeparator( config.getEclipseProjectDirectory(), artifactPath, false );
+            if (dep.isSystemScoped()) {
+                path = IdeUtils.toRelativeAndFixSeparator(config.getEclipseProjectDirectory(), artifactPath, false);
 
-                if ( log.isDebugEnabled() )
-                {
-                    log.debug( Messages.getString( "EclipsePlugin.artifactissystemscoped", //$NON-NLS-1$
-                                                   new Object[] { dep.getArtifactId(), path } ) );
+                if (log.isDebugEnabled()) {
+                    log.debug(Messages.getString("EclipsePlugin.artifactissystemscoped", //$NON-NLS-1$
+                                                 new Object[] { dep.getArtifactId(), path }));
                 }
-            }
-            else
-            {
-                File localRepositoryFile = new File( config.getLocalRepository().getBasedir() );
+            } else {
+                File localRepositoryFile = new File(config.getLocalRepository().getBasedir());
 
                 // if the dependency is not provided and the plugin runs in "pde mode", the dependency is
                 // added to the Bundle-Classpath:
-                if ( config.isPde() && ( dep.isProvided() || dep.isOsgiBundle() ) )
-                {
+                if (config.isPde() && (dep.isProvided() || dep.isOsgiBundle())) {
                     return;
-                }
-                else if ( config.isPde() && !dep.isProvided() && !dep.isTestDependency() )
-                {
+                } else if (config.isPde() && !dep.isProvided() && !dep.isTestDependency()) {
                     // path for link created in .project, not to the actual file
                     path = dep.getFile().getName();
                 }
                 // running in PDE mode and the dependency is provided means, that it is provided by
                 // the target platform. This case is covered by adding the plugin container
-                else
-                {
+                else {
                     String fullPath = artifactPath.getPath();
                     String relativePath =
-                        IdeUtils.toRelativeAndFixSeparator( localRepositoryFile, new File( fullPath ), false );
+                            IdeUtils.toRelativeAndFixSeparator(localRepositoryFile, new File(fullPath), false);
 
-                    if ( !new File( relativePath ).isAbsolute() )
-                    {
+                    if (!new File(relativePath).isAbsolute()) {
                         path = EclipseClasspathWriter.M2_REPO + "/" //$NON-NLS-1$
-                            + relativePath;
-                    }
-                    else
-                    {
+                               + relativePath;
+                    } else {
                         path = relativePath;
                     }
                 }
             }
         }
 
-        ajdtSettings.setProperty( AJDT_PROP_PREFIX + propName + CONTENT_KIND + index, BINARY );
-        ajdtSettings.setProperty( AJDT_PROP_PREFIX + propName + ENTRY_KIND + index, LIBRARY );
-        ajdtSettings.setProperty( AJDT_PROP_PREFIX + propName + index, path );
+        ajdtSettings.setProperty(AJDT_PROP_PREFIX + propName + CONTENT_KIND + index, BINARY);
+        ajdtSettings.setProperty(AJDT_PROP_PREFIX + propName + ENTRY_KIND + index, LIBRARY);
+        ajdtSettings.setProperty(AJDT_PROP_PREFIX + propName + index, path);
     }
 }

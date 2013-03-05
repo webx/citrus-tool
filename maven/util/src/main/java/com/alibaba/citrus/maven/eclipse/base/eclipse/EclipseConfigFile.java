@@ -14,119 +14,107 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.alibaba.citrus.maven.eclipse.base.eclipse;
 
 import java.net.URL;
 
 /**
  * Represents a generic configuration file, with a name and a content.
- * 
+ *
  * @author Fabrizio Giustina
  * @version $Id: EclipseConfigFile.java 617563 2008-02-01 17:16:45Z aheritier $
  */
-public class EclipseConfigFile
-{
-    /**
-     * The name of the file.
-     */
+public class EclipseConfigFile {
+    /** The name of the file. */
     private String name;
 
-    /**
-     * The file content.
-     */
+    /** The file content. */
     private String content;
 
     /**
      * The file location
-     * 
+     *
      * @since 2.5
      */
     private String location;
 
     /**
      * The file URL
-     * 
+     *
      * @since 2.5
      */
     private URL url;
 
     /**
      * Getter for <code>content</code>.
-     * 
+     *
      * @return Returns the content.
      */
-    public String getContent()
-    {
+    public String getContent() {
         return content;
     }
 
     /**
      * Setter for <code>content</code>.
-     * 
+     *
      * @param content The content to set.
      */
-    public void setContent( String content )
-    {
+    public void setContent(String content) {
         this.content = content;
     }
 
     /**
      * Getter for <code>name</code>.
-     * 
+     *
      * @return Returns the name.
      */
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
     /**
      * Setter for <code>name</code>.
-     * 
+     *
      * @param name The name to set.
      */
-    public void setName( String name )
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
     /**
      * Getter for <code>location</code>.
-     * 
+     *
      * @return Returns the location.
      */
-    public String getLocation()
-    {
+    public String getLocation() {
         return location;
     }
 
     /**
      * Setter for <code>location</code>.
-     * 
+     *
      * @param location The location to set.
      */
-    public void setLocation( String location )
-    {
+    public void setLocation(String location) {
         this.location = location;
     }
 
     /**
      * Getter for <code>url</code>.
-     * 
+     *
      * @return Returns the url.
      */
-    public URL getURL()
-    {
+    public URL getURL() {
         return url;
     }
 
     /**
      * Setter for <code>url</code>.
-     * 
+     *
      * @param location The url to set.
      */
-    public void setURL( URL url )
-    {
+    public void setURL(URL url) {
         this.url = url;
     }
 }

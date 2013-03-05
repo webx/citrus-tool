@@ -14,14 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.alibaba.citrus.maven.eclipse.base.eclipse;
 
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import org.apache.maven.plugin.MojoExecutionException;
 import com.alibaba.citrus.maven.eclipse.base.eclipse.writers.workspace.EclipseWorkspaceWriter;
+import org.apache.maven.plugin.MojoExecutionException;
 
 /**
  * Configures The following Eclipse Workspace features:
@@ -29,16 +30,15 @@ import com.alibaba.citrus.maven.eclipse.base.eclipse.writers.workspace.EclipseWo
  * <li>Adds the classpath variable MAVEN_REPO to Eclipse.</li>
  * <li>Optionally load Eclipse code style file via a URL.</li>
  * </ul>
- * 
+ *
  * @goal configure-workspace
  * @requiresProject false
  */
 public class ConfigureWorkspaceMojo
-    extends AbstractWorkspaceMojo
-{
+        extends AbstractWorkspaceMojo {
     /**
      * Point to a URL containing code styles content.
-     * 
+     *
      * @parameter expression="${eclipse.workspaceCodeStylesURL}"
      */
     private String workspaceCodeStylesURL;
@@ -46,34 +46,27 @@ public class ConfigureWorkspaceMojo
     /**
      * Name of a profile in <code>workspaceCodeStylesURL</code> to activate. Default is the first profile name in the
      * code style file in <code>workspaceCodeStylesURL</code>
-     * 
+     *
      * @parameter expression="${eclipse.workspaceActiveCodeStyleProfileName}"
      */
     private String workspaceActiveCodeStyleProfileName;
 
     public void execute()
-        throws MojoExecutionException
-    {
+            throws MojoExecutionException {
         WorkspaceConfiguration config = new WorkspaceConfiguration();
-        config.setWorkspaceDirectory( new File( this.getWorkspace() ) );
-        config.setLocalRepository( this.getLocalRepository() );
+        config.setWorkspaceDirectory(new File(this.getWorkspace()));
+        config.setLocalRepository(this.getLocalRepository());
 
-        if ( this.workspaceCodeStylesURL != null )
-        {
-            try
-            {
-                config.setCodeStylesURL( new URL( workspaceCodeStylesURL ) );
-            }
-            catch ( MalformedURLException e )
-            {
-                throw new MojoExecutionException( e.getMessage(), e );
+        if (this.workspaceCodeStylesURL != null) {
+            try {
+                config.setCodeStylesURL(new URL(workspaceCodeStylesURL));
+            } catch (MalformedURLException e) {
+                throw new MojoExecutionException(e.getMessage(), e);
             }
 
-            config.setActiveStyleProfileName( workspaceActiveCodeStyleProfileName );
-
+            config.setActiveStyleProfileName(workspaceActiveCodeStyleProfileName);
         }
 
-        new EclipseWorkspaceWriter().init( this.getLog(), config ).write();
+        new EclipseWorkspaceWriter().init(this.getLog(), config).write();
     }
-
 }

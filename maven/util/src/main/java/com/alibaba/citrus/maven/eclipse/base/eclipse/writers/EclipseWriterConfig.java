@@ -16,126 +16,88 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 package com.alibaba.citrus.maven.eclipse.base.eclipse.writers;
 
 import java.io.File;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.maven.artifact.repository.ArtifactRepository;
 import com.alibaba.citrus.maven.eclipse.base.eclipse.EclipsePlugin;
 import com.alibaba.citrus.maven.eclipse.base.eclipse.EclipseSourceDir;
 import com.alibaba.citrus.maven.eclipse.base.eclipse.WorkspaceConfiguration;
 import com.alibaba.citrus.maven.eclipse.base.ide.IdeDependency;
+import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.project.MavenProject;
 
 /**
  * @author Fabrizio Giustina
  * @version $Id: EclipseWriterConfig.java 1173952 2011-09-22 05:53:22Z baerrach $
  */
-public class EclipseWriterConfig
-{
-    /**
-     * The maven project.
-     */
+public class EclipseWriterConfig {
+    /** The maven project. */
     private MavenProject project;
 
-    /**
-     * The maven project packaging.
-     */
+    /** The maven project packaging. */
     private String packaging;
 
-    /**
-     * Eclipse project dir.
-     */
+    /** Eclipse project dir. */
     private File eclipseProjectDirectory;
 
-    /**
-     * The name of the project in eclipse.
-     */
+    /** The name of the project in eclipse. */
     private String eclipseProjectName;
 
-    /**
-     * Base project dir.
-     */
+    /** Base project dir. */
     private File projectBaseDir;
 
-    /**
-     * List of IDE dependencies.
-     */
+    /** List of IDE dependencies. */
     private IdeDependency[] deps = new IdeDependency[0];
 
-    /**
-     * Source directories.
-     */
+    /** Source directories. */
     private EclipseSourceDir[] sourceDirs;
 
-    /**
-     * Local maven repo.
-     */
+    /** Local maven repo. */
     private ArtifactRepository localRepository;
 
-    /**
-     * Build output directory for eclipse.
-     */
+    /** Build output directory for eclipse. */
     private File buildOutputDirectory;
 
-    /**
-     * Manifest file.
-     */
+    /** Manifest file. */
     private File osgiManifestFile;
 
-    /**
-     * PDE mode.
-     */
+    /** PDE mode. */
     private boolean pde;
 
-    /**
-     * Project natures.
-     */
+    /** Project natures. */
     private List projectnatures;
 
-    /**
-     * Project facets.
-     */
+    /** Project facets. */
     private Map projectFacets;
 
-    /**
-     * Build commands. List&lt;BuildCommand&gt;
-     */
+    /** Build commands. List&lt;BuildCommand&gt; */
     private List buildCommands;
 
-    /**
-     * Classpath containers.
-     */
+    /** Classpath containers. */
     private List classpathContainers;
 
     /**
      * Appends the version number to the project name if <tt>true</tt>.
-     * 
+     *
      * @deprecated use {@link #projectNameTemplate}
      */
     private boolean addVersionToProjectName;
 
-    /**
-     * @see EclipsePlugin#getProjectNameTemplate()
-     */
+    /** @see EclipsePlugin#getProjectNameTemplate() */
     private String projectNameTemplate;
 
-    /**
-     * @see EclipsePlugin#deployName()
-     */
+    /** @see EclipsePlugin#deployName() */
 
     private String contextName;
 
-    /**
-     * @see EclipsePlugin#wtpapplicationxml()
-     */
+    /** @see EclipsePlugin#wtpapplicationxml() */
     private boolean wtpapplicationxml;
 
-    /**
-     * @see EclipsePlugin#getWtpversion()
-     */
+    /** @see EclipsePlugin#getWtpversion() */
     private float wtpVersion;
 
     private float ajdtVersion;
@@ -143,475 +105,414 @@ public class EclipseWriterConfig
     private WorkspaceConfiguration workspaceConfiguration;
 
     private List linkedResources;
-    
-    /**
-     * @See {@link EclipsePlugin#classpathContainersLast}
-     */
+
+    /** @See {@link EclipsePlugin#classpathContainersLast} */
     private boolean classpathContainersLast;
-    
-    /**
-     * @see {@link EclipsePlugin#jeeversion}
-     */
+
+    /** @see {@link EclipsePlugin#jeeversion} */
     private String jeeVersion;
 
-    public WorkspaceConfiguration getWorkspaceConfiguration()
-    {
+    public WorkspaceConfiguration getWorkspaceConfiguration() {
         return workspaceConfiguration;
     }
 
-    public void setWorkspaceConfiguration( WorkspaceConfiguration workspaceConfiguration )
-    {
+    public void setWorkspaceConfiguration(WorkspaceConfiguration workspaceConfiguration) {
         this.workspaceConfiguration = workspaceConfiguration;
     }
 
     /**
      * Getter for <code>deps</code>.
-     * 
+     *
      * @return Returns the deps.
      */
-    public IdeDependency[] getDeps()
-    {
+    public IdeDependency[] getDeps() {
         return deps;
     }
 
     /**
      * Setter for <code>deps</code>.
-     * 
+     *
      * @param deps The deps to set.
      */
-    public void setDeps( IdeDependency[] deps )
-    {
+    public void setDeps(IdeDependency[] deps) {
         this.deps = deps;
     }
 
     /**
      * Getter for <code>eclipseProjectDir</code>.
-     * 
+     *
      * @return Returns the eclipseProjectDir.
      */
-    public File getEclipseProjectDirectory()
-    {
+    public File getEclipseProjectDirectory() {
         return eclipseProjectDirectory;
     }
 
     /**
      * Setter for <code>eclipseProjectDir</code>.
-     * 
+     *
      * @param eclipseProjectDir The eclipseProjectDir to set.
      */
-    public void setEclipseProjectDirectory( File eclipseProjectDir )
-    {
+    public void setEclipseProjectDirectory(File eclipseProjectDir) {
         eclipseProjectDirectory = eclipseProjectDir;
     }
 
     /**
      * Getter for <code>eclipseProjectName</code>.
-     * 
+     *
      * @return Returns the project name used in eclipse.
      */
-    public String getEclipseProjectName()
-    {
+    public String getEclipseProjectName() {
         return eclipseProjectName;
     }
 
     /**
      * Setter for <code>eclipseProjectName</code>.
-     * 
+     *
      * @param eclipseProjectName the project name used in eclipse.
      */
-    public void setEclipseProjectName( String eclipseProjectName )
-    {
+    public void setEclipseProjectName(String eclipseProjectName) {
         this.eclipseProjectName = eclipseProjectName;
     }
 
     /**
      * Getter for <code>project</code>.
-     * 
+     *
      * @return Returns the project.
      */
-    public MavenProject getProject()
-    {
+    public MavenProject getProject() {
         return project;
     }
 
     /**
      * Setter for <code>project</code>.
-     * 
+     *
      * @param project The project to set.
      */
-    public void setProject( MavenProject project )
-    {
+    public void setProject(MavenProject project) {
         this.project = project;
     }
 
     /**
      * Getter for <code>sourceDirs</code>.
-     * 
+     *
      * @return Returns the sourceDirs.
      */
-    public EclipseSourceDir[] getSourceDirs()
-    {
+    public EclipseSourceDir[] getSourceDirs() {
         return sourceDirs;
     }
 
     /**
      * Setter for <code>sourceDirs</code>.
-     * 
+     *
      * @param sourceDirs The sourceDirs to set.
      */
-    public void setSourceDirs( EclipseSourceDir[] sourceDirs )
-    {
+    public void setSourceDirs(EclipseSourceDir[] sourceDirs) {
         this.sourceDirs = sourceDirs;
     }
 
     /**
      * Getter for <code>buildOutputDirectory</code>.
-     * 
+     *
      * @return Returns the buildOutputDirectory.
      */
-    public File getBuildOutputDirectory()
-    {
+    public File getBuildOutputDirectory() {
         return buildOutputDirectory;
     }
 
     /**
      * Setter for <code>buildOutputDirectory</code>.
-     * 
+     *
      * @param buildOutputDirectory The buildOutputDirectory to set.
      */
-    public void setBuildOutputDirectory( File buildOutputDirectory )
-    {
+    public void setBuildOutputDirectory(File buildOutputDirectory) {
         this.buildOutputDirectory = buildOutputDirectory;
     }
 
     /**
      * Getter for <code>localRepository</code>.
-     * 
+     *
      * @return Returns the localRepository.
      */
-    public ArtifactRepository getLocalRepository()
-    {
+    public ArtifactRepository getLocalRepository() {
         return localRepository;
     }
 
     /**
      * Setter for <code>localRepository</code>.
-     * 
+     *
      * @param localRepository The localRepository to set.
      */
-    public void setLocalRepository( ArtifactRepository localRepository )
-    {
+    public void setLocalRepository(ArtifactRepository localRepository) {
         this.localRepository = localRepository;
     }
 
     /**
      * Getter for <code>manifestFile</code>.
-     * 
+     *
      * @return Returns the manifestFile.
      */
-    public File getOSGIManifestFile()
-    {
+    public File getOSGIManifestFile() {
         return osgiManifestFile;
     }
 
     /**
      * Setter for <code>manifestFile</code>.
-     * 
+     *
      * @param manifestFile The manifestFile to set.
      */
-    public void setOSGIManifestFile( File manifestFile )
-    {
+    public void setOSGIManifestFile(File manifestFile) {
         this.osgiManifestFile = manifestFile;
     }
 
     /**
      * Getter for <code>classpathContainers</code>.
-     * 
+     *
      * @return Returns the classpathContainers.
      */
-    public List getClasspathContainers()
-    {
+    public List getClasspathContainers() {
         return classpathContainers;
     }
 
     /**
      * Setter for <code>classpathContainers</code>.
-     * 
+     *
      * @param classpathContainers The classpathContainers to set.
      */
-    public void setClasspathContainers( List classpathContainers )
-    {
+    public void setClasspathContainers(List classpathContainers) {
         this.classpathContainers = classpathContainers;
     }
 
     /**
      * Getter for <code>pde</code>.
-     * 
+     *
      * @return Returns the pde.
      */
-    public boolean isPde()
-    {
+    public boolean isPde() {
         return pde;
     }
 
     /**
      * Setter for <code>pde</code>.
-     * 
+     *
      * @param pde The pde to set.
      */
-    public void setPde( boolean pde )
-    {
+    public void setPde(boolean pde) {
         this.pde = pde;
     }
 
     /**
      * Getter for <code>buildCommands</code>.
-     * 
+     *
      * @return Returns the buildCommands.
      */
-    public List getBuildCommands()
-    {
+    public List getBuildCommands() {
         return buildCommands;
     }
 
     /**
      * Setter for <code>buildCommands</code>.
-     * 
+     *
      * @param buildCommands The buildCommands to set.
      */
-    public void setBuildCommands( List buildCommands )
-    {
+    public void setBuildCommands(List buildCommands) {
         this.buildCommands = buildCommands;
     }
 
     /**
      * Getter for <code>projectnatures</code>.
-     * 
+     *
      * @return Returns the projectnatures.
      */
-    public List getProjectnatures()
-    {
+    public List getProjectnatures() {
         return projectnatures;
     }
 
     /**
      * Setter for <code>projectnatures</code>.
-     * 
+     *
      * @param projectnatures The projectnatures to set.
      */
-    public void setProjectnatures( List projectnatures )
-    {
+    public void setProjectnatures(List projectnatures) {
         this.projectnatures = projectnatures;
     }
 
     /**
      * Getter for <code>projectFacets</code>.
-     * 
+     *
      * @return Returns the projectFacets
      */
-    public Map getProjectFacets()
-    {
+    public Map getProjectFacets() {
         return projectFacets;
     }
 
     /**
      * Setter for <code>projectFacets</code>
-     * 
+     *
      * @param projectFacets The projectFacets to set.
      */
-    public void setProjectFacets( Map projectFacets )
-    {
+    public void setProjectFacets(Map projectFacets) {
         this.projectFacets = projectFacets;
     }
 
     /**
      * Getter for <code>projectBaseDir</code>.
-     * 
+     *
      * @return Returns the projectBaseDir.
      */
-    public File getProjectBaseDir()
-    {
+    public File getProjectBaseDir() {
         return projectBaseDir;
     }
 
     /**
      * Setter for <code>projectBaseDir</code>.
-     * 
+     *
      * @param projectBaseDir The projectBaseDir to set.
      */
-    public void setProjectBaseDir( File projectBaseDir )
-    {
+    public void setProjectBaseDir(File projectBaseDir) {
         this.projectBaseDir = projectBaseDir;
     }
 
     /**
      * Getter for <code>addVersionToProjectName</code>.
-     * 
+     *
      * @deprecated use {@link #getProjectNameTemplate()}
      */
-    public boolean isAddVersionToProjectName()
-    {
+    public boolean isAddVersionToProjectName() {
         return addVersionToProjectName;
     }
 
     /**
      * Setter for <code>addVersionToProjectName</code>.
-     * 
+     *
      * @deprecated use {@link #setProjectNameTemplate(String)}
      */
-    public void setAddVersionToProjectName( boolean addVersionToProjectName )
-    {
+    public void setAddVersionToProjectName(boolean addVersionToProjectName) {
         this.addVersionToProjectName = addVersionToProjectName;
     }
 
-    public void setProjectNameTemplate( String projectNameTemplate )
-    {
+    public void setProjectNameTemplate(String projectNameTemplate) {
         this.projectNameTemplate = projectNameTemplate;
     }
 
-    public String getProjectNameTemplate()
-    {
+    public String getProjectNameTemplate() {
         return projectNameTemplate;
     }
 
-    public String getContextName()
-    {
+    public String getContextName() {
         return contextName;
     }
 
-    public void setContextName( String deployName )
-    {
+    public void setContextName(String deployName) {
         contextName = deployName;
     }
 
-    /**
-     * @return the packaging
-     */
-    public String getPackaging()
-    {
+    /** @return the packaging */
+    public String getPackaging() {
         return packaging;
     }
 
-    /**
-     * @param packaging the packaging to set
-     */
-    public void setPackaging( String packaging )
-    {
+    /** @param packaging the packaging to set */
+    public void setPackaging(String packaging) {
         this.packaging = packaging;
     }
 
     /**
      * Getter for <code>wtpapplicationxml</code>.
-     * 
+     *
      * @return Returns the wtpapplicationxml.
      */
-    public boolean getWtpapplicationxml()
-    {
+    public boolean getWtpapplicationxml() {
         return wtpapplicationxml;
     }
 
     /**
      * Setter for <code>buildCommands</code>.
-     * 
+     *
      * @param buildCommands The buildCommands to set.
      */
-    public void setWtpapplicationxml( boolean wtpapplicationxml )
-    {
+    public void setWtpapplicationxml(boolean wtpapplicationxml) {
         this.wtpapplicationxml = wtpapplicationxml;
     }
 
     /**
      * Getter for <code>wtpVersion</code>.
-     * 
+     *
      * @return Returns the wtpVersion.
      */
-    public float getWtpVersion()
-    {
+    public float getWtpVersion() {
         return wtpVersion;
     }
 
     /**
      * Setter for <code>wtpVersion</code>.
-     * 
+     *
      * @param wtpVersion The wtpVersion to set.
      */
-    public void setWtpVersion( float wtpVersion )
-    {
+    public void setWtpVersion(float wtpVersion) {
         this.wtpVersion = wtpVersion;
     }
 
     /**
      * Returns the ajdtVersion.
-     * 
+     *
      * @return the ajdtVersion.
      */
-    public float getAjdtVersion()
-    {
+    public float getAjdtVersion() {
         return ajdtVersion;
     }
 
     /**
      * Sets the ajdtVersion.
-     * 
+     *
      * @param ajdtVersion the ajdtVersion.
      */
-    public void setAjdtVersion( float ajdtVersion )
-    {
+    public void setAjdtVersion(float ajdtVersion) {
         this.ajdtVersion = ajdtVersion;
     }
 
-    /**
-     * @return the linkedResources
-     */
-    public List getLinkedResources()
-    {
+    /** @return the linkedResources */
+    public List getLinkedResources() {
         return linkedResources;
     }
 
-    /**
-     * @param linkedResources the linkedResources to set
-     */
-    public void setLinkedResources( List linkedResources )
-    {
+    /** @param linkedResources the linkedResources to set */
+    public void setLinkedResources(List linkedResources) {
         this.linkedResources = linkedResources;
     }
 
-    
     /**
      * Returns the classpathContainersLast.
+     *
      * @return the classpathContainersLast
      */
-    public boolean isClasspathContainersLast()
-    {
+    public boolean isClasspathContainersLast() {
         return classpathContainersLast;
     }
 
-    
     /**
      * Sets the classpathContainersLast.
+     *
      * @param classpathContainersLast the classpathContainersLast to set
      */
-    public void setClasspathContainersLast(boolean classpathContainersLast)
-    {
+    public void setClasspathContainersLast(boolean classpathContainersLast) {
         this.classpathContainersLast = classpathContainersLast;
     }
 
     /**
      * Sets the jeeversion.
+     *
      * @return the jeeversion
      */
-    public String getJeeVersion()
-    {
+    public String getJeeVersion() {
         return jeeVersion;
     }
 
     /**
      * Returns the jeeversion
+     *
      * @param jeeversion the jeeversion
      */
-    public void setJeeVersion( String jeeVersion )
-    {
+    public void setJeeVersion(String jeeVersion) {
         this.jeeVersion = jeeVersion;
     }
-
 }

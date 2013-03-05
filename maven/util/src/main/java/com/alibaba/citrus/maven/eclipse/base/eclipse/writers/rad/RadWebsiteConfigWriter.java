@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 package com.alibaba.citrus.maven.eclipse.base.eclipse.writers.rad;
 
 import java.io.File;
@@ -24,25 +25,24 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 
-import org.apache.maven.artifact.repository.ArtifactRepository;
-import org.apache.maven.plugin.MojoExecutionException;
 import com.alibaba.citrus.maven.eclipse.base.eclipse.Constants;
 import com.alibaba.citrus.maven.eclipse.base.eclipse.EclipseSourceDir;
 import com.alibaba.citrus.maven.eclipse.base.eclipse.Messages;
 import com.alibaba.citrus.maven.eclipse.base.eclipse.writers.AbstractEclipseWriter;
 import com.alibaba.citrus.maven.eclipse.base.eclipse.writers.wtp.AbstractWtpResourceWriter;
+import org.apache.maven.artifact.repository.ArtifactRepository;
+import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.xml.PrettyPrintXMLWriter;
 import org.codehaus.plexus.util.xml.XMLWriter;
 
 /**
  * Creates a .settings folder for Eclipse WTP 1.x release and writes out the configuration under it.
- * 
+ *
  * @author <a href="mailto:nir@cfc.at">Richard van Nieuwenhoven</a>
  */
 public class RadWebsiteConfigWriter
-    extends AbstractEclipseWriter
-{
+        extends AbstractEclipseWriter {
 
     private static final String WEBSITE_CONFIG_FILENAME = ".website-config";
 
@@ -54,45 +54,40 @@ public class RadWebsiteConfigWriter
 
     /**
      * write the website-config file for RAD6 if needed.
-     * 
-     * @see AbstractWtpResourceWriter#write(EclipseSourceDir[], ArtifactRepository, File)
-     * @param sourceDirs all eclipse source directorys
-     * @param localRepository the local reposetory
+     *
+     * @param sourceDirs           all eclipse source directorys
+     * @param localRepository      the local reposetory
      * @param buildOutputDirectory build output directory (target)
      * @throws MojoExecutionException when writing the config files was not possible
+     * @see AbstractWtpResourceWriter#write(EclipseSourceDir[], ArtifactRepository, File)
      */
     public void write()
-        throws MojoExecutionException
-    {
+            throws MojoExecutionException {
         Writer w;
-        if ( Constants.PROJECT_PACKAGING_WAR.equalsIgnoreCase( config.getPackaging() ) )
-        {
-            try
-            {
+        if (Constants.PROJECT_PACKAGING_WAR.equalsIgnoreCase(config.getPackaging())) {
+            try {
                 w =
-                    new OutputStreamWriter( new FileOutputStream( new File( config.getEclipseProjectDirectory(),
-                                                                            WEBSITE_CONFIG_FILENAME ) ), "UTF-8" );
+                        new OutputStreamWriter(new FileOutputStream(new File(config.getEclipseProjectDirectory(),
+                                                                             WEBSITE_CONFIG_FILENAME)), "UTF-8");
+            } catch (IOException ex) {
+                throw new MojoExecutionException(Messages.getString("EclipsePlugin.erroropeningfile"),
+                                                 ex); //$NON-NLS-1$
             }
-            catch ( IOException ex )
-            {
-                throw new MojoExecutionException( Messages.getString( "EclipsePlugin.erroropeningfile" ), ex ); //$NON-NLS-1$
-            }
-            XMLWriter writer = new PrettyPrintXMLWriter( w, "UTF-8", null );
-            writeModuleTypeFacetCore( writer );
-            IOUtil.close( w );
+            XMLWriter writer = new PrettyPrintXMLWriter(w, "UTF-8", null);
+            writeModuleTypeFacetCore(writer);
+            IOUtil.close(w);
         }
     }
 
     /**
      * write the website-config file.
-     * 
+     *
      * @param writer wher to write to
      */
-    private void writeModuleTypeFacetCore( XMLWriter writer )
-    {
-        writer.startElement( WEBSITE_CONFIG_WEBSITE );
-        writer.addAttribute( WEBSITE_CONFIG_VERSION, "600" );
-        writer.startElement( WEBSITE_CONFIG_STRUCTURE );
+    private void writeModuleTypeFacetCore(XMLWriter writer) {
+        writer.startElement(WEBSITE_CONFIG_WEBSITE);
+        writer.addAttribute(WEBSITE_CONFIG_VERSION, "600");
+        writer.startElement(WEBSITE_CONFIG_STRUCTURE);
         writer.endElement();
         writer.endElement();
     }

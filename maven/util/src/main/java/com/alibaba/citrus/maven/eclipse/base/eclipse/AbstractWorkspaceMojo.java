@@ -14,21 +14,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.alibaba.citrus.maven.eclipse.base.eclipse;
 
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.plugin.AbstractMojo;
 
-/**
- * @requiresProject true
- */
+/** @requiresProject true */
 public abstract class AbstractWorkspaceMojo
-    extends AbstractMojo
-{
+        extends AbstractMojo {
 
     /**
      * Directory location of the <code>Eclipse</code> workspace.
-     * 
+     *
      * @parameter expression="${eclipse.workspace}"
      * @required
      */
@@ -41,23 +39,19 @@ public abstract class AbstractWorkspaceMojo
      */
     private ArtifactRepository localRepository;
 
-    public ArtifactRepository getLocalRepository()
-    {
+    public ArtifactRepository getLocalRepository() {
         return localRepository;
     }
 
-    public void setLocalRepository( ArtifactRepository localRepository )
-    {
+    public void setLocalRepository(ArtifactRepository localRepository) {
         this.localRepository = localRepository;
     }
 
-    public String getWorkspace()
-    {
+    public String getWorkspace() {
         return workspace;
     }
 
-    public void setWorkspace( String workspace )
-    {
+    public void setWorkspace(String workspace) {
         this.workspace = workspace;
     }
 }

@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 package com.alibaba.citrus.maven.eclipse.base.eclipse.osgiplugin;
 
 import java.io.File;
@@ -27,65 +28,50 @@ import java.util.zip.ZipEntry;
 
 /**
  * Common functionality for both exploded and packaged plugins.
- * 
+ *
  * @author <a href="mailto:carlos@apache.org">Carlos Sanchez</a>
  * @version $Id: AbstractEclipseOsgiPlugin.java 728546 2008-12-21 22:56:51Z bentmann $
  */
 public abstract class AbstractEclipseOsgiPlugin
-    implements EclipseOsgiPlugin
-{
+        implements EclipseOsgiPlugin {
 
     private File file;
 
     private Properties pluginProperties;
 
-    public AbstractEclipseOsgiPlugin( File file )
-    {
-        this.setFile( file );
+    public AbstractEclipseOsgiPlugin(File file) {
+        this.setFile(file);
     }
 
-    public void setFile( File file )
-    {
+    public void setFile(File file) {
         this.file = file;
     }
 
-    public File getFile()
-    {
+    public File getFile() {
         return file;
     }
 
-    public String toString()
-    {
+    public String toString() {
         return getFile().getAbsolutePath();
     }
 
     public Properties getPluginProperties()
-        throws IOException
-    {
-        if ( pluginProperties == null )
-        {
+            throws IOException {
+        if (pluginProperties == null) {
             JarFile file = getJar();
             InputStream pluginPropertiesStream = null;
-            try
-            {
+            try {
                 pluginProperties = new Properties();
-                ZipEntry jarEntry = file.getEntry( "plugin.properties" );
-                if ( jarEntry != null )
-                {
-                    pluginPropertiesStream = file.getInputStream( jarEntry );
-                    pluginProperties.load( pluginPropertiesStream );
+                ZipEntry jarEntry = file.getEntry("plugin.properties");
+                if (jarEntry != null) {
+                    pluginPropertiesStream = file.getInputStream(jarEntry);
+                    pluginProperties.load(pluginPropertiesStream);
                 }
-            }
-            finally
-            {
-                if ( pluginPropertiesStream != null )
-                {
-                    try
-                    {
+            } finally {
+                if (pluginPropertiesStream != null) {
+                    try {
                         pluginPropertiesStream.close();
-                    }
-                    catch ( IOException e )
-                    {
+                    } catch (IOException e) {
                         // ignore
                     }
                 }
@@ -94,27 +80,22 @@ public abstract class AbstractEclipseOsgiPlugin
         return pluginProperties;
     }
 
-    public Properties getPomProperties()
-    {
+    public Properties getPomProperties() {
         return new Properties();
     }
 
-    public String getManifestAttribute( String key )
-        throws IOException
-    {
-        String value = getManifest().getMainAttributes().getValue( key );
+    public String getManifestAttribute(String key)
+            throws IOException {
+        String value = getManifest().getMainAttributes().getValue(key);
 
-        if ( value == null )
-        {
+        if (value == null) {
             return null;
         }
 
         /* check the plugin properties for translations */
-        if ( value.startsWith( "%" ) )
-        {
-            String valueFromProperties = getPluginProperties().getProperty( value.substring( 1 ) );
-            if ( valueFromProperties != null )
-            {
+        if (value.startsWith("%")) {
+            String valueFromProperties = getPluginProperties().getProperty(value.substring(1));
+            if (valueFromProperties != null) {
                 value = valueFromProperties;
             }
         }

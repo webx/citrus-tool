@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.alibaba.citrus.maven.eclipse.base.eclipse;
 
 import java.util.HashMap;
@@ -27,12 +28,11 @@ import org.codehaus.plexus.util.xml.Xpp3Dom;
 
 /**
  * Represents a buildCommand section in the <code>.project</code> file.
- * 
+ *
  * @author <a href="mailto:kenneyw@neonics.com">Kenney Westerhof</a>
  * @author Jochen Kuhnle
  */
-public class BuildCommand
-{
+public class BuildCommand {
     /** Builder name */
     private String name;
 
@@ -42,151 +42,124 @@ public class BuildCommand
     /** Argument map */
     private Map arguments;
 
-    /**
-     * no-arg constructor for plugin configuration.
-     */
-    public BuildCommand()
-    {
+    /** no-arg constructor for plugin configuration. */
+    public BuildCommand() {
     }
 
     /**
      * Creates a new build command
-     * 
+     *
      * @param name Command name
      */
-    public BuildCommand( String name )
-    {
-        this( name, null );
+    public BuildCommand(String name) {
+        this(name, null);
     }
 
-    public BuildCommand( String name, Map arguments )
-    {
+    public BuildCommand(String name, Map arguments) {
         this.name = name;
         this.arguments = arguments;
     }
 
-    public BuildCommand( String name, String argName, String argValue )
-    {
+    public BuildCommand(String name, String argName, String argValue) {
         this.name = name;
         arguments = new Properties();
-        arguments.put( argName, argValue );
+        arguments.put(argName, argValue);
     }
 
     /**
      * Creates a new build command
-     * 
-     * @param name Command name
-     * @param triggers Command triggers
+     *
+     * @param name      Command name
+     * @param triggers  Command triggers
      * @param arguments Command arguments
      */
-    public BuildCommand( String name, String triggers, Map arguments )
-    {
-        if ( name == null )
-        {
-            throw new IllegalArgumentException( "Name must not be null." );
+    public BuildCommand(String name, String triggers, Map arguments) {
+        if (name == null) {
+            throw new IllegalArgumentException("Name must not be null.");
         }
 
         this.name = name;
         this.triggers = triggers;
 
-        if ( arguments == null )
-        {
+        if (arguments == null) {
             this.arguments = new HashMap();
+        } else {
+            this.arguments = new HashMap(arguments);
         }
-        else
-        {
-            this.arguments = new HashMap( arguments );
-        }
-
     }
 
     /**
      * Creates a new build command from a DOM subtree
-     * <p>
+     * <p/>
      * The subtree must represent a &lt;buildCommand&gt; section from an Eclipse .project file
-     * 
+     *
      * @param node DOM node
      */
-    public BuildCommand( Xpp3Dom node )
-    {
-        Xpp3Dom nameNode = node.getChild( "name" );
+    public BuildCommand(Xpp3Dom node) {
+        Xpp3Dom nameNode = node.getChild("name");
 
-        if ( nameNode == null )
-        {
-            throw new IllegalArgumentException( "No name node." );
+        if (nameNode == null) {
+            throw new IllegalArgumentException("No name node.");
         }
 
         name = nameNode.getValue();
 
-        Xpp3Dom triggersNode = node.getChild( "triggers" );
+        Xpp3Dom triggersNode = node.getChild("triggers");
 
-        if ( triggersNode != null )
-        {
+        if (triggersNode != null) {
             triggers = triggersNode.getValue();
         }
 
-        Xpp3Dom argumentsNode = node.getChild( "arguments" );
+        Xpp3Dom argumentsNode = node.getChild("arguments");
 
         arguments = new HashMap();
 
-        if ( argumentsNode != null )
-        {
-            for ( int i = 0; i < argumentsNode.getChildCount(); ++i )
-            {
-                Xpp3Dom entry = argumentsNode.getChild( i );
+        if (argumentsNode != null) {
+            for (int i = 0; i < argumentsNode.getChildCount(); ++i) {
+                Xpp3Dom entry = argumentsNode.getChild(i);
 
-                if ( entry.getName().equals( "dictionary" ) )
-                {
-                    Xpp3Dom key = entry.getChild( "key" );
-                    Xpp3Dom value = entry.getChild( "value" );
+                if (entry.getName().equals("dictionary")) {
+                    Xpp3Dom key = entry.getChild("key");
+                    Xpp3Dom value = entry.getChild("value");
 
-                    if ( key != null && value != null )
-                    {
-                        this.arguments.put( key.getValue(), value.getValue() );
-                    }
-                    else
-                    {
+                    if (key != null && value != null) {
+                        this.arguments.put(key.getValue(), value.getValue());
+                    } else {
                         // TODO: log warning about illegal key/value pair
                     }
-                }
-                else
-                {
+                } else {
                     // TODO: log warning about unknown argument tag
                 }
             }
         }
     }
 
-    public void print( XMLWriter writer )
-    {
-        writer.startElement( "buildCommand" );
-        writer.startElement( "name" );
-        writer.writeText( name );
+    public void print(XMLWriter writer) {
+        writer.startElement("buildCommand");
+        writer.startElement("name");
+        writer.writeText(name);
         writer.endElement();
 
-        if ( !StringUtils.isEmpty( triggers ) )
-        {
-            writer.startElement( "triggers" );
-            writer.writeText( triggers );
+        if (!StringUtils.isEmpty(triggers)) {
+            writer.startElement("triggers");
+            writer.writeText(triggers);
             writer.endElement();
         }
 
-        if ( arguments != null && !arguments.isEmpty() )
-        {
-            writer.startElement( "arguments" );
+        if (arguments != null && !arguments.isEmpty()) {
+            writer.startElement("arguments");
 
-            writer.startElement( "dictionary" );
+            writer.startElement("dictionary");
 
-            for ( Iterator it = arguments.keySet().iterator(); it.hasNext(); )
-            {
+            for (Iterator it = arguments.keySet().iterator(); it.hasNext(); ) {
                 String key = (String) it.next();
 
-                writer.startElement( "key" );
-                writer.writeText( key );
+                writer.startElement("key");
+                writer.writeText(key);
                 writer.endElement();
 
-                writer.startElement( "value" );
-                writer.writeText( (String) arguments.get( key ) );
+                writer.startElement("value");
+                writer.writeText((String) arguments.get(key));
                 writer.endElement();
             }
 
@@ -198,26 +171,21 @@ public class BuildCommand
         writer.endElement();
     }
 
-    public boolean equals( Object obj )
-    {
-        if ( obj instanceof BuildCommand )
-        {
+    public boolean equals(Object obj) {
+        if (obj instanceof BuildCommand) {
             BuildCommand b = (BuildCommand) obj;
 
-            return name.equals( b.name )
-                && ( triggers == null ? b.triggers == null : triggers.equals( b.triggers ) )
-                && ( arguments == null || arguments.isEmpty() ? b.arguments == null || b.arguments.isEmpty()
-                                : arguments.equals( b.arguments ) );
-        }
-        else
-        {
+            return name.equals(b.name)
+                   && (triggers == null ? b.triggers == null : triggers.equals(b.triggers))
+                   && (arguments == null || arguments.isEmpty() ? b.arguments == null || b.arguments.isEmpty()
+                                                                : arguments.equals(b.arguments));
+        } else {
             return false;
         }
     }
 
-    public int hashCode()
-    {
-        return name.hashCode() + ( triggers == null ? 0 : 13 * triggers.hashCode() )
-            + ( arguments == null ? 0 : 17 * arguments.hashCode() );
+    public int hashCode() {
+        return name.hashCode() + (triggers == null ? 0 : 13 * triggers.hashCode())
+               + (arguments == null ? 0 : 17 * arguments.hashCode());
     }
 }

@@ -4,25 +4,24 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import org.apache.maven.plugin.MojoExecutionException;
 import com.alibaba.citrus.maven.eclipse.base.eclipse.Constants;
 import com.alibaba.citrus.maven.eclipse.base.eclipse.Messages;
 import com.alibaba.citrus.maven.eclipse.base.eclipse.writers.AbstractEclipseWriter;
 import com.alibaba.citrus.maven.eclipse.base.ide.IdeUtils;
 import com.alibaba.citrus.maven.eclipse.base.ide.JeeDescriptor;
 import com.alibaba.citrus.maven.eclipse.base.ide.JeeUtils;
+import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.xml.PrettyPrintXMLWriter;
 import org.codehaus.plexus.util.xml.XMLWriter;
 
 /**
  * MyEclipse .mymetadata configuration file writer
- * 
+ *
  * @author Olivier Jacob
  */
 public class MyEclipseMetadataWriter
-    extends AbstractEclipseWriter
-{
+        extends AbstractEclipseWriter {
 
     private static final String MYECLIPSE_MYMETADATA_FILENAME = ".mymetadata";
 
@@ -52,67 +51,62 @@ public class MyEclipseMetadataWriter
 
     /**
      * Writer entry point
-     * 
+     *
      * @throws MojoExecutionException
      */
     public void write()
-        throws MojoExecutionException
-    {
+            throws MojoExecutionException {
         String packaging = config.getProject().getPackaging();
 
-        if ( !Constants.PROJECT_PACKAGING_EAR.equalsIgnoreCase( packaging )
-            && !Constants.PROJECT_PACKAGING_WAR.equalsIgnoreCase( packaging )
-            && !Constants.PROJECT_PACKAGING_EJB.equalsIgnoreCase( packaging ) )
-        {
+        if (!Constants.PROJECT_PACKAGING_EAR.equalsIgnoreCase(packaging)
+            && !Constants.PROJECT_PACKAGING_WAR.equalsIgnoreCase(packaging)
+            && !Constants.PROJECT_PACKAGING_EJB.equalsIgnoreCase(packaging)) {
             return;
         }
 
         FileWriter w;
 
-        try
-        {
-            w = new FileWriter( new File( config.getEclipseProjectDirectory(), MYECLIPSE_MYMETADATA_FILENAME ) );
-        }
-        catch ( IOException ex )
-        {
-            throw new MojoExecutionException( Messages.getString( "EclipsePlugin.erroropeningfile" ), ex ); //$NON-NLS-1$
+        try {
+            w = new FileWriter(new File(config.getEclipseProjectDirectory(), MYECLIPSE_MYMETADATA_FILENAME));
+        } catch (IOException ex) {
+            throw new MojoExecutionException(Messages.getString("EclipsePlugin.erroropeningfile"), ex); //$NON-NLS-1$
         }
 
-        XMLWriter writer = new PrettyPrintXMLWriter( w, "UTF-8", null );
+        XMLWriter writer = new PrettyPrintXMLWriter(w, "UTF-8", null);
 
-        writer.startElement( MYECLIPSE_METADATA_PROJECT );
-        writer.addAttribute( MYECLIPSE_METADATA_PROJECT_TYPE, getMyEclipseProjectType( packaging ) );
-        writer.addAttribute( MYECLIPSE_METADATA_PROJECT_NAME, config.getEclipseProjectName() );
-        writer.addAttribute( MYECLIPSE_METADATA_PROJECT_ID, config.getEclipseProjectName() );
+        writer.startElement(MYECLIPSE_METADATA_PROJECT);
+        writer.addAttribute(MYECLIPSE_METADATA_PROJECT_TYPE, getMyEclipseProjectType(packaging));
+        writer.addAttribute(MYECLIPSE_METADATA_PROJECT_NAME, config.getEclipseProjectName());
+        writer.addAttribute(MYECLIPSE_METADATA_PROJECT_ID, config.getEclipseProjectName());
 
-        if ( Constants.PROJECT_PACKAGING_WAR.equalsIgnoreCase( packaging ) )
-        {
+        if (Constants.PROJECT_PACKAGING_WAR.equalsIgnoreCase(packaging)) {
             // Find web application context root from maven-war-plugin configuration.
             // ArtifactId is used as the default value
             String warContextRoot =
-                IdeUtils.getPluginSetting( config.getProject(), JeeUtils.ARTIFACT_MAVEN_WAR_PLUGIN, "warContextRoot",//$NON-NLS-1$
-                                           "/" + config.getProject().getArtifactId() );
+                    IdeUtils.getPluginSetting(config.getProject(),
+                                              JeeUtils.ARTIFACT_MAVEN_WAR_PLUGIN,
+                                              "warContextRoot",
+//$NON-NLS-1$
+"/" + config.getProject().getArtifactId());
 
-            writer.addAttribute( MYECLIPSE_METADATA_PROJECT_CONTEXT_ROOT, warContextRoot );
+            writer.addAttribute(MYECLIPSE_METADATA_PROJECT_CONTEXT_ROOT, warContextRoot);
 
-            writer.addAttribute( MYECLIPSE_METADATA_PROJECT_J2EE_SPEC, getJeeVersion() );
+            writer.addAttribute(MYECLIPSE_METADATA_PROJECT_J2EE_SPEC, getJeeVersion());
             // TODO : use maven final name
-            writer.addAttribute( MYECLIPSE_METADATA_PROJECT_ARCHIVE, config.getEclipseProjectName() + ".war" );
+            writer.addAttribute(MYECLIPSE_METADATA_PROJECT_ARCHIVE, config.getEclipseProjectName() + ".war");
         }
 
-        if ( Constants.PROJECT_PACKAGING_EAR.equalsIgnoreCase( packaging ) )
-        {
+        if (Constants.PROJECT_PACKAGING_EAR.equalsIgnoreCase(packaging)) {
             // TODO : use maven final name
-            writer.addAttribute( MYECLIPSE_METADATA_PROJECT_ARCHIVE, config.getEclipseProjectName() + ".ear" );
+            writer.addAttribute(MYECLIPSE_METADATA_PROJECT_ARCHIVE, config.getEclipseProjectName() + ".ear");
         }
 
-        writer.startElement( MYECLIPSE_METADATA_PROJECT_ATTRIBUTES );
-        if ( Constants.PROJECT_PACKAGING_WAR.equalsIgnoreCase( packaging ) )
-        {
-            writer.startElement( MYECLIPSE_METADATA_PROJECT_ATTRIBUTE );
-            writer.addAttribute( "name", "webrootdir" );
+        writer.startElement(MYECLIPSE_METADATA_PROJECT_ATTRIBUTES);
+        if (Constants.PROJECT_PACKAGING_WAR.equalsIgnoreCase(packaging)) {
+            writer.startElement(MYECLIPSE_METADATA_PROJECT_ATTRIBUTE);
+            writer.addAttribute("name", "webrootdir");
             // TODO : retrieve this from project configuration
-            writer.addAttribute( "value", "src/main/webapp" );
+            writer.addAttribute("value", "src/main/webapp");
             writer.endElement();
         }
         // Close <attributes>
@@ -121,25 +115,21 @@ public class MyEclipseMetadataWriter
         // Close <project-module>
         writer.endElement();
 
-        IOUtil.close( w );
+        IOUtil.close(w);
     }
 
     /**
      * @param packaging maven project packaging
      * @return MyEclipse project type (EAR, WAR, EJB)
      */
-    private String getMyEclipseProjectType( String packaging )
-    {
-        if ( Constants.PROJECT_PACKAGING_WAR.equalsIgnoreCase( packaging ) )
-        {
+    private String getMyEclipseProjectType(String packaging) {
+        if (Constants.PROJECT_PACKAGING_WAR.equalsIgnoreCase(packaging)) {
             return MYECLIPSE_METADATA_PROJECT_TYPE_WAR;
         }
-        if ( Constants.PROJECT_PACKAGING_EAR.equalsIgnoreCase( packaging ) )
-        {
+        if (Constants.PROJECT_PACKAGING_EAR.equalsIgnoreCase(packaging)) {
             return MYECLIPSE_METADATA_PROJECT_TYPE_EAR;
         }
-        if ( Constants.PROJECT_PACKAGING_EJB.equalsIgnoreCase( packaging ) )
-        {
+        if (Constants.PROJECT_PACKAGING_EJB.equalsIgnoreCase(packaging)) {
             return MYECLIPSE_METADATA_PROJECT_TYPE_EJB;
         }
         // Should never be reached
@@ -148,25 +138,20 @@ public class MyEclipseMetadataWriter
 
     /**
      * Find JEE version from the project dependencies : find version from 'j2ee.jar' artifact or from 'servlet-api'
-     * 
+     *
      * @return the JEE version for the project (1.2, 1.3, 1.4, 1.5)
      * @see com.alibaba.citrus.maven.eclipse.base.ide.JeeUtils#resolveJeeVersion(org.apache.maven.project.MavenProject)
      */
-    private String getJeeVersion()
-    {
+    private String getJeeVersion() {
         String jeeVersion;
-        if ( config.getJeeVersion() != null )
-        {
-            jeeVersion = JeeUtils.getJeeDescriptorFromJeeVersion( config.getJeeVersion() ).getJeeVersion();
-        }
-        else
-        {
+        if (config.getJeeVersion() != null) {
+            jeeVersion = JeeUtils.getJeeDescriptorFromJeeVersion(config.getJeeVersion()).getJeeVersion();
+        } else {
             jeeVersion =
-                JeeUtils.getJeeDescriptorFromServletVersion( JeeUtils.resolveServletVersion( config.getProject() ) ).getJeeVersion();
+                    JeeUtils.getJeeDescriptorFromServletVersion(JeeUtils.resolveServletVersion(config.getProject())).getJeeVersion();
         }
 
-        if ( jeeVersion == null )
-        {
+        if (jeeVersion == null) {
             return JeeDescriptor.JEE_1_4;
         }
 

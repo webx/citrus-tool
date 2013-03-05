@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 package com.alibaba.citrus.maven.eclipse.base.eclipse.osgiplugin;
 
 import java.io.File;
@@ -31,92 +32,73 @@ import org.codehaus.plexus.archiver.jar.JarArchiver;
 
 /**
  * Represents an Eclipse plugin that it's exploded in a directory
- * 
+ *
  * @author <a href="mailto:carlos@apache.org">Carlos Sanchez</a>
  * @version $Id: ExplodedPlugin.java 728546 2008-12-21 22:56:51Z bentmann $
  */
 public class ExplodedPlugin
-    extends AbstractEclipseOsgiPlugin
-{
+        extends AbstractEclipseOsgiPlugin {
 
     private File tempJarFile;
 
-    public ExplodedPlugin( File folder )
-    {
-        super( folder );
+    public ExplodedPlugin(File folder) {
+        super(folder);
     }
 
-    private File getManifestFile()
-    {
-        return new File( getFile(), "META-INF/MANIFEST.MF" );
+    private File getManifestFile() {
+        return new File(getFile(), "META-INF/MANIFEST.MF");
     }
 
     public Manifest getManifest()
-        throws IOException
-    {
-        if ( !getManifestFile().exists() )
-        {
+            throws IOException {
+        if (!getManifestFile().exists()) {
             return null;
         }
 
-        FileInputStream is = new FileInputStream( getManifestFile() );
-        try
-        {
-            return new Manifest( is );
-        }
-        finally
-        {
+        FileInputStream is = new FileInputStream(getManifestFile());
+        try {
+            return new Manifest(is);
+        } finally {
             is.close();
         }
     }
 
-    public boolean hasManifest()
-    {
+    public boolean hasManifest() {
         return getManifestFile().exists();
     }
 
     public File getJarFile()
-        throws IOException
-    {
-        if ( tempJarFile == null )
-        {
-            try
-            {
-                tempJarFile = File.createTempFile( "mvn-eclipse", null );
+            throws IOException {
+        if (tempJarFile == null) {
+            try {
+                tempJarFile = File.createTempFile("mvn-eclipse", null);
                 tempJarFile.deleteOnExit();
 
                 JarArchiver jarArchiver = new JarArchiver();
 
-                jarArchiver.setDestFile( tempJarFile );
-                jarArchiver.addDirectory( getFile() );
-                jarArchiver.setManifest( getManifestFile() );
+                jarArchiver.setDestFile(tempJarFile);
+                jarArchiver.addDirectory(getFile());
+                jarArchiver.setManifest(getManifestFile());
                 jarArchiver.createArchive();
 
                 return tempJarFile;
-            }
-            catch ( ArchiverException e )
-            {
+            } catch (ArchiverException e) {
                 // TODO only accepts the cause as parameter in JDK 1.6+
-                throw new IOException( e.getMessage() );
+                throw new IOException(e.getMessage());
             }
         }
         return tempJarFile;
     }
 
     public JarFile getJar()
-        throws IOException
-    {
-        return new JarFile( getJarFile(), false );
+            throws IOException {
+        return new JarFile(getJarFile(), false);
     }
 
-    /**
-     * set the pom property to install unpacked if it was unpacked
-     */
-    public Properties getPomProperties()
-    {
+    /** set the pom property to install unpacked if it was unpacked */
+    public Properties getPomProperties() {
         Properties properties = new Properties();
-        properties.setProperty( InstallPluginsMojo.PROP_UNPACK_PLUGIN, Boolean.TRUE.toString() );
+        properties.setProperty(InstallPluginsMojo.PROP_UNPACK_PLUGIN, Boolean.TRUE.toString());
         return properties;
     }
-
 }

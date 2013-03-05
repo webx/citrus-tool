@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 package com.alibaba.citrus.maven.eclipse.base.eclipse.writers.wtp;
 
 import org.codehaus.plexus.util.xml.XMLWriter;
@@ -23,50 +24,40 @@ import org.codehaus.plexus.util.xml.XMLWriter;
 /**
  * Component writer for WTP 1.5. File name has changed in WTP 1.5rc2 and the <code>project-version</code> attribute has
  * been added. These ones are the only differences
- * 
+ *
  * @author Fabrizio Giustina
  * @version $Id: EclipseWtpComponent15Writer.java 691404 2008-09-02 21:57:19Z aheritier $
  */
 public class EclipseWtpComponent15Writer
-    extends EclipseWtpComponentWriter
-{
+        extends EclipseWtpComponentWriter {
 
     /**
      * File name where the WTP component settings will be stored for our Eclipse Project.
-     * 
+     *
      * @return <code>org.eclipse.wst.common.component</code>
      */
-    protected String getComponentFileName()
-    {
+    protected String getComponentFileName() {
         return "org.eclipse.wst.common.component"; //$NON-NLS-1$
     }
 
     /**
      * Version number added to component configuration.
-     * 
+     *
      * @return <code>1.0</code>
      */
-    protected String getProjectVersion()
-    {
-        if ( this.config.getWtpVersion() < 2.0f )
-        {
+    protected String getProjectVersion() {
+        if (this.config.getWtpVersion() < 2.0f) {
             return "1.5.0"; //$NON-NLS-1$
-        }
-        else
-        {
+        } else {
             return "2.0"; //$NON-NLS-1$
         }
     }
 
-    /**
-     * @param writer
-     */
-    protected void writeContextRoot( XMLWriter writer )
-    {
-        writer.startElement( ELT_PROPERTY );
-        writer.addAttribute( ATTR_NAME, ATTR_CONTEXT_ROOT );
-        writer.addAttribute( ATTR_VALUE, config.getContextName() );
+    /** @param writer  */
+    protected void writeContextRoot(XMLWriter writer) {
+        writer.startElement(ELT_PROPERTY);
+        writer.addAttribute(ATTR_NAME, ATTR_CONTEXT_ROOT);
+        writer.addAttribute(ATTR_VALUE, config.getContextName());
         writer.endElement(); // property
     }
-
 }

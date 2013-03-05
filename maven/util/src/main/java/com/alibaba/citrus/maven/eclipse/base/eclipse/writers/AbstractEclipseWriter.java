@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 package com.alibaba.citrus.maven.eclipse.base.eclipse.writers;
 
 import org.apache.maven.plugin.logging.Log;
@@ -25,27 +26,20 @@ import org.apache.maven.plugin.logging.Log;
  * @version $Id: AbstractEclipseWriter.java 595476 2007-11-15 22:21:55Z aheritier $
  */
 public abstract class AbstractEclipseWriter
-    implements EclipseWriter
-{
-    /**
-     * Logger.
-     */
+        implements EclipseWriter {
+    /** Logger. */
     protected Log log;
 
-    /**
-     * Configuration that will be used by the writer.
-     */
+    /** Configuration that will be used by the writer. */
     protected EclipseWriterConfig config;
 
     /**
      * @see com.alibaba.citrus.maven.eclipse.base.eclipse.writers.EclipseWriter#init(org.apache.maven.plugin.logging.Log,
      *      com.alibaba.citrus.maven.eclipse.base.eclipse.writers.EclipseWriterConfig)
      */
-    public EclipseWriter init( Log log, EclipseWriterConfig config )
-    {
+    public EclipseWriter init(Log log, EclipseWriterConfig config) {
         this.log = log;
         this.config = config;
         return this;
     }
-
 }

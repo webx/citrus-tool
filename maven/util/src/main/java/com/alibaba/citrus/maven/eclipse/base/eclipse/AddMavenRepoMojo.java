@@ -14,31 +14,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.alibaba.citrus.maven.eclipse.base.eclipse;
 
 import java.io.File;
 
-import org.apache.maven.plugin.MojoExecutionException;
 import com.alibaba.citrus.maven.eclipse.base.eclipse.writers.workspace.EclipseWorkspaceWriter;
+import org.apache.maven.plugin.MojoExecutionException;
 
 /**
  * Adds the classpath variable M2_REPO to Eclipse. DEPRECATED. Replaced by eclipse:configure-workspace.
- * 
+ *
  * @goal add-maven-repo
  * @requiresProject false
  * @deprecated Use configure-workspace goal instead.
  */
 public class AddMavenRepoMojo
-    extends AbstractWorkspaceMojo
-{
+        extends AbstractWorkspaceMojo {
     public void execute()
-        throws MojoExecutionException
-    {
+            throws MojoExecutionException {
         WorkspaceConfiguration config = new WorkspaceConfiguration();
-        config.setWorkspaceDirectory( new File( this.getWorkspace() ) );
-        config.setLocalRepository( this.getLocalRepository() );
+        config.setWorkspaceDirectory(new File(this.getWorkspace()));
+        config.setLocalRepository(this.getLocalRepository());
 
-        new EclipseWorkspaceWriter().init( this.getLog(), config ).write();
+        new EclipseWorkspaceWriter().init(this.getLog(), config).write();
     }
-
 }
