@@ -41,6 +41,7 @@ import com.alibaba.citrus.maven.eclipse.base.eclipse.writers.EclipseClasspathWri
 import com.alibaba.citrus.maven.eclipse.base.eclipse.writers.EclipseManifestWriter;
 import com.alibaba.citrus.maven.eclipse.base.eclipse.writers.EclipseOSGiManifestWriter;
 import com.alibaba.citrus.maven.eclipse.base.eclipse.writers.EclipseProjectWriter;
+import com.alibaba.citrus.maven.eclipse.base.eclipse.writers.EclipseWriter;
 import com.alibaba.citrus.maven.eclipse.base.eclipse.writers.EclipseWriterConfig;
 import com.alibaba.citrus.maven.eclipse.base.eclipse.writers.workspace.EclipseSettingsWriter;
 import com.alibaba.citrus.maven.eclipse.base.eclipse.writers.wtp.EclipseWtpApplicationXMLWriter;
@@ -94,8 +95,7 @@ import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
  * @goal eclipse
  * @execute phase="generate-resources"
  */
-public class EclipsePlugin
-        extends AbstractIdeSupportMojo {
+public class EclipsePlugin extends AbstractIdeSupportMojo {
     private static final String WEAVE_DEPENDENCY = "weaveDependency";
 
     private static final String WEAVE_DEPENDENCIES = "weaveDependencies";
@@ -1112,7 +1112,7 @@ public class EclipsePlugin
         new EclipseSettingsWriter().init(getLog(), config).write();
 
         if (isJavaProject) {
-            new EclipseClasspathWriter().init(getLog(), config).write();
+            getEclipseClasspathWriter(config).write();
             if (ajdt && ajdtVersion.equals("1.4")) {
                 new EclipseAjdtWriter().init(getLog(), config).write();
             }
@@ -1124,19 +1124,31 @@ public class EclipsePlugin
 
         if (pde) {
             this.getLog().info("The Maven Eclipse plugin runs in 'pde'-mode.");
-            new EclipseOSGiManifestWriter().init(getLog(), config).write();
+            getEclipseOSGiManifestWriter(config).write();
         }
 
         // NOTE: This one MUST be after EclipseClasspathwriter, and possibly others,
         // since currently EclipseClasspathWriter does some magic to detect nested
         // output folders and modifies the configuration by adding new (Ant) builders.
         // So the .project file must be written AFTER those have run!
-        new EclipseProjectWriter().init(getLog(), config).write();
+        getEclipseProjectWriter(config).write();
 
         writeAdditionalConfig();
 
         getLog().info(Messages.getString("EclipsePlugin.wrote", new Object[] { //$NON-NLS-1$
                                                                                config.getEclipseProjectName(), eclipseProjectDir.getAbsolutePath() }));
+    }
+
+    protected EclipseWriter getEclipseOSGiManifestWriter(EclipseWriterConfig config) {
+        return new EclipseOSGiManifestWriter().init(getLog(), config);
+    }
+
+    protected EclipseWriter getEclipseClasspathWriter(EclipseWriterConfig config) {
+        return new EclipseClasspathWriter().init(getLog(), config);
+    }
+
+    protected EclipseWriter getEclipseProjectWriter(EclipseWriterConfig config) {
+        return new EclipseProjectWriter().init(getLog(), config);
     }
 
     private void writeAdditionalConfig()

@@ -87,7 +87,7 @@ public class MyEclipseMetadataWriter
                                               JeeUtils.ARTIFACT_MAVEN_WAR_PLUGIN,
                                               "warContextRoot",
 //$NON-NLS-1$
-"/" + config.getProject().getArtifactId());
+                                              "/" + config.getProject().getArtifactId());
 
             writer.addAttribute(MYECLIPSE_METADATA_PROJECT_CONTEXT_ROOT, warContextRoot);
 

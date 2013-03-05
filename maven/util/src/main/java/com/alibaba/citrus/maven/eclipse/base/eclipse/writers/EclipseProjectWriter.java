@@ -55,8 +55,7 @@ import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
  * @author <a href="mailto:fgiust@apache.org">Fabrizio Giustina</a>
  * @version $Id: EclipseProjectWriter.java 1185446 2011-10-18 01:00:41Z baerrach $
  */
-public class EclipseProjectWriter
-        extends AbstractEclipseWriter {
+public class EclipseProjectWriter extends AbstractEclipseWriter {
     private static final String ELT_NAME = "name"; //$NON-NLS-1$
 
     private static final String ELT_COMMENT = "comment"; //$NON-NLS-1$
@@ -245,18 +244,7 @@ public class EclipseProjectWriter
                                  config.getProject().getBuild().getTestResources());
             }
 
-            if (config.isPde()) {
-                for (int j = 0; j < dependencies.length; j++) {
-                    IdeDependency dep = dependencies[j];
-
-                    if (dep.isAddedToClasspath() && !dep.isProvided() && !dep.isReferencedProject()
-                        && !dep.isTestDependency() && !dep.isOsgiBundle()) {
-                        String name = dep.getFile().getName();
-                        addLink(writer, name, IdeUtils.fixSeparator(IdeUtils.getCanonicalPath(dep.getFile())),
-                                LINK_TYPE_FILE);
-                    }
-                }
-            }
+            writeResourceLinksForPdeProject(writer, dependencies);
 
             writer.endElement(); // linkedResources
         }
@@ -264,6 +252,22 @@ public class EclipseProjectWriter
         writer.endElement(); // projectDescription
 
         IOUtil.close(w);
+    }
+
+    protected void writeResourceLinksForPdeProject(XMLWriter writer, IdeDependency[] dependencies)
+            throws MojoExecutionException {
+        if (config.isPde()) {
+            for (int j = 0; j < dependencies.length; j++) {
+                IdeDependency dep = dependencies[j];
+
+                if (dep.isAddedToClasspath() && !dep.isProvided() && !dep.isReferencedProject()
+                    && !dep.isTestDependency() && !dep.isOsgiBundle()) {
+                    String name = dep.getFile().getName();
+                    addLink(writer, name, IdeUtils.fixSeparator(IdeUtils.getCanonicalPath(dep.getFile())),
+                            LINK_TYPE_FILE);
+                }
+            }
+        }
     }
 
     private void addFileLink(XMLWriter writer, File projectBaseDir, File basedir, File file)

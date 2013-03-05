@@ -204,10 +204,14 @@ public class EclipseOSGiManifestWriter
 
                 log.debug("Adding artifact to manifest: " + dep.getArtifactId());
 
-                bundleClasspathSb.append(" " + dep.getFile().getName());
+                bundleClasspathSb.append(" " + getDependencyPathForPde(dep.getFile().getName()));
             }
         }
         // only insert the name of the property if there are local libraries
         return bundleClasspathSb.toString();
+    }
+
+    protected String getDependencyPathForPde(String name) {
+        return name;
     }
 }

@@ -108,6 +108,9 @@ public class EclipseClasspathWriter
     /** Attribute value for kind: lib */
     private static final String ATTR_LIB = "lib"; //$NON-NLS-1$
 
+    /** Attribute value for kind: exported */
+    private static final String ATTR_EXPORTED = "exported"; //$NON-NLS-1$
+
     /** Attribute value for kind: src */
     private static final String ATTR_SRC = "src"; //$NON-NLS-1$
 
@@ -378,6 +381,7 @@ public class EclipseClasspathWriter
         String kind;
         String sourcepath = null;
         String javadocpath = null;
+        boolean exported = false;
 
         if (dep.isReferencedProject() && !config.isPde()) {
             path = "/" + dep.getEclipseProjectName(); //$NON-NLS-1$
@@ -411,9 +415,10 @@ public class EclipseClasspathWriter
                     return;
                 } else if (config.isPde() && !dep.isProvided() && !dep.isTestDependency()) {
                     // path for link created in .project, not to the actual file
-                    path = dep.getFile().getName();
+                    path = getDependencyPathForPde(dep.getFile().getName());
 
                     kind = ATTR_LIB;
+                    exported = true;
                 }
                 // running in PDE mode and the dependency is provided means, that it is provided by
                 // the target platform. This case is covered by adding the plugin container
@@ -463,6 +468,11 @@ public class EclipseClasspathWriter
 
         writer.startElement(ELT_CLASSPATHENTRY);
         writer.addAttribute(ATTR_KIND, kind);
+
+        if (exported) {
+            writer.addAttribute(ATTR_EXPORTED, "true");
+        }
+
         writer.addAttribute(ATTR_PATH, path);
 
         if (sourcepath != null) {
@@ -526,6 +536,10 @@ public class EclipseClasspathWriter
             writer.endElement();
         }
         writer.endElement();
+    }
+
+    protected String getDependencyPathForPde(String name) {
+        return name;
     }
 
     /**
