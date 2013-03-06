@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="{0}"
+    xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns="{1}" elementFormDefault="qualified">
+    <xsd:import namespace="http://www.springframework.org/schema/beans"
+         schemaLocation="http://localhost:8080/schema/www.springframework.org/schema/beans/spring-beans.xsd" />
+</xsd:schema>

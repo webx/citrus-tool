@@ -1,29 +1,51 @@
 package com.alibaba.ide.plugin.eclipse.springext.util;
 
-import static com.alibaba.citrus.util.Assert.*;
-import static com.alibaba.citrus.util.BasicConstant.*;
-import static com.alibaba.citrus.util.StringUtil.*;
+import static com.alibaba.citrus.util.Assert.assertTrue;
+import static com.alibaba.citrus.util.BasicConstant.EMPTY_STRING;
+import static com.alibaba.citrus.util.StringUtil.trimToNull;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.text.MessageFormat;
 import java.util.Hashtable;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jdt.internal.ui.wizards.buildpaths.CPListElement;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.wizard.IWizardContainer;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IFileEditorInput;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.ide.undo.CreateFileOperation;
+import org.eclipse.ui.ide.undo.WorkspaceUndoUtil;
 import org.osgi.framework.BundleContext;
 import org.osgi.service.url.AbstractURLStreamHandlerService;
 import org.osgi.service.url.URLConstants;
@@ -31,6 +53,7 @@ import org.osgi.service.url.URLStreamHandlerService;
 import org.springframework.core.io.Resource;
 
 import com.alibaba.citrus.springext.SourceInfo;
+import com.alibaba.ide.plugin.eclipse.springext.SpringExtConstant;
 import com.alibaba.ide.plugin.eclipse.springext.SpringExtPlugin;
 
 public class SpringExtPluginUtil {
@@ -326,4 +349,221 @@ public class SpringExtPluginUtil {
 
         return result;
     }
+    
+    public static IProject getSelectProject(IStructuredSelection selection) {
+		Object obj = selection.getFirstElement();
+		if (obj != null && obj instanceof IResource) {
+			IResource resource = (IResource) obj;
+			return resource.getProject();
+		}
+		return null;
+	}
+
+	/**
+	 * @param foldPath
+	 * @param project
+	 * 
+	 *            刷新文件夹
+	 */
+	public static void refreshFolder(String foldPath, IProject project) {
+		try {
+			project.getFolder(foldPath).refreshLocal(IResource.DEPTH_INFINITE, new NullProgressMonitor());
+		} catch (Exception e) {
+		}
+	}
+
+	/**
+	 * @param foldPath
+	 * @param project
+	 * 
+	 *            刷新文件夹
+	 */
+	public static void refreshFolder(IFolder folder) {
+		try {
+			folder.refreshLocal(IResource.DEPTH_INFINITE, new NullProgressMonitor());
+		} catch (Exception e) {
+		}
+	}
+	/**
+	 * 检查"/src/main/resources/"是否存在，若不存在则创建 同时检查其是否在构建路径中，不在则加入到构建路径
+	 * 
+	 * @param project
+	 */
+	@SuppressWarnings("restriction")
+	public static void checkSrcMetaExsit(IProject project) {
+		if (null == project) {
+			return;
+		}
+		// 如果文件夹不存在，则创建文件夹
+		File projectFile = project.getLocation().toFile();
+		String srcResourceFolderPath = "/src/main/resources/";
+		String srcMetaFolderPath = "/src/main/resources/META-INF/";
+		File fileSrcMeta = new File(projectFile, srcMetaFolderPath);
+		if (!fileSrcMeta.exists()) {
+			fileSrcMeta.mkdirs();
+			refreshFolder(srcMetaFolderPath, project);
+		}
+		IFolder srcResourceFolder = project.getFolder(srcResourceFolderPath);
+		IJavaProject javaProject = JavaCore.create(project);
+		boolean srcMeTaClassPathExsit = false;
+		IPackageFragmentRoot[] packageFragmentRoots = null;
+		try {
+			packageFragmentRoots = javaProject.getPackageFragmentRoots();
+		} catch (JavaModelException e) {
+		}
+		if (null != packageFragmentRoots && packageFragmentRoots.length > 0) {
+			for (IPackageFragmentRoot packageFragmentRoot : packageFragmentRoots) {
+				IResource resource = packageFragmentRoot.getResource();
+				if (null != resource && resource instanceof IFolder) {
+					String resoucePath = resource.getProjectRelativePath().toString();
+					if (resoucePath.toLowerCase().equals("src/main/resources")) {
+						srcMeTaClassPathExsit = true;
+						break;
+					}
+				}
+			}
+		}
+		if (srcMeTaClassPathExsit) {
+			return;
+		}
+		IPath path = srcResourceFolder.getFullPath();
+		CPListElement cpListElement = new CPListElement(javaProject, IClasspathEntry.CPE_SOURCE, path,
+		        srcResourceFolder);
+		IClasspathEntry[] cpFormer = javaProject.readRawClasspath();
+		IClasspathEntry[] cpAfter = null;
+		int index = 0;
+		if (cpFormer != null) {
+			int cpSize = cpFormer.length + 1;
+			cpAfter = new IClasspathEntry[cpSize];
+			for (; index < cpFormer.length; index++) {
+				cpAfter[index] = cpFormer[index];
+			}
+		} else {
+			cpAfter = new IClasspathEntry[1];
+		}
+		IClasspathEntry ce = null;
+		try {
+			ce = cpListElement.getClasspathEntry();
+		} catch (Exception e1) {
+		}
+		cpAfter[index] = ce;
+		try {
+			javaProject.setRawClasspath(cpAfter, javaProject.getOutputLocation(), new SubProgressMonitor(
+			        new NullProgressMonitor(), 2));
+		} catch (JavaModelException e2) {
+		}
+
+	}
+	
+	/**
+	 * @param selection
+	 * @return 通过selection获取到当前Javaproject
+	 */
+	public static IJavaProject getSelectJavaProject(IStructuredSelection selection){
+		Object obj = selection.getFirstElement();
+		if(obj != null && obj instanceof IResource){
+			IResource resource = (IResource)obj;
+			return JavaCore.create( resource.getProject());
+		}
+		return null;
+	}
+	
+	public static IFile getFileHandle(String parent, String xsdName, IStructuredSelection selection) {
+		IProject project = getSelectProject(selection);
+		IFile file = project.getFile(parent + "/" + xsdName);
+		return file;
+	}
+	
+	/**
+	 * 如果文件存在，则追加内容；否则，创建文件并写入内容
+	 */
+	public static void createFileIfNesscary(String parent, String fileName, final String content,
+	        IStructuredSelection selection, final Shell shell, final String des, IWizardContainer container) {
+
+		final IFile file = getFileHandle(parent, fileName, selection);
+		if (file.exists()) {
+			FileOutputStream outStream = null;
+			try {
+				outStream = new FileOutputStream(file.getLocation().toString(), true);
+				outStream.write(("\r\n" + content).getBytes());
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				if (outStream != null) {
+					try {
+						outStream.close();
+					} catch (IOException e) {
+					}
+				}
+			}
+			try {
+				getSelectProject(selection).getFolder(parent).refreshLocal(IResource.DEPTH_INFINITE,
+				        new NullProgressMonitor());
+			} catch (CoreException e) {
+				e.printStackTrace();
+			}
+		} else {
+			IRunnableWithProgress op = new IRunnableWithProgress() {
+				public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+					CreateFileOperation op = new CreateFileOperation(file, null, new ByteArrayInputStream(
+					        content.getBytes()), des);
+					try {
+						PlatformUI.getWorkbench().getOperationSupport().getOperationHistory()
+						        .execute(op, monitor, WorkspaceUndoUtil.getUIInfoAdapter(shell));
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+
+			};
+			try {
+				container.run(true, true, op);
+			} catch (InvocationTargetException e) {
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+		}
+
+	}
+	public static String formatXsd(String template,String... obj){
+		String temp = getFileString(template);
+		if(temp.length() > 0){
+			MessageFormat format = new MessageFormat(temp);
+			return format.format(obj);
+		}
+		return null;
+	}
+
+	/**
+	 * @return 获取文件内容，返回String
+	 */
+	public static String getFileString(String template) {
+		InputStream stream = SpringExtPluginUtil.class.getClassLoader().getResourceAsStream(template);
+		BufferedReader br = null;
+		StringBuilder sb = new StringBuilder();
+		try {
+			br = new BufferedReader(new InputStreamReader(stream,"UTF-8"));
+			String line = null;
+			while((line = br.readLine()) != null){
+				sb.append(line);
+				sb.append(SpringExtConstant.LINE_BR);
+			}
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally{
+			if(br != null){
+				try {
+					br.close();
+				} catch (IOException e) {
+				}
+			}
+		}
+		return sb.toString();
+	}
 }

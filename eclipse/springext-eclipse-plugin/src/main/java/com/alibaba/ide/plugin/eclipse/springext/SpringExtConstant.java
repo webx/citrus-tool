@@ -7,6 +7,7 @@ public interface SpringExtConstant {
     String PLUGIN_ID = "springext-eclipse-plugin"; //$NON-NLS-1$
     String URL_PROTOCOL = "springext";
     String URL_PREFIX = "http://localhost:8080/schema/";
+    String LINE_BR = "\r\n";
     String XML_EDITOR_ID = XMLMultiPageEditorPart.class.getName();
     String SPRING_BEANS_NS = "http://www.springframework.org/schema/beans";
     String[] HYPERLINK_TARGET_IDS = { "com.alibaba.ide.plugin.eclipse.springext.configFile" };

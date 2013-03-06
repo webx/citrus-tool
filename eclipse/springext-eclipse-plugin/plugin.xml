@@ -103,4 +103,37 @@
             class="com.alibaba.ide.plugin.eclipse.springext.editor.ContextualStructuredTextEditor$StructuredTextViewerConfigurationSpringExtXML"
             target="com.alibaba.ide.plugin.eclipse.springext.editor.ContextualStructuredTextEditor" />
     </extension>
+    <extension point="org.eclipse.ui.newWizards">
+      <category
+            id="com.alibaba.eclipse.plugin.springext.extendtool.category"
+            name="Springext">
+      </category>
+      <wizard
+            category="com.alibaba.eclipse.plugin.springext.extendtool.category"
+            class="com.alibaba.ide.plugin.eclipse.springext.wizards.ConfigurationPointWizard"
+            finalPerspective="org.eclipse.jdt.ui.JavaPerspective"
+            icon="icons/output_folder_attrib.gif"
+            id="com.alibaba.eclipse.plugin.springext.extendtool.webx.wizard"
+            name="Springext Configuration Point"
+            preferredPerspectives="org.eclipse.jdt.ui.JavaPerspective,org.eclipse.jdt.ui.JavaBrowsingPerspective,org.eclipse.jdt.ui.JavaHierarchyPerspective"
+            project="true">
+         <selection
+               class="org.eclipse.core.resources.IResource">
+         </selection>
+      </wizard>
+	  <wizard
+            category="com.alibaba.eclipse.plugin.springext.extendtool.category"
+            class="com.alibaba.ide.plugin.eclipse.springext.wizards.ContributionWizard"
+            finalPerspective="org.eclipse.jdt.ui.JavaPerspective"
+            icon="icons/contribution.gif"
+            id="com.alibaba.eclipse.plugin.springext.extendtool.webx.wizard"
+            name="Springext Contribution"
+            preferredPerspectives="org.eclipse.jdt.ui.JavaPerspective,org.eclipse.jdt.ui.JavaBrowsingPerspective,org.eclipse.jdt.ui.JavaHierarchyPerspective"
+            project="true">
+         <selection
+               class="org.eclipse.core.resources.IResource">
+         </selection>
+      </wizard>      
+        
+   </extension>
 </plugin>
