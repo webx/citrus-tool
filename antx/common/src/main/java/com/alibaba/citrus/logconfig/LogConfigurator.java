@@ -39,11 +39,14 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class LogConfigurator {
     private static final String PROVIDERS_PATTERN = "META-INF/logconfig.providers";
+    private static final String FALLBACK_LOGSYSTEM = "logback";
+
     public static final  String LOGGING_LEVEL     = "loggingLevel";
     public static final  String LOGGING_CHARSET   = "loggingCharset";
     public static final  String LOGGING_ROOT      = "loggingRoot";
     public static final  String LOCAL_HOST        = "localHost";
     public static final  String LOCAL_ADDRESS     = "localAddress";
+
     private String logSystem;
     private static boolean debug = false;
 
@@ -279,7 +282,8 @@ public abstract class LogConfigurator {
         }
 
         if (logSystem == null) {
-            throw new IllegalArgumentException("No log system exists");
+            log("maybe we can't support the log system, use " + FALLBACK_LOGSYSTEM + " fallback");
+            logSystem = FALLBACK_LOGSYSTEM;
         }
 
         String providerClassName = providers.get(logSystem);
