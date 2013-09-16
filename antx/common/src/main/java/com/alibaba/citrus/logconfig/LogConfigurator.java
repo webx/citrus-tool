@@ -279,7 +279,15 @@ public abstract class LogConfigurator {
         }
 
         if (logSystem == null) {
-            throw new IllegalArgumentException("No log system exists");
+            return new LogConfigurator() {
+                @Override
+                protected void doConfigure(URL configFile, Map<String, String> props) throws Exception {
+                }
+
+                @Override
+                public void shutdown() {
+                }
+            };
         }
 
         String providerClassName = providers.get(logSystem);
