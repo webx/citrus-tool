@@ -21,6 +21,7 @@ import java.io.Reader;
 import java.io.Writer;
 import java.net.URL;
 import java.util.Formatter;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -108,6 +109,10 @@ public class VelocityTemplateEngine {
             fmt.format("- Template:   %s%n", templateName);
             fmt.format("- Descriptor: %s%n", configName);
             fmt.format("- Base URL:   %s%n", baseURL.toExternalForm());
+            for (String unknwonRef : unknwonRefs) {
+                fmt.format("-> wrong property key:" + unknwonRef);
+            }
+
             fmt.format("---------------------------------------------------------------%n");
 
             for (String ref : unknwonRefs) {

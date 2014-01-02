@@ -10,7 +10,6 @@
       <module fileurl="file://$PROJECT_DIR$/citrus-tool-parent.iml" filepath="$PROJECT_DIR$/citrus-tool-parent.iml" />
       <module fileurl="file://$PROJECT_DIR$/maven/docbook-maven-plugin/docbook-maven-plugin.iml" filepath="$PROJECT_DIR$/maven/docbook-maven-plugin/docbook-maven-plugin.iml" />
       <module fileurl="file://$PROJECT_DIR$/maven/util/maven-util.iml" filepath="$PROJECT_DIR$/maven/util/maven-util.iml" />
-      <module fileurl="file://$PROJECT_DIR$/idea/springext-idea-plugin/springext-idea-plugin.iml" filepath="$PROJECT_DIR$/idea/springext-idea-plugin/springext-idea-plugin.iml" />
       <module fileurl="file://$PROJECT_DIR$/idea/springext-idea-plugin-deps/springext-idea-plugin-deps.iml" filepath="$PROJECT_DIR$/idea/springext-idea-plugin-deps/springext-idea-plugin-deps.iml" />
       <module fileurl="file://$PROJECT_DIR$/maven/springext-maven-plugin/springext-maven-plugin.iml" filepath="$PROJECT_DIR$/maven/springext-maven-plugin/springext-maven-plugin.iml" />
     </modules>
