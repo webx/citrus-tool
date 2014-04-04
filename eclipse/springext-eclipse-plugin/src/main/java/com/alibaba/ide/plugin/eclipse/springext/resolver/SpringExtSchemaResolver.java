@@ -50,16 +50,18 @@ public class SpringExtSchemaResolver implements URIResolverExtension {
     private IProject getProject(IFile file, String baseLocation) {
         IProject project = null;
 
-        // 优先查找Java Project
-        // 情况解释：Eclipse最近的更新导致，一个file可能会找到parent pom project，这时就无法生成classpath。
-        // 这里优先找出file对应的java project，以确保schema set可读出。
-        IFile[] files = ResourcesPlugin.getWorkspace().getRoot().findFilesForLocationURI(file.getLocationURI());
+        if (file != null) {
+            // 优先查找Java Project
+            // 情况解释：Eclipse最近的更新导致，一个file可能会找到parent pom project，这时就无法生成classpath。
+            // 这里优先找出file对应的java project，以确保schema set可读出。
+            IFile[] files = ResourcesPlugin.getWorkspace().getRoot().findFilesForLocationURI(file.getLocationURI());
 
-        if (files != null) {
-            for (IFile f : files) {
-                if (SpringExtPluginUtil.getJavaProject(f.getProject(), false) != null) {
-                    file = f;
-                    break;
+            if (files != null) {
+                for (IFile f : files) {
+                    if (SpringExtPluginUtil.getJavaProject(f.getProject(), false) != null) {
+                        file = f;
+                        break;
+                    }
                 }
             }
         }
