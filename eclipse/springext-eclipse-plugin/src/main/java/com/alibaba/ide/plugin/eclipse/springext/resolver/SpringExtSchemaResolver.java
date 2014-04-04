@@ -66,7 +66,6 @@ public class SpringExtSchemaResolver implements URIResolverExtension {
 
         if (file != null) {
             project = file.getProject();
-
         }
 
         if (project == null) {
