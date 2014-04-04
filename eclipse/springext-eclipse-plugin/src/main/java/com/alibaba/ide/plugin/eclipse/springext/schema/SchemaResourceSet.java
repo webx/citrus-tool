@@ -1,12 +1,19 @@
 package com.alibaba.ide.plugin.eclipse.springext.schema;
 
-import static com.alibaba.citrus.springext.support.SchemaUtil.*;
-import static com.alibaba.citrus.util.Assert.*;
-import static com.alibaba.citrus.util.CollectionUtil.*;
-import static com.alibaba.citrus.util.StringUtil.*;
-import static com.alibaba.ide.plugin.eclipse.springext.SpringExtConstant.*;
-import static com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil.*;
-import static org.eclipse.jdt.core.IJavaElementDelta.*;
+import static com.alibaba.citrus.springext.support.SchemaUtil.getAddPrefixTransformer;
+import static com.alibaba.citrus.util.Assert.unexpectedException;
+import static com.alibaba.citrus.util.CollectionUtil.createConcurrentHashMap;
+import static com.alibaba.citrus.util.CollectionUtil.createHashSet;
+import static com.alibaba.citrus.util.CollectionUtil.createLinkedList;
+import static com.alibaba.citrus.util.StringUtil.trimToNull;
+import static com.alibaba.ide.plugin.eclipse.springext.SpringExtConstant.PLUGIN_ID;
+import static com.alibaba.ide.plugin.eclipse.springext.SpringExtConstant.URL_PREFIX;
+import static com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil.getJavaProject;
+import static com.alibaba.ide.plugin.eclipse.springext.util.SpringExtPluginUtil.logAndDisplay;
+import static org.eclipse.jdt.core.IJavaElementDelta.F_CLASSPATH_CHANGED;
+import static org.eclipse.jdt.core.IJavaElementDelta.F_CLOSED;
+import static org.eclipse.jdt.core.IJavaElementDelta.F_OPENED;
+import static org.eclipse.jdt.core.IJavaElementDelta.F_RESOLVED_CLASSPATH_CHANGED;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,6 +38,7 @@ import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.core.ElementChangedEvent;
 import org.eclipse.jdt.core.IElementChangedListener;
 import org.eclipse.jdt.core.IJavaElement;
@@ -38,7 +46,6 @@ import org.eclipse.jdt.core.IJavaElementDelta;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.launching.JavaRuntime;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.wst.internet.cache.internal.Cache;
 import org.slf4j.Logger;
@@ -259,12 +266,14 @@ public class SchemaResourceSet extends SpringExtSchemaSet {
         // 防止重复报错
         if (hasErrorThisTime && !hadErrorLastTime) {
             final String message = schemas.getErrorMessage();
+            final Throwable e = schemas.getError();
 
             Display.getDefault().syncExec(new Runnable() {
                 public void run() {
-                    MessageDialog.openError(Display.getDefault().getActiveShell(), "Could not compute SchemaSet",
-                            "Could not compute SchemaSet.\n\n"
-                                    + "XML validation will fail until this problem is solved.\n\n" + message);
+                    // 同时记录日志，日志中包含详细出错信息。
+                    logAndDisplay(Display.getDefault().getActiveShell(), "Could not compute SchemaSet", new Status(
+                            Status.ERROR, PLUGIN_ID, "Could not compute SchemaSet.\n\n"
+                                    + "XML validation will fail until this problem is solved.\n\n" + message, e));
                 }
             });
         }
