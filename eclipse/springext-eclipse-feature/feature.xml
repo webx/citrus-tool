@@ -2,7 +2,7 @@
 <feature
       id="com.alibaba.ide.plugin.eclipse.springext.feature"
       label="SpringExt Feature"
-      version="1.0.0"
+      version="1.0.1"
       provider-name="Michael Zhou">
 
    <description url="http://openwebx.org/">

@@ -4,7 +4,7 @@
     <groupId>com.alibaba.ide.plugin.eclipse</groupId>
     <artifactId>springext</artifactId>
     <name>Webx/SpringExt Eclipse Plugin</name>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <organization>
         <name>Michael Zhou</name>
     </organization>
@@ -12,12 +12,12 @@
         <dependency>
             <groupId>com.alibaba.citrus</groupId>
             <artifactId>citrus-springext-all</artifactId>
-            <version>3.2.1</version>
+            <version>3.2.4</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.0.6</version>
+            <version>1.1.1</version>
         </dependency>
     </dependencies>
     <properties>

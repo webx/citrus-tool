@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/com.alibaba.ide.plugin.eclipse.springext.feature_1.0.0.jar" id="com.alibaba.ide.plugin.eclipse.springext.feature" version="1.0.0">
+   <feature url="features/com.alibaba.ide.plugin.eclipse.springext.feature_1.0.1.jar" id="com.alibaba.ide.plugin.eclipse.springext.feature" version="1.0.1">
       <category name="com.alibaba.ide.plugin.eclipse.springext"/>
    </feature>
    <category-def name="com.alibaba.ide.plugin.eclipse.springext" label="Webx and SpringExt"/>
