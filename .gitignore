@@ -4,11 +4,7 @@ target
 .project
 .classpath
 .svn
-
+.idea
 *.iml
 /out
-/.idea/workspace.xml
-/.idea/compiler.xml
-/.idea/libraries/Maven*.xml
-/.idea/artifacts/*.xml
-/*.iws
+*.iws

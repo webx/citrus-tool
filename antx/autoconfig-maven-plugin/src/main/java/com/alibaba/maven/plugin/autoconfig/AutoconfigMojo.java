@@ -169,7 +169,7 @@ public class AutoconfigMojo extends AbstractMojo {
 
             try {
                 if (!runtimeImpl.start() && strict) {
-                    throw new RuntimeException("undefined placeholders");
+                    throw new RuntimeException("undefined placeholders, " + strict);
                 }
             } catch (Exception e) {
                 runtimeImpl.error(e);

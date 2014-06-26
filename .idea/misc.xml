@@ -1,9 +1,176 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="EntryPointsManager">
-    <entry_points version="2.0" />
+  <component name="GradleLocalSettings">
+    <option name="availableTasks">
+      <set>
+        <GradleTaskDescriptor>
+          <option name="description" value="Generates aggregated Javadoc API documentation." />
+          <option name="name" value="api" />
+        </GradleTaskDescriptor>
+        <GradleTaskDescriptor>
+          <option name="description" value="Assembles the outputs of this project." />
+          <option name="name" value="assemble" />
+        </GradleTaskDescriptor>
+        <GradleTaskDescriptor>
+          <option name="description" value="Assembles and tests this project." />
+          <option name="name" value="build" />
+        </GradleTaskDescriptor>
+        <GradleTaskDescriptor>
+          <option name="description" value="Assembles and tests this project and all projects that depend on it." />
+          <option name="name" value="buildDependents" />
+        </GradleTaskDescriptor>
+        <GradleTaskDescriptor>
+          <option name="description" value="Assembles and tests this project and all projects it depends on." />
+          <option name="name" value="buildNeeded" />
+        </GradleTaskDescriptor>
+        <GradleTaskDescriptor>
+          <option name="name" value="cglibRepackJar" />
+        </GradleTaskDescriptor>
+        <GradleTaskDescriptor>
+          <option name="description" value="Runs all checks." />
+          <option name="name" value="check" />
+        </GradleTaskDescriptor>
+        <GradleTaskDescriptor>
+          <option name="description" value="Assembles the main classes." />
+          <option name="name" value="classes" />
+        </GradleTaskDescriptor>
+        <GradleTaskDescriptor>
+          <option name="description" value="Deletes the build directory." />
+          <option name="name" value="clean" />
+        </GradleTaskDescriptor>
+        <GradleTaskDescriptor>
+          <option name="description" value="Compiles the main Groovy source." />
+          <option name="name" value="compileGroovy" />
+        </GradleTaskDescriptor>
+        <GradleTaskDescriptor>
+          <option name="description" value="Compiles the main Java source." />
+          <option name="name" value="compileJava" />
+        </GradleTaskDescriptor>
+        <GradleTaskDescriptor>
+          <option name="description" value="Compiles the test Groovy source." />
+          <option name="name" value="compileTestGroovy" />
+        </GradleTaskDescriptor>
+        <GradleTaskDescriptor>
+          <option name="description" value="Compiles the test Java source." />
+          <option name="name" value="compileTestJava" />
+        </GradleTaskDescriptor>
+        <GradleTaskDescriptor>
+          <option name="description" value="Builds -dist-with-deps archive, containing everything in the -dist archive plus all runtime dependencies." />
+          <option name="name" value="depsZip" />
+        </GradleTaskDescriptor>
+        <GradleTaskDescriptor>
+          <option name="description" value="Builds -dist archive, containing all jars and docs, suitable for community download page." />
+          <option name="name" value="distZip" />
+        </GradleTaskDescriptor>
+        <GradleTaskDescriptor>
+          <option name="description" value="Builds -docs archive containing api and reference for deployment at http://static.springframework.org/spring-framework/docs." />
+          <option name="name" value="docsZip" />
+        </GradleTaskDescriptor>
+        <GradleTaskDescriptor>
+          <option name="name" value="genCastor" />
+        </GradleTaskDescriptor>
+        <GradleTaskDescriptor>
+          <option name="name" value="genJaxb" />
+        </GradleTaskDescriptor>
+        <GradleTaskDescriptor>
+          <option name="name" value="genXmlbeans" />
+        </GradleTaskDescriptor>
+        <GradleTaskDescriptor>
+          <option name="description" value="Generates Groovydoc API documentation for the main source code." />
+          <option name="name" value="groovydoc" />
+        </GradleTaskDescriptor>
+        <GradleTaskDescriptor>
+          <option name="description" value="Does a maven install of the archives artifacts into the local .m2 cache." />
+          <option name="name" value="install" />
+        </GradleTaskDescriptor>
+        <GradleTaskDescriptor>
+          <option name="description" value="Assembles a jar archive containing the main classes." />
+          <option name="name" value="jar" />
+        </GradleTaskDescriptor>
+        <GradleTaskDescriptor>
+          <option name="description" value="Generates project-level javadoc for use in -javadoc jar" />
+          <option name="name" value="javadoc" />
+        </GradleTaskDescriptor>
+        <GradleTaskDescriptor>
+          <option name="name" value="javadocJar" />
+        </GradleTaskDescriptor>
+        <GradleTaskDescriptor>
+          <option name="description" value="Generates a JDiff report" />
+          <option name="name" value="jdiff" />
+        </GradleTaskDescriptor>
+        <GradleTaskDescriptor>
+          <option name="description" value="Processes the main resources." />
+          <option name="name" value="processResources" />
+        </GradleTaskDescriptor>
+        <GradleTaskDescriptor>
+          <option name="description" value="Processes the test resources." />
+          <option name="name" value="processTestResources" />
+        </GradleTaskDescriptor>
+        <GradleTaskDescriptor>
+          <option name="description" value="Generates HTML and PDF reference documentation." />
+          <option name="name" value="reference" />
+        </GradleTaskDescriptor>
+        <GradleTaskDescriptor>
+          <option name="description" value="Generates multi-page HTML reference documentation." />
+          <option name="name" value="referenceHtmlMulti" />
+        </GradleTaskDescriptor>
+        <GradleTaskDescriptor>
+          <option name="description" value="Generates single-page HTML reference documentation." />
+          <option name="name" value="referenceHtmlSingle" />
+        </GradleTaskDescriptor>
+        <GradleTaskDescriptor>
+          <option name="description" value="Generates PDF reference documentation." />
+          <option name="name" value="referencePdf" />
+        </GradleTaskDescriptor>
+        <GradleTaskDescriptor>
+          <option name="description" value="Builds -schema archive containing all XSDs for deployment at http://springframework.org/schema." />
+          <option name="name" value="schemaZip" />
+        </GradleTaskDescriptor>
+        <GradleTaskDescriptor>
+          <option name="name" value="sourcesJar" />
+        </GradleTaskDescriptor>
+        <GradleTaskDescriptor>
+          <option name="description" value="Runs the unit tests." />
+          <option name="name" value="test" />
+        </GradleTaskDescriptor>
+        <GradleTaskDescriptor>
+          <option name="description" value="Assembles the test classes." />
+          <option name="name" value="testClasses" />
+        </GradleTaskDescriptor>
+        <GradleTaskDescriptor>
+          <option name="name" value="testNG" />
+        </GradleTaskDescriptor>
+        <GradleTaskDescriptor>
+          <option name="description" value="Generates gradlew[.bat] scripts" />
+          <option name="name" value="wrapper" />
+        </GradleTaskDescriptor>
+      </set>
+    </option>
   </component>
-  <component name="IdProvider" IDEtalkID="577E0EB7A92C5A83501D317AFA75C5C8" />
+  <component name="GradleSettings">
+    <option name="gradleHome" value="$USER_HOME$/soft/gradle-1.0" />
+    <option name="linkedProjectPath" value="$PROJECT_DIR$/../../netflix/curator/build.gradle" />
+    <option name="preferLocalInstallationToWrapper" value="true" />
+    <option name="useAutoImport" value="false" />
+  </component>
+  <component name="IdProvider" IDEtalkID="BC93CB7D9CAE355E140E4E879ACD9CFE" />
+  <component name="JavadocGenerationManager">
+    <option name="OUTPUT_DIRECTORY" />
+    <option name="OPTION_SCOPE" value="protected" />
+    <option name="OPTION_HIERARCHY" value="true" />
+    <option name="OPTION_NAVIGATOR" value="true" />
+    <option name="OPTION_INDEX" value="true" />
+    <option name="OPTION_SEPARATE_INDEX" value="true" />
+    <option name="OPTION_DOCUMENT_TAG_USE" value="false" />
+    <option name="OPTION_DOCUMENT_TAG_AUTHOR" value="false" />
+    <option name="OPTION_DOCUMENT_TAG_VERSION" value="false" />
+    <option name="OPTION_DOCUMENT_TAG_DEPRECATED" value="true" />
+    <option name="OPTION_DEPRECATED_LIST" value="true" />
+    <option name="OTHER_OPTIONS" value="" />
+    <option name="HEAP_SIZE" />
+    <option name="LOCALE" />
+    <option name="OPEN_IN_BROWSER" value="true" />
+  </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
@@ -11,12 +178,423 @@
       </list>
     </option>
   </component>
-  <component name="ProjectResources">
-    <default-html-doctype>http://www.w3.org/1999/xhtml</default-html-doctype>
+  <component name="ModuleEditorState">
+    <option name="LAST_EDITED_MODULE_NAME" />
+    <option name="LAST_EDITED_TAB_NAME" />
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" assert-keyword="true" jdk-15="true" project-jdk-name="1.6" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/out" />
+  <component name="Palette2">
+    <group name="Swing">
+      <item class="com.intellij.uiDesigner.HSpacer" tooltip-text="Horizontal Spacer" icon="/com/intellij/uiDesigner/icons/hspacer.png" removable="false" auto-create-binding="false" can-attach-label="false">
+        <default-constraints vsize-policy="1" hsize-policy="6" anchor="0" fill="1" />
+      </item>
+      <item class="com.intellij.uiDesigner.VSpacer" tooltip-text="Vertical Spacer" icon="/com/intellij/uiDesigner/icons/vspacer.png" removable="false" auto-create-binding="false" can-attach-label="false">
+        <default-constraints vsize-policy="6" hsize-policy="1" anchor="0" fill="2" />
+      </item>
+      <item class="javax.swing.JPanel" icon="/com/intellij/uiDesigner/icons/panel.png" removable="false" auto-create-binding="false" can-attach-label="false">
+        <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="3" />
+      </item>
+      <item class="javax.swing.JScrollPane" icon="/com/intellij/uiDesigner/icons/scrollPane.png" removable="false" auto-create-binding="false" can-attach-label="true">
+        <default-constraints vsize-policy="7" hsize-policy="7" anchor="0" fill="3" />
+      </item>
+      <item class="javax.swing.JButton" icon="/com/intellij/uiDesigner/icons/button.png" removable="false" auto-create-binding="true" can-attach-label="false">
+        <default-constraints vsize-policy="0" hsize-policy="3" anchor="0" fill="1" />
+        <initial-values>
+          <property name="text" value="Button" />
+        </initial-values>
+      </item>
+      <item class="javax.swing.JRadioButton" icon="/com/intellij/uiDesigner/icons/radioButton.png" removable="false" auto-create-binding="true" can-attach-label="false">
+        <default-constraints vsize-policy="0" hsize-policy="3" anchor="8" fill="0" />
+        <initial-values>
+          <property name="text" value="RadioButton" />
+        </initial-values>
+      </item>
+      <item class="javax.swing.JCheckBox" icon="/com/intellij/uiDesigner/icons/checkBox.png" removable="false" auto-create-binding="true" can-attach-label="false">
+        <default-constraints vsize-policy="0" hsize-policy="3" anchor="8" fill="0" />
+        <initial-values>
+          <property name="text" value="CheckBox" />
+        </initial-values>
+      </item>
+      <item class="javax.swing.JLabel" icon="/com/intellij/uiDesigner/icons/label.png" removable="false" auto-create-binding="false" can-attach-label="false">
+        <default-constraints vsize-policy="0" hsize-policy="0" anchor="8" fill="0" />
+        <initial-values>
+          <property name="text" value="Label" />
+        </initial-values>
+      </item>
+      <item class="javax.swing.JTextField" icon="/com/intellij/uiDesigner/icons/textField.png" removable="false" auto-create-binding="true" can-attach-label="true">
+        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
+          <preferred-size width="150" height="-1" />
+        </default-constraints>
+      </item>
+      <item class="javax.swing.JPasswordField" icon="/com/intellij/uiDesigner/icons/passwordField.png" removable="false" auto-create-binding="true" can-attach-label="true">
+        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
+          <preferred-size width="150" height="-1" />
+        </default-constraints>
+      </item>
+      <item class="javax.swing.JFormattedTextField" icon="/com/intellij/uiDesigner/icons/formattedTextField.png" removable="false" auto-create-binding="true" can-attach-label="true">
+        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
+          <preferred-size width="150" height="-1" />
+        </default-constraints>
+      </item>
+      <item class="javax.swing.JTextArea" icon="/com/intellij/uiDesigner/icons/textArea.png" removable="false" auto-create-binding="true" can-attach-label="true">
+        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
+          <preferred-size width="150" height="50" />
+        </default-constraints>
+      </item>
+      <item class="javax.swing.JTextPane" icon="/com/intellij/uiDesigner/icons/textPane.png" removable="false" auto-create-binding="true" can-attach-label="true">
+        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
+          <preferred-size width="150" height="50" />
+        </default-constraints>
+      </item>
+      <item class="javax.swing.JEditorPane" icon="/com/intellij/uiDesigner/icons/editorPane.png" removable="false" auto-create-binding="true" can-attach-label="true">
+        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
+          <preferred-size width="150" height="50" />
+        </default-constraints>
+      </item>
+      <item class="javax.swing.JComboBox" icon="/com/intellij/uiDesigner/icons/comboBox.png" removable="false" auto-create-binding="true" can-attach-label="true">
+        <default-constraints vsize-policy="0" hsize-policy="2" anchor="8" fill="1" />
+      </item>
+      <item class="javax.swing.JTable" icon="/com/intellij/uiDesigner/icons/table.png" removable="false" auto-create-binding="true" can-attach-label="false">
+        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
+          <preferred-size width="150" height="50" />
+        </default-constraints>
+      </item>
+      <item class="javax.swing.JList" icon="/com/intellij/uiDesigner/icons/list.png" removable="false" auto-create-binding="true" can-attach-label="false">
+        <default-constraints vsize-policy="6" hsize-policy="2" anchor="0" fill="3">
+          <preferred-size width="150" height="50" />
+        </default-constraints>
+      </item>
+      <item class="javax.swing.JTree" icon="/com/intellij/uiDesigner/icons/tree.png" removable="false" auto-create-binding="true" can-attach-label="false">
+        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
+          <preferred-size width="150" height="50" />
+        </default-constraints>
+      </item>
+      <item class="javax.swing.JTabbedPane" icon="/com/intellij/uiDesigner/icons/tabbedPane.png" removable="false" auto-create-binding="true" can-attach-label="false">
+        <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="3">
+          <preferred-size width="200" height="200" />
+        </default-constraints>
+      </item>
+      <item class="javax.swing.JSplitPane" icon="/com/intellij/uiDesigner/icons/splitPane.png" removable="false" auto-create-binding="false" can-attach-label="false">
+        <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="3">
+          <preferred-size width="200" height="200" />
+        </default-constraints>
+      </item>
+      <item class="javax.swing.JSpinner" icon="/com/intellij/uiDesigner/icons/spinner.png" removable="false" auto-create-binding="true" can-attach-label="true">
+        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1" />
+      </item>
+      <item class="javax.swing.JSlider" icon="/com/intellij/uiDesigner/icons/slider.png" removable="false" auto-create-binding="true" can-attach-label="false">
+        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1" />
+      </item>
+      <item class="javax.swing.JSeparator" icon="/com/intellij/uiDesigner/icons/separator.png" removable="false" auto-create-binding="false" can-attach-label="false">
+        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3" />
+      </item>
+      <item class="javax.swing.JProgressBar" icon="/com/intellij/uiDesigner/icons/progressbar.png" removable="false" auto-create-binding="true" can-attach-label="false">
+        <default-constraints vsize-policy="0" hsize-policy="6" anchor="0" fill="1" />
+      </item>
+      <item class="javax.swing.JToolBar" icon="/com/intellij/uiDesigner/icons/toolbar.png" removable="false" auto-create-binding="false" can-attach-label="false">
+        <default-constraints vsize-policy="0" hsize-policy="6" anchor="0" fill="1">
+          <preferred-size width="-1" height="20" />
+        </default-constraints>
+      </item>
+      <item class="javax.swing.JToolBar$Separator" icon="/com/intellij/uiDesigner/icons/toolbarSeparator.png" removable="false" auto-create-binding="false" can-attach-label="false">
+        <default-constraints vsize-policy="0" hsize-policy="0" anchor="0" fill="1" />
+      </item>
+      <item class="javax.swing.JScrollBar" icon="/com/intellij/uiDesigner/icons/scrollbar.png" removable="false" auto-create-binding="true" can-attach-label="false">
+        <default-constraints vsize-policy="6" hsize-policy="0" anchor="0" fill="2" />
+      </item>
+    </group>
   </component>
-  <component name="WebServicesPlugin" addRequiredLibraries="true" />
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>Abstraction issues</id>
+          </State>
+          <State>
+            <id>Assignment issues</id>
+          </State>
+          <State>
+            <id>Class metrics</id>
+          </State>
+          <State>
+            <id>Class structure</id>
+          </State>
+          <State>
+            <id>Code maturity issues</id>
+          </State>
+          <State>
+            <id>Code style issues</id>
+          </State>
+          <State>
+            <id>Compiler issues</id>
+          </State>
+          <State>
+            <id>Control FlowGroovy</id>
+          </State>
+          <State>
+            <id>Control flow issues</id>
+          </State>
+          <State>
+            <id>Declaration redundancy</id>
+          </State>
+          <State>
+            <id>Encapsulation issues</id>
+          </State>
+          <State>
+            <id>Error handling</id>
+          </State>
+          <State>
+            <id>Finalization issues</id>
+          </State>
+          <State>
+            <id>GPath inspectionsGroovy</id>
+          </State>
+          <State>
+            <id>Groovy</id>
+          </State>
+          <State>
+            <id>Imports</id>
+          </State>
+          <State>
+            <id>Inheritance issues</id>
+          </State>
+          <State>
+            <id>Internationalization issues</id>
+          </State>
+          <State>
+            <id>J2ME issues</id>
+          </State>
+          <State>
+            <id>JPA issues</id>
+          </State>
+          <State>
+            <id>JSP Inspections</id>
+          </State>
+          <State>
+            <id>JUnit issues</id>
+          </State>
+          <State>
+            <id>Java EE issues</id>
+          </State>
+          <State>
+            <id>Java language level issues</id>
+          </State>
+          <State>
+            <id>Java language level migration aids</id>
+          </State>
+          <State>
+            <id>JavaBeans issues</id>
+          </State>
+          <State>
+            <id>Javadoc issues</id>
+          </State>
+          <State>
+            <id>Language Injection</id>
+          </State>
+          <State>
+            <id>Logging issues</id>
+          </State>
+          <State>
+            <id>Memory issues</id>
+          </State>
+          <State>
+            <id>Method metrics</id>
+          </State>
+          <State>
+            <id>Naming ConventionsGroovy</id>
+          </State>
+          <State>
+            <id>Naming conventions</id>
+          </State>
+          <State>
+            <id>Numeric issues</id>
+          </State>
+          <State>
+            <id>Performance issues</id>
+          </State>
+          <State>
+            <id>Plugin DevKit</id>
+          </State>
+          <State>
+            <id>Portability issues</id>
+          </State>
+          <State>
+            <id>Potentially confusing code constructsGroovy</id>
+          </State>
+          <State>
+            <id>Probable bugs</id>
+          </State>
+          <State>
+            <id>Probable bugsGroovy</id>
+          </State>
+          <State>
+            <id>Properties Files</id>
+          </State>
+          <State>
+            <id>Resource management issues</id>
+          </State>
+          <State>
+            <id>Scala: Method signature</id>
+          </State>
+          <State>
+            <id>Security issues</id>
+          </State>
+          <State>
+            <id>Serialization issues</id>
+          </State>
+          <State>
+            <id>Spring Model</id>
+          </State>
+          <State>
+            <id>StyleGroovy</id>
+          </State>
+          <State>
+            <id>TestNG</id>
+          </State>
+          <State>
+            <id>Threading issues</id>
+          </State>
+          <State>
+            <id>Threading issuesGroovy</id>
+          </State>
+          <State>
+            <id>Validity issuesGroovy</id>
+          </State>
+          <State>
+            <id>Visibility issues</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>Abstraction issues</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_5" assert-keyword="true" jdk-15="true" project-jdk-name="1.6" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/classes" />
+  </component>
+  <component name="PyConsoleOptionsProvider">
+    <option name="myPythonConsoleState">
+      <PyConsoleSettings />
+    </option>
+    <option name="myDjangoConsoleState">
+      <PyConsoleSettings />
+    </option>
+  </component>
+  <component name="ValidationConfiguration">
+    <option name="VALIDATORS">
+      <map>
+        <entry key="EJB Validator" value="false" />
+        <entry key="FreeMarker" value="false" />
+        <entry key="Hibernate Validator" value="true" />
+        <entry key="JPA Validator" value="false" />
+        <entry key="Jasper Validator" value="true" />
+        <entry key="Spring Model Validator" value="true" />
+        <entry key="Web Xml Validator" value="true" />
+      </map>
+    </option>
+  </component>
+  <component name="VssConfiguration">
+    <option name="CLIENT_PATH" value="" />
+    <option name="SRCSAFEINI_PATH" value="" />
+    <option name="USER_NAME" value="" />
+    <option name="PWD" value="" />
+    <CheckoutOptions>
+      <option name="COMMENT" value="" />
+      <option name="DO_NOT_GET_LATEST_VERSION" value="false" />
+      <option name="REPLACE_WRITABLE" value="false" />
+      <option name="RECURSIVE" value="false" />
+    </CheckoutOptions>
+    <CheckinOptions>
+      <option name="COMMENT" value="" />
+      <option name="KEEP_CHECKED_OUT" value="false" />
+      <option name="RECURSIVE" value="false" />
+    </CheckinOptions>
+    <AddOptions>
+      <option name="STORE_ONLY_LATEST_VERSION" value="false" />
+      <option name="CHECK_OUT_IMMEDIATELY" value="false" />
+    </AddOptions>
+    <UndocheckoutOptions>
+      <option name="MAKE_WRITABLE" value="false" />
+      <option name="REPLACE_LOCAL_COPY" value="2" />
+      <option name="RECURSIVE" value="false" />
+    </UndocheckoutOptions>
+    <GetOptions>
+      <option name="REPLACE_WRITABLE" value="0" />
+      <option name="MAKE_WRITABLE" value="false" />
+      <option name="ANSWER_NEGATIVELY" value="false" />
+      <option name="ANSWER_POSITIVELY" value="false" />
+      <option name="RECURSIVE" value="false" />
+      <option name="VERSION" />
+    </GetOptions>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="Copyright.UI">
+        <settings>
+          <last-edited>sohu-cp</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>scala-compiler</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.6</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.6</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
 </project>
 
