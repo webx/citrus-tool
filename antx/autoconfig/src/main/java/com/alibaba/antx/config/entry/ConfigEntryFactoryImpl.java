@@ -139,9 +139,9 @@ public class ConfigEntryFactoryImpl implements ConfigEntryFactory {
             };
         }
 
-        entry.setDescriptorPatterns(new PatternSet("META-INF/**/auto-config.xml"));
+        entry.setDescriptorPatterns(new PatternSet(settings.getDescriptorPatterns(), new PatternSet("META-INF/**/auto-config.xml")).addDefaultExcludes());
 
-        entry.setPackagePatterns(new PatternSet("WEB-INF/lib/*.jar"));
+        entry.setPackagePatterns(new PatternSet(settings.getPackagePatterns(), new PatternSet("WEB-INF/lib/*.jar")).addDefaultExcludes());
 
         return entry;
     }
@@ -167,9 +167,9 @@ public class ConfigEntryFactoryImpl implements ConfigEntryFactory {
             };
         }
 
-        entry.setDescriptorPatterns(new PatternSet("META-INF/**/auto-config.xml"));
+        entry.setDescriptorPatterns(new PatternSet(settings.getDescriptorPatterns(), new PatternSet("META-INF/**/auto-config.xml")).addDefaultExcludes());
 
-        entry.setPackagePatterns(new PatternSet("**/*.jar, **/*.war, **/*.rar, **/*.ear"));
+        entry.setPackagePatterns(new PatternSet(settings.getPackagePatterns(), new PatternSet("**/*.jar, **/*.war, **/*.rar, **/*.ear")).addDefaultExcludes());
 
         return entry;
     }
